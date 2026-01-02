@@ -6,7 +6,7 @@ import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
 
-import { TalismanColouredHandWhiteTextLogo } from "@talisman/theme/logos"
+import { TaostatsLogo } from "@talisman/theme/logos"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 
@@ -159,7 +159,7 @@ const LogoWithSupportPageRedirect = () => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div onClick={handleClick}>
-      <TalismanColouredHandWhiteTextLogo className="h-auto w-96" />
+      <TaostatsLogo className="h-auto w-96" />
     </div>
   )
 }

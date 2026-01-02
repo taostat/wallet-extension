@@ -4,7 +4,7 @@ import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "talisman-ui"
 
-import { TalismanWhiteLogo } from "@talisman/theme/logos"
+import { TaostatsLogo } from "@talisman/theme/logos"
 import { api } from "@ui/api"
 
 type PhishingPageProps = {
@@ -29,7 +29,7 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
   return (
     <div className="bg-black-tertiary max-h-screen">
       <div className="flex h-screen flex-col items-center justify-center">
-        <TalismanWhiteLogo className="my-16 h-16 w-4/12" />
+        <TaostatsLogo className="my-16 h-16 w-4/12" />
         <div className="flex flex-grow items-center">
           <div className="scrollable scrollable-700 flex flex-col overflow-auto">
             <div className="bg-black-primary text-body-secondary flex max-w-3xl flex-col items-center gap-16 self-center rounded-lg p-20 text-center">

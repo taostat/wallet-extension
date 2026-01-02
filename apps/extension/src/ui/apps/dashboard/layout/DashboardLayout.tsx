@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"
 import { matchPath, useLocation, useNavigate, useSearchParams } from "react-router-dom"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
-import { TalismanWhiteLogo } from "@talisman/theme/logos"
+import { TaostatsLogo } from "@talisman/theme/logos"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { BuildVersionPill } from "@ui/domains/Build/BuildVersionPill"
 
@@ -27,7 +27,7 @@ export const DashboardLayout: FC<{
           {/* Sidebar */}
           <div className="w-[29.6rem] shrink-0 pb-20">
             <div className="hidden h-48 w-[29.6rem] shrink-0 items-center gap-4 sm:flex">
-              <TalismanWhiteLogo className="h-[3rem] w-[14.7172rem]" />
+              <TaostatsLogo className="h-[3rem] w-[14.7172rem]" />
               <BuildVersionPill className="bg-primary/5 text-primary hover:bg-primary/20 rounded-3xl" />
             </div>
             <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Sidebar" />}>
