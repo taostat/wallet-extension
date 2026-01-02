@@ -1,4 +1,4 @@
-# @talismn/babel-preset
+# @taostats/babel-preset
 
 ## 0.0.2
 

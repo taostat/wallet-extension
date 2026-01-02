@@ -1,4 +1,4 @@
-# @talismn/eslint-config
+# @taostats/eslint-config
 
 ## 0.0.3
 
