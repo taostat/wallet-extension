@@ -3,7 +3,7 @@ import { encodeAnyAddress } from "@taostats/crypto"
 import { CheckCircleIcon } from "@taostats/icons"
 import { classNames, HexString } from "@taostats/util"
 import { FC, ReactNode, useCallback, useMemo } from "react"
-import { Checkbox, Tooltip, TooltipTrigger } from "talisman-ui"
+import { Checkbox, Tooltip, TooltipTrigger } from "taostats-ui"
 
 import { useBalancesFiatTotal } from "@ui/hooks/useBalancesFiatTotal"
 

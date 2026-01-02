@@ -5,7 +5,7 @@ import { useAtomValue, useSetAtom } from "jotai"
 import { loadable } from "jotai/utils"
 import { useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { FadeIn } from "@talisman/components/FadeIn"
 import { TokenPicker } from "@ui/domains/Asset/TokenPicker"

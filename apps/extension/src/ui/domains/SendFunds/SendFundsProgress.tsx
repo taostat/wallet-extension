@@ -9,7 +9,7 @@ import {
 } from "extension-core"
 import { FC, useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, PillButton, ProcessAnimation, ProcessAnimationStatus } from "talisman-ui"
+import { Button, PillButton, ProcessAnimation, ProcessAnimationStatus } from "taostats-ui"
 
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import { useAnyNetwork, useNetworkById, useTransaction } from "@ui/state"

@@ -1,6 +1,6 @@
 import { XIcon } from "@taostats/icons"
 import { FC } from "react"
-import { Drawer, IconButton } from "talisman-ui"
+import { Drawer, IconButton } from "taostats-ui"
 
 import { AppPill } from "@talisman/components/AppPill"
 import { ScrollContainer } from "@talisman/components/ScrollContainer"

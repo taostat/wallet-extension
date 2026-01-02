@@ -4,7 +4,7 @@ import { classNames } from "@taostats/util"
 import { DefiPosition } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "talisman-ui"
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "taostats-ui"
 
 import { useNetworkById } from "@ui/state"
 

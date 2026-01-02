@@ -2,7 +2,7 @@ import { XCircleIcon } from "@taostats/icons"
 import { CONNECT_LEDGER_DOCS_URL } from "extension-shared"
 import { FC, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 
 import { api } from "@ui/api"
 

@@ -1,7 +1,7 @@
 import { BraveIcon } from "@taostats/icons"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Modal, ModalDialog } from "talisman-ui"
+import { Modal, ModalDialog } from "taostats-ui"
 
 import { useIsBrave } from "@talisman/hooks/useIsBrave"
 import { useOpenClose } from "@talisman/hooks/useOpenClose"

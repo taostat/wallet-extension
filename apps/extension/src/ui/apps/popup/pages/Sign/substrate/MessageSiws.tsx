@@ -4,7 +4,7 @@ import { UserRightIcon } from "@taostats/icons"
 import { Account } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer, useOpenClose } from "talisman-ui"
+import { Button, Drawer, useOpenClose } from "taostats-ui"
 
 import { AccountPill } from "@ui/domains/Account/AccountPill"
 import { SignAlertMessage } from "@ui/domains/Sign/SignAlertMessage"

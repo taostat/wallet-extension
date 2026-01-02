@@ -4,7 +4,7 @@ import { HexString } from "@taostats/util"
 import { FC, FormEventHandler, useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Checkbox, Drawer, FormFieldContainer, FormFieldInputText } from "talisman-ui"
+import { Button, Checkbox, Drawer, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import * as yup from "yup"
 
 import { api } from "@ui/api"

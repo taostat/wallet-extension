@@ -2,7 +2,7 @@ import { encodeAnyAddress } from "@taostats/crypto"
 import { getAccountGenesisHash } from "@taostats/keyring"
 import { Account } from "extension-core"
 import { FC } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 

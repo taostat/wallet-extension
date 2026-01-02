@@ -2,7 +2,7 @@ import { KnownRequestIdOnly } from "extension-core"
 import { FC, useCallback, useEffect, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"

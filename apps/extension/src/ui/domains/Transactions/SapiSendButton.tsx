@@ -5,7 +5,7 @@ import { AccountPolkadotVault, SignerPayloadJSON, WalletTransactionInfo } from "
 import { log } from "extension-shared"
 import { FC, Suspense, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 import { Hex } from "viem"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"

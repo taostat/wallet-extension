@@ -14,7 +14,7 @@ import {
   TERMS_OF_USE_URL,
 } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
-import { CtaButton } from "talisman-ui"
+import { CtaButton } from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"

@@ -11,7 +11,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../../shared/ModalContent"
 import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"

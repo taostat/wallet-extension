@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { Modal, ModalDialog, ProcessAnimation } from "talisman-ui"
+import { Modal, ModalDialog, ProcessAnimation } from "taostats-ui"
 
 import { statusOptions } from "@talisman/hooks/useStatus"
 

@@ -2,7 +2,7 @@ import { PlusIcon, SecretIcon } from "@taostats/icons"
 import { Account, isAccountOfType } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Dropdown } from "talisman-ui"
+import { Dropdown } from "taostats-ui"
 
 import { useAccounts, useMnemonics } from "@ui/state"
 

@@ -9,7 +9,7 @@ import {
 import { classNames } from "@taostats/util"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton, Modal } from "talisman-ui"
+import { IconButton, Modal } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { SearchInput } from "@talisman/components/SearchInput"

@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/browser"
 import { FC, useMemo } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Favicon } from "./Favicon"
 

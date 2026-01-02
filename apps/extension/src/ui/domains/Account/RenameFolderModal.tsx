@@ -5,7 +5,7 @@ import { RefCallback, useCallback, useEffect, useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
-import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"

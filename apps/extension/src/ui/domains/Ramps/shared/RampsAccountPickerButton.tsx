@@ -5,7 +5,7 @@ import { HexString } from "@taostats/util"
 import { Account, getAccountGenesisHash, isAccountOwned } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Drawer, useOpenClose } from "talisman-ui"
+import { Drawer, useOpenClose } from "taostats-ui"
 
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"

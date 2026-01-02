@@ -1,6 +1,6 @@
 import { ShieldSuccessIcon } from "@taostats/icons"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 export const VerificationComplete = ({ onComplete }: { onComplete: () => void }) => {
   const { t } = useTranslation()

@@ -4,7 +4,7 @@ import { classNames } from "@taostats/util"
 import { EthPriorityOptionName, EvmAddress } from "extension-core"
 import { useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { AppPill } from "@talisman/components/AppPill"
 import { WithTooltip } from "@talisman/components/Tooltip"

@@ -4,7 +4,7 @@ import { TokenId } from "@taostats/chaindata-provider"
 import { classNames, formatPrice } from "@taostats/util"
 import { FC } from "react"
 import { combineLatest, map } from "rxjs"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { getTokenRates$, selectedCurrency$ } from "@ui/state"
 

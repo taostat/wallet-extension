@@ -4,7 +4,7 @@ import { TokenRatesList } from "@taostats/token-rates"
 import { classNames } from "@taostats/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Drawer, useOpenClose } from "talisman-ui"
+import { Drawer, useOpenClose } from "taostats-ui"
 
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { useNetworkById } from "@ui/state"

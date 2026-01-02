@@ -206,10 +206,10 @@ const config = (env) => ({
       "process.env.SUPPORTED_LANGUAGES": JSON.stringify(getSupportedLanguages()),
     }),
     ...[
-      { title: "Talisman", entrypoint: "popup" },
-      { title: "Talisman Wallet", entrypoint: "dashboard" },
-      { title: "Unlock the Talisman", entrypoint: "onboarding" },
-      { title: "Support Operations", entrypoint: "support" },
+      { title: "Taostats", entrypoint: "popup" },
+      { title: "Taostats Wallet", entrypoint: "dashboard" },
+      { title: "Taostats - Get Started", entrypoint: "onboarding" },
+      { title: "Support", entrypoint: "support" },
     ].map(
       ({ title, entrypoint }) =>
         new HtmlWebpackPlugin({

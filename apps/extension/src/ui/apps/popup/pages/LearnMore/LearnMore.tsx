@@ -2,7 +2,7 @@ import { ChevronLeftIcon } from "@taostats/icons"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"

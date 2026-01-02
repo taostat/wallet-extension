@@ -8,7 +8,7 @@ import {
 } from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { PillButton, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { PillButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { useFeatureFlag } from "@ui/state"
 

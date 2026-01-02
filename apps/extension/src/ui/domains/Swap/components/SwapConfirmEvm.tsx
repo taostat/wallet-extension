@@ -11,7 +11,7 @@ import { loadable } from "jotai/utils"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 import { EstimateGasExecutionError } from "viem"
 
 import { notify } from "@talisman/components/Notifications"

@@ -6,7 +6,7 @@ import { log } from "extension-shared"
 import { t } from "i18next"
 import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Modal, ModalDialog } from "talisman-ui"
+import { Button, Modal, ModalDialog } from "taostats-ui"
 
 import { useNetworkById } from "@ui/state"
 import { IS_EMBEDDED_POPUP } from "@ui/util/constants"

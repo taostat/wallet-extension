@@ -4,7 +4,7 @@ import { classNames, isHexString } from "@taostats/util"
 import { startCase } from "lodash-es"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Popover, PopoverContent, PopoverTrigger } from "talisman-ui"
+import { Popover, PopoverContent, PopoverTrigger } from "taostats-ui"
 
 import { useHasVerifierCertificateMnemonic } from "@ui/hooks/useHasVerifierCertificateMnemonic"
 import { useNetworkByGenesisHash, useNetworkById } from "@ui/state"

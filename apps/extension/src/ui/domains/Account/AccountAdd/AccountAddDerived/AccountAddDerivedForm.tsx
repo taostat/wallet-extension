@@ -23,7 +23,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 import * as yup from "yup"
 
 import { Accordion, AccordionIcon } from "@talisman/components/Accordion"

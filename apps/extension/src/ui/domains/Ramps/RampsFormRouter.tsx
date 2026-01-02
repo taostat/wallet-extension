@@ -1,7 +1,7 @@
 import { XIcon } from "@taostats/icons"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { OptionSwitch } from "@talisman/components/OptionSwitch"
 import { useSelectedCurrency } from "@ui/state"

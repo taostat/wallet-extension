@@ -10,7 +10,7 @@ import {
 } from "extension-core"
 import { FC, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 
 import { useOpenClose } from "@talisman/hooks/useOpenClose"
 import { useAnalytics } from "@ui/hooks/useAnalytics"

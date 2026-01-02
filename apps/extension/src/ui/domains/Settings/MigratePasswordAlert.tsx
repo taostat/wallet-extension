@@ -2,7 +2,7 @@ import { LockIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 
 import { Card } from "@talisman/components/Card"
 import { api } from "@ui/api"

@@ -13,7 +13,7 @@ import {
   useState,
 } from "react"
 import { useTranslation } from "react-i18next"
-import { PillButton } from "talisman-ui"
+import { PillButton } from "taostats-ui"
 
 import { WithTooltip } from "@talisman/components/Tooltip"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"

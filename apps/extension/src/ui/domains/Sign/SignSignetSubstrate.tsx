@@ -3,7 +3,7 @@ import { XCircleIcon } from "@taostats/icons"
 import { AccountSignet, SignerPayloadRaw } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 type Props = {
   account: AccountSignet

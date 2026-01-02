@@ -1,7 +1,7 @@
 import { ChevronLeftIcon } from "@taostats/icons"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Drawer, IconButton } from "talisman-ui"
+import { Drawer, IconButton } from "taostats-ui"
 
 import { languages } from "@common/i18nConfig"
 import { ExclusiveButtonsList } from "@talisman/components/ExclusiveButtonsList"

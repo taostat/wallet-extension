@@ -9,7 +9,7 @@ import {
   Modal,
   ModalDialog,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningMessage } from "@talisman/components/CapsLockWarningMessage"

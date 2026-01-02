@@ -2,7 +2,7 @@ import { EthNetworkId } from "@taostats/chaindata-provider"
 import { ChevronDownIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { Suspense, useMemo } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "taostats-ui"
 
 import { useCurrentSite } from "@ui/hooks/useCurrentSite"
 import { useAuthorisedSites, useNetworkById } from "@ui/state"

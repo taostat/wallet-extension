@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { SendFundsWizardPage, useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"

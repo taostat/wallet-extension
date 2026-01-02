@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
-import { useOpenClose } from "talisman-ui"
+import { useOpenClose } from "taostats-ui"
 
 import { DecodedCallComponent, SummaryButtonDisplayMode } from "../types"
 import { SubSignDecodedCallButtonContent } from "./SubSignDecodedCallButtonContent"

@@ -4,7 +4,7 @@ import { isAddressEqual } from "@taostats/crypto"
 import { ZapIcon } from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { useBittensorBondModal } from "@ui/domains/Staking/Bittensor/hooks/useBittensorBondModal"
 import { BittensorStakingWizardOpenOptions } from "@ui/domains/Staking/Bittensor/hooks/useBittensorBondWizard"

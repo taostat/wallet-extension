@@ -29,7 +29,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { notify } from "@talisman/components/Notifications"

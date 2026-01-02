@@ -1,6 +1,6 @@
 import { classNames } from "@taostats/util"
 import { FC } from "react"
-import { PillButton } from "talisman-ui"
+import { PillButton } from "taostats-ui"
 
 import { useToken } from "@ui/state"
 

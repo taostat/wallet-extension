@@ -14,7 +14,7 @@ import { classNames } from "@taostats/util"
 import { FC, ReactNode, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, To, useMatch, useNavigate } from "react-router-dom"
-import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { useAnalytics } from "@ui/hooks/useAnalytics"

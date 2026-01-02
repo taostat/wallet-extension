@@ -11,7 +11,7 @@ import {
 import { POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { ReactElement, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Checkbox, Drawer, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Checkbox, Drawer, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { ScanQr } from "@ui/domains/Sign/Qr/ScanQr"

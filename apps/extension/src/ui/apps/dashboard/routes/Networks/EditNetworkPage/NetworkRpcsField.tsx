@@ -15,7 +15,7 @@ import { DragIcon, LoaderIcon, PlusIcon, TrashIcon } from "@taostats/icons"
 import { TFunction } from "i18next"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { FormFieldContainer, FormFieldInputText } from "talisman-ui"
+import { FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import { z } from "zod/v4"
 
 import {

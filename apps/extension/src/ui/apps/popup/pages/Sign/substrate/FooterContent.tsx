@@ -4,7 +4,7 @@ import { isTruthy } from "@taostats/util"
 import { uniq } from "lodash-es"
 import { FC, Suspense, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"
 import { useFeeToken } from "@ui/domains/SendFunds/useFeeToken"

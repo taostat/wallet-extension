@@ -2,7 +2,7 @@ import { TalismanHandIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { appStore } from "extension-core"
 import { Trans, useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { useAppState } from "@ui/state"
 import { IS_POPUP } from "@ui/util/constants"

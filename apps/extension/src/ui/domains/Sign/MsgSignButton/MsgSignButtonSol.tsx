@@ -3,7 +3,7 @@ import { classNames } from "@taostats/util"
 import { isAccountOwned, isAccountPlatformSolana } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { useAccountByAddress } from "@ui/state"
 

@@ -1,6 +1,6 @@
 import { cn } from "@taostats/util"
 import { Suspense } from "react"
-import { Modal } from "talisman-ui"
+import { Modal } from "taostats-ui"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { IS_POPUP } from "@ui/util/constants"

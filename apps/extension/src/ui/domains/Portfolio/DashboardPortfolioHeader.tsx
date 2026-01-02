@@ -20,7 +20,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { shortenAddress } from "@talisman/util/shortenAddress"
 import { api } from "@ui/api"

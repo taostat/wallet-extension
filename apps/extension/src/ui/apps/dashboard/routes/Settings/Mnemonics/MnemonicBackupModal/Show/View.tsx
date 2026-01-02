@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Checkbox } from "talisman-ui"
+import { Button, Checkbox } from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"

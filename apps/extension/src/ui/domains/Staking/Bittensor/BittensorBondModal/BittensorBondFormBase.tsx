@@ -13,7 +13,7 @@ import {
   useState,
 } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, PillButton } from "talisman-ui"
+import { Button, PillButton } from "taostats-ui"
 
 import { useInputAutoWidth } from "@ui/hooks/useInputAutoWidth"
 import { useBalance, useSelectedCurrency } from "@ui/state"

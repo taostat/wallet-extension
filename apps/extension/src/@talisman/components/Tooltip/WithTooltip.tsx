@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 type TooltipContainerProps = {
   tooltip: ReactNode

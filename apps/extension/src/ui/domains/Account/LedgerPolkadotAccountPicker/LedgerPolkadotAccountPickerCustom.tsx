@@ -6,7 +6,7 @@ import { Account, isAccountLedgerPolkadotGeneric, LedgerPolkadotCurve } from "ex
 import { log } from "extension-shared"
 import { ChangeEventHandler, FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { FormFieldContainer, FormFieldInputText, Tooltip, TooltipTrigger } from "talisman-ui"
+import { FormFieldContainer, FormFieldInputText, Tooltip, TooltipTrigger } from "taostats-ui"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { getTalismanLedgerError, TalismanLedgerError } from "@ui/hooks/ledger/errors"

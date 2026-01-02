@@ -2,7 +2,7 @@ import { ChevronDownIcon, GlobeIcon } from "@taostats/icons"
 import { getAccountGenesisHash } from "extension-core"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { useOpenClose } from "talisman-ui"
+import { useOpenClose } from "taostats-ui"
 
 import { shortenAddress } from "@talisman/util/shortenAddress"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"

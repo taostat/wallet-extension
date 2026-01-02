@@ -2,7 +2,7 @@ import { ArrowRightIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats/icons"
 import { isTokenActive } from "extension-core"
 import { ReactNode, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { SelectedIndicator } from "@talisman/components/SelectedIndicator"

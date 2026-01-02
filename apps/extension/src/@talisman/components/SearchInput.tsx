@@ -13,7 +13,7 @@ import {
   useRef,
   useState,
 } from "react"
-import { FormFieldInputContainerProps, FormFieldInputText, IconButton } from "talisman-ui"
+import { FormFieldInputContainerProps, FormFieldInputText, IconButton } from "taostats-ui"
 
 const INPUT_CONTAINER_PROPS: FormFieldInputContainerProps = {
   small: true,

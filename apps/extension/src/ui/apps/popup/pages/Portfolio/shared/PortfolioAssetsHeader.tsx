@@ -11,7 +11,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { AccountContextMenu } from "@ui/domains/Account/AccountContextMenu"

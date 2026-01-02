@@ -1,6 +1,6 @@
 import { Network } from "@taostats/chaindata-provider"
 import { FC } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 

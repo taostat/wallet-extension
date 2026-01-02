@@ -8,7 +8,7 @@ import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer, useOpenClose } from "talisman-ui"
+import { Button, Drawer, useOpenClose } from "taostats-ui"
 
 import { Message } from "@ui/domains/Sign/Message"
 import { useNetworkById } from "@ui/state"

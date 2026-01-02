@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, XIcon } from "@taostats/icons"
 import { cn } from "@taostats/util"
 import { FC, ReactNode } from "react"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 export const BittensorStakingModalHeader: FC<{
   title: ReactNode

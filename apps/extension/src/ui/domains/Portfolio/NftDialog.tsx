@@ -28,7 +28,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { notify, notifyUpdate } from "@talisman/components/Notifications"
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"

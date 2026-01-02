@@ -1,7 +1,7 @@
 import { InfoIcon } from "@taostats/icons"
 import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Mnemonic } from "@ui/domains/Mnemonic/Mnemonic"
 import { MnemonicWordCountSwitch } from "@ui/domains/Mnemonic/MnemonicWordCountSwitch"

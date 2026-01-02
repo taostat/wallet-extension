@@ -6,7 +6,7 @@ import { classNames } from "@taostats/util"
 import { getAccountGenesisHash } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, PillButton, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, PillButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { FadeIn } from "@talisman/components/FadeIn"
 import { useOpenClose } from "@talisman/hooks/useOpenClose"

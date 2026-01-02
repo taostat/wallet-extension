@@ -6,7 +6,7 @@ import { FC, useCallback, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { Navigate } from "react-router-dom"
-import { Button, Dropdown } from "talisman-ui"
+import { Button, Dropdown } from "taostats-ui"
 import * as yup from "yup"
 
 import { notify, notifyUpdate } from "@talisman/components/Notifications"

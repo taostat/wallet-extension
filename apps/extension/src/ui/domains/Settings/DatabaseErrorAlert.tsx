@@ -3,7 +3,7 @@ import { errorsStore } from "extension-core"
 import { DISCORD_TALISMAN_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { Card } from "@talisman/components/Card"
 import { AnalyticsPage } from "@ui/api/analytics"

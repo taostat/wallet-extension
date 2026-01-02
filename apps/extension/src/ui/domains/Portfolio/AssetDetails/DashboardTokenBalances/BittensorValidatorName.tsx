@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useBittensorValidator } from "@ui/state/bittensor"

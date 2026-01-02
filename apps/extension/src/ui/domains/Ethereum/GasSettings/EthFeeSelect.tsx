@@ -7,7 +7,7 @@ import {
   GasSettingsByPriority,
 } from "extension-core"
 import { FC, useCallback, useEffect, useState } from "react"
-import { Drawer, PillButton } from "talisman-ui"
+import { Drawer, PillButton } from "taostats-ui"
 import { TransactionRequest } from "viem"
 
 import { useOpenClose } from "@talisman/hooks/useOpenClose"

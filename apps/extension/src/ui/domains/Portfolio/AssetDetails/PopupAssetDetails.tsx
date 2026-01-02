@@ -2,7 +2,7 @@ import { Balances } from "@taostats/balances"
 import { ArrowDownIcon, CreditCardIcon } from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { PillButton } from "talisman-ui"
+import { PillButton } from "taostats-ui"
 
 import { FadeIn } from "@talisman/components/FadeIn"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"

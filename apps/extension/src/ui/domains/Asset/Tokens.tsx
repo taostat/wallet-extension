@@ -2,7 +2,7 @@ import { classNames, formatDecimals, MAX_DECIMALS_FORMAT } from "@taostats/util"
 import BigNumber from "bignumber.js"
 import React, { FC, useMemo } from "react"
 import CountUp from "react-countup"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { useRevealableBalance } from "@ui/hooks/useRevealableBalance"
 

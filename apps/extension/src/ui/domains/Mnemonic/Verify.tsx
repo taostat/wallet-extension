@@ -3,7 +3,7 @@ import { ChevronLeftIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 const WordSlot = ({
   number,

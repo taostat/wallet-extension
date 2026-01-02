@@ -1,7 +1,7 @@
 import { TokenId } from "@taostats/chaindata-provider"
 import { LockIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { Tokens } from "@ui/domains/Asset/Tokens"

@@ -1,7 +1,7 @@
 import { classNames } from "@taostats/util"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import type { RootClaimType } from "../../../hooks/bittensor/dTao/types"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"

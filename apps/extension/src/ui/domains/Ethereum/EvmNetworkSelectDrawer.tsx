@@ -5,7 +5,7 @@ import { activeNetworksStore, isNetworkActive } from "extension-core"
 import { FC, useCallback, useMemo, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useIntersection } from "react-use"
-import { Drawer, IconButton } from "talisman-ui"
+import { Drawer, IconButton } from "taostats-ui"
 
 import { AppPill } from "@talisman/components/AppPill"
 import { ScrollContainer } from "@talisman/components/ScrollContainer"

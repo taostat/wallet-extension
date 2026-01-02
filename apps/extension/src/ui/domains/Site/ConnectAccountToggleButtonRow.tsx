@@ -1,7 +1,7 @@
 import { classNames } from "@taostats/util"
 import { Account, getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { AccountIcon } from "../Account/AccountIcon"
 import { AccountTypeIcon } from "../Account/AccountTypeIcon"

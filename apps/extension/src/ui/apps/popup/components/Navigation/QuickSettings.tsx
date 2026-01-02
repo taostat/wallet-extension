@@ -2,7 +2,7 @@ import { Transition, TransitionChild } from "@headlessui/react"
 import { ArrowUpRightIcon } from "@taostats/icons"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Toggle } from "talisman-ui"
+import { Toggle } from "taostats-ui"
 
 import { languages } from "@common/i18nConfig"
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"

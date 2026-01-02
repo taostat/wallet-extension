@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
 import { BehaviorSubject, distinctUntilChanged } from "rxjs"
-import { Button, Modal, ModalDialog } from "talisman-ui"
+import { Button, Modal, ModalDialog } from "taostats-ui"
 
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { api } from "@ui/api"

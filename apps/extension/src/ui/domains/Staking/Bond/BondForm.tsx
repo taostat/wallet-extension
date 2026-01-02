@@ -15,7 +15,7 @@ import {
   useState,
 } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, PillButton, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, PillButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { useInputAutoWidth } from "@ui/hooks/useInputAutoWidth"

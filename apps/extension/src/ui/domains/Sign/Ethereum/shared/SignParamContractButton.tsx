@@ -2,7 +2,7 @@ import { EthNetwork } from "@taostats/chaindata-provider"
 import { isEthereumAddress } from "@taostats/crypto"
 import { EvmAddress } from "extension-core"
 import { FC, useMemo } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Address } from "@ui/domains/Account/Address"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"

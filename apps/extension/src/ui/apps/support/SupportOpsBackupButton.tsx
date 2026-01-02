@@ -1,6 +1,6 @@
 import { SaveIcon } from "@taostats/icons"
 import { FC, useCallback } from "react"
-import { Button, Modal, ModalDialog, useOpenClose } from "talisman-ui"
+import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
 import downloadJson from "@talisman/util/downloadJson"
 

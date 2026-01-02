@@ -3,7 +3,7 @@ import { UserPlusIcon } from "@taostats/icons"
 import { HexString } from "@taostats/util"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { PillButton, useOpenClose } from "talisman-ui"
+import { PillButton, useOpenClose } from "taostats-ui"
 
 import { useAccountByAddress, useContacts } from "@ui/state"
 

@@ -1,6 +1,6 @@
 import { XIcon } from "@taostats/icons"
 import { ReactNode } from "react"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 type NotificationProps = {
   icon?: ReactNode

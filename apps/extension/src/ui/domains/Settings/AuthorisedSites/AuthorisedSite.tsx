@@ -1,7 +1,7 @@
 import { ProviderType } from "extension-core"
 import { FC, useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Modal, ModalDialog, useOpenClose } from "talisman-ui"
+import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
 import { Accordion, AccordionIcon } from "@talisman/components/Accordion"
 import { Favicon } from "@talisman/components/Favicon"

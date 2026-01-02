@@ -3,7 +3,7 @@ import { classNames } from "@taostats/util"
 import { getAccountGenesisHash } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { PillButton } from "talisman-ui"
+import { PillButton } from "taostats-ui"
 
 import { WithTooltip } from "@talisman/components/Tooltip"
 import { useFormattedAddress } from "@ui/hooks/useFormattedAddress"

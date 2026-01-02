@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText, ModalDialog } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@talisman/components/CapsLockWarningIcon"

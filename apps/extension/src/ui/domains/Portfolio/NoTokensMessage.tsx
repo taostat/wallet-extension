@@ -1,7 +1,7 @@
 import { CopyIcon, CreditCardIcon } from "@taostats/icons"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { PillButton } from "talisman-ui"
+import { PillButton } from "taostats-ui"
 
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useFeatureFlag } from "@ui/state"

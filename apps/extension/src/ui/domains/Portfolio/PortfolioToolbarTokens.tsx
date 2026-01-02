@@ -12,7 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { SearchInput } from "@talisman/components/SearchInput"
 import {

@@ -7,7 +7,7 @@ import {
 } from "extension-core"
 import { useAtomValue } from "jotai"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import { TransactionRequest } from "viem"
 
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"

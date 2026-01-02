@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai"
 import { FC, ReactNode, useCallback, useEffect, useId, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Tokens } from "@ui/domains/Asset/Tokens"
 import { useSelectedCurrency } from "@ui/state"

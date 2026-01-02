@@ -16,7 +16,7 @@ import {
 import { IS_FIREFOX } from "extension-shared"
 import { FC, ReactNode, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { useScrollContainer } from "@talisman/components/ScrollContainer"
 import { Fiat } from "@ui/domains/Asset/Fiat"

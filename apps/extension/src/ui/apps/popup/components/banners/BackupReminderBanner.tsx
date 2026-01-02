@@ -3,7 +3,7 @@ import { classNames } from "@taostats/util"
 import { appStore } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, IconButton } from "talisman-ui"
+import { Button, IconButton } from "taostats-ui"
 
 import { api } from "@ui/api"
 import {

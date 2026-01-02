@@ -4,7 +4,7 @@ import { activeTokensStore } from "extension-core"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
-import { Button, Modal, ModalDialog, PillButton, useOpenClose } from "talisman-ui"
+import { Button, Modal, ModalDialog, PillButton, useOpenClose } from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { OptionSwitch } from "@talisman/components/OptionSwitch"

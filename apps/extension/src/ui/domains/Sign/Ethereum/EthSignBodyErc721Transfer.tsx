@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { UnsafeImage } from "talisman-ui"
+import { UnsafeImage } from "taostats-ui"
 
 import { getNftMetadata } from "@ui/util/getNftMetadata"
 

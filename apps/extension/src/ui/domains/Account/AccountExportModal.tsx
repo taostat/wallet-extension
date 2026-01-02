@@ -10,7 +10,7 @@ import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
-import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningMessage } from "@talisman/components/CapsLockWarningMessage"

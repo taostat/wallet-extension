@@ -6,7 +6,7 @@ import { ChecksumException, FormatException, NotFoundException } from "@zxing/li
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useClickAway } from "react-use"
-import { Toggle } from "talisman-ui"
+import { Toggle } from "taostats-ui"
 
 import { setSelectedVideoInput, useSelectedVideoInput, useVideoInputDevices } from "@ui/state"
 

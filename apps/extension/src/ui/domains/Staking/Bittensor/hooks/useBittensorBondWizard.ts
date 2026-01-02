@@ -9,7 +9,7 @@ import { Address, isAccountOfType } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
-import { useOpenClose } from "talisman-ui"
+import { useOpenClose } from "taostats-ui"
 import { Hex } from "viem"
 
 import { provideContext } from "@talisman/util/provideContext"

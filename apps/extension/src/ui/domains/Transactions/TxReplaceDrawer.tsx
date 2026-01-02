@@ -19,7 +19,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useOpenCloseWithData,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"

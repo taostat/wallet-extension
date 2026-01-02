@@ -2,7 +2,7 @@ import { AlertTriangleIcon } from "@taostats/icons"
 import { TALISMAN_WEB_APP_URL } from "extension-shared"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { TaostatsLogo } from "@talisman/theme/logos"
 import { api } from "@ui/api"

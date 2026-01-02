@@ -3,7 +3,7 @@ import { classNames } from "@taostats/util"
 import { isAccountAddressSs58 } from "extension-core"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { useAccounts, useAppState, useFeatureFlag } from "@ui/state"
 

@@ -14,7 +14,7 @@ import {
   IconButton,
   Modal,
   ModalDialog,
-} from "talisman-ui"
+} from "taostats-ui"
 import * as yup from "yup"
 
 import { notify } from "@talisman/components/Notifications"

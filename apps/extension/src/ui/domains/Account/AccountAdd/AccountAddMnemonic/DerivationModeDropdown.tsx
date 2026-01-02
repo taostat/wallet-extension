@@ -1,7 +1,7 @@
 import { classNames } from "@taostats/util"
 import { FC, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Dropdown } from "talisman-ui"
+import { Dropdown } from "taostats-ui"
 
 import { AccountAddDerivationMode } from "./context"
 

@@ -20,7 +20,7 @@ import { LedgerTransportType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, CtaButton, Dropdown, Modal, ModalDialog, Toggle } from "talisman-ui"
+import { Button, CtaButton, Dropdown, Modal, ModalDialog, Toggle } from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { Setting } from "@talisman/components/Setting"

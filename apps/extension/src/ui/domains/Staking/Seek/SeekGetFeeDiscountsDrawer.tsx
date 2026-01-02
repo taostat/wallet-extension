@@ -4,7 +4,7 @@ import { cn } from "@taostats/util"
 import { TALISMAN_WEB_APP_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 
 import { Tokens } from "@ui/domains/Asset/Tokens"
 import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"

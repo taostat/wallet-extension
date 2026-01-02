@@ -8,7 +8,7 @@ import { Account, isAccountOfType, SolSigningRequest } from "extension-core"
 import { isVersionedTransaction } from "inject/solana/solana"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { AppPill } from "@talisman/components/AppPill"
 import { api } from "@ui/api"

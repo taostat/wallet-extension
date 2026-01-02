@@ -1,5 +1,5 @@
 import { Trans, useTranslation } from "react-i18next"
-import { Modal, ModalDialog } from "talisman-ui"
+import { Modal, ModalDialog } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { AnalyticsPage } from "@ui/api/analytics"

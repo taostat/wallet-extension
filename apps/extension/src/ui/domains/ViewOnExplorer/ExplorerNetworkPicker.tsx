@@ -3,7 +3,7 @@ import { ExternalLinkIcon, XIcon } from "@taostats/icons"
 import { isAccountCompatibleWithNetwork, isAddressCompatibleWithNetwork } from "extension-core"
 import { FC, useCallback, useDeferredValue, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { SearchInput } from "@talisman/components/SearchInput"

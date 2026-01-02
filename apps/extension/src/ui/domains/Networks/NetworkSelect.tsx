@@ -1,7 +1,7 @@
 import { Network, NetworkId } from "@taostats/chaindata-provider"
 import { classNames } from "@taostats/util"
 import { FC, useCallback, useEffect, useState } from "react"
-import { Dropdown } from "talisman-ui"
+import { Dropdown } from "taostats-ui"
 
 import { NetworkLogo } from "./NetworkLogo"
 

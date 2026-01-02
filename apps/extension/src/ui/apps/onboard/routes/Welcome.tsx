@@ -1,20 +1,14 @@
 import { ArrowRightIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
 import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from "extension-shared"
-import { FC, useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { TaostatsLogo } from "@talisman/theme/logos"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 
-import logoBase from "../assets/base.svg?url"
-import logoBittensor from "../assets/bittensor.svg?url"
-import logoMainnet from "../assets/mainnet.svg?url"
-import logoPolkadot from "../assets/polkadot.svg?url"
-import logoSonic from "../assets/sonic.svg?url"
 import { useOnboard } from "../context"
 import { OnboardLayout } from "../OnboardLayout"
 
@@ -30,37 +24,8 @@ const handleLinkClick = (action: string) => () => {
     ...ANALYTICS_PAGE,
     name: "GotoExternal",
     action,
-    site: "Talisman Docs",
+    site: "Taostats Docs",
   })
-}
-
-const NetworkItem: FC<{ logo: string; label: string }> = ({ logo, label }) => {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <img src={logo} alt={label} className="ml-[-1rem] inline-block size-20 overflow-hidden" />
-      </TooltipTrigger>
-      <TooltipContent>{label}</TooltipContent>
-    </Tooltip>
-  )
-}
-
-const SupportedNetworks = () => {
-  return (
-    <div className={classNames("my-10 flex h-20 shrink-0 content-center pl-[1rem]")}>
-      <NetworkItem logo={logoMainnet} label="Ethereum Mainnet" />
-      <NetworkItem logo={logoBase} label="Base" />
-      <NetworkItem logo={logoSonic} label="Sonic" />
-      <NetworkItem logo={logoBittensor} label="Bittensor" />
-      <NetworkItem logo={logoPolkadot} label="Polkadot" />
-      <div className="ml-[-1rem] flex h-full w-auto p-1">
-        <div className="text-grey-200 ring-body-secondary bg-grey-750 relative flex w-auto flex-col justify-center rounded-full px-3 text-center ring-1">
-          <div className="font-bold">800+</div>
-        </div>
-      </div>
-      <div className="text-body-secondary ml-2 content-center text-sm">Networks supported</div>
-    </div>
-  )
 }
 
 export const WelcomePage = () => {
@@ -92,22 +57,10 @@ export const WelcomePage = () => {
         <div className="welcome-text flex select-none flex-col items-center gap-14 text-center xl:w-[76rem]">
           <div className="flex flex-col items-center gap-10 text-white xl:w-[65.2rem]">
             <LogoWithSupportPageRedirect />
-            <div className="font-whyteInkTrap text-[8rem] leading-none tracking-tight lg:text-[12rem]">
-              <Trans
-                t={t}
-                defaults="Multi-chain made <YellowText>easy</YellowText>"
-                components={{
-                  YellowText: <span className="text-primary" />,
-                }}
-              />
-            </div>
           </div>
           <div className="welcome-subtitle text-[2rem] lg:text-[2.8rem]">
-            {t(
-              "Talisman supports all Ethereum and Polkadot networks, including chains like Base, Bittensor, and Sonic",
-            )}
+            {t("Taostats non-custodial wallet for Bittensor")}
           </div>
-          <SupportedNetworks />
         </div>
         <div className="welcome-button flex w-[44rem] flex-col gap-8">
           <Button

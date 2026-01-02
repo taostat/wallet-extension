@@ -1,7 +1,7 @@
 import { AlertTriangleIcon, ChevronLeftIcon, LockIcon } from "@taostats/icons"
 import { ChangeEventHandler, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer, FormFieldInputText } from "talisman-ui"
+import { Button, Drawer, FormFieldInputText } from "taostats-ui"
 
 import { useOpenClose } from "@talisman/hooks/useOpenClose"
 import { api } from "@ui/api"

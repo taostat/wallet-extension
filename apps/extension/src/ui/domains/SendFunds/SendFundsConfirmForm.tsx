@@ -3,7 +3,7 @@ import { AlertCircleIcon, LoaderIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { FC, Suspense, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Checkbox } from "talisman-ui"
+import { Checkbox } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"

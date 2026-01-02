@@ -2,7 +2,7 @@ import { ChevronLeftIcon } from "@taostats/icons"
 import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"
 import { PortfolioAccount } from "@ui/domains/Portfolio/AssetDetails/PortfolioAccount"

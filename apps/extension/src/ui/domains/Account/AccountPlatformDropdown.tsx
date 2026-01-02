@@ -3,7 +3,7 @@ import { isNotNil } from "@taostats/util"
 import { keyBy } from "lodash-es"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Dropdown } from "talisman-ui"
+import { Dropdown } from "taostats-ui"
 
 import { EthereumCircleLogo, PolkadotCircleLogo, SolanaLogo } from "@talisman/theme/logos"
 

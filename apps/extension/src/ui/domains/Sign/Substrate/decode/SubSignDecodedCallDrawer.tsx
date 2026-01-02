@@ -3,7 +3,7 @@ import { DecodedCall, ScaleApi } from "@taostats/sapi"
 import { SignerPayloadJSON } from "extension-core"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer, IconButton } from "talisman-ui"
+import { Button, Drawer, IconButton } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 

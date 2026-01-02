@@ -20,7 +20,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 import { formatUnits, getContract, hexToBigInt, parseAbi, parseUnits } from "viem"
 import * as yup from "yup"
 

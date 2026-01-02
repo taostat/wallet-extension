@@ -7,7 +7,7 @@ import { startCase } from "lodash-es"
 import { ChangeEventHandler, FC, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, ListButton, Modal, ModalDialog, Radio, Toggle, useOpenClose } from "talisman-ui"
+import { Button, ListButton, Modal, ModalDialog, Radio, Toggle, useOpenClose } from "taostats-ui"
 
 import { sendAnalyticsEvent } from "@ui/api/analytics"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"

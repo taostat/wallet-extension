@@ -6,7 +6,7 @@ import { uniq } from "lodash-es"
 import { useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { AssetPriceChart } from "@ui/domains/Asset/AssetPriceChart"
 import { Fiat } from "@ui/domains/Asset/Fiat"

@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactNode, StrictMode, Suspense } from "react"
 import { createRoot } from "react-dom/client"
 import { HashRouter } from "react-router-dom"
-import { FontFamily, preloadFonts } from "talisman-ui"
+import { FontFamily, preloadFonts } from "taostats-ui"
 
 import { ErrorBoundaryDatabaseMigration } from "@talisman/components/ErrorBoundaryDatabaseMigration"
 import { NotificationsContainer } from "@talisman/components/Notifications/NotificationsContainer"

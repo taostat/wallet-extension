@@ -6,7 +6,7 @@ import { formatPrice, tokensToPlanck } from "@taostats/util"
 import { capitalize } from "lodash-es"
 import { FC, useEffect, useMemo, useRef } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, useOpenCloseStatus } from "talisman-ui"
+import { Button, useOpenCloseStatus } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { Tokens } from "@ui/domains/Asset/Tokens"

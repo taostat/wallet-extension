@@ -1,5 +1,5 @@
 import { classNames } from "@taostats/util"
-import { ModalDialog } from "talisman-ui"
+import { ModalDialog } from "taostats-ui"
 
 import { useMnemonicBackupModal } from "./context"
 

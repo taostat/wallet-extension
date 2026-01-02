@@ -11,7 +11,7 @@ import { AccountOfType, getAccountGenesisHash, isAccountOfType, Mnemonic } from 
 import { FC, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "talisman-ui"
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "taostats-ui"
 
 import { Accordion, AccordionIcon } from "@talisman/components/Accordion"
 import { HeaderBlock } from "@talisman/components/HeaderBlock"

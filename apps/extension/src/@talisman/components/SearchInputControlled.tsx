@@ -2,7 +2,7 @@ import { SearchIcon, XIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { useCallback, useRef } from "react"
 import { useEffectOnce } from "react-use"
-import { FormFieldInputText, IconButton } from "talisman-ui"
+import { FormFieldInputText, IconButton } from "taostats-ui"
 
 type SearchInputControlledProps = {
   className?: string

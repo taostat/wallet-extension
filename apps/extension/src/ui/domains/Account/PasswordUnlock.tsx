@@ -3,7 +3,7 @@ import { KeyIcon } from "@taostats/icons"
 import { ReactNode, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText, useOpenCloseStatus } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText, useOpenCloseStatus } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@talisman/components/CapsLockWarningIcon"

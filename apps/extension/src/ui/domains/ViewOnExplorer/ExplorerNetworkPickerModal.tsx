@@ -1,6 +1,6 @@
 import { classNames } from "@taostats/util"
 import { FC } from "react"
-import { Modal } from "talisman-ui"
+import { Modal } from "taostats-ui"
 
 import { ExplorerNetworkPicker } from "./ExplorerNetworkPicker"
 import { useExplorerNetworkPickerModal } from "./useExplorerNetworkPickerModal"

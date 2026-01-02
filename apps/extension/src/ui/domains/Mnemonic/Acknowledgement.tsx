@@ -1,7 +1,7 @@
 import { LockIcon, ShieldIcon, XIcon } from "@taostats/icons"
 import { MNEMONIC_BACKUP_DOCS_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 export const Acknowledgement = ({ onContinueClick }: { onContinueClick: () => void }) => {
   const { t } = useTranslation()

@@ -3,7 +3,7 @@ import { isTruthy } from "@taostats/util"
 import { useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, FormFieldTextarea } from "talisman-ui"
+import { Button, FormFieldTextarea } from "taostats-ui"
 import * as yup from "yup"
 
 import { FadeIn } from "@talisman/components/FadeIn"

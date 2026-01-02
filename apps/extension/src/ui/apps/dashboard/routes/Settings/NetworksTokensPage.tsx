@@ -6,7 +6,7 @@ import {
   PolkadotVaultIcon,
 } from "@taostats/icons"
 import { useTranslation } from "react-i18next"
-import { CtaButton } from "talisman-ui"
+import { CtaButton } from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { Spacer } from "@talisman/components/Spacer"

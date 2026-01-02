@@ -3,7 +3,7 @@ import { ChevronLeftIcon, XIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { FC, useCallback, useDeferredValue, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton, Modal } from "talisman-ui"
+import { IconButton, Modal } from "taostats-ui"
 
 import { ScrollContainer, useScrollContainer } from "@talisman/components/ScrollContainer"
 import { SearchInput } from "@talisman/components/SearchInput"

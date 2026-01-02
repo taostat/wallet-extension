@@ -9,7 +9,7 @@ import { log } from "extension-shared"
 import { uniq } from "lodash-es"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton, Popover, PopoverContent, PopoverTrigger, usePopoverContext } from "talisman-ui"
+import { IconButton, Popover, PopoverContent, PopoverTrigger, usePopoverContext } from "taostats-ui"
 
 import { useSelectedCurrency, useTokenRates, useTokenRatesMap, useTokensMap } from "@ui/state"
 

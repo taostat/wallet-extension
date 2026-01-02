@@ -8,7 +8,7 @@ import { createRoot } from "react-dom/client"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { rcompare } from "semver"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"

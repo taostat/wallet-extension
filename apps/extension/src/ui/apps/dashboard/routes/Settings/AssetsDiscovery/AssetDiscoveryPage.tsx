@@ -42,7 +42,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 import urlJoin from "url-join"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"

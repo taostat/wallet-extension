@@ -1,5 +1,5 @@
 import { classNames } from "@taostats/util"
-import { Modal } from "talisman-ui"
+import { Modal } from "taostats-ui"
 
 import { useSwapTokensModal } from "../hooks/useSwapTokensModal"
 import { SwapTokensFullscreenPortalContainer } from "./SwapTokensFullscreenPortal"

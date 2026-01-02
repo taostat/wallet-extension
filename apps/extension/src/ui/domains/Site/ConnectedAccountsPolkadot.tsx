@@ -2,7 +2,7 @@ import { InfoIcon } from "@taostats/icons"
 import { Account, isAccountAddressEthereum } from "extension-core"
 import { FC, Fragment, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { ConnectAccountToggleButtonRow } from "./ConnectAccountToggleButtonRow"
 

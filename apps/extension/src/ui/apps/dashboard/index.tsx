@@ -190,7 +190,7 @@ const LoginChecker: FC<PropsWithChildren> = ({ children }) => {
   }, [isLoggedIn, isOnboarded])
 
   if (!isLoggedIn)
-    return <FullScreenLocked title={t("Waiting")} subtitle={t("Please unlock the Talisman")} />
+    return <FullScreenLocked title={t("Waiting")} subtitle={t("Unlock Taostats Wallet")} />
 
   if (isMigrating) return <MigrationProgress />
 

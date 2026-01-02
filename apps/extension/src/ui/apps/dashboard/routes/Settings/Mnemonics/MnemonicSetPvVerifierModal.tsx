@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Modal, ModalDialog } from "talisman-ui"
+import { Button, Modal, ModalDialog } from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"
 import { useOpenClose } from "@talisman/hooks/useOpenClose"

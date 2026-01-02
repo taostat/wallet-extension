@@ -5,7 +5,7 @@ import { Account, EthSignRequest } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer, useOpenClose } from "talisman-ui"
+import { Button, Drawer, useOpenClose } from "taostats-ui"
 
 import { useNetworkById } from "@ui/state"
 

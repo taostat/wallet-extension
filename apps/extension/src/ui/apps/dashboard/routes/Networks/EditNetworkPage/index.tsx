@@ -27,7 +27,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 import { z } from "zod/v4"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"

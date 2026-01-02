@@ -3,7 +3,7 @@ import { InfoIcon } from "@taostats/icons"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 
 import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useNetworkById, useRemoteConfig } from "@ui/state"

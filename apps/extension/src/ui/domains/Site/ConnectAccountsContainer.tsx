@@ -3,7 +3,7 @@ import { classNames } from "@taostats/util"
 import { Account } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { useOpenClose } from "talisman-ui"
+import { useOpenClose } from "taostats-ui"
 
 import { Accordion, AccordionIcon } from "@talisman/components/Accordion"
 import { AccountsStack } from "@ui/domains/Account/AccountIconsStack"

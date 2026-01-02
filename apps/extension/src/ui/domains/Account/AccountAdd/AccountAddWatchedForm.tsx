@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { useSearchParams } from "react-router-dom"
-import { Button, FormFieldContainer, FormFieldInputText, Toggle } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText, Toggle } from "taostats-ui"
 import * as yup from "yup"
 
 import { notify, notifyUpdate } from "@talisman/components/Notifications"

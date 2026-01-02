@@ -3,7 +3,7 @@ import { classNames } from "@taostats/util"
 import { t } from "i18next"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "taostats-ui"
 
 import { SearchInput } from "@talisman/components/SearchInput"
 import {

@@ -2,7 +2,7 @@ import { ExternalLinkIcon } from "@taostats/icons"
 import { format } from "date-fns"
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Modal, ModalDialog } from "talisman-ui"
+import { Button, Modal, ModalDialog } from "taostats-ui"
 
 import { useDateFnsLocale } from "@ui/hooks/useDateFnsLocale"
 

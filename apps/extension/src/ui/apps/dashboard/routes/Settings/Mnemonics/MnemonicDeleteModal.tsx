@@ -1,7 +1,7 @@
 import { AlertTriangleIcon } from "@taostats/icons"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, FormFieldInputText, Modal, ModalDialog } from "talisman-ui"
+import { Button, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"
 import { useOpenClose } from "@talisman/hooks/useOpenClose"

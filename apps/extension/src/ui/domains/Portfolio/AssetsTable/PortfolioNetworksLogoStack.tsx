@@ -1,7 +1,7 @@
 import { NetworkId } from "@taostats/chaindata-provider"
 import { classNames } from "@taostats/util"
 import { useMemo } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { WithTooltip } from "@talisman/components/Tooltip"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"

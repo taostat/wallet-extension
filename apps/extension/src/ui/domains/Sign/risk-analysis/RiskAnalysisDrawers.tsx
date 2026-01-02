@@ -3,7 +3,7 @@ import { ArrowRightIcon, ShieldNotOkIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { FC, useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer, useOpenClose } from "talisman-ui"
+import { Button, Drawer, useOpenClose } from "taostats-ui"
 
 import { useSetting } from "@ui/state"
 

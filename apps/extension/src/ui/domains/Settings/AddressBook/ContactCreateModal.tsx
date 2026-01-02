@@ -10,7 +10,7 @@ import { keyBy } from "lodash-es"
 import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
 import { notify } from "@talisman/components/Notifications"

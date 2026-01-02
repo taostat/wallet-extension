@@ -4,7 +4,7 @@ import { serializeTransactionRequest, WalletTransactionInfo } from "extension-co
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"

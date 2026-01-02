@@ -3,7 +3,7 @@ import { CopyIcon, FileSearchIcon } from "@taostats/icons"
 import { formatDecimals } from "@taostats/util"
 import { FC, PropsWithChildren, ReactNode, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 import { formatEther, formatGwei } from "viem"
 
 import { notify } from "@talisman/components/Notifications"

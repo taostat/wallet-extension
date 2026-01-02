@@ -10,7 +10,7 @@ import {
   FormFieldInputText,
   Modal,
   ModalDialog,
-} from "talisman-ui"
+} from "taostats-ui"
 import * as yup from "yup"
 
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"

@@ -8,7 +8,7 @@ import { FC, ReactNode, useCallback, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, Dropdown, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Dropdown, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import * as yup from "yup"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"

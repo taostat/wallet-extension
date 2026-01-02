@@ -1,7 +1,7 @@
 import { NetworkPlatform } from "@taostats/chaindata-provider"
 import { classNames } from "@taostats/util"
 import { FC, useCallback, useState } from "react"
-import { Dropdown } from "talisman-ui"
+import { Dropdown } from "taostats-ui"
 
 type NetworkPlatformOption = {
   value: NetworkPlatform

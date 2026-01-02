@@ -1,7 +1,7 @@
 import { classNames } from "@taostats/util"
 import { getAccountGenesisHash } from "extension-core"
 import { FC } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { useFormattedAddress } from "@ui/hooks/useFormattedAddress"
 import { useIsKnownAddress } from "@ui/hooks/useIsKnownAddress"

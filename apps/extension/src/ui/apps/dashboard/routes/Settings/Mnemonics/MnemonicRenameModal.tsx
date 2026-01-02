@@ -3,7 +3,7 @@ import { Mnemonic } from "extension-core"
 import { FC, RefCallback, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
 import { useOpenClose } from "@talisman/hooks/useOpenClose"

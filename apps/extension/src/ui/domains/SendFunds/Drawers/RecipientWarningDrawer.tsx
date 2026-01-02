@@ -1,6 +1,6 @@
 import { InfoIcon } from "@taostats/icons"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"

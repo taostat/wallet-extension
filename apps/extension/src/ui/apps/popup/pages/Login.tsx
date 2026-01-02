@@ -10,7 +10,7 @@ import {
   UseFormWatch,
 } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@talisman/components/CapsLockWarningIcon"
@@ -166,7 +166,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
         <div className="mt-[60px]">
           <HandMonoLogo className="inline-block text-[64px]" />
         </div>
-        <h1 className="font-surtExpanded mt-[34px] text-lg">{t("Unlock the Talisman")}</h1>
+        <h1 className="font-surtExpanded mt-[34px] text-lg">{t("Unlock Taostats Wallet")}</h1>
         {errors.password?.message && (
           <div className="text-alert-warn mt-8">{errors.password?.message}</div>
         )}

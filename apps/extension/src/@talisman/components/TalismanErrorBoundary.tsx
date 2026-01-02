@@ -3,7 +3,7 @@ import { TalismanDeadHandIcon } from "@taostats/icons"
 import { DexieError } from "dexie"
 import { DEBUG, DISCORD_TALISMAN_URL } from "extension-shared"
 import { ReactNode, useCallback } from "react"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 export const TalismanErrorBoundary = ({ children }: { children?: ReactNode }) => (
   <SentryErrorBoundary fallback={ErrorMessage}>{children}</SentryErrorBoundary>

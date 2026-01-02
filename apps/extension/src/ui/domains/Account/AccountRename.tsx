@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { FC, RefCallback, useCallback, useEffect, useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText } from "talisman-ui"
+import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import * as yup from "yup"
 
 import { api } from "@ui/api"

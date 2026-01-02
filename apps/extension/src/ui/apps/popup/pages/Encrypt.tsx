@@ -2,7 +2,7 @@ import { Account, DecryptRequestIdOnly, EncryptRequestIdOnly } from "extension-c
 import { useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { AppPill } from "@talisman/components/AppPill"
 import { AccountPill } from "@ui/domains/Account/AccountPill"

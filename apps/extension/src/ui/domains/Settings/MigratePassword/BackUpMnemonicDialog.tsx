@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "@taostats/icons"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, ModalDialog } from "talisman-ui"
+import { Button, ModalDialog } from "taostats-ui"
 
 import { Mnemonic } from "@ui/domains/Mnemonic/Mnemonic"
 

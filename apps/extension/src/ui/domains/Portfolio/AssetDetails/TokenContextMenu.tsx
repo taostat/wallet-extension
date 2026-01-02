@@ -9,7 +9,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
   PopoverOptions,
-} from "talisman-ui"
+} from "taostats-ui"
 import urlJoin from "url-join"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"

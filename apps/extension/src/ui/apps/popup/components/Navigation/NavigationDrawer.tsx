@@ -17,7 +17,7 @@ import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Drawer, IconButton } from "talisman-ui"
+import { Drawer, IconButton } from "taostats-ui"
 
 import { Nav, NavItem } from "@talisman/components/Nav"
 import { TaostatsLogo } from "@talisman/theme/logos"

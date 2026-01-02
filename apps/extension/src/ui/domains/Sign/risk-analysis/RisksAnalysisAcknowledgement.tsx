@@ -1,6 +1,6 @@
 import { t } from "i18next"
 import { ChangeEventHandler, FC, useCallback } from "react"
-import { Checkbox } from "talisman-ui"
+import { Checkbox } from "taostats-ui"
 
 import { RiskAnalysis } from "./types"
 

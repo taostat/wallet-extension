@@ -1,6 +1,6 @@
 import { DISCORD_TALISMAN_URL } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Checkbox, ModalDialog } from "talisman-ui"
+import { Button, Checkbox, ModalDialog } from "taostats-ui"
 
 import { useSetting } from "@ui/state"
 

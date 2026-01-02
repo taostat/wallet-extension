@@ -1,7 +1,7 @@
 import { classNames } from "@taostats/util"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { TalismanLedgerError } from "@ui/hooks/ledger/errors"
 

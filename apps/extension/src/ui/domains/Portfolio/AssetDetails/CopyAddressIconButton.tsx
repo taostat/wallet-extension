@@ -2,7 +2,7 @@ import { NetworkId } from "@taostats/chaindata-provider"
 import { CopyIcon } from "@taostats/icons"
 import { FC, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"

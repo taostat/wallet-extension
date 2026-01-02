@@ -10,7 +10,7 @@ import { classNames } from "@taostats/util"
 import { AccountType } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 type AccountTypeIconProps = {
   type?: AccountType | null

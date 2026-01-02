@@ -2,7 +2,7 @@ import { subNativeTokenId } from "@taostats/chaindata-provider"
 import { Address } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { BehaviorSubject } from "rxjs"
-import { useOpenClose } from "talisman-ui"
+import { useOpenClose } from "taostats-ui"
 import { Hex } from "viem"
 
 import { provideContext } from "@talisman/util/provideContext"

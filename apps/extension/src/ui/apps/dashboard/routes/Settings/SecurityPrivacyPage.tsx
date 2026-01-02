@@ -10,7 +10,7 @@ import {
 import { IS_FIREFOX } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { CtaButton, Toggle, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { CtaButton, Toggle, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { Setting } from "@talisman/components/Setting"

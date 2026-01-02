@@ -8,7 +8,7 @@ import {
 import { classNames, sleep } from "@taostats/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { FadeIn } from "@talisman/components/FadeIn"
 import { notify, notifyUpdate } from "@talisman/components/Notifications"

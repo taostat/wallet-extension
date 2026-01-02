@@ -19,7 +19,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
   Toggle,
-} from "talisman-ui"
+} from "taostats-ui"
 import urlJoin from "url-join"
 
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"

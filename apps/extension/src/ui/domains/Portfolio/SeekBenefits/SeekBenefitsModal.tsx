@@ -11,7 +11,7 @@ import {
 import { classNames } from "@taostats/util"
 import { FC, ReactNode, SVGProps, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, IconButton, Modal } from "talisman-ui"
+import { Button, IconButton, Modal } from "taostats-ui"
 
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { Tokens } from "@ui/domains/Asset/Tokens"

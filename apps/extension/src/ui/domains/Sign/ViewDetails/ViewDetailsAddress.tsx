@@ -2,7 +2,7 @@ import { getBlockExplorerUrls, Network } from "@taostats/chaindata-provider"
 import { encodeAnyAddress } from "@taostats/crypto"
 import { CopyIcon, ExternalLinkIcon } from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { Address } from "@ui/domains/Account/Address"

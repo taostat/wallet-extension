@@ -1,6 +1,6 @@
 import { XIcon } from "@taostats/icons"
 import { FC, PropsWithChildren } from "react"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { useCopyAddressModal } from "./useCopyAddressModal"
 

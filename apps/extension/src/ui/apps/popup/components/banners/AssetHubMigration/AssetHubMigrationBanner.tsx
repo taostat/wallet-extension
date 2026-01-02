@@ -2,7 +2,7 @@ import { XIcon } from "@taostats/icons"
 import { isAccountAddressSs58 } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton, useOpenClose } from "talisman-ui"
+import { IconButton, useOpenClose } from "taostats-ui"
 
 import { useAccounts, useAppState, useFeatureFlag } from "@ui/state"
 

@@ -4,7 +4,7 @@ import { log, POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, Dropdown } from "talisman-ui"
+import { Button, Dropdown } from "taostats-ui"
 
 import { FadeIn } from "@talisman/components/FadeIn"
 import { HeaderBlock } from "@talisman/components/HeaderBlock"

@@ -1,6 +1,6 @@
 import { getAccountGenesisHash } from "extension-core"
 import { ChangeEventHandler, FC, useCallback } from "react"
-import { Toggle } from "talisman-ui"
+import { Toggle } from "taostats-ui"
 
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"

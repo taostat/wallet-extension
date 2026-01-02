@@ -3,7 +3,7 @@ import { IS_FIREFOX, UNKNOWN_TOKEN_URL } from "extension-shared"
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { AppPill } from "@talisman/components/AppPill"
 import { api } from "@ui/api"

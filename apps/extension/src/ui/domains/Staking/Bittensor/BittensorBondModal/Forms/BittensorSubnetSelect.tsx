@@ -19,7 +19,7 @@ import {
   ContextMenuContent,
   ContextMenuOptionItem,
   ContextMenuTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { ScrollContainer, useScrollContainer } from "@talisman/components/ScrollContainer"
 import { SearchInputControlled } from "@talisman/components/SearchInputControlled"

@@ -2,7 +2,7 @@ import { base58 } from "@taostats/crypto"
 import { isAccountOfType, SolSigningRequest } from "extension-core"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "talisman-ui"
+import { Button } from "taostats-ui"
 
 import { AppPill } from "@talisman/components/AppPill"
 import { api } from "@ui/api"

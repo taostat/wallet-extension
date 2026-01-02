@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Modal, ModalDialog } from "talisman-ui"
+import { Button, Modal, ModalDialog } from "taostats-ui"
 
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"

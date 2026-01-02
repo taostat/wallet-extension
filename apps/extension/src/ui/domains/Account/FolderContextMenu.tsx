@@ -4,7 +4,7 @@ import { AccountsCatalogTree, TreeFolder, TreeItem } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "talisman-ui"
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "taostats-ui"
 
 import { useAccountsCatalog } from "@ui/state"
 

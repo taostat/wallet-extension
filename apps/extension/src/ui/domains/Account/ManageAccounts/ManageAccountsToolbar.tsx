@@ -11,7 +11,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { SearchInput } from "@talisman/components/SearchInput"
 import { api } from "@ui/api"

@@ -3,7 +3,7 @@ import { ChevronRightIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { useOpenClose } from "talisman-ui"
+import { useOpenClose } from "taostats-ui"
 
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { NetworkOptionsModal } from "@ui/domains/Portfolio/NetworkOptionsModal"

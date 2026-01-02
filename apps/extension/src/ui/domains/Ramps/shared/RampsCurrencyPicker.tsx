@@ -5,7 +5,7 @@ import { classNames } from "@taostats/util"
 import { range } from "lodash-es"
 import { FC, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useOpenCloseStatus } from "talisman-ui"
+import { useOpenCloseStatus } from "taostats-ui"
 
 import { ScrollContainer, useScrollContainer } from "@talisman/components/ScrollContainer"
 import { SearchInput } from "@talisman/components/SearchInput"

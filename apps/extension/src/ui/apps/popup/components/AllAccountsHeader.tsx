@@ -5,7 +5,7 @@ import { Account } from "extension-core"
 import { FC, useCallback, useMemo, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { useHoverDirty } from "react-use"
-import { IconButton } from "talisman-ui"
+import { IconButton } from "taostats-ui"
 
 import { api } from "@ui/api"
 import { TotalFiatBalance } from "@ui/apps/popup/components/TotalFiatBalance"

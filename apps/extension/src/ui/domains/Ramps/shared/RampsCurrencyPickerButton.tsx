@@ -3,7 +3,7 @@ import { PlusIcon } from "@taostats/icons"
 import { classNames } from "@taostats/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Drawer, useOpenClose } from "talisman-ui"
+import { Drawer, useOpenClose } from "taostats-ui"
 
 import { getRampsCurrency, RampsCurrency } from "./currencies"
 import { RampsCurrencyPicker } from "./RampsCurrencyPicker"

@@ -7,7 +7,7 @@ import { TFunction } from "i18next"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { firstValueFrom } from "rxjs"
-import { Button, Checkbox, FormFieldContainer, FormFieldInputText } from "talisman-ui"
+import { Button, Checkbox, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import { z } from "zod/v4"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"

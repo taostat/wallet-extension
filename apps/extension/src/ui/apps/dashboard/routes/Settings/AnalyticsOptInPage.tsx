@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { Toggle } from "talisman-ui"
+import { Toggle } from "taostats-ui"
 
 import { Setting } from "@talisman/components/Setting"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"

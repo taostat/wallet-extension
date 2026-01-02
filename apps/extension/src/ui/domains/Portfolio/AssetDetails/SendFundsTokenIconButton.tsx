@@ -2,7 +2,7 @@ import { TokenId } from "@taostats/chaindata-provider"
 import { SendIcon } from "@taostats/icons"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { useSendFundsPopup } from "@ui/hooks/useSendFundsPopup"
 import { useToken } from "@ui/state"

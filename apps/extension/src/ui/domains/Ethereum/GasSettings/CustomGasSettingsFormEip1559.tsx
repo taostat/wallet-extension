@@ -22,7 +22,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "talisman-ui"
+} from "taostats-ui"
 import { formatGwei, parseGwei, TransactionRequest } from "viem"
 import * as yup from "yup"
 

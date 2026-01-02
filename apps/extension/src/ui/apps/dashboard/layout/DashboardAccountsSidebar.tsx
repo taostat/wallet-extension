@@ -11,7 +11,7 @@ import {
 import { FC, Fragment, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { shortenAddress } from "@talisman/util/shortenAddress"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"

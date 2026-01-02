@@ -1,6 +1,6 @@
 import { UploadIcon } from "@taostats/icons"
 import { ChangeEventHandler, FC, useCallback, useState } from "react"
-import { Button, Modal, ModalDialog, useOpenClose } from "talisman-ui"
+import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
 import { SupportOpsCtaButton } from "./shared/SupportOpsCtaButton"
 import { TalismanJsonBackup } from "./shared/types"

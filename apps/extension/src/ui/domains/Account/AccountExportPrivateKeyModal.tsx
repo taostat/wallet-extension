@@ -9,7 +9,7 @@ import {
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
-import { Button, Modal, ModalDialog } from "talisman-ui"
+import { Button, Modal, ModalDialog } from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"

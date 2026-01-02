@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai"
 import { loadable } from "jotai/utils"
 import { useCallback, useMemo } from "react"
 import { Link } from "react-router-dom"
-import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useSelectedCurrency, useTokenRatesMap, useTokensMap } from "@ui/state"

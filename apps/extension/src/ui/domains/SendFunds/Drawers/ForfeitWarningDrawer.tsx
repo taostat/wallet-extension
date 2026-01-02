@@ -4,7 +4,7 @@ import { planckToTokens } from "@taostats/util"
 import { log } from "extension-shared"
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Drawer } from "talisman-ui"
+import { Button, Drawer } from "taostats-ui"
 
 import { useToken } from "@ui/state"
 

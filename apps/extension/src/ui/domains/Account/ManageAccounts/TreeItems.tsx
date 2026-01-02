@@ -10,7 +10,7 @@ import {
   ContextMenuTrigger,
   IconButton,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 
 import { Accordion, AccordionIcon } from "@talisman/components/Accordion"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"

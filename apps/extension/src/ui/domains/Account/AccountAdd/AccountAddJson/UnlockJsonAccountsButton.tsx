@@ -11,7 +11,7 @@ import {
   Modal,
   ModalDialog,
   useOpenClose,
-} from "talisman-ui"
+} from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@talisman/components/CapsLockWarningIcon"

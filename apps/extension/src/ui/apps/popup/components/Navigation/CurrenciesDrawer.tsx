@@ -3,7 +3,7 @@ import { TokenRateCurrency } from "@taostats/token-rates"
 import { classNames } from "@taostats/util"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { Drawer, IconButton } from "talisman-ui"
+import { Drawer, IconButton } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"

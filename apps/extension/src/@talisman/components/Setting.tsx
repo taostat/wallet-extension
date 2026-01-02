@@ -1,6 +1,6 @@
 import { classNames } from "@taostats/util"
 import { FC, ReactNode, SVGProps, useMemo } from "react"
-import { CtaButtonSize, getContainerClassName } from "talisman-ui"
+import { CtaButtonSize, getContainerClassName } from "taostats-ui"
 
 export const Setting: FC<{
   iconLeft?: FC<SVGProps<SVGSVGElement>>

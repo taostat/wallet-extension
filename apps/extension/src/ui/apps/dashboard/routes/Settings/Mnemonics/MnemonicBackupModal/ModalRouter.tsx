@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { Modal } from "talisman-ui"
+import { Modal } from "taostats-ui"
 
 import { Acknowledgement } from "./Acknowledgement"
 import { Complete } from "./Complete"

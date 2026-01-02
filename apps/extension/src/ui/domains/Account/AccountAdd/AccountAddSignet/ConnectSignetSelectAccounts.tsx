@@ -2,7 +2,7 @@ import { ArrowRightIcon } from "@taostats/icons"
 import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { Button, Checkbox } from "talisman-ui"
+import { Button, Checkbox } from "taostats-ui"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { notify, notifyUpdate } from "@talisman/components/Notifications"

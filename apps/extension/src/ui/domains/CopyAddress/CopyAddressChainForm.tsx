@@ -4,7 +4,7 @@ import { getAccountGenesisHash, isAccountLedgerPolkadotGeneric } from "extension
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton, Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "talisman-ui"
+import { IconButton, Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { SearchInput } from "@talisman/components/SearchInput"

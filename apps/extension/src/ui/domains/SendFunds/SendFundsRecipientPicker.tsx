@@ -20,7 +20,7 @@ import {
 } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Drawer, useOpenClose } from "talisman-ui"
+import { Button, Drawer, useOpenClose } from "taostats-ui"
 
 import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { SearchInput } from "@talisman/components/SearchInput"
