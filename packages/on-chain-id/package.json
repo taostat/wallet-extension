@@ -1,0 +1,49 @@
+{
+  "name": "@talismn/on-chain-id",
+  "version": "0.2.3",
+  "author": "Talisman",
+  "homepage": "https://talisman.xyz",
+  "license": "GPL-3.0-or-later",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "directory": "packages/on-chain-id",
+    "type": "git",
+    "url": "https://github.com/talismansociety/talisman.git"
+  },
+  "main": "dist/talismn-on-chain-id.cjs.js",
+  "module": "dist/talismn-on-chain-id.esm.js",
+  "files": [
+    "/dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src --max-warnings 0",
+    "clean": "rm -rf dist .turbo node_modules"
+  },
+  "dependencies": {
+    "@talismn/chain-connectors": "workspace:*",
+    "@talismn/crypto": "workspace:*",
+    "@talismn/util": "workspace:*",
+    "anylogger": "^1.0.11"
+  },
+  "devDependencies": {
+    "@talismn/eslint-config": "workspace:*",
+    "@talismn/tsconfig": "workspace:*",
+    "@types/jest": "^29.5.14",
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@talismn/eslint-config/base"
+    ]
+  }
+}

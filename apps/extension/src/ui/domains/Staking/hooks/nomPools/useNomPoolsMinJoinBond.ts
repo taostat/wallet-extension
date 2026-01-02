@@ -1,0 +1,20 @@
+import { DotNetworkId } from "@talismn/chaindata-provider"
+import { useQuery } from "@tanstack/react-query"
+
+import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
+
+export const useNomPoolsMinJoinBond = ({
+  chainId,
+}: {
+  chainId: DotNetworkId | null | undefined
+}) => {
+  const { data: sapi } = useScaleApi(chainId)
+
+  return useQuery({
+    queryKey: ["useNomPoolsMinJoinBond", sapi?.id],
+    queryFn: async () => {
+      if (!sapi) return null
+      return (await sapi.getStorage<bigint>("NominationPools", "MinJoinBond", [])) ?? 0n
+    },
+  })
+}

@@ -1,0 +1,50 @@
+import { BalanceFormatter } from "@talismn/balances"
+import { classNames } from "@talismn/util"
+import { FC } from "react"
+
+import { Fiat } from "@ui/domains/Asset/Fiat"
+import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
+import { Tokens } from "@ui/domains/Asset/Tokens"
+
+type SignParamTokensDisplayProps = {
+  tokenId: string | undefined
+  tokens: string | number | null
+  decimals: number
+  symbol: string
+  fiat?: number | BalanceFormatter | null
+  withIcon?: boolean
+  className?: string
+}
+
+export const SignParamTokensDisplay: FC<SignParamTokensDisplayProps> = ({
+  tokenId,
+  tokens,
+  decimals,
+  symbol,
+  fiat,
+  withIcon,
+  className,
+}) => {
+  return (
+    <span
+      className={classNames(
+        "text-body-secondary inline-flex gap-3 px-4 pt-0.5 text-base",
+        className,
+      )}
+    >
+      {withIcon && (
+        <span>
+          <TokenLogo tokenId={tokenId} />
+        </span>
+      )}
+      <span className="text-white">
+        <Tokens amount={tokens} symbol={symbol} decimals={decimals} noCountUp />
+      </span>
+      {typeof fiat === "number" && (
+        <span>
+          (<Fiat amount={fiat} noCountUp />)
+        </span>
+      )}
+    </span>
+  )
+}

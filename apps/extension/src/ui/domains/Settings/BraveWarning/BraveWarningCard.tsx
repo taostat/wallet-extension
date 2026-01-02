@@ -1,0 +1,36 @@
+import { BraveIcon } from "@talismn/icons"
+import { classNames } from "@talismn/util"
+import { useTranslation } from "react-i18next"
+import { Button } from "talisman-ui"
+
+import { Card } from "@talisman/components/Card"
+
+type Props = {
+  className?: string
+  onLearnMoreClick?: () => void
+}
+
+export const BraveWarningCard = ({ className, onLearnMoreClick }: Props) => {
+  const { t } = useTranslation()
+  return (
+    <Card
+      className={classNames("mt-10", className)}
+      title={
+        <div className="flex w-full items-center gap-5">
+          <BraveIcon className="inline" />
+          <span>{t("Attention Brave users")}</span>
+        </div>
+      }
+      description={
+        <span className="text-body-secondary text-sm">
+          {t("By default, Brave prevents Talisman from loading all your balances.")}
+        </span>
+      }
+      cta={
+        <Button className="w-full" onClick={onLearnMoreClick}>
+          {t("Learn how to fix")}
+        </Button>
+      }
+    />
+  )
+}

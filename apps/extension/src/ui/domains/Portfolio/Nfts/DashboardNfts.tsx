@@ -1,0 +1,277 @@
+import { StarIcon } from "@talismn/icons"
+import { isNotNil } from "@talismn/util"
+import { NftCollection, NftData } from "extension-core"
+import { FC, useCallback, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useIntersection } from "react-use"
+
+import { Fiat } from "@ui/domains/Asset/Fiat"
+import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
+import { useIsFavoriteNft, useNetworksMapById, useNfts, useSetting } from "@ui/state"
+
+import { PortfolioNetworksLogoStack } from "../AssetsTable/PortfolioNetworksLogoStack"
+import { NftDialog } from "../NftDialog"
+import { NftImage } from "../NftImage"
+import { NftTile } from "../NftTile"
+import { usePortfolioNavigation } from "../usePortfolioNavigation"
+import { getPortfolioNftCollectionPreviewUrl } from "./helpers"
+
+const NoNftFound = () => {
+  const { t } = useTranslation()
+  const { selectedAccount, selectedFolder } = usePortfolioNavigation()
+
+  const { status } = useNfts()
+
+  const msg = useMemo(() => {
+    if (status === "loading") return <span className="animate-pulse">{t("Loading NFTs...")}</span>
+    return selectedAccount
+      ? t("No NFTs found for this account")
+      : selectedFolder
+        ? t("No NFTs found for this folder")
+        : t("No NFTs found")
+  }, [selectedAccount, selectedFolder, status, t])
+
+  return <div className="text-body-secondary bg-field rounded px-8 py-36 text-center">{msg}</div>
+}
+
+export const DashboardNfts: FC<{ className?: string }> = () => {
+  const [viewMode] = useSetting("nftsViewMode")
+  const data = useNfts()
+
+  const [dialogNftId, setDialogNftId] = useState<string | null>(null)
+
+  return (
+    <div>
+      {!data.collections.length ? (
+        <NoNftFound />
+      ) : viewMode === "list" ? (
+        <NftCollectionsRows data={data} onNftClick={setDialogNftId} />
+      ) : (
+        <NftCollectionsTiles data={data} onNftClick={setDialogNftId} />
+      )}
+      <NftDialog nftId={dialogNftId} onDismiss={() => setDialogNftId(null)} />
+    </div>
+  )
+}
+
+const NftCollectionRowInner: FC<{
+  collection: NftCollection
+  data: NftData
+  onNftClick: (nftId: string) => void
+}> = ({ collection, data, onNftClick }) => {
+  const { t } = useTranslation()
+
+  const nfts = useMemo(
+    () => data.nfts.filter((nft) => nft.collectionId === collection.id),
+    [collection.id, data.nfts],
+  )
+
+  const imageUrl = useMemo(() => {
+    return getPortfolioNftCollectionPreviewUrl(collection, nfts)
+  }, [collection, nfts])
+
+  const networkIds = useMemo(() => [...new Set(nfts.map((nft) => nft.networkId))], [nfts])
+
+  const allNetworksMap = useNetworksMapById({
+    activeOnly: true,
+    includeTestnets: true,
+  })
+  const networkName = useMemo(() => {
+    if (networkIds.length !== 1) return null
+    const network = allNetworksMap[networkIds[0]]
+    return network?.name ?? null
+  }, [allNetworksMap, networkIds])
+
+  const value = useMemo(() => {
+    const values = nfts.map((nft) => nft.price).filter(isNotNil)
+    return values.length ? values.reduce((acc, price) => acc + price, 0) : null
+  }, [nfts])
+
+  const navigate = useNavigateWithQuery()
+  const handleClick = useCallback(() => {
+    if (nfts.length === 1) onNftClick(nfts[0].id)
+    else navigate(`/portfolio/nfts/${collection.id}`)
+  }, [collection.id, navigate, nfts, onNftClick])
+
+  // favorites are the first ones in the list, can check just the first one
+  const isFavorite = useIsFavoriteNft(nfts[0].id)
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      className="bg-grey-900 hover:bg-grey-800 grid h-32 w-full grid-cols-3 items-center gap-4 rounded-sm px-8 text-left"
+    >
+      <div className="flex items-center gap-6 overflow-hidden">
+        <NftImage className="size-16" src={imageUrl} alt={collection.name ?? ""} />
+        <div className="flex grow flex-col gap-2 overflow-hidden">
+          <div className="flex w-full gap-2 overflow-hidden text-base">
+            <div className="truncate font-bold">{collection.name}</div>
+            {isFavorite ? <StarIcon className="shrink-0 fill-[#D5FF5C] stroke-[#D5FF5C]" /> : null}
+          </div>
+          <div className="flex w-full gap-2 overflow-hidden text-base">
+            <PortfolioNetworksLogoStack networkIds={networkIds} />
+            <div className="text-body-secondary text-sm">{networkName}</div>
+          </div>
+        </div>
+      </div>
+      <div className="text-right">
+        {value !== null ? <Fiat amount={value} forceCurrency="usd" noCountUp /> : null}
+      </div>
+      <div className="text-right">
+        {nfts.length} {nfts.length > 1 ? t("NFTs") : t("NFT")}
+      </div>
+    </button>
+  )
+}
+
+const NftCollectionRowSkeleton = () => (
+  <div className="bg-grey-900 grid h-32 grid-cols-3 items-center rounded-sm px-8">
+    <div className="flex items-center gap-6">
+      <div className="bg-grey-800 animated-pulse size-16 rounded-sm"></div>
+      <div className="flex grow flex-col gap-2 overflow-hidden">
+        <div className="flex w-full gap-2 overflow-hidden text-base">
+          <span className="text-grey-800 bg-grey-800 animate-pulse truncate rounded-sm font-bold">
+            AAAAAAAAAAA AAAA
+          </span>
+        </div>
+        <div className="flex w-full gap-2 overflow-hidden text-base">
+          <span className="text-grey-800 bg-grey-800 animate-pulse rounded-sm text-sm">
+            NNNNNNNNNNN
+          </span>
+        </div>
+      </div>
+    </div>
+    <div></div>
+    <div className="text-right">
+      <span className="text-grey-800 bg-grey-800 animate-pulse rounded-sm">1 NFT</span>
+    </div>
+  </div>
+)
+
+const NftCollectionRow: FC<{
+  collection: NftCollection
+  data: NftData
+  onNftClick: (nftId: string) => void
+}> = (props) => {
+  const refContainer = useRef<HTMLDivElement>(null)
+  const intersection = useIntersection(refContainer, {
+    root: null,
+    rootMargin: "1000px",
+  })
+
+  return (
+    <div ref={refContainer} className="h-32">
+      {intersection?.isIntersecting ? <NftCollectionRowInner {...props} /> : null}
+    </div>
+  )
+}
+
+const NftCollectionsRows: FC<{ data: NftData; onNftClick: (nftId: string) => void }> = ({
+  data,
+  onNftClick,
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <div>
+      <div className="text-body-disabled mb-2 grid w-full grid-cols-3 items-center gap-4 px-8 text-left text-sm">
+        <div className="pl-[4.4rem]">{t("Collection")}</div>
+        <div className="text-right">{t("Value")}</div>
+        <div className="text-right">{t("Owned")}</div>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        {data.collections.map((collection, i) => (
+          <NftCollectionRow
+            key={`${collection.id}-${i}`}
+            collection={collection}
+            data={data}
+            onNftClick={onNftClick}
+          />
+        ))}
+        {data.status === "loading" && <NftCollectionRowSkeleton />}
+      </div>
+    </div>
+  )
+}
+
+const NftCollectionTileInner: FC<{
+  collection: NftCollection
+  data: NftData
+  onNftClick: (nftId: string) => void
+}> = ({ collection, data, onNftClick }) => {
+  const nfts = useMemo(
+    () => data.nfts.filter((nft) => nft.collectionId === collection.id),
+    [collection.id, data.nfts],
+  )
+
+  // favorites are the first ones in the list, can check just the first one
+  const isFavorite = useIsFavoriteNft(nfts[0].id)
+
+  const imageUrl = useMemo(() => {
+    return getPortfolioNftCollectionPreviewUrl(collection, nfts)
+  }, [collection, nfts])
+
+  const networkIds = useMemo(() => [...new Set(nfts.map((nft) => nft.networkId))], [nfts])
+
+  const navigate = useNavigateWithQuery()
+  const handleClick = useCallback(() => {
+    if (nfts.length === 1) onNftClick(nfts[0].id)
+    else navigate(`/portfolio/nfts/${collection.id}`)
+  }, [collection.id, navigate, nfts, onNftClick])
+
+  return (
+    <NftTile
+      count={nfts.length}
+      isFavorite={isFavorite}
+      imageUrl={imageUrl}
+      label={collection.name ?? ""}
+      networkIds={networkIds}
+      onClick={handleClick}
+    />
+  )
+}
+
+const NftCollectionTile: FC<{
+  collection: NftCollection
+  data: NftData
+  onNftClick: (nftId: string) => void
+}> = (props) => {
+  const refContainer = useRef<HTMLDivElement>(null)
+  const intersection = useIntersection(refContainer, {
+    root: null,
+    rootMargin: "1000px",
+  })
+
+  return (
+    <div ref={refContainer} className="h-[24.6rem] w-[21.9rem]">
+      {intersection?.isIntersecting ? <NftCollectionTileInner {...props} /> : null}
+    </div>
+  )
+}
+
+const NftCollectionTileSkeleton = () => (
+  <div className="w-[21.9rem]">
+    <div className="bg-grey-800 size-[21.9rem] animate-pulse rounded-sm"></div>
+  </div>
+)
+
+const NftCollectionsTiles: FC<{ data: NftData; onNftClick: (nftId: string) => void }> = ({
+  data,
+  onNftClick,
+}) => {
+  return (
+    <div className="flex flex-wrap gap-[2rem]">
+      {data.collections.map((collection, i) => (
+        <NftCollectionTile
+          key={`${collection.id}-${i}`}
+          collection={collection}
+          data={data}
+          onNftClick={onNftClick}
+        />
+      ))}
+      {data.status === "loading" && <NftCollectionTileSkeleton />}
+    </div>
+  )
+}

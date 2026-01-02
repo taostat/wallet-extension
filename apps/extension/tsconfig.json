@@ -1,0 +1,20 @@
+{
+  "extends": "@talismn/tsconfig/es6-react.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": "src",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@common": ["./common"],
+      "@common/*": ["./common/*"],
+      "@talisman": ["./@talisman"],
+      "@talisman/*": ["./@talisman/*"],
+      "@ui": ["./ui"],
+      "@ui/*": ["./ui/*"],
+      "@tests": ["./tests"],
+      "@tests/*": ["./tests/*"]
+    }
+  },
+  "include": ["i18next-parser.config.cjs", "src", "**/*.ts", "**/*.tsx"],
+  "exclude": ["**/node_modules", "**/.*/", "**/*.spec.ts", "**/*.test.ts"]
+}

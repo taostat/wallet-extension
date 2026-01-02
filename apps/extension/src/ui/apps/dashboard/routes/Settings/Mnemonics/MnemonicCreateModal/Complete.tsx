@@ -1,0 +1,17 @@
+import { useTranslation } from "react-i18next"
+
+import { VerificationComplete } from "@ui/domains/Mnemonic/VerificationComplete"
+
+import { useMnemonicCreateModal } from "./context"
+import { MnemonicCreateModalDialog } from "./Dialog"
+
+export const Complete = () => {
+  const { t } = useTranslation()
+  const { complete } = useMnemonicCreateModal()
+
+  return (
+    <MnemonicCreateModalDialog title={t("Verification Complete")}>
+      <VerificationComplete onComplete={complete} />
+    </MnemonicCreateModalDialog>
+  )
+}

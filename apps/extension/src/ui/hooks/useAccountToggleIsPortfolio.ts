@@ -1,0 +1,54 @@
+import { Account, isAccountPortfolio } from "extension-core"
+import { useCallback, useMemo } from "react"
+import { useTranslation } from "react-i18next"
+
+import { notify, notifyUpdate } from "@talisman/components/Notifications"
+import { api } from "@ui/api"
+
+export const useAccountToggleIsPortfolio = (account?: Account) => {
+  const { t } = useTranslation()
+
+  const { canToggleIsPortfolio, toggleLabel } = useMemo(
+    () => ({
+      canToggleIsPortfolio: account?.type === "watch-only",
+      toggleLabel: isAccountPortfolio(account)
+        ? t("Make followed-only account")
+        : t("Add to portfolio"),
+    }),
+    [account, t],
+  )
+
+  const toggleIsPortfolio = useCallback(async () => {
+    if (!account) return
+
+    const isPortfolio = isAccountPortfolio(account)
+
+    const notificationId = notify(
+      {
+        type: "processing",
+        title: t("Please wait"),
+        subtitle: isPortfolio ? t(`Removing from portfolio`) : t("Adding to portfolio"),
+      },
+      { autoClose: false },
+    )
+
+    try {
+      await api.accountExternalSetIsPortfolio(account.address, !isPortfolio)
+      notifyUpdate(notificationId, {
+        type: "success",
+        title: t("Success"),
+        subtitle: isPortfolio ? t(`Removed from portfolio`) : t("Added to portfolio"),
+      })
+      return true
+    } catch (err) {
+      notifyUpdate(notificationId, {
+        type: "error",
+        title: t("Error"),
+        subtitle: (err as Error).message,
+      })
+      return false
+    }
+  }, [account, t])
+
+  return { canToggleIsPortfolio, toggleLabel, toggleIsPortfolio }
+}

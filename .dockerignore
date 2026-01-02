@@ -1,0 +1,13 @@
+.git
+.vscode
+.husky
+.next
+.turbo
+.i18next-parser
+dist
+review
+build
+node_modules
+test-results
+coverage
+playwright-report
