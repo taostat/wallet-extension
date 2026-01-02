@@ -1,5 +1,5 @@
 import { assert } from "@polkadot/util"
-import { isAddressEqual } from "@talismn/crypto"
+import { isAddressEqual } from "@taostats/crypto"
 import { isTalismanHostname } from "extension-shared"
 
 import { SubscribableByIdStorageProvider } from "../../libs/Store"

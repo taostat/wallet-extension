@@ -1,5 +1,5 @@
-import { TalismanHandIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { TalismanHandIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { appStore } from "extension-core"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "talisman-ui"

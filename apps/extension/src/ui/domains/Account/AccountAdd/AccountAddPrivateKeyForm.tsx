@@ -1,5 +1,6 @@
 /* eslint-disable react/no-children-prop */
 
+import { useField, useForm } from "@tanstack/react-form"
 import {
   AccountPlatform,
   addressEncodingFromCurve,
@@ -8,8 +9,7 @@ import {
   getPublicKeyFromSecret,
   KeypairCurve,
   parseSecretKey,
-} from "@talismn/crypto"
-import { useField, useForm } from "@tanstack/react-form"
+} from "@taostats/crypto"
 import { useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import {

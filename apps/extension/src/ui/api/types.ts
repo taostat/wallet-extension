@@ -1,12 +1,12 @@
 import type { KeyringPair$Json } from "@polkadot/keyring/types"
 import type { KeyringPairs$Json } from "@polkadot/ui-keyring/types"
 import type { HexString } from "@polkadot/util/types"
-import { IBalance } from "@talismn/balances"
-import { Network, NetworkId, Token, TokenId } from "@talismn/chaindata-provider"
-import { KeypairCurve } from "@talismn/crypto"
-import { NsLookupType } from "@talismn/on-chain-id"
-import { TokenRatesStorage } from "@talismn/token-rates"
-import { Loadable } from "@talismn/util"
+import { IBalance } from "@taostats/balances"
+import { Network, NetworkId, Token, TokenId } from "@taostats/chaindata-provider"
+import { KeypairCurve } from "@taostats/crypto"
+import { NsLookupType } from "@taostats/on-chain-id"
+import { TokenRatesStorage } from "@taostats/token-rates"
+import { Loadable } from "@taostats/util"
 import {
   Account,
   AddEthereumChainRequestId,

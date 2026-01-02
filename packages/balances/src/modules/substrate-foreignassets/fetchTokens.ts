@@ -3,8 +3,8 @@ import {
   SubForeignAssetsToken,
   SubForeignAssetsTokenSchema,
   subForeignAssetTokenId,
-} from "@talismn/chaindata-provider"
-import { getStorageKeyPrefix, papiStringify, parseMetadataRpc } from "@talismn/scale"
+} from "@taostats/chaindata-provider"
+import { getStorageKeyPrefix, papiStringify, parseMetadataRpc } from "@taostats/scale"
 import { assign, keyBy, keys } from "lodash-es"
 import { Binary } from "polkadot-api"
 

@@ -1,4 +1,4 @@
-import { KeypairCurve } from "@talismn/crypto"
+import { KeypairCurve } from "@taostats/crypto"
 import { Err, Ok, Result } from "ts-results"
 
 import { Address } from "../../types/base"

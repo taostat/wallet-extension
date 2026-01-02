@@ -2,7 +2,7 @@ import type {
   IChainConnectorDot,
   IChainConnectorEth,
   IChainConnectorSol,
-} from "@talismn/chain-connectors"
+} from "@taostats/chain-connectors"
 import { TransactionInstruction } from "@solana/web3.js"
 import {
   DotNetworkId,
@@ -12,7 +12,7 @@ import {
   TokenId,
   TokenOfType,
   TokenType,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 import { Observable } from "rxjs"
 
 import type { Address, IBalance, MiniMetadata } from "."

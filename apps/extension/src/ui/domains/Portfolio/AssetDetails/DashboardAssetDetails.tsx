@@ -1,4 +1,4 @@
-import { Balances } from "@talismn/balances"
+import { Balances } from "@taostats/balances"
 
 import { NoTokensMessage } from "@ui/domains/Portfolio/NoTokensMessage"
 

@@ -11,8 +11,8 @@
     "clean": "rm -rf dist .turbo node_modules"
   },
   "devDependencies": {
-    "@talismn/eslint-config": "workspace:*",
-    "@talismn/tsconfig": "workspace:*",
+    "@taostats/eslint-config": "workspace:*",
+    "@taostats/tsconfig": "workspace:*",
     "eslint": "^8.57.1",
     "typescript": "^5.6.3"
   },

@@ -1,4 +1,4 @@
-import { EthNetwork, EthNetworkId } from "@talismn/chaindata-provider"
+import { EthNetwork, EthNetworkId } from "@taostats/chaindata-provider"
 import { Account, PublicClient, WalletClient } from "viem"
 
 import { getEvmNetworkPublicClient } from "./getEvmNetworkPublicClient"

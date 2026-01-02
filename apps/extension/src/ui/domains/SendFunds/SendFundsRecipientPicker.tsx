@@ -4,15 +4,15 @@ import {
   isNetworkDot,
   isNetworkEth,
   Network,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 import {
   decodeSs58Address,
   getAccountPlatformFromAddress,
   isAddressEqual,
   isAddressValid,
   isSs58Address,
-} from "@talismn/crypto"
-import { EyeIcon, LoaderIcon, TalismanHandIcon, UserIcon, XOctagonIcon } from "@talismn/icons"
+} from "@taostats/crypto"
+import { EyeIcon, LoaderIcon, TalismanHandIcon, UserIcon, XOctagonIcon } from "@taostats/icons"
 import {
   isAccountCompatibleWithNetwork,
   isAccountOwned,

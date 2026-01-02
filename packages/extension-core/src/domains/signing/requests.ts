@@ -1,5 +1,5 @@
-import { EthNetworkId } from "@talismn/chaindata-provider"
-import { Account } from "@talismn/keyring"
+import { EthNetworkId } from "@taostats/chaindata-provider"
+import { Account } from "@taostats/keyring"
 import { RpcTransactionRequest } from "viem"
 
 import type { Port } from "../../types/base"

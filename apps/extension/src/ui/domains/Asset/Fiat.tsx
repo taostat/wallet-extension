@@ -1,6 +1,6 @@
-import { BalanceFormatter } from "@talismn/balances"
-import { TokenRateCurrency } from "@talismn/token-rates"
-import { classNames, Prettify } from "@talismn/util"
+import { BalanceFormatter } from "@taostats/balances"
+import { TokenRateCurrency } from "@taostats/token-rates"
+import { classNames, Prettify } from "@taostats/util"
 import React, { FC, useCallback, useMemo } from "react"
 import CountUp from "react-countup"
 

@@ -1,5 +1,5 @@
-import { EthNetworkId } from "@talismn/chaindata-provider"
-import { isAccountAddressEthereum, isAccountOwned } from "@talismn/keyring"
+import { EthNetworkId } from "@taostats/chaindata-provider"
+import { isAccountAddressEthereum, isAccountOwned } from "@taostats/keyring"
 import { parseAbi } from "viem"
 
 import { keyringStore } from "../domains/keyring/store"

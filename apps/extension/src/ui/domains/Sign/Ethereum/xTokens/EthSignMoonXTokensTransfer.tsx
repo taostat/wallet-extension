@@ -1,6 +1,6 @@
 import { hexToU8a } from "@polkadot/util"
-import { Address } from "@talismn/balances"
-import { encodeAddressSs58, encodeAnyAddress } from "@talismn/crypto"
+import { Address } from "@taostats/balances"
+import { encodeAddressSs58, encodeAnyAddress } from "@taostats/crypto"
 import { EvmAddress } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"

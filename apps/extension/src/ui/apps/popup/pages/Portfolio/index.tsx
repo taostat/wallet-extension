@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 

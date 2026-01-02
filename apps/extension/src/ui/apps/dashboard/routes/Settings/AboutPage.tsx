@@ -5,7 +5,7 @@ import {
   HelpCircleIcon,
   MapIcon,
   TalismanHandIcon,
-} from "@talismn/icons"
+} from "@taostats/icons"
 import {
   DISCORD_TALISMAN_URL,
   PRIVACY_POLICY_URL,

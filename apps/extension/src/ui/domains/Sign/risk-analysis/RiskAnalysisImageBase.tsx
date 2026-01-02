@@ -1,4 +1,4 @@
-import { ImageIcon, QuestionCircleIcon } from "@talismn/icons"
+import { ImageIcon, QuestionCircleIcon } from "@taostats/icons"
 import { IPFS_GATEWAY } from "extension-shared"
 import React, { CSSProperties, memo, useCallback, useMemo, useState } from "react"
 

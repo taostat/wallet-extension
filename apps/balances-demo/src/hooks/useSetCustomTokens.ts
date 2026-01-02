@@ -10,13 +10,13 @@ export type CustomTokenConfig = {
 /**
  * For app.talisman.xyz, we typically sync the custom tokens list with the user's wallet config.
  *
- * For other dapps which use `@talismn/balances-react`, we might want to specify a custom list of tokens
+ * For other dapps which use `@taostats/balances-react`, we might want to specify a custom list of tokens
  * to be fetched.
  *
  * This hook is an example of how to do just that.
  *
  * @example
- * // tell `@talismn/balances-react` that we want to fetch some
+ * // tell `@taostats/balances-react` that we want to fetch some
  * // more erc20 tokens than just the defaults from chaindata
  * useSetCustomTokens([{
  *   evmChainId: "11155111",

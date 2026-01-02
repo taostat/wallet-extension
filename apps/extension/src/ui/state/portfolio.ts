@@ -1,8 +1,8 @@
 import { bind } from "@react-rxjs/core"
-import { Balances, HydrateDb } from "@talismn/balances"
-import { isNetworkEth, Network, Token } from "@talismn/chaindata-provider"
-import { isAddressEqual } from "@talismn/crypto"
-import { isTruthy } from "@talismn/util"
+import { Balances, HydrateDb } from "@taostats/balances"
+import { isNetworkEth, Network, Token } from "@taostats/chaindata-provider"
+import { isAddressEqual } from "@taostats/crypto"
+import { isTruthy } from "@taostats/util"
 import { Account } from "extension-core"
 import { BehaviorSubject, combineLatest, map, shareReplay } from "rxjs"
 

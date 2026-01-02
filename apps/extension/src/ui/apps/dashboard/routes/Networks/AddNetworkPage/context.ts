@@ -1,3 +1,4 @@
+import { useForm } from "@tanstack/react-form"
 import {
   DotNetwork,
   DotNetworkSchema,
@@ -9,9 +10,8 @@ import {
   subNativeTokenId,
   SubNativeTokenSchema,
   TokenSchema,
-} from "@talismn/chaindata-provider"
-import { sleep } from "@talismn/util"
-import { useForm } from "@tanstack/react-form"
+} from "@taostats/chaindata-provider"
+import { sleep } from "@taostats/util"
 import { activeNetworksStore, activeTokensStore, RequestNetworkUpsert } from "extension-core"
 import { log } from "extension-shared"
 import { range } from "lodash-es"

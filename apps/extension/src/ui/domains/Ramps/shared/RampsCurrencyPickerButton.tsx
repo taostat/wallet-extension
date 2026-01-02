@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
-import { PlusIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { PlusIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, useOpenClose } from "talisman-ui"

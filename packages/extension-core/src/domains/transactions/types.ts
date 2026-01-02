@@ -1,5 +1,5 @@
-import { Address } from "@talismn/balances"
-import { DotNetworkId, EthNetworkId, SolNetworkId, TokenId } from "@talismn/chaindata-provider"
+import { Address } from "@taostats/balances"
+import { DotNetworkId, EthNetworkId, SolNetworkId, TokenId } from "@taostats/chaindata-provider"
 import { TransactionRequest } from "viem"
 
 import { SignerPayloadJSON } from "../signing/types"

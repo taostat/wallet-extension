@@ -1,6 +1,6 @@
-import { EthNetworkId } from "@talismn/chaindata-provider"
-import { ChevronDownIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { EthNetworkId } from "@taostats/chaindata-provider"
+import { ChevronDownIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { Suspense, useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "talisman-ui"
 

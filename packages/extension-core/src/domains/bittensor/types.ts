@@ -1,4 +1,4 @@
-import { Loadable } from "@talismn/util"
+import { Loadable } from "@taostats/util"
 
 // Key Type
 type Key = {

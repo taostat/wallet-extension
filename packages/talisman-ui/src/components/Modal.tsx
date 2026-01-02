@@ -1,5 +1,5 @@
 import { Transition, TransitionChild } from "@headlessui/react"
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC, MouseEventHandler, ReactNode, Suspense, useCallback, useState } from "react"
 import { createPortal } from "react-dom"
 

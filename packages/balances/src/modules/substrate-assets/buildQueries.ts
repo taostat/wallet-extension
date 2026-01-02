@@ -1,5 +1,5 @@
-import { decodeScale, MetadataBuilder } from "@talismn/scale"
-import { isNotNil } from "@talismn/util"
+import { decodeScale, MetadataBuilder } from "@taostats/scale"
+import { isNotNil } from "@taostats/util"
 
 import log from "../../log"
 import { AmountWithLabel, IBalance, MiniMetadata } from "../../types"

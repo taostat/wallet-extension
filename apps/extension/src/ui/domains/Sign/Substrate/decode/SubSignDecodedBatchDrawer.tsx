@@ -1,5 +1,5 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@talismn/icons"
-import { ScaleApi } from "@talismn/sapi"
+import { ChevronLeftIcon, ChevronRightIcon } from "@taostats/icons"
+import { ScaleApi } from "@taostats/sapi"
 import { SignerPayloadJSON } from "extension-core"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"

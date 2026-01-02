@@ -1,4 +1,4 @@
-import { TokenId } from "@talismn/chaindata-provider"
+import { TokenId } from "@taostats/chaindata-provider"
 import { useTranslation } from "react-i18next"
 
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"

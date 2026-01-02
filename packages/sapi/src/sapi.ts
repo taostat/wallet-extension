@@ -1,6 +1,6 @@
 import { ExtDef } from "@polkadot/types/extrinsic/signedExtensions/types"
 import { SignerPayloadJSON } from "@polkadot/types/types"
-import { parseMetadataRpc } from "@talismn/scale"
+import { parseMetadataRpc } from "@taostats/scale"
 
 import { getCallDocs } from "./helpers/getCallDocs"
 import { getChainInfo } from "./helpers/getChainInfo"

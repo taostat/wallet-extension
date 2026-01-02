@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { useState } from "react"
 
 import imgUnknownNft from "@talisman/theme/images/unknown-nft.svg?url"

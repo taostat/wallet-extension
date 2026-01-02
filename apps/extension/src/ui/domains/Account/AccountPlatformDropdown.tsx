@@ -1,5 +1,5 @@
-import { AccountPlatform } from "@talismn/crypto"
-import { isNotNil } from "@talismn/util"
+import { AccountPlatform } from "@taostats/crypto"
+import { isNotNil } from "@taostats/util"
 import { keyBy } from "lodash-es"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"

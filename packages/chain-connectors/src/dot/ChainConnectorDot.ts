@@ -1,7 +1,7 @@
 import type { ProviderInterface, ProviderInterfaceCallback } from "@polkadot/rpc-provider/types"
-import { DotNetworkId, IChaindataNetworkProvider } from "@talismn/chaindata-provider"
-import { TalismanConnectionMetaDatabase } from "@talismn/connection-meta"
-import { Deferred, isTruthy, sleep, throwAfter } from "@talismn/util"
+import { DotNetworkId, IChaindataNetworkProvider } from "@taostats/chaindata-provider"
+import { TalismanConnectionMetaDatabase } from "@taostats/connection-meta"
+import { Deferred, isTruthy, sleep, throwAfter } from "@taostats/util"
 
 import log from "../log"
 import { IChainConnectorDot } from "./IChainConnectorDot"

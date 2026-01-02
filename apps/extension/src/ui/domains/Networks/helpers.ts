@@ -1,14 +1,14 @@
 import { WsProvider } from "@polkadot/rpc-provider"
 import { Connection } from "@solana/web3.js"
-import { fetchBestMetadata, getScaleApi } from "@talismn/sapi"
+import { fetchBestMetadata, getScaleApi } from "@taostats/sapi"
 import {
   decAnyMetadata,
   getDynamicBuilder,
   getLookupFn,
   UnifiedMetadata,
   unifyMetadata,
-} from "@talismn/scale"
-import { throwAfter } from "@talismn/util"
+} from "@taostats/scale"
+import { throwAfter } from "@taostats/util"
 import { SignerPayloadGenesisHash } from "extension-core"
 import { log } from "extension-shared"
 import { hexToNumber, http } from "viem"

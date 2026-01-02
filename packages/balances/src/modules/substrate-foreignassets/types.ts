@@ -1,4 +1,4 @@
-import { SubForeignAssetsTokenSchema } from "@talismn/chaindata-provider"
+import { SubForeignAssetsTokenSchema } from "@taostats/chaindata-provider"
 import z from "zod/v4"
 
 import { TokenConfigBaseSchema } from "../../types/tokens"

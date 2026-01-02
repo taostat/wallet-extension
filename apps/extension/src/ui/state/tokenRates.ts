@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { TokenId } from "@talismn/chaindata-provider"
-import { TokenRatesStorage } from "@talismn/token-rates"
+import { TokenId } from "@taostats/chaindata-provider"
+import { TokenRatesStorage } from "@taostats/token-rates"
 import { map, Observable, shareReplay } from "rxjs"
 
 import { api } from "@ui/api"

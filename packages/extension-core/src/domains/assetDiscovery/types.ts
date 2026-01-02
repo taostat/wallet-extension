@@ -1,5 +1,5 @@
-import { Address } from "@talismn/balances"
-import { NetworkId, TokenId } from "@talismn/chaindata-provider"
+import { Address } from "@taostats/balances"
+import { NetworkId, TokenId } from "@taostats/chaindata-provider"
 
 export type DiscoveredBalance = {
   id: string

@@ -1,4 +1,4 @@
-import { TokenRateCurrency } from "@talismn/token-rates"
+import { TokenRateCurrency } from "@taostats/token-rates"
 import { IS_FIREFOX } from "extension-shared"
 
 import { StorageProvider } from "../../libs/Store"

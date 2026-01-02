@@ -1,4 +1,4 @@
-import { ChevronDownIcon, GlobeIcon } from "@talismn/icons"
+import { ChevronDownIcon, GlobeIcon } from "@taostats/icons"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useOpenClose } from "talisman-ui"

@@ -1,5 +1,5 @@
-import { isTokenEth } from "@talismn/chaindata-provider"
-import { isEthereumAddress } from "@talismn/crypto"
+import { isTokenEth } from "@taostats/chaindata-provider"
+import { isEthereumAddress } from "@taostats/crypto"
 import { getEthTransferTransactionBase, isAccountOwned } from "extension-core"
 import { useMemo, useState } from "react"
 

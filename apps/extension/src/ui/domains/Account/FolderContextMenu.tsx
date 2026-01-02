@@ -1,5 +1,5 @@
 import { Placement } from "@floating-ui/react"
-import { MoreHorizontalIcon } from "@talismn/icons"
+import { MoreHorizontalIcon } from "@taostats/icons"
 import { AccountsCatalogTree, TreeFolder, TreeItem } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"

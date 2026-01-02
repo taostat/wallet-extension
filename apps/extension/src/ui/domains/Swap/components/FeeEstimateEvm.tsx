@@ -1,4 +1,4 @@
-import { InfoIcon } from "@talismn/icons"
+import { InfoIcon } from "@taostats/icons"
 import {
   EthGasSettings,
   EthPriorityOptionName,

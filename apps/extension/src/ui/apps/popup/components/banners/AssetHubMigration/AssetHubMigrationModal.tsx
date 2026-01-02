@@ -1,4 +1,4 @@
-import { ExternalLinkIcon } from "@talismn/icons"
+import { ExternalLinkIcon } from "@taostats/icons"
 import { format } from "date-fns"
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"

@@ -1,6 +1,6 @@
-import { Balances, IBalance } from "@talismn/balances"
-import { normalizeAddress } from "@talismn/crypto"
-import { isAccountOwned } from "@talismn/keyring"
+import { Balances, IBalance } from "@taostats/balances"
+import { normalizeAddress } from "@taostats/crypto"
+import { isAccountOwned } from "@taostats/keyring"
 import { log } from "extension-shared"
 import { combineLatest, map, throttleTime } from "rxjs"
 

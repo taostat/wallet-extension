@@ -1,5 +1,5 @@
-import { NetworkPlatform } from "@talismn/chaindata-provider"
-import { classNames } from "@talismn/util"
+import { NetworkPlatform } from "@taostats/chaindata-provider"
+import { classNames } from "@taostats/util"
 import { FC, useCallback, useState } from "react"
 import { Dropdown } from "talisman-ui"
 

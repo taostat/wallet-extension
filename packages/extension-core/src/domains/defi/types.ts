@@ -1,4 +1,4 @@
-import { Loadable } from "@talismn/util"
+import { Loadable } from "@taostats/util"
 
 // copy of LambdaAssetType (except `token`)
 export type DefiPositionType =

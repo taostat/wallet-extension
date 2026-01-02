@@ -1,6 +1,6 @@
-import { detectAddressEncoding } from "@talismn/crypto"
-import { CopyIcon, MoreHorizontalIcon, PlusIcon, SendIcon, UserPlusIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { detectAddressEncoding } from "@taostats/crypto"
+import { CopyIcon, MoreHorizontalIcon, PlusIcon, SendIcon, UserPlusIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,

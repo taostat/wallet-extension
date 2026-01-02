@@ -1,5 +1,5 @@
-import { base58 } from "@talismn/crypto"
-import { classNames } from "@talismn/util"
+import { base58 } from "@taostats/crypto"
+import { classNames } from "@taostats/util"
 import { isAccountOwned, isAccountPlatformSolana } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

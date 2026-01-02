@@ -1,5 +1,5 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
-import { InfoIcon } from "@talismn/icons"
+import { DotNetworkId } from "@taostats/chaindata-provider"
+import { InfoIcon } from "@taostats/icons"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"

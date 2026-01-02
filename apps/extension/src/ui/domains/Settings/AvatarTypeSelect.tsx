@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { Address, IdenticonType } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 

@@ -1,4 +1,4 @@
-import { isAddressEqual, normalizeAddress } from "@talismn/crypto"
+import { isAddressEqual, normalizeAddress } from "@taostats/crypto"
 import { DEBUG } from "extension-shared"
 import { v4 as uuidV4 } from "uuid"
 

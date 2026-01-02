@@ -1,4 +1,4 @@
-import { SubPsp22TokenSchema } from "@talismn/chaindata-provider"
+import { SubPsp22TokenSchema } from "@taostats/chaindata-provider"
 
 export type { SubPsp22TokenConfig as TokenConfig } from "./types"
 

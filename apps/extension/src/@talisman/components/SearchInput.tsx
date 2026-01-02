@@ -1,5 +1,5 @@
-import { SearchIcon, XIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { SearchIcon, XIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   ChangeEventHandler,
   forwardRef,

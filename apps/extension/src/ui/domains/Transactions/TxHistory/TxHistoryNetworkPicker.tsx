@@ -1,12 +1,12 @@
-import { Network } from "@talismn/chaindata-provider"
+import { Network } from "@taostats/chaindata-provider"
 import {
   CheckCircleIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   GlobeIcon,
   XIcon,
-} from "@talismn/icons"
-import { classNames } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "talisman-ui"

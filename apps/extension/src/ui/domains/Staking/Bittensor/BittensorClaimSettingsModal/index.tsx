@@ -1,4 +1,4 @@
-import { cn } from "@talismn/util"
+import { cn } from "@taostats/util"
 import { Suspense } from "react"
 import { Modal } from "talisman-ui"
 

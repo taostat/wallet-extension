@@ -1,5 +1,5 @@
-import { TokenList } from "@talismn/chaindata-provider"
-import { fetchTokenRates, TokenRateCurrency, TokenRatesStorage } from "@talismn/token-rates"
+import { TokenList } from "@taostats/chaindata-provider"
+import { fetchTokenRates, TokenRateCurrency, TokenRatesStorage } from "@taostats/token-rates"
 import { Subscription } from "dexie"
 import { log } from "extension-shared"
 import { isEqual, uniq } from "lodash-es"

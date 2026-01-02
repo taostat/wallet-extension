@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { forwardRef, RefObject, useEffect, useMemo, useRef, useState } from "react"
 
 import { provideContext } from "@talisman/util/provideContext"

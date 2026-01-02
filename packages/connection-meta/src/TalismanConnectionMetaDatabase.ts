@@ -1,4 +1,4 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
+import { DotNetworkId } from "@taostats/chaindata-provider"
 import { Dexie } from "dexie"
 
 type ChainPriorityRpcs = {

@@ -1,4 +1,4 @@
-import { ChaindataProvider } from "@talismn/chaindata-provider"
+import { ChaindataProvider } from "@taostats/chaindata-provider"
 
 import {
   loadChaindataPersistedStorage,

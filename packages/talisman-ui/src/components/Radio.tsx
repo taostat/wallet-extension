@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { ChangeEventHandler, FC, ReactNode } from "react"
 
 export const Radio: FC<{

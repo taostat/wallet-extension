@@ -1,4 +1,4 @@
-import { EthNetworkId } from "@talismn/chaindata-provider"
+import { EthNetworkId } from "@taostats/chaindata-provider"
 import { Atom, atom } from "jotai"
 import { atomFamily, atomWithObservable } from "jotai/utils"
 import { AtomFamily } from "jotai/vanilla/utils/atomFamily"

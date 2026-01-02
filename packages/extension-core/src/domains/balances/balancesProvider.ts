@@ -1,4 +1,4 @@
-import { BalancesProvider } from "@talismn/balances"
+import { BalancesProvider } from "@taostats/balances"
 import { debounceTime, first, firstValueFrom, Observable, shareReplay, skip, switchMap } from "rxjs"
 
 import { chainConnectors } from "../../rpcs/balance-modules"

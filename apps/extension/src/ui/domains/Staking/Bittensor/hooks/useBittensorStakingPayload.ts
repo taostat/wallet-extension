@@ -1,6 +1,6 @@
-import { taoToAlpha } from "@talismn/balances"
-import { ScaleApi } from "@talismn/sapi"
 import { useQuery } from "@tanstack/react-query"
+import { taoToAlpha } from "@taostats/balances"
+import { ScaleApi } from "@taostats/sapi"
 import { useMemo } from "react"
 
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"

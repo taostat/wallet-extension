@@ -1,6 +1,6 @@
 import { Connection, ConnectionConfig } from "@solana/web3.js"
-import { ChainConnectorSolStub } from "@talismn/chain-connectors"
-import { SolNetworkId } from "@talismn/chaindata-provider"
+import { ChainConnectorSolStub } from "@taostats/chain-connectors"
+import { SolNetworkId } from "@taostats/chaindata-provider"
 import { SolRpcRequest } from "extension-core"
 import { useMemo } from "react"
 

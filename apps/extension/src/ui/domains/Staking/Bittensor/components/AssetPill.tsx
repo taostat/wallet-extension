@@ -1,4 +1,4 @@
-import { Token } from "@talismn/chaindata-provider"
+import { Token } from "@taostats/chaindata-provider"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

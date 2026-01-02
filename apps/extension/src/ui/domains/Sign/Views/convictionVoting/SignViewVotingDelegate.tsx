@@ -1,5 +1,5 @@
-import { TokenId } from "@talismn/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon } from "@talismn/icons"
+import { TokenId } from "@taostats/chaindata-provider"
+import { CopyIcon, ExternalLinkIcon } from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"

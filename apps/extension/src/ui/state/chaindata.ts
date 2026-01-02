@@ -11,8 +11,8 @@ import {
   TokenOfPlatform,
   TokenOfType,
   TokenType,
-} from "@talismn/chaindata-provider"
-import { getSharedObservable } from "@talismn/util"
+} from "@taostats/chaindata-provider"
+import { getSharedObservable } from "@taostats/util"
 import {
   activeNetworksStore,
   activeTokensStore,

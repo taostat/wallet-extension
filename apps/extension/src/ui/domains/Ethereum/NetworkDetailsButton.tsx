@@ -1,5 +1,5 @@
-import { Network } from "@talismn/chaindata-provider"
-import { classNames } from "@talismn/util"
+import { Network } from "@taostats/chaindata-provider"
+import { classNames } from "@taostats/util"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, PillButton } from "talisman-ui"

@@ -1,4 +1,4 @@
-import { generateMnemonic as mnemonicGenerate } from "@talismn/crypto"
+import { generateMnemonic as mnemonicGenerate } from "@taostats/crypto"
 import { useCallback, useMemo, useState } from "react"
 
 import { provideContext } from "@talisman/util/provideContext"

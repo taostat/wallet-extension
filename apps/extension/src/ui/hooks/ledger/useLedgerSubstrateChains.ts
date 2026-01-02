@@ -1,5 +1,5 @@
-import { DotNetwork } from "@talismn/chaindata-provider"
-import { isNotNil } from "@talismn/util"
+import { DotNetwork } from "@taostats/chaindata-provider"
+import { isNotNil } from "@taostats/util"
 import { useMemo } from "react"
 
 import { AddSubstrateLedgerAppType } from "@ui/domains/Account/AccountAdd/AccountAddLedger/context"

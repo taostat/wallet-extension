@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC, ReactNode } from "react"
 
 export const RampsNumberFieldContainer: FC<{

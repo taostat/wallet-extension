@@ -1,12 +1,12 @@
-import { Address, Balance, BalanceFormatter, BalanceTransferType } from "@talismn/balances"
+import { useQuery } from "@tanstack/react-query"
+import { Address, Balance, BalanceFormatter, BalanceTransferType } from "@taostats/balances"
 import {
   isTokenDot,
   isTokenNeedExistentialDeposit,
   Token,
   TokenId,
-} from "@talismn/chaindata-provider"
-import { formatDecimals, isNotNil } from "@talismn/util"
-import { useQuery } from "@tanstack/react-query"
+} from "@taostats/chaindata-provider"
+import { formatDecimals, isNotNil } from "@taostats/util"
 import { WalletTransactionInfo } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"

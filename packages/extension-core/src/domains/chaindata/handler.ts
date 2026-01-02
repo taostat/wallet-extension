@@ -1,4 +1,4 @@
-import { isNativeToken, isNetworkOfPlatform } from "@talismn/chaindata-provider"
+import { isNativeToken, isNetworkOfPlatform } from "@taostats/chaindata-provider"
 
 import { genericSubscription } from "../../handlers/subscriptions"
 import { ExtensionHandler } from "../../libs/Handler"

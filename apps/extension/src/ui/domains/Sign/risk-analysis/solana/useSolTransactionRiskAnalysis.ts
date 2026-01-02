@@ -1,6 +1,6 @@
 import { APIError } from "@blockaid/client"
 import { MessageScanParams } from "@blockaid/client/resources/solana/message.mjs"
-import { SolNetworkId } from "@talismn/chaindata-provider"
+import { SolNetworkId } from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 
 import { useFeatureFlag } from "@ui/state"

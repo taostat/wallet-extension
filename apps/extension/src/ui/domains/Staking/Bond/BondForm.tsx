@@ -1,6 +1,6 @@
-import { Token } from "@talismn/chaindata-provider"
-import { InfoIcon, SwapIcon } from "@talismn/icons"
-import { classNames, tokensToPlanck } from "@talismn/util"
+import { Token } from "@taostats/chaindata-provider"
+import { InfoIcon, SwapIcon } from "@taostats/icons"
+import { classNames, tokensToPlanck } from "@taostats/util"
 import { Account } from "extension-core"
 import {
   ChangeEventHandler,

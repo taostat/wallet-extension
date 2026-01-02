@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 

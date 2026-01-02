@@ -1,5 +1,5 @@
-import { NetworkId } from "@talismn/chaindata-provider"
-import { classNames } from "@talismn/util"
+import { NetworkId } from "@taostats/chaindata-provider"
+import { classNames } from "@taostats/util"
 import { useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
 

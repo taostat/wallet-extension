@@ -1,4 +1,4 @@
-import { EthNetwork, EvmErc20Token } from "@talismn/chaindata-provider"
+import { EthNetwork, EvmErc20Token } from "@taostats/chaindata-provider"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, PillButton } from "talisman-ui"
 

@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC, ReactNode, SVGProps, useMemo } from "react"
 import { CtaButtonSize, getContainerClassName } from "talisman-ui"
 

@@ -12,7 +12,7 @@ import {
   StarsIcon,
   UsersIcon,
   XIcon,
-} from "@talismn/icons"
+} from "@taostats/icons"
 import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
@@ -95,7 +95,7 @@ export const NavigationDrawer: FC = () => {
     /*if (!canSwap) */ return window.open(TALISMAN_WEB_APP_SWAP_URL, "_blank"), window.close()
 
     // await openSwapTokensModal()
-    // import { sleep } from "@talismn/util"
+    // import { sleep } from "@taostats/util"
     // await sleep(150)
     // close()
   }, [])

@@ -1,5 +1,5 @@
-import { BalanceFormatter } from "@talismn/balances"
 import { useQuery } from "@tanstack/react-query"
+import { BalanceFormatter } from "@taostats/balances"
 import { isAccountAddressEthereum } from "extension-core"
 import { useMemo } from "react"
 

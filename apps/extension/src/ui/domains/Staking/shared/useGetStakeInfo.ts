@@ -1,6 +1,6 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
-import { ScaleApi } from "@talismn/sapi"
 import { UseQueryResult } from "@tanstack/react-query"
+import { DotNetworkId } from "@taostats/chaindata-provider"
+import { ScaleApi } from "@taostats/sapi"
 import { SignerPayloadJSON } from "extension-core"
 import { useMemo } from "react"
 

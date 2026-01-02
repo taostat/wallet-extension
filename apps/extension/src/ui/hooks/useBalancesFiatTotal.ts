@@ -1,4 +1,4 @@
-import { Balances } from "@talismn/balances"
+import { Balances } from "@taostats/balances"
 import { useMemo } from "react"
 
 import { useSelectedCurrency } from "@ui/state"

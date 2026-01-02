@@ -1,6 +1,6 @@
 import { Keyring } from "@polkadot/keyring"
 import { assert, hexToU8a, u8aConcat, u8aToU8a } from "@polkadot/util"
-import { DotNetwork } from "@talismn/chaindata-provider"
+import { DotNetwork } from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 
 import { appStore } from "../../domains/app/store.app"

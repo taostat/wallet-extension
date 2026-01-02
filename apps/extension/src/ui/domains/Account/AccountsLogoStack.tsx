@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { Account } from "extension-core"
 import { useMemo } from "react"
 

@@ -1,8 +1,8 @@
 import { Connection, PublicKey, Transaction } from "@solana/web3.js"
-import { BALANCE_MODULES } from "@talismn/balances"
-import { isTokenSol, Token } from "@talismn/chaindata-provider"
-import { serializeTransaction } from "@talismn/solana"
 import { useQuery } from "@tanstack/react-query"
+import { BALANCE_MODULES } from "@taostats/balances"
+import { isTokenSol, Token } from "@taostats/chaindata-provider"
+import { serializeTransaction } from "@taostats/solana"
 import { isAccountOwned } from "extension-core"
 import { useMemo, useState } from "react"
 

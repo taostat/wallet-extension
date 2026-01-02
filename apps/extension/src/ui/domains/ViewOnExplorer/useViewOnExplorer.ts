@@ -1,4 +1,4 @@
-import { getBlockExplorerUrls } from "@talismn/chaindata-provider"
+import { getBlockExplorerUrls } from "@taostats/chaindata-provider"
 import { useCallback, useMemo } from "react"
 
 import { useNetworkByGenesisHash, useNetworkById } from "@ui/state"

@@ -1,5 +1,5 @@
 import { PolkadotCalls } from "@polkadot-api/descriptors"
-import { isAscii } from "@talismn/util"
+import { isAscii } from "@taostats/util"
 import { useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 

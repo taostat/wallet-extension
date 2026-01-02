@@ -1,5 +1,5 @@
-import { SettingsIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { SettingsIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { useCallback, useMemo } from "react"
 
 import { useBittensorBondWizard } from "../hooks/useBittensorBondWizard"

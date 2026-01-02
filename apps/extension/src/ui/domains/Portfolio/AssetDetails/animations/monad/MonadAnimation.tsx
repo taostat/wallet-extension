@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 

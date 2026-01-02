@@ -1,5 +1,5 @@
-import { GlobeIcon, ToolbarSortIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { GlobeIcon, ToolbarSortIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { t } from "i18next"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

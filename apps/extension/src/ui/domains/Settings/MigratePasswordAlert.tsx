@@ -1,5 +1,5 @@
-import { LockIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { LockIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Drawer } from "talisman-ui"

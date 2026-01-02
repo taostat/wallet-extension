@@ -1,5 +1,5 @@
 import { Transaction, VersionedTransaction } from "@solana/web3.js"
-import { base58, ed25519 } from "@talismn/crypto"
+import { base58, ed25519 } from "@taostats/crypto"
 
 export const isVersionedTransaction = (
   transaction: Transaction | VersionedTransaction,

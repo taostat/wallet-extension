@@ -1,8 +1,8 @@
-import { ALPHA_PRICE_SCALE } from "@talismn/balances"
-import { subDTaoTokenId, subNativeTokenId } from "@talismn/chaindata-provider"
-import { ToolbarSortIcon } from "@talismn/icons"
-import { classNames, cn } from "@talismn/util"
 import { useVirtualizer } from "@tanstack/react-virtual"
+import { ALPHA_PRICE_SCALE } from "@taostats/balances"
+import { subDTaoTokenId, subNativeTokenId } from "@taostats/chaindata-provider"
+import { ToolbarSortIcon } from "@taostats/icons"
+import { classNames, cn } from "@taostats/util"
 import {
   FC,
   useCallback,

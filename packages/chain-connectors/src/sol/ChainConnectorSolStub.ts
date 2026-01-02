@@ -1,5 +1,5 @@
 import { Connection } from "@solana/web3.js"
-import { SolNetwork } from "@talismn/chaindata-provider"
+import { SolNetwork } from "@taostats/chaindata-provider"
 
 import { getSolConnection } from "./getSolConnection"
 import { IChainConnectorSol } from "./IChainConnectorSol"

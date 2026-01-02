@@ -1,4 +1,4 @@
-import { ChainConnectorEth } from "@talismn/chain-connectors"
+import { ChainConnectorEth } from "@taostats/chain-connectors"
 
 import { chaindataProvider } from "./chaindata"
 

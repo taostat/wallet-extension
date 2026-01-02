@@ -1,4 +1,4 @@
-import { normalizeAddress } from "@talismn/crypto"
+import { normalizeAddress } from "@taostats/crypto"
 import { log } from "extension-shared"
 
 import { Migration, MigrationFunction } from "../../../libs/migrations/types"

@@ -1,4 +1,4 @@
-import { Token } from "@talismn/chaindata-provider"
+import { Token } from "@taostats/chaindata-provider"
 import { activeTokensStore, isTokenActive } from "extension-core"
 import { useCallback, useMemo } from "react"
 

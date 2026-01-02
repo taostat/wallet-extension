@@ -1,5 +1,5 @@
-import { LoaderIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { LoaderIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, SVGProps, useMemo } from "react"
 
 type ButtonColor = "default" | "primary" | "red" | "orange"

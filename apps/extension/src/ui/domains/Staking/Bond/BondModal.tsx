@@ -1,5 +1,5 @@
-import { ChevronLeftIcon, XIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ChevronLeftIcon, XIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "talisman-ui"

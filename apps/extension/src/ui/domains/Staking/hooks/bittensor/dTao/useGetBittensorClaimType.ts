@@ -1,5 +1,5 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
 import { useQuery } from "@tanstack/react-query"
+import { DotNetworkId } from "@taostats/chaindata-provider"
 
 import { DEFAULT_ROOT_CLAIM_TYPE } from "@ui/domains/Staking/Bittensor/utils/constants"
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"

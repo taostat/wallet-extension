@@ -1,4 +1,4 @@
-import { getAccountPlatformFromAddress, normalizeAddress } from "@talismn/crypto"
+import { getAccountPlatformFromAddress, normalizeAddress } from "@taostats/crypto"
 import md5 from "blueimp-md5"
 import Color from "color"
 import { useId, useMemo } from "react"

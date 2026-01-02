@@ -1,4 +1,4 @@
-import { useSetBalancesAddresses } from "@talismn/balances-react"
+import { useSetBalancesAddresses } from "@taostats/balances-react"
 import { Dispatch, SetStateAction, Suspense, useMemo, useState } from "react"
 
 import { Balances, BalancesFallback } from "./components/Balances"

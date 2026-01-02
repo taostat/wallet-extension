@@ -4,7 +4,7 @@ import {
   entropyToSeed,
   KeypairCurve,
   mnemonicToEntropy,
-} from "@talismn/crypto"
+} from "@taostats/crypto"
 
 import { Keyring } from "./Keyring"
 

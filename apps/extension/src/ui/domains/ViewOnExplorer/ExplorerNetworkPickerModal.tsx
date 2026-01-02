@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC } from "react"
 import { Modal } from "talisman-ui"
 

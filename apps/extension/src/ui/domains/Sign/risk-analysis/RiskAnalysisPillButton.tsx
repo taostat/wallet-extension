@@ -5,7 +5,7 @@ import {
   ShieldUnavailableIcon,
   ShieldUnknownIcon,
   ShieldZapIcon,
-} from "@talismn/icons"
+} from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"

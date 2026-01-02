@@ -1,4 +1,4 @@
-import { isNotNil } from "@talismn/util"
+import { isNotNil } from "@taostats/util"
 import { log } from "extension-shared"
 
 import { db } from "../../../db"

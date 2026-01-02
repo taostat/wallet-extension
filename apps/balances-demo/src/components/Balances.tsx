@@ -1,5 +1,5 @@
-import { useBalances } from "@talismn/balances-react"
-import { classNames, formatDecimals } from "@talismn/util"
+import { useBalances } from "@taostats/balances-react"
+import { classNames, formatDecimals } from "@taostats/util"
 import { Fragment } from "react"
 
 import { useExtensionAccounts } from "../hooks/useExtensionAccounts"

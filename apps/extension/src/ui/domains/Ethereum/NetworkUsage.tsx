@@ -3,8 +3,8 @@ import {
   NetworkUsageHighIcon,
   NetworkUsageIdleIcon,
   NetworkUsageIncreasingIcon,
-} from "@talismn/icons"
-import { classNames } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { EthBaseFeeTrend } from "extension-core"
 import { FC, SVGProps } from "react"
 import { useTranslation } from "react-i18next"

@@ -1,5 +1,5 @@
 import { PolkadotConstants } from "@polkadot-api/descriptors"
-import { ScaleApi } from "@talismn/sapi"
+import { ScaleApi } from "@taostats/sapi"
 import { capitalize } from "lodash-es"
 
 export const getConvictionVotingTrackName = (sapi: ScaleApi, trackId: number): string | null => {

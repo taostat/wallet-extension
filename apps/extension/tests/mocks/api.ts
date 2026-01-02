@@ -12,8 +12,8 @@ import {
   subAssetTokenId,
   subNativeTokenId,
   Token,
-} from "@talismn/chaindata-provider"
-import { TokenRatesStorage } from "@talismn/token-rates"
+} from "@taostats/chaindata-provider"
+import { TokenRatesStorage } from "@taostats/token-rates"
 import { AnalyticsCaptureRequest, SitesAuthorizedStore, Trees } from "extension-core"
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { TALISMAN_WEB_APP_DOMAIN } from "extension-shared"

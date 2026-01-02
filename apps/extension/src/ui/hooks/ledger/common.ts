@@ -1,4 +1,4 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
+import { DotNetworkId } from "@taostats/chaindata-provider"
 import { supportedApps } from "@zondax/ledger-substrate"
 import { SubstrateAppParams } from "@zondax/ledger-substrate/dist/common"
 

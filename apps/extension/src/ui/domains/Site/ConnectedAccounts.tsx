@@ -1,4 +1,4 @@
-import { isAddressEqual } from "@talismn/crypto"
+import { isAddressEqual } from "@taostats/crypto"
 import { Account, AuthorizedSite } from "extension-core"
 import { FC, Fragment, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

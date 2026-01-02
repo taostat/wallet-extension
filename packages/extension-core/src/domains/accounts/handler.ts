@@ -10,9 +10,9 @@ import {
   getAccountPlatformFromAddress,
   hex,
   KeypairCurve,
-} from "@talismn/crypto"
-import { getPublicKeySolana } from "@talismn/crypto/src/derivation/deriveSolana"
-import { AccountType, AddAccountKeypairOptions } from "@talismn/keyring"
+} from "@taostats/crypto"
+import { getPublicKeySolana } from "@taostats/crypto/src/derivation/deriveSolana"
+import { AccountType, AddAccountKeypairOptions } from "@taostats/keyring"
 import { log } from "extension-shared"
 import { combineLatest } from "rxjs"
 

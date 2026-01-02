@@ -1,4 +1,8 @@
-import { EvmNativeToken, evmNativeTokenId, EvmNativeTokenSchema } from "@talismn/chaindata-provider"
+import {
+  EvmNativeToken,
+  evmNativeTokenId,
+  EvmNativeTokenSchema,
+} from "@taostats/chaindata-provider"
 import { assign } from "lodash-es"
 
 import log from "../../log"

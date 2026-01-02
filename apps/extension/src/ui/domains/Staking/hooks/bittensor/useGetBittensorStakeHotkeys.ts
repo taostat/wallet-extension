@@ -1,5 +1,5 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
-import { isNotNil } from "@talismn/util"
+import { DotNetworkId } from "@taostats/chaindata-provider"
+import { isNotNil } from "@taostats/util"
 import { useMemo } from "react"
 
 import { useBalances } from "@ui/state"

@@ -1,6 +1,6 @@
-import { getBlockExplorerUrls, Network } from "@talismn/chaindata-provider"
-import { encodeAnyAddress } from "@talismn/crypto"
-import { CopyIcon, ExternalLinkIcon } from "@talismn/icons"
+import { getBlockExplorerUrls, Network } from "@taostats/chaindata-provider"
+import { encodeAnyAddress } from "@taostats/crypto"
+import { CopyIcon, ExternalLinkIcon } from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"
 

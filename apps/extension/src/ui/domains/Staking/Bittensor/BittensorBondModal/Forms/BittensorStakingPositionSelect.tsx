@@ -1,4 +1,4 @@
-import { classNames, cn } from "@talismn/util"
+import { classNames, cn } from "@taostats/util"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { t } from "i18next"
 import { FC, useCallback, useDeferredValue, useMemo, useState } from "react"

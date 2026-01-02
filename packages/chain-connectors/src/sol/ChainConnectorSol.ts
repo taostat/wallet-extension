@@ -3,7 +3,7 @@ import {
   IChaindataNetworkProvider,
   IChaindataTokenProvider,
   SolNetworkId,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 
 import { getSolConnection } from "./getSolConnection"
 import { IChainConnectorSol } from "./IChainConnectorSol"

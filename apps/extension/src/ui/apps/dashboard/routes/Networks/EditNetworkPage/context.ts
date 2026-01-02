@@ -1,11 +1,11 @@
+import { useForm } from "@tanstack/react-form"
 import {
   isNativeToken,
   isNetworkDot,
   isNetworkEth,
   Network,
   NetworkPlatform,
-} from "@talismn/chaindata-provider"
-import { useForm } from "@tanstack/react-form"
+} from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"

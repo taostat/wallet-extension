@@ -1,5 +1,5 @@
 import { bind } from "@react-rxjs/core"
-import { InfoIcon, PlusIcon } from "@talismn/icons"
+import { InfoIcon, PlusIcon } from "@taostats/icons"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"

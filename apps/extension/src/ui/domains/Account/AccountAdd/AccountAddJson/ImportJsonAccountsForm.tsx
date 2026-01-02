@@ -4,8 +4,8 @@ import {
   CheckCircleIcon,
   LockIcon,
   UnlockIcon,
-} from "@talismn/icons"
-import { classNames, sleep } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames, sleep } from "@taostats/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"

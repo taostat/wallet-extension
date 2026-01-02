@@ -1,5 +1,5 @@
-import { DotNetwork } from "@talismn/chaindata-provider"
-import { LoaderIcon, SecretIcon } from "@talismn/icons"
+import { DotNetwork } from "@taostats/chaindata-provider"
+import { LoaderIcon, SecretIcon } from "@taostats/icons"
 import { log, POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

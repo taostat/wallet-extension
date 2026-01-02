@@ -1,4 +1,4 @@
-import { XIcon } from "@talismn/icons"
+import { XIcon } from "@taostats/icons"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton } from "talisman-ui"

@@ -1,6 +1,6 @@
 # @talismn/on-chain-id
 
-<img src="talisman.svg" alt="Talisman" width="15%" align="right" />
+<img src="taostats.svg" alt="Taostats" width="15%" align="right" />
 
 [![license](https://img.shields.io/github/license/talismansociety/talisman?style=flat-square)](https://github.com/TalismanSociety/talisman/blob/dev/LICENSE)
 [![npm-version](https://img.shields.io/npm/v/@talismn/on-chain-id?style=flat-square)](https://www.npmjs.com/package/@talismn/on-chain-id)

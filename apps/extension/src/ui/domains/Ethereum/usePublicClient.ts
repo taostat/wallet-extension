@@ -1,4 +1,4 @@
-import { EthNetwork, EthNetworkId } from "@talismn/chaindata-provider"
+import { EthNetwork, EthNetworkId } from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 import { useMemo } from "react"
 import { createPublicClient, custom, PublicClient } from "viem"

@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { ButtonHTMLAttributes } from "react"
 
 export const Button = ({ className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (

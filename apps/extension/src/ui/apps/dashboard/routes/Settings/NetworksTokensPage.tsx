@@ -4,7 +4,7 @@ import {
   GlobeIcon,
   ListIcon,
   PolkadotVaultIcon,
-} from "@talismn/icons"
+} from "@taostats/icons"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "talisman-ui"
 

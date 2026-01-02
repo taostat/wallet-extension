@@ -1,4 +1,4 @@
-import { useBalances } from "@talismn/balances-react"
+import { useBalances } from "@taostats/balances-react"
 import { FiLoader } from "react-icons/fi"
 
 export const BalancesTotal = () => {

@@ -1,4 +1,4 @@
-import { InfoIcon } from "@talismn/icons"
+import { InfoIcon } from "@taostats/icons"
 import { Account, KnownRequestIdOnly, ProviderType } from "extension-core"
 import capitalize from "lodash-es/capitalize"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"

@@ -1,4 +1,4 @@
-import { isNotNil } from "@talismn/util"
+import { isNotNil } from "@taostats/util"
 import { filterIsSameNetworkAndAddressTx, WalletTransaction } from "extension-core"
 import { useMemo } from "react"
 

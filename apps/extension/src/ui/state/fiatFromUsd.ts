@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { TokenRates } from "@talismn/token-rates"
-import { isNotNil } from "@talismn/util"
+import { TokenRates } from "@taostats/token-rates"
+import { isNotNil } from "@taostats/util"
 import { values } from "lodash-es"
 import { combineLatest, map, shareReplay } from "rxjs"
 

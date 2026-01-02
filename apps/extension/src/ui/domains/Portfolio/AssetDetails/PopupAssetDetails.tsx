@@ -1,5 +1,5 @@
-import { Balances } from "@talismn/balances"
-import { ArrowDownIcon, CreditCardIcon } from "@talismn/icons"
+import { Balances } from "@taostats/balances"
+import { ArrowDownIcon, CreditCardIcon } from "@taostats/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "talisman-ui"

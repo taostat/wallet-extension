@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { ButtonHTMLAttributes, DetailedHTMLProps, forwardRef } from "react"
 
 export const PortfolioToolbarButton = forwardRef<

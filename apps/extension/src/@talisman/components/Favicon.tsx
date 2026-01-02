@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { IS_FIREFOX } from "extension-shared"
 import { FC } from "react"
 

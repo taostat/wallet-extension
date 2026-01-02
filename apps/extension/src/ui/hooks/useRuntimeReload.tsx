@@ -1,4 +1,4 @@
-import { connectionMetaDb } from "@talismn/connection-meta"
+import { connectionMetaDb } from "@taostats/connection-meta"
 import { assetDiscoveryStore, db as talismanDb } from "extension-core"
 import { useCallback, useState } from "react"
 

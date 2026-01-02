@@ -1,6 +1,6 @@
-import { evmErc20TokenId, useTokensById } from "@talismn/balances-react"
-import { evmNativeTokenId, solNativeTokenId, solSplTokenId } from "@talismn/chaindata-provider"
-import { isHexString } from "@talismn/util"
+import { evmErc20TokenId, useTokensById } from "@taostats/balances-react"
+import { evmNativeTokenId, solNativeTokenId, solSplTokenId } from "@taostats/chaindata-provider"
+import { isHexString } from "@taostats/util"
 import { DefiPositionItem } from "extension-core"
 import { FC, useMemo } from "react"
 

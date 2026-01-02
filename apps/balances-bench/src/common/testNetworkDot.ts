@@ -3,10 +3,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import { dirname } from "path"
 
-import { BALANCE_MODULES, MiniMetadata } from "@talismn/balances"
-import { ChainConnectorDotStub, IChainConnectorDot } from "@talismn/chain-connectors"
-import { DotNetwork, Token, TokenType } from "@talismn/chaindata-provider"
-import { fetchBestMetadata } from "@talismn/sapi"
+import { BALANCE_MODULES, MiniMetadata } from "@taostats/balances"
+import { ChainConnectorDotStub, IChainConnectorDot } from "@taostats/chain-connectors"
+import { DotNetwork, Token, TokenType } from "@taostats/chaindata-provider"
+import { fetchBestMetadata } from "@taostats/sapi"
 import {
   decAnyMetadata,
   getDynamicBuilder,
@@ -14,7 +14,7 @@ import {
   papiStringify,
   toHex,
   unifyMetadata,
-} from "@talismn/scale"
+} from "@taostats/scale"
 import { log } from "extension-shared"
 import { Enum } from "polkadot-api"
 

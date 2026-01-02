@@ -1,4 +1,4 @@
-import { getConstantValueFromMetadata } from "@talismn/scale"
+import { getConstantValueFromMetadata } from "@taostats/scale"
 
 import { Chain } from "./types"
 

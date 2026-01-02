@@ -1,5 +1,5 @@
 import { assert } from "@polkadot/util"
-import { sleep } from "@talismn/util"
+import { sleep } from "@taostats/util"
 import { DEBUG, TALISMAN_WEB_APP_DOMAIN, TEST } from "extension-shared"
 import { BehaviorSubject } from "rxjs"
 

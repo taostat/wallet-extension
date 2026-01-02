@@ -1,6 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { getBlockExplorerUrls, Network } from "@talismn/chaindata-provider"
-import { ExternalLinkIcon, RocketIcon, XCircleIcon } from "@talismn/icons"
+import { getBlockExplorerUrls, Network } from "@taostats/chaindata-provider"
+import { ExternalLinkIcon, RocketIcon, XCircleIcon } from "@taostats/icons"
 import {
   WalletTransaction,
   WalletTransactionDot,

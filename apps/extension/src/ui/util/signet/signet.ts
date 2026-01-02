@@ -1,4 +1,4 @@
-import { addTrailingSlash } from "@talismn/util"
+import { addTrailingSlash } from "@taostats/util"
 
 import { SignetVault } from "@ui/domains/Account/AccountAdd/AccountAddSignet/types"
 

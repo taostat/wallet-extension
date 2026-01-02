@@ -1,4 +1,4 @@
-import { isTruthy } from "@talismn/util"
+import { isTruthy } from "@taostats/util"
 import { fetchFromCoingecko } from "extension-core"
 import { log } from "extension-shared"
 

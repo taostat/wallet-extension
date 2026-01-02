@@ -1,4 +1,4 @@
-import { isPromise, replaySubjectFrom } from "@talismn/util"
+import { isPromise, replaySubjectFrom } from "@taostats/util"
 import { isEqual, keyBy, values } from "lodash-es"
 import {
   distinctUntilKeyChanged,

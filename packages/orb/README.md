@@ -20,7 +20,7 @@ yarn add @talismn/orb
 ## Usage
 
 ```tsx
-import { TalismanOrb } from "@talismn/orb"
+import { TalismanOrb } from "@taostats/orb"
 
 const Avatar: FC<{ address: string }> = ({ address }) => {
   return <TalismanOrb seed={address} />

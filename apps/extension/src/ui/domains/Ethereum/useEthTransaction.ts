@@ -1,7 +1,7 @@
 import { bigIntMax } from "@ethereumjs/util"
-import { EthNetworkId } from "@talismn/chaindata-provider"
-import { isBigInt, isNotNil } from "@talismn/util"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { EthNetworkId } from "@taostats/chaindata-provider"
+import { isBigInt, isNotNil } from "@taostats/util"
 import {
   EthGasSettings,
   EthGasSettingsEip1559,

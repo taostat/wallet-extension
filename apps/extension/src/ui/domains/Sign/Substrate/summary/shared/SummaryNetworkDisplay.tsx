@@ -1,4 +1,4 @@
-import { NetworkId } from "@talismn/chaindata-provider"
+import { NetworkId } from "@taostats/chaindata-provider"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

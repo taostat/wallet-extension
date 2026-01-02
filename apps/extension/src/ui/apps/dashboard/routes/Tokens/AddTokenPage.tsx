@@ -1,15 +1,15 @@
 /* eslint-disable react/no-children-prop */
+import { useField, useForm } from "@tanstack/react-form"
 import {
   EthereumAddressSchema,
   EthNetwork,
   getGithubTokenLogoUrlByCoingeckoId,
   Token,
   TokenBaseSchema,
-} from "@talismn/chaindata-provider"
-import { isEthereumAddress } from "@talismn/crypto"
-import { LoaderIcon, SaveIcon } from "@talismn/icons"
-import { sleep } from "@talismn/util"
-import { useField, useForm } from "@tanstack/react-form"
+} from "@taostats/chaindata-provider"
+import { isEthereumAddress } from "@taostats/crypto"
+import { LoaderIcon, SaveIcon } from "@taostats/icons"
+import { sleep } from "@taostats/util"
 import { activeTokensStore, getErc20TokenInfo, getUniswapV2TokenInfo } from "extension-core"
 import { log } from "extension-shared"
 import { range } from "lodash-es"

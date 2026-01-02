@@ -1,5 +1,5 @@
-import { CheckIcon, CopyIcon } from "@talismn/icons"
-import { cn } from "@talismn/util"
+import { CheckIcon, CopyIcon } from "@taostats/icons"
+import { cn } from "@taostats/util"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 

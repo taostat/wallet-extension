@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { sleep } from "@talismn/util"
+import { sleep } from "@taostats/util"
 import { LedgerEthDerivationPathType, LedgerSolDerivationPathType } from "extension-core"
 import { toPairs } from "lodash-es"
 import { FC, useCallback, useMemo, useState } from "react"

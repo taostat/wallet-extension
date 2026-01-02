@@ -1,4 +1,4 @@
-import { BalancesProvider } from "@talismn/balances"
+import { BalancesProvider } from "@taostats/balances"
 import { atom } from "jotai"
 
 import { chainConnectorsAtom } from "./chainConnectors"

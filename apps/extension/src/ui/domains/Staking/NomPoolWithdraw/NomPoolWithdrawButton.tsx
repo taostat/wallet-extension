@@ -1,6 +1,6 @@
-import { TokenId } from "@talismn/chaindata-provider"
-import { ZapMinusIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { TokenId } from "@taostats/chaindata-provider"
+import { ZapMinusIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 

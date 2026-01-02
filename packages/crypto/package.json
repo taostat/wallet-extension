@@ -1,7 +1,7 @@
 {
-  "name": "@talismn/crypto",
+  "name": "@taostats/crypto",
   "version": "0.3.0",
-  "author": "Talisman",
+  "author": "Taostats",
   "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/talismansociety/talisman.git"
   },
-  "main": "dist/talismn-crypto.cjs.js",
-  "module": "dist/talismn-crypto.esm.js",
+  "main": "dist/taostats-crypto.cjs.js",
+  "module": "dist/taostats-crypto.esm.js",
   "files": [
     "/dist"
   ],
@@ -39,8 +39,8 @@
     "scale-ts": "1.6.1"
   },
   "devDependencies": {
-    "@talismn/eslint-config": "workspace:*",
-    "@talismn/tsconfig": "workspace:*",
+    "@taostats/eslint-config": "workspace:*",
+    "@taostats/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
     "@swc/jest": "^0.2.36",
     "eslint": "^8.57.1",
@@ -56,7 +56,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@talismn/eslint-config/base"
+      "@taostats/eslint-config/base"
     ]
   }
 }

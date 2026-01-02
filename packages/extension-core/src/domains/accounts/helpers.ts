@@ -1,11 +1,11 @@
 import type { InjectedAccount } from "@polkadot/extension-inject/types"
-import { DotNetwork, Network } from "@talismn/chaindata-provider"
+import { DotNetwork, Network } from "@taostats/chaindata-provider"
 import {
   AccountPlatform,
   getAccountPlatformFromAddress,
   isAddressEqual,
   KeypairCurve,
-} from "@talismn/crypto"
+} from "@taostats/crypto"
 import {
   Account,
   getAccountGenesisHash,
@@ -15,7 +15,7 @@ import {
   isAccountPlatformEthereum,
   isAccountPlatformPolkadot,
   isAccountPlatformSolana,
-} from "@talismn/keyring"
+} from "@taostats/keyring"
 import { log } from "extension-shared"
 
 import { getEthDerivationPath } from "../ethereum/helpers"

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { assert } from "@polkadot/util"
-import { KeyringStorage } from "@talismn/keyring"
+import { KeyringStorage } from "@taostats/keyring"
 
 import { getMessageSenderFn } from "../../../../tests/util"
 import Extension from "../../../handlers/Extension"

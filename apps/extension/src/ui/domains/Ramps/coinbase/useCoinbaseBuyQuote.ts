@@ -1,6 +1,6 @@
-import { isTokenDot, isTokenEth } from "@talismn/chaindata-provider"
-import { formatPrice, tokensToPlanck } from "@talismn/util"
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
+import { isTokenDot, isTokenEth } from "@taostats/chaindata-provider"
+import { formatPrice, tokensToPlanck } from "@taostats/util"
 import { RAMPS_COINBASE_API_BASE_PATH } from "extension-shared"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"

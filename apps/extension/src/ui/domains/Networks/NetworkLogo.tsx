@@ -1,5 +1,5 @@
-import { Network, NetworkId } from "@talismn/chaindata-provider"
-import { classNames } from "@talismn/util"
+import { Network, NetworkId } from "@taostats/chaindata-provider"
+import { classNames } from "@taostats/util"
 import { IS_FIREFOX, UNKNOWN_NETWORK_URL } from "extension-shared"
 import { FC, Suspense, useId } from "react"
 

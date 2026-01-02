@@ -1,4 +1,4 @@
-import { TokenId } from "@talismn/chaindata-provider"
+import { TokenId } from "@taostats/chaindata-provider"
 import { useAtomValue } from "jotai"
 
 import { tokenRatesAtom } from "../atoms/tokenRates"

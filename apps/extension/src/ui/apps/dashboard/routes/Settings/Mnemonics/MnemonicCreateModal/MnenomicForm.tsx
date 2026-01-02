@@ -1,4 +1,4 @@
-import { InfoIcon } from "@talismn/icons"
+import { InfoIcon } from "@taostats/icons"
 import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"

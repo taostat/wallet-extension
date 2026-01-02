@@ -1,4 +1,4 @@
-import { CopyIcon, CreditCardIcon } from "@talismn/icons"
+import { CopyIcon, CreditCardIcon } from "@taostats/icons"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "talisman-ui"

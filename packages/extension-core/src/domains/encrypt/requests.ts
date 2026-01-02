@@ -1,4 +1,4 @@
-import { Account } from "@talismn/keyring"
+import { Account } from "@taostats/keyring"
 
 import type { Port } from "../../types/base"
 import type {

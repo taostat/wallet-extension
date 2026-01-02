@@ -1,6 +1,6 @@
-import { AnyMiniMetadata } from "@talismn/chaindata-provider"
-import { decodeScale, papiParse } from "@talismn/scale"
-import { isNotNil } from "@talismn/util"
+import { AnyMiniMetadata } from "@taostats/chaindata-provider"
+import { decodeScale, papiParse } from "@taostats/scale"
+import { isNotNil } from "@taostats/util"
 
 import log from "../../log"
 import { AmountWithLabel, IBalance } from "../../types"

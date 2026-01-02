@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { ReactNode } from "react"
 
 import { HandMonoLogo } from "@talisman/theme/logos"

@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ChevronRightIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { useOpenClose } from "talisman-ui"
 
 import { DecodedCallComponent, SummaryButtonDisplayMode } from "../types"

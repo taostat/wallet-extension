@@ -7,8 +7,8 @@ import {
   PencilIcon,
   PlusIcon,
   SettingsIcon,
-} from "@talismn/icons"
-import { classNames } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   Account,
   AccountsCatalogTree,

@@ -1,4 +1,4 @@
-import { DecodedCall } from "@talismn/sapi"
+import { DecodedCall } from "@taostats/sapi"
 import { useMemo } from "react"
 
 import { DecodedCallComponentDefs } from "../types"

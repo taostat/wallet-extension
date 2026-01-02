@@ -1,6 +1,6 @@
-import { isAddressEqual, normalizeAddress } from "@talismn/crypto"
-import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { isAddressEqual, normalizeAddress } from "@taostats/crypto"
+import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   ChangeEventHandler,
   FC,

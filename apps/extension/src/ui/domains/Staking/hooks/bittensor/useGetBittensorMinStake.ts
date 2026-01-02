@@ -1,4 +1,4 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
+import { DotNetworkId } from "@taostats/chaindata-provider"
 import { useMemo } from "react"
 
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"

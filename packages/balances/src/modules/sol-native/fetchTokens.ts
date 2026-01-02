@@ -1,4 +1,8 @@
-import { SolNativeToken, solNativeTokenId, SolNativeTokenSchema } from "@talismn/chaindata-provider"
+import {
+  SolNativeToken,
+  solNativeTokenId,
+  SolNativeTokenSchema,
+} from "@taostats/chaindata-provider"
 import { assign } from "lodash-es"
 
 import log from "../../log"

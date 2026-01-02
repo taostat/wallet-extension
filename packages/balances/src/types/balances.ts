@@ -1,6 +1,6 @@
-import { evmErc20TokenId, NetworkList, TokenList } from "@talismn/chaindata-provider"
-import { newTokenRates, TokenRateCurrency, TokenRates, TokenRatesList } from "@talismn/token-rates"
-import { BigMath, isArrayOf, isBigInt, NonFunctionProperties, planckToTokens } from "@talismn/util"
+import { evmErc20TokenId, NetworkList, TokenList } from "@taostats/chaindata-provider"
+import { newTokenRates, TokenRateCurrency, TokenRates, TokenRatesList } from "@taostats/token-rates"
+import { BigMath, isArrayOf, isBigInt, NonFunctionProperties, planckToTokens } from "@taostats/util"
 import BigNumber from "bignumber.js"
 
 import log from "../log"

@@ -1,5 +1,5 @@
-import { isTokenDot, isTokenEth, isTokenSol, Token, TokenId } from "@talismn/chaindata-provider"
-import { detectAddressEncoding } from "@talismn/crypto"
+import { isTokenDot, isTokenEth, isTokenSol, Token, TokenId } from "@taostats/chaindata-provider"
+import { detectAddressEncoding } from "@taostats/crypto"
 import { useCallback, useMemo } from "react"
 
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"

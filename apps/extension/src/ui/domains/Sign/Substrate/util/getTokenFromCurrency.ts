@@ -1,4 +1,4 @@
-import { DotNetwork, Token } from "@talismn/chaindata-provider"
+import { DotNetwork, Token } from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 import { isEqual } from "lodash-es"
 import { Enum } from "polkadot-api"

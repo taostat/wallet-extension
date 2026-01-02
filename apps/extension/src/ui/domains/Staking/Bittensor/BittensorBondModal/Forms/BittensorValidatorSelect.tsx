@@ -1,7 +1,7 @@
-import { TokenId } from "@talismn/chaindata-provider"
-import { GlobeIcon, LockIcon, ToolbarSortIcon, UserIcon } from "@talismn/icons"
-import { classNames, cn, planckToTokens } from "@talismn/util"
 import { useVirtualizer } from "@tanstack/react-virtual"
+import { TokenId } from "@taostats/chaindata-provider"
+import { GlobeIcon, LockIcon, ToolbarSortIcon, UserIcon } from "@taostats/icons"
+import { classNames, cn, planckToTokens } from "@taostats/util"
 import {
   FC,
   useCallback,

@@ -1,5 +1,5 @@
 import { assert } from "@polkadot/util"
-import { AccountPlatform } from "@talismn/crypto"
+import { AccountPlatform } from "@taostats/crypto"
 import { AddAccountExternalOptions } from "extension-core"
 import { useCallback, useState } from "react"
 import { useSearchParams } from "react-router-dom"

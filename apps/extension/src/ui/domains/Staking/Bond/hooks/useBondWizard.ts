@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { BalanceFormatter } from "@talismn/balances"
-import { TokenId } from "@talismn/chaindata-provider"
+import { BalanceFormatter } from "@taostats/balances"
+import { TokenId } from "@taostats/chaindata-provider"
 import { Address } from "extension-core"
 import { SetStateAction, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"

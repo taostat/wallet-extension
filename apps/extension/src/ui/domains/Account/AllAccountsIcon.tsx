@@ -1,5 +1,5 @@
-import { UsersIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { UsersIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { ReactNode } from "react"
 
 export const AllAccountsIcon = ({ className }: { className?: string }) => (

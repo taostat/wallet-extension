@@ -1,6 +1,6 @@
-import { encodeAddressSs58, isAddressEqual } from "@talismn/crypto"
-import { isTruthy } from "@talismn/util"
 import { useForm, useStore } from "@tanstack/react-form"
+import { encodeAddressSs58, isAddressEqual } from "@taostats/crypto"
+import { isTruthy } from "@taostats/util"
 import {
   activeNetworksStore,
   activeTokensStore,

@@ -1,8 +1,8 @@
 import { sign as signExtrinsic } from "@polkadot/types/extrinsic/util"
 import { u8aToHex } from "@polkadot/util"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
-import { blake2b256, encryptKemAead } from "@talismn/crypto"
-import { Binary, FixedSizeBinary, mergeUint8, parseMetadataRpc } from "@talismn/scale"
+import { blake2b256, encryptKemAead } from "@taostats/crypto"
+import { Binary, FixedSizeBinary, mergeUint8, parseMetadataRpc } from "@taostats/scale"
 
 import { ExtensionHandler } from "../../libs/Handler"
 import { chainConnector } from "../../rpcs/chain-connector"

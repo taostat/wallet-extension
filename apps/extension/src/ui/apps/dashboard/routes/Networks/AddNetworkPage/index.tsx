@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
-import { getGithubTokenLogoUrlByCoingeckoId, NetworkBaseSchema } from "@talismn/chaindata-provider"
-import { LoaderIcon, SaveIcon } from "@talismn/icons"
 import { useField } from "@tanstack/react-form"
+import { getGithubTokenLogoUrlByCoingeckoId, NetworkBaseSchema } from "@taostats/chaindata-provider"
+import { LoaderIcon, SaveIcon } from "@taostats/icons"
 import { log } from "extension-shared"
 import { TFunction } from "i18next"
 import { FC, useMemo } from "react"

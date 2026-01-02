@@ -1,5 +1,5 @@
-import { Token } from "@talismn/chaindata-provider"
-import { isNotNil } from "@talismn/util"
+import { Token } from "@taostats/chaindata-provider"
+import { isNotNil } from "@taostats/util"
 import { useMemo } from "react"
 
 import { useRemoteConfig, useTokensMap } from "@ui/state"

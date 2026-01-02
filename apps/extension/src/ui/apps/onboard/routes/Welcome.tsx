@@ -1,5 +1,5 @@
-import { ArrowRightIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ArrowRightIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from "extension-shared"
 import { FC, useCallback, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

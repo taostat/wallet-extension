@@ -1,4 +1,4 @@
-import type { KeypairCurve } from "@talismn/crypto"
+import type { KeypairCurve } from "@taostats/crypto"
 
 import type {
   AccountBase,

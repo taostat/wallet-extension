@@ -1,4 +1,4 @@
-import { Balance } from "@talismn/balances"
+import { Balance } from "@taostats/balances"
 import { LegacyAccountOrigin } from "extension-core"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

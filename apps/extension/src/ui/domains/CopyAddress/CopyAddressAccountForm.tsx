@@ -1,6 +1,6 @@
-import { encodeAnyAddress, normalizeAddress } from "@talismn/crypto"
-import { CheckCircleIcon, ChevronRightIcon, CopyIcon, QrIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { encodeAnyAddress, normalizeAddress } from "@taostats/crypto"
+import { CheckCircleIcon, ChevronRightIcon, CopyIcon, QrIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   Account,
   getAccountGenesisHash,

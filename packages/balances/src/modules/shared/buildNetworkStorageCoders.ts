@@ -1,11 +1,11 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
+import { DotNetworkId } from "@taostats/chaindata-provider"
 import {
   decAnyMetadata,
   getDynamicBuilder,
   getLookupFn,
   ScaleStorageCoder,
   unifyMetadata,
-} from "@talismn/scale"
+} from "@taostats/scale"
 
 import log from "../../log"
 import { MiniMetadata } from "../../types"

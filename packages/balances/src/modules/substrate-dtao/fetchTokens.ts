@@ -1,14 +1,14 @@
 import type { bittensor } from "@polkadot-api/descriptors"
-import { IChainConnectorDot } from "@talismn/chain-connectors"
+import { IChainConnectorDot } from "@taostats/chain-connectors"
 import {
   AnyMiniMetadata,
   DotNetworkId,
   SubDTaoToken,
   subDTaoTokenId,
   SubDTaoTokenSchema,
-} from "@talismn/chaindata-provider"
-import { getStorageKeyPrefix, parseMetadataRpc } from "@talismn/scale"
-import { isNotNil } from "@talismn/util"
+} from "@taostats/chaindata-provider"
+import { getStorageKeyPrefix, parseMetadataRpc } from "@taostats/scale"
+import { isNotNil } from "@taostats/util"
 import { fromPairs } from "lodash-es"
 
 import { IBalanceModule } from "../../types/IBalanceModule"

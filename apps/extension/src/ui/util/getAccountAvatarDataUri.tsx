@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/browser"
-import { TalismanOrb } from "@talismn/orb"
+import { TalismanOrb } from "@taostats/orb"
 import { IdenticonType } from "extension-core"
 import { renderToString } from "react-dom/server"
 

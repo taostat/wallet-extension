@@ -1,5 +1,5 @@
-import { ScaleApi } from "@talismn/sapi"
 import { useQuery } from "@tanstack/react-query"
+import { ScaleApi } from "@taostats/sapi"
 import { useMemo } from "react"
 
 import { getNomPoolStakingPayload } from "../../helpers"

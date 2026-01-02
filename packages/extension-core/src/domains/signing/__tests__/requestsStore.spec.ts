@@ -1,6 +1,6 @@
 import type { SignerPayloadJSON } from "@polkadot/types/types"
 import RequestExtrinsicSign from "@polkadot/extension-base/background/RequestExtrinsicSign"
-import { Keyring } from "@talismn/keyring"
+import { Keyring } from "@taostats/keyring"
 import { waitFor } from "@testing-library/dom"
 
 import { signSubstrate } from "../../../domains/signing/requests"

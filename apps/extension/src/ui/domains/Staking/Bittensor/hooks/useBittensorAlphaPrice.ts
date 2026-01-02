@@ -1,5 +1,5 @@
-import { DotNetworkId } from "@talismn/chaindata-provider"
 import { useQuery } from "@tanstack/react-query"
+import { DotNetworkId } from "@taostats/chaindata-provider"
 
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 

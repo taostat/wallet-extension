@@ -1,5 +1,5 @@
-import { ClockIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ClockIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import BigNumber from "bignumber.js"
 import { intervalToDuration } from "date-fns"
 import { useAtomValue, useSetAtom } from "jotai"

@@ -1,4 +1,4 @@
-import { Balances } from "@talismn/balances"
+import { Balances } from "@taostats/balances"
 import { renderHook, waitFor } from "@testing-library/react"
 
 import { TestWrapper } from "../../../../tests/TestWrapper"

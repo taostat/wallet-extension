@@ -144,7 +144,7 @@ importers:
       '@playwright/test':
         specifier: ^1.51.1
         version: 1.51.1
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:config/eslint-config
       '@testing-library/react':
@@ -204,19 +204,19 @@ importers:
       '@polkadot/util-crypto':
         specifier: 13.5.3
         version: 13.5.3(@polkadot/util@13.5.3)
-      '@talismn/balances':
+      '@taostats/balances':
         specifier: workspace:^
         version: link:../../packages/balances
-      '@talismn/chain-connectors':
+      '@taostats/chain-connectors':
         specifier: workspace:^
         version: link:../../packages/chain-connectors
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:^
         version: link:../../packages/chaindata-provider
-      '@talismn/sapi':
+      '@taostats/sapi':
         specifier: workspace:^
         version: link:../../packages/sapi
-      '@talismn/scale':
+      '@taostats/scale':
         specifier: workspace:^
         version: link:../../packages/scale
       extension-shared:
@@ -253,16 +253,16 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
-      '@talismn/balances':
+      '@taostats/balances':
         specifier: workspace:*
         version: link:../../packages/balances
-      '@talismn/balances-react':
+      '@taostats/balances-react':
         specifier: workspace:*
         version: link:../../packages/balances-react
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:*
         version: link:../../packages/chaindata-provider
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
       '@types/react':
@@ -436,42 +436,9 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
-      '@talismn/balances':
-        specifier: workspace:*
-        version: link:../../packages/balances
-      '@talismn/chaindata-provider':
-        specifier: workspace:*
-        version: link:../../packages/chaindata-provider
-      '@talismn/crypto':
-        specifier: workspace:*
-        version: link:../../packages/crypto
-      '@talismn/icons':
-        specifier: workspace:*
-        version: link:../../packages/icons
-      '@talismn/on-chain-id':
-        specifier: workspace:*
-        version: link:../../packages/on-chain-id
-      '@talismn/orb':
-        specifier: workspace:*
-        version: link:../../packages/orb
-      '@talismn/sapi':
-        specifier: workspace:*
-        version: link:../../packages/sapi
-      '@talismn/scale':
-        specifier: workspace:*
-        version: link:../../packages/scale
       '@talismn/siws':
         specifier: ^0.0.19
         version: 0.0.19(@polkadot/api-contract@16.1.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@polkadot/api@16.1.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@polkadot/extension-dapp@0.59.2(@polkadot/api@16.1.2(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@polkadot/util-crypto@13.5.3(@polkadot/util@13.5.3))(@polkadot/util@13.5.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@polkadot/types@16.1.2)(@polkadot/util-crypto@13.5.3(@polkadot/util@13.5.3))(@polkadot/util@13.5.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@talismn/solana':
-        specifier: workspace:*
-        version: link:../../packages/solana
-      '@talismn/token-rates':
-        specifier: workspace:*
-        version: link:../../packages/token-rates
-      '@talismn/util':
-        specifier: workspace:*
-        version: link:../../packages/util
       '@tanstack/react-form':
         specifier: ^1.12.3
         version: 1.12.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -481,6 +448,39 @@ importers:
       '@tanstack/react-virtual':
         specifier: ^3.11.1
         version: 3.11.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@taostats/balances':
+        specifier: workspace:*
+        version: link:../../packages/balances
+      '@taostats/chaindata-provider':
+        specifier: workspace:*
+        version: link:../../packages/chaindata-provider
+      '@taostats/crypto':
+        specifier: workspace:*
+        version: link:../../packages/crypto
+      '@taostats/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
+      '@taostats/on-chain-id':
+        specifier: workspace:*
+        version: link:../../packages/on-chain-id
+      '@taostats/orb':
+        specifier: workspace:*
+        version: link:../../packages/orb
+      '@taostats/sapi':
+        specifier: workspace:*
+        version: link:../../packages/sapi
+      '@taostats/scale':
+        specifier: workspace:*
+        version: link:../../packages/scale
+      '@taostats/solana':
+        specifier: workspace:*
+        version: link:../../packages/solana
+      '@taostats/token-rates':
+        specifier: workspace:*
+        version: link:../../packages/token-rates
+      '@taostats/util':
+        specifier: workspace:*
+        version: link:../../packages/util
       '@wallet-standard/base':
         specifier: ^1.1.0
         version: 1.1.0
@@ -625,7 +625,7 @@ importers:
       semver:
         specifier: 7.6.3
         version: 7.6.3
-      talisman-ui:
+      taostats-ui:
         specifier: workspace:*
         version: link:../../packages/talisman-ui
       typescript:
@@ -677,10 +677,10 @@ importers:
       '@swc/jest':
         specifier: ^0.2.36
         version: 0.2.36(@swc/core@1.7.39(@swc/helpers@0.5.13))
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@testing-library/dom':
@@ -970,28 +970,28 @@ importers:
       '@supercharge/promise-pool':
         specifier: ^3.2.0
         version: 3.2.0
-      '@talismn/chain-connectors':
+      '@taostats/chain-connectors':
         specifier: workspace:*
         version: link:../chain-connectors
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:*
         version: link:../chaindata-provider
-      '@talismn/crypto':
+      '@taostats/crypto':
         specifier: workspace:*
         version: link:../crypto
-      '@talismn/sapi':
+      '@taostats/sapi':
         specifier: workspace:*
         version: link:../sapi
-      '@talismn/scale':
+      '@taostats/scale':
         specifier: workspace:*
         version: link:../scale
-      '@talismn/solana':
+      '@taostats/solana':
         specifier: workspace:*
         version: link:../solana
-      '@talismn/token-rates':
+      '@taostats/token-rates':
         specifier: workspace:*
         version: link:../token-rates
-      '@talismn/util':
+      '@taostats/util':
         specifier: workspace:*
         version: link:../util
       anylogger:
@@ -1043,10 +1043,10 @@ importers:
       '@substrate/txwrapper-core':
         specifier: 7.5.3
         version: 7.5.3(@polkadot/util-crypto@13.5.3(@polkadot/util@13.5.3))(@polkadot/util@13.5.3)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1076,25 +1076,25 @@ importers:
       '@polkadot/util-crypto':
         specifier: 13.5.3
         version: 13.5.3(@polkadot/util@13.5.3)
-      '@talismn/balances':
+      '@taostats/balances':
         specifier: workspace:*
         version: link:../balances
-      '@talismn/chain-connectors':
+      '@taostats/chain-connectors':
         specifier: workspace:*
         version: link:../chain-connectors
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:*
         version: link:../chaindata-provider
-      '@talismn/connection-meta':
+      '@taostats/connection-meta':
         specifier: workspace:*
         version: link:../connection-meta
-      '@talismn/scale':
+      '@taostats/scale':
         specifier: workspace:*
         version: link:../scale
-      '@talismn/token-rates':
+      '@taostats/token-rates':
         specifier: workspace:*
         version: link:../token-rates
-      '@talismn/util':
+      '@taostats/util':
         specifier: workspace:*
         version: link:../util
       anylogger:
@@ -1122,10 +1122,10 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1158,13 +1158,13 @@ importers:
       '@solana/web3.js':
         specifier: ^1.98.2
         version: 1.98.4(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:*
         version: link:../chaindata-provider
-      '@talismn/connection-meta':
+      '@taostats/connection-meta':
         specifier: workspace:*
         version: link:../connection-meta
-      '@talismn/util':
+      '@taostats/util':
         specifier: workspace:*
         version: link:../util
       anylogger:
@@ -1192,10 +1192,10 @@ importers:
       '@polkadot/x-ws':
         specifier: 13.5.3
         version: 13.5.3(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1216,7 +1216,7 @@ importers:
 
   packages/chaindata-provider:
     dependencies:
-      '@talismn/util':
+      '@taostats/util':
         specifier: workspace:*
         version: link:../util
       anylogger:
@@ -1238,10 +1238,10 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1271,17 +1271,17 @@ importers:
 
   packages/connection-meta:
     dependencies:
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:*
         version: link:../chaindata-provider
       dexie:
         specifier: ^4.0.9
         version: 4.0.9
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1339,10 +1339,10 @@ importers:
       '@swc/jest':
         specifier: ^0.2.36
         version: 0.2.36(@swc/core@1.7.39(@swc/helpers@0.5.13))
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1423,43 +1423,43 @@ importers:
       '@supercharge/promise-pool':
         specifier: ^3.2.0
         version: 3.2.0
-      '@talismn/balances':
+      '@taostats/balances':
         specifier: workspace:*
         version: link:../balances
-      '@talismn/chain-connectors':
+      '@taostats/chain-connectors':
         specifier: workspace:*
         version: link:../chain-connectors
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:*
         version: link:../chaindata-provider
-      '@talismn/connection-meta':
+      '@taostats/connection-meta':
         specifier: workspace:*
         version: link:../connection-meta
-      '@talismn/crypto':
+      '@taostats/crypto':
         specifier: workspace:*
         version: link:../crypto
-      '@talismn/keyring':
+      '@taostats/keyring':
         specifier: workspace:*
         version: link:../keyring
-      '@talismn/on-chain-id':
+      '@taostats/on-chain-id':
         specifier: workspace:*
         version: link:../on-chain-id
-      '@talismn/orb':
+      '@taostats/orb':
         specifier: workspace:*
         version: link:../orb
-      '@talismn/sapi':
+      '@taostats/sapi':
         specifier: workspace:*
         version: link:../sapi
-      '@talismn/scale':
+      '@taostats/scale':
         specifier: workspace:*
         version: link:../scale
-      '@talismn/solana':
+      '@taostats/solana':
         specifier: workspace:*
         version: link:../solana
-      '@talismn/token-rates':
+      '@taostats/token-rates':
         specifier: workspace:*
         version: link:../token-rates
-      '@talismn/util':
+      '@taostats/util':
         specifier: workspace:*
         version: link:../util
       bcryptjs:
@@ -1547,10 +1547,10 @@ importers:
       '@swc/jest':
         specifier: ^0.2.36
         version: 0.2.36(@swc/core@1.7.39(@swc/helpers@0.5.13))
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/node':
@@ -1586,10 +1586,10 @@ importers:
 
   packages/extension-shared:
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       eslint:
@@ -1605,10 +1605,10 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(react@18.3.1)
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1635,17 +1635,17 @@ importers:
 
   packages/keyring:
     dependencies:
-      '@talismn/crypto':
+      '@taostats/crypto':
         specifier: workspace:*
         version: link:../crypto
     devDependencies:
       '@swc/jest':
         specifier: ^0.2.36
         version: 0.2.36(@swc/core@1.7.39(@swc/helpers@0.5.13))
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1669,23 +1669,23 @@ importers:
 
   packages/on-chain-id:
     dependencies:
-      '@talismn/chain-connectors':
+      '@taostats/chain-connectors':
         specifier: workspace:*
         version: link:../chain-connectors
-      '@talismn/crypto':
+      '@taostats/crypto':
         specifier: workspace:*
         version: link:../crypto
-      '@talismn/util':
+      '@taostats/util':
         specifier: workspace:*
         version: link:../util
       anylogger:
         specifier: ^1.0.11
         version: 1.0.11
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1706,7 +1706,7 @@ importers:
 
   packages/orb:
     dependencies:
-      '@talismn/crypto':
+      '@taostats/crypto':
         specifier: workspace:*
         version: link:../crypto
       blueimp-md5:
@@ -1716,10 +1716,10 @@ importers:
         specifier: 4.2.3
         version: 4.2.3
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/react':
@@ -1764,7 +1764,7 @@ importers:
       '@polkadot/util':
         specifier: 13.5.3
         version: 13.5.3
-      '@talismn/scale':
+      '@taostats/scale':
         specifier: workspace:*
         version: link:../scale
       anylogger:
@@ -1777,10 +1777,10 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1817,10 +1817,10 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1844,17 +1844,17 @@ importers:
       '@solana/web3.js':
         specifier: ^1.98.2
         version: 1.98.4(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)
-      '@talismn/crypto':
+      '@taostats/crypto':
         specifier: workspace:*
         version: link:../crypto
       anylogger:
         specifier: ^1.0.11
         version: 1.0.11
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1878,7 +1878,7 @@ importers:
       '@tailwindcss/container-queries':
         specifier: '>=0.1.1'
         version: 0.1.1(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
-      '@talismn/icons':
+      '@taostats/icons':
         specifier: workspace:*
         version: link:../icons
       webfontloader:
@@ -1894,13 +1894,13 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
-      '@talismn/util':
+      '@taostats/util':
         specifier: workspace:*
         version: link:../util
       '@types/react':
@@ -1951,14 +1951,14 @@ importers:
 
   packages/token-rates:
     dependencies:
-      '@talismn/chaindata-provider':
+      '@taostats/chaindata-provider':
         specifier: workspace:*
         version: link:../chaindata-provider
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':
@@ -1992,10 +1992,10 @@ importers:
         specifier: ^2.5.4
         version: 2.5.4
     devDependencies:
-      '@talismn/eslint-config':
+      '@taostats/eslint-config':
         specifier: workspace:*
         version: link:../../config/eslint-config
-      '@talismn/tsconfig':
+      '@taostats/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@types/jest':

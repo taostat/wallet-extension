@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { Balance, Balances, FiatSumBalancesFormatter } from "@talismn/balances"
-import { TokenRateCurrency } from "@talismn/token-rates"
+import { Balance, Balances, FiatSumBalancesFormatter } from "@taostats/balances"
+import { TokenRateCurrency } from "@taostats/token-rates"
 import { useMemo } from "react"
 import { combineLatest, map } from "rxjs"
 

@@ -1,4 +1,4 @@
-import { ShieldSuccessIcon } from "@talismn/icons"
+import { ShieldSuccessIcon } from "@taostats/icons"
 import { useTranslation } from "react-i18next"
 import { Button } from "talisman-ui"
 

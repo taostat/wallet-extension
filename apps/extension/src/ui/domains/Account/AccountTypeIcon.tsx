@@ -5,8 +5,8 @@ import {
   SignetIcon,
   UsbIcon,
   UsersIcon,
-} from "@talismn/icons"
-import { classNames } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { AccountType } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"

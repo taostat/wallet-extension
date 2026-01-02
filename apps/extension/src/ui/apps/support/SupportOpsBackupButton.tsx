@@ -1,4 +1,4 @@
-import { SaveIcon } from "@talismn/icons"
+import { SaveIcon } from "@taostats/icons"
 import { FC, useCallback } from "react"
 import { Button, Modal, ModalDialog, useOpenClose } from "talisman-ui"
 

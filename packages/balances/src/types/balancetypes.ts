@@ -1,4 +1,4 @@
-import { NetworkId, TokenId } from "@talismn/chaindata-provider"
+import { NetworkId, TokenId } from "@taostats/chaindata-provider"
 
 import { Address } from "./addresses"
 

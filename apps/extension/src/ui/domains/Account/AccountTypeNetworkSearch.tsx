@@ -5,10 +5,10 @@ import {
   ComboboxOption,
   ComboboxOptions,
 } from "@headlessui/react"
-import { isNetworkDot } from "@talismn/chaindata-provider"
-import { AccountPlatform } from "@talismn/crypto"
-import { ChevronDownIcon, ChevronUpIcon, CloseIcon, SearchIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { isNetworkDot } from "@taostats/chaindata-provider"
+import { AccountPlatform } from "@taostats/crypto"
+import { ChevronDownIcon, ChevronUpIcon, CloseIcon, SearchIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { isNetworkActive } from "extension-core"
 import { startCase } from "lodash-es"
 import { useCallback, useId, useMemo, useState } from "react"

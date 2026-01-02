@@ -1,5 +1,5 @@
-import { InfoIcon, LoaderIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { InfoIcon, LoaderIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, PropsWithChildren } from "react"
 
 type IconSize = "xl" | "lg" | "md" | "base" | "sm"

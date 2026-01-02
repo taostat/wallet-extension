@@ -1,4 +1,4 @@
-import { subNativeTokenId } from "@talismn/chaindata-provider"
+import { subNativeTokenId } from "@taostats/chaindata-provider"
 import { Address } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { BehaviorSubject } from "rxjs"

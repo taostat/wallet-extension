@@ -1,4 +1,4 @@
-import { decodeSs58Address, detectAddressEncoding } from "@talismn/crypto"
+import { decodeSs58Address, detectAddressEncoding } from "@taostats/crypto"
 import { useMemo } from "react"
 
 import { useNetworks } from "@ui/state"

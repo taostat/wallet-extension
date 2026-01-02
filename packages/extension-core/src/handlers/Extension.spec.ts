@@ -4,7 +4,7 @@ import type { SignerPayloadJSON } from "@polkadot/types/types"
 import RequestExtrinsicSign from "@polkadot/extension-base/background/RequestExtrinsicSign"
 import { TypeRegistry } from "@polkadot/types"
 import { cryptoWaitReady, signatureVerify } from "@polkadot/util-crypto"
-import { Account } from "@talismn/keyring"
+import { Account } from "@taostats/keyring"
 import { waitFor } from "@testing-library/dom"
 import { TALISMAN_WEB_APP_DOMAIN } from "extension-shared"
 

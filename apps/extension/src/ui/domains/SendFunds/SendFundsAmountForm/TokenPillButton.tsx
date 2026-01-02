@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC } from "react"
 import { PillButton } from "talisman-ui"
 

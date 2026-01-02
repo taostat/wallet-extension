@@ -1,6 +1,6 @@
 import { PolkadotAssetHubCalls } from "@polkadot-api/descriptors"
-import { SubForeignAssetsToken } from "@talismn/chaindata-provider"
-import { papiStringify } from "@talismn/scale"
+import { SubForeignAssetsToken } from "@taostats/chaindata-provider"
+import { papiStringify } from "@taostats/scale"
 import { useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 

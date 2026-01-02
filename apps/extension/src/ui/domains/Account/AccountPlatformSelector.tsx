@@ -1,5 +1,5 @@
-import { AccountPlatform } from "@talismn/crypto"
-import { classNames } from "@talismn/util"
+import { AccountPlatform } from "@taostats/crypto"
+import { classNames } from "@taostats/util"
 import { FC, ReactNode, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 

@@ -1,6 +1,6 @@
-import { Token } from "@talismn/chaindata-provider"
-import { fetchTokenRates, TokenRateCurrency } from "@talismn/token-rates"
 import { useQuery } from "@tanstack/react-query"
+import { Token } from "@taostats/chaindata-provider"
+import { fetchTokenRates, TokenRateCurrency } from "@taostats/token-rates"
 import { keyBy } from "lodash-es"
 import { useMemo } from "react"
 

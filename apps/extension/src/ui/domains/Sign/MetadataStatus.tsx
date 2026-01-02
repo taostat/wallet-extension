@@ -1,5 +1,5 @@
 import { HexString } from "@polkadot/util/types"
-import { ExternalLinkIcon } from "@talismn/icons"
+import { ExternalLinkIcon } from "@taostats/icons"
 import { ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"
 

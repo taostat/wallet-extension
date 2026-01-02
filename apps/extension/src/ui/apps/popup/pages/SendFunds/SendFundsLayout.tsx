@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@talismn/icons"
+import { ChevronLeftIcon } from "@taostats/icons"
 import { FC, ReactNode, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 

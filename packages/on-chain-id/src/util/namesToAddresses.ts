@@ -1,4 +1,4 @@
-import { throwAfter } from "@talismn/util"
+import { throwAfter } from "@taostats/util"
 
 import log from "../log"
 import { isPotentialEns } from "./isPotentialEns"

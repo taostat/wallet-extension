@@ -1,4 +1,4 @@
-import { NetworkId, TokenId } from "@talismn/chaindata-provider"
+import { NetworkId, TokenId } from "@taostats/chaindata-provider"
 import { useAtomValue } from "jotai"
 import { keyBy } from "lodash-es"
 import { useMemo } from "react"

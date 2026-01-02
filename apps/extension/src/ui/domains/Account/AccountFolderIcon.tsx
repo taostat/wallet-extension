@@ -1,5 +1,5 @@
-import { FolderIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { FolderIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 
 import { AccountsIconContainer } from "./AllAccountsIcon"
 

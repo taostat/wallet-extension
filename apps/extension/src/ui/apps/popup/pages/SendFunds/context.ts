@@ -1,4 +1,4 @@
-import { TokenId } from "@talismn/chaindata-provider"
+import { TokenId } from "@taostats/chaindata-provider"
 import { Address } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"

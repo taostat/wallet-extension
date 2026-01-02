@@ -1,5 +1,5 @@
 import { Keypair } from "@solana/web3.js"
-import { getPublicKeyFromSecret } from "@talismn/crypto"
+import { getPublicKeyFromSecret } from "@taostats/crypto"
 
 export const getKeypair = (secretKey: Uint8Array): Keypair => {
   const publicKey = getPublicKeyFromSecret(secretKey, "solana")

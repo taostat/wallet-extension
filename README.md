@@ -1,22 +1,22 @@
-# Talisman Wallet
+# Taostats Wallet
 
-<img src="talisman.svg" alt="Talisman" width="15%" align="right" />
+<img src="taostats.svg" alt="Taostats" width="15%" align="right" />
 
-[![website-link](https://img.shields.io/website?label=talisman.xyz&style=flat-square&up_message=online&url=https%3A%2F%2Ftalisman.xyz)](https://talisman.xyz)
-[![discord-link](https://img.shields.io/discord/858891448271634473?logo=discord&logoColor=white&style=flat-square)](https://discord.gg/talisman)
-[![chrome-users-count](https://img.shields.io/chrome-web-store/users/fijngjgcjhjmmpcmkeiomlglpeiijkld?logo=google-chrome&logoColor=white&style=flat-square)](https://chromewebstore.google.com/detail/talisman-ethereum-and-pol/fijngjgcjhjmmpcmkeiomlglpeiijkld)  
-[![chrome-web-store-link](https://img.shields.io/chrome-web-store/v/fijngjgcjhjmmpcmkeiomlglpeiijkld?logo=google-chrome&logoColor=white&style=flat-square)](https://chromewebstore.google.com/detail/talisman-ethereum-and-pol/fijngjgcjhjmmpcmkeiomlglpeiijkld)
-[![firefox-addon-link](https://img.shields.io/amo/v/talisman-wallet-extension?logo=firefox&logoColor=white&style=flat-square)](https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension)
+[![website-link](https://img.shields.io/website?label=taostats.xyz&style=flat-square&up_message=online&url=https%3A%2F%2Ftaostats.xyz)](https://taostats.xyz)
+[![discord-link](https://img.shields.io/discord/858891448271634473?logo=discord&logoColor=white&style=flat-square)](https://discord.gg/taostats)
+[![chrome-users-count](https://img.shields.io/chrome-web-store/users/fijngjgcjhjmmpcmkeiomlglpeiijkld?logo=google-chrome&logoColor=white&style=flat-square)](https://chromewebstore.google.com/detail/taostats-ethereum-and-pol/fijngjgcjhjmmpcmkeiomlglpeiijkld)  
+[![chrome-web-store-link](https://img.shields.io/chrome-web-store/v/fijngjgcjhjmmpcmkeiomlglpeiijkld?logo=google-chrome&logoColor=white&style=flat-square)](https://chromewebstore.google.com/detail/taostats-ethereum-and-pol/fijngjgcjhjmmpcmkeiomlglpeiijkld)
+[![firefox-addon-link](https://img.shields.io/amo/v/taostats-wallet-extension?logo=firefox&logoColor=white&style=flat-square)](https://addons.mozilla.org/en-US/firefox/addon/taostats-wallet-extension)
 
-**Multi-Chain Made Easy** with Talisman Wallet.  
+**Multi-Chain Made Easy** with Taostats Wallet.  
 An ultra-secure Ethereum and Polkadot wallet for both beginners and pros.
 
 ## What's inside?
 
-This repo contains the source code for Talisman Wallet.  
-If you want to use Talisman, you can [install it for your browser by following this link](https://talisman.xyz/download).
+This repo contains the source code for Taostats Wallet.  
+If you want to use Taostats, you can [install it for your browser by following this link](https://taostats.xyz/download).
 
-If you would like to build Talisman from source, please continue reading:
+If you would like to build Taostats from source, please continue reading:
 
 ## System requirements
 
@@ -35,11 +35,11 @@ Once you have installed **Node.js**, run `corepack enable` to turn it on, then f
 
 1. Clone the repo.
 
-   `git clone git@github.com:TalismanSociety/talisman.git`
+   `git clone git@github.com:TaostatsSociety/taostats.git`
 
 1. Change to the repo directory.
 
-   `cd talisman`
+   `cd taostats`
 
 1. Install nodejs
 
@@ -60,7 +60,7 @@ Once you have installed **Node.js**, run `corepack enable` to turn it on, then f
 
 ## Apps and packages
 
-- `apps/extension`: the non-custodial Talisman Wallet browser extension
+- `apps/extension`: the non-custodial Taostats Wallet browser extension
 - `packages/eslint-config`: shared `eslint` configurations
 - `packages/tsconfig`: shared `tsconfig.json`s used throughout the monorepo
 - `packages/util`: library containing shared non-react code. It is not meant to be npm published.
@@ -162,8 +162,8 @@ When building UI features, please follow the following spec to ensure they're tr
 - `dev:extension` : when working on extension only, for better color output
 - `build`: builds the wallet in `packages/apps/extension/dist/chrome` folder, without sentry keys
 - `build:firefox`: builds the wallet in `packages/apps/extension/dist/firefox` folder, without sentry keys
-- `build:extension:prod` builds the Talisman browser extension (requires sentry settings, Talisman team only)
-- `build:extension:canary` : builds the Talisman browser extension test version, with different ID and icon than prod
+- `build:extension:prod` builds the Taostats browser extension (requires sentry settings, Taostats team only)
+- `build:extension:canary` : builds the Taostats browser extension test version, with different ID and icon than prod
 
 ### Build the wallet browser extension using Docker
 
@@ -182,4 +182,4 @@ pnpm changeset
 
 ## Security disclosures
 
-If you find a security issue or exploit, please email us at **security@talisman.xyz**. Please _DO NOT_ create an issue or PR in this repo for security issues.
+If you find a security issue or exploit, please email us at **security@taostats.xyz**. Please _DO NOT_ create an issue or PR in this repo for security issues.

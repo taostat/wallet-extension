@@ -1,4 +1,4 @@
-import { Balances } from "@talismn/balances"
+import { Balances } from "@taostats/balances"
 import md5 from "blueimp-md5"
 import { AddressesAndTokens, BalanceSubscriptionResponse } from "extension-core"
 import { useCallback, useMemo, useState } from "react"

@@ -1,4 +1,4 @@
-import { SolSplTokenSchema } from "@talismn/chaindata-provider"
+import { SolSplTokenSchema } from "@taostats/chaindata-provider"
 import z from "zod/v4"
 
 import { TokenConfigBaseSchema } from "../../types/tokens"

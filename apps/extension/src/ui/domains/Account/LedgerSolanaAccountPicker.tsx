@@ -1,5 +1,5 @@
-import { encodeAddressSolana, isAddressEqual } from "@talismn/crypto"
-import { isNotNil } from "@talismn/util"
+import { encodeAddressSolana, isAddressEqual } from "@taostats/crypto"
+import { isNotNil } from "@taostats/util"
 import { Account, getSolLedgerDerivationPath, LedgerSolDerivationPathType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"

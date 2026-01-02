@@ -1,5 +1,5 @@
-import { isAddressEqual } from "@talismn/crypto"
-import { Account, isAccountNotContact, isAccountPortfolio } from "@talismn/keyring"
+import { isAddressEqual } from "@taostats/crypto"
+import { Account, isAccountNotContact, isAccountPortfolio } from "@taostats/keyring"
 
 import { StorageProvider } from "../../libs/Store"
 import {

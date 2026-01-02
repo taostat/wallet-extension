@@ -1,4 +1,4 @@
-import { ExtensionButtonIcon, PinIcon } from "@talismn/icons"
+import { ExtensionButtonIcon, PinIcon } from "@taostats/icons"
 import { IS_FIREFOX } from "extension-shared"
 import { useEffect, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"

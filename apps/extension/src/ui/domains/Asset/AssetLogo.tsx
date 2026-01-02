@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { IS_FIREFOX, UNKNOWN_TOKEN_URL } from "extension-shared"
 import { CSSProperties, FC, useId, useMemo } from "react"
 

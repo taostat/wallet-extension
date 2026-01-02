@@ -1,8 +1,8 @@
-import { BalanceFormatter } from "@talismn/balances"
-import { NetworkId } from "@talismn/chaindata-provider"
-import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@talismn/icons"
-import { classNames, planckToTokens } from "@talismn/util"
 import { useVirtualizer } from "@tanstack/react-virtual"
+import { BalanceFormatter } from "@taostats/balances"
+import { NetworkId } from "@taostats/chaindata-provider"
+import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@taostats/icons"
+import { classNames, planckToTokens } from "@taostats/util"
 import {
   isTxInfoApproval,
   isTxInfoSwap,

@@ -1,7 +1,7 @@
 import { Abi } from "@polkadot/api-contract"
 import { TypeRegistry } from "@polkadot/types"
 import { hexToNumber, u8aToString } from "@polkadot/util"
-import { SubPsp22Token, subPsp22TokenId, SubPsp22TokenSchema } from "@talismn/chaindata-provider"
+import { SubPsp22Token, subPsp22TokenId, SubPsp22TokenSchema } from "@taostats/chaindata-provider"
 import { values } from "lodash-es"
 
 import log from "../../log"

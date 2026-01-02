@@ -1,4 +1,4 @@
-import { isNetworkDot, isNetworkEth } from "@talismn/chaindata-provider"
+import { isNetworkDot, isNetworkEth } from "@taostats/chaindata-provider"
 import { isAccountAddressEthereum, isAccountAddressSs58 } from "extension-core"
 import { FC, PropsWithChildren, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

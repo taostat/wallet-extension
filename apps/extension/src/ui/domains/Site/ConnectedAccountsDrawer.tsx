@@ -1,4 +1,4 @@
-import { XIcon } from "@talismn/icons"
+import { XIcon } from "@taostats/icons"
 import { FC } from "react"
 import { Drawer, IconButton } from "talisman-ui"
 

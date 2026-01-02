@@ -1,6 +1,6 @@
-import { isTokenEth } from "@talismn/chaindata-provider"
-import { LoaderIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { isTokenEth } from "@taostats/chaindata-provider"
+import { LoaderIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { useTranslation } from "react-i18next"
 
 import { TokensAndFiat } from "../../Asset/TokensAndFiat"

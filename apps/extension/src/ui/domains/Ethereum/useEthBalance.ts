@@ -1,5 +1,5 @@
-import { isEthereumAddress } from "@talismn/crypto"
 import { useQuery } from "@tanstack/react-query"
+import { isEthereumAddress } from "@taostats/crypto"
 import { EvmAddress } from "extension-core"
 import { PublicClient } from "viem"
 

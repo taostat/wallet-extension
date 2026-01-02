@@ -1,4 +1,4 @@
-import { AlertTriangleIcon, CopyIcon, ExternalLinkIcon } from "@talismn/icons"
+import { AlertTriangleIcon, CopyIcon, ExternalLinkIcon } from "@taostats/icons"
 import { UNKNOWN_TOKEN_URL } from "extension-shared"
 import { useAtomValue } from "jotai"
 import { loadable } from "jotai/utils"

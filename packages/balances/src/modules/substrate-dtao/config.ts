@@ -1,4 +1,4 @@
-import { SubDTaoTokenSchema } from "@talismn/chaindata-provider"
+import { SubDTaoTokenSchema } from "@taostats/chaindata-provider"
 import z from "zod/v4"
 
 import { SubDTaoTokenConfigSchema } from "./types"

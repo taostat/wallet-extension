@@ -6,8 +6,8 @@ import {
   RepeatIcon,
   SeekEyeIcon,
   SendIcon,
-} from "@talismn/icons"
-import { classNames, isNotNil } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames, isNotNil } from "@taostats/util"
 import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

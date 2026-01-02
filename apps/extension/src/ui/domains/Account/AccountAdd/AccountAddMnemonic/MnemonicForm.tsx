@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { AccountPlatform, isAddressEqual } from "@talismn/crypto"
-import { classNames, isTruthy } from "@talismn/util"
+import { AccountPlatform, isAddressEqual } from "@taostats/crypto"
+import { classNames, isTruthy } from "@taostats/util"
 import {
   getDefaultCurveForAccountPlatform,
   getDerivationPathForCurve,

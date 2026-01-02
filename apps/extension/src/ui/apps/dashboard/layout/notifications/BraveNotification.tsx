@@ -1,4 +1,4 @@
-import { BraveIcon } from "@talismn/icons"
+import { BraveIcon } from "@taostats/icons"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Modal, ModalDialog } from "talisman-ui"

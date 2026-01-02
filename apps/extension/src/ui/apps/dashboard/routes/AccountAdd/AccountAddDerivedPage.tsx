@@ -1,4 +1,4 @@
-import { KeypairCurve } from "@talismn/crypto"
+import { KeypairCurve } from "@taostats/crypto"
 import { capitalize } from "lodash-es"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"

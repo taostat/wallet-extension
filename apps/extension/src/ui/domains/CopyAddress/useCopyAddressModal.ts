@@ -1,5 +1,5 @@
 import { bind } from "@react-rxjs/core"
-import { detectAddressEncoding, encodeAnyAddress, normalizeAddress } from "@talismn/crypto"
+import { detectAddressEncoding, encodeAnyAddress, normalizeAddress } from "@taostats/crypto"
 import { useCallback } from "react"
 import { BehaviorSubject } from "rxjs"
 

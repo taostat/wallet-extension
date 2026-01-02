@@ -1,4 +1,4 @@
-import { AlertTriangleIcon } from "@talismn/icons"
+import { AlertTriangleIcon } from "@taostats/icons"
 import { ChangePasswordStatusUpdateStatus, ChangePasswordStatusUpdateType } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"

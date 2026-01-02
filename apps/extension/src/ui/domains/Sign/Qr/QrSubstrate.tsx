@@ -1,7 +1,7 @@
 import { HexString } from "@polkadot/util/types"
-import { DotNetwork } from "@talismn/chaindata-provider"
-import { ChevronLeftIcon, InfoIcon, LoaderIcon, PolkadotVaultIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { DotNetwork } from "@taostats/chaindata-provider"
+import { ChevronLeftIcon, InfoIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   AccountPolkadotVault,
   isJsonPayload,

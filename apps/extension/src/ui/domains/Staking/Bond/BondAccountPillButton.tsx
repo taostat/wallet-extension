@@ -1,5 +1,5 @@
-import { UserIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { UserIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { getAccountGenesisHash } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"

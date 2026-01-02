@@ -1,7 +1,7 @@
 import { merkleizeMetadata } from "@polkadot-api/merkleize-metadata"
 import { u8aToHex } from "@polkadot/util"
-import { DotNetwork, SubNativeToken } from "@talismn/chaindata-provider"
-import { decAnyMetadata, getDynamicBuilder, getLookupFn, unifyMetadata } from "@talismn/scale"
+import { DotNetwork, SubNativeToken } from "@taostats/chaindata-provider"
+import { decAnyMetadata, getDynamicBuilder, getLookupFn, unifyMetadata } from "@taostats/scale"
 
 export const getCheckMetadataHashPayloadProps = (
   chain: DotNetwork,

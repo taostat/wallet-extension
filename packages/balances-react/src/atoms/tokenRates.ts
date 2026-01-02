@@ -3,8 +3,8 @@ import {
   fetchTokenRates,
   TokenRatesStorage,
   tryToDeleteOldTokenRatesDb,
-} from "@talismn/token-rates"
-import { isAbortError, isTruthy } from "@talismn/util"
+} from "@taostats/token-rates"
+import { isAbortError, isTruthy } from "@taostats/util"
 import { atom } from "jotai"
 import { atomEffect } from "jotai-effect"
 import { atomWithObservable } from "jotai/utils"

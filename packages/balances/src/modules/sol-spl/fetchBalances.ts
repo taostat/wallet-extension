@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js"
-import { solSplTokenId } from "@talismn/chaindata-provider"
-import { isNotNil } from "@talismn/util"
+import { solSplTokenId } from "@taostats/chaindata-provider"
+import { isNotNil } from "@taostats/util"
 import { keyBy, uniq } from "lodash-es"
 
 import log from "../../log"

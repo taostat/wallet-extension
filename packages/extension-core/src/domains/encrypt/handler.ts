@@ -1,6 +1,6 @@
 import { assert, u8aToHex, u8aToU8a } from "@polkadot/util"
 import { Keypair } from "@polkadot/util-crypto/types"
-import { getPublicKeyFromSecret } from "@talismn/crypto"
+import { getPublicKeyFromSecret } from "@taostats/crypto"
 import { log } from "extension-shared"
 
 import type { MessageTypes, RequestTypes, ResponseType } from "../../types"

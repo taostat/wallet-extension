@@ -8,9 +8,9 @@ import {
   evmNativeTokenId,
   Network,
   subNativeTokenId,
-} from "@talismn/chaindata-provider"
-import { isBitcoinAddress, isEthereumAddress, isSs58Address } from "@talismn/crypto"
-import { ScaleApi } from "@talismn/sapi"
+} from "@taostats/chaindata-provider"
+import { isBitcoinAddress, isEthereumAddress, isSs58Address } from "@taostats/crypto"
+import { ScaleApi } from "@taostats/sapi"
 import BigNumber from "bignumber.js"
 import {
   Account,

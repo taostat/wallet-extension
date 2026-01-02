@@ -1,6 +1,6 @@
 import { PolkadotCalls } from "@polkadot-api/descriptors"
-import { ScaleApi } from "@talismn/sapi"
 import { useSuspenseQuery } from "@tanstack/react-query"
+import { ScaleApi } from "@taostats/sapi"
 import { Binary } from "polkadot-api"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"

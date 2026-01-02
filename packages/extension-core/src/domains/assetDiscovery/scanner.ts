@@ -1,5 +1,5 @@
 import PromisePool from "@supercharge/promise-pool"
-import { abiMulticall, erc20BalancesAggregatorAbi } from "@talismn/balances"
+import { abiMulticall, erc20BalancesAggregatorAbi } from "@taostats/balances"
 import {
   EthNetworkId,
   EvmErc20Token,
@@ -7,10 +7,10 @@ import {
   Token,
   TokenId,
   TokenList,
-} from "@talismn/chaindata-provider"
-import { isEthereumAddress } from "@talismn/crypto"
-import { isAccountNotContact, isAccountPlatformEthereum } from "@talismn/keyring"
-import { isTruthy, sleep, throwAfter } from "@talismn/util"
+} from "@taostats/chaindata-provider"
+import { isEthereumAddress } from "@taostats/crypto"
+import { isAccountNotContact, isAccountPlatformEthereum } from "@taostats/keyring"
+import { isTruthy, sleep, throwAfter } from "@taostats/util"
 import { log } from "extension-shared"
 import { chunk, groupBy, isEqual, sortBy, uniq } from "lodash-es"
 import {

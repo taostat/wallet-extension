@@ -1,13 +1,13 @@
 import { bind } from "@react-rxjs/core"
-import { Balance, Balances } from "@talismn/balances"
+import { Balance, Balances } from "@taostats/balances"
 import {
   evmNativeTokenId,
   getNetworkGenesisHash,
   Network,
   NetworkId,
   subNativeTokenId,
-} from "@talismn/chaindata-provider"
-import { isAddressEqual } from "@talismn/crypto"
+} from "@taostats/chaindata-provider"
+import { isAddressEqual } from "@taostats/crypto"
 import {
   Account,
   getAccountGenesisHash,

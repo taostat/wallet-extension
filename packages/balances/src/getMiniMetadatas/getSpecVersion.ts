@@ -1,5 +1,5 @@
-import { IChainConnectorDot } from "@talismn/chain-connectors"
-import { DotNetworkId } from "@talismn/chaindata-provider"
+import { IChainConnectorDot } from "@taostats/chain-connectors"
+import { DotNetworkId } from "@taostats/chaindata-provider"
 
 // cache the promise so it can be shared across multiple calls
 const CACHE_GET_SPEC_VERSION = new Map<string, Promise<number>>()

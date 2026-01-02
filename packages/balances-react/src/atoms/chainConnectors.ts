@@ -1,6 +1,6 @@
-import { ChainConnectors } from "@talismn/balances"
-import { ChainConnectorDot, ChainConnectorEth, ChainConnectorSol } from "@talismn/chain-connectors"
-import { connectionMetaDb } from "@talismn/connection-meta"
+import { ChainConnectors } from "@taostats/balances"
+import { ChainConnectorDot, ChainConnectorEth, ChainConnectorSol } from "@taostats/chain-connectors"
+import { connectionMetaDb } from "@taostats/connection-meta"
 import { atom } from "jotai"
 
 import { chaindataProviderAtom } from "./chaindataProvider"

@@ -3,8 +3,8 @@ import {
   SubAssetsToken,
   SubAssetsTokenSchema,
   subAssetTokenId,
-} from "@talismn/chaindata-provider"
-import { getStorageKeyPrefix, parseMetadataRpc } from "@talismn/scale"
+} from "@taostats/chaindata-provider"
+import { getStorageKeyPrefix, parseMetadataRpc } from "@taostats/scale"
 import { assign, keyBy, keys } from "lodash-es"
 import { Binary } from "polkadot-api"
 

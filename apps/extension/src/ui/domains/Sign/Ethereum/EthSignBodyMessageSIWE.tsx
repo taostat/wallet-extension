@@ -1,6 +1,6 @@
 import { hexToString } from "@polkadot/util"
 import { ParsedMessage } from "@spruceid/siwe-parser"
-import { UserRightIcon } from "@talismn/icons"
+import { UserRightIcon } from "@taostats/icons"
 import { Account, EthSignRequest } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useMemo } from "react"

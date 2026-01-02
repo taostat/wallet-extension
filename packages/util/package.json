@@ -1,7 +1,7 @@
 {
-  "name": "@talismn/util",
+  "name": "@taostats/util",
   "version": "0.5.6",
-  "author": "Talisman",
+  "author": "Taostats",
   "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/talismansociety/talisman.git"
   },
-  "main": "dist/talismn-util.cjs.js",
-  "module": "dist/talismn-util.esm.js",
+  "main": "dist/taostats-util.cjs.js",
+  "module": "dist/taostats-util.esm.js",
   "files": [
     "/dist"
   ],
@@ -32,8 +32,8 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@talismn/eslint-config": "workspace:*",
-    "@talismn/tsconfig": "workspace:*",
+    "@taostats/eslint-config": "workspace:*",
+    "@taostats/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
     "@types/lodash-es": "4.17.12",
     "eslint": "^8.57.1",
@@ -47,7 +47,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@talismn/eslint-config/base"
+      "@taostats/eslint-config/base"
     ]
   }
 }

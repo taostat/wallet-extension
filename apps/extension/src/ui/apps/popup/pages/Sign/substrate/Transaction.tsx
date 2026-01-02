@@ -1,5 +1,5 @@
 import { hexToNumber } from "@polkadot/util"
-import { validateHexString } from "@talismn/util"
+import { validateHexString } from "@taostats/util"
 import { isJsonPayload } from "extension-core"
 import { FC, useEffect, useMemo } from "react"
 

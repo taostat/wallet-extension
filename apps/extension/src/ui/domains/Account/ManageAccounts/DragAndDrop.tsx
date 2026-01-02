@@ -6,7 +6,7 @@ import {
   useDroppable,
 } from "@dnd-kit/core"
 import { CSS } from "@dnd-kit/utilities"
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { CSSProperties, FC, ReactNode, useMemo } from "react"
 
 import { UiTreePosition } from "./types"

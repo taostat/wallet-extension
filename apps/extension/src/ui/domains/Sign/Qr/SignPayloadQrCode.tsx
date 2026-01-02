@@ -2,8 +2,8 @@ import { wrapBytes } from "@polkadot/extension-dapp/wrapBytes"
 import { TypeRegistry } from "@polkadot/types"
 import { u8aConcat, u8aToU8a } from "@polkadot/util"
 import { decodeAddress } from "@polkadot/util-crypto"
-import { fromHex } from "@talismn/scale"
 import { useQuery } from "@tanstack/react-query"
+import { fromHex } from "@taostats/scale"
 import {
   AccountPolkadotVault,
   isRawPayload,

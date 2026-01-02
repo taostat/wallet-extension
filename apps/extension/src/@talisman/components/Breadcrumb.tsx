@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ChevronRightIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, Fragment, ReactNode } from "react"
 
 type BreadcrumbItem = {

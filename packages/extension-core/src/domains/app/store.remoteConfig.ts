@@ -1,4 +1,4 @@
-import { evmNativeTokenId, subNativeTokenId } from "@talismn/chaindata-provider"
+import { evmNativeTokenId, subNativeTokenId } from "@taostats/chaindata-provider"
 import { DEBUG, log, TEST } from "extension-shared"
 import merge from "lodash-es/merge"
 

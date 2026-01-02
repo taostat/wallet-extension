@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "talisman-ui"

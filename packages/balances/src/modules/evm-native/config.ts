@@ -1,4 +1,4 @@
-import { EvmNativeTokenSchema } from "@talismn/chaindata-provider"
+import { EvmNativeTokenSchema } from "@taostats/chaindata-provider"
 
 export { type EvmNativeTokenConfig as TokenConfig } from "./types"
 

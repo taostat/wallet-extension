@@ -1,4 +1,4 @@
-import { KeypairCurve } from "@talismn/crypto"
+import { KeypairCurve } from "@taostats/crypto"
 import { useCallback, useState } from "react"
 
 import { provideContext } from "@talisman/util/provideContext"

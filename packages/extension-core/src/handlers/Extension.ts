@@ -1,4 +1,4 @@
-import { isAccountOwned } from "@talismn/keyring"
+import { isAccountOwned } from "@taostats/keyring"
 import { IS_FIREFOX, isTalismanHostname } from "extension-shared"
 
 import { db } from "../db"

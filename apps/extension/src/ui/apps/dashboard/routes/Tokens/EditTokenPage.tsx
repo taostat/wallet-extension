@@ -1,5 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import * as Sentry from "@sentry/browser"
+import { useForm } from "@tanstack/react-form"
 import {
   getGithubTokenLogoUrlByCoingeckoId,
   isTokenCustom,
@@ -9,9 +10,8 @@ import {
   isTokenSubForeignAssets,
   Token,
   TokenBaseSchema,
-} from "@talismn/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon, RotateCcwIcon, SaveIcon } from "@talismn/icons"
-import { useForm } from "@tanstack/react-form"
+} from "@taostats/chaindata-provider"
+import { CopyIcon, ExternalLinkIcon, RotateCcwIcon, SaveIcon } from "@taostats/icons"
 import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"

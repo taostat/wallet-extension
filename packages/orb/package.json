@@ -1,7 +1,7 @@
 {
-  "name": "@talismn/orb",
+  "name": "@taostats/orb",
   "version": "0.3.5",
-  "author": "Talisman",
+  "author": "Taostats",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
@@ -13,20 +13,20 @@
     "url": "https://github.com/talismansociety/talisman.git"
   },
   "type": "module",
-  "main": "dist/talismn-orb.cjs.js",
-  "module": "dist/talismn-orb.esm.js",
+  "main": "dist/taostats-orb.cjs.js",
+  "module": "dist/taostats-orb.esm.js",
   "scripts": {
     "lint": "eslint src --max-warnings 0",
     "clean": "rm -rf dist .turbo node_modules"
   },
   "dependencies": {
-    "@talismn/crypto": "workspace:*",
+    "@taostats/crypto": "workspace:*",
     "blueimp-md5": "2.19.0",
     "color": "4.2.3"
   },
   "devDependencies": {
-    "@talismn/eslint-config": "workspace:*",
-    "@talismn/tsconfig": "workspace:*",
+    "@taostats/eslint-config": "workspace:*",
+    "@taostats/tsconfig": "workspace:*",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "eslint": "^8.57.1",

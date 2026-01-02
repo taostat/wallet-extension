@@ -1,5 +1,5 @@
-import { ArrowDownIcon, ArrowUpIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ArrowDownIcon, ArrowUpIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { useMemo } from "react"
 
 import { RiskAnalysisImageBase, RiskAnalysisPlaceholderImage } from "./RiskAnalysisImageBase"

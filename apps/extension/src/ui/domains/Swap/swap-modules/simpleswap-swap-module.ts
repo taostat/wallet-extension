@@ -6,9 +6,9 @@ import {
   evmNativeTokenId,
   subAssetTokenId,
   subNativeTokenId,
-} from "@talismn/balances-react"
-import { encodeAnyAddress, isAddressEqual, isEthereumAddress } from "@talismn/crypto"
-import { ScaleApi } from "@talismn/sapi"
+} from "@taostats/balances-react"
+import { encodeAnyAddress, isAddressEqual, isEthereumAddress } from "@taostats/crypto"
+import { ScaleApi } from "@taostats/sapi"
 import BigNumber from "bignumber.js"
 import { remoteConfigStore } from "extension-core"
 import { UNKNOWN_TOKEN_URL } from "extension-shared"

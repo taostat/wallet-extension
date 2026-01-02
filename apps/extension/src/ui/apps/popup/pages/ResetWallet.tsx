@@ -1,4 +1,4 @@
-import { AlertTriangleIcon, ChevronLeftIcon, LockIcon } from "@talismn/icons"
+import { AlertTriangleIcon, ChevronLeftIcon, LockIcon } from "@taostats/icons"
 import { ChangeEventHandler, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, FormFieldInputText } from "talisman-ui"

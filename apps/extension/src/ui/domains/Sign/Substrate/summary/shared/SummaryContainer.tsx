@@ -1,5 +1,5 @@
-import { AlertCircleIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { AlertCircleIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, PropsWithChildren } from "react"
 
 export const SummaryContainer: FC<PropsWithChildren & { className?: string }> = ({

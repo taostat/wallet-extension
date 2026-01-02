@@ -1,5 +1,5 @@
 import { ExtDef } from "@polkadot/types/extrinsic/signedExtensions/types"
-import { MetadataBuilder, MetadataLookup, UnifiedMetadata } from "@talismn/scale"
+import { MetadataBuilder, MetadataLookup, UnifiedMetadata } from "@taostats/scale"
 
 import { SapiConnector } from "./getSapiConnector"
 

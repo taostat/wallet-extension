@@ -1,5 +1,5 @@
-import { ChevronLeftIcon, CopyIcon, MoreHorizontalIcon, StarIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ChevronLeftIcon, CopyIcon, MoreHorizontalIcon, StarIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { format } from "date-fns/format"
 import { Nft, NftCollection } from "extension-core"
 import { log } from "extension-shared"

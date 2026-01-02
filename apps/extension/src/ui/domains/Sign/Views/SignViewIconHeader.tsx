@@ -5,8 +5,8 @@ import {
   XCircleIcon,
   ZapIcon,
   ZapOffIcon,
-} from "@talismn/icons"
-import { classNames } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, useMemo } from "react"
 
 export type SignIconType = "vote" | "stake" | "unstake" | "ok" | "nok" | "transfer"

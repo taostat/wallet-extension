@@ -1,4 +1,4 @@
-import { SolSplTokenSchema } from "@talismn/chaindata-provider"
+import { SolSplTokenSchema } from "@taostats/chaindata-provider"
 
 export const MODULE_TYPE = SolSplTokenSchema.shape.type.value
 export const PLATFORM = SolSplTokenSchema.shape.platform.value

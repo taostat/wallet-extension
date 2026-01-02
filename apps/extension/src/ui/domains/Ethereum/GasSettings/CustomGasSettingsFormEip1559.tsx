@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { EthNetworkId, TokenId } from "@talismn/chaindata-provider"
-import { ArrowRightIcon, InfoIcon, LoaderIcon } from "@talismn/icons"
-import { formatDecimals } from "@talismn/util"
+import { EthNetworkId, TokenId } from "@taostats/chaindata-provider"
+import { ArrowRightIcon, InfoIcon, LoaderIcon } from "@taostats/icons"
+import { formatDecimals } from "@taostats/util"
 import {
   EthGasSettingsEip1559,
   EthTransactionDetails,

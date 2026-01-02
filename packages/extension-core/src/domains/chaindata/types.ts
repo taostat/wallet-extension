@@ -4,7 +4,7 @@ import {
   NetworkOfPlatform,
   NetworkPlatform,
   Token,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 
 import { RequestIdOnly } from "../../types/base"
 

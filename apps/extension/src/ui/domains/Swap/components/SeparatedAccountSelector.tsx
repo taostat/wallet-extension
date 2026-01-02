@@ -5,8 +5,8 @@ import {
   isAddressEqual,
   isBitcoinAddress,
   normalizeAddress,
-} from "@talismn/crypto"
-import { ChevronLeftIcon } from "@talismn/icons"
+} from "@taostats/crypto"
+import { ChevronLeftIcon } from "@taostats/icons"
 import {
   Account,
   isAccountAddressEthereum,

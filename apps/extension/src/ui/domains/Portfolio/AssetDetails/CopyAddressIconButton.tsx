@@ -1,5 +1,5 @@
-import { NetworkId } from "@talismn/chaindata-provider"
-import { CopyIcon } from "@talismn/icons"
+import { NetworkId } from "@taostats/chaindata-provider"
+import { CopyIcon } from "@taostats/icons"
 import { FC, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"

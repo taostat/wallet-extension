@@ -1,5 +1,5 @@
-import { StarIcon } from "@talismn/icons"
-import { classNames, isNotNil } from "@talismn/util"
+import { StarIcon } from "@taostats/icons"
+import { classNames, isNotNil } from "@taostats/util"
 import { NftCollection, NftData } from "extension-core"
 import { FC, useCallback, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"

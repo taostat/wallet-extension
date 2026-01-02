@@ -1,4 +1,4 @@
-import { DotNetwork } from "@talismn/chaindata-provider"
+import { DotNetwork } from "@taostats/chaindata-provider"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 

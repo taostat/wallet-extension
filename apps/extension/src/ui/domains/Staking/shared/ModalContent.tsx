@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 
 import { IS_POPUP } from "@ui/util/constants"
 

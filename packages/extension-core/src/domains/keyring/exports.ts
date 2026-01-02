@@ -1,5 +1,5 @@
 // export only types and type guards, they are needed by the front end
-export type * from "@talismn/keyring"
+export type * from "@taostats/keyring"
 
 export {
   isAccountOfType,
@@ -18,4 +18,4 @@ export {
   getAccountGenesisHash,
   getAccountSignetUrl,
   isAccountPlatformSolana,
-} from "@talismn/keyring"
+} from "@taostats/keyring"

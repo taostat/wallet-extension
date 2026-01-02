@@ -1,7 +1,7 @@
-import { BalanceFormatter } from "@talismn/balances"
-import { TokenId } from "@talismn/chaindata-provider"
-import { ChevronRightIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { BalanceFormatter } from "@taostats/balances"
+import { TokenId } from "@taostats/chaindata-provider"
+import { ChevronRightIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   EthPriorityOptionName,
   EthPriorityOptionNameEip1559,

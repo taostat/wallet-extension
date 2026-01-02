@@ -1,5 +1,5 @@
 import { bind } from "@react-rxjs/core"
-import { CopyIcon, LoaderIcon } from "@talismn/icons"
+import { CopyIcon, LoaderIcon } from "@taostats/icons"
 import {
   Account,
   isAccountOfType,

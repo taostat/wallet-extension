@@ -1,6 +1,6 @@
 import { APIError } from "@blockaid/client"
 import { JsonRpcScanParams } from "@blockaid/client/resources/evm/json-rpc.mjs"
-import { EthNetworkId } from "@talismn/chaindata-provider"
+import { EthNetworkId } from "@taostats/chaindata-provider"
 import { EthSignMessageMethod } from "extension-core"
 import { log } from "extension-shared"
 

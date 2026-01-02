@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { useTranslation } from "react-i18next"
 
 import { Fiat } from "../../Asset/Fiat"

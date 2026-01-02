@@ -7,8 +7,13 @@ import {
   NetworkId,
   NetworkList,
   Token,
-} from "@talismn/chaindata-provider"
-import { encodeAddressSs58, isAddressEqual, isSs58Address, normalizeAddress } from "@talismn/crypto"
+} from "@taostats/chaindata-provider"
+import {
+  encodeAddressSs58,
+  isAddressEqual,
+  isSs58Address,
+  normalizeAddress,
+} from "@taostats/crypto"
 import {
   Account,
   Address,

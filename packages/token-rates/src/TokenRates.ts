@@ -1,4 +1,4 @@
-import { evmErc20TokenId, Token, TokenId } from "@talismn/chaindata-provider"
+import { evmErc20TokenId, Token, TokenId } from "@taostats/chaindata-provider"
 
 import {
   SUPPORTED_CURRENCIES,

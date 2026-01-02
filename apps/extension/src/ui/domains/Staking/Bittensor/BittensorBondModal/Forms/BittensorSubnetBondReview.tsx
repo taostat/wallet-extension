@@ -1,5 +1,5 @@
-import { EditIcon, InfoIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { EditIcon, InfoIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {

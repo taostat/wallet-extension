@@ -1,4 +1,4 @@
-import { isTruthy } from "@talismn/util"
+import { isTruthy } from "@taostats/util"
 import { Transaction } from "dexie"
 import pako from "pako"
 

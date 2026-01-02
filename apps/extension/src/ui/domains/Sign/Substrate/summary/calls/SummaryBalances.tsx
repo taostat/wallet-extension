@@ -1,6 +1,6 @@
 import { HydrationCalls, PolkadotCalls } from "@polkadot-api/descriptors"
-import { ScaleApi } from "@talismn/sapi"
 import { useSuspenseQuery } from "@tanstack/react-query"
+import { ScaleApi } from "@taostats/sapi"
 import { Address } from "extension-core"
 import { useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"

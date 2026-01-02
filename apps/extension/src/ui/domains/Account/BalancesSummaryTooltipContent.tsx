@@ -1,5 +1,5 @@
-import { Balances } from "@talismn/balances"
-import { isBooleanTrue } from "@talismn/util"
+import { Balances } from "@taostats/balances"
+import { isBooleanTrue } from "@taostats/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { TooltipContent } from "talisman-ui"

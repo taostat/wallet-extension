@@ -3,8 +3,8 @@ import {
   RequestSigningApproveSignature as PolkadotRequestSigningApproveSignature,
   RequestSign,
 } from "@polkadot/extension-base/background/types"
-import { EthNetworkId, SolNetworkId } from "@talismn/chaindata-provider"
-import { Account } from "@talismn/keyring"
+import { EthNetworkId, SolNetworkId } from "@taostats/chaindata-provider"
+import { Account } from "@taostats/keyring"
 import { RpcTransactionRequest } from "viem"
 
 import { BaseRequest, BaseRequestId } from "../../types/base"

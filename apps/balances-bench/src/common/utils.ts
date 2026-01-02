@@ -1,4 +1,4 @@
-import { EthNetwork, EthNetworkId } from "@talismn/chaindata-provider"
+import { EthNetwork, EthNetworkId } from "@taostats/chaindata-provider"
 import { camelCase, fromPairs, toPairs } from "lodash-es"
 import { Chain, ChainContract, createPublicClient, fallback, http, PublicClient } from "viem"
 import * as viemChains from "viem/chains"

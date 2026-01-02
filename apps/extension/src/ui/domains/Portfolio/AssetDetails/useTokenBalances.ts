@@ -5,8 +5,8 @@ import {
   filterBaseLocks,
   getBalanceId,
   getLockTitle,
-} from "@talismn/balances"
-import { TokenId } from "@talismn/chaindata-provider"
+} from "@taostats/balances"
+import { TokenId } from "@taostats/chaindata-provider"
 import BigNumber from "bignumber.js"
 import { Address } from "extension-core"
 import { useMemo } from "react"

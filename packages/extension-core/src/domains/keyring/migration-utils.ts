@@ -1,5 +1,5 @@
 import { KeypairType } from "@polkadot/util-crypto/types"
-import { KeypairCurve } from "@talismn/crypto"
+import { KeypairCurve } from "@taostats/crypto"
 
 export const pjsKeypairTypeToCurve = (type: KeypairType): KeypairCurve => {
   switch (type) {

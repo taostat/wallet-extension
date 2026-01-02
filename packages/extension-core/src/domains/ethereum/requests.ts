@@ -1,4 +1,4 @@
-import { EvmErc20Token, EvmNativeToken, Network } from "@talismn/chaindata-provider"
+import { EvmErc20Token, EvmNativeToken, Network } from "@taostats/chaindata-provider"
 
 import type { Port } from "../../types/base"
 import { requestStore } from "../../libs/requests/store"

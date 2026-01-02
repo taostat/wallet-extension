@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { Modal } from "talisman-ui"
 
 import { CopyAddressWizard } from "./CopyAddressWizard"

@@ -1,4 +1,4 @@
-import { EthNetwork } from "@talismn/chaindata-provider"
+import { EthNetwork } from "@taostats/chaindata-provider"
 import { EvmAddress } from "extension-core"
 import { FC } from "react"
 

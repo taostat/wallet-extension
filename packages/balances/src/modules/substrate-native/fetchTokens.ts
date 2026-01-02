@@ -1,5 +1,9 @@
-import { IChainConnectorDot } from "@talismn/chain-connectors"
-import { SubNativeToken, subNativeTokenId, SubNativeTokenSchema } from "@talismn/chaindata-provider"
+import { IChainConnectorDot } from "@taostats/chain-connectors"
+import {
+  SubNativeToken,
+  subNativeTokenId,
+  SubNativeTokenSchema,
+} from "@taostats/chaindata-provider"
 import { assign } from "lodash-es"
 import z from "zod/v4"
 

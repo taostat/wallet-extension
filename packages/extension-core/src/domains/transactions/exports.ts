@@ -1,4 +1,4 @@
-import { isAddressEqual } from "@talismn/crypto"
+import { isAddressEqual } from "@taostats/crypto"
 
 import { WalletTransaction } from "./types"
 

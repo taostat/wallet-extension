@@ -1,4 +1,4 @@
-import { subDTaoTokenId } from "@talismn/chaindata-provider"
+import { subDTaoTokenId } from "@taostats/chaindata-provider"
 
 import { getScaledAlphaPrice } from "./alphaPrice"
 import { GetDynamicInfosResult, SubDTaoBalance } from "./types"

@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { IS_FIREFOX } from "extension-shared"
 import { useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"

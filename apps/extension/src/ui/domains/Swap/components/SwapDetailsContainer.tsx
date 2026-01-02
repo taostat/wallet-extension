@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { HTMLProps, ReactNode } from "react"
 
 export const SwapDetailsContainer = ({

@@ -1,5 +1,5 @@
-import { ArrowRightIcon, XIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ArrowRightIcon, XIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { isAccountAddressSs58 } from "extension-core"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"

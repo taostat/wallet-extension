@@ -1,5 +1,5 @@
 import { Transition, TransitionChild } from "@headlessui/react"
-import { ArrowUpRightIcon } from "@talismn/icons"
+import { ArrowUpRightIcon } from "@taostats/icons"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Toggle } from "talisman-ui"

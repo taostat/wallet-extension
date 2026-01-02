@@ -3,8 +3,8 @@ import {
   isAccountNotContact,
   isAccountPlatformEthereum,
   isAccountPlatformPolkadot,
-} from "@talismn/keyring"
-import { getQuery$, isNotNil, keepAlive } from "@talismn/util"
+} from "@taostats/keyring"
+import { getQuery$, isNotNil, keepAlive } from "@taostats/util"
 import { log } from "extension-shared"
 import { isEqual } from "lodash-es"
 import {

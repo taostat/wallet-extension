@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { useTranslation } from "react-i18next"
 

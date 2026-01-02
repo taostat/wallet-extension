@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { TokenId, TokenList } from "@talismn/chaindata-provider"
-import { fetchTokenRates, TokenRatesError, TokenRatesList } from "@talismn/token-rates"
+import { TokenId, TokenList } from "@taostats/chaindata-provider"
+import { fetchTokenRates, TokenRatesError, TokenRatesList } from "@taostats/token-rates"
 import { remoteConfigStore, settingsStore } from "extension-core"
 import { log } from "extension-shared"
 import { SetStateAction, useEffect, useState } from "react"

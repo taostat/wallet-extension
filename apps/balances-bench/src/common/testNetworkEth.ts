@@ -3,9 +3,9 @@
 
 import { existsSync, readFileSync, writeFileSync } from "fs"
 
-import { BALANCE_MODULES } from "@talismn/balances"
-import { ChainConnectorEthStub } from "@talismn/chain-connectors"
-import { EthNetwork, TokenType } from "@talismn/chaindata-provider"
+import { BALANCE_MODULES } from "@taostats/balances"
+import { ChainConnectorEthStub } from "@taostats/chain-connectors"
+import { EthNetwork, TokenType } from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 
 export type EthNetworkConfig = Pick<EthNetwork, "id" | "rpcs" | "contracts"> & {

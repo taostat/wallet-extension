@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { log } from "extension-shared"
 import { FC, useMemo } from "react"
 

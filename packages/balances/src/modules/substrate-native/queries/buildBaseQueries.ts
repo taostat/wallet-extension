@@ -1,5 +1,5 @@
-import { decodeScale, ScaleStorageCoder } from "@talismn/scale"
-import { isNotNil } from "@talismn/util"
+import { decodeScale, ScaleStorageCoder } from "@taostats/scale"
+import { isNotNil } from "@taostats/util"
 import { Binary, Enum } from "polkadot-api"
 
 import { AmountWithLabel, IBalance, MiniMetadata } from "../../../types"

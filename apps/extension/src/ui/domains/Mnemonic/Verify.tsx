@@ -1,6 +1,6 @@
 import { wordlist } from "@scure/bip39/wordlists/english"
-import { ChevronLeftIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ChevronLeftIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "talisman-ui"

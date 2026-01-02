@@ -1,6 +1,6 @@
 import { assert } from "@polkadot/util"
-import { base58 } from "@talismn/crypto"
-import { getTalismanOrbDataUrl } from "@talismn/orb"
+import { base58 } from "@taostats/crypto"
+import { getTalismanOrbDataUrl } from "@taostats/orb"
 import { DEFAULT_ETH_CHAIN_ID } from "extension-shared"
 
 import type { Port } from "../../types/base"

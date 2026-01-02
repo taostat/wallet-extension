@@ -1,6 +1,6 @@
-import { TokenId } from "@talismn/chaindata-provider"
-import { ScaleApi } from "@talismn/sapi"
 import { useQuery } from "@tanstack/react-query"
+import { TokenId } from "@taostats/chaindata-provider"
+import { ScaleApi } from "@taostats/sapi"
 import { log } from "extension-shared"
 import { useMemo } from "react"
 

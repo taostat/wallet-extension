@@ -1,13 +1,13 @@
+import { useVirtualizer } from "@tanstack/react-virtual"
 import {
   isTokenCustom,
   isTokenEvmUniswapV2,
   isTokenInTypes,
   NetworkId,
   Token,
-} from "@talismn/chaindata-provider"
-import { isAddressEqual } from "@talismn/crypto"
-import { MoreHorizontalIcon } from "@talismn/icons"
-import { useVirtualizer } from "@tanstack/react-virtual"
+} from "@taostats/chaindata-provider"
+import { isAddressEqual } from "@taostats/crypto"
+import { MoreHorizontalIcon } from "@taostats/icons"
 import { activeTokensStore, isTokenActive } from "extension-core"
 import { sortBy } from "lodash-es"
 import { FC, useEffect, useMemo, useState } from "react"

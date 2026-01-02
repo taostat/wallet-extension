@@ -1,5 +1,5 @@
-import { BraveIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { BraveIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { useTranslation } from "react-i18next"
 import { Button } from "talisman-ui"
 

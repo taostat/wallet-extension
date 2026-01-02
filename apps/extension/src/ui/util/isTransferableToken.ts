@@ -3,7 +3,7 @@ import {
   subNativeTokenId,
   subTokensTokenId,
   Token,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 
 // on substrate, there could be multiple tokens with same symbol on a same chain (ACA, KINT..)
 // a good fix would be to detect on subsquid side if ANY account has tokens, if not the token shouldn't be included in github tokens file

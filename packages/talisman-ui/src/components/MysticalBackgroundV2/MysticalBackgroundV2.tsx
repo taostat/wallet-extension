@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { useRef } from "react"
 import { useMeasure, useMouse } from "react-use"
 

@@ -1,4 +1,4 @@
-import { SubTokensToken, subTokensTokenId } from "@talismn/chaindata-provider"
+import { SubTokensToken, subTokensTokenId } from "@taostats/chaindata-provider"
 import { assign } from "lodash-es"
 
 import { IBalanceModule } from "../../types/IBalanceModule"

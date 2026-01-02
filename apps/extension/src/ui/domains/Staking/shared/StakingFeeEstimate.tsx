@@ -1,5 +1,5 @@
-import { TokenId } from "@talismn/chaindata-provider"
-import { classNames } from "@talismn/util"
+import { TokenId } from "@taostats/chaindata-provider"
+import { classNames } from "@taostats/util"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

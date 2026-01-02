@@ -8,7 +8,7 @@ import {
   NetworkId,
   Token,
   TokenId,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 import { assign, keyBy, values } from "lodash-es"
 
 import { StorageProvider } from "../../libs/Store"

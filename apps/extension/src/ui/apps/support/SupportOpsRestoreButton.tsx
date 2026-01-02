@@ -1,4 +1,4 @@
-import { UploadIcon } from "@talismn/icons"
+import { UploadIcon } from "@taostats/icons"
 import { ChangeEventHandler, FC, useCallback, useState } from "react"
 import { Button, Modal, ModalDialog, useOpenClose } from "talisman-ui"
 

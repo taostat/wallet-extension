@@ -4,7 +4,7 @@ import {
   subAssetTokenId,
   subNativeTokenId,
   TokenList,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 import { RemoteConfigStoreData } from "extension-core"
 
 import { CoinbaseTokenNetwork } from "../coinbase/types"

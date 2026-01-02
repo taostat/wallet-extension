@@ -1,5 +1,5 @@
-import { CheckCircleIcon, LoaderIcon } from "@talismn/icons"
-import { NsLookupType } from "@talismn/on-chain-id"
+import { CheckCircleIcon, LoaderIcon } from "@taostats/icons"
+import { NsLookupType } from "@taostats/on-chain-id"
 import { PillButton } from "talisman-ui"
 
 import { WithTooltip } from "@talisman/components/Tooltip"

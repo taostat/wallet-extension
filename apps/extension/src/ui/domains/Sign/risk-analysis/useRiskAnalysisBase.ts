@@ -1,3 +1,4 @@
+import { QueryFunction, QueryKey, useQuery } from "@tanstack/react-query"
 import {
   evmErc20TokenId,
   evmNativeTokenId,
@@ -5,9 +6,8 @@ import {
   solNativeTokenId,
   solSplTokenId,
   TokenId,
-} from "@talismn/chaindata-provider"
-import { isNotNil } from "@talismn/util"
-import { QueryFunction, QueryKey, useQuery } from "@tanstack/react-query"
+} from "@taostats/chaindata-provider"
+import { isNotNil } from "@taostats/util"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 

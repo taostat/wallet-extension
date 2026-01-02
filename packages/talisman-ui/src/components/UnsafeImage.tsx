@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
 
 export type UnsafeImageProps = React.DetailedHTMLProps<

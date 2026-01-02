@@ -1,4 +1,4 @@
-import { base58 } from "@talismn/crypto"
+import { base58 } from "@taostats/crypto"
 import { isAccountOfType, SolSigningRequest } from "extension-core"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

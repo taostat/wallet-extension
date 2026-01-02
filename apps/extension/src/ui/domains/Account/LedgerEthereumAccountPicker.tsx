@@ -1,5 +1,5 @@
-import { isAddressEqual } from "@talismn/crypto"
-import { isNotNil } from "@talismn/util"
+import { isAddressEqual } from "@taostats/crypto"
+import { isNotNil } from "@taostats/util"
 import { Account, getEthLedgerDerivationPath, LedgerEthDerivationPathType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"

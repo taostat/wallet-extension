@@ -1,4 +1,4 @@
-import { SubTokensTokenSchema } from "@talismn/chaindata-provider"
+import { SubTokensTokenSchema } from "@taostats/chaindata-provider"
 
 export type { SubTokensTokenConfig as TokenConfig } from "./types"
 export type { SubTokensModuleConfig as ModuleConfig } from "./types"

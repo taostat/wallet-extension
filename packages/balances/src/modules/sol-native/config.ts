@@ -1,4 +1,4 @@
-import { SolNativeTokenSchema } from "@talismn/chaindata-provider"
+import { SolNativeTokenSchema } from "@taostats/chaindata-provider"
 
 export { type SolNativeTokenConfig as TokenConfig } from "./types"
 

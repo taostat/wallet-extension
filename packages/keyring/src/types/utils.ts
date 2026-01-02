@@ -5,7 +5,7 @@ import {
   isBitcoinAddress,
   isEthereumAddress,
   isSolanaAddress,
-} from "@talismn/crypto"
+} from "@taostats/crypto"
 
 import type { Account, AccountLedgerPolkadot, AccountType } from "./account"
 

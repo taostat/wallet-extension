@@ -1,5 +1,5 @@
-import { DotNetworkId, SubDTaoToken } from "@talismn/chaindata-provider"
-import { isAddressEqual } from "@talismn/crypto"
+import { DotNetworkId, SubDTaoToken } from "@taostats/chaindata-provider"
+import { isAddressEqual } from "@taostats/crypto"
 import { useMemo } from "react"
 
 import { useAccounts, useBalances, useSelectedCurrency } from "@ui/state"

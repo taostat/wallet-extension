@@ -1,4 +1,4 @@
-import { useTalismanOrb } from "@talismn/orb"
+import { useTalismanOrb } from "@taostats/orb"
 import { useMemo } from "react"
 
 const TALISMAN_COLORS = ["#fd4848", "#d5ff5c"] as const

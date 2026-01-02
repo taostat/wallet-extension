@@ -1,4 +1,4 @@
-import { AlertTriangleIcon } from "@talismn/icons"
+import { AlertTriangleIcon } from "@taostats/icons"
 import { useTranslation } from "react-i18next"
 
 import { WithTooltip } from "@talisman/components/Tooltip"

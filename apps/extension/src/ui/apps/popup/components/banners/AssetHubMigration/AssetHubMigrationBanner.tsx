@@ -1,4 +1,4 @@
-import { XIcon } from "@talismn/icons"
+import { XIcon } from "@taostats/icons"
 import { isAccountAddressSs58 } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"

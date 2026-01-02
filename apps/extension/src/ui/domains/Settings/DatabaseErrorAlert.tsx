@@ -1,4 +1,4 @@
-import { AlertCircleIcon, DatabaseIcon } from "@talismn/icons"
+import { AlertCircleIcon, DatabaseIcon } from "@taostats/icons"
 import { errorsStore } from "extension-core"
 import { DISCORD_TALISMAN_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"

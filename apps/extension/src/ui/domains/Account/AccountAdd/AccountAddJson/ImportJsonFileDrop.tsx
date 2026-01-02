@@ -1,5 +1,5 @@
-import { FileCheckIcon, FilePlusIcon, FileXIcon, XIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { FileCheckIcon, FilePlusIcon, FileXIcon, XIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, MouseEventHandler, useCallback, useMemo, useState } from "react"
 import { DropzoneOptions, useDropzone } from "react-dropzone"
 import { Trans, useTranslation } from "react-i18next"

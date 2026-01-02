@@ -1,6 +1,6 @@
-import { BalancesResult, IBalance } from "@talismn/balances"
-import { TokenId } from "@talismn/chaindata-provider"
-import { TokenRateCurrency } from "@talismn/token-rates"
+import { BalancesResult, IBalance } from "@taostats/balances"
+import { TokenId } from "@taostats/chaindata-provider"
+import { TokenRateCurrency } from "@taostats/token-rates"
 
 import { Address } from "../../types/base"
 

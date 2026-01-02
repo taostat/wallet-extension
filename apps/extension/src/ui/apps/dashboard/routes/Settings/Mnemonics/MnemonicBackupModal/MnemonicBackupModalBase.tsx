@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { ModalDialog } from "talisman-ui"
 
 import { useMnemonicBackupModal } from "./context"

@@ -1,4 +1,4 @@
-import { decodeScale, ScaleStorageCoder } from "@talismn/scale"
+import { decodeScale, ScaleStorageCoder } from "@taostats/scale"
 import { Binary } from "polkadot-api"
 
 import { IBalance, MiniMetadata } from "../../../types"

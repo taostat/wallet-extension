@@ -14,8 +14,8 @@ import {
   UsbIcon,
   UserIcon,
   XIcon,
-} from "@talismn/icons"
-import { classNames, isNotNil } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames, isNotNil } from "@taostats/util"
 import { LedgerTransportType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"

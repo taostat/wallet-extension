@@ -1,5 +1,5 @@
-import { BalanceFormatter } from "@talismn/balances"
-import { classNames } from "@talismn/util"
+import { BalanceFormatter } from "@taostats/balances"
+import { classNames } from "@taostats/util"
 import { FC } from "react"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"

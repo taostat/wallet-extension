@@ -1,5 +1,5 @@
-import { AnyMiniMetadata, MINIMETADATA_VERSION } from "@talismn/chaindata-provider"
-import { toHex, Twox128 } from "@talismn/scale"
+import { AnyMiniMetadata, MINIMETADATA_VERSION } from "@taostats/chaindata-provider"
+import { toHex, Twox128 } from "@taostats/scale"
 
 /** For fast db access, you can calculate the primary key for a miniMetadata using this method */
 export const deriveMiniMetadataId = ({

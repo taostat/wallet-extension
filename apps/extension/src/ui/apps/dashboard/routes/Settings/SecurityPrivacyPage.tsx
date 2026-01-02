@@ -6,7 +6,7 @@ import {
   InfoIcon,
   LockIcon,
   ShieldZapIcon,
-} from "@talismn/icons"
+} from "@taostats/icons"
 import { IS_FIREFOX } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"

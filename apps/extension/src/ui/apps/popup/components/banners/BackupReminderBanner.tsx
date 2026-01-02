@@ -1,5 +1,5 @@
-import { XIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { XIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { appStore } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

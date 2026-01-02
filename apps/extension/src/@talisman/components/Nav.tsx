@@ -1,4 +1,4 @@
-import { classNames } from "@talismn/util"
+import { classNames } from "@taostats/util"
 import { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from "react"
 import { NavLink, To } from "react-router-dom"
 

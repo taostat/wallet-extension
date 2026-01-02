@@ -1,5 +1,5 @@
-import { ChevronDownIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { ChevronDownIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { motion, TargetAndTransition, Transition } from "framer-motion"
 import throttle from "lodash-es/throttle"
 import { CSSProperties, FC, ReactNode, useEffect, useMemo, useRef, useState } from "react"

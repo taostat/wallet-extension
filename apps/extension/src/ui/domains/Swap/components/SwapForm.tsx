@@ -1,5 +1,5 @@
-import { useSyncSwapsChaindata } from "@talismn/balances-react"
-import { AlertCircleIcon, ExternalLinkIcon, LoaderIcon } from "@talismn/icons"
+import { useSyncSwapsChaindata } from "@taostats/balances-react"
+import { AlertCircleIcon, ExternalLinkIcon, LoaderIcon } from "@taostats/icons"
 import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { loadable } from "jotai/utils"

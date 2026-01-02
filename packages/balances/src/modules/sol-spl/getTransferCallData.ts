@@ -6,7 +6,7 @@ import {
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token"
 import { Connection, PublicKey, TransactionInstruction } from "@solana/web3.js"
-import { isTokenOfType } from "@talismn/chaindata-provider"
+import { isTokenOfType } from "@taostats/chaindata-provider"
 
 import { IBalanceModule } from "../../types/IBalanceModule"
 import { MODULE_TYPE } from "./config"

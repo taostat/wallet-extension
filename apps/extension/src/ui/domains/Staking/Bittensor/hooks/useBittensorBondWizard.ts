@@ -1,10 +1,10 @@
-import { Balance, BalanceFormatter, Balances, getBalanceId } from "@talismn/balances"
+import { Balance, BalanceFormatter, Balances, getBalanceId } from "@taostats/balances"
 import {
   DotNetworkId,
   subDTaoTokenId,
   subNativeTokenId,
   TokenId,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 import { Address, isAccountOfType } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

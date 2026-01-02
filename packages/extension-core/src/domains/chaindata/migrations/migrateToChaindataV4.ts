@@ -10,7 +10,7 @@ import {
   subForeignAssetTokenId,
   SubNativeToken,
   subNativeTokenId,
-} from "@talismn/chaindata-provider"
+} from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 import { assign, fromPairs, keyBy, toPairs } from "lodash-es"
 import { filter, firstValueFrom } from "rxjs"

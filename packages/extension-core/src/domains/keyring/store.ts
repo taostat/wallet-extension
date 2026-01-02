@@ -1,5 +1,5 @@
 import { assert } from "@polkadot/util"
-import { KeypairCurve } from "@talismn/crypto"
+import { KeypairCurve } from "@taostats/crypto"
 import {
   Account,
   AddAccountDeriveOptions,
@@ -11,7 +11,7 @@ import {
   Mnemonic,
   UpdateAccountOptions,
   UpdateMnemonicOptions,
-} from "@talismn/keyring"
+} from "@taostats/keyring"
 import { log } from "extension-shared"
 import { isEqual } from "lodash-es"
 import {

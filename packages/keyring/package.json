@@ -1,7 +1,7 @@
 {
-  "name": "@talismn/keyring",
+  "name": "@taostats/keyring",
   "version": "1.0.6",
-  "author": "Talisman",
+  "author": "Taostats",
   "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/talismansociety/talisman.git"
   },
-  "main": "dist/talismn-keyring.cjs.js",
-  "module": "dist/talismn-keyring.esm.js",
+  "main": "dist/taostats-keyring.cjs.js",
+  "module": "dist/taostats-keyring.esm.js",
   "files": [
     "/dist"
   ],
@@ -26,11 +26,11 @@
     "clean": "rm -rf dist .turbo node_modules"
   },
   "dependencies": {
-    "@talismn/crypto": "workspace:*"
+    "@taostats/crypto": "workspace:*"
   },
   "devDependencies": {
-    "@talismn/eslint-config": "workspace:*",
-    "@talismn/tsconfig": "workspace:*",
+    "@taostats/eslint-config": "workspace:*",
+    "@taostats/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
     "@swc/jest": "^0.2.36",
     "eslint": "^8.57.1",
@@ -47,7 +47,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@talismn/eslint-config/base"
+      "@taostats/eslint-config/base"
     ]
   }
 }

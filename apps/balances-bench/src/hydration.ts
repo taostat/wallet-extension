@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import "./common/polyfills"
 
-import { isTokenSubHydration } from "@talismn/chaindata-provider"
+import { isTokenSubHydration } from "@taostats/chaindata-provider"
 import { log } from "extension-shared"
 
 import { DotNetworkConfig, testNetworkDot } from "./common/testNetworkDot"

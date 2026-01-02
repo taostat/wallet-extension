@@ -1,5 +1,5 @@
-import { AlertCircleIcon, SwapIcon } from "@talismn/icons"
-import { classNames, tokensToPlanck } from "@talismn/util"
+import { AlertCircleIcon, SwapIcon } from "@taostats/icons"
+import { classNames, tokensToPlanck } from "@taostats/util"
 import BigNumber from "bignumber.js"
 import { log } from "extension-shared"
 import {

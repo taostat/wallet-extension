@@ -1,5 +1,5 @@
-import { XIcon } from "@talismn/icons"
-import { cn } from "@talismn/util"
+import { XIcon } from "@taostats/icons"
+import { cn } from "@taostats/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton } from "talisman-ui"

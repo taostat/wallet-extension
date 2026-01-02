@@ -3,8 +3,8 @@ import {
   evmErc20TokenId,
   evmNativeTokenId,
   TokenId,
-} from "@talismn/chaindata-provider"
-import { isEthereumAddress } from "@talismn/crypto"
+} from "@taostats/chaindata-provider"
+import { isEthereumAddress } from "@taostats/crypto"
 import { ASSET_DISCOVERY_API_URL, log } from "extension-shared"
 import urlJoin from "url-join"
 

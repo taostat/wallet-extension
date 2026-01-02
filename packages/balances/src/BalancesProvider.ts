@@ -8,9 +8,9 @@ import {
   parseTokenId,
   Token,
   TokenId,
-} from "@talismn/chaindata-provider"
-import { AccountPlatform, getAccountPlatformFromAddress, normalizeAddress } from "@talismn/crypto"
-import { getSharedObservable, isNotNil, isTruthy, keepAlive } from "@talismn/util"
+} from "@taostats/chaindata-provider"
+import { AccountPlatform, getAccountPlatformFromAddress, normalizeAddress } from "@taostats/crypto"
+import { getSharedObservable, isNotNil, isTruthy, keepAlive } from "@taostats/util"
 import { assign, fromPairs, isEqual, keyBy, keys, toPairs, uniq, values } from "lodash-es"
 import {
   BehaviorSubject,

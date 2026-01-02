@@ -1,6 +1,6 @@
-import { EthNetworkId } from "@talismn/chaindata-provider"
-import { isAbortError } from "@talismn/util"
 import { useQuery } from "@tanstack/react-query"
+import { EthNetworkId } from "@taostats/chaindata-provider"
+import { isAbortError } from "@taostats/util"
 import { EvmAddress, getErc20TokenInfo, getUniswapV2TokenInfo } from "extension-core"
 import { ContractFunctionExecutionError } from "viem"
 

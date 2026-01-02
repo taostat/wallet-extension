@@ -1,6 +1,6 @@
-import { BalanceFormatter } from "@talismn/balances"
-import { EthNetwork } from "@talismn/chaindata-provider"
-import { classNames } from "@talismn/util"
+import { BalanceFormatter } from "@taostats/balances"
+import { EthNetwork } from "@taostats/chaindata-provider"
+import { classNames } from "@taostats/util"
 import { FC } from "react"
 
 import { SignParamButton } from "./SignParamButton"

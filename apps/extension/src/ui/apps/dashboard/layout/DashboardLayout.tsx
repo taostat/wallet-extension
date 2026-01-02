@@ -1,5 +1,5 @@
-import { HistoryIcon, SettingsIcon, TalismanHandIcon, ZapIcon } from "@talismn/icons"
-import { classNames, isTruthy } from "@talismn/util"
+import { HistoryIcon, SettingsIcon, TalismanHandIcon, ZapIcon } from "@taostats/icons"
+import { classNames, isTruthy } from "@taostats/util"
 import { TALISMAN_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

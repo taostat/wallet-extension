@@ -1,4 +1,4 @@
-import { BalanceFormatter } from "@talismn/balances"
+import { BalanceFormatter } from "@taostats/balances"
 import {
   ArrowRightIcon,
   ClockIcon,
@@ -7,8 +7,8 @@ import {
   XIcon,
   ZapFastIcon,
   ZapIcon,
-} from "@talismn/icons"
-import { classNames } from "@talismn/util"
+} from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, ReactNode, SVGProps, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, IconButton, Modal } from "talisman-ui"

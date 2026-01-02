@@ -1,5 +1,5 @@
-import { encodeAnyAddress } from "@talismn/crypto"
-import { classNames } from "@talismn/util"
+import { encodeAnyAddress } from "@taostats/crypto"
+import { classNames } from "@taostats/util"
 import { FC, useMemo } from "react"
 
 import { WithTooltip } from "@talisman/components/Tooltip"

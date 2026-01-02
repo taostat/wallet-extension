@@ -1,5 +1,5 @@
-import { LockIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { LockIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import BigNumber from "bignumber.js"
 import { ReactNode } from "react"
 

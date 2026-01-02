@@ -6,9 +6,9 @@ import {
   evmErc20TokenId,
   EvmNativeToken,
   evmNativeTokenId,
-} from "@talismn/chaindata-provider"
-import { normalizeAddress } from "@talismn/crypto"
-import { throwAfter } from "@talismn/util"
+} from "@taostats/chaindata-provider"
+import { normalizeAddress } from "@taostats/crypto"
+import { throwAfter } from "@taostats/util"
 import { DEFAULT_ETH_CHAIN_ID, isTalismanUrl, log } from "extension-shared"
 import i18next from "i18next"
 import {

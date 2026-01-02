@@ -1,6 +1,6 @@
 import { Placement } from "@floating-ui/react"
-import { CopyIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { CopyIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "talisman-ui"

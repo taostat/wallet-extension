@@ -1,4 +1,4 @@
-import { NetworkId } from "@talismn/chaindata-provider"
+import { NetworkId } from "@taostats/chaindata-provider"
 import { FC } from "react"
 
 import { useNetworkDisplayName } from "@ui/state/networks"

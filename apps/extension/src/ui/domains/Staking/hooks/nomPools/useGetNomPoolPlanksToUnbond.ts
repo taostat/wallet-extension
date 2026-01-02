@@ -1,6 +1,6 @@
-import { ScaleApi } from "@talismn/sapi"
-import { papiStringify } from "@talismn/scale"
 import { useQuery } from "@tanstack/react-query"
+import { ScaleApi } from "@taostats/sapi"
+import { papiStringify } from "@taostats/scale"
 
 import { NomPoolMember } from "../../types"
 

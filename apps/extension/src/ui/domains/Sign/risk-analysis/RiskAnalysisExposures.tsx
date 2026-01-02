@@ -4,7 +4,7 @@ import {
   Erc1155Exposure,
   TransactionScanResponse,
 } from "@blockaid/client/resources/index.mjs"
-import { getBlockExplorerUrls, NetworkId } from "@talismn/chaindata-provider"
+import { getBlockExplorerUrls, NetworkId } from "@taostats/chaindata-provider"
 import { toPairs, values } from "lodash-es"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"

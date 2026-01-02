@@ -1,5 +1,5 @@
-import { CheckIcon } from "@talismn/icons"
-import { classNames } from "@talismn/util"
+import { CheckIcon } from "@taostats/icons"
+import { classNames } from "@taostats/util"
 import {
   ButtonHTMLAttributes,
   FC,

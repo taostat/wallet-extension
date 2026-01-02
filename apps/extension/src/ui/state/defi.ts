@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { normalizeAddress } from "@talismn/crypto"
-import { Loadable } from "@talismn/util"
+import { normalizeAddress } from "@taostats/crypto"
+import { Loadable } from "@taostats/util"
 import { DefiPosition } from "extension-core"
 import { BehaviorSubject, combineLatest, map, Observable, ReplaySubject, shareReplay } from "rxjs"
 
