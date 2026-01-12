@@ -26,7 +26,7 @@ export const SIGNET_LANDING_URL = "https://talisman.xyz/signet"
 export const SIGNET_APP_URL = "https://signet.talisman.xyz"
 
 // Wallet-specific invite link
-export const DISCORD_URL = "https://discord.gg/EF3Zf4R5bD"
+export const DISCORD_URL = "https://discord.gg/g4WNuFjW"
 
 // Docs URLs
 export const DOCS_URL_PREFIX = "https://docs.talisman.xyz/talisman"

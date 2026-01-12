@@ -1,5 +1,3 @@
-import imgAnalyticsFlower from "@taostats/theme/images/onboard_analytics_flower.png"
-import imgAnalyticsSwitch from "@taostats/theme/images/onboard_analytics_switch.png"
 import { PRIVACY_POLICY_URL } from "extension-shared"
 import { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -49,14 +47,11 @@ export const PrivacyPage = () => {
 
   return (
     <OnboardLayout withBack analytics={ANALYTICS_PAGE} className="min-h-[55rem] min-w-[60rem]">
-      <img src={imgAnalyticsSwitch} className="fixed left-80 top-80" alt="" />
-      <img src={imgAnalyticsFlower} className="fixed bottom-32 right-10" alt="" />
       <OnboardDialog title={t("Manage your privacy")}>
         <Trans t={t}>
           <div className="flex flex-col gap-8">
             <p>
-              To help improve Talisman we’d like to collect anonymous usage information and send
-              anonymized error reports.
+              We’d like to collect anonymous usage information and send anonymised error reports.
             </p>
             <p>
               We respect your data and never record sensitive or identifying information. You can

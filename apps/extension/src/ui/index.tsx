@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ErrorBoundaryDatabaseMigration } from "@taostats/components/ErrorBoundaryDatabaseMigration"
 import { NotificationsContainer } from "@taostats/components/Notifications/NotificationsContainer"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TalismanErrorBoundary } from "@taostats/components/TalismanErrorBoundary"
+import { TaostatsWalletErrorBoundary } from "@taostats/components/TaostatsWalletErrorBoundary"
 import { ReactNode, StrictMode, Suspense } from "react"
 import { createRoot } from "react-dom/client"
 import { HashRouter } from "react-router-dom"
@@ -48,7 +48,7 @@ export const renderTalisman = (
   const root = createRoot(container)
   root.render(
     <StrictMode>
-      <TalismanErrorBoundary>
+      <TaostatsWalletErrorBoundary>
         <ErrorBoundaryDatabaseMigration>
           <Suspense fallback={<SuspenseTracker name="Root" />}>
             <KeepBackgroundOpen />
@@ -61,7 +61,7 @@ export const renderTalisman = (
             </Subscribe>
           </Suspense>
         </ErrorBoundaryDatabaseMigration>
-      </TalismanErrorBoundary>
+      </TaostatsWalletErrorBoundary>
     </StrictMode>,
   )
 }

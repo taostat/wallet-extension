@@ -5,7 +5,7 @@ import { DEBUG, DISCORD_URL } from "extension-shared"
 import { ReactNode, useCallback } from "react"
 import { Button } from "taostats-ui"
 
-export const TalismanErrorBoundary = ({ children }: { children?: ReactNode }) => (
+export const TaostatsWalletErrorBoundary = ({ children }: { children?: ReactNode }) => (
   <SentryErrorBoundary fallback={ErrorMessage}>{children}</SentryErrorBoundary>
 )
 

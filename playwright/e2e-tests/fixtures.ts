@@ -68,7 +68,7 @@ export const test = base.extend<{
     await page.getByTestId("onboarding-password-confirm-button").click()
     // accepting privacy terms
     await page.getByTestId("onboarding-privacy-accept-button").click()
-    // Enter Talisman
+    // Enter Taostats Wallet
     await page.getByTestId("onboarding-enter-talisman-button").click()
     await utilize(page)
   },

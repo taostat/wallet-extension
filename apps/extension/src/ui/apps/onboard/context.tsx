@@ -32,7 +32,9 @@ const useAppOnboardProvider = ({ isResettingWallet = false }: { isResettingWalle
     if (!password || !passwordConfirm) throw new Error("Password is not set")
 
     const result = await api.onboardCreatePassword(password, passwordConfirm)
-    if (!result) throw new Error("Failed to set password")
+    if (!result) {
+      throw new Error("Failed to set password")
+    }
     return result
   }, [])
 
