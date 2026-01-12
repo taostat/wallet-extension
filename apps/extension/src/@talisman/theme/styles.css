@@ -1,37 +1,49 @@
 @import "talisman-ui/src/styles/styles.css";
 
 @font-face {
-  font-family: "Surt";
-  font-weight: normal;
-  src: url("/fonts/Surt-Regular.woff") format("woff");
+  font-family: "Everett";
+  font-weight: 100;
+  src: url("/fonts/everett/TWKEverett-Hairline-web.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Surt";
-  font-weight: bold;
-  src: url("/fonts/Surt-SemiBold.woff2") format("woff2");
+  font-family: "Everett";
+  font-weight: 200;
+  src: url("/fonts/everett/TWKEverett-Ultralight-web.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "SurtExpanded";
-  font-weight: normal;
-  src: url("/fonts/Surt-SemiBoldExp.woff2") format("woff2");
+  font-family: "Everett";
+  font-weight: 300;
+  src: url("/fonts/everett/TWKEverett-Light-web.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "WhyteInktrapMedium";
-  font-weight: normal;
-  src: url("/fonts/Whyte-Inktrap-Medium.woff2") format("woff2");
+  font-family: "Everett";
+  font-weight: 400;
+  src: url("/fonts/everett/TWKEverett-Regular-web.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Inter";
-  font-weight: normal;
-  src: url("/fonts/Inter.woff2") format("woff2");
+  font-family: "Everett";
+  font-weight: 500;
+  src: url("/fonts/everett/TWKEverett-Medium-web.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Unbounded";
-  font-weight: normal;
-  src: url("/fonts/Unbounded.woff") format("woff");
+  font-family: "Everett";
+  font-weight: 700;
+  src: url("/fonts/everett/TWKEverett-Bold-web.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Everett";
+  font-weight: 800;
+  src: url("/fonts/everett/TWKEverett-Extrabold-web.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Everett";
+  font-weight: 900;
+  src: url("/fonts/everett/TWKEverett-Black-web.woff2") format("woff2");
 }

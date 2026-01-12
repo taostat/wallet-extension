@@ -16,10 +16,7 @@ import { KeepWalletUnlockedMode, useKeepWalletUnlocked } from "@ui/hooks/useKeep
 
 import { initSentryFrontend } from "../sentry"
 
-const FONT_FAMILIES_DEFAULT: FontFamily[] = ["Surt", "SurtExpanded", "Inter"]
-const FONT_FAMILIES_ONBOARDING: FontFamily[] = ["Surt", "SurtExpanded", "WhyteInktrapMedium"]
-const FONT_FAMILIES =
-  window.location.pathname === "/onboarding.html" ? FONT_FAMILIES_ONBOARDING : FONT_FAMILIES_DEFAULT
+const FONT_FAMILIES: FontFamily[] = ["Everett"]
 preloadFonts(FONT_FAMILIES)
 
 const KeepBackgroundOpen = () => {

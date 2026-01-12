@@ -53,7 +53,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
 
   return (
     <div className={classNames("flex flex-col items-start justify-between", className)}>
-      <div className="font-inter flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         <div className="text-body flex gap-4 text-xs">
           <div className="leading-10 tracking-[0.06px]">{t("Total Portfolio")}</div>
           <button
@@ -82,7 +82,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
           </button>
           <Fiat
             className={classNames(
-              "font-inter overflow-hidden text-ellipsis whitespace-pre pr-10 text-[3.2rem] font-bold leading-[3.6rem] tracking-[0.016px]",
+              "overflow-hidden text-ellipsis whitespace-pre pr-10 text-[3.2rem] font-bold leading-[3.6rem] tracking-[0.016px]",
               disabled && "text-body-secondary",
             )}
             amount={portfolioTotal}

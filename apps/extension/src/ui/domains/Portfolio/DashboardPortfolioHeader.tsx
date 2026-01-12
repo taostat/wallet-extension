@@ -129,7 +129,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
           className="absolute left-0 top-0 z-0 size-full select-none rounded-sm opacity-30"
         />
       )}
-      <div className="font-inter z-[1] flex w-full flex-col gap-4 overflow-hidden">
+      <div className="z-[1] flex w-full flex-col gap-4 overflow-hidden">
         <SelectionScope folder={selectedFolder} account={selectedAccount} />
         <div className="flex w-full max-w-full items-center gap-6">
           <button
@@ -147,7 +147,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
           </button>
           <Fiat
             className={classNames(
-              "font-inter overflow-hidden text-ellipsis whitespace-pre pr-10 text-[4.8rem] font-bold leading-[4.8rem]",
+              "overflow-hidden text-ellipsis whitespace-pre pr-10 text-[4.8rem] font-bold leading-[4.8rem]",
             )}
             amount={selectedTotal}
             isBalance

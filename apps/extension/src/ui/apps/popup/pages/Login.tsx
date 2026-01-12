@@ -166,7 +166,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
         <div className="mt-[60px]">
           <HandMonoLogo className="inline-block text-[64px]" />
         </div>
-        <h1 className="font-surtExpanded mt-[34px] text-lg">{t("Unlock Taostats Wallet")}</h1>
+        <h1 className="mt-[34px] text-lg">{t("Unlock Taostats Wallet")}</h1>
         {errors.password?.message && (
           <div className="text-alert-warn mt-8">{errors.password?.message}</div>
         )}
