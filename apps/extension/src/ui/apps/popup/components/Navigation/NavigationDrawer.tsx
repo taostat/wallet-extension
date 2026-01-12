@@ -13,7 +13,7 @@ import {
   UsersIcon,
   XIcon,
 } from "@taostats/icons"
-import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -92,7 +92,7 @@ export const NavigationDrawer: FC = () => {
       action: "Swap button",
     })
 
-    /*if (!canSwap) */ return window.open(TALISMAN_WEB_APP_SWAP_URL, "_blank"), window.close()
+    /*if (!canSwap) */ return window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank"), window.close()
 
     // await openSwapTokensModal()
     // import { sleep } from "@taostats/util"

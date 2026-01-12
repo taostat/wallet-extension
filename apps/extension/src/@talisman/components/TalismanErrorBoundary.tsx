@@ -1,7 +1,7 @@
 import { ErrorBoundary as SentryErrorBoundary } from "@sentry/react"
 import { TalismanDeadHandIcon } from "@taostats/icons"
 import { DexieError } from "dexie"
-import { DEBUG, DISCORD_TALISMAN_URL } from "extension-shared"
+import { DEBUG, DISCORD_URL } from "extension-shared"
 import { ReactNode, useCallback } from "react"
 import { Button } from "taostats-ui"
 
@@ -37,7 +37,7 @@ function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) 
             <>
               <a
                 className="text-primary/80 hover:text-primary focus:text-primary"
-                href={DISCORD_TALISMAN_URL}
+                href={DISCORD_URL}
                 target="_blank"
                 rel="noreferrer noopener"
               >

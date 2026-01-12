@@ -1,7 +1,7 @@
 import { BalanceFormatter } from "@taostats/balances"
 import { ArrowRightIcon, CloseIcon } from "@taostats/icons"
 import { cn } from "@taostats/util"
-import { TALISMAN_WEB_APP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
@@ -128,7 +128,7 @@ export const SeekGetFeeDiscountsDrawer = ({
           {totalOwned && totalOwned.planck > 0n && (
             <Button
               onClick={() => {
-                open(`${TALISMAN_WEB_APP_URL}${webAppStakingPath}`, "_blank", "noopener,noreferrer")
+                open(`${TAOSTATS_WEB_APP_URL}${webAppStakingPath}`, "_blank", "noopener,noreferrer")
                 onCloseModal()
               }}
             >

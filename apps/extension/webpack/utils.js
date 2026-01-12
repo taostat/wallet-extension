@@ -80,8 +80,8 @@ const getSentryPlugin = (env) => {
   return sentryWebpackPlugin({
     // see https://docs.sentry.io/product/cli/configuration/ for details
     authToken: process.env.SENTRY_AUTH_TOKEN,
-    org: "talisman",
-    project: "talisman-extension",
+    org: "taostats",
+    project: "taostats-extension",
     release: getRelease(env),
     cleanArtifacts: true,
     sourcemaps: {

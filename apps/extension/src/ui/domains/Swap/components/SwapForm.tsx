@@ -1,6 +1,6 @@
 import { useSyncSwapsChaindata } from "@taostats/balances-react"
 import { AlertCircleIcon, ExternalLinkIcon, LoaderIcon } from "@taostats/icons"
-import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { loadable } from "jotai/utils"
 import { useCallback, useEffect, useMemo, useState } from "react"
@@ -131,7 +131,7 @@ export const SwapForm = ({
           <h4 className="text-sm">{t("Select asset")}</h4>
           <a
             className="text-grey-500 hover:text-grey-400 inline-flex items-center gap-2 text-xs"
-            href={TALISMAN_WEB_APP_SWAP_URL}
+            href={TAOSTATS_WEB_APP_SWAP_URL}
             target="_blank"
             rel="noreferrer noopener"
           >

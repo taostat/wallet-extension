@@ -1,4 +1,4 @@
-import { DISCORD_TALISMAN_URL } from "extension-shared"
+import { DISCORD_URL } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
 
 export const AccountAddDcentDisabledMessage = () => {
@@ -11,7 +11,7 @@ export const AccountAddDcentDisabledMessage = () => {
           For more information, please contact our support team on{" "}
           <a
             className="text-body underline"
-            href={DISCORD_TALISMAN_URL}
+            href={DISCORD_URL}
             target="_blank"
             rel="noreferrer noopener"
           >

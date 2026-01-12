@@ -1,4 +1,4 @@
-import { DISCORD_TALISMAN_URL } from "extension-shared"
+import { DISCORD_URL } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Checkbox, ModalDialog } from "taostats-ui"
 
@@ -26,7 +26,7 @@ export const MigratePasswordError = () => {
                 team on{" "}
                 <a
                   className="text-white opacity-100"
-                  href={DISCORD_TALISMAN_URL}
+                  href={DISCORD_URL}
                   target="_blank"
                   rel="noreferrer noopener"
                 >
@@ -59,7 +59,7 @@ export const MigratePasswordError = () => {
             If this problem continues, please contact our support team on{" "}
             <a
               className="text-white opacity-100"
-              href={DISCORD_TALISMAN_URL}
+              href={DISCORD_URL}
               target="_blank"
               rel="noreferrer noopener"
             >

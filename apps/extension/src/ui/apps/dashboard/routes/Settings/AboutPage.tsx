@@ -7,7 +7,7 @@ import {
   TalismanHandIcon,
 } from "@taostats/icons"
 import {
-  DISCORD_TALISMAN_URL,
+  DISCORD_URL,
   DOCS_URL_PREFIX,
   PRIVACY_POLICY_URL,
   RELEASE_NOTES_URL,
@@ -79,7 +79,7 @@ const Content = () => {
         <CtaButton
           title={t("Help and Support")}
           subtitle={t("For help and support please visit our Discord")}
-          to={DISCORD_TALISMAN_URL}
+          to={DISCORD_URL}
           iconLeft={HelpCircleIcon}
           iconRight={ExternalLinkIcon}
         />

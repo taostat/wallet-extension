@@ -1,6 +1,6 @@
 import { AlertCircleIcon, DatabaseIcon } from "@taostats/icons"
 import { errorsStore } from "extension-core"
-import { DISCORD_TALISMAN_URL } from "extension-shared"
+import { DISCORD_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
@@ -74,7 +74,7 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
                 If this problem continues, please contact our support team on{" "}
                 <a
                   className="text-body underline"
-                  href={DISCORD_TALISMAN_URL}
+                  href={DISCORD_URL}
                   target="_blank"
                   rel="noreferrer noopener"
                 >

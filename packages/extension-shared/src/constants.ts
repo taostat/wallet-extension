@@ -18,15 +18,15 @@ export const RAMPS_RAMP_API_URL = "https://ramp-api.talisman.xyz"
 export const ASSET_DISCOVERY_API_URL = "https://ada.talisman.xyz"
 
 export const TAOSTATS_WEB_APP_DOMAIN = "taostats.io"
-export const TALISMAN_WEB_APP_URL = "https://app.talisman.xyz"
-export const TALISMAN_WEB_APP_STAKING_URL = "https://app.talisman.xyz/staking"
-export const TALISMAN_WEB_APP_SWAP_URL = "https://app.talisman.xyz/transport/swap"
+export const TAOSTATS_WEB_APP_URL = "https://taostats.io"
+export const TAOSTATS_WEB_APP_STAKING_URL = "https://dash.taostats.io/stake"
+export const TAOSTATS_WEB_APP_SWAP_URL = "https://taostats.io/swap"
 
 export const SIGNET_LANDING_URL = "https://talisman.xyz/signet"
 export const SIGNET_APP_URL = "https://signet.talisman.xyz"
 
 // Wallet-specific invite link
-export const DISCORD_TALISMAN_URL = "https://discord.gg/EF3Zf4R5bD"
+export const DISCORD_URL = "https://discord.gg/EF3Zf4R5bD"
 
 // Docs URLs
 export const DOCS_URL_PREFIX = "https://docs.talisman.xyz/talisman"

@@ -7,7 +7,7 @@ import {
   ZapIcon,
 } from "@taostats/icons"
 import { classNames } from "@taostats/util"
-import { TALISMAN_WEB_APP_STAKING_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useMatch, useNavigate } from "react-router-dom"
@@ -62,7 +62,7 @@ export const BottomNav = () => {
       name: "Goto",
       action: "Staking button",
     })
-    window.open(TALISMAN_WEB_APP_STAKING_URL, "_blank")
+    window.open(TAOSTATS_WEB_APP_STAKING_URL, "_blank")
     window.close()
   }, [])
 

@@ -1,6 +1,6 @@
 import { HistoryIcon, SettingsIcon, TalismanHandIcon, ZapIcon } from "@taostats/icons"
 import { classNames, isTruthy } from "@taostats/util"
-import { TALISMAN_WEB_APP_STAKING_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { matchPath, useLocation, useNavigate, useSearchParams } from "react-router-dom"
@@ -124,7 +124,7 @@ const HorizontalNav = () => {
       name: "Goto",
       action: "Staking button",
     })
-    window.open(TALISMAN_WEB_APP_STAKING_URL, "_blank")
+    window.open(TAOSTATS_WEB_APP_STAKING_URL, "_blank")
   }, [])
 
   const handleActivityClick = useCallback(() => {

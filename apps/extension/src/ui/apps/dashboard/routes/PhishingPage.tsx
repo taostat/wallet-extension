@@ -1,5 +1,5 @@
 import { AlertTriangleIcon } from "@taostats/icons"
-import { TALISMAN_WEB_APP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
@@ -48,7 +48,7 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
                 </Trans>
               </div>
               <div className="w-full">
-                <a href={TALISMAN_WEB_APP_URL}>
+                <a href={TAOSTATS_WEB_APP_URL}>
                   <Button className="mb-6 w-full" primary>
                     {t("Get me out of here")}
                   </Button>

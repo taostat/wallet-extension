@@ -2,7 +2,7 @@ import { Balance, Balances } from "@taostats/balances"
 import { NetworkId, subNativeTokenId, TokenId } from "@taostats/chaindata-provider"
 import { isNotNil } from "@taostats/util"
 import { Address, RemoteConfigStoreData } from "extension-core"
-import { TALISMAN_WEB_APP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { MouseEventHandler, useCallback, useMemo } from "react"
 
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -70,7 +70,7 @@ export const useBondButton = ({
         }
         case "seek": {
           const seekStakingPath = remoteConfig.seek.webAppStakingPath
-          window.open(`${TALISMAN_WEB_APP_URL}${seekStakingPath}`, "_blank", "noopener")
+          window.open(`${TAOSTATS_WEB_APP_URL}${seekStakingPath}`, "_blank", "noopener")
           break
         }
         case "nominationPool": {

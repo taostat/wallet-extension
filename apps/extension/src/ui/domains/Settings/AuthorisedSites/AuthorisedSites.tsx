@@ -1,5 +1,5 @@
 import { ProviderType } from "extension-core"
-import { TALISMAN_WEB_APP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
@@ -86,7 +86,7 @@ export const AuthorisedSites = () => {
                 Link: (
                   // eslint-disable-next-line jsx-a11y/anchor-has-content
                   <a
-                    href={TALISMAN_WEB_APP_URL}
+                    href={TAOSTATS_WEB_APP_URL}
                     target="_blank"
                     className="text-grey-200 hover:text-body"
                   ></a>

@@ -1,6 +1,6 @@
 import { ArrowRightCircleIcon, ChevronRightIcon, XIcon } from "@taostats/icons"
 import { classNames, cn } from "@taostats/util"
-import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -191,7 +191,7 @@ const useGetStarted = () => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "swap" })
 
     if (canSwap) return void openSwapTokensModal()
-    window.open(TALISMAN_WEB_APP_SWAP_URL, "_blank")
+    window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank")
     closeIfEmbeddedPopup()
   }, [canSwap, openSwapTokensModal])
 

@@ -10,7 +10,7 @@ import {
 import { TalismanOrbRectangle } from "@taostats/orb"
 import { classNames, isNotNil } from "@taostats/util"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
-import { TALISMAN_WEB_APP_SWAP_URL } from "extension-shared"
+import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMatch } from "react-router-dom"
@@ -286,7 +286,7 @@ const TopActions: FC = () => {
           icon: RepeatIcon,
           onClick: canSwap
             ? () => openSwapTokensModal()
-            : () => window.open(TALISMAN_WEB_APP_SWAP_URL, "_blank"),
+            : () => window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank"),
           disabled: disableActions,
           disabledReason,
         },
