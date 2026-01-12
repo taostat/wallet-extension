@@ -31,7 +31,7 @@ import { Port } from "../../types/base"
 import { getErc20TokenInfo } from "../../util/getErc20TokenInfo"
 import { urlToDomain } from "../../util/urlToDomain"
 import { filterAccountsByAddresses, getPublicAccounts } from "../accounts/helpers"
-import { TalismanNotOnboardedError } from "../app/utils"
+import { TaostatsNotOnboardedError } from "../app/utils"
 import { activeNetworksStore, isNetworkActive } from "../balances/store.activeNetworks"
 import { activeTokensStore, isTokenActive } from "../balances/store.activeTokens"
 import { keyringStore } from "../keyring/store"
@@ -844,7 +844,7 @@ export class EthTabsHandler extends TabsHandler {
     try {
       await this.stores.app.ensureOnboarded()
     } catch (err) {
-      if (err instanceof TalismanNotOnboardedError)
+      if (err instanceof TaostatsNotOnboardedError)
         throw new EthProviderRpcError(err.message, ETH_ERROR_EIP1993_UNAUTHORIZED)
     }
 

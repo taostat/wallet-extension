@@ -1,5 +1,5 @@
-export class TalismanNotOnboardedError extends Error {
+export class TaostatsNotOnboardedError extends Error {
   constructor() {
-    super("Talisman extension has not been configured yet. Please continue with onboarding.")
+    super("Taostats wallet extension has not been configured yet. Please continue with onboarding.")
   }
 }

@@ -1,5 +1,5 @@
 import { assert } from "@polkadot/util"
-import { DEBUG, log, PORT_CONTENT, PORT_EXTENSION } from "extension-shared"
+import { log, PORT_CONTENT, PORT_EXTENSION } from "extension-shared"
 
 import { sentry } from "./config/sentry"
 import { passwordStore } from "./domains/app/store.password"
@@ -21,11 +21,11 @@ chrome.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
   if (reason === "install") {
     // if install, we want to check the storage for prev onboarded info
     // if not onboarded, show the onboard screen
-    chrome.storage.local.get(["talismanOnboarded", "app"]).then((data) => {
-      // open onboarding when reason === "install" and data?.talismanOnboarded !== true
-      // open dashboard data?.talismanOnboarded === true
+    chrome.storage.local.get(["taostatsWalletOnboarded", "app"]).then((data) => {
+      // open onboarding when reason === "install" and data?.taostatsWalletOnboarded !== true
+      // open dashboard data?.taostatsWalletOnboarded === true
       const legacyOnboarded =
-        data && data.talismanOnboarded && data.talismanOnboarded?.onboarded === "TRUE"
+        data && data.taostatsWalletOnboarded && data.taostatsWalletOnboarded?.onboarded === "TRUE"
       const currentOnboarded = data && data.app && data.app.onboarded === "TRUE"
       if (!legacyOnboarded && !currentOnboarded) {
         chrome.tabs.create({ url: chrome.runtime.getURL("onboarding.html") })
@@ -82,7 +82,7 @@ chrome.runtime.onConnect.addListener((_port): void => {
   // only listen to what we know about
   assert(
     [PORT_CONTENT, PORT_EXTENSION].includes(_port.name),
-    `Unknown connection from ${_port.name}`,
+    `Unknown connection from ${_port.name} ${JSON.stringify(_port)}`,
   )
   let port: chrome.runtime.Port | undefined = _port
 
@@ -99,8 +99,6 @@ chrome.runtime.onConnect.addListener((_port): void => {
   }
   port.onDisconnect.addListener(disconnectHandler)
 })
-
-!DEBUG && chrome.runtime.setUninstallURL("https://thxbye.talisman.xyz/")
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const iconManager = new IconManager()

@@ -4,7 +4,7 @@ import { gt } from "semver"
 import { GeneralReport } from "../../libs/GeneralReport"
 import { migratePasswordV2ToV1 } from "../../libs/migrations/legacyMigrations"
 import { StorageProvider } from "../../libs/Store"
-import { TalismanNotOnboardedError } from "./utils"
+import { TaostatsNotOnboardedError } from "./utils"
 
 type ONBOARDED_TRUE = "TRUE"
 type ONBOARDED_FALSE = "FALSE"
@@ -69,13 +69,13 @@ export class AppStore extends StorageProvider<AppStoreData> {
     super("app", DEFAULT_APP_STATE)
 
     // One time migration to using this store instead of storing directly in local storage from State
-    chrome.storage.local.get("talismanOnboarded").then((result) => {
+    chrome.storage.local.get("taostatsWalletOnboarded").then((result) => {
       const legacyOnboarded =
-        result && "talismanOnboarded" in result && result.talismanOnboarded === TRUE
+        result && "taostatsWalletOnboarded" in result && result.taostatsWalletOnboarded === TRUE
 
       if (legacyOnboarded) {
         this.set({ onboarded: TRUE })
-        chrome.storage.local.remove("talismanOnboarded")
+        chrome.storage.local.remove("taostatsWalletOnboarded")
       }
     })
 
@@ -98,7 +98,7 @@ export class AppStore extends StorageProvider<AppStoreData> {
 
   async ensureOnboarded() {
     const isOnboarded = await this.getIsOnboarded()
-    if (!isOnboarded) throw new TalismanNotOnboardedError()
+    if (!isOnboarded) throw new TaostatsNotOnboardedError()
 
     return true
   }

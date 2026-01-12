@@ -7,7 +7,7 @@ export {
 } from "./domains/app/store.settings"
 export { sessionStore, type SessionStoreData } from "./domains/app/store.session"
 export { appStore, DEFAULT_APP_STATE, type AppStoreData } from "./domains/app/store.app"
-export { TalismanNotOnboardedError } from "./domains/app/utils"
+export { TaostatsNotOnboardedError } from "./domains/app/utils"
 export { passwordStore } from "./domains/app/store.password"
 export { remoteConfigStore } from "./domains/app/store.remoteConfig"
 
