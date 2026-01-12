@@ -17,7 +17,7 @@ class PortManager {
     window.addEventListener("message", ({ data, source }: Message): void => {
       // listener will also fire on messages from extension to the page
       // only allow messages from our window, by the inject
-      if (source !== window || data.origin !== "talisman-page") {
+      if (source !== window || data.origin !== "taostats-page") {
         return
       }
 
@@ -41,7 +41,7 @@ class PortManager {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleResponse = (data: any) => {
-    window.postMessage({ ...data, origin: "talisman-content" }, window.location.toString())
+    window.postMessage({ ...data, origin: "taostats-content" }, window.location.toString())
   }
 }
 

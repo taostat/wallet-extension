@@ -36,7 +36,7 @@ export type Handlers = Record<string, Handler>
 export default class WindowMessageService {
   handlers: Handlers = {}
   idCounter = 0
-  origin = "talisman-page"
+  origin = "taostats-page"
 
   constructor() {
     this.handleResponse = this.handleResponse.bind(this)

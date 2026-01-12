@@ -113,7 +113,7 @@ export declare type MessageTypes = keyof AllMessages
 
 export declare type MessageTypesWithNullRequest = NullKeys<RequestTypes>
 
-export declare type OriginTypes = "talisman-page" | "talisman-extension"
+export declare type OriginTypes = "taostats-page" | "taostats-extension"
 
 export interface TransportRequestMessage<TMessageType extends MessageTypes> {
   id: string

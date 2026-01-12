@@ -49,7 +49,7 @@ async function wakeupBackground(): Promise<Error | null> {
 export default class PortMessageService {
   handlers: Handlers = {}
   idCounter = 0
-  origin = "talisman-extension"
+  origin = "taostats-extension"
   port: Port | undefined = undefined
 
   constructor() {

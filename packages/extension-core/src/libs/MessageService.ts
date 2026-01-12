@@ -42,11 +42,11 @@ type MessageServiceConstructorArgs = {
 export default class MessageService {
   handlers: Handlers = {}
   idCounter = 0
-  origin = "talisman-page"
+  origin = "taostats-page"
   messageSource: Port | Window = window
 
   constructor({ origin, messageSource }: MessageServiceConstructorArgs) {
-    if (origin === "talisman-extension" && !messageSource) {
+    if (origin === "taostats-extension" && !messageSource) {
       throw Error(
         "An instance of chrome.runtime.Port must be provided as 'messageSource' when used with extension as origin",
       )
