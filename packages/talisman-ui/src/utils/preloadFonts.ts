@@ -1,6 +1,6 @@
 import WebFont from "webfontloader"
 
-export type FontFamily = "Everett" | "alien-runes"
+export type FontFamily = "Everett"
 
 export const preloadFonts = (families: FontFamily[]) => {
   // this will append a wf-loading class to html element while fonts are loading
