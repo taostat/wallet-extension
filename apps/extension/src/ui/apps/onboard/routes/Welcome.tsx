@@ -59,7 +59,7 @@ export const WelcomePage = () => {
             <LogoWithSupportPageRedirect />
           </div>
           <div className="welcome-subtitle text-[2rem] lg:text-[2.8rem]">
-            {t("Taostats non-custodial wallet for Bittensor")}
+            {t("Taostats wallet extension for Bittensor")}
           </div>
         </div>
         <div className="welcome-button flex w-[44rem] flex-col gap-8">
