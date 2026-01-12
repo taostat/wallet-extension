@@ -29,7 +29,7 @@ export const BraveWarningNotification = () => {
       <DashboardNotification
         icon={<BraveIcon className="icon" />}
         title={t("Attention Brave users.")}
-        description={t("By default, Brave prevents Talisman from loading all balances.")}
+        description={t("By default, Brave prevents Taostats Wallet from loading all balances.")}
         action={t("Learn how to fix")}
         onActionClick={open}
         onClose={handleHide}

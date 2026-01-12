@@ -24,11 +24,11 @@ export const OnboardingToast = () => {
           <img src="/favicon.svg" width="34" height="34" alt="" />
         </div>
         <div className="grow leading-[2.4rem]">
-          {t("Pin Talisman for easy access")}
+          {t("Pin Taostats Wallet for easy access")}
           <br />
           <Trans
             t={t}
-            defaults="Click <ExtensionButtonIcon /> then <PinIcon /> to pin Talisman"
+            defaults="Click <ExtensionButtonIcon /> then <PinIcon /> to pin Taostats"
             components={{
               ExtensionButtonIcon: <ExtensionButtonIcon className="inline-block align-baseline" />,
               PinIcon: <PinIcon className="inline-block" />,
