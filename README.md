@@ -174,12 +174,6 @@ rm -rf dist && DOCKER_BUILDKIT=1 docker build --output type=local,dest=./dist .
 
 ### Update packages
 
-```bash
-# Make changes, and then run:
-pnpm changeset
-# Select the packages which have been modified and write a commit message
-```
-
 ## Security disclosures
 
 If you find a security issue or exploit, please email us at **security@taostats.xyz**. Please _DO NOT_ create an issue or PR in this repo for security issues.
