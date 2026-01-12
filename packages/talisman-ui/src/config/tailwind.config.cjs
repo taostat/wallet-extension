@@ -43,9 +43,10 @@ module.exports = {
         500: "#fd4848", // rgb(210, 36, 36)
       },
       primary: {
-        DEFAULT: "#d5ff5c", // rgb(213, 255, 92)
-        500: "#d5ff5c", // rgb(213, 255, 92)
-        700: "#c8eb46", // rgb(200, 235, 70)
+        DEFAULT: "#00DBBC",
+        300: "#66E8D5",
+        500: "#00DBBC",
+        700: "#00B89A",
       },
       brand: {
         blue: "#005773", // rgb(0, 87, 115)

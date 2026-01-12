@@ -44,7 +44,7 @@ export const Button: FC<ButtonProps> = ({
         return "bg-transparent text-white border focus:border-2 border-white enabled:hover:bg-white enabled:hover:text-black focus:outline-none focus:border-white enabled:hover:active:bg-black enabled:hover:active:text-white"
 
       case "primary":
-        return "bg-primary-500 text-black border-2 border-transparent focus:outline-none enabled:hover:bg-primary-700 focus:border-white enabled:hover:active:bg-primary"
+        return "bg-primary-500 text-black border-2 border-transparent focus:outline-none enabled:hover:bg-primary-300 focus:border-white enabled:hover:active:bg-primary"
 
       case "orange":
         return "bg-orange-500 text-black border-2 border-transparent focus:outline-none enabled:hover:bg-orange/90 focus:border-white enabled:hover:active:bg-orange"
@@ -63,6 +63,7 @@ export const Button: FC<ButtonProps> = ({
         small ? "h-20 px-8 text-sm" : "text-md h-28 px-12",
         fullWidth ? "w-full" : "",
         colors,
+        "transition-all hover:scale-105",
         className,
       )}
       {...props}
