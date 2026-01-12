@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react"
-import { TALISMAN_WEB_APP_DOMAIN } from "extension-shared"
+import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
 
 import { ADDRESSES } from "../../../../tests/constants"
 import { TestWrapper } from "../../../../tests/TestWrapper"
@@ -10,8 +10,8 @@ test("Can get Authorised Sites", async () => {
     wrapper: TestWrapper,
   })
   await waitFor(() => expect(Object.keys(result.current).length).toBe(2))
-  expect(result.current[TALISMAN_WEB_APP_DOMAIN]).toBeDefined()
-  expect(result.current[TALISMAN_WEB_APP_DOMAIN].addresses).toStrictEqual([
+  expect(result.current[TAOSTATS_WEB_APP_DOMAIN]).toBeDefined()
+  expect(result.current[TAOSTATS_WEB_APP_DOMAIN].addresses).toStrictEqual([
     ADDRESSES.GAV,
     ADDRESSES.ALICE,
   ])

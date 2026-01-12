@@ -4,7 +4,7 @@ import keyring from "@polkadot/ui-keyring"
 import { cryptoWaitReady } from "@polkadot/util-crypto"
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // import Extension from "./Extension"
-import { TALISMAN_WEB_APP_DOMAIN } from "extension-shared"
+import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
 
 import { getMessageSenderFn } from "../../../../tests/util"
 import Extension from "../../../handlers/Extension"
@@ -81,7 +81,7 @@ describe("Sites Authorised Handler", () => {
       },
     ])
 
-    const webApp = await extensionStores.sites.get(TALISMAN_WEB_APP_DOMAIN)
+    const webApp = await extensionStores.sites.get(TAOSTATS_WEB_APP_DOMAIN)
     expect(webApp).toBeTruthy()
     // expect that it has connectAllSubstrate
     expect(webApp.connectAllSubstrate).toBeTruthy()
@@ -92,13 +92,13 @@ describe("Sites Authorised Handler", () => {
     expect(webAppAddresses!.includes(newAddress)).toBeTruthy()
     // update the addresses for that site
     await messageSender("pri(sites.update)", {
-      id: TALISMAN_WEB_APP_DOMAIN,
+      id: TAOSTATS_WEB_APP_DOMAIN,
       authorisedSite: {
         addresses: webAppAddresses!.filter((add) => add !== newAddress),
       },
     })
 
-    const webAppAgain = await extensionStores.sites.get(TALISMAN_WEB_APP_DOMAIN)
+    const webAppAgain = await extensionStores.sites.get(TAOSTATS_WEB_APP_DOMAIN)
     // expect that connectAllSubstrate is undefined now for the web app
     expect(webAppAgain.connectAllSubstrate).toBeUndefined()
     // expect that the new adress is not one of the addresses
@@ -107,7 +107,7 @@ describe("Sites Authorised Handler", () => {
 
   test("Forgetting a site with ethAddresses turns off connectAllSubstrate", async () => {
     // expect that the talisman web app is in the sites store
-    const webApp = await extensionStores.sites.get(TALISMAN_WEB_APP_DOMAIN)
+    const webApp = await extensionStores.sites.get(TAOSTATS_WEB_APP_DOMAIN)
     expect(webApp)
     // expect that it has connectAllSubstrate
     expect(webApp.connectAllSubstrate).toBeTruthy()
@@ -122,37 +122,37 @@ describe("Sites Authorised Handler", () => {
       },
     ])
 
-    await extensionStores.sites.updateSite(TALISMAN_WEB_APP_DOMAIN, {
+    await extensionStores.sites.updateSite(TAOSTATS_WEB_APP_DOMAIN, {
       ethAddresses: [ethAddress],
     })
 
     // update the addresses for that site
     await messageSender("pri(sites.forget)", {
-      id: TALISMAN_WEB_APP_DOMAIN,
+      id: TAOSTATS_WEB_APP_DOMAIN,
       type: "polkadot",
     })
 
     // expect that connectAllSubstrate is undefined now for the web app
-    const webAppAgain = await extensionStores.sites.get(TALISMAN_WEB_APP_DOMAIN)
+    const webAppAgain = await extensionStores.sites.get(TAOSTATS_WEB_APP_DOMAIN)
     expect(webAppAgain)
     expect(webAppAgain.connectAllSubstrate).toBeUndefined()
   })
 
   test("Forgetting a site with only substrate addresses deletes it", async () => {
     // expect that the talisman web app is in the sites store
-    const webApp = await extensionStores.sites.get(TALISMAN_WEB_APP_DOMAIN)
+    const webApp = await extensionStores.sites.get(TAOSTATS_WEB_APP_DOMAIN)
 
     expect(webApp)
     expect(webApp.ethAddresses).toBeUndefined()
 
     // update the addresses for that site
     await messageSender("pri(sites.forget)", {
-      id: TALISMAN_WEB_APP_DOMAIN,
+      id: TAOSTATS_WEB_APP_DOMAIN,
       type: "polkadot",
     })
 
     // expect that the site is gone
-    const webAppAgain = await extensionStores.sites.get(TALISMAN_WEB_APP_DOMAIN)
+    const webAppAgain = await extensionStores.sites.get(TAOSTATS_WEB_APP_DOMAIN)
     expect(webAppAgain).toBeUndefined()
   })
 })

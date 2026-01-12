@@ -6,7 +6,7 @@ import { TypeRegistry } from "@polkadot/types"
 import { cryptoWaitReady, signatureVerify } from "@polkadot/util-crypto"
 import { Account } from "@taostats/keyring"
 import { waitFor } from "@testing-library/dom"
-import { TALISMAN_WEB_APP_DOMAIN } from "extension-shared"
+import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
 
 import { getMessageSenderFn } from "../../tests/util"
 import { db } from "../db"
@@ -410,7 +410,7 @@ describe("Extension", () => {
   test("new accounts are added to authorised sites with connectAllSubstrate automatically", async () => {
     // app.talisman.xyz should already be in the authorised sites store after onboarding
     const account = await getAccount()
-    const talismanSite = await extensionStores.sites.get(TALISMAN_WEB_APP_DOMAIN)
+    const talismanSite = await extensionStores.sites.get(TAOSTATS_WEB_APP_DOMAIN)
     expect(talismanSite && talismanSite.addresses)
     expect(talismanSite.addresses?.includes(account.address))
 
@@ -425,7 +425,7 @@ describe("Extension", () => {
     ])
 
     const sites = await extensionStores.sites.get()
-    const talismanSiteAgain = sites[TALISMAN_WEB_APP_DOMAIN]
+    const talismanSiteAgain = sites[TAOSTATS_WEB_APP_DOMAIN]
     expect(talismanSiteAgain.addresses?.includes(newAddress))
 
     const otherSite = Object.values(sites).find((site) => !site.connectAllSubstrate)

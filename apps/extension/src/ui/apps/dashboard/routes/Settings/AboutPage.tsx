@@ -8,9 +8,9 @@ import {
 } from "@taostats/icons"
 import {
   DISCORD_TALISMAN_URL,
+  DOCS_URL_PREFIX,
   PRIVACY_POLICY_URL,
   RELEASE_NOTES_URL,
-  TALISMAN_DOCS_URL_PREFIX,
   TERMS_OF_USE_URL,
 } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
@@ -65,7 +65,7 @@ const Content = () => {
         <CtaButton
           title={t("Docs")}
           subtitle={t("Learn how to use Talisman")}
-          to={TALISMAN_DOCS_URL_PREFIX}
+          to={DOCS_URL_PREFIX}
           iconLeft={CodeIcon}
           iconRight={ExternalLinkIcon}
         />

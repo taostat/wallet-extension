@@ -16,19 +16,19 @@ import {
 import { TokenRatesStorage } from "@taostats/token-rates"
 import { AnalyticsCaptureRequest, SitesAuthorizedStore, Trees } from "extension-core"
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TALISMAN_WEB_APP_DOMAIN } from "extension-shared"
+import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
 
 import { ADDRESSES } from "../constants"
 
 const authorisedSites = {
-  [TALISMAN_WEB_APP_DOMAIN]: {
+  [TAOSTATS_WEB_APP_DOMAIN]: {
     addresses: Object.entries(ADDRESSES)
       .filter(([name, address]) => name !== "VITALIK")
       .map(([name, address]) => address),
     connectAllSubstrate: true,
-    id: TALISMAN_WEB_APP_DOMAIN,
-    origin: "Talisman",
-    url: `https://${TALISMAN_WEB_APP_DOMAIN}`,
+    id: TAOSTATS_WEB_APP_DOMAIN,
+    origin: "Taostats",
+    url: `https://${TAOSTATS_WEB_APP_DOMAIN}`,
   },
 
   "app.stellaswap.com": {

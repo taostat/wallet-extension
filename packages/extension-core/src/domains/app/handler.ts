@@ -1,6 +1,6 @@
 import { assert } from "@polkadot/util"
 import { sleep } from "@taostats/util"
-import { DEBUG, TALISMAN_WEB_APP_DOMAIN, TEST } from "extension-shared"
+import { DEBUG, TAOSTATS_WEB_APP_DOMAIN, TEST } from "extension-shared"
 import { BehaviorSubject } from "rxjs"
 
 import type { MessageTypes, RequestTypes, ResponseType } from "../../types"
@@ -42,12 +42,12 @@ export default class AppHandler extends ExtensionHandler {
 
     // Before any accounts are created, we want to add talisman.xyz as an authorised site with connectAllSubstrate
     this.stores.sites.set({
-      [TALISMAN_WEB_APP_DOMAIN]: {
+      [TAOSTATS_WEB_APP_DOMAIN]: {
         addresses: [],
         connectAllSubstrate: true,
-        id: TALISMAN_WEB_APP_DOMAIN,
-        origin: "Talisman",
-        url: `https://${TALISMAN_WEB_APP_DOMAIN}`,
+        id: TAOSTATS_WEB_APP_DOMAIN,
+        origin: "Taostats",
+        url: `https://${TAOSTATS_WEB_APP_DOMAIN}`,
       },
     })
 

@@ -1,4 +1,4 @@
-import { TALISMAN_WEB_APP_DOMAIN } from "extension-shared"
+import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
 import { lt } from "semver"
 
 import { passwordStore } from "../../domains/app/store.password"
@@ -11,7 +11,7 @@ import { changePassword } from "./legacyHelpers"
 export const migrateConnectAllSubstrate = async (previousVersion: string) => {
   if (!lt(previousVersion, "1.14.0")) return
   // once off migration to add `connectAllSubstrate` to the record for the Talisman Web App
-  const site = await sitesAuthorisedStore.get(TALISMAN_WEB_APP_DOMAIN)
+  const site = await sitesAuthorisedStore.get(TAOSTATS_WEB_APP_DOMAIN)
   if (!site) {
     const localData = await chrome.storage.local.get()
     const addresses = Object.entries(localData)
@@ -19,12 +19,12 @@ export const migrateConnectAllSubstrate = async (previousVersion: string) => {
       .map(([, value]: [string, { address: string }]) => value.address)
 
     sitesAuthorisedStore.set({
-      [TALISMAN_WEB_APP_DOMAIN]: {
+      [TAOSTATS_WEB_APP_DOMAIN]: {
         addresses,
         connectAllSubstrate: true,
-        id: TALISMAN_WEB_APP_DOMAIN,
-        origin: "Talisman",
-        url: `https://${TALISMAN_WEB_APP_DOMAIN}`,
+        id: TAOSTATS_WEB_APP_DOMAIN,
+        origin: "Taostats",
+        url: `https://${TAOSTATS_WEB_APP_DOMAIN}`,
       },
     })
   }

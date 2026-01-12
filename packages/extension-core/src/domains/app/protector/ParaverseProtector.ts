@@ -3,7 +3,7 @@ import { isNotNil } from "@taostats/util"
 import { Dexie } from "dexie"
 import metamaskInitialData from "eth-phishing-detect/src/config.json"
 import MetamaskDetector from "eth-phishing-detect/src/detector"
-import { log, TALISMAN_WEB_APP_DOMAIN } from "extension-shared"
+import { log, TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
 import { decompressFromUTF16 } from "lz-string"
 
 import { sentry } from "../../../config/sentry"
@@ -19,8 +19,8 @@ const COMMIT_PATH = "/commits/master"
 const REFRESH_INTERVAL_MIN = 20
 
 const DEFAULT_ALLOW = [
-  TALISMAN_WEB_APP_DOMAIN, // app.talisman.xyz
-  TALISMAN_WEB_APP_DOMAIN.split(".").slice(1).join("."), // talisman.xyz
+  TAOSTATS_WEB_APP_DOMAIN,
+  TAOSTATS_WEB_APP_DOMAIN.split(".").slice(1).join("."),
 ]
 
 type HostList = { allow: string[]; deny: string[] }
