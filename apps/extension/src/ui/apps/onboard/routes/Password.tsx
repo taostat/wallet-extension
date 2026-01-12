@@ -10,7 +10,6 @@ import * as yup from "yup"
 
 import { CapsLockWarningMessage } from "@talisman/components/CapsLockWarningMessage"
 import { PasswordStrength } from "@talisman/components/PasswordStrength"
-import imgPassword from "@talisman/theme/images/onboard_password_character.png"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 
@@ -114,8 +113,6 @@ export const PasswordPage = () => {
 
   return (
     <OnboardLayout withBack analytics={ANALYTICS_PAGE} className="min-h-[60rem] min-w-[60rem]">
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
-      <img src={imgPassword} width="960" className="fixed left-32 top-[25rem] opacity-30" />
       {passwordExists && (
         <OnboardDialog title={t("You've already set your password")}>
           <div className="text-body-secondary flex flex-col gap-8">
@@ -136,10 +133,10 @@ export const PasswordPage = () => {
         </OnboardDialog>
       )}
       {!passwordExists && (
-        <OnboardDialog title={t("First, let's set a password")}>
+        <OnboardDialog title={t("Step 1, set a password")}>
           <p>
             {t(
-              "Your password is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols and numbers.",
+              "This is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols and numbers.",
             )}
           </p>
           <form onSubmit={handleSubmit(submit)} autoComplete="off">

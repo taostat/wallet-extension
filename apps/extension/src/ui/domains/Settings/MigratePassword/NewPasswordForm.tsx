@@ -54,7 +54,7 @@ export const NewPasswordForm = () => {
     <ModalDialog title={t("Enter new password")}>
       <p className="text-body-secondary mb-16 text-sm">
         {t(
-          "Your password is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols and numbers.",
+          "This is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols and numbers.",
         )}
       </p>
 
