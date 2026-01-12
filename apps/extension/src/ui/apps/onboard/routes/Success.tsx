@@ -23,7 +23,7 @@ export const SuccessPage = () => {
     <OnboardLayout analytics={SUCCESS_PAGE} className="min-h-[48rem] min-w-[59rem]">
       <div className="flex w-[36.9rem] flex-col items-center justify-center gap-12 p-12">
         <div className="whitespace-nowrap text-center text-lg">
-          {t("Welcometo Taostats wallet!")}
+          {t("Welcome to Taostats wallet!")}
         </div>
         <div className="text-body-secondary text-center">
           {t("Your Taostats wallet is ready to use.")}
