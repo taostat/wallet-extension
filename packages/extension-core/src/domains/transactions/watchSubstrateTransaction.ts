@@ -4,7 +4,7 @@ import { assert } from "@polkadot/util"
 import { xxhashAsHex } from "@polkadot/util-crypto"
 import { HexString } from "@polkadot/util/types"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
-import { DotNetwork, DotNetworkId, getBlockExplorerUrls } from "@taostats/chaindata-provider"
+import { DotNetwork, DotNetworkId, getBlockExplorerUrls } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { Err, Ok, Result } from "ts-results"
 

@@ -1,5 +1,5 @@
-import { decodeScale, papiParse } from "@taostats/scale"
-import { isNotNil } from "@taostats/util"
+import { decodeScale, papiParse } from "@taostats-wallet/scale"
+import { isNotNil } from "@taostats-wallet/util"
 
 import log from "../../log"
 import { AmountWithLabel, IBalance, MiniMetadata } from "../../types"

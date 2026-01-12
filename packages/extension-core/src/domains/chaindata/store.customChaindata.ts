@@ -8,7 +8,7 @@ import {
   NetworkId,
   Token,
   TokenId,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { assign, keyBy, values } from "lodash-es"
 
 import { StorageProvider } from "../../libs/Store"

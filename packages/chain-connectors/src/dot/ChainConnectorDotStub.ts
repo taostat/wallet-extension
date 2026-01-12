@@ -1,7 +1,7 @@
 import { WsProvider } from "@polkadot/rpc-provider"
 import { ProviderInterface, ProviderInterfaceCallback } from "@polkadot/rpc-provider/types"
-import { DotNetwork, DotNetworkId } from "@taostats/chaindata-provider"
-import { throwAfter } from "@taostats/util"
+import { DotNetwork, DotNetworkId } from "@taostats-wallet/chaindata-provider"
+import { throwAfter } from "@taostats-wallet/util"
 
 import { IChainConnectorDot } from "./IChainConnectorDot"
 

@@ -1,4 +1,4 @@
-import { Token } from "@taostats/chaindata-provider"
+import { Token } from "@taostats-wallet/chaindata-provider"
 import { RemoteConfigStoreData } from "extension-core"
 import { useMemo } from "react"
 

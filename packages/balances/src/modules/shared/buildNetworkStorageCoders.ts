@@ -1,11 +1,11 @@
-import { DotNetworkId } from "@taostats/chaindata-provider"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import {
   decAnyMetadata,
   getDynamicBuilder,
   getLookupFn,
   ScaleStorageCoder,
   unifyMetadata,
-} from "@taostats/scale"
+} from "@taostats-wallet/scale"
 
 import log from "../../log"
 import { MiniMetadata } from "../../types"

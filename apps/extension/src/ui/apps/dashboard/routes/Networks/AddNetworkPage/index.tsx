@@ -1,7 +1,10 @@
 /* eslint-disable react/no-children-prop */
 import { useField } from "@tanstack/react-form"
-import { getGithubTokenLogoUrlByCoingeckoId, NetworkBaseSchema } from "@taostats/chaindata-provider"
-import { LoaderIcon, SaveIcon } from "@taostats/icons"
+import {
+  getGithubTokenLogoUrlByCoingeckoId,
+  NetworkBaseSchema,
+} from "@taostats-wallet/chaindata-provider"
+import { LoaderIcon, SaveIcon } from "@taostats-wallet/icons"
 import { log } from "extension-shared"
 import { TFunction } from "i18next"
 import { FC, useMemo } from "react"

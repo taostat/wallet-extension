@@ -5,7 +5,7 @@ import {
   ShieldUnavailableIcon,
   ShieldUnknownIcon,
   ShieldZapIcon,
-} from "@taostats/icons"
+} from "@taostats-wallet/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"

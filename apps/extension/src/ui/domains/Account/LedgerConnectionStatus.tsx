@@ -1,5 +1,5 @@
-import { CheckCircleIcon, LoaderIcon, XCircleIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { CheckCircleIcon, LoaderIcon, XCircleIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { useTranslation } from "react-i18next"
 
 import { LedgerStatus } from "@ui/hooks/ledger/common"

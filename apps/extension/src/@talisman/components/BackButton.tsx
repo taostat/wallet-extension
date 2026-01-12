@@ -1,5 +1,5 @@
-import { ChevronLeftIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { ChevronLeftIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { To, useNavigate } from "react-router-dom"

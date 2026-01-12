@@ -1,5 +1,5 @@
-import { AnyMiniMetadata, MINIMETADATA_VERSION } from "@taostats/chaindata-provider"
-import { parseMetadataRpc } from "@taostats/scale"
+import { AnyMiniMetadata, MINIMETADATA_VERSION } from "@taostats-wallet/chaindata-provider"
+import { parseMetadataRpc } from "@taostats-wallet/scale"
 
 import { deriveMiniMetadataId } from "../../types"
 import { IBalanceModule } from "../../types/IBalanceModule"

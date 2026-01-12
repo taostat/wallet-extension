@@ -1,4 +1,4 @@
-import { Loadable } from "@taostats/util"
+import { Loadable } from "@taostats-wallet/util"
 
 // Key Type
 type Key = {

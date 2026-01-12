@@ -5,8 +5,8 @@ import {
   SubForeignAssetsToken,
   SubNativeToken,
   Token,
-} from "@taostats/chaindata-provider"
-import { papiStringify } from "@taostats/scale"
+} from "@taostats-wallet/chaindata-provider"
+import { papiStringify } from "@taostats-wallet/scale"
 import { useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 

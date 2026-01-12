@@ -1,4 +1,4 @@
-import { LoaderIcon } from "@taostats/icons"
+import { LoaderIcon } from "@taostats-wallet/icons"
 import { useAtom, useAtomValue } from "jotai"
 import { loadable } from "jotai/utils"
 import { Loadable } from "jotai/vanilla/utils/loadable"

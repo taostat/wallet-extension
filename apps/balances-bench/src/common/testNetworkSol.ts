@@ -3,10 +3,10 @@
 
 import { existsSync, readFileSync, writeFileSync } from "fs"
 
-import { BALANCE_MODULES } from "@taostats/balances"
-import { ChainConnectorSolStub } from "@taostats/chain-connectors"
-import { TokenType } from "@taostats/chaindata-provider"
-import { SolNetwork } from "@taostats/chaindata-provider/src/chaindata/networks/SolNetwork"
+import { BALANCE_MODULES } from "@taostats-wallet/balances"
+import { ChainConnectorSolStub } from "@taostats-wallet/chain-connectors"
+import { TokenType } from "@taostats-wallet/chaindata-provider"
+import { SolNetwork } from "@taostats-wallet/chaindata-provider/src/chaindata/networks/SolNetwork"
 import { log } from "extension-shared"
 
 export type SolNetworkConfig = Pick<SolNetwork, "id" | "rpcs"> & {

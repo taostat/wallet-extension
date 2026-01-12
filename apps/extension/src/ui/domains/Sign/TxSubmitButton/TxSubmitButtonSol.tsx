@@ -1,5 +1,5 @@
-import { isVersionedTransaction, serializeTransaction } from "@taostats/solana"
-import { classNames } from "@taostats/util"
+import { isVersionedTransaction, serializeTransaction } from "@taostats-wallet/solana"
+import { classNames } from "@taostats-wallet/util"
 import { isAccountOwned, isAccountPlatformSolana } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo, useState } from "react"

@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { Address, Balances } from "@taostats/balances"
-import { TokenId } from "@taostats/chaindata-provider"
+import { Address, Balances } from "@taostats-wallet/balances"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { BalanceSubscriptionResponse, isAccountCompatibleWithNetwork } from "extension-core"
 import { log } from "extension-shared"
 import {

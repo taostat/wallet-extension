@@ -1,5 +1,5 @@
 {
-  "name": "@taostats/chaindata-provider",
+  "name": "@taostats-wallet/chaindata-provider",
   "version": "1.3.3",
   "author": "Taostats",
   "homepage": "https://talisman.xyz",
@@ -28,7 +28,7 @@
     "clean": "rm -rf dist init/*/dist net/dist .turbo node_modules"
   },
   "dependencies": {
-    "@taostats/util": "workspace:*",
+    "@taostats-wallet/util": "workspace:*",
     "anylogger": "^1.0.11",
     "dexie": "^4.0.9",
     "lodash-es": "4.17.21",
@@ -37,8 +37,8 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@taostats/eslint-config": "workspace:*",
-    "@taostats/tsconfig": "workspace:*",
+    "@taostats-wallet/eslint-config": "workspace:*",
+    "@taostats-wallet/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
     "@types/lodash-es": "4.17.12",
     "eslint": "^8.57.1",
@@ -56,7 +56,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@taostats/eslint-config/base"
+      "@taostats-wallet/eslint-config/base"
     ]
   }
 }

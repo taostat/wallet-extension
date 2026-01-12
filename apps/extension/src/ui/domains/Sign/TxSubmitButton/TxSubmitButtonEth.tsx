@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { isAccountPlatformEthereum, serializeTransactionRequest } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useState } from "react"

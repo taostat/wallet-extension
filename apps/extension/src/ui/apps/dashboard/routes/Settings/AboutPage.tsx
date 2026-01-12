@@ -5,7 +5,7 @@ import {
   HelpCircleIcon,
   MapIcon,
   TalismanHandIcon,
-} from "@taostats/icons"
+} from "@taostats-wallet/icons"
 import {
   DISCORD_URL,
   DOCS_URL_PREFIX,

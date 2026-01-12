@@ -1,4 +1,4 @@
-import { firstThenDebounce } from "@taostats/util"
+import { firstThenDebounce } from "@taostats-wallet/util"
 import { atom } from "jotai"
 import { atomWithObservable } from "jotai/utils"
 import { keyBy } from "lodash-es"

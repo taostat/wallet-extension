@@ -3,8 +3,8 @@ import {
   isAccountNotContact,
   isAccountPlatformEthereum,
   isAccountPlatformPolkadot,
-} from "@taostats/keyring"
-import { getQuery$, isNotNil, keepAlive } from "@taostats/util"
+} from "@taostats-wallet/keyring"
+import { getQuery$, isNotNil, keepAlive } from "@taostats-wallet/util"
 import { log } from "extension-shared"
 import { isEqual } from "lodash-es"
 import {

@@ -1,7 +1,7 @@
 import { TypeRegistry } from "@polkadot/types"
 import { useQuery } from "@tanstack/react-query"
-import { BalanceFormatter } from "@taostats/balances"
-import { classNames } from "@taostats/util"
+import { BalanceFormatter } from "@taostats-wallet/balances"
+import { classNames } from "@taostats-wallet/util"
 import {
   isJsonPayload,
   SignerPayloadJSON,

@@ -1,5 +1,5 @@
-import { AlertTriangleIcon, InfoIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { AlertTriangleIcon, InfoIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { EthPriorityOptionName } from "extension-core"
 import { FC, PropsWithChildren, useMemo } from "react"
 import { useTranslation } from "react-i18next"

@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { Account, getAccountGenesisHash } from "extension-core"
 import { FC, useMemo } from "react"
 

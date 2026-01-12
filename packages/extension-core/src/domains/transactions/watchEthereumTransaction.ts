@@ -1,6 +1,6 @@
 import { assert } from "@polkadot/util"
-import { getBlockExplorerUrls, NetworkId } from "@taostats/chaindata-provider"
-import { sleep, throwAfter } from "@taostats/util"
+import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-provider"
+import { sleep, throwAfter } from "@taostats-wallet/util"
 import { Hex, TransactionReceipt, TransactionRequest } from "viem"
 
 import { sentry } from "../../config/sentry"

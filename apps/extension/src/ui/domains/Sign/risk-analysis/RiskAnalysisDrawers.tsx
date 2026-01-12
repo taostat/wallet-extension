@@ -1,6 +1,6 @@
 import { Transition, TransitionChild } from "@headlessui/react"
-import { ArrowRightIcon, ShieldNotOkIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { ArrowRightIcon, ShieldNotOkIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, useOpenClose } from "taostats-ui"

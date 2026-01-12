@@ -1,6 +1,6 @@
-import { Balances } from "@taostats/balances"
-import { Token, TokenId } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { Balances } from "@taostats-wallet/balances"
+import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 import { ReactNode, Suspense } from "react"
 import { useTranslation } from "react-i18next"
 

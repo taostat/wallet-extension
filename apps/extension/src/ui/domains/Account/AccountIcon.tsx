@@ -1,7 +1,7 @@
 import type { IconTheme } from "@polkadot/react-identicon/types"
-import { detectAddressEncoding } from "@taostats/crypto"
-import { TalismanOrb } from "@taostats/orb"
-import { classNames } from "@taostats/util"
+import { detectAddressEncoding } from "@taostats-wallet/crypto"
+import { TalismanOrb } from "@taostats-wallet/orb"
+import { classNames } from "@taostats-wallet/util"
 import { Address, IdenticonType } from "extension-core"
 import { CSSProperties, FC, lazy, Suspense, useMemo } from "react"
 

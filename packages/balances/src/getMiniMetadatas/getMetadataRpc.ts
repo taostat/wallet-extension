@@ -1,7 +1,7 @@
-import { IChainConnectorDot } from "@taostats/chain-connectors"
-import { DotNetworkId } from "@taostats/chaindata-provider"
-import { fetchBestMetadata } from "@taostats/sapi"
-import { isAbortError } from "@taostats/util"
+import { IChainConnectorDot } from "@taostats-wallet/chain-connectors"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
+import { fetchBestMetadata } from "@taostats-wallet/sapi"
+import { isAbortError } from "@taostats-wallet/util"
 
 // share requests as all modules will call this at once
 const CACHE = new Map<string, Promise<`0x${string}`>>()

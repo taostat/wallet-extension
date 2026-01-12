@@ -1,5 +1,5 @@
-import { parseTokenId } from "@taostats/chaindata-provider"
-import { isEthereumAddress } from "@taostats/crypto"
+import { parseTokenId } from "@taostats-wallet/chaindata-provider"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
 import { PublicClient } from "viem"
 
 import { IBalance } from "../../types"

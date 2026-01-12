@@ -1,4 +1,4 @@
-import { getConstantValueFromMetadata } from "@taostats/scale"
+import { getConstantValueFromMetadata } from "@taostats-wallet/scale"
 
 import { Chain } from "./types"
 

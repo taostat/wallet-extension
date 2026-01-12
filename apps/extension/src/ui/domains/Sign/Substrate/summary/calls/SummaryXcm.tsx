@@ -1,5 +1,5 @@
 import { PolkadotAssetHubCalls, PolkadotCalls } from "@polkadot-api/descriptors"
-import { encodeAnyAddress } from "@taostats/crypto"
+import { encodeAnyAddress } from "@taostats-wallet/crypto"
 import { useMemo } from "react"
 
 import { useNetworkById, useNetworks, useTokensMap } from "@ui/state"

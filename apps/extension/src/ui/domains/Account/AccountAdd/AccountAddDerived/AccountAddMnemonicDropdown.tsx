@@ -1,4 +1,4 @@
-import { PlusIcon, SecretIcon } from "@taostats/icons"
+import { PlusIcon, SecretIcon } from "@taostats-wallet/icons"
 import { Account, isAccountOfType } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

@@ -1,5 +1,5 @@
-import { Balance, BalanceFormatter } from "@taostats/balances"
-import { evmErc20TokenId } from "@taostats/chaindata-provider"
+import { Balance, BalanceFormatter } from "@taostats-wallet/balances"
+import { evmErc20TokenId } from "@taostats-wallet/chaindata-provider"
 import { useMemo } from "react"
 
 import { useTokenRatesMap } from "@ui/state"

@@ -1,4 +1,4 @@
-import { normalizeAddress } from "@taostats/crypto"
+import { normalizeAddress } from "@taostats-wallet/crypto"
 import { GenericeResponseAddress, SubstrateAppParams } from "@zondax/ledger-substrate/dist/common"
 import { LedgerPolkadotCurve } from "extension-core"
 import { useCallback, useRef } from "react"

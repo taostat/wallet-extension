@@ -1,4 +1,4 @@
-import { isNotNil } from "@taostats/util"
+import { isNotNil } from "@taostats-wallet/util"
 import { Nft, NftCollection } from "extension-core"
 
 export const getPortfolioNftCollectionPreviewUrl = (collection: NftCollection, nfts: Nft[]) => {

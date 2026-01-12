@@ -1,6 +1,6 @@
 import { TypeRegistry } from "@polkadot/types"
 import { u8aToHex, u8aWrapBytes } from "@polkadot/util"
-import { isAddressEqual } from "@taostats/crypto"
+import { isAddressEqual } from "@taostats-wallet/crypto"
 import { SubstrateApp } from "@zondax/ledger-substrate"
 import { SubstrateAppParams } from "@zondax/ledger-substrate/dist/common"
 import {

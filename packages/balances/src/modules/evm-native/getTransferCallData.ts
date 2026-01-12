@@ -1,5 +1,5 @@
-import { isTokenOfType } from "@taostats/chaindata-provider"
-import { isEthereumAddress } from "@taostats/crypto"
+import { isTokenOfType } from "@taostats-wallet/chaindata-provider"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
 
 import { IBalanceModule } from "../../types/IBalanceModule"
 import { MODULE_TYPE } from "./config"

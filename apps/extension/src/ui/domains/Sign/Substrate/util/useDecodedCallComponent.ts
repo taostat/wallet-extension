@@ -1,4 +1,4 @@
-import { DecodedCall } from "@taostats/sapi"
+import { DecodedCall } from "@taostats-wallet/sapi"
 import { useMemo } from "react"
 
 import { DecodedCallComponentDefs } from "../types"

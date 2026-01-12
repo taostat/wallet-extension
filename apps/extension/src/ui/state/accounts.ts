@@ -1,5 +1,5 @@
 import { bind } from "@react-rxjs/core"
-import { normalizeAddress } from "@taostats/crypto"
+import { normalizeAddress } from "@taostats-wallet/crypto"
 import {
   Account,
   isAccountNotContact,

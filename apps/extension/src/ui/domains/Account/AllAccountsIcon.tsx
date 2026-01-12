@@ -1,5 +1,5 @@
-import { UsersIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { UsersIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { ReactNode } from "react"
 
 export const AllAccountsIcon = ({ className }: { className?: string }) => (

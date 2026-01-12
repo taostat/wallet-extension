@@ -1,4 +1,4 @@
-import { XIcon } from "@taostats/icons"
+import { XIcon } from "@taostats-wallet/icons"
 import { ReactNode } from "react"
 import { IconButton } from "taostats-ui"
 

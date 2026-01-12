@@ -1,5 +1,5 @@
-import { CopyIcon, ExternalLinkIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 
 import { copyAddress } from "@ui/util/copyAddress"

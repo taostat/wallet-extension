@@ -1,3 +1,3 @@
-import { TokenBaseSchema } from "@taostats/chaindata-provider"
+import { TokenBaseSchema } from "@taostats-wallet/chaindata-provider"
 
 export const TokenConfigBaseSchema = TokenBaseSchema.partial().omit({ id: true })

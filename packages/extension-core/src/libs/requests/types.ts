@@ -1,4 +1,4 @@
-import { Prettify } from "@taostats/util"
+import { Prettify } from "@taostats-wallet/util"
 
 import type { EncryptRequests } from "../../domains/encrypt/types"
 import type { EthRequests } from "../../domains/ethereum/types"

@@ -1,4 +1,4 @@
-import { DotNetworkId, EthNetworkId, TokenId } from "@taostats/chaindata-provider"
+import { DotNetworkId, EthNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
 
 import { ValidRequests } from "../../libs/requests/types"
 import { Address } from "../../types/base"

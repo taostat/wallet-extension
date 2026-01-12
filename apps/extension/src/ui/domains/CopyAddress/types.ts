@@ -1,5 +1,5 @@
-import { Address } from "@taostats/balances"
-import { NetworkId } from "@taostats/chaindata-provider"
+import { Address } from "@taostats-wallet/balances"
+import { NetworkId } from "@taostats-wallet/chaindata-provider"
 
 export type CopyAddressWizardInputs = {
   networkId?: NetworkId | null

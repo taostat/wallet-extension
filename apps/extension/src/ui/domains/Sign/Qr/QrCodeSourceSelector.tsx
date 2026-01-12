@@ -1,6 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { ChevronDownIcon } from "@taostats/icons"
-import { classNames, isHexString } from "@taostats/util"
+import { ChevronDownIcon } from "@taostats-wallet/icons"
+import { classNames, isHexString } from "@taostats-wallet/util"
 import { startCase } from "lodash-es"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

@@ -10,8 +10,8 @@ import {
   subNativeTokenId,
   SubNativeTokenSchema,
   TokenSchema,
-} from "@taostats/chaindata-provider"
-import { sleep } from "@taostats/util"
+} from "@taostats-wallet/chaindata-provider"
+import { sleep } from "@taostats-wallet/util"
 import { activeNetworksStore, activeTokensStore, RequestNetworkUpsert } from "extension-core"
 import { log } from "extension-shared"
 import { range } from "lodash-es"

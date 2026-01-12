@@ -1,5 +1,9 @@
 import Keyring, { decodeAddress } from "@polkadot/keyring"
-import { decodeSs58Address, detectAddressEncoding, isEthereumAddress } from "@taostats/crypto"
+import {
+  decodeSs58Address,
+  detectAddressEncoding,
+  isEthereumAddress,
+} from "@taostats-wallet/crypto"
 
 import { Address } from "../../types/base"
 

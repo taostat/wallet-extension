@@ -1,8 +1,8 @@
 import { assert } from "@polkadot/util"
 import { HexString } from "@polkadot/util/types"
 import { useQuery } from "@tanstack/react-query"
-import { DotNetworkId } from "@taostats/chaindata-provider"
-import { getScaleApi, ScaleApi } from "@taostats/sapi"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
+import { getScaleApi, ScaleApi } from "@taostats-wallet/sapi"
 import { getMetadataRpcFromDef } from "extension-core"
 
 import { api } from "@ui/api"

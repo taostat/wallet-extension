@@ -4,8 +4,8 @@ import {
   ToolbarListIcon,
   ToolbarSortIcon,
   ToolbarTilesIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { t } from "i18next"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

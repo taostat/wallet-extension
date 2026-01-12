@@ -1,6 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { EthNetworkId, Network } from "@taostats/chaindata-provider"
-import { normalizeAddress } from "@taostats/crypto"
+import { EthNetworkId, Network } from "@taostats-wallet/chaindata-provider"
+import { normalizeAddress } from "@taostats-wallet/crypto"
 import { WalletTransaction } from "extension-core"
 import uniq from "lodash-es/uniq"
 import { useCallback, useMemo, useState } from "react"

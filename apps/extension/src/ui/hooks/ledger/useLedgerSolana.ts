@@ -1,5 +1,5 @@
 import LedgerSolanaApp from "@ledgerhq/hw-app-solana"
-import { encodeAddressSolana, isAddressEqual } from "@taostats/crypto"
+import { encodeAddressSolana, isAddressEqual } from "@taostats-wallet/crypto"
 import { AccountLedgerSolana } from "extension-core"
 import { t } from "i18next"
 import { useCallback, useRef } from "react"

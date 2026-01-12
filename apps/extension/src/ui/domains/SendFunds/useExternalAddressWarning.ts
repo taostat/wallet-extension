@@ -1,4 +1,4 @@
-import { isAddressEqual } from "@taostats/crypto"
+import { isAddressEqual } from "@taostats-wallet/crypto"
 import { useCallback, useEffect, useMemo, useState } from "react"
 
 import { provideContext } from "@talisman/util/provideContext"

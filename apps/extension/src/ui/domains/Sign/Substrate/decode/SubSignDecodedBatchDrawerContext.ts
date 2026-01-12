@@ -1,4 +1,4 @@
-import { DecodedCall } from "@taostats/sapi"
+import { DecodedCall } from "@taostats-wallet/sapi"
 import { useCallback, useEffect, useMemo, useState } from "react"
 
 import { provideContext } from "@talisman/util/provideContext"

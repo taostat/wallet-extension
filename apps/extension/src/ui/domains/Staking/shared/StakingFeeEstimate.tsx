@@ -1,5 +1,5 @@
-import { TokenId } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

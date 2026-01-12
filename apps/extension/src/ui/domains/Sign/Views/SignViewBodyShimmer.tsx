@@ -1,4 +1,4 @@
-import { LoaderIcon } from "@taostats/icons"
+import { LoaderIcon } from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
 
 export const SignViewBodyShimmer = () => {

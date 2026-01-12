@@ -1,5 +1,5 @@
 import { ErrorBoundary as SentryErrorBoundary } from "@sentry/react"
-import { TalismanDeadHandIcon } from "@taostats/icons"
+import { TalismanDeadHandIcon } from "@taostats-wallet/icons"
 import { DexieError } from "dexie"
 import { DEBUG, DISCORD_URL } from "extension-shared"
 import { ReactNode, useCallback } from "react"

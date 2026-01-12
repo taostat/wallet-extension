@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats/icons"
+import { InfoIcon } from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
 
 import { WithTooltip } from "@talisman/components/Tooltip"

@@ -1,7 +1,7 @@
 import "anylogger-loglevel"
 import "./index.css"
 
-import { BalancesProvider } from "@taostats/balances-react"
+import { BalancesProvider } from "@taostats-wallet/balances-react"
 import loglevel from "loglevel"
 import { StrictMode, useState } from "react"
 import { createRoot } from "react-dom/client"

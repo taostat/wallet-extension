@@ -1,6 +1,6 @@
-import { Balances, IBalance } from "@taostats/balances"
-import { normalizeAddress } from "@taostats/crypto"
-import { isAccountOwned } from "@taostats/keyring"
+import { Balances, IBalance } from "@taostats-wallet/balances"
+import { normalizeAddress } from "@taostats-wallet/crypto"
+import { isAccountOwned } from "@taostats-wallet/keyring"
 import { log } from "extension-shared"
 import { combineLatest, map, throttleTime } from "rxjs"
 

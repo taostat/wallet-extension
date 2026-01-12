@@ -3,8 +3,8 @@ import {
   SubHydrationToken,
   subHydrationTokenId,
   SubHydrationTokenSchema,
-} from "@taostats/chaindata-provider"
-import { getStorageKeyPrefix, parseMetadataRpc } from "@taostats/scale"
+} from "@taostats-wallet/chaindata-provider"
+import { getStorageKeyPrefix, parseMetadataRpc } from "@taostats-wallet/scale"
 import { assign, keyBy } from "lodash-es"
 import { Binary } from "polkadot-api"
 

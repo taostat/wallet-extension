@@ -9,8 +9,8 @@ import {
   SlidersIcon,
   TalismanHandIcon,
   UsersIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, To, useMatch, useNavigate } from "react-router-dom"

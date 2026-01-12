@@ -1,4 +1,4 @@
-import { isNotNil } from "@taostats/util"
+import { isNotNil } from "@taostats-wallet/util"
 import { useMemo } from "react"
 
 import { useCoinbaseBuyOptions } from "./useCoinbaseBuyOptions"

@@ -1,4 +1,4 @@
-import { BalancesProvider } from "@taostats/balances"
+import { BalancesProvider } from "@taostats-wallet/balances"
 import { atom } from "jotai"
 
 import { chainConnectorsAtom } from "./chainConnectors"

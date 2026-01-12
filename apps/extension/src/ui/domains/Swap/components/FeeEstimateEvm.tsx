@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats/icons"
+import { InfoIcon } from "@taostats-wallet/icons"
 import {
   EthGasSettings,
   EthPriorityOptionName,

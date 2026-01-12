@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useQuery } from "@tanstack/react-query"
-import { AccountPlatform, isValidDerivationPath, KeypairCurve } from "@taostats/crypto"
-import { ArrowRightIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { AccountPlatform, isValidDerivationPath, KeypairCurve } from "@taostats-wallet/crypto"
+import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   getDefaultCurveForAccountPlatform,
   getDerivationPathForCurve,

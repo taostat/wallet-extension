@@ -1,5 +1,5 @@
 import { HexString } from "@polkadot/util/types"
-import { EthNetworkId } from "@taostats/chaindata-provider"
+import { EthNetworkId } from "@taostats-wallet/chaindata-provider"
 import { Account, AccountOfType, EthSignMessageMethod } from "extension-core"
 import { FC, Suspense } from "react"
 

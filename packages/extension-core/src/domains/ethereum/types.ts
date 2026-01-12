@@ -3,7 +3,7 @@ import type {
   EthNetworkId,
   EvmErc20Token,
   EvmNativeToken,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import type {
   EIP1193Parameters,
   Address as EvmAddress,

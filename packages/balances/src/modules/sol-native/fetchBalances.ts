@@ -1,5 +1,5 @@
 import { PublicKey } from "@solana/web3.js"
-import { isSolanaAddress } from "@taostats/crypto"
+import { isSolanaAddress } from "@taostats-wallet/crypto"
 
 import { IBalance } from "../../types"
 import { FetchBalanceResults, IBalanceModule } from "../../types/IBalanceModule"

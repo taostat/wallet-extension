@@ -1,9 +1,9 @@
 import { merkleizeMetadata } from "@polkadot-api/merkleize-metadata"
 import { assert, hexToNumber, u8aToHex } from "@polkadot/util"
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query"
-import { DotNetwork, isNetworkDot, Token } from "@taostats/chaindata-provider"
-import { getScaleApi } from "@taostats/sapi"
-import { decAnyMetadata, unifyMetadata } from "@taostats/scale"
+import { DotNetwork, isNetworkDot, Token } from "@taostats-wallet/chaindata-provider"
+import { getScaleApi } from "@taostats-wallet/sapi"
+import { decAnyMetadata, unifyMetadata } from "@taostats-wallet/scale"
 import { SignerPayloadJSON } from "extension-core"
 import { log } from "extension-shared"
 

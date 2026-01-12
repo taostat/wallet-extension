@@ -1,5 +1,5 @@
-import { parseEvmErc20TokenId, parseTokenId } from "@taostats/chaindata-provider"
-import { isEthereumAddress } from "@taostats/crypto"
+import { parseEvmErc20TokenId, parseTokenId } from "@taostats-wallet/chaindata-provider"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
 import { ChainContract, erc20Abi, PublicClient } from "viem"
 
 import { IBalance } from "../../types"

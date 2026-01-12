@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { InfoIcon } from "@taostats/icons"
+import { InfoIcon } from "@taostats-wallet/icons"
 import { ChangePasswordStatusUpdateStatus, ChangePasswordStatusUpdateType } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"

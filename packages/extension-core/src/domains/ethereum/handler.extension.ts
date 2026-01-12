@@ -1,7 +1,7 @@
 import { personalSign, signTypedData, SignTypedDataVersion } from "@metamask/eth-sig-util"
 import { assert } from "@polkadot/util"
 import { HexString } from "@polkadot/util/types"
-import { isEthereumAddress } from "@taostats/crypto"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
 import { DEBUG } from "extension-shared"
 import { bytesToHex } from "viem"
 import { privateKeyToAccount } from "viem/accounts"

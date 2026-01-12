@@ -1,6 +1,6 @@
-import { Token } from "@taostats/chaindata-provider"
-import { LockIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { Token } from "@taostats-wallet/chaindata-provider"
+import { LockIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import BigNumber from "bignumber.js"
 import { ReactNode } from "react"
 

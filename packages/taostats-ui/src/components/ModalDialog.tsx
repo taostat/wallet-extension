@@ -1,5 +1,5 @@
-import { XIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode } from "react"
 
 import { IconButton } from "./IconButton"

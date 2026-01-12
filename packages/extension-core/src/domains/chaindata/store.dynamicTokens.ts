@@ -1,4 +1,4 @@
-import { Token, TokenSchema } from "@taostats/chaindata-provider"
+import { Token, TokenSchema } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { isEqual, keyBy, values } from "lodash-es"
 import { debounceTime, map, pairwise, ReplaySubject } from "rxjs"

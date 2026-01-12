@@ -1,4 +1,4 @@
-import { TokenId } from "@taostats/chaindata-provider"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { FC } from "react"
 
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"

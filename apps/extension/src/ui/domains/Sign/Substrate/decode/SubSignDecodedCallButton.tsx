@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { ChevronRightIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { useOpenClose } from "taostats-ui"
 
 import { DecodedCallComponent, SummaryButtonDisplayMode } from "../types"

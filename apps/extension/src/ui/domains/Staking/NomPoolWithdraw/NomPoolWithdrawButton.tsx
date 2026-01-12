@@ -1,6 +1,6 @@
-import { TokenId } from "@taostats/chaindata-provider"
-import { ZapMinusIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { ZapMinusIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 

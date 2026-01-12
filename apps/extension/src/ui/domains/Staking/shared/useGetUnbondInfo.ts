@@ -1,5 +1,5 @@
-import { DotNetworkId } from "@taostats/chaindata-provider"
-import { ScaleApi } from "@taostats/sapi"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
+import { ScaleApi } from "@taostats-wallet/sapi"
 
 import { useGetNomPoolPlanksToUnbond } from "../hooks/nomPools/useGetNomPoolPlanksToUnbond"
 import { useGetNomPoolUnbondPayload } from "../hooks/nomPools/useGetNomPoolUnbondPayload"

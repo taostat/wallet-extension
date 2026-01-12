@@ -1,5 +1,5 @@
-import { XIcon } from "@taostats/icons"
-import { DecodedCall, ScaleApi } from "@taostats/sapi"
+import { XIcon } from "@taostats-wallet/icons"
+import { DecodedCall, ScaleApi } from "@taostats-wallet/sapi"
 import { SignerPayloadJSON } from "extension-core"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"

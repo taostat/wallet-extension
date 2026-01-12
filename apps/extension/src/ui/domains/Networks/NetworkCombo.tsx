@@ -5,9 +5,9 @@ import {
   ComboboxOption,
   ComboboxOptions,
 } from "@headlessui/react"
-import { Network, NetworkId } from "@taostats/chaindata-provider"
-import { ChevronDownIcon, XIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { Network, NetworkId } from "@taostats-wallet/chaindata-provider"
+import { ChevronDownIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 

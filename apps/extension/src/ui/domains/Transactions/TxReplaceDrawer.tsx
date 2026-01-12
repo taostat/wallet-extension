@@ -1,7 +1,7 @@
 import { HexString } from "@polkadot/util/types"
-import { TokenId } from "@taostats/chaindata-provider"
-import { AlertCircleIcon, InfoIcon, RocketIcon, XOctagonIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { AlertCircleIcon, InfoIcon, RocketIcon, XOctagonIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   EthTransactionDetails,
   isAccountOfType,

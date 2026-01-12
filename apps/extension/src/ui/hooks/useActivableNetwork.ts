@@ -1,4 +1,4 @@
-import { Network } from "@taostats/chaindata-provider"
+import { Network } from "@taostats-wallet/chaindata-provider"
 import { activeNetworksStore, isNetworkActive } from "extension-core"
 import { useCallback, useMemo } from "react"
 

@@ -1,5 +1,5 @@
-import { SearchIcon, XIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { SearchIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { useCallback, useRef } from "react"
 import { useEffectOnce } from "react-use"
 import { FormFieldInputText, IconButton } from "taostats-ui"

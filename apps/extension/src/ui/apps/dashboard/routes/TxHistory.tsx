@@ -1,4 +1,4 @@
-import { ChevronDownIcon, GlobeIcon } from "@taostats/icons"
+import { ChevronDownIcon, GlobeIcon } from "@taostats-wallet/icons"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useOpenClose } from "taostats-ui"

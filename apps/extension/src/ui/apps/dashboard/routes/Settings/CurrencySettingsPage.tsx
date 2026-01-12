@@ -1,4 +1,4 @@
-import { StarIcon } from "@taostats/icons"
+import { StarIcon } from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
 
 import { HeaderBlock } from "@talisman/components/HeaderBlock"

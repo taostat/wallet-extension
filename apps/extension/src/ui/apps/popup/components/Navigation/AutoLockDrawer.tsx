@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@taostats/icons"
+import { ChevronLeftIcon } from "@taostats-wallet/icons"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, IconButton } from "taostats-ui"

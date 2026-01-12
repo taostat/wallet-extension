@@ -1,6 +1,6 @@
-import { AnyMiniMetadata } from "@taostats/chaindata-provider"
-import { decodeScale, papiParse } from "@taostats/scale"
-import { isNotNil } from "@taostats/util"
+import { AnyMiniMetadata } from "@taostats-wallet/chaindata-provider"
+import { decodeScale, papiParse } from "@taostats-wallet/scale"
+import { isNotNil } from "@taostats-wallet/util"
 
 import log from "../../log"
 import { AmountWithLabel, IBalance } from "../../types"

@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats/icons"
+import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from "extension-shared"
 import { useCallback, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

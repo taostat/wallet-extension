@@ -1,4 +1,4 @@
-import { EthNetworkId } from "@taostats/chaindata-provider"
+import { EthNetworkId } from "@taostats-wallet/chaindata-provider"
 
 import { StorageProvider } from "../../libs/Store"
 

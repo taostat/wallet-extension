@@ -1,4 +1,4 @@
-import { isTruthy } from "@taostats/util"
+import { isTruthy } from "@taostats-wallet/util"
 import { fetchFromCoingecko } from "extension-core"
 import { log } from "extension-shared"
 

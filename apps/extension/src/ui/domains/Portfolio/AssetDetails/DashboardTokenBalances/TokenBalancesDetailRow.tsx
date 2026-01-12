@@ -1,5 +1,5 @@
-import { TokenId } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"

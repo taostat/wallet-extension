@@ -1,5 +1,5 @@
 {
-  "name": "@taostats/icons",
+  "name": "@taostats-wallet/icons",
   "version": "0.1.5",
   "author": "Taostats",
   "homepage": "https://talisman.xyz",
@@ -29,8 +29,8 @@
     "react-icons": "^5.3.0"
   },
   "devDependencies": {
-    "@taostats/eslint-config": "workspace:*",
-    "@taostats/tsconfig": "workspace:*",
+    "@taostats-wallet/eslint-config": "workspace:*",
+    "@taostats-wallet/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
     "@types/react": "18.3.12",
     "eslint": "^8.57.1",
@@ -45,7 +45,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@taostats/eslint-config/base"
+      "@taostats-wallet/eslint-config/base"
     ]
   }
 }

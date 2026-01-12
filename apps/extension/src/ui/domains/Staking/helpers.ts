@@ -1,6 +1,6 @@
 import { Enum } from "@polkadot-api/substrate-bindings"
-import { ScaleApi } from "@taostats/sapi"
-import { isNotNil } from "@taostats/util"
+import { ScaleApi } from "@taostats-wallet/sapi"
+import { isNotNil } from "@taostats-wallet/util"
 import { range } from "lodash-es"
 import { Binary } from "polkadot-api"
 

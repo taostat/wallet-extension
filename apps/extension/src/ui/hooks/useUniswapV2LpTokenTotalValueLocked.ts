@@ -1,5 +1,5 @@
-import { Balance, Balances } from "@taostats/balances"
-import { Token } from "@taostats/chaindata-provider"
+import { Balance, Balances } from "@taostats-wallet/balances"
+import { Token } from "@taostats-wallet/chaindata-provider"
 import BigNumber from "bignumber.js"
 import groupBy from "lodash-es/groupBy"
 

@@ -1,5 +1,5 @@
-import { Token } from "@taostats/chaindata-provider"
-import { isNotNil } from "@taostats/util"
+import { Token } from "@taostats-wallet/chaindata-provider"
+import { isNotNil } from "@taostats-wallet/util"
 import { log } from "extension-shared"
 import { groupBy } from "lodash-es"
 import { useMemo } from "react"

@@ -1,5 +1,5 @@
 import { XcmV3Junctions } from "@polkadot-api/descriptors"
-import { DotNetwork, Token, TokenId, TokenList } from "@taostats/chaindata-provider"
+import { DotNetwork, Token, TokenId, TokenList } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { values } from "lodash-es"
 

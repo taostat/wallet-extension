@@ -1,6 +1,10 @@
-import { ChainConnectors } from "@taostats/balances"
-import { ChainConnectorDot, ChainConnectorEth, ChainConnectorSol } from "@taostats/chain-connectors"
-import { connectionMetaDb } from "@taostats/connection-meta"
+import { ChainConnectors } from "@taostats-wallet/balances"
+import {
+  ChainConnectorDot,
+  ChainConnectorEth,
+  ChainConnectorSol,
+} from "@taostats-wallet/chain-connectors"
+import { connectionMetaDb } from "@taostats-wallet/connection-meta"
 import { atom } from "jotai"
 
 import { chaindataProviderAtom } from "./chaindataProvider"

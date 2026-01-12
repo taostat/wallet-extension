@@ -1,6 +1,6 @@
 import { APIError } from "@blockaid/client"
 import { TransactionScanParams } from "@blockaid/client/resources/evm/transaction.mjs"
-import { EthNetworkId, SolNetworkId } from "@taostats/chaindata-provider"
+import { EthNetworkId, SolNetworkId } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { useMemo } from "react"
 import { TransactionRequest } from "viem"

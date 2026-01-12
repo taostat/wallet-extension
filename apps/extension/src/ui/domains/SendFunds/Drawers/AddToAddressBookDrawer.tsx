@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { detectAddressEncoding, normalizeAddress } from "@taostats/crypto"
-import { HexString } from "@taostats/util"
+import { detectAddressEncoding, normalizeAddress } from "@taostats-wallet/crypto"
+import { HexString } from "@taostats-wallet/util"
 import { FC, FormEventHandler, useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"

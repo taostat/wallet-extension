@@ -5,8 +5,8 @@ import {
   MenuIcon,
   TalismanHandIcon,
   ZapIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"

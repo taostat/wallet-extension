@@ -1,4 +1,4 @@
-import { EthNetwork } from "@taostats/chaindata-provider"
+import { EthNetwork } from "@taostats-wallet/chaindata-provider"
 import { fallback, http } from "viem"
 
 export type TransportOptions = {

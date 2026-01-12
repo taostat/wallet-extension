@@ -1,7 +1,7 @@
-import { Balances } from "@taostats/balances"
-import { encodeAnyAddress } from "@taostats/crypto"
-import { CheckCircleIcon } from "@taostats/icons"
-import { classNames, HexString } from "@taostats/util"
+import { Balances } from "@taostats-wallet/balances"
+import { encodeAnyAddress } from "@taostats-wallet/crypto"
+import { CheckCircleIcon } from "@taostats-wallet/icons"
+import { classNames, HexString } from "@taostats-wallet/util"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { Checkbox, Tooltip, TooltipTrigger } from "taostats-ui"
 

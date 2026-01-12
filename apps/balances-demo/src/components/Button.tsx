@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { ButtonHTMLAttributes } from "react"
 
 export const Button = ({ className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (

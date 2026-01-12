@@ -1,5 +1,5 @@
-import { NetworkId, TokenId } from "@taostats/chaindata-provider"
-import { ArrowRightIcon } from "@taostats/icons"
+import { NetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
+import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { Address } from "extension-core"
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"

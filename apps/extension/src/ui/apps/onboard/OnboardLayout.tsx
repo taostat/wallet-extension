@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, Suspense } from "react"
 
 import { BackButton } from "@talisman/components/BackButton"

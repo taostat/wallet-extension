@@ -1,5 +1,5 @@
 import { MultiAddress } from "@polkadot-api/descriptors"
-import { encodeAddressSs58, normalizeAddress } from "@taostats/crypto"
+import { encodeAddressSs58, normalizeAddress } from "@taostats-wallet/crypto"
 
 export const getAddressFromMultiAddress = (multiAddress: MultiAddress | string) => {
   if (typeof multiAddress === "string") return multiAddress

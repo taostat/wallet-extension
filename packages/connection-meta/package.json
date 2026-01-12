@@ -1,5 +1,5 @@
 {
-  "name": "@taostats/connection-meta",
+  "name": "@taostats-wallet/connection-meta",
   "version": "0.2.32",
   "author": "Taostats",
   "homepage": "https://talisman.xyz",
@@ -26,12 +26,12 @@
     "clean": "rm -rf dist .turbo node_modules"
   },
   "dependencies": {
-    "@taostats/chaindata-provider": "workspace:*",
+    "@taostats-wallet/chaindata-provider": "workspace:*",
     "dexie": "^4.0.9"
   },
   "devDependencies": {
-    "@taostats/eslint-config": "workspace:*",
-    "@taostats/tsconfig": "workspace:*",
+    "@taostats-wallet/eslint-config": "workspace:*",
+    "@taostats-wallet/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",
@@ -41,7 +41,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@taostats/eslint-config/base"
+      "@taostats-wallet/eslint-config/base"
     ]
   }
 }

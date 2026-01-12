@@ -1,5 +1,5 @@
-import { encodeAnyAddress } from "@taostats/crypto"
-import { classNames } from "@taostats/util"
+import { encodeAnyAddress } from "@taostats-wallet/crypto"
+import { classNames } from "@taostats-wallet/util"
 import { Account } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 

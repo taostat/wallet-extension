@@ -42,18 +42,18 @@
     "@substrate/txwrapper-core": "7.5.3",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.9",
-    "@taostats/balances": "workspace:*",
-    "@taostats/chaindata-provider": "workspace:*",
-    "@taostats/crypto": "workspace:*",
-    "@taostats/icons": "workspace:*",
-    "@taostats/on-chain-id": "workspace:*",
-    "@taostats/orb": "workspace:*",
-    "@taostats/sapi": "workspace:*",
-    "@taostats/scale": "workspace:*",
+    "@taostats-wallet/balances": "workspace:*",
+    "@taostats-wallet/chaindata-provider": "workspace:*",
+    "@taostats-wallet/crypto": "workspace:*",
+    "@taostats-wallet/icons": "workspace:*",
+    "@taostats-wallet/on-chain-id": "workspace:*",
+    "@taostats-wallet/orb": "workspace:*",
+    "@taostats-wallet/sapi": "workspace:*",
+    "@taostats-wallet/scale": "workspace:*",
     "@talismn/siws": "^0.0.19",
-    "@taostats/solana": "workspace:*",
-    "@taostats/token-rates": "workspace:*",
-    "@taostats/util": "workspace:*",
+    "@taostats-wallet/solana": "workspace:*",
+    "@taostats-wallet/token-rates": "workspace:*",
+    "@taostats-wallet/util": "workspace:*",
     "@tanstack/react-form": "^1.12.3",
     "@tanstack/react-query": "5.59.16",
     "@tanstack/react-virtual": "^3.11.1",
@@ -124,8 +124,8 @@
     "@sentry/webpack-plugin": "2.10.2",
     "@svgr/webpack": "^8.1.0",
     "@swc/jest": "^0.2.36",
-    "@taostats/eslint-config": "workspace:*",
-    "@taostats/tsconfig": "workspace:*",
+    "@taostats-wallet/eslint-config": "workspace:*",
+    "@taostats-wallet/tsconfig": "workspace:*",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
@@ -236,7 +236,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@taostats/eslint-config/react"
+      "@taostats-wallet/eslint-config/react"
     ]
   }
 }

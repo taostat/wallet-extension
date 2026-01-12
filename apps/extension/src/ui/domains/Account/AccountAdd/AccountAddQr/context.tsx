@@ -1,5 +1,5 @@
 import { HexString } from "@polkadot/util/types"
-import { detectAddressEncoding } from "@taostats/crypto"
+import { detectAddressEncoding } from "@taostats-wallet/crypto"
 import { useCallback, useReducer } from "react"
 import { useTranslation } from "react-i18next"
 

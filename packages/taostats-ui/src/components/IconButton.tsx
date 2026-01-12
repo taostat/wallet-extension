@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { ButtonHTMLAttributes, forwardRef } from "react"
 
 type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "ref">

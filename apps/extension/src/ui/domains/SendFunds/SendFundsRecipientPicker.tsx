@@ -4,15 +4,21 @@ import {
   isNetworkDot,
   isNetworkEth,
   Network,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import {
   decodeSs58Address,
   getAccountPlatformFromAddress,
   isAddressEqual,
   isAddressValid,
   isSs58Address,
-} from "@taostats/crypto"
-import { EyeIcon, LoaderIcon, TalismanHandIcon, UserIcon, XOctagonIcon } from "@taostats/icons"
+} from "@taostats-wallet/crypto"
+import {
+  EyeIcon,
+  LoaderIcon,
+  TalismanHandIcon,
+  UserIcon,
+  XOctagonIcon,
+} from "@taostats-wallet/icons"
 import {
   isAccountCompatibleWithNetwork,
   isAccountOwned,

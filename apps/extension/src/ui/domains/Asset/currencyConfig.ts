@@ -1,4 +1,4 @@
-import { SUPPORTED_CURRENCIES, TokenRateCurrency } from "@taostats/token-rates"
+import { SUPPORTED_CURRENCIES, TokenRateCurrency } from "@taostats-wallet/token-rates"
 
 import audIcon from "./currencyIcons/aud.svg?url"
 import btcIcon from "./currencyIcons/btc.svg?url"

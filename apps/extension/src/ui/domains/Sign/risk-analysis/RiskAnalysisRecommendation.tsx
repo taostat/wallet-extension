@@ -4,8 +4,8 @@ import {
   ShieldUnavailableIcon,
   ShieldUnknownIcon,
   ShieldZapIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 

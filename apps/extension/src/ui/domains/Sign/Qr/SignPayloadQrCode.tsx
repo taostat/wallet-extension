@@ -3,7 +3,7 @@ import { TypeRegistry } from "@polkadot/types"
 import { u8aConcat, u8aToU8a } from "@polkadot/util"
 import { decodeAddress } from "@polkadot/util-crypto"
 import { useQuery } from "@tanstack/react-query"
-import { fromHex } from "@taostats/scale"
+import { fromHex } from "@taostats-wallet/scale"
 import {
   AccountPolkadotVault,
   isRawPayload,

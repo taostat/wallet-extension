@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { FC, forwardRef, SVGProps } from "react"
 
 export type PillButtonSize = "tiny" | "xs" | "sm" | "base"

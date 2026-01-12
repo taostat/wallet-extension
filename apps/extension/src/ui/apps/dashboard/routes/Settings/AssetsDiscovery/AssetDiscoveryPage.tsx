@@ -1,5 +1,5 @@
 import { bind } from "@react-rxjs/core"
-import { Address, BalanceFormatter } from "@taostats/balances"
+import { Address, BalanceFormatter } from "@taostats-wallet/balances"
 import {
   EthNetworkId,
   getBlockExplorerUrls,
@@ -7,7 +7,7 @@ import {
   Network,
   Token,
   TokenId,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import {
   ChevronDownIcon,
   DiamondIcon,
@@ -16,8 +16,8 @@ import {
   PlusIcon,
   SearchIcon,
   XIcon,
-} from "@taostats/icons"
-import { classNames, isNotNil, isTruthy } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames, isNotNil, isTruthy } from "@taostats-wallet/util"
 import {
   Account,
   activeNetworksStore,

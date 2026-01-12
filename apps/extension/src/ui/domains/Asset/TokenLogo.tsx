@@ -1,5 +1,5 @@
-import { evmErc20TokenId, EvmUniswapV2Token } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { evmErc20TokenId, EvmUniswapV2Token } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 import { FC } from "react"
 
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"

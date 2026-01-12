@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
-import { Token } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { Token } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 import { Suspense } from "react"
 
 import { SuspenseTracker } from "@talisman/components/SuspenseTracker"

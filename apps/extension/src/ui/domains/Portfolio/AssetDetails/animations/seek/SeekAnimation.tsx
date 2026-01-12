@@ -1,4 +1,4 @@
-import { cn } from "@taostats/util"
+import { cn } from "@taostats-wallet/util"
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 

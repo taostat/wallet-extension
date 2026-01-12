@@ -1,5 +1,5 @@
-import { NetworkId } from "@taostats/chaindata-provider"
-import { PlusIcon } from "@taostats/icons"
+import { NetworkId } from "@taostats-wallet/chaindata-provider"
+import { PlusIcon } from "@taostats-wallet/icons"
 import { activeTokensStore } from "extension-core"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

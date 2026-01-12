@@ -1,4 +1,4 @@
-import { sleep } from "@taostats/util"
+import { sleep } from "@taostats-wallet/util"
 import { Id, toast, ToastContent, ToastOptions } from "react-toastify"
 
 import { Notification, NotificationProps } from "./Notification"

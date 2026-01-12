@@ -1,4 +1,4 @@
-import { SubHydrationTokenSchema } from "@taostats/chaindata-provider"
+import { SubHydrationTokenSchema } from "@taostats-wallet/chaindata-provider"
 
 export { type SubHydrationTokenConfig as TokenConfig } from "./types"
 

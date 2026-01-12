@@ -1,4 +1,4 @@
-import { QrIcon } from "@taostats/icons"
+import { QrIcon } from "@taostats-wallet/icons"
 import { IconButton } from "taostats-ui"
 
 import { notify } from "@talisman/components/Notifications"

@@ -1,4 +1,4 @@
-import { cn } from "@taostats/util"
+import { cn } from "@taostats-wallet/util"
 import { Suspense } from "react"
 import { Modal } from "taostats-ui"
 

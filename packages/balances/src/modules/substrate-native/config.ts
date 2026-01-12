@@ -1,4 +1,4 @@
-import { SubNativeTokenSchema } from "@taostats/chaindata-provider"
+import { SubNativeTokenSchema } from "@taostats-wallet/chaindata-provider"
 
 export {
   type SubNativeMiniMetadataExtra as MiniMetadataExtra,

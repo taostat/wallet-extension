@@ -1,5 +1,5 @@
-import { ArrowRightCircleIcon, ChevronRightIcon, XIcon } from "@taostats/icons"
-import { classNames, cn } from "@taostats/util"
+import { ArrowRightCircleIcon, ChevronRightIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames, cn } from "@taostats-wallet/util"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

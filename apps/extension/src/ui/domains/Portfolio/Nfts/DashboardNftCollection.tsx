@@ -1,4 +1,4 @@
-import { StarIcon } from "@taostats/icons"
+import { StarIcon } from "@taostats-wallet/icons"
 import { format } from "date-fns/format"
 import { Nft, NftCollection } from "extension-core"
 import { FC, Suspense, useCallback, useMemo, useRef, useState } from "react"

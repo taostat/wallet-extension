@@ -1,5 +1,5 @@
 {
-  "extends": "@taostats/tsconfig/es6-node.json",
+  "extends": "@taostats-wallet/tsconfig/es6-node.json",
   "include": ["src", "src/state/initChaindata.json"],
   "exclude": ["**/node_modules", "**/.*/", "**/*.spec.ts", "**/*.test.ts"]
 }

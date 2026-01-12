@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { isEthereumAddress } from "@taostats/crypto"
-import { isPotentialEns, NsLookupType } from "@taostats/on-chain-id"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
+import { isPotentialEns, NsLookupType } from "@taostats-wallet/on-chain-id"
 import { useEffect, useState } from "react"
 import { useDebounce } from "react-use"
 

@@ -10,8 +10,8 @@ import {
   isTokenSubForeignAssets,
   Token,
   TokenBaseSchema,
-} from "@taostats/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon, RotateCcwIcon, SaveIcon } from "@taostats/icons"
+} from "@taostats-wallet/chaindata-provider"
+import { CopyIcon, ExternalLinkIcon, RotateCcwIcon, SaveIcon } from "@taostats-wallet/icons"
 import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"

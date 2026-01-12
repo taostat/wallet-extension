@@ -8,8 +8,8 @@ import {
   isNetworkKnown,
   Network,
   NetworkBaseSchema,
-} from "@taostats/chaindata-provider"
-import { CopyIcon, RotateCcwIcon, SaveIcon } from "@taostats/icons"
+} from "@taostats-wallet/chaindata-provider"
+import { CopyIcon, RotateCcwIcon, SaveIcon } from "@taostats-wallet/icons"
 import { t } from "i18next"
 import { FC, useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

@@ -1,4 +1,4 @@
-import { classNames, formatDecimals, MAX_DECIMALS_FORMAT } from "@taostats/util"
+import { classNames, formatDecimals, MAX_DECIMALS_FORMAT } from "@taostats-wallet/util"
 import BigNumber from "bignumber.js"
 import React, { FC, useMemo } from "react"
 import CountUp from "react-countup"

@@ -1,5 +1,5 @@
 import { captureException } from "@sentry/browser"
-import { KeypairCurve } from "@taostats/crypto"
+import { KeypairCurve } from "@taostats-wallet/crypto"
 import { log } from "extension-shared"
 import { Err, Ok, Result } from "ts-results"
 

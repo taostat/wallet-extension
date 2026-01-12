@@ -1,4 +1,4 @@
-import { isAddressEqual, isBitcoinAddress, isEthereumAddress } from "@taostats/crypto"
+import { isAddressEqual, isBitcoinAddress, isEthereumAddress } from "@taostats-wallet/crypto"
 import { isAccountOwned, isAccountPlatformEthereum } from "extension-core"
 import { useAtomValue, useSetAtom } from "jotai"
 import { useCallback, useMemo } from "react"

@@ -1,4 +1,4 @@
-import { isAccountOwned } from "@taostats/keyring"
+import { isAccountOwned } from "@taostats-wallet/keyring"
 import { IS_FIREFOX, isTalismanHostname } from "extension-shared"
 
 import { db } from "../db"

@@ -1,5 +1,5 @@
-import { NetworkPlatform } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { NetworkPlatform } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback, useState } from "react"
 import { Dropdown } from "taostats-ui"
 

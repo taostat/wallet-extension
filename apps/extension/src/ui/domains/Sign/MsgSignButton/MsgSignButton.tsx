@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

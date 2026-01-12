@@ -1,5 +1,5 @@
-import { isEthereumAddress } from "@taostats/crypto"
-import { MoreHorizontalIcon } from "@taostats/icons"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
+import { MoreHorizontalIcon } from "@taostats-wallet/icons"
 import { Account, getAccountGenesisHash } from "extension-core"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

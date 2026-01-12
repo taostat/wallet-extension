@@ -1,5 +1,5 @@
 {
-  "name": "@taostats/tsconfig",
+  "name": "@taostats-wallet/tsconfig",
   "version": "0.0.3",
   "private": true
 }

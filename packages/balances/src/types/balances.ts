@@ -1,6 +1,17 @@
-import { evmErc20TokenId, NetworkList, TokenList } from "@taostats/chaindata-provider"
-import { newTokenRates, TokenRateCurrency, TokenRates, TokenRatesList } from "@taostats/token-rates"
-import { BigMath, isArrayOf, isBigInt, NonFunctionProperties, planckToTokens } from "@taostats/util"
+import { evmErc20TokenId, NetworkList, TokenList } from "@taostats-wallet/chaindata-provider"
+import {
+  newTokenRates,
+  TokenRateCurrency,
+  TokenRates,
+  TokenRatesList,
+} from "@taostats-wallet/token-rates"
+import {
+  BigMath,
+  isArrayOf,
+  isBigInt,
+  NonFunctionProperties,
+  planckToTokens,
+} from "@taostats-wallet/util"
 import BigNumber from "bignumber.js"
 
 import log from "../log"

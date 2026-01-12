@@ -1,5 +1,5 @@
-import { parseTokenId } from "@taostats/chaindata-provider"
-import { isEthereumAddress } from "@taostats/crypto"
+import { parseTokenId } from "@taostats-wallet/chaindata-provider"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
 import BigNumber from "bignumber.js"
 import { keyBy, uniq } from "lodash-es"
 import { getContract, PublicClient } from "viem"

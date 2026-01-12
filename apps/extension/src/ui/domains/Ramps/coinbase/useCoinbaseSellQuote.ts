@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import { isTokenDot, isTokenEth } from "@taostats/chaindata-provider"
-import { formatPrice } from "@taostats/util"
+import { isTokenDot, isTokenEth } from "@taostats-wallet/chaindata-provider"
+import { formatPrice } from "@taostats-wallet/util"
 import BigNumber from "bignumber.js"
 import { log, RAMPS_COINBASE_API_BASE_PATH } from "extension-shared"
 import { useMemo } from "react"

@@ -3,10 +3,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import { dirname } from "path"
 
-import { BALANCE_MODULES, MiniMetadata } from "@taostats/balances"
-import { ChainConnectorDotStub, IChainConnectorDot } from "@taostats/chain-connectors"
-import { DotNetwork, Token, TokenType } from "@taostats/chaindata-provider"
-import { fetchBestMetadata } from "@taostats/sapi"
+import { BALANCE_MODULES, MiniMetadata } from "@taostats-wallet/balances"
+import { ChainConnectorDotStub, IChainConnectorDot } from "@taostats-wallet/chain-connectors"
+import { DotNetwork, Token, TokenType } from "@taostats-wallet/chaindata-provider"
+import { fetchBestMetadata } from "@taostats-wallet/sapi"
 import {
   decAnyMetadata,
   getDynamicBuilder,
@@ -14,7 +14,7 @@ import {
   papiStringify,
   toHex,
   unifyMetadata,
-} from "@taostats/scale"
+} from "@taostats-wallet/scale"
 import { log } from "extension-shared"
 import { Enum } from "polkadot-api"
 

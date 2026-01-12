@@ -10,9 +10,9 @@ import {
   getAccountPlatformFromAddress,
   hex,
   KeypairCurve,
-} from "@taostats/crypto"
-import { getPublicKeySolana } from "@taostats/crypto/src/derivation/deriveSolana"
-import { AccountType, AddAccountKeypairOptions } from "@taostats/keyring"
+} from "@taostats-wallet/crypto"
+import { getPublicKeySolana } from "@taostats-wallet/crypto/src/derivation/deriveSolana"
+import { AccountType, AddAccountKeypairOptions } from "@taostats-wallet/keyring"
 import { log } from "extension-shared"
 import { combineLatest } from "rxjs"
 

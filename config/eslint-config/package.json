@@ -1,5 +1,5 @@
 {
-  "name": "@taostats/eslint-config",
+  "name": "@taostats-wallet/eslint-config",
   "version": "0.0.3",
   "publishConfig": {
     "access": "public"

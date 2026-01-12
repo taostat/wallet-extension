@@ -1,4 +1,4 @@
-import { TokenOfType, TokenType } from "@taostats/chaindata-provider"
+import { TokenOfType, TokenType } from "@taostats-wallet/chaindata-provider"
 
 import { TokenPlatform, TokensWithAddresses } from "../../types/IBalanceModule"
 

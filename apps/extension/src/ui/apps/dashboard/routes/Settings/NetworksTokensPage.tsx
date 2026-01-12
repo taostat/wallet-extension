@@ -4,7 +4,7 @@ import {
   GlobeIcon,
   ListIcon,
   PolkadotVaultIcon,
-} from "@taostats/icons"
+} from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
 

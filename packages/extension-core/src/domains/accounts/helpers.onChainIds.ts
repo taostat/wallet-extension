@@ -1,4 +1,4 @@
-import { OnChainId, OnChainIds, ResolvedNames } from "@taostats/on-chain-id"
+import { OnChainId, OnChainIds, ResolvedNames } from "@taostats-wallet/on-chain-id"
 
 import { chainConnectors } from "../../rpcs/balance-modules"
 

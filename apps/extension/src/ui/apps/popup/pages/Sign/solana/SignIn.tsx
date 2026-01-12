@@ -1,5 +1,5 @@
 import { createSignInMessageText } from "@solana/wallet-standard-util"
-import { InfoIcon } from "@taostats/icons"
+import { InfoIcon } from "@taostats-wallet/icons"
 import { isAccountPlatformSolana, KnownRequestIdOnly, ProviderType } from "extension-core"
 import { capitalize } from "lodash-es"
 import { FC, Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react"

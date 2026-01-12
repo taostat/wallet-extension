@@ -1,6 +1,6 @@
-import { Balances } from "@taostats/balances"
-import { NetworkId } from "@taostats/chaindata-provider"
-import { isNotNil } from "@taostats/util"
+import { Balances } from "@taostats-wallet/balances"
+import { NetworkId } from "@taostats-wallet/chaindata-provider"
+import { isNotNil } from "@taostats-wallet/util"
 import { useMemo } from "react"
 
 export const usePortfolioNetworkIds = (balances: Balances) => {

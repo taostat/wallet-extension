@@ -1,8 +1,8 @@
 import type { PrimitiveAtom } from "jotai"
 import type { Chain as ViemChain } from "viem/chains"
-import { chainConnectorsAtom } from "@taostats/balances-react"
-import { evmErc20TokenId } from "@taostats/chaindata-provider"
-import { isAddressEqual } from "@taostats/crypto"
+import { chainConnectorsAtom } from "@taostats-wallet/balances-react"
+import { evmErc20TokenId } from "@taostats-wallet/chaindata-provider"
+import { isAddressEqual } from "@taostats-wallet/crypto"
 import BigNumber from "bignumber.js"
 import {
   isAccountAddressEthereum,

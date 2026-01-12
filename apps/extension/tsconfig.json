@@ -1,5 +1,5 @@
 {
-  "extends": "@taostats/tsconfig/es6-react.json",
+  "extends": "@taostats-wallet/tsconfig/es6-react.json",
   "compilerOptions": {
     "noEmit": true,
     "baseUrl": "src",

@@ -4,8 +4,8 @@ import {
   isAddressEqual,
   isAddressValid,
   isSs58Address,
-} from "@taostats/crypto"
-import { HexString } from "@taostats/util"
+} from "@taostats-wallet/crypto"
+import { HexString } from "@taostats-wallet/util"
 import { keyBy } from "lodash-es"
 import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"

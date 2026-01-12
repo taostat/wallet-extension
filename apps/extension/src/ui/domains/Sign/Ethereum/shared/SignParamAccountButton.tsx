@@ -1,4 +1,4 @@
-import { isEthereumAddress } from "@taostats/crypto"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
 import { FC, useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 

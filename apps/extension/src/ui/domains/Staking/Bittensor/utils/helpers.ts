@@ -1,6 +1,6 @@
 import { Enum } from "@polkadot-api/substrate-bindings"
-import { TAO_DECIMALS } from "@taostats/balances"
-import { ScaleApi } from "@taostats/sapi"
+import { TAO_DECIMALS } from "@taostats-wallet/balances"
+import { ScaleApi } from "@taostats-wallet/sapi"
 import { Binary } from "polkadot-api"
 
 import { StakeDirection } from "../hooks/types"

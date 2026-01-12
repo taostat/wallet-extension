@@ -1,4 +1,4 @@
-import { EvmErc20TokenSchema } from "@taostats/chaindata-provider"
+import { EvmErc20TokenSchema } from "@taostats-wallet/chaindata-provider"
 import z from "zod/v4"
 
 import { TokenConfigBaseSchema } from "../../types/tokens"

@@ -1,4 +1,4 @@
-import { encodeAnyAddress } from "@taostats/crypto"
+import { encodeAnyAddress } from "@taostats-wallet/crypto"
 import { Account, getAccountGenesisHash } from "extension-core"
 import { useMemo } from "react"
 

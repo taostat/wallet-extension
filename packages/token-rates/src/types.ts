@@ -1,4 +1,4 @@
-import { TokenId } from "@taostats/chaindata-provider"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
 
 export const SUPPORTED_CURRENCIES = {
   btc: { name: "Bitcoin", symbol: "₿" },

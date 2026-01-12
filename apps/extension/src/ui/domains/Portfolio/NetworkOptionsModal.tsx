@@ -1,6 +1,6 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { ChevronLeftIcon, XIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback, useDeferredValue, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"

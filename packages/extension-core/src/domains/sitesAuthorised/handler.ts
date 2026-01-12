@@ -1,7 +1,7 @@
 import { assert } from "@polkadot/util"
 import { isEthereumAddress } from "@polkadot/util-crypto"
-import { base58, ed25519 } from "@taostats/crypto"
-import { Account } from "@taostats/keyring"
+import { base58, ed25519 } from "@taostats-wallet/crypto"
+import { Account } from "@taostats-wallet/keyring"
 
 import type {
   MessageTypes,

@@ -1,5 +1,5 @@
-import { AlertTriangleIcon, InfoIcon, SaveIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { AlertTriangleIcon, InfoIcon, SaveIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

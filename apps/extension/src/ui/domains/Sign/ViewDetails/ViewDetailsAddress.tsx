@@ -1,6 +1,6 @@
-import { getBlockExplorerUrls, Network } from "@taostats/chaindata-provider"
-import { encodeAnyAddress } from "@taostats/crypto"
-import { CopyIcon, ExternalLinkIcon } from "@taostats/icons"
+import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
+import { encodeAnyAddress } from "@taostats-wallet/crypto"
+import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { FC, useCallback, useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { TokenId } from "@taostats/chaindata-provider"
-import { newTokenRates, TokenRates } from "@taostats/token-rates"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { newTokenRates, TokenRates } from "@taostats-wallet/token-rates"
 import { fetchFromCoingecko } from "extension-core"
 
 const CURRENCIES = Object.keys(newTokenRates()).join(",")

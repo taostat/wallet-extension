@@ -1,5 +1,5 @@
 import { XcmVersionedAssets } from "@polkadot-api/descriptors"
-import { DotNetwork, subAssetTokenId, TokenId } from "@taostats/chaindata-provider"
+import { DotNetwork, subAssetTokenId, TokenId } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 
 export const getMultiAssetTokenId = (

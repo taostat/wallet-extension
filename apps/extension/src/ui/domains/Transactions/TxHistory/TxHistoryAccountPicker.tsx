@@ -1,5 +1,5 @@
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { Account, getAccountGenesisHash } from "extension-core"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

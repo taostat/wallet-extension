@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { Token } from "@taostats/chaindata-provider"
-import { fetchTokenRates, TokenRateCurrency } from "@taostats/token-rates"
+import { Token } from "@taostats-wallet/chaindata-provider"
+import { fetchTokenRates, TokenRateCurrency } from "@taostats-wallet/token-rates"
 import { keyBy } from "lodash-es"
 import { useMemo } from "react"
 

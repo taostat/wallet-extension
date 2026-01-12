@@ -1,4 +1,4 @@
-import { SubForeignAssetsTokenSchema } from "@taostats/chaindata-provider"
+import { SubForeignAssetsTokenSchema } from "@taostats-wallet/chaindata-provider"
 
 export { type SubForeignAssetsTokenConfig as TokenConfig } from "./types"
 

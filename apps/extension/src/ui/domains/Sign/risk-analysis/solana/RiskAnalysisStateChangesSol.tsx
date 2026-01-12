@@ -1,5 +1,5 @@
 import { MessageScanResponse } from "@blockaid/client/resources/solana/message.mjs"
-import { solNativeTokenId, SolNetworkId, solSplTokenId } from "@taostats/chaindata-provider"
+import { solNativeTokenId, SolNetworkId, solSplTokenId } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"

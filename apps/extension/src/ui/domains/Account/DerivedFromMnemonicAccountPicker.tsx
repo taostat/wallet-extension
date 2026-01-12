@@ -1,5 +1,5 @@
-import { isAddressEqual, KeypairCurve } from "@taostats/crypto"
-import { isNotNil } from "@taostats/util"
+import { isAddressEqual, KeypairCurve } from "@taostats-wallet/crypto"
+import { isNotNil } from "@taostats-wallet/util"
 import { Account, AddAccountDeriveOptions, getDerivationPathForCurve } from "extension-core"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 

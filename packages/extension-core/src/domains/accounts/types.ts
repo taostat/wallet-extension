@@ -5,16 +5,16 @@ import type {
   ResponseAccountsExport,
 } from "@polkadot/extension-base/background/types"
 import { KeyringPair$Json } from "@polkadot/keyring/types"
-import { TokenId } from "@taostats/chaindata-provider"
-import { KeypairCurve } from "@taostats/crypto"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { KeypairCurve } from "@taostats-wallet/crypto"
 import {
   Account,
   AddAccountDeriveOptions,
   AddAccountExternalOptions,
   AddAccountKeypairOptions,
-} from "@taostats/keyring"
-import { NsLookupType } from "@taostats/on-chain-id"
-import { HexString } from "@taostats/util"
+} from "@taostats-wallet/keyring"
+import { NsLookupType } from "@taostats-wallet/on-chain-id"
+import { HexString } from "@taostats-wallet/util"
 
 import type { RequestAccountsCatalogAction, Trees } from "./helpers.catalog"
 import { Address } from "../../types/base"

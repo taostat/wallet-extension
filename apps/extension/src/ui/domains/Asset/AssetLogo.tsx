@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { IS_FIREFOX, UNKNOWN_TOKEN_URL } from "extension-shared"
 import { CSSProperties, FC, useId, useMemo } from "react"
 

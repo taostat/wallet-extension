@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { DotNetworkId } from "@taostats/chaindata-provider"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 
 export type TipOptionName = "low" | "medium" | "high"
 export type TipOptions = Record<TipOptionName, string>

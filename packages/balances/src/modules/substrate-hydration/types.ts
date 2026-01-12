@@ -1,4 +1,4 @@
-import { SubHydrationTokenSchema } from "@taostats/chaindata-provider"
+import { SubHydrationTokenSchema } from "@taostats-wallet/chaindata-provider"
 import z from "zod/v4"
 
 import { TokenConfigBaseSchema } from "../../types/tokens"

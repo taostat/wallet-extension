@@ -2,13 +2,13 @@ import { deserializeMetadata } from "@metaplex-foundation/mpl-token-metadata"
 import { publicKey, sol } from "@metaplex-foundation/umi"
 import { MintLayout } from "@solana/spl-token"
 import { PublicKey } from "@solana/web3.js"
-import { IChainConnectorSol } from "@taostats/chain-connectors"
+import { IChainConnectorSol } from "@taostats-wallet/chain-connectors"
 import {
   parseSolSplTokenId,
   SolSplToken,
   solSplTokenId,
   SolSplTokenSchema,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { assign, omit } from "lodash-es"
 import z from "zod/v4"
 

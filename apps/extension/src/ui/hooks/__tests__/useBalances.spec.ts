@@ -1,4 +1,4 @@
-import { Balances } from "@taostats/balances"
+import { Balances } from "@taostats-wallet/balances"
 import { renderHook, waitFor } from "@testing-library/react"
 
 import { TestWrapper } from "../../../../tests/TestWrapper"

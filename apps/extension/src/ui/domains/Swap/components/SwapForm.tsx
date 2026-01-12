@@ -1,5 +1,5 @@
-import { useSyncSwapsChaindata } from "@taostats/balances-react"
-import { AlertCircleIcon, ExternalLinkIcon, LoaderIcon } from "@taostats/icons"
+import { useSyncSwapsChaindata } from "@taostats-wallet/balances-react"
+import { AlertCircleIcon, ExternalLinkIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { loadable } from "jotai/utils"

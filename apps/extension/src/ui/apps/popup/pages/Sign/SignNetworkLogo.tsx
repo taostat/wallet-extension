@@ -1,4 +1,4 @@
-import { Network } from "@taostats/chaindata-provider"
+import { Network } from "@taostats-wallet/chaindata-provider"
 import { FC } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 

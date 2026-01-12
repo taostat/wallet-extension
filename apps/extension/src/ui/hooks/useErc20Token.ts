@@ -1,4 +1,4 @@
-import { EthNetworkId, isTokenEvmErc20 } from "@taostats/chaindata-provider"
+import { EthNetworkId, isTokenEvmErc20 } from "@taostats-wallet/chaindata-provider"
 import { EvmAddress } from "extension-core"
 import { useMemo } from "react"
 

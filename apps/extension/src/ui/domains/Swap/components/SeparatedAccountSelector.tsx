@@ -5,8 +5,8 @@ import {
   isAddressEqual,
   isBitcoinAddress,
   normalizeAddress,
-} from "@taostats/crypto"
-import { ChevronLeftIcon } from "@taostats/icons"
+} from "@taostats-wallet/crypto"
+import { ChevronLeftIcon } from "@taostats-wallet/icons"
 import {
   Account,
   isAccountAddressEthereum,

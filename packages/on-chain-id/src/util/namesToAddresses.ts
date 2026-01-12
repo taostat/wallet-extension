@@ -1,4 +1,4 @@
-import { throwAfter } from "@taostats/util"
+import { throwAfter } from "@taostats-wallet/util"
 
 import log from "../log"
 import { isPotentialEns } from "./isPotentialEns"

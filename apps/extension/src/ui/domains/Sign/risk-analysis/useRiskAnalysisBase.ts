@@ -6,8 +6,8 @@ import {
   solNativeTokenId,
   solSplTokenId,
   TokenId,
-} from "@taostats/chaindata-provider"
-import { isNotNil } from "@taostats/util"
+} from "@taostats-wallet/chaindata-provider"
+import { isNotNil } from "@taostats-wallet/util"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 

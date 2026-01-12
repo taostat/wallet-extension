@@ -6,7 +6,7 @@ module.exports = {
   },
   plugins: ["react", "jest"],
   extends: [
-    "@taostats/eslint-config/base",
+    "@taostats-wallet/eslint-config/base",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",

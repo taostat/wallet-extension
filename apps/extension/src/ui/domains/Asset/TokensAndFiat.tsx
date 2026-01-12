@@ -1,5 +1,5 @@
-import { BalanceFormatter } from "@taostats/balances"
-import { classNames } from "@taostats/util"
+import { BalanceFormatter } from "@taostats-wallet/balances"
+import { classNames } from "@taostats-wallet/util"
 import { FC, Suspense, useMemo } from "react"
 
 import { useSelectedCurrency, useToken, useTokenRates } from "@ui/state"

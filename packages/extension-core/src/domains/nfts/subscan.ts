@@ -1,5 +1,5 @@
-import { Account } from "@taostats/keyring"
-import { isNotNil } from "@taostats/util"
+import { Account } from "@taostats-wallet/keyring"
+import { isNotNil } from "@taostats-wallet/util"
 import { log } from "extension-shared"
 import { fromPairs, toPairs } from "lodash-es"
 import PQueue from "p-queue"

@@ -1,5 +1,5 @@
 import { PublicKey, SystemProgram } from "@solana/web3.js"
-import { isTokenOfType } from "@taostats/chaindata-provider"
+import { isTokenOfType } from "@taostats-wallet/chaindata-provider"
 
 import { IBalanceModule } from "../../types/IBalanceModule"
 import { MODULE_TYPE } from "./config"

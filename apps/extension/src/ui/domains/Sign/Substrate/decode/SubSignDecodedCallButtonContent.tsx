@@ -1,4 +1,4 @@
-import { DecodedCall } from "@taostats/sapi"
+import { DecodedCall } from "@taostats-wallet/sapi"
 import { FC } from "react"
 
 import { FallbackErrorBoundary } from "@talisman/components/FallbackErrorBoundary"

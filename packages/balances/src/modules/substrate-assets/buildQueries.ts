@@ -1,5 +1,5 @@
-import { decodeScale, MetadataBuilder } from "@taostats/scale"
-import { isNotNil } from "@taostats/util"
+import { decodeScale, MetadataBuilder } from "@taostats-wallet/scale"
+import { isNotNil } from "@taostats-wallet/util"
 
 import log from "../../log"
 import { AmountWithLabel, IBalance, MiniMetadata } from "../../types"

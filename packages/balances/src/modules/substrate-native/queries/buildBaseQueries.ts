@@ -1,5 +1,5 @@
-import { decodeScale, ScaleStorageCoder } from "@taostats/scale"
-import { isNotNil } from "@taostats/util"
+import { decodeScale, ScaleStorageCoder } from "@taostats-wallet/scale"
+import { isNotNil } from "@taostats-wallet/util"
 import { Binary, Enum } from "polkadot-api"
 
 import { AmountWithLabel, IBalance, MiniMetadata } from "../../../types"

@@ -1,4 +1,4 @@
-import { keepAlive, Loadable } from "@taostats/util"
+import { keepAlive, Loadable } from "@taostats-wallet/util"
 import { log, TAOSTATS_BASE_PATH } from "extension-shared"
 import { Observable, shareReplay, startWith } from "rxjs"
 

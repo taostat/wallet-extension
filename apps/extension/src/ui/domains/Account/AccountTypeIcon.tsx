@@ -5,8 +5,8 @@ import {
   SignetIcon,
   UsbIcon,
   UsersIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { AccountType } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"

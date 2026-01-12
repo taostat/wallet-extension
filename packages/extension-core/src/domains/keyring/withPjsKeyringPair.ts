@@ -1,6 +1,6 @@
 import Keyring from "@polkadot/keyring"
 import { KeyringPair } from "@polkadot/keyring/types"
-import { getPublicKeyFromSecret } from "@taostats/crypto"
+import { getPublicKeyFromSecret } from "@taostats-wallet/crypto"
 import { Err, Ok, Result } from "ts-results"
 
 import { Address } from "../../types/base"

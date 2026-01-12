@@ -1,3 +1,3 @@
 module.exports = {
-  presets: ["@talismn"],
+  presets: ["@taostats-wallet"],
 }

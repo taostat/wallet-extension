@@ -1,4 +1,4 @@
-import { AlertCircleIcon, CheckCircleIcon, LoaderIcon, XCircleIcon } from "@taostats/icons"
+import { AlertCircleIcon, CheckCircleIcon, LoaderIcon, XCircleIcon } from "@taostats-wallet/icons"
 import { ReactNode } from "react"
 
 type NotificationType = "success" | "error" | "processing" | "warn"

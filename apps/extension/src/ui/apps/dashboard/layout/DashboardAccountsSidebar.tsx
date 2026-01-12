@@ -1,5 +1,5 @@
-import { CheckIcon, EyeIcon, PencilIcon, PlusIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { CheckIcon, EyeIcon, PencilIcon, PlusIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   AccountsCatalogTree,
   AccountType,

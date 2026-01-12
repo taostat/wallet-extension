@@ -1,4 +1,4 @@
-import { Balances } from "@taostats/balances"
+import { Balances } from "@taostats-wallet/balances"
 import { uniq } from "lodash-es"
 import { useMemo } from "react"
 

@@ -1,5 +1,5 @@
 {
-  "name": "@taostats/crypto",
+  "name": "@taostats-wallet/crypto",
   "version": "0.3.0",
   "author": "Taostats",
   "homepage": "https://talisman.xyz",
@@ -39,8 +39,8 @@
     "scale-ts": "1.6.1"
   },
   "devDependencies": {
-    "@taostats/eslint-config": "workspace:*",
-    "@taostats/tsconfig": "workspace:*",
+    "@taostats-wallet/eslint-config": "workspace:*",
+    "@taostats-wallet/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
     "@swc/jest": "^0.2.36",
     "eslint": "^8.57.1",
@@ -56,7 +56,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@taostats/eslint-config/base"
+      "@taostats-wallet/eslint-config/base"
     ]
   }
 }

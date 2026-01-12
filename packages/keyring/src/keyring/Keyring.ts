@@ -13,7 +13,7 @@ import {
   mnemonicToEntropy,
   normalizeAddress,
   utf8,
-} from "@taostats/crypto"
+} from "@taostats-wallet/crypto"
 
 import type { Account, Mnemonic } from "../types"
 import type {

@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { CSSProperties, memo, useLayoutEffect, useMemo, useRef } from "react"
 import { useMeasure } from "react-use"
 

@@ -1,6 +1,6 @@
 import { SiwsMessage } from "@talismn/siws"
-import { DotNetwork } from "@taostats/chaindata-provider"
-import { UserRightIcon } from "@taostats/icons"
+import { DotNetwork } from "@taostats-wallet/chaindata-provider"
+import { UserRightIcon } from "@taostats-wallet/icons"
 import { Account } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"

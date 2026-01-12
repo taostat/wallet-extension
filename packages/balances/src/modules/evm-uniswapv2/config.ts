@@ -1,4 +1,4 @@
-import { EvmUniswapV2TokenSchema } from "@taostats/chaindata-provider"
+import { EvmUniswapV2TokenSchema } from "@taostats-wallet/chaindata-provider"
 
 export { type EvmUniswapV2TokenConfig as TokenConfig } from "./types"
 

@@ -1,4 +1,4 @@
-import { isAddressEqual } from "@taostats/crypto"
+import { isAddressEqual } from "@taostats-wallet/crypto"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 

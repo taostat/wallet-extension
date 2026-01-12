@@ -1,4 +1,4 @@
-import { TokenRatesList } from "@taostats/token-rates"
+import { TokenRatesList } from "@taostats-wallet/token-rates"
 import { FC, useMemo } from "react"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"

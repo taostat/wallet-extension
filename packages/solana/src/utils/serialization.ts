@@ -4,7 +4,7 @@ import {
   TransactionInstruction,
   VersionedTransaction,
 } from "@solana/web3.js"
-import { base58 } from "@taostats/crypto"
+import { base58 } from "@taostats-wallet/crypto"
 
 import { isVersionedTransaction } from "./transaction"
 

@@ -7,13 +7,13 @@ import {
   NetworkId,
   NetworkList,
   Token,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import {
   encodeAddressSs58,
   isAddressEqual,
   isSs58Address,
   normalizeAddress,
-} from "@taostats/crypto"
+} from "@taostats-wallet/crypto"
 import {
   Account,
   Address,

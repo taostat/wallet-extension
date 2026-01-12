@@ -1,5 +1,5 @@
-import { CheckIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { CheckIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   ButtonHTMLAttributes,
   FC,

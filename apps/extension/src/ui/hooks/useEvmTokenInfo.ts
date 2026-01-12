@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { EthNetworkId } from "@taostats/chaindata-provider"
-import { isAbortError } from "@taostats/util"
+import { EthNetworkId } from "@taostats-wallet/chaindata-provider"
+import { isAbortError } from "@taostats-wallet/util"
 import { EvmAddress, getErc20TokenInfo, getUniswapV2TokenInfo } from "extension-core"
 import { ContractFunctionExecutionError } from "viem"
 

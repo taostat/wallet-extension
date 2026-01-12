@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { useTranslation } from "react-i18next"
 
 export const SwapDetailsError = ({

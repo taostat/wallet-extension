@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { KeyIcon } from "@taostats/icons"
+import { KeyIcon } from "@taostats-wallet/icons"
 import { log } from "extension-shared"
 import { CSSProperties, FC, useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"

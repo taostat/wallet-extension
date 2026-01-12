@@ -1,5 +1,5 @@
-import { FolderPlusIcon, MoreHorizontalIcon, PlusIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { FolderPlusIcon, MoreHorizontalIcon, PlusIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"

@@ -1,5 +1,5 @@
-import { CheckCircleIcon, XIcon } from "@taostats/icons/"
-import { classNames } from "@taostats/util"
+import { CheckCircleIcon, XIcon } from "@taostats-wallet/icons/"
+import { classNames } from "@taostats-wallet/util"
 import { PRIVACY_POLICY_URL } from "extension-shared"
 import { FC, ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"

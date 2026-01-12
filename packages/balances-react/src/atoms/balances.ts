@@ -1,5 +1,5 @@
-import { Address, BalanceJson, Balances, HydrateDb } from "@taostats/balances"
-import { TokenId } from "@taostats/chaindata-provider"
+import { Address, BalanceJson, Balances, HydrateDb } from "@taostats-wallet/balances"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { atom } from "jotai"
 import { atomEffect } from "jotai-effect"
 import { fromPairs, keyBy } from "lodash-es"

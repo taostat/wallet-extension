@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats/icons"
+import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { SIGNET_APP_URL, SIGNET_LANDING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"

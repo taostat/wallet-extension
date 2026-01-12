@@ -1,4 +1,4 @@
-import { TokenRateCurrency } from "@taostats/token-rates"
+import { TokenRateCurrency } from "@taostats-wallet/token-rates"
 import { IS_FIREFOX } from "extension-shared"
 
 import { StorageProvider } from "../../libs/Store"

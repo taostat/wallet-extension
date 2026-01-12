@@ -1,5 +1,5 @@
 import { PublicKey, Transaction, VersionedTransaction } from "@solana/web3.js"
-import { isVersionedTransaction } from "@taostats/solana"
+import { isVersionedTransaction } from "@taostats-wallet/solana"
 import { AccountOfType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback } from "react"

@@ -1,5 +1,5 @@
-import { DotNetworkId, TokenId } from "@taostats/chaindata-provider"
-import { CoinsApiConfig, DEFAULT_COINSAPI_CONFIG } from "@taostats/token-rates"
+import { DotNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
+import { CoinsApiConfig, DEFAULT_COINSAPI_CONFIG } from "@taostats-wallet/token-rates"
 import { atom } from "jotai"
 
 const innerCoinsApiConfigAtom = atom<CoinsApiConfig>(DEFAULT_COINSAPI_CONFIG)

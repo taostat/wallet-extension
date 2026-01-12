@@ -6,10 +6,10 @@ import {
   getGithubTokenLogoUrlByCoingeckoId,
   Token,
   TokenBaseSchema,
-} from "@taostats/chaindata-provider"
-import { isEthereumAddress } from "@taostats/crypto"
-import { LoaderIcon, SaveIcon } from "@taostats/icons"
-import { sleep } from "@taostats/util"
+} from "@taostats-wallet/chaindata-provider"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
+import { LoaderIcon, SaveIcon } from "@taostats-wallet/icons"
+import { sleep } from "@taostats-wallet/util"
 import { activeTokensStore, getErc20TokenInfo, getUniswapV2TokenInfo } from "extension-core"
 import { log } from "extension-shared"
 import { range } from "lodash-es"

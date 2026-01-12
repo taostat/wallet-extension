@@ -1,4 +1,4 @@
-import { isAddressEqual, normalizeAddress } from "@taostats/crypto"
+import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
 import { Account, Tree, TreeAccount, TreeFolder, TreeItem } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useSearchParams } from "react-router-dom"

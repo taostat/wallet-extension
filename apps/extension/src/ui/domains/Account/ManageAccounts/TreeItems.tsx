@@ -1,5 +1,5 @@
-import { MoreHorizontalIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { MoreHorizontalIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { Account, AccountsCatalogTree } from "extension-core"
 import { FC, Fragment, useMemo } from "react"
 import { useTranslation } from "react-i18next"

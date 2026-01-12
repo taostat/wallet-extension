@@ -8,9 +8,13 @@ import {
   parseTokenId,
   Token,
   TokenId,
-} from "@taostats/chaindata-provider"
-import { AccountPlatform, getAccountPlatformFromAddress, normalizeAddress } from "@taostats/crypto"
-import { getSharedObservable, isNotNil, isTruthy, keepAlive } from "@taostats/util"
+} from "@taostats-wallet/chaindata-provider"
+import {
+  AccountPlatform,
+  getAccountPlatformFromAddress,
+  normalizeAddress,
+} from "@taostats-wallet/crypto"
+import { getSharedObservable, isNotNil, isTruthy, keepAlive } from "@taostats-wallet/util"
 import { assign, fromPairs, isEqual, keyBy, keys, toPairs, uniq, values } from "lodash-es"
 import {
   BehaviorSubject,

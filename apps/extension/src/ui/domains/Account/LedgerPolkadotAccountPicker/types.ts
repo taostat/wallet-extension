@@ -1,4 +1,4 @@
-import { DotNetworkId } from "@taostats/chaindata-provider"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import { SubstrateAppParams } from "@zondax/ledger-substrate/dist/common"
 
 import { LedgerAccountDefSubstrate } from "../AccountAdd/AccountAddLedger/context"

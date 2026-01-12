@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, SVGProps, useMemo } from "react"
 import { CtaButtonSize, getContainerClassName } from "taostats-ui"
 

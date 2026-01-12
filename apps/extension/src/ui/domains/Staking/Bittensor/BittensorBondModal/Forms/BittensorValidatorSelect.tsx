@@ -1,7 +1,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { TokenId } from "@taostats/chaindata-provider"
-import { GlobeIcon, LockIcon, ToolbarSortIcon, UserIcon } from "@taostats/icons"
-import { classNames, cn, planckToTokens } from "@taostats/util"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { GlobeIcon, LockIcon, ToolbarSortIcon, UserIcon } from "@taostats-wallet/icons"
+import { classNames, cn, planckToTokens } from "@taostats-wallet/util"
 import {
   FC,
   useCallback,

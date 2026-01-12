@@ -10,8 +10,12 @@ import {
 } from "@dnd-kit/core"
 import { SortableContext, sortableKeyboardCoordinates, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { DotNetworkSchema, isNetworkDot, SolNetworkSchema } from "@taostats/chaindata-provider"
-import { DragIcon, LoaderIcon, PlusIcon, TrashIcon } from "@taostats/icons"
+import {
+  DotNetworkSchema,
+  isNetworkDot,
+  SolNetworkSchema,
+} from "@taostats-wallet/chaindata-provider"
+import { DragIcon, LoaderIcon, PlusIcon, TrashIcon } from "@taostats-wallet/icons"
 import { TFunction } from "i18next"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"

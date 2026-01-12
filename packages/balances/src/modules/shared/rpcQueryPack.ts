@@ -1,6 +1,6 @@
-import { IChainConnectorDot } from "@taostats/chain-connectors"
-import { DotNetworkId } from "@taostats/chaindata-provider"
-import { isNotNil } from "@taostats/util"
+import { IChainConnectorDot } from "@taostats-wallet/chain-connectors"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
+import { isNotNil } from "@taostats-wallet/util"
 import { toPairs } from "lodash-es"
 import { Observable, of } from "rxjs"
 

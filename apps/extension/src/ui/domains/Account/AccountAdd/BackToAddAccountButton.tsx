@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "@taostats/icons"
+import { ArrowLeftIcon } from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
 import { NavLink } from "react-router-dom"
 import { Button } from "taostats-ui"

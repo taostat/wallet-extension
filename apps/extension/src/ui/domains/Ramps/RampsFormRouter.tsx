@@ -1,4 +1,4 @@
-import { XIcon } from "@taostats/icons"
+import { XIcon } from "@taostats-wallet/icons"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton } from "taostats-ui"

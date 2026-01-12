@@ -1,5 +1,5 @@
-import { HelpCircleIcon, LoaderIcon } from "@taostats/icons"
-import { classNames, tokensToPlanck } from "@taostats/util"
+import { HelpCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
+import { classNames, tokensToPlanck } from "@taostats-wallet/util"
 import { useAtomValue } from "jotai"
 import { FC, ReactNode, useCallback, useEffect, useId, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

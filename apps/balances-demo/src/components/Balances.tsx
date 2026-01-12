@@ -1,5 +1,5 @@
-import { useBalances } from "@taostats/balances-react"
-import { classNames, formatDecimals } from "@taostats/util"
+import { useBalances } from "@taostats-wallet/balances-react"
+import { classNames, formatDecimals } from "@taostats-wallet/util"
 import { Fragment } from "react"
 
 import { useExtensionAccounts } from "../hooks/useExtensionAccounts"

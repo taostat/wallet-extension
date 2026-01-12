@@ -1,5 +1,5 @@
-import { IChainConnectorDot } from "@taostats/chain-connectors"
-import { ChaindataProvider, DotNetworkId } from "@taostats/chaindata-provider"
+import { IChainConnectorDot } from "@taostats-wallet/chain-connectors"
+import { ChaindataProvider, DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import PQueue from "p-queue"
 
 import log from "../log"

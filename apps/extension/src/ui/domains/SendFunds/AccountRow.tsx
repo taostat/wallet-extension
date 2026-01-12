@@ -1,7 +1,7 @@
-import { Balance } from "@taostats/balances"
-import { Token } from "@taostats/chaindata-provider"
-import { CheckCircleIcon, XIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { Balance } from "@taostats-wallet/balances"
+import { Token } from "@taostats-wallet/chaindata-provider"
+import { CheckCircleIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { AccountType } from "extension-core"
 import { useMemo } from "react"
 

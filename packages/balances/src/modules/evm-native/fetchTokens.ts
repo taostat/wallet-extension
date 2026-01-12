@@ -2,7 +2,7 @@ import {
   EvmNativeToken,
   evmNativeTokenId,
   EvmNativeTokenSchema,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { assign } from "lodash-es"
 
 import log from "../../log"

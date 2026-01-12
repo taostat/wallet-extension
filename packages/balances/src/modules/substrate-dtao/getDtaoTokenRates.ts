@@ -1,10 +1,10 @@
-import { SubDTaoToken, subNativeTokenId } from "@taostats/chaindata-provider"
+import { SubDTaoToken, subNativeTokenId } from "@taostats-wallet/chaindata-provider"
 import {
   newTokenRates,
   TokenRateCurrency,
   TokenRateData,
   TokenRatesList,
-} from "@taostats/token-rates"
+} from "@taostats-wallet/token-rates"
 
 import log from "../../log"
 import { ALPHA_PRICE_SCALE, alphaToTao, TAO_DECIMALS } from "./alphaPrice"

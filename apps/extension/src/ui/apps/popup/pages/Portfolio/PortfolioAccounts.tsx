@@ -7,8 +7,8 @@ import {
   PencilIcon,
   PlusIcon,
   SettingsIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   Account,
   AccountsCatalogTree,

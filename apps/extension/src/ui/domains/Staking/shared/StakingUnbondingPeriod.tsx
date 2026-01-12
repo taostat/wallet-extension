@@ -1,4 +1,4 @@
-import { DotNetworkId } from "@taostats/chaindata-provider"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import { FC } from "react"
 
 import { BittensorUnbondingPeriod } from "../Bittensor/BittensorBondModal/BittensorUnbondingPeriod"

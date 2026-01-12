@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { log } from "extension-shared"
 import { FC, useMemo } from "react"
 

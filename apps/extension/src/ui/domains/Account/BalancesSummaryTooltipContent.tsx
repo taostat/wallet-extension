@@ -1,5 +1,5 @@
-import { Balances } from "@taostats/balances"
-import { isBooleanTrue } from "@taostats/util"
+import { Balances } from "@taostats-wallet/balances"
+import { isBooleanTrue } from "@taostats-wallet/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { TooltipContent } from "taostats-ui"

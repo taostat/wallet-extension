@@ -1,5 +1,5 @@
-import { Network } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { Network } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, PillButton } from "taostats-ui"

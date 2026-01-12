@@ -1,5 +1,5 @@
 import { ApiPromise } from "@polkadot/api"
-import { chainConnectorsAtom } from "@taostats/balances-react"
+import { chainConnectorsAtom } from "@taostats-wallet/balances-react"
 import { atom } from "jotai"
 import { atomEffect } from "jotai-effect"
 import { atomFamily } from "jotai/utils"

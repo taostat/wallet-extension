@@ -1,7 +1,7 @@
 import { stripHexPrefix } from "@ethereumjs/util"
 import LedgerEthereumApp from "@ledgerhq/hw-app-eth"
 import { SignTypedDataVersion, TypedDataUtils } from "@metamask/eth-sig-util"
-import { isAddressEqual } from "@taostats/crypto"
+import { isAddressEqual } from "@taostats-wallet/crypto"
 import {
   AccountLedgerEthereum,
   EthSignMessageMethod,

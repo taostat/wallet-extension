@@ -1,4 +1,4 @@
-import { EvmErc20Token, EvmNativeToken, Network } from "@taostats/chaindata-provider"
+import { EvmErc20Token, EvmNativeToken, Network } from "@taostats-wallet/chaindata-provider"
 
 import type { Port } from "../../types/base"
 import { requestStore } from "../../libs/requests/store"

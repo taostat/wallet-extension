@@ -1,5 +1,5 @@
 import type { bittensor } from "@polkadot-api/descriptors"
-import { SubDTaoTokenSchema } from "@taostats/chaindata-provider"
+import { SubDTaoTokenSchema } from "@taostats-wallet/chaindata-provider"
 import z from "zod/v4"
 
 import { TokenConfigBaseSchema } from "../../types/tokens"

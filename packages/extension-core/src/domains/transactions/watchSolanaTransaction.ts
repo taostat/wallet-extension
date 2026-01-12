@@ -1,6 +1,6 @@
 import { Connection, Transaction, VersionedTransaction } from "@solana/web3.js"
-import { getBlockExplorerUrls, SolNetworkId } from "@taostats/chaindata-provider"
-import { parseTransactionInfo } from "@taostats/solana"
+import { getBlockExplorerUrls, SolNetworkId } from "@taostats-wallet/chaindata-provider"
+import { parseTransactionInfo } from "@taostats-wallet/solana"
 import { log } from "extension-shared"
 
 import { sentry } from "../../config/sentry"

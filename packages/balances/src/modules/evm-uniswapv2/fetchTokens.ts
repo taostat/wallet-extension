@@ -2,7 +2,7 @@ import {
   EvmUniswapV2Token,
   evmUniswapV2TokenId,
   EvmUniswapV2TokenSchema,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { assign, omit } from "lodash-es"
 import { BaseError } from "viem"
 import z from "zod/v4"

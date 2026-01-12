@@ -1,5 +1,5 @@
 {
-  "name": "@taostats/babel-preset",
+  "name": "@taostats-wallet/babel-preset",
   "version": "0.0.2",
   "main": "index.js",
   "publishConfig": {

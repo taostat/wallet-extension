@@ -1,6 +1,6 @@
-import { TokenId } from "@taostats/chaindata-provider"
-import { LockIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { LockIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"

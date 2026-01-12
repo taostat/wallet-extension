@@ -5,9 +5,9 @@ import {
   evmNativeTokenId,
   subAssetTokenId,
   subNativeTokenId,
-} from "@taostats/balances-react"
-import { encodeAnyAddress, isAddressEqual, isEthereumAddress } from "@taostats/crypto"
-import { ScaleApi } from "@taostats/sapi"
+} from "@taostats-wallet/balances-react"
+import { encodeAnyAddress, isAddressEqual, isEthereumAddress } from "@taostats-wallet/crypto"
+import { ScaleApi } from "@taostats-wallet/sapi"
 import BigNumber from "bignumber.js"
 import { UNKNOWN_TOKEN_URL } from "extension-shared"
 import { atom, ExtractAtomValue } from "jotai"

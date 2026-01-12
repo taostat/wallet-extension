@@ -4,8 +4,8 @@ import {
   CheckCircleIcon,
   LockIcon,
   UnlockIcon,
-} from "@taostats/icons"
-import { classNames, sleep } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames, sleep } from "@taostats-wallet/util"
 import { FC, useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"

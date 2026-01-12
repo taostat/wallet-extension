@@ -1,6 +1,6 @@
-import { encodeAnyAddress, normalizeAddress } from "@taostats/crypto"
-import { CheckCircleIcon, ChevronRightIcon, CopyIcon, QrIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
+import { CheckCircleIcon, ChevronRightIcon, CopyIcon, QrIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   Account,
   getAccountGenesisHash,

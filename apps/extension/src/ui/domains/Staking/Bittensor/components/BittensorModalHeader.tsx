@@ -1,5 +1,5 @@
-import { ChevronLeftIcon, XIcon } from "@taostats/icons"
-import { cn } from "@taostats/util"
+import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
+import { cn } from "@taostats-wallet/util"
 import { FC, ReactNode } from "react"
 import { IconButton } from "taostats-ui"
 

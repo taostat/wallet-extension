@@ -1,5 +1,5 @@
 import { assert } from "@polkadot/util"
-import { sleep } from "@taostats/util"
+import { sleep } from "@taostats-wallet/util"
 import { DEBUG, TAOSTATS_WEB_APP_DOMAIN, TEST } from "extension-shared"
 import { BehaviorSubject } from "rxjs"
 

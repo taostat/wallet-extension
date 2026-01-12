@@ -1,4 +1,4 @@
-import { SubAssetsTokenSchema } from "@taostats/chaindata-provider"
+import { SubAssetsTokenSchema } from "@taostats-wallet/chaindata-provider"
 import z from "zod/v4"
 
 import { SubAssetsTokenConfigSchema } from "./types"

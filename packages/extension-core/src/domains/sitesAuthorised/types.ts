@@ -1,6 +1,6 @@
 import type { RequestAuthorizeTab as PolkadotRequestAuthorizeTab } from "@polkadot/extension-base/background/types"
 import { SolanaSignInInput } from "@solana/wallet-standard-features"
-import { Account } from "@taostats/keyring"
+import { Account } from "@taostats-wallet/keyring"
 
 import { KnownRequestId } from "../../libs/requests/types"
 import { BaseRequest, BaseRequestId, RequestIdOnly } from "../../types/base"

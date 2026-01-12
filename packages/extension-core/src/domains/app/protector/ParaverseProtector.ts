@@ -1,5 +1,5 @@
 import { checkHost } from "@polkadot/phishing"
-import { isNotNil } from "@taostats/util"
+import { isNotNil } from "@taostats-wallet/util"
 import { Dexie } from "dexie"
 import metamaskInitialData from "eth-phishing-detect/src/config.json"
 import MetamaskDetector from "eth-phishing-detect/src/detector"

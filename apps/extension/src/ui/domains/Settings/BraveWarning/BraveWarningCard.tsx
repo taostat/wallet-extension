@@ -1,5 +1,5 @@
-import { BraveIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { BraveIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 

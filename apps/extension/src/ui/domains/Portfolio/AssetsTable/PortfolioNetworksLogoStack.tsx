@@ -1,5 +1,5 @@
-import { NetworkId } from "@taostats/chaindata-provider"
-import { classNames } from "@taostats/util"
+import { NetworkId } from "@taostats-wallet/chaindata-provider"
+import { classNames } from "@taostats-wallet/util"
 import { useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 

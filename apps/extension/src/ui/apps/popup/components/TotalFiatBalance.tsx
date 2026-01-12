@@ -6,8 +6,8 @@ import {
   RepeatIcon,
   SeekEyeIcon,
   SendIcon,
-} from "@taostats/icons"
-import { classNames, isNotNil } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames, isNotNil } from "@taostats-wallet/util"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"

@@ -2,7 +2,7 @@ import {
   SolNativeToken,
   solNativeTokenId,
   SolNativeTokenSchema,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { assign } from "lodash-es"
 
 import log from "../../log"

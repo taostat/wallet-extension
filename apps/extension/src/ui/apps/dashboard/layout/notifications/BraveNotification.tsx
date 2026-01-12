@@ -1,4 +1,4 @@
-import { BraveIcon } from "@taostats/icons"
+import { BraveIcon } from "@taostats-wallet/icons"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Modal, ModalDialog } from "taostats-ui"

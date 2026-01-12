@@ -1,4 +1,4 @@
-import { NetworkId } from "@taostats/chaindata-provider"
+import { NetworkId } from "@taostats-wallet/chaindata-provider"
 import { FC } from "react"
 
 import { useNetworkDisplayType } from "@ui/state/networks"

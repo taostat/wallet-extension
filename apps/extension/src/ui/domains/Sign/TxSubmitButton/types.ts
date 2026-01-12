@@ -1,5 +1,5 @@
 import { Transaction, VersionedTransaction } from "@solana/web3.js"
-import { EthNetworkId, SolNetworkId } from "@taostats/chaindata-provider"
+import { EthNetworkId, SolNetworkId } from "@taostats-wallet/chaindata-provider"
 import { SignerPayloadJSON, WalletTransactionInfo } from "extension-core"
 import { TransactionRequest } from "viem"
 

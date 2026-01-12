@@ -1,4 +1,4 @@
-import { ShieldSuccessIcon } from "@taostats/icons"
+import { ShieldSuccessIcon } from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 

@@ -1,5 +1,5 @@
-import { BalanceFormatter } from "@taostats/balances"
-import { isTokenNeedExistentialDeposit, Token, TokenId } from "@taostats/chaindata-provider"
+import { BalanceFormatter } from "@taostats-wallet/balances"
+import { isTokenNeedExistentialDeposit, Token, TokenId } from "@taostats-wallet/chaindata-provider"
 import { useMemo } from "react"
 
 import { useToken } from "@ui/state"

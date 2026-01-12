@@ -1,7 +1,7 @@
 import { TypeRegistry } from "@polkadot/types"
 import { ContractExecResult } from "@polkadot/types/interfaces"
 import { u8aConcatStrict, u8aToHex } from "@polkadot/util"
-import { IChainConnectorDot } from "@taostats/chain-connectors"
+import { IChainConnectorDot } from "@taostats-wallet/chain-connectors"
 
 export const makeContractCaller =
   ({

@@ -1,4 +1,4 @@
-import { isEthereumAddress } from "@taostats/crypto"
+import { isEthereumAddress } from "@taostats-wallet/crypto"
 
 import log from "../log"
 import { Config, OnChainIds } from "./types"

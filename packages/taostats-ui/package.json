@@ -16,16 +16,16 @@
     "clean": "rm -rf dist .turbo node_modules"
   },
   "dependencies": {
-    "@taostats/icons": "workspace:*",
+    "@taostats-wallet/icons": "workspace:*",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@floating-ui/react": "0.26.25",
     "@headlessui/react": "2.1.10",
     "@tailwindcss/forms": "^0.5.9",
-    "@taostats/eslint-config": "workspace:*",
-    "@taostats/tsconfig": "workspace:*",
-    "@taostats/util": "workspace:*",
+    "@taostats-wallet/eslint-config": "workspace:*",
+    "@taostats-wallet/tsconfig": "workspace:*",
+    "@taostats-wallet/util": "workspace:*",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@types/webfontloader": "^1.6.38",
@@ -47,7 +47,7 @@
     "@headlessui/react": ">=1.7.13",
     "@tailwindcss/container-queries": ">=0.1.1",
     "@tailwindcss/forms": ">=0.5.3",
-    "@taostats/util": "*",
+    "@taostats-wallet/util": "*",
     "autoprefixer": ">=10.4.12",
     "color": ">=4.2.3",
     "framer-motion": ">=10.10.0",

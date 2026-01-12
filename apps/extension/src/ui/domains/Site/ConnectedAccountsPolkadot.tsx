@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats/icons"
+import { InfoIcon } from "@taostats-wallet/icons"
 import { Account, isAccountAddressEthereum } from "extension-core"
 import { FC, Fragment, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

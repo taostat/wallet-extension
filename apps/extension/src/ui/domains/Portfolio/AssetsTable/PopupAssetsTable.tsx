@@ -1,7 +1,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { Balances } from "@taostats/balances"
-import { LockIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { Balances } from "@taostats-wallet/balances"
+import { LockIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 

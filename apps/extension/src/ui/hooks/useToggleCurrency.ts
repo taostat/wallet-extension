@@ -1,4 +1,4 @@
-import { TokenRateCurrency } from "@taostats/token-rates"
+import { TokenRateCurrency } from "@taostats-wallet/token-rates"
 import { useCallback } from "react"
 
 import { currencyOrder } from "@ui/domains/Asset/currencyConfig"

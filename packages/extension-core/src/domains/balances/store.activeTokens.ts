@@ -1,4 +1,4 @@
-import { subDTaoTokenId, Token, TokenId, TokenList } from "@taostats/chaindata-provider"
+import { subDTaoTokenId, Token, TokenId, TokenList } from "@taostats-wallet/chaindata-provider"
 
 import { StorageProvider } from "../../libs/Store"
 

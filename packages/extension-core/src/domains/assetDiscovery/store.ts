@@ -1,5 +1,5 @@
-import { Address } from "@taostats/balances"
-import { NetworkId, TokenId } from "@taostats/chaindata-provider"
+import { Address } from "@taostats-wallet/balances"
+import { NetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
 
 import { StorageProvider } from "../../libs/Store"
 import { AssetDiscoveryScanScope } from "./types"

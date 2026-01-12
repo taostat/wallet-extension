@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 

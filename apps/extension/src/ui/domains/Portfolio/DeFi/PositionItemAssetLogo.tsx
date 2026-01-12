@@ -1,6 +1,10 @@
-import { evmErc20TokenId, useTokensById } from "@taostats/balances-react"
-import { evmNativeTokenId, solNativeTokenId, solSplTokenId } from "@taostats/chaindata-provider"
-import { isHexString } from "@taostats/util"
+import { evmErc20TokenId, useTokensById } from "@taostats-wallet/balances-react"
+import {
+  evmNativeTokenId,
+  solNativeTokenId,
+  solSplTokenId,
+} from "@taostats-wallet/chaindata-provider"
+import { isHexString } from "@taostats-wallet/util"
 import { DefiPositionItem } from "extension-core"
 import { FC, useMemo } from "react"
 

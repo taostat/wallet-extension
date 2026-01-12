@@ -3,7 +3,7 @@ import {
   EvmUniswapV2Token,
   evmUniswapV2TokenId,
   getGithubTokenLogoUrl,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { Client } from "viem"
 
 import { EvmAddress } from "../domains/ethereum/types"

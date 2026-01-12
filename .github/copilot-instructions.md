@@ -9,7 +9,7 @@
 ## Coding & Tooling Standards
 
 - Use **Node >= 20**, `corepack enable`, and **pnpm** commands from `package.json`/`turbo.json`.
-- Formatting & linting: Prettier + `@taostats/eslint-config` (`eslint --max-warnings 0`). Keep `_`-prefixed unused vars if needed.
+- Formatting & linting: Prettier + `@taostats-wallet/eslint-config` (`eslint --max-warnings 0`). Keep `_`-prefixed unused vars if needed.
 - Write/maintain unit tests (Jest) and E2E tests (Playwright). Commands:
   - `pnpm test` (workspace-wide Jest)
   - `pnpm exec playwright test` (E2E) and variants in `package.json`

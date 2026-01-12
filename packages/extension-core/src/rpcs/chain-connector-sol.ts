@@ -1,4 +1,4 @@
-import { ChainConnectorSol } from "@taostats/chain-connectors"
+import { ChainConnectorSol } from "@taostats-wallet/chain-connectors"
 
 import { chaindataProvider } from "./chaindata"
 

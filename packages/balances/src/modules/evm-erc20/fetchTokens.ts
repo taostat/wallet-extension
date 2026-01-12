@@ -1,4 +1,8 @@
-import { EvmErc20Token, evmErc20TokenId, EvmErc20TokenSchema } from "@taostats/chaindata-provider"
+import {
+  EvmErc20Token,
+  evmErc20TokenId,
+  EvmErc20TokenSchema,
+} from "@taostats-wallet/chaindata-provider"
 import { assign, omit } from "lodash-es"
 import { BaseError } from "viem"
 import z from "zod/v4"

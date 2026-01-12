@@ -1,5 +1,5 @@
-import { isAddressEqual } from "@taostats/crypto"
-import { isNotNil, validateHexString } from "@taostats/util"
+import { isAddressEqual } from "@taostats-wallet/crypto"
+import { isNotNil, validateHexString } from "@taostats-wallet/util"
 import { Account, getAccountGenesisHash, isNetworkActive } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"

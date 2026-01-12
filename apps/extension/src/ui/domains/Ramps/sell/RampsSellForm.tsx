@@ -1,8 +1,8 @@
 /* eslint-disable react/no-children-prop */
-import { BalanceFormatter } from "@taostats/balances"
-import { ExternalLinkIcon } from "@taostats/icons"
-import { TokenRatesList } from "@taostats/token-rates"
-import { formatPrice, tokensToPlanck } from "@taostats/util"
+import { BalanceFormatter } from "@taostats-wallet/balances"
+import { ExternalLinkIcon } from "@taostats-wallet/icons"
+import { TokenRatesList } from "@taostats-wallet/token-rates"
+import { formatPrice, tokensToPlanck } from "@taostats-wallet/util"
 import { capitalize } from "lodash-es"
 import { FC, useEffect, useMemo, useRef } from "react"
 import { useTranslation } from "react-i18next"

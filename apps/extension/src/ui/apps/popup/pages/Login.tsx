@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { EyeIcon, EyeOffIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import {
   SubmitHandler,

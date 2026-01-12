@@ -5,7 +5,7 @@ import {
   isNetworkEth,
   Network,
   NetworkPlatform,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"

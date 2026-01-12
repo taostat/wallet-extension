@@ -1,12 +1,12 @@
-import { Network } from "@taostats/chaindata-provider"
+import { Network } from "@taostats-wallet/chaindata-provider"
 import {
   CheckCircleIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   GlobeIcon,
   XIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"

@@ -1,4 +1,4 @@
-import { pbkdf2 } from "@taostats/crypto"
+import { pbkdf2 } from "@taostats-wallet/crypto"
 
 // Derive a key generated with PBKDF2 that will be used for AES-GCM encryption
 const deriveKey = async (password: string, salt: Uint8Array): Promise<CryptoKey> =>

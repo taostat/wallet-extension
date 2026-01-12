@@ -1,7 +1,7 @@
 import legacyKeyring from "@polkadot/ui-keyring"
-import { isValidDerivationPath } from "@taostats/crypto"
-import { AddAccountExternalOptions } from "@taostats/keyring"
-import { HexString } from "@taostats/util"
+import { isValidDerivationPath } from "@taostats-wallet/crypto"
+import { AddAccountExternalOptions } from "@taostats-wallet/keyring"
+import { HexString } from "@taostats-wallet/util"
 import { log } from "extension-shared"
 import { capitalize } from "lodash-es"
 

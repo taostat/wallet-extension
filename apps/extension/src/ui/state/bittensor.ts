@@ -1,5 +1,5 @@
 import { bind } from "@react-rxjs/core"
-import { Loadable } from "@taostats/util"
+import { Loadable } from "@taostats-wallet/util"
 import { BittensorValidator } from "extension-core"
 import { keyBy, uniq } from "lodash-es"
 import { map, Observable, shareReplay } from "rxjs"

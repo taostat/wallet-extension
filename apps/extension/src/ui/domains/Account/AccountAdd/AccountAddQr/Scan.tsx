@@ -1,4 +1,4 @@
-import { ExternalLinkIcon } from "@taostats/icons"
+import { ExternalLinkIcon } from "@taostats-wallet/icons"
 import { POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
 

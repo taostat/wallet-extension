@@ -5,8 +5,8 @@ import {
   MoreHorizontalIcon,
   PolkadotVaultIcon,
   SecretIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { AccountOfType, getAccountGenesisHash, isAccountOfType, Mnemonic } from "extension-core"
 import { FC, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

@@ -1,6 +1,6 @@
-import { isAddressEqual, normalizeAddress } from "@taostats/crypto"
-import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
+import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   ChangeEventHandler,
   FC,

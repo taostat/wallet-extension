@@ -1,6 +1,6 @@
 import { useForm, useStore } from "@tanstack/react-form"
-import { encodeAddressSs58, isAddressEqual } from "@taostats/crypto"
-import { isTruthy } from "@taostats/util"
+import { encodeAddressSs58, isAddressEqual } from "@taostats-wallet/crypto"
+import { isTruthy } from "@taostats-wallet/util"
 import {
   activeNetworksStore,
   activeTokensStore,

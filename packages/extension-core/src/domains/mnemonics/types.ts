@@ -1,4 +1,4 @@
-import { Mnemonic } from "@taostats/keyring"
+import { Mnemonic } from "@taostats-wallet/keyring"
 
 export declare type MnemonicSubscriptionResult = {
   confirmed?: boolean

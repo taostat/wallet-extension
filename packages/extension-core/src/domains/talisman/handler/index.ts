@@ -1,4 +1,4 @@
-import { isNetworkCustom, isTokenCustom } from "@taostats/chaindata-provider"
+import { isNetworkCustom, isTokenCustom } from "@taostats-wallet/chaindata-provider"
 import { isTalismanUrl } from "extension-shared"
 import { map } from "rxjs"
 

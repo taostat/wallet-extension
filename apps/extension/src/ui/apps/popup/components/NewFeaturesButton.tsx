@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { ChevronRightIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { MouseEventHandler, useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"

@@ -1,6 +1,12 @@
-import { detectAddressEncoding } from "@taostats/crypto"
-import { CopyIcon, MoreHorizontalIcon, PlusIcon, SendIcon, UserPlusIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { detectAddressEncoding } from "@taostats-wallet/crypto"
+import {
+  CopyIcon,
+  MoreHorizontalIcon,
+  PlusIcon,
+  SendIcon,
+  UserPlusIcon,
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,

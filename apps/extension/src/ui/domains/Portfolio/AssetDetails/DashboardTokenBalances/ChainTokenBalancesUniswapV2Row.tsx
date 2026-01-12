@@ -1,5 +1,5 @@
-import { Balance } from "@taostats/balances"
-import { classNames } from "@taostats/util"
+import { Balance } from "@taostats-wallet/balances"
+import { classNames } from "@taostats-wallet/util"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"

@@ -1,4 +1,4 @@
-import { AlertTriangleIcon, ChevronLeftIcon, LockIcon } from "@taostats/icons"
+import { AlertTriangleIcon, ChevronLeftIcon, LockIcon } from "@taostats-wallet/icons"
 import { ChangeEventHandler, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, FormFieldInputText } from "taostats-ui"

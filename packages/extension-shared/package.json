@@ -11,8 +11,8 @@
     "clean": "rm -rf dist .turbo node_modules"
   },
   "devDependencies": {
-    "@taostats/eslint-config": "workspace:*",
-    "@taostats/tsconfig": "workspace:*",
+    "@taostats-wallet/eslint-config": "workspace:*",
+    "@taostats-wallet/tsconfig": "workspace:*",
     "eslint": "^8.57.1",
     "typescript": "^5.6.3"
   },

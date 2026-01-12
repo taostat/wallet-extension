@@ -1,7 +1,7 @@
-import { Balances } from "@taostats/balances"
-import { parseTokenId } from "@taostats/chaindata-provider"
-import { ZapFastIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { Balances } from "@taostats-wallet/balances"
+import { parseTokenId } from "@taostats-wallet/chaindata-provider"
+import { ZapFastIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 

@@ -10,7 +10,7 @@ import {
   subForeignAssetTokenId,
   SubNativeToken,
   subNativeTokenId,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { assign, fromPairs, keyBy, toPairs } from "lodash-es"
 import { filter, firstValueFrom } from "rxjs"

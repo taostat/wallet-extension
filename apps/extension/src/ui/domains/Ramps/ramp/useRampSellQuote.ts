@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import { formatPrice, tokensToPlanck } from "@taostats/util"
+import { formatPrice, tokensToPlanck } from "@taostats-wallet/util"
 import { log, RAMPS_RAMP_API_URL } from "extension-shared"
 import { t } from "i18next"
 import { useMemo } from "react"

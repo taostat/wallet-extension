@@ -1,6 +1,6 @@
 import type { polkadot, polkadotAssetHub } from "@polkadot-api/descriptors"
 import { useQuery } from "@tanstack/react-query"
-import { getScaleApi } from "@taostats/sapi"
+import { getScaleApi } from "@taostats-wallet/sapi"
 import { getMetadataRpcFromDef, SignerPayloadJSON } from "extension-core"
 import { firstValueFrom } from "rxjs"
 

@@ -8,9 +8,9 @@ import {
   evmNativeTokenId,
   Network,
   subNativeTokenId,
-} from "@taostats/chaindata-provider"
-import { isBitcoinAddress, isEthereumAddress, isSs58Address } from "@taostats/crypto"
-import { ScaleApi } from "@taostats/sapi"
+} from "@taostats-wallet/chaindata-provider"
+import { isBitcoinAddress, isEthereumAddress, isSs58Address } from "@taostats-wallet/crypto"
+import { ScaleApi } from "@taostats-wallet/sapi"
 import BigNumber from "bignumber.js"
 import {
   Account,

@@ -1,5 +1,5 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { classNames, Loadable, LoadableStatus } from "@taostats/util"
+import { classNames, Loadable, LoadableStatus } from "@taostats-wallet/util"
 import { DefiPosition } from "extension-core"
 import { FC, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"

@@ -1,4 +1,4 @@
-import { Network, NetworkId } from "@taostats/chaindata-provider"
+import { Network, NetworkId } from "@taostats-wallet/chaindata-provider"
 
 import { StorageProvider } from "../../libs/Store"
 

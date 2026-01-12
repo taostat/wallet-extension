@@ -2,7 +2,7 @@ import {
   IChainConnectorDot,
   IChainConnectorEth,
   IChainConnectorSol,
-} from "@taostats/chain-connectors"
+} from "@taostats-wallet/chain-connectors"
 
 export type ChainConnectors = {
   substrate?: IChainConnectorDot

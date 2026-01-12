@@ -1,4 +1,4 @@
-import type { KeypairCurve } from "@taostats/crypto"
+import type { KeypairCurve } from "@taostats-wallet/crypto"
 
 export type LedgerPolkadotCurve = "ed25519" | "ethereum"
 

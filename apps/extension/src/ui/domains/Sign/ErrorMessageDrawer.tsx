@@ -1,4 +1,4 @@
-import { XCircleIcon } from "@taostats/icons"
+import { XCircleIcon } from "@taostats-wallet/icons"
 import { CONNECT_LEDGER_DOCS_URL } from "extension-shared"
 import { FC, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

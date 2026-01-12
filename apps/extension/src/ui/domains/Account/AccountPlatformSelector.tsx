@@ -1,5 +1,5 @@
-import { AccountPlatform } from "@taostats/crypto"
-import { classNames } from "@taostats/util"
+import { AccountPlatform } from "@taostats-wallet/crypto"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 

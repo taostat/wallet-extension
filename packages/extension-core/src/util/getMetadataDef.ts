@@ -1,8 +1,8 @@
 import { assert, isHex } from "@polkadot/util"
 import { HexString } from "@polkadot/util/types"
-import { DotNetwork, DotNetworkId, NetworkId } from "@taostats/chaindata-provider"
-import { fetchBestMetadata, MAX_SUPPORTED_METADATA_VERSION } from "@taostats/sapi"
-import { getConstantValueFromMetadata, getMetadataVersion } from "@taostats/scale"
+import { DotNetwork, DotNetworkId, NetworkId } from "@taostats-wallet/chaindata-provider"
+import { fetchBestMetadata, MAX_SUPPORTED_METADATA_VERSION } from "@taostats-wallet/sapi"
+import { getConstantValueFromMetadata, getMetadataVersion } from "@taostats-wallet/scale"
 import { DEBUG, log } from "extension-shared"
 import { withRetry } from "viem"
 

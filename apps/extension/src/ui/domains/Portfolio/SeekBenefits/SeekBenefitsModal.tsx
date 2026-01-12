@@ -1,4 +1,4 @@
-import { BalanceFormatter } from "@taostats/balances"
+import { BalanceFormatter } from "@taostats-wallet/balances"
 import {
   ArrowRightIcon,
   ClockIcon,
@@ -7,8 +7,8 @@ import {
   XIcon,
   ZapFastIcon,
   ZapIcon,
-} from "@taostats/icons"
-import { classNames } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, SVGProps, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, IconButton, Modal } from "taostats-ui"

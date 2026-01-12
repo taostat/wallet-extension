@@ -1,4 +1,4 @@
-import { DotNetworkId } from "@taostats/chaindata-provider"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 
 import { useNomPoolName } from "../hooks/nomPools/useNomPoolName"
 

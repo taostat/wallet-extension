@@ -1,4 +1,4 @@
-import { AccountPlatform } from "@taostats/crypto"
+import { AccountPlatform } from "@taostats-wallet/crypto"
 import { FC } from "react"
 
 export const TalismanOrbLogo: FC<{ platform: AccountPlatform }> = ({ platform }) => {

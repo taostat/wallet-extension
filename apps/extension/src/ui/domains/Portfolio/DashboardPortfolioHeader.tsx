@@ -6,9 +6,9 @@ import {
   RepeatIcon,
   SeekEyeIcon,
   SendIcon,
-} from "@taostats/icons"
-import { TalismanOrbRectangle } from "@taostats/orb"
-import { classNames, isNotNil } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { TalismanOrbRectangle } from "@taostats-wallet/orb"
+import { classNames, isNotNil } from "@taostats-wallet/util"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"

@@ -1,5 +1,5 @@
-import { LockIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { LockIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"

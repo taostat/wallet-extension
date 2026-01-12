@@ -3,8 +3,8 @@ import {
   fetchTokenRates,
   TokenRatesStorage,
   tryToDeleteOldTokenRatesDb,
-} from "@taostats/token-rates"
-import { isAbortError, isTruthy } from "@taostats/util"
+} from "@taostats-wallet/token-rates"
+import { isAbortError, isTruthy } from "@taostats-wallet/util"
 import { atom } from "jotai"
 import { atomEffect } from "jotai-effect"
 import { atomWithObservable } from "jotai/utils"

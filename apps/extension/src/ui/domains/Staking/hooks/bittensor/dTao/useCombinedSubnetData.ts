@@ -1,4 +1,4 @@
-import { isTokenSubDTao, NetworkId } from "@taostats/chaindata-provider"
+import { isTokenSubDTao, NetworkId } from "@taostats-wallet/chaindata-provider"
 import { assign, keyBy } from "lodash-es"
 import { useEffect, useMemo } from "react"
 

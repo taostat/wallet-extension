@@ -1,4 +1,4 @@
-import { LockIcon, ShieldIcon, XIcon } from "@taostats/icons"
+import { LockIcon, ShieldIcon, XIcon } from "@taostats-wallet/icons"
 import { MNEMONIC_BACKUP_DOCS_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"

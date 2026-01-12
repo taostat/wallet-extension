@@ -1,4 +1,4 @@
-import { ChaindataProvider } from "@taostats/chaindata-provider"
+import { ChaindataProvider } from "@taostats-wallet/chaindata-provider"
 import { atom, useAtom } from "jotai"
 import { atomEffect } from "jotai-effect"
 

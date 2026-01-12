@@ -1,4 +1,4 @@
-import { EthNetworkId, EvmErc20Token, evmErc20TokenId } from "@taostats/chaindata-provider"
+import { EthNetworkId, EvmErc20Token, evmErc20TokenId } from "@taostats-wallet/chaindata-provider"
 import { Client } from "viem"
 
 import { EvmAddress } from "../domains/ethereum/types"

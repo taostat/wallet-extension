@@ -1,4 +1,4 @@
-import { ChaindataStorage } from "@taostats/chaindata-provider"
+import { ChaindataStorage } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 import { isEqual } from "lodash-es"
 import { debounceTime, distinctUntilChanged, Observable } from "rxjs"

@@ -1,5 +1,5 @@
-import { ChainConnectorDot } from "@taostats/chain-connectors"
-import { connectionMetaDb } from "@taostats/connection-meta"
+import { ChainConnectorDot } from "@taostats-wallet/chain-connectors"
+import { connectionMetaDb } from "@taostats-wallet/connection-meta"
 
 import { chaindataProvider } from "./chaindata"
 

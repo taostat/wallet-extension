@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { Modal } from "taostats-ui"
 
 import { RampsFormRouter } from "./RampsFormRouter"

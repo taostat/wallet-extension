@@ -1,6 +1,6 @@
-import { EthNetworkId } from "@taostats/chaindata-provider"
-import { ChevronDownIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { EthNetworkId } from "@taostats-wallet/chaindata-provider"
+import { ChevronDownIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { Suspense, useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "taostats-ui"
 

@@ -1,4 +1,4 @@
-import { EthNetworkId } from "@taostats/chaindata-provider"
+import { EthNetworkId } from "@taostats-wallet/chaindata-provider"
 import { parseTransactionRequest } from "extension-core"
 import { useMemo } from "react"
 import { TransactionRequest } from "viem"

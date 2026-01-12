@@ -14,8 +14,8 @@ import {
   UsbIcon,
   UserIcon,
   XIcon,
-} from "@taostats/icons"
-import { classNames, isNotNil } from "@taostats/util"
+} from "@taostats-wallet/icons"
+import { classNames, isNotNil } from "@taostats-wallet/util"
 import { LedgerTransportType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"

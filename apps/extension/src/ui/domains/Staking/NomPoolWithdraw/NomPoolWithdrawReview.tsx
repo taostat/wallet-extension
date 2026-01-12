@@ -1,4 +1,4 @@
-import { AlertCircleIcon } from "@taostats/icons"
+import { AlertCircleIcon } from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
 
 import { TokenLogo } from "../../Asset/TokenLogo"

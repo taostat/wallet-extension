@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { atom, useAtomValue } from "jotai"
 import { loadable } from "jotai/utils"
 import { useMemo } from "react"

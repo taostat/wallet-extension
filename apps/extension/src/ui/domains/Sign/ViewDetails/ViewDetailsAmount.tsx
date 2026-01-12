@@ -1,6 +1,6 @@
-import { BalanceFormatter } from "@taostats/balances"
-import { Token } from "@taostats/chaindata-provider"
-import { formatDecimals } from "@taostats/util"
+import { BalanceFormatter } from "@taostats-wallet/balances"
+import { Token } from "@taostats-wallet/chaindata-provider"
+import { formatDecimals } from "@taostats-wallet/util"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 

@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
-import { isAddressEqual } from "@taostats/crypto"
-import { isTruthy } from "@taostats/util"
+import { isAddressEqual } from "@taostats-wallet/crypto"
+import { isTruthy } from "@taostats-wallet/util"
 import { NftData } from "extension-core"
 import {
   BehaviorSubject,

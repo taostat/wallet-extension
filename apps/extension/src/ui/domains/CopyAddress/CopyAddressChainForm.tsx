@@ -1,5 +1,5 @@
-import { encodeAnyAddress, isEthereumAddress, normalizeAddress } from "@taostats/crypto"
-import { ArrowUpRightIcon, CopyIcon, PolkadotIcon, QrIcon } from "@taostats/icons"
+import { encodeAnyAddress, isEthereumAddress, normalizeAddress } from "@taostats-wallet/crypto"
+import { ArrowUpRightIcon, CopyIcon, PolkadotIcon, QrIcon } from "@taostats-wallet/icons"
 import { getAccountGenesisHash, isAccountLedgerPolkadotGeneric } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo, useState } from "react"

@@ -1,5 +1,5 @@
-import { Balances } from "@taostats/balances"
-import { ArrowDownIcon, CreditCardIcon } from "@taostats/icons"
+import { Balances } from "@taostats-wallet/balances"
+import { ArrowDownIcon, CreditCardIcon } from "@taostats-wallet/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "taostats-ui"

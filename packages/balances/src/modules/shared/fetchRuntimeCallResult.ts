@@ -1,5 +1,5 @@
-import { IChainConnectorDot } from "@taostats/chain-connectors"
-import { parseMetadataRpc, toHex } from "@taostats/scale"
+import { IChainConnectorDot } from "@taostats-wallet/chain-connectors"
+import { parseMetadataRpc, toHex } from "@taostats-wallet/scale"
 
 export const fetchRuntimeCallResult = async <T>(
   connector: IChainConnectorDot,

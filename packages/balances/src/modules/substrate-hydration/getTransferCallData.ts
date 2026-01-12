@@ -1,6 +1,6 @@
 import { mergeUint8 } from "@polkadot-api/utils"
-import { isTokenOfType } from "@taostats/chaindata-provider"
-import { parseMetadataRpc } from "@taostats/scale"
+import { isTokenOfType } from "@taostats-wallet/chaindata-provider"
+import { parseMetadataRpc } from "@taostats-wallet/scale"
 import { Binary } from "polkadot-api"
 
 import { IBalanceModule } from "../../types/IBalanceModule"

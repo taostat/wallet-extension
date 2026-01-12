@@ -12,8 +12,8 @@ import {
   subAssetTokenId,
   subNativeTokenId,
   Token,
-} from "@taostats/chaindata-provider"
-import { TokenRatesStorage } from "@taostats/token-rates"
+} from "@taostats-wallet/chaindata-provider"
+import { TokenRatesStorage } from "@taostats-wallet/token-rates"
 import { AnalyticsCaptureRequest, SitesAuthorizedStore, Trees } from "extension-core"
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"

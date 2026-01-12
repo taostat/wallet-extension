@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import hljs from "highlight.js/lib/core"
 import json from "highlight.js/lib/languages/json"
 import yaml from "highlight.js/lib/languages/yaml"

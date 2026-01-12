@@ -11,8 +11,8 @@ import {
   TokenOfPlatform,
   TokenOfType,
   TokenType,
-} from "@taostats/chaindata-provider"
-import { getSharedObservable } from "@taostats/util"
+} from "@taostats-wallet/chaindata-provider"
+import { getSharedObservable } from "@taostats-wallet/util"
 import {
   activeNetworksStore,
   activeTokensStore,

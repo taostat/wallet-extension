@@ -1,5 +1,5 @@
-import { NetworkId } from "@taostats/chaindata-provider"
-import { papiStringify } from "@taostats/scale"
+import { NetworkId } from "@taostats-wallet/chaindata-provider"
+import { papiStringify } from "@taostats-wallet/scale"
 import { WalletTransaction } from "extension-core"
 import { FC, ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"

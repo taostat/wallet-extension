@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { DotNetworkId } from "@taostats/chaindata-provider"
-import { ScaleApi } from "@taostats/sapi"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
+import { ScaleApi } from "@taostats-wallet/sapi"
 
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 

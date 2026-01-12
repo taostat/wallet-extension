@@ -1,5 +1,5 @@
-import { isAddressEqual } from "@taostats/crypto"
-import { isNotNil } from "@taostats/util"
+import { isAddressEqual } from "@taostats-wallet/crypto"
+import { isNotNil } from "@taostats-wallet/util"
 import { SubstrateAppParams } from "@zondax/ledger-substrate/dist/common"
 import { Account, LedgerPolkadotCurve } from "extension-core"
 import { log } from "extension-shared"

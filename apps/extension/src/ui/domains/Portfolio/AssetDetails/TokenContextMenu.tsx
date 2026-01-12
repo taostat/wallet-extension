@@ -1,6 +1,6 @@
-import { EvmErc20Token, TokenId } from "@taostats/chaindata-provider"
-import { MoreHorizontalIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { EvmErc20Token, TokenId } from "@taostats-wallet/chaindata-provider"
+import { MoreHorizontalIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import {

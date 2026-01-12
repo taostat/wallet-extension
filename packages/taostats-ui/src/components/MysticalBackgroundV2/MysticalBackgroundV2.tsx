@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { useRef } from "react"
 import { useMeasure, useMouse } from "react-use"
 

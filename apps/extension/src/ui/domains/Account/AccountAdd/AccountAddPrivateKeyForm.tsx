@@ -9,7 +9,7 @@ import {
   getPublicKeyFromSecret,
   KeypairCurve,
   parseSecretKey,
-} from "@taostats/crypto"
+} from "@taostats-wallet/crypto"
 import { useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import {

@@ -1,5 +1,5 @@
-import { FileSearchIcon, LoaderIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { FileSearchIcon, LoaderIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 

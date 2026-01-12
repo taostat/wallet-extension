@@ -1,11 +1,11 @@
-import { Balances } from "@taostats/balances"
-import { isNetworkDot, Network, Token } from "@taostats/chaindata-provider"
-import { TokenRatesList } from "@taostats/token-rates"
+import { Balances } from "@taostats-wallet/balances"
+import { isNetworkDot, Network, Token } from "@taostats-wallet/chaindata-provider"
+import { TokenRatesList } from "@taostats-wallet/token-rates"
 import BigNumber from "bignumber.js"
 
 import "extension-core"
 
-import { isNotNil } from "@taostats/util"
+import { isNotNil } from "@taostats-wallet/util"
 import { uniq } from "lodash-es"
 import { useMemo } from "react"
 

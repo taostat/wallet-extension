@@ -1,5 +1,5 @@
-import { LoaderIcon, UsbIcon } from "@taostats/icons"
-import { formatDecimals, planckToTokens } from "@taostats/util"
+import { LoaderIcon, UsbIcon } from "@taostats-wallet/icons"
+import { formatDecimals, planckToTokens } from "@taostats-wallet/util"
 import { serializeTransactionRequest, WalletTransactionInfo } from "extension-core"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"

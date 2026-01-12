@@ -1,4 +1,4 @@
-import { parseTokenId, TokenId, TokenType } from "@taostats/chaindata-provider"
+import { parseTokenId, TokenId, TokenType } from "@taostats-wallet/chaindata-provider"
 import { isEqual } from "lodash-es"
 import { BehaviorSubject, distinctUntilChanged, map } from "rxjs"
 

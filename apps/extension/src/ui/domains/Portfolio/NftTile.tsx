@@ -1,5 +1,5 @@
-import { StarIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { StarIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC } from "react"
 
 import { PortfolioNetworksLogoStack } from "./AssetsTable/PortfolioNetworksLogoStack"

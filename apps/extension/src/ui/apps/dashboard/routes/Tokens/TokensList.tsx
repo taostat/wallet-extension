@@ -5,9 +5,9 @@ import {
   isTokenInTypes,
   NetworkId,
   Token,
-} from "@taostats/chaindata-provider"
-import { isAddressEqual } from "@taostats/crypto"
-import { MoreHorizontalIcon } from "@taostats/icons"
+} from "@taostats-wallet/chaindata-provider"
+import { isAddressEqual } from "@taostats-wallet/crypto"
+import { MoreHorizontalIcon } from "@taostats-wallet/icons"
 import { activeTokensStore, isTokenActive } from "extension-core"
 import { sortBy } from "lodash-es"
 import { FC, useEffect, useMemo, useState } from "react"

@@ -1,4 +1,4 @@
-import { Account } from "@taostats/keyring"
+import { Account } from "@taostats-wallet/keyring"
 
 import { BaseRequest, BaseRequestId } from "../../types/base"
 

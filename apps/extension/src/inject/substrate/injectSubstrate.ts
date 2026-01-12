@@ -1,6 +1,6 @@
 import type { ProviderInterfaceCallback } from "@polkadot/rpc-provider/types"
 import type { HexString } from "@polkadot/util/types"
-import type { DotNetwork, EthNetwork, Token } from "@taostats/chaindata-provider"
+import type { DotNetwork, EthNetwork, Token } from "@taostats-wallet/chaindata-provider"
 import type { ResponseType, SendRequest } from "extension-core"
 
 type TalismanWindow = typeof globalThis & {

@@ -1,5 +1,5 @@
 import { HydrationXcmVersionedLocation, XcmVersionedLocation } from "@polkadot-api/descriptors"
-import { encodeAddressEthereum, encodeAddressSs58 } from "@taostats/crypto"
+import { encodeAddressEthereum, encodeAddressSs58 } from "@taostats-wallet/crypto"
 import { Address } from "extension-core"
 import { log } from "extension-shared"
 import { FixedSizeBinary } from "polkadot-api"

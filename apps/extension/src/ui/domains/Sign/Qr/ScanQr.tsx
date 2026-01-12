@@ -1,6 +1,6 @@
 import { decodeAddress } from "@polkadot/util-crypto"
-import { ChevronDownIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { ChevronDownIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { BrowserQRCodeReader } from "@zxing/browser"
 import { ChecksumException, FormatException, NotFoundException } from "@zxing/library"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"

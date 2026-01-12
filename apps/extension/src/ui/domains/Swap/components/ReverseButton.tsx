@@ -1,5 +1,5 @@
-import { RepeatIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { RepeatIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 
 import { useReverse } from "../swaps.api"
 

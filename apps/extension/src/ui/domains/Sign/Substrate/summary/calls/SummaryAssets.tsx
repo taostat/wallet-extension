@@ -1,5 +1,5 @@
 import { PolkadotAssetHubCalls } from "@polkadot-api/descriptors"
-import { SubAssetsToken } from "@taostats/chaindata-provider"
+import { SubAssetsToken } from "@taostats-wallet/chaindata-provider"
 import { useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 

@@ -1,4 +1,4 @@
-import { Token } from "@taostats/chaindata-provider"
+import { Token } from "@taostats-wallet/chaindata-provider"
 import { activeTokensStore, isTokenActive } from "extension-core"
 import { useCallback, useMemo } from "react"
 

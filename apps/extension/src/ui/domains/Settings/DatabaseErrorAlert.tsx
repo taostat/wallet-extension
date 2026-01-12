@@ -1,4 +1,4 @@
-import { AlertCircleIcon, DatabaseIcon } from "@taostats/icons"
+import { AlertCircleIcon, DatabaseIcon } from "@taostats-wallet/icons"
 import { errorsStore } from "extension-core"
 import { DISCORD_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"

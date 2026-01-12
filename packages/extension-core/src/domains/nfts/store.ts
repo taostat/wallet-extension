@@ -1,4 +1,4 @@
-import { normalizeAddress } from "@taostats/crypto"
+import { normalizeAddress } from "@taostats-wallet/crypto"
 import { isEqual, keyBy } from "lodash-es"
 import { BehaviorSubject, debounceTime, skip } from "rxjs"
 

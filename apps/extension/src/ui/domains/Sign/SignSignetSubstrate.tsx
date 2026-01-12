@@ -1,5 +1,5 @@
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
-import { XCircleIcon } from "@taostats/icons"
+import { XCircleIcon } from "@taostats-wallet/icons"
 import { AccountSignet, SignerPayloadRaw } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"

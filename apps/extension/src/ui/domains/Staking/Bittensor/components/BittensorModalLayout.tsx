@@ -1,4 +1,4 @@
-import { cn } from "@taostats/util"
+import { cn } from "@taostats-wallet/util"
 import { FC, PropsWithChildren, ReactNode } from "react"
 
 export const BittensorModalLayout: FC<

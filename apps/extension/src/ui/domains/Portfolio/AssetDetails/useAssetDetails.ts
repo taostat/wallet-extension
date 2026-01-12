@@ -1,5 +1,5 @@
-import { Balances } from "@taostats/balances"
-import { subNativeTokenId, TokenId } from "@taostats/chaindata-provider"
+import { Balances } from "@taostats-wallet/balances"
+import { subNativeTokenId, TokenId } from "@taostats-wallet/chaindata-provider"
 import { uniq } from "lodash-es"
 import { useMemo } from "react"
 

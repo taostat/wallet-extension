@@ -1,8 +1,8 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { BalanceFormatter } from "@taostats/balances"
-import { NetworkId } from "@taostats/chaindata-provider"
-import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@taostats/icons"
-import { classNames, planckToTokens } from "@taostats/util"
+import { BalanceFormatter } from "@taostats-wallet/balances"
+import { NetworkId } from "@taostats-wallet/chaindata-provider"
+import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@taostats-wallet/icons"
+import { classNames, planckToTokens } from "@taostats-wallet/util"
 import {
   isTxInfoApproval,
   isTxInfoSwap,

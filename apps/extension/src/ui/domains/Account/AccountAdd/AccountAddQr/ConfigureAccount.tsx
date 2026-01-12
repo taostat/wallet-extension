@@ -1,4 +1,4 @@
-import { ArrowRightIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats/icons"
+import { ArrowRightIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats-wallet/icons"
 import { isTokenActive } from "extension-core"
 import { ReactNode, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"

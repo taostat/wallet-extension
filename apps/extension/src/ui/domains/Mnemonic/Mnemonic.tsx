@@ -1,5 +1,5 @@
-import { CheckIcon, CopyIcon, EyeIcon, EyeOffIcon } from "@taostats/icons"
-import { classNames } from "@taostats/util"
+import { CheckIcon, CopyIcon, EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 

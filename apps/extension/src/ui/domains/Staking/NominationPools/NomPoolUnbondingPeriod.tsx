@@ -1,4 +1,4 @@
-import { DotNetworkId } from "@taostats/chaindata-provider"
+import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import { formatDistance } from "date-fns"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"

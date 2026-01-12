@@ -1,6 +1,6 @@
-import { SolNetworkId } from "@taostats/chaindata-provider"
+import { SolNetworkId } from "@taostats-wallet/chaindata-provider"
 
-// import { SolTransactionJson } from "@taostats/solana"
+// import { SolTransactionJson } from "@taostats-wallet/solana"
 
 import { SigningRequestID } from "../signing/types"
 import { WalletTransactionInfo } from "../transactions"

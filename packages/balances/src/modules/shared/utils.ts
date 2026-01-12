@@ -1,4 +1,4 @@
-import { parseMetadataRpc, UnifiedMetadata } from "@taostats/scale"
+import { parseMetadataRpc, UnifiedMetadata } from "@taostats-wallet/scale"
 
 export const hasStorageItem = (
   metadata: UnifiedMetadata,

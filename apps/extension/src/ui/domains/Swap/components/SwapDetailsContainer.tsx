@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { HTMLProps, ReactNode } from "react"
 
 export const SwapDetailsContainer = ({

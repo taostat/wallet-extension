@@ -1,5 +1,5 @@
-import { TokenId } from "@taostats/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon } from "@taostats/icons"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"

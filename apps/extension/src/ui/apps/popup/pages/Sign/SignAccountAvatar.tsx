@@ -1,5 +1,5 @@
-import { encodeAnyAddress } from "@taostats/crypto"
-import { getAccountGenesisHash } from "@taostats/keyring"
+import { encodeAnyAddress } from "@taostats-wallet/crypto"
+import { getAccountGenesisHash } from "@taostats-wallet/keyring"
 import { Account } from "extension-core"
 import { FC } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"

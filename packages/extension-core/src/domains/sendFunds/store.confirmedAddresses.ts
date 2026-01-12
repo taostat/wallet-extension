@@ -1,4 +1,4 @@
-import { isAddressEqual, normalizeAddress } from "@taostats/crypto"
+import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
 
 import { SubscribableStorageProvider } from "../../libs/Store"
 import { ConfirmedExternalAddresses } from "./types"

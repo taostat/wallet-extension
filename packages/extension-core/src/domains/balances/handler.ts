@@ -1,5 +1,5 @@
-import { IBalance } from "@taostats/balances"
-import { getSharedObservable } from "@taostats/util"
+import { IBalance } from "@taostats-wallet/balances"
+import { getSharedObservable } from "@taostats-wallet/util"
 import { fromPairs } from "lodash-es"
 import { filter, firstValueFrom, map, Observable, of } from "rxjs"
 

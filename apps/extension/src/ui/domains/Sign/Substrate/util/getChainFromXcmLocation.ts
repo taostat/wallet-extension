@@ -1,5 +1,5 @@
 import { HydrationXcmVersionedLocation, XcmVersionedLocation } from "@polkadot-api/descriptors"
-import { DotNetwork } from "@taostats/chaindata-provider"
+import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { log } from "extension-shared"
 
 const getParachain = (chain: DotNetwork, paraId: number, chains: DotNetwork[]): DotNetwork => {

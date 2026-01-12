@@ -1,4 +1,4 @@
-import { classNames } from "@taostats/util"
+import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
 
 export type UnsafeImageProps = React.DetailedHTMLProps<

@@ -1,8 +1,8 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { ALPHA_PRICE_SCALE } from "@taostats/balances"
-import { subDTaoTokenId, subNativeTokenId } from "@taostats/chaindata-provider"
-import { ToolbarSortIcon } from "@taostats/icons"
-import { classNames, cn } from "@taostats/util"
+import { ALPHA_PRICE_SCALE } from "@taostats-wallet/balances"
+import { subDTaoTokenId, subNativeTokenId } from "@taostats-wallet/chaindata-provider"
+import { ToolbarSortIcon } from "@taostats-wallet/icons"
+import { classNames, cn } from "@taostats-wallet/util"
 import {
   FC,
   useCallback,

@@ -4,7 +4,7 @@ import {
   NetworkOfPlatform,
   NetworkPlatform,
   Token,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 
 import { RequestIdOnly } from "../../types/base"
 

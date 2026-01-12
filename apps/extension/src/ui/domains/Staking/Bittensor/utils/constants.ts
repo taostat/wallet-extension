@@ -1,4 +1,4 @@
-import { subNativeTokenId } from "@taostats/chaindata-provider"
+import { subNativeTokenId } from "@taostats-wallet/chaindata-provider"
 
 import { RootClaimType } from "../../hooks/bittensor/dTao/types"
 

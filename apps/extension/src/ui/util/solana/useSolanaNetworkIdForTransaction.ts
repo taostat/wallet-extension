@@ -1,7 +1,7 @@
 import { Transaction, VersionedTransaction } from "@solana/web3.js"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { parseTransactionInfo } from "@taostats/solana"
-import { throwAfter } from "@taostats/util"
+import { parseTransactionInfo } from "@taostats-wallet/solana"
+import { throwAfter } from "@taostats-wallet/util"
 import { log } from "extension-shared"
 import { useTranslation } from "react-i18next"
 

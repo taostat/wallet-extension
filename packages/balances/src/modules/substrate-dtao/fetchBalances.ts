@@ -1,12 +1,12 @@
-import type { IChainConnectorDot } from "@taostats/chain-connectors"
+import type { IChainConnectorDot } from "@taostats-wallet/chain-connectors"
 import {
   getCleanToken,
   SubDTaoToken,
   subDTaoTokenId,
   TokenSchema,
-} from "@taostats/chaindata-provider"
-import { decodeScale, parseMetadataRpc } from "@taostats/scale"
-import { isNotNil } from "@taostats/util"
+} from "@taostats-wallet/chaindata-provider"
+import { decodeScale, parseMetadataRpc } from "@taostats-wallet/scale"
+import { isNotNil } from "@taostats-wallet/util"
 import { keyBy, uniq } from "lodash-es"
 
 import log from "../../log"

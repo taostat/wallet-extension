@@ -1,5 +1,5 @@
-import { Token } from "@taostats/chaindata-provider"
-import { AlertTriangleIcon, ChevronLeftIcon } from "@taostats/icons"
+import { Token } from "@taostats-wallet/chaindata-provider"
+import { AlertTriangleIcon, ChevronLeftIcon } from "@taostats-wallet/icons"
 import { UNKNOWN_TOKEN_URL } from "extension-shared"
 import { useAtomValue, useSetAtom } from "jotai"
 import { loadable } from "jotai/utils"

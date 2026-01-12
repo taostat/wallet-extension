@@ -2,7 +2,7 @@ import {
   EthNetworkId,
   IChaindataNetworkProvider,
   IChaindataTokenProvider,
-} from "@taostats/chaindata-provider"
+} from "@taostats-wallet/chaindata-provider"
 import { Account, PublicClient, WalletClient } from "viem"
 
 import { clearPublicClientCache, getEvmNetworkPublicClient } from "./getEvmNetworkPublicClient"

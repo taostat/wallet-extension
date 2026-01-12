@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, ExternalLinkIcon } from "@taostats/icons"
+import { ArrowUpRightIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { FC, MouseEventHandler, ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 

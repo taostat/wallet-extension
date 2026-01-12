@@ -1,4 +1,4 @@
-import { getGithubTokenLogoUrlByCoingeckoId } from "@taostats/chaindata-provider"
+import { getGithubTokenLogoUrlByCoingeckoId } from "@taostats-wallet/chaindata-provider"
 import { useMemo } from "react"
 
 import { useTokens } from "@ui/state"

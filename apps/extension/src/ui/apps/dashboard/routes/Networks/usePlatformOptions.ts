@@ -1,4 +1,4 @@
-import { NetworkSchema } from "@taostats/chaindata-provider"
+import { NetworkSchema } from "@taostats-wallet/chaindata-provider"
 import { startCase } from "lodash-es"
 import { useMemo, useState } from "react"
 import { z } from "zod/v4"

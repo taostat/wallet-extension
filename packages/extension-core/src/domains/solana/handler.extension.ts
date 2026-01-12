@@ -1,10 +1,10 @@
-import { base58, ed25519 } from "@taostats/crypto"
+import { base58, ed25519 } from "@taostats-wallet/crypto"
 import {
   deserializeTransaction,
   getKeypair,
   isVersionedTransaction,
   parseTransactionInfo,
-} from "@taostats/solana"
+} from "@taostats-wallet/solana"
 
 import { ExtensionHandler } from "../../libs/Handler"
 import { requestStore } from "../../libs/requests/store"

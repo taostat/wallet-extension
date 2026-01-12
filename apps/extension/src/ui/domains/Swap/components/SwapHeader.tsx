@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, XIcon } from "@taostats/icons"
+import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { useAtom } from "jotai"
 import { useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"

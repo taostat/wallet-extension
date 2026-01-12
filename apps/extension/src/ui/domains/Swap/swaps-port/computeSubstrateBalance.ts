@@ -1,6 +1,6 @@
 import { ApiPromise } from "@polkadot/api"
 import { FrameSystemAccountInfo } from "@polkadot/types/lookup"
-import { BigMath } from "@taostats/util"
+import { BigMath } from "@taostats-wallet/util"
 
 import { Decimal } from "./Decimal"
 

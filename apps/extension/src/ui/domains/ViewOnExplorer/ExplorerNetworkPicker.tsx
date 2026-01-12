@@ -1,5 +1,5 @@
-import { getBlockExplorerUrls, Network } from "@taostats/chaindata-provider"
-import { ExternalLinkIcon, XIcon } from "@taostats/icons"
+import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
+import { ExternalLinkIcon, XIcon } from "@taostats-wallet/icons"
 import { isAccountCompatibleWithNetwork, isAddressCompatibleWithNetwork } from "extension-core"
 import { FC, useCallback, useDeferredValue, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"

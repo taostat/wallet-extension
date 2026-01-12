@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@taostats/icons"
+import { ChevronLeftIcon } from "@taostats-wallet/icons"
 import { FC, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"

@@ -1,4 +1,4 @@
-import { sleep } from "@taostats/util"
+import { sleep } from "@taostats-wallet/util"
 import { IS_FIREFOX, log } from "extension-shared"
 
 import { appStore } from "../domains/app/store.app"

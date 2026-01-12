@@ -1,4 +1,4 @@
-import { AlertTriangleIcon } from "@taostats/icons"
+import { AlertTriangleIcon } from "@taostats-wallet/icons"
 import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
