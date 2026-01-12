@@ -19,8 +19,6 @@ const {
 } = require("./utils")
 const { SourceMapDevToolPlugin } = require("webpack")
 
-const faviconsSrcPath = path.join(__dirname, "..", "public", "favicon*.*")
-
 /** @type { import('webpack').Configuration } */
 const config = (env) => {
   if (env.build === "production") {
@@ -52,21 +50,12 @@ const config = (env) => {
             },
           },
           {
-            from: env.build === "canary" ? "favicon*-canary*" : "favicon*-prod*",
-            to: ({ absoluteFilename }) =>
-              path.join(
-                distDir,
-                path.basename(absoluteFilename).replace(/-(?:prod|canary|dev)/, ""),
-              ),
-            context: "public",
-          },
-          {
             from: ".",
             to: distDir,
             context: "public",
-            // do not copy the manifest or the favicons, they're handled separately
+            // do not copy the manifest, it's handled separately
             globOptions: {
-              ignore: [manifestDir, faviconsSrcPath].concat(
+              ignore: [manifestDir].concat(
                 // service worker should be excluded for firefox
                 browser === "firefox" ? ["service_worker.js"] : [],
               ),

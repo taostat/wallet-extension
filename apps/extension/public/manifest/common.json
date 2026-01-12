@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "author": "Taostats",
   "name": "Taostats Wallet",
-  "description": "The Taostats self-custody wallet for Bittensor",
+  "description": "The Taostats wallet for Bittensor",
   "version": "latest",
   "action": {
     "default_title": "Taostats",

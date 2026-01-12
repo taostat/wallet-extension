@@ -8,8 +8,6 @@ const { SourceMapDevToolPlugin } = require("webpack")
 
 const { updateManifestDetails, browser, distDir, manifestDir } = require("./utils.js")
 
-const faviconsSrcPath = path.join(__dirname, "..", "public", "favicon*.*")
-
 console.log(`Building for ${browser} with dev config `)
 
 /** @type { import('webpack').Configuration } */
@@ -40,21 +38,12 @@ const config = (env) =>
             },
           },
           {
-            from: "favicon*-dev*",
-            to: ({ absoluteFilename }) =>
-              path.join(
-                distDir,
-                path.basename(absoluteFilename).replace(/-(?:prod|canary|dev)/, ""),
-              ),
-            context: "public",
-          },
-          {
             from: ".",
             to: distDir,
             context: "public",
-            // do not copy the manifest or the favicons, they're handled separately
+            // do not copy the manifest, it's handled separately
             globOptions: {
-              ignore: [manifestDir, faviconsSrcPath].concat(
+              ignore: [manifestDir].concat(
                 // service worker should be excluded for firefox
                 browser === "firefox" ? ["service_worker.js"] : [],
               ),
