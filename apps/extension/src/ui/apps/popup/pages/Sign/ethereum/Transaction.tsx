@@ -1,13 +1,13 @@
 import { EthNetworkId } from "@taostats-wallet/chaindata-provider"
 import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AppPill } from "@taostats/components/AppPill"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import { EthPriorityOptionName, EvmAddress } from "extension-core"
 import { useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { AppPill } from "@talisman/components/AppPill"
-import { WithTooltip } from "@talisman/components/Tooltip"
 import {
   PopupContent,
   PopupFooter,

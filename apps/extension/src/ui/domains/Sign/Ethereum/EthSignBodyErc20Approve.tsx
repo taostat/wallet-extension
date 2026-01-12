@@ -1,9 +1,8 @@
+import { notify } from "@taostats/components/Notifications"
 import { EvmAddress } from "extension-core"
 import { log, TOKEN_APPROVALS_URL } from "extension-shared"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-
-import { notify } from "@talisman/components/Notifications"
 
 import { SignAlertMessage } from "../SignAlertMessage"
 import { SignContainer } from "../SignContainer"

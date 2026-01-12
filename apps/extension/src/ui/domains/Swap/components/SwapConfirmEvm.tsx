@@ -1,4 +1,5 @@
 import { LoaderIcon } from "@taostats-wallet/icons"
+import { notify } from "@taostats/components/Notifications"
 import {
   activeNetworksStore,
   activeTokensStore,
@@ -14,7 +15,6 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 import { EstimateGasExecutionError } from "viem"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 import { useEthTransaction } from "@ui/domains/Ethereum/useEthTransaction"
 import { SignHardwareEthereum } from "@ui/domains/Sign/SignHardwareEthereum"

@@ -1,9 +1,9 @@
 import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import BigNumber from "bignumber.js"
 import { ReactNode } from "react"
 
-import { WithTooltip } from "@talisman/components/Tooltip"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
 
 import { Fiat } from "../Asset/Fiat"

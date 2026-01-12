@@ -1,10 +1,10 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"

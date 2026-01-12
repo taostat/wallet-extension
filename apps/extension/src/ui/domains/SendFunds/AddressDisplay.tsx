@@ -3,12 +3,12 @@ import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-prov
 import { encodeAddressSs58, encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
 import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useOnChainId } from "@ui/hooks/useOnChainId"
 import { useAccountByAddress, useAnyNetwork, useNetworkById } from "@ui/state"
 import { copyAddress } from "@ui/util/copyAddress"

@@ -2,12 +2,12 @@ import { Address as TAddress } from "@taostats-wallet/balances"
 import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import { encodeAnyAddress } from "@taostats-wallet/crypto"
 import { classNames } from "@taostats-wallet/util"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useOnChainId } from "@ui/hooks/useOnChainId"
 import { useAccountByAddress, useNetworkById } from "@ui/state"
 

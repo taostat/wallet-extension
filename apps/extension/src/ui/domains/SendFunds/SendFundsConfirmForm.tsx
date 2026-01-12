@@ -1,13 +1,13 @@
 import { isTokenEth } from "@taostats-wallet/chaindata-provider"
 import { AlertCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import { FC, Suspense, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Checkbox } from "taostats-ui"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
-import { WithTooltip } from "@talisman/components/Tooltip"
 import { useSelectedCurrency } from "@ui/state"
 
 import { Fiat } from "../Asset/Fiat"

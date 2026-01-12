@@ -1,9 +1,9 @@
 import { hexToNumber } from "@polkadot/util"
 import { validateHexString } from "@taostats-wallet/util"
+import { AppPill } from "@taostats/components/AppPill"
 import { isJsonPayload } from "extension-core"
 import { FC, useEffect, useMemo } from "react"
 
-import { AppPill } from "@talisman/components/AppPill"
 import {
   PopupContent,
   PopupFooter,

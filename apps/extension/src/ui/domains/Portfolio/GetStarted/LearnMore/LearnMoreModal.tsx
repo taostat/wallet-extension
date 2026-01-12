@@ -1,9 +1,9 @@
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Modal, ModalDialog } from "taostats-ui"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 
 import { LearnMoreContent } from "./LearnMoreContent"

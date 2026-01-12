@@ -1,9 +1,9 @@
 import { classNames } from "@taostats-wallet/util"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import { getAccountGenesisHash } from "extension-core"
 import { FC, useMemo } from "react"
 import { PillButton } from "taostats-ui"
 
-import { WithTooltip } from "@talisman/components/Tooltip"
 import { useFormattedAddress } from "@ui/hooks/useFormattedAddress"
 import { useAccountByAddress } from "@ui/state"
 

@@ -19,6 +19,8 @@ import {
   UserIcon,
   XOctagonIcon,
 } from "@taostats-wallet/icons"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import {
   isAccountCompatibleWithNetwork,
   isAccountOwned,
@@ -28,8 +30,6 @@ import { useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Drawer, useOpenClose } from "taostats-ui"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { SearchInput } from "@talisman/components/SearchInput"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import { useResolveNsName } from "@ui/hooks/useResolveNsName"
 import { useAccounts, useNetworkById, useToken } from "@ui/state"

@@ -1,5 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { bind } from "@react-rxjs/core"
+import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
+import { PasswordStrength } from "@taostats/components/PasswordStrength"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
+import downloadJson from "@taostats/util/downloadJson"
 import {
   Account,
   isAccountOfType,
@@ -13,10 +17,6 @@ import { BehaviorSubject } from "rxjs"
 import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
-import { CapsLockWarningMessage } from "@talisman/components/CapsLockWarningMessage"
-import { PasswordStrength } from "@talisman/components/PasswordStrength"
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
-import downloadJson from "@talisman/util/downloadJson"
 import { api } from "@ui/api"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"

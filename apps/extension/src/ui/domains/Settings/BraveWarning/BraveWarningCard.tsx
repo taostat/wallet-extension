@@ -1,9 +1,8 @@
 import { BraveIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Card } from "@taostats/components/Card"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
-
-import { Card } from "@talisman/components/Card"
 
 type Props = {
   className?: string

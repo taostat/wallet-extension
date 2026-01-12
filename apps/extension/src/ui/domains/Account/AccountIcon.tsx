@@ -2,10 +2,10 @@ import type { IconTheme } from "@polkadot/react-identicon/types"
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
 import { TalismanOrb } from "@taostats-wallet/orb"
 import { classNames } from "@taostats-wallet/util"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Address, IdenticonType } from "extension-core"
 import { CSSProperties, FC, lazy, Suspense, useMemo } from "react"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { useNetworkByGenesisHash, useSetting } from "@ui/state"
 
 import { NetworkLogo } from "../Networks/NetworkLogo"

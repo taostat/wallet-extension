@@ -1,4 +1,5 @@
 import { bind } from "@react-rxjs/core"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { Account } from "extension-core"
 import { isEqual } from "lodash-es"
 import { useCallback, useEffect, useState } from "react"
@@ -7,7 +8,6 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { BehaviorSubject, distinctUntilChanged } from "rxjs"
 import { Button, Modal, ModalDialog } from "taostats-ui"
 
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { api } from "@ui/api"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"

@@ -1,6 +1,7 @@
 import { useForm, useStore } from "@tanstack/react-form"
 import { encodeAddressSs58, isAddressEqual } from "@taostats-wallet/crypto"
 import { isTruthy } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
 import { isAccountCompatibleWithNetwork } from "extension-core"
 import { log } from "extension-shared"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -9,7 +10,6 @@ import { useDebounce } from "react-use"
 import { firstValueFrom } from "rxjs"
 import { z } from "zod"
 
-import { notify } from "@talisman/components/Notifications"
 import { useSpecificTokenRates } from "@ui/hooks/useSpecificTokenRates"
 import { getNetworkById$, getToken$, useAccounts, useNetworkById, useToken } from "@ui/state"
 

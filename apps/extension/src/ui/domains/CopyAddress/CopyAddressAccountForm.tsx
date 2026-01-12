@@ -1,6 +1,9 @@
 import { encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
 import { CheckCircleIcon, ChevronRightIcon, CopyIcon, QrIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import {
   Account,
   getAccountGenesisHash,
@@ -11,9 +14,6 @@ import { FC, PropsWithChildren, ReactNode, useCallback, useMemo, useState } from
 import { useTranslation } from "react-i18next"
 import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { SearchInput } from "@talisman/components/SearchInput"
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useAccounts, useNetworkByGenesisHash } from "@ui/state"
 
 import { AccountIcon } from "../Account/AccountIcon"

@@ -1,9 +1,9 @@
 import { HexString } from "@polkadot/util/types"
+import { provideContext } from "@taostats/util/provideContext"
 import { KnownSigningRequestIdOnly } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useRef } from "react"
 
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { useEvmMessageRiskAnalysis } from "@ui/domains/Sign/risk-analysis/ethereum/useEvmMessageRiskAnalysis"
 import { useAnalytics } from "@ui/hooks/useAnalytics"

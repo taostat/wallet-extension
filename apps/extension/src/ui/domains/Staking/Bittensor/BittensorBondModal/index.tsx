@@ -1,8 +1,8 @@
 import { cn } from "@taostats-wallet/util"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense } from "react"
 import { Modal } from "taostats-ui"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { IS_POPUP } from "@ui/util/constants"
 
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../shared/ModalContent"

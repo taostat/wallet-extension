@@ -1,11 +1,11 @@
 import { classNames } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
 import { isAccountPlatformEthereum, serializeTransactionRequest } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { BaseError } from "viem"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 import { useAccountByAddress } from "@ui/state"
 

@@ -1,11 +1,11 @@
 import { isVersionedTransaction, serializeTransaction } from "@taostats-wallet/solana"
 import { classNames } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
 import { isAccountOwned, isAccountPlatformSolana } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 import { useAccountByAddress } from "@ui/state"
 

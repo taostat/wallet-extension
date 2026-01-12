@@ -1,13 +1,13 @@
 import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
+import { Spacer } from "@taostats/components/Spacer"
 import { SIGNET_APP_URL, SIGNET_LANDING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Link, useNavigate } from "react-router-dom"
 import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { notify } from "@talisman/components/Notifications"
-import { Spacer } from "@talisman/components/Spacer"
 import { signet } from "@ui/util/signet"
 
 import { useSignetConnect } from "./context"

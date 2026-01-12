@@ -1,11 +1,11 @@
 import { AlertCircleIcon, DatabaseIcon } from "@taostats-wallet/icons"
+import { Card } from "@taostats/components/Card"
 import { errorsStore } from "extension-core"
 import { DISCORD_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { Card } from "@talisman/components/Card"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { useRuntimeReload } from "@ui/hooks/useRuntimeReload"
 import { useErrorsStoreValue } from "@ui/state"

@@ -1,7 +1,6 @@
 import { InfoIcon } from "@taostats-wallet/icons"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import { useTranslation } from "react-i18next"
-
-import { WithTooltip } from "@talisman/components/Tooltip"
 
 import { TokensAndFiat } from "../Asset/TokensAndFiat"
 import { useSendFunds } from "./useSendFunds"

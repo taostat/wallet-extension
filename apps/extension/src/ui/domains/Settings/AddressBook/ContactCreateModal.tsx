@@ -6,6 +6,7 @@ import {
   isSs58Address,
 } from "@taostats-wallet/crypto"
 import { HexString } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
 import { keyBy } from "lodash-es"
 import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
@@ -13,7 +14,6 @@ import { useTranslation } from "react-i18next"
 import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AddressFieldNsBadge } from "@ui/domains/Account/AddressFieldNsBadge"

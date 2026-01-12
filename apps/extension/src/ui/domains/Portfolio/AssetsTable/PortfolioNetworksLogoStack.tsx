@@ -1,9 +1,9 @@
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import { useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { WithTooltip } from "@talisman/components/Tooltip"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 
 import { PortfolioNetwork, usePortfolioNetworks } from "./usePortfolioNetworks"

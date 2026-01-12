@@ -1,5 +1,6 @@
 import { MoreHorizontalIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
 import { Account, AccountsCatalogTree } from "extension-core"
 import { FC, Fragment, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -12,7 +13,6 @@ import {
   useOpenClose,
 } from "taostats-ui"
 
-import { Accordion, AccordionIcon } from "@talisman/components/Accordion"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"
 import { AccountsLogoStack } from "@ui/domains/Account/AccountsLogoStack"
 import { useDeleteFolderModal } from "@ui/domains/Account/DeleteFolderModal"

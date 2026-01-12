@@ -1,3 +1,4 @@
+import useStatus, { SetStatusFn, StatusOptions } from "@taostats/hooks/useStatus"
 import {
   AnySigningRequest,
   isEthereumRequest,
@@ -6,8 +7,6 @@ import {
 } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback } from "react"
-
-import useStatus, { SetStatusFn, StatusOptions } from "@talisman/hooks/useStatus"
 
 interface UseAnySigningRequestProps<T extends AnySigningRequest> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

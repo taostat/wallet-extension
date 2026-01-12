@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { AccountsCatalogTree } from "extension-core"
 import { RefCallback, useCallback, useEffect, useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
@@ -13,7 +14,6 @@ import {
 } from "taostats-ui"
 import * as yup from "yup"
 
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { api } from "@ui/api"
 import { useAccountsCatalog } from "@ui/state"
 

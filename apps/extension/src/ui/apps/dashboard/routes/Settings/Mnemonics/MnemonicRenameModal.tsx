@@ -1,4 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
+import { provideContext } from "@taostats/util/provideContext"
 import { Mnemonic } from "extension-core"
 import { FC, RefCallback, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -6,8 +8,6 @@ import { useTranslation } from "react-i18next"
 import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { useMnemonic, useMnemonics } from "@ui/state"
 

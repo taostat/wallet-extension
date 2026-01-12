@@ -1,5 +1,6 @@
 import { AlertCircleIcon, SwapIcon } from "@taostats-wallet/icons"
 import { classNames, tokensToPlanck } from "@taostats-wallet/util"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import BigNumber from "bignumber.js"
 import { log } from "extension-shared"
 import {
@@ -15,7 +16,6 @@ import {
 import { useTranslation } from "react-i18next"
 import { PillButton } from "taostats-ui"
 
-import { WithTooltip } from "@talisman/components/Tooltip"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import { useInputAutoWidth } from "@ui/hooks/useInputAutoWidth"
 import { useSelectedCurrency } from "@ui/state"

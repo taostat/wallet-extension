@@ -1,8 +1,7 @@
 import { ArrowUpRightIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
+import { FadeIn } from "@taostats/components/FadeIn"
 import { FC, MouseEventHandler, ReactNode } from "react"
 import { useTranslation } from "react-i18next"
-
-import { FadeIn } from "@talisman/components/FadeIn"
 
 import AdvancedAccountManagementUrl from "./assets/Learn More - Advanced Account Management.png"
 import MakeItYoursUrl from "./assets/Learn More - Make it Yours.png"

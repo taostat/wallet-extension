@@ -1,10 +1,10 @@
 import { assert } from "@polkadot/util"
 import { AccountPlatform } from "@taostats-wallet/crypto"
+import { provideContext } from "@taostats/util/provideContext"
 import { AddAccountExternalOptions } from "extension-core"
 import { useCallback, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { useNetworkById } from "@ui/state"
 

@@ -1,8 +1,8 @@
+import { Breadcrumb } from "@taostats/components/Breadcrumb"
 import { DefiPosition, DefiPositionItem } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-import { Breadcrumb } from "@talisman/components/Breadcrumb"
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"
 import { FiatFromUsd } from "@ui/domains/Asset/Fiat"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"

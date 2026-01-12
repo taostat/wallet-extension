@@ -2,6 +2,7 @@ import { HexString } from "@polkadot/util/types"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { AlertCircleIcon, InfoIcon, RocketIcon, XOctagonIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
 import {
   EthTransactionDetails,
   isAccountOfType,
@@ -21,7 +22,6 @@ import {
   useOpenCloseWithData,
 } from "taostats-ui"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"

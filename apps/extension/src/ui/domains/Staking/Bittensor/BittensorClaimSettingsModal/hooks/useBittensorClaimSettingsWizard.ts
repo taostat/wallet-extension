@@ -1,11 +1,11 @@
 import { subNativeTokenId } from "@taostats-wallet/chaindata-provider"
+import { provideContext } from "@taostats/util/provideContext"
 import { Address } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { BehaviorSubject } from "rxjs"
 import { useOpenClose } from "taostats-ui"
 import { Hex } from "viem"
 
-import { provideContext } from "@talisman/util/provideContext"
 import { useAccountByAddress, useToken } from "@ui/state"
 
 import { BITTENSOR_NETWORK_ID } from "../constants"

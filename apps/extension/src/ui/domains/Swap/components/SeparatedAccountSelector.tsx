@@ -7,6 +7,9 @@ import {
   normalizeAddress,
 } from "@taostats-wallet/crypto"
 import { ChevronLeftIcon } from "@taostats-wallet/icons"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import {
   Account,
   isAccountAddressEthereum,
@@ -19,9 +22,6 @@ import { useAtomValue } from "jotai"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { SearchInput } from "@talisman/components/SearchInput"
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { SendFundsAccountsList } from "@ui/domains/SendFunds/SendFundsAccountsList"
 import { useAccounts, useNetworkById, useToken } from "@ui/state"

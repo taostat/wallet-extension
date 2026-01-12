@@ -1,10 +1,10 @@
 import { Balances } from "@taostats-wallet/balances"
 import { ArrowDownIcon, CreditCardIcon } from "@taostats-wallet/icons"
+import { FadeIn } from "@taostats/components/FadeIn"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "taostats-ui"
 
-import { FadeIn } from "@talisman/components/FadeIn"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useRampsModal } from "@ui/domains/Ramps/useRampsModal"

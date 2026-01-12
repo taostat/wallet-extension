@@ -1,9 +1,8 @@
 import { CheckIcon, CopyIcon, EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-
-import { notify } from "@talisman/components/Notifications"
 
 /**
  * Props for the Mnemonic component

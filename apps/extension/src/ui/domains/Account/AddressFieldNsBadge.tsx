@@ -1,8 +1,8 @@
 import { CheckCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { NsLookupType } from "@taostats-wallet/on-chain-id"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import { PillButton } from "taostats-ui"
 
-import { WithTooltip } from "@talisman/components/Tooltip"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { Address } from "@ui/domains/Account/Address"
 

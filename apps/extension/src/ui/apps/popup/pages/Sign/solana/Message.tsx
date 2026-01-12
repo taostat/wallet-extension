@@ -1,10 +1,10 @@
 import { base58 } from "@taostats-wallet/crypto"
+import { AppPill } from "@taostats/components/AppPill"
 import { isAccountOfType, SolSigningRequest } from "extension-core"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { AppPill } from "@talisman/components/AppPill"
 import { api } from "@ui/api"
 import {
   PopupContent,

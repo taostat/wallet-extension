@@ -1,11 +1,11 @@
 import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from "extension-shared"
 import { useCallback, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
-import { TaostatsLogo } from "@talisman/theme/logos"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 

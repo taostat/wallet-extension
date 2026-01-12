@@ -1,9 +1,9 @@
 import { bind } from "@react-rxjs/core"
 import { detectAddressEncoding, encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { useCallback } from "react"
 import { BehaviorSubject } from "rxjs"
 
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { useNetworksMapById } from "@ui/state"
 import { copyAddress } from "@ui/util/copyAddress"
 

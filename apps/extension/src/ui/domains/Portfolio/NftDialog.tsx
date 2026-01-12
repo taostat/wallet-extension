@@ -1,5 +1,8 @@
 import { ChevronLeftIcon, CopyIcon, MoreHorizontalIcon, StarIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { Tabs } from "@taostats/components/Tabs"
 import { format } from "date-fns/format"
 import { Nft, NftCollection } from "extension-core"
 import { log } from "extension-shared"
@@ -30,9 +33,6 @@ import {
   useOpenClose,
 } from "taostats-ui"
 
-import { notify, notifyUpdate } from "@talisman/components/Notifications"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
-import { Tabs } from "@talisman/components/Tabs"
 import { api } from "@ui/api"
 import { useCopyToClipboard } from "@ui/hooks/useCopyToClipboard"
 import { useDateFnsLocale } from "@ui/hooks/useDateFnsLocale"

@@ -1,5 +1,6 @@
 import { CheckIcon, EyeIcon, PencilIcon, PlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import {
   AccountsCatalogTree,
   AccountType,
@@ -13,7 +14,6 @@ import { useTranslation } from "react-i18next"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"
 import { AccountIconCopyAddressButton } from "@ui/domains/Account/AccountIconCopyAddressButton"
 import { AccountsLogoStack } from "@ui/domains/Account/AccountsLogoStack"

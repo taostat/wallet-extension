@@ -1,11 +1,11 @@
+import { AppPill } from "@taostats/components/AppPill"
+import { notify } from "@taostats/components/Notifications"
 import { KnownRequestIdOnly } from "extension-core"
 import { useCallback, useEffect } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
 import { Button } from "taostats-ui"
 
-import { AppPill } from "@talisman/components/AppPill"
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 import { NetworkDetailsButton } from "@ui/domains/Ethereum/NetworkDetailsButton"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"

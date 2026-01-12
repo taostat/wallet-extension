@@ -1,8 +1,7 @@
 import { SaveIcon } from "@taostats-wallet/icons"
+import downloadJson from "@taostats/util/downloadJson"
 import { FC, useCallback } from "react"
 import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
-
-import downloadJson from "@talisman/util/downloadJson"
 
 import { SupportOpsCtaButton } from "./shared/SupportOpsCtaButton"
 import { TalismanJsonBackup } from "./shared/types"

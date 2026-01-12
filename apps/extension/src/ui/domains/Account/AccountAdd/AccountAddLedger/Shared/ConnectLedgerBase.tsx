@@ -1,8 +1,8 @@
+import { Spacer } from "@taostats/components/Spacer"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { Spacer } from "@talisman/components/Spacer"
 import {
   LedgerConnectionStatus,
   LedgerConnectionStatusProps,

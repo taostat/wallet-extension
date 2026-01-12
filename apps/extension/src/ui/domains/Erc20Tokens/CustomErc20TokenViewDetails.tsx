@@ -1,8 +1,7 @@
 import { EthNetwork, EvmErc20Token } from "@taostats-wallet/chaindata-provider"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, PillButton } from "taostats-ui"
-
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
 
 import { ViewDetailsAddress } from "../Sign/ViewDetails/ViewDetailsAddress"
 import { ViewDetailsField } from "../Sign/ViewDetails/ViewDetailsField"

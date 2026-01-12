@@ -1,8 +1,7 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { Address } from "extension-core"
 import { useCallback } from "react"
-
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 
 import { useResetNomPoolUnbondWizard } from "./useUnbondWizard"
 

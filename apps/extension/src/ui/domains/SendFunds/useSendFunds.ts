@@ -7,12 +7,12 @@ import {
   TokenId,
 } from "@taostats-wallet/chaindata-provider"
 import { formatDecimals, isNotNil } from "@taostats-wallet/util"
+import { provideContext } from "@taostats/util/provideContext"
 import { WalletTransactionInfo } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import {

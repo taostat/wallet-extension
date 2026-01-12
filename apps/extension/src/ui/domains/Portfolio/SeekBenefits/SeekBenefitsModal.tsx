@@ -9,11 +9,11 @@ import {
   ZapIcon,
 } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { FC, ReactNode, SVGProps, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, IconButton, Modal } from "taostats-ui"
 
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { Tokens } from "@ui/domains/Asset/Tokens"
 import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
 import { useAccounts, useBalances, useRemoteConfig, useToken } from "@ui/state"

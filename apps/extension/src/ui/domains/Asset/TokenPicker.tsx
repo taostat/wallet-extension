@@ -3,14 +3,14 @@ import { Balances } from "@taostats-wallet/balances"
 import { subNativeTokenId, Token, TokenId } from "@taostats-wallet/chaindata-provider"
 import { CheckCircleIcon } from "@taostats-wallet/icons"
 import { classNames, planckToTokens } from "@taostats-wallet/util"
+import { OptionSwitch } from "@taostats/components/OptionSwitch"
+import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { Address, isAccountCompatibleWithNetwork } from "extension-core"
 import sortBy from "lodash-es/sortBy"
 import { FC, useCallback, useDeferredValue, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { OptionSwitch } from "@talisman/components/OptionSwitch"
-import { ScrollContainer, useScrollContainer } from "@talisman/components/ScrollContainer"
-import { SearchInput } from "@talisman/components/SearchInput"
 import {
   useAccountByAddress,
   useBalances,

@@ -1,14 +1,14 @@
 import { encodeAnyAddress, isEthereumAddress, normalizeAddress } from "@taostats-wallet/crypto"
 import { ArrowUpRightIcon, CopyIcon, PolkadotIcon, QrIcon } from "@taostats-wallet/icons"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { getAccountGenesisHash, isAccountLedgerPolkadotGeneric } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Tooltip, TooltipContent, TooltipTrigger, useOpenClose } from "taostats-ui"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { SearchInput } from "@talisman/components/SearchInput"
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useBalancesFiatTotalPerNetwork } from "@ui/hooks/useBalancesFiatTotalPerNetwork"
 import {
   useAccountByAddress,

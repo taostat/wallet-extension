@@ -1,9 +1,9 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { provideContext } from "@taostats/util/provideContext"
 import { Address } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 
-import { provideContext } from "@talisman/util/provideContext"
 import { useTokensMap } from "@ui/state"
 
 type SendFundsWizardParams = {

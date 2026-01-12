@@ -1,6 +1,6 @@
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense, useEffect, useState } from "react"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { AccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { AccountExportPrivateKeyModal } from "@ui/domains/Account/AccountExportPrivateKeyModal"
 import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"

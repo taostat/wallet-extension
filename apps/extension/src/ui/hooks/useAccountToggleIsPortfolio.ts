@@ -1,8 +1,8 @@
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
 import { Account, isAccountPortfolio } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-import { notify, notifyUpdate } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 
 export const useAccountToggleIsPortfolio = (account?: Account) => {

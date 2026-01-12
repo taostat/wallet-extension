@@ -1,5 +1,6 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
 import { AlertTriangleIcon, ChevronLeftIcon } from "@taostats-wallet/icons"
+import { FadeIn } from "@taostats/components/FadeIn"
 import { UNKNOWN_TOKEN_URL } from "extension-shared"
 import { useAtomValue, useSetAtom } from "jotai"
 import { loadable } from "jotai/utils"
@@ -7,7 +8,6 @@ import { useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { FadeIn } from "@talisman/components/FadeIn"
 import { TokenPicker } from "@ui/domains/Asset/TokenPicker"
 import { useNetworkById, useRemoteConfig } from "@ui/state"
 

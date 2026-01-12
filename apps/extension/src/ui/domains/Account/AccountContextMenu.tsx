@@ -1,5 +1,6 @@
 import { isEthereumAddress } from "@taostats-wallet/crypto"
 import { MoreHorizontalIcon } from "@taostats-wallet/icons"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Account, getAccountGenesisHash } from "extension-core"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -12,7 +13,6 @@ import {
   PopoverOptions,
 } from "taostats-ui"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { useAccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { useAccountExportPrivateKeyModal } from "@ui/domains/Account/AccountExportPrivateKeyModal"

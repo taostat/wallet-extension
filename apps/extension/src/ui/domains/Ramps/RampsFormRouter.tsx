@@ -1,9 +1,9 @@
 import { XIcon } from "@taostats-wallet/icons"
+import { OptionSwitch } from "@taostats/components/OptionSwitch"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton } from "taostats-ui"
 
-import { OptionSwitch } from "@talisman/components/OptionSwitch"
 import { useSelectedCurrency } from "@ui/state"
 
 import { RampsBuyForm } from "./buy/RampsBuyForm"

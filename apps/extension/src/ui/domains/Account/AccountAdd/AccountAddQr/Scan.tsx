@@ -1,8 +1,8 @@
 import { ExternalLinkIcon } from "@taostats-wallet/icons"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { ScanQr } from "@ui/domains/Sign/Qr/ScanQr"
 
 import { useAccountAddQr } from "./context"

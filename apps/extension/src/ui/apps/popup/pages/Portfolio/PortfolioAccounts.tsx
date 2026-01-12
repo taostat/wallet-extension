@@ -9,6 +9,8 @@ import {
   SettingsIcon,
 } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { SearchInput } from "@taostats/components/SearchInput"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import {
   Account,
   AccountsCatalogTree,
@@ -25,8 +27,6 @@ import { useNavigate } from "react-router-dom"
 import { BehaviorSubject } from "rxjs"
 import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { SearchInput } from "@talisman/components/SearchInput"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AllAccountsHeader } from "@ui/apps/popup/components/AllAccountsHeader"

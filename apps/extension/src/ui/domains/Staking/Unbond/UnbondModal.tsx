@@ -1,10 +1,10 @@
 import { XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { IS_POPUP } from "@ui/util/constants"
 
 import { UnbondFollowUp } from "./UnbondFollowUp"

@@ -12,6 +12,10 @@ import {
   TokenBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
 import { CopyIcon, ExternalLinkIcon, RotateCcwIcon, SaveIcon } from "@taostats-wallet/icons"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -31,10 +35,6 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { notify } from "@talisman/components/Notifications"
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"

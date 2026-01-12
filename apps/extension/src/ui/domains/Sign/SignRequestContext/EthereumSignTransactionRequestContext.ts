@@ -1,4 +1,5 @@
 import { HexString } from "@polkadot/util/types"
+import { provideContext } from "@taostats/util/provideContext"
 import {
   KnownSigningRequestIdOnly,
   parseRpcTransactionRequestBase,
@@ -7,7 +8,6 @@ import {
 import { log } from "extension-shared"
 import { useCallback, useMemo, useRef, useState } from "react"
 
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { useEthTransaction } from "@ui/domains/Ethereum/useEthTransaction"
 import { useEvmTransactionRiskAnalysis } from "@ui/domains/Sign/risk-analysis/ethereum/useEvmTransactionRiskAnalysis"

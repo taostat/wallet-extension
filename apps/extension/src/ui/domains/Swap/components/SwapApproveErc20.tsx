@@ -1,12 +1,12 @@
 import { LoaderIcon, UsbIcon } from "@taostats-wallet/icons"
 import { formatDecimals, planckToTokens } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
 import { serializeTransactionRequest, WalletTransactionInfo } from "extension-core"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 import { useEthTransaction } from "@ui/domains/Ethereum/useEthTransaction"
 import { usePublicClient } from "@ui/domains/Ethereum/usePublicClient"

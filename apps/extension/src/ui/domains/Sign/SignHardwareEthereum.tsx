@@ -1,9 +1,8 @@
 import { HexString } from "@polkadot/util/types"
 import { EthNetworkId } from "@taostats-wallet/chaindata-provider"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Account, AccountOfType, EthSignMessageMethod } from "extension-core"
 import { FC, Suspense } from "react"
-
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 
 import { SignLedgerEthereum } from "./SignLedgerEthereum"
 

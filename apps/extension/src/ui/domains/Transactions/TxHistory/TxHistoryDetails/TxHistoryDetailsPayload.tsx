@@ -2,15 +2,14 @@ import { bind } from "@react-rxjs/core"
 import { base58 } from "@taostats-wallet/crypto"
 import { deserializeTransaction, txToHumanJSON } from "@taostats-wallet/solana"
 import { cn } from "@taostats-wallet/util"
+import { CodeBlock } from "@taostats/components/CodeBlock"
+import { CopyToClipboardLinkButton } from "@taostats/components/CopyToClipboardLinkButton"
 import { WalletTransaction } from "extension-core"
 import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
-
-import { CodeBlock } from "@talisman/components/CodeBlock"
-import { CopyToClipboardLinkButton } from "@talisman/components/CopyToClipboardLinkButton"
 
 const subjectDisplayMode = new BehaviorSubject<"yaml" | "json">("yaml")
 const [useDisplayMode] = bind(subjectDisplayMode.asObservable())

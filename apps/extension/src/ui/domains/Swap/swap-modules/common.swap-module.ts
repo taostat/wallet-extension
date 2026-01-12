@@ -268,7 +268,7 @@ const swapsStorage: typeof _swapsStorage = {
   setItem: (key, newValue) => _swapsStorage.setItem(key, filterAndSortStoredSwaps(newValue)),
 }
 
-const swapsStorageAtom = atomWithStorage("@talisman/swaps", [], swapsStorage)
+const swapsStorageAtom = atomWithStorage("@taostats-wallet/swaps", [], swapsStorage)
 
 export const swapsAtom = atom(
   (get) => filterAndSortStoredSwaps(get(swapsStorageAtom)),

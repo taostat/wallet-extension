@@ -6,12 +6,12 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core"
+import { notify } from "@taostats/components/Notifications"
 import { Account, AccountsCatalogTree } from "extension-core"
 import { CSSProperties, FC, useCallback, useEffect, useMemo, useState } from "react"
 import { createPortal } from "react-dom"
 import { useTranslation } from "react-i18next"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 
 import type { UiTree, UiTreePosition } from "./types"

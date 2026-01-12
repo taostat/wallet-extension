@@ -2,6 +2,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { EthNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
 import { ArrowRightIcon, InfoIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { formatDecimals } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
+import { WithTooltip } from "@taostats/components/Tooltip"
 import {
   EthGasSettingsEip1559,
   EthTransactionDetails,
@@ -26,8 +28,6 @@ import {
 import { formatGwei, parseGwei, TransactionRequest } from "viem"
 import * as yup from "yup"
 
-import { notify } from "@talisman/components/Notifications"
-import { WithTooltip } from "@talisman/components/Tooltip"
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 

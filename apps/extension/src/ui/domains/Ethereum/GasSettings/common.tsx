@@ -1,14 +1,13 @@
 import { AlertTriangleIcon, InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import imgFeePriorityCustom from "@taostats/theme/images/fee-priority-custom.png"
+import imgFeePriorityHigh from "@taostats/theme/images/fee-priority-high.png"
+import imgFeePriorityLow from "@taostats/theme/images/fee-priority-low.png"
+import imgFeePriorityMedium from "@taostats/theme/images/fee-priority-medium.png"
+import imgFeePriorityRecommended from "@taostats/theme/images/fee-priority-recommended.png"
 import { EthPriorityOptionName } from "extension-core"
 import { FC, PropsWithChildren, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-
-import imgFeePriorityCustom from "@talisman/theme/images/fee-priority-custom.png"
-import imgFeePriorityHigh from "@talisman/theme/images/fee-priority-high.png"
-import imgFeePriorityLow from "@talisman/theme/images/fee-priority-low.png"
-import imgFeePriorityMedium from "@talisman/theme/images/fee-priority-medium.png"
-import imgFeePriorityRecommended from "@talisman/theme/images/fee-priority-recommended.png"
 
 export const useFeePriorityOptionsUI = () => {
   const { t } = useTranslation()

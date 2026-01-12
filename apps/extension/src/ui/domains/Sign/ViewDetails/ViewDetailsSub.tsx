@@ -2,6 +2,7 @@ import { TypeRegistry } from "@polkadot/types"
 import { useQuery } from "@tanstack/react-query"
 import { BalanceFormatter } from "@taostats-wallet/balances"
 import { classNames } from "@taostats-wallet/util"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import {
   isJsonPayload,
   SignerPayloadJSON,
@@ -12,7 +13,6 @@ import { FC, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
 
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useToken, useTokenRates } from "@ui/state"
 

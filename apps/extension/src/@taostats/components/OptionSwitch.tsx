@@ -1,4 +1,5 @@
 import { classNames } from "@taostats-wallet/util"
+import { FadeIn } from "@taostats/components/FadeIn"
 import {
   CSSProperties,
   ReactNode,
@@ -8,8 +9,6 @@ import {
   useRef,
   useState,
 } from "react"
-
-import { FadeIn } from "@talisman/components/FadeIn"
 
 const OptionButton = <O extends string>({
   className,

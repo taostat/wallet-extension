@@ -1,9 +1,9 @@
+import { AppPill } from "@taostats/components/AppPill"
 import { isAccountOfType } from "extension-core"
 import { Suspense, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { AppPill } from "@talisman/components/AppPill"
 import {
   PopupContent,
   PopupFooter,

@@ -1,3 +1,5 @@
+import { FadeIn } from "@taostats/components/FadeIn"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import {
   AUTH_PREFIX,
   AUTH_SOL_SIGN_IN_PREFIX,
@@ -11,8 +13,6 @@ import {
 import { Suspense, useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { FadeIn } from "@talisman/components/FadeIn"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { AccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { AccountExportPrivateKeyModal } from "@ui/domains/Account/AccountExportPrivateKeyModal"

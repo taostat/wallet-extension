@@ -1,6 +1,6 @@
+import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
 import { Route, Routes } from "react-router-dom"
 
-import { NavigateWithQuery } from "@talisman/components/NavigateWithQuery"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"

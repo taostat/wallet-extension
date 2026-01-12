@@ -1,8 +1,8 @@
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { SigningRequestID } from "extension-core"
 import { Suspense, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import {
   EthSignMessageRequestProvider,
   EthSignTransactionRequestProvider,

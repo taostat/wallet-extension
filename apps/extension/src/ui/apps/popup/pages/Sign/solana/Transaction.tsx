@@ -4,13 +4,13 @@ import { solNativeTokenId } from "@taostats-wallet/chaindata-provider"
 import { InfoIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { deserializeTransaction, serializeTransaction } from "@taostats-wallet/solana"
 import { cn } from "@taostats-wallet/util"
+import { AppPill } from "@taostats/components/AppPill"
 import { Account, isAccountOfType, SolSigningRequest } from "extension-core"
 import { isVersionedTransaction } from "inject/solana/solana"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { AppPill } from "@talisman/components/AppPill"
 import { api } from "@ui/api"
 import {
   PopupContent,

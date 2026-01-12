@@ -1,6 +1,7 @@
 import { Balance, Balances } from "@taostats-wallet/balances"
 import { ChevronLeftIcon, CopyIcon, MoreHorizontalIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Account, getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -13,7 +14,6 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { AccountContextMenu } from "@ui/domains/Account/AccountContextMenu"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Address } from "@ui/domains/Account/Address"

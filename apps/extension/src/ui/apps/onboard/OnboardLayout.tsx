@@ -1,9 +1,9 @@
 import { classNames } from "@taostats-wallet/util"
+import { BackButton } from "@taostats/components/BackButton"
+import { FadeIn } from "@taostats/components/FadeIn"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { FC, ReactNode, Suspense } from "react"
 
-import { BackButton } from "@talisman/components/BackButton"
-import { FadeIn } from "@talisman/components/FadeIn"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { AnalyticsPage } from "@ui/api/analytics"
 
 type LayoutProps = {

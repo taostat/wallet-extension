@@ -1,7 +1,7 @@
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { AnalyticsPage } from "@ui/api/analytics"
 import {
   TxHistoryList,

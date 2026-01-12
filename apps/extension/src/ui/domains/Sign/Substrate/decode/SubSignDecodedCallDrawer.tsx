@@ -1,11 +1,10 @@
 import { XIcon } from "@taostats-wallet/icons"
 import { DecodedCall, ScaleApi } from "@taostats-wallet/sapi"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { SignerPayloadJSON } from "extension-core"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, IconButton } from "taostats-ui"
-
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
 
 import { SubSignDecodedCallContent } from "./SubSignDecodedCallContent"
 

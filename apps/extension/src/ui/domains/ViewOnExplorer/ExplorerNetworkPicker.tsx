@@ -1,12 +1,12 @@
 import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
 import { ExternalLinkIcon, XIcon } from "@taostats-wallet/icons"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { isAccountCompatibleWithNetwork, isAddressCompatibleWithNetwork } from "extension-core"
 import { FC, useCallback, useDeferredValue, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton } from "taostats-ui"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { SearchInput } from "@talisman/components/SearchInput"
 import {
   useAccountByAddress,
   useBalancesByAddress,

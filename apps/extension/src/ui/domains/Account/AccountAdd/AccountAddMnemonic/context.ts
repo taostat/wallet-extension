@@ -1,7 +1,6 @@
 import { KeypairCurve } from "@taostats-wallet/crypto"
+import { provideContext } from "@taostats/util/provideContext"
 import { useCallback, useState } from "react"
-
-import { provideContext } from "@talisman/util/provideContext"
 
 export type AccountAddDerivationMode = "first" | "custom" | "multi"
 

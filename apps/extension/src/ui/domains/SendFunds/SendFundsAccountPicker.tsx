@@ -1,11 +1,11 @@
 import { getNetworkGenesisHash } from "@taostats-wallet/chaindata-provider"
 import { encodeAnyAddress } from "@taostats-wallet/crypto"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { isAccountCompatibleWithNetwork } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { SearchInput } from "@talisman/components/SearchInput"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import { useAccounts, useNetworkById, useToken } from "@ui/state"
 

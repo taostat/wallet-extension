@@ -12,6 +12,8 @@ import {
   TokenSchema,
 } from "@taostats-wallet/chaindata-provider"
 import { sleep } from "@taostats-wallet/util"
+import { notify } from "@taostats/components/Notifications"
+import { provideContext } from "@taostats/util/provideContext"
 import { activeNetworksStore, activeTokensStore, RequestNetworkUpsert } from "extension-core"
 import { log } from "extension-shared"
 import { range } from "lodash-es"
@@ -19,8 +21,6 @@ import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
 import { firstValueFrom } from "rxjs"
 
-import { notify } from "@talisman/components/Notifications"
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { getNetworkById$ } from "@ui/state"
 

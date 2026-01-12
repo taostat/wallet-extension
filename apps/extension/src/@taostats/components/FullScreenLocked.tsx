@@ -1,7 +1,6 @@
 import { classNames } from "@taostats-wallet/util"
+import { HandMonoLogo } from "@taostats/theme/logos"
 import { ReactNode } from "react"
-
-import { HandMonoLogo } from "@talisman/theme/logos"
 
 import { FadeIn } from "./FadeIn"
 

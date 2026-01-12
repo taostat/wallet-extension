@@ -1,4 +1,5 @@
 import { StarIcon } from "@taostats-wallet/icons"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { format } from "date-fns/format"
 import { Nft, NftCollection } from "extension-core"
 import { FC, Suspense, useCallback, useMemo, useRef, useState } from "react"
@@ -6,7 +7,6 @@ import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
 import { useIntersection } from "react-use"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { useDateFnsLocale } from "@ui/hooks/useDateFnsLocale"
 import { useIsFavoriteNft, useNftCollection, useSetting } from "@ui/state"
 

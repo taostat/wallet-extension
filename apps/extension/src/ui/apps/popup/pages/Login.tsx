@@ -1,6 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { HandMonoLogo } from "@taostats/theme/logos"
 import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import {
   SubmitHandler,
@@ -13,9 +16,6 @@ import { useTranslation } from "react-i18next"
 import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import * as yup from "yup"
 
-import { CapsLockWarningIcon } from "@talisman/components/CapsLockWarningIcon"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
-import { HandMonoLogo } from "@talisman/theme/logos"
 import { api } from "@ui/api"
 import { LoginBackground } from "@ui/apps/popup/components/LoginBackground"
 import { useAnalytics } from "@ui/hooks/useAnalytics"

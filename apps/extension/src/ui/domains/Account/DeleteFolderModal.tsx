@@ -1,11 +1,11 @@
 import { bind } from "@react-rxjs/core"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { AccountsCatalogTree } from "extension-core"
 import { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
 import { Button, Modal, ModalDialog } from "taostats-ui"
 
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { api } from "@ui/api"
 
 type FolderProps = {

@@ -5,6 +5,7 @@ import {
   NetworkBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
 import { LoaderIcon, SaveIcon } from "@taostats-wallet/icons"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { log } from "extension-shared"
 import { TFunction } from "i18next"
 import { FC, useMemo } from "react"
@@ -13,7 +14,6 @@ import { firstValueFrom } from "rxjs"
 import { Button, Checkbox, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import { z } from "zod/v4"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"

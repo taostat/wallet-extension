@@ -1,4 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
+import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
+import { PasswordStrength } from "@taostats/components/PasswordStrength"
+import downloadJson from "@taostats/util/downloadJson"
 import { FC, useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
@@ -12,9 +15,6 @@ import {
 } from "taostats-ui"
 import * as yup from "yup"
 
-import { CapsLockWarningMessage } from "@talisman/components/CapsLockWarningMessage"
-import { PasswordStrength } from "@talisman/components/PasswordStrength"
-import downloadJson from "@talisman/util/downloadJson"
 import { api } from "@ui/api"
 import { useAccounts } from "@ui/state"
 

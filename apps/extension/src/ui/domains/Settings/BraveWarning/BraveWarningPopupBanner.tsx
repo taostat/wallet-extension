@@ -1,10 +1,9 @@
+import { useIsBrave } from "@taostats/hooks/useIsBrave"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { appStore } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, Modal, ModalDialog } from "taostats-ui"
-
-import { useIsBrave } from "@talisman/hooks/useIsBrave"
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
 
 import { BraveWarningCard } from "./BraveWarningCard"
 import { BraveWarningModal } from "./BraveWarningModal"

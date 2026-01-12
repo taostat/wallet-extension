@@ -10,6 +10,9 @@ import {
   KeypairCurve,
   parseSecretKey,
 } from "@taostats-wallet/crypto"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
+import { Spacer } from "@taostats/components/Spacer"
 import { useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -22,9 +25,6 @@ import {
 } from "taostats-ui"
 import { z } from "zod/v4"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { notify, notifyUpdate } from "@talisman/components/Notifications"
-import { Spacer } from "@talisman/components/Spacer"
 import { api } from "@ui/api"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { useAccounts } from "@ui/state"

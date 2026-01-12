@@ -1,5 +1,7 @@
 import { bind } from "@react-rxjs/core"
 import { CopyIcon, LoaderIcon } from "@taostats-wallet/icons"
+import { notify } from "@taostats/components/Notifications"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import {
   Account,
   isAccountOfType,
@@ -11,8 +13,6 @@ import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
 import { Button, Modal, ModalDialog } from "taostats-ui"
 
-import { notify } from "@talisman/components/Notifications"
-import { useGlobalOpenClose } from "@talisman/hooks/useGlobalOpenClose"
 import { api } from "@ui/api"
 import { useSensitiveState } from "@ui/hooks/useSensitiveState"
 

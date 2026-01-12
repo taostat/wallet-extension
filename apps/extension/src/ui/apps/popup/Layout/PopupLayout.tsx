@@ -1,4 +1,6 @@
 import { classNames } from "@taostats-wallet/util"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { HandMonoLogo } from "@taostats/theme/logos"
 import {
   DetailedHTMLProps,
   FC,
@@ -10,8 +12,6 @@ import {
 } from "react"
 import { useLocation } from "react-router-dom"
 
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
-import { HandMonoLogo } from "@talisman/theme/logos"
 import { api } from "@ui/api"
 
 import { BottomNav } from "../components/Navigation/BottomNav"

@@ -1,10 +1,9 @@
 import { Network } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, PillButton } from "taostats-ui"
-
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
 
 import { ViewDetailsField } from "../Sign/ViewDetails/ViewDetailsField"
 

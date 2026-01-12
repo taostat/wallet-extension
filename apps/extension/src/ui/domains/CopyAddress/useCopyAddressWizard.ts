@@ -14,6 +14,7 @@ import {
   isSs58Address,
   normalizeAddress,
 } from "@taostats-wallet/crypto"
+import { provideContext } from "@taostats/util/provideContext"
 import {
   Account,
   Address,
@@ -23,7 +24,6 @@ import {
 import { log } from "extension-shared"
 import { useCallback, useEffect, useMemo, useState } from "react"
 
-import { provideContext } from "@talisman/util/provideContext"
 import {
   useAccountByAddress,
   useAccounts,

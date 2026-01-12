@@ -18,6 +18,9 @@ import {
   XIcon,
 } from "@taostats-wallet/icons"
 import { classNames, isNotNil, isTruthy } from "@taostats-wallet/util"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import {
   Account,
   activeNetworksStore,
@@ -45,9 +48,6 @@ import {
 } from "taostats-ui"
 import urlJoin from "url-join"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { Spacer } from "@talisman/components/Spacer"
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"

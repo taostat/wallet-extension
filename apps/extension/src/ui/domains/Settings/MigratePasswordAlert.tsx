@@ -1,10 +1,10 @@
 import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Card } from "@taostats/components/Card"
 import { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
 
-import { Card } from "@talisman/components/Card"
 import { api } from "@ui/api"
 import { sendAnalyticsEvent } from "@ui/api/analytics"
 

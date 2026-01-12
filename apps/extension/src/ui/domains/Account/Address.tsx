@@ -1,9 +1,9 @@
 import { encodeAnyAddress } from "@taostats-wallet/crypto"
 import { classNames } from "@taostats-wallet/util"
+import { WithTooltip } from "@taostats/components/Tooltip"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { FC, useMemo } from "react"
 
-import { WithTooltip } from "@talisman/components/Tooltip"
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useOnChainId } from "@ui/hooks/useOnChainId"
 import { useNetworkByGenesisHash } from "@ui/state"
 

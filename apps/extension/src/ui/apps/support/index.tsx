@@ -1,7 +1,6 @@
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense } from "react"
-
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 
 import { SupportOpsBackup } from "./SupportOpsBackupButton"
 import { SupportOpsRestoreButton } from "./SupportOpsRestoreButton"

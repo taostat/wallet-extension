@@ -1,9 +1,9 @@
+import { notify } from "@taostats/components/Notifications"
 import { ProviderType } from "extension-core"
 import { FC, ReactNode, useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
-import { notify } from "@talisman/components/Notifications"
 import { api } from "@ui/api"
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)

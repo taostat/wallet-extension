@@ -1,9 +1,9 @@
 import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
+import { provideContext } from "@taostats/util/provideContext"
 import { Account, Tree, TreeAccount, TreeFolder, TreeItem } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useSearchParams } from "react-router-dom"
 
-import { provideContext } from "@talisman/util/provideContext"
 import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
 
 const usePortfolioNavigationProvider = () => {

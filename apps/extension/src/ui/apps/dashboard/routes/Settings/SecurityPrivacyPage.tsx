@@ -7,14 +7,14 @@ import {
   LockIcon,
   ShieldZapIcon,
 } from "@taostats-wallet/icons"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Setting } from "@taostats/components/Setting"
+import { Spacer } from "@taostats/components/Spacer"
 import { IS_FIREFOX } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { CtaButton, Toggle, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { Setting } from "@talisman/components/Setting"
-import { Spacer } from "@talisman/components/Spacer"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 import { useFeatureFlag, useSetting } from "@ui/state"

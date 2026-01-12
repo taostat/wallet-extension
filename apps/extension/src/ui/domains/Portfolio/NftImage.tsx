@@ -1,7 +1,7 @@
 import { classNames } from "@taostats-wallet/util"
+import imgUnknownNft from "@taostats/theme/images/unknown-nft.svg?url"
 import { useState } from "react"
 
-import imgUnknownNft from "@talisman/theme/images/unknown-nft.svg?url"
 import { getSafeImageUrl } from "@ui/util/getSafeImageUrl"
 
 export const NftImage = ({

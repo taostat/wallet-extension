@@ -1,11 +1,11 @@
 import { isNetworkDot, isNetworkEth } from "@taostats-wallet/chaindata-provider"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { isAccountAddressEthereum, isAccountAddressSs58 } from "extension-core"
 import { FC, Suspense, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMatch } from "react-router-dom"
 import { Button } from "taostats-ui"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { PopupAssetsTable } from "@ui/domains/Portfolio/AssetsTable"
 import { PopupDefiPositions } from "@ui/domains/Portfolio/DeFi/PopupDefiPositions"

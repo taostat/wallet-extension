@@ -1,5 +1,6 @@
 import { FolderPlusIcon, MoreHorizontalIcon, PlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -13,7 +14,6 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
-import { SearchInput } from "@talisman/components/SearchInput"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { useNewFolderModal } from "@ui/domains/Account/NewFolderModal"

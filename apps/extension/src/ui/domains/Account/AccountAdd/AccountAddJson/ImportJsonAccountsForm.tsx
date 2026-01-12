@@ -6,13 +6,13 @@ import {
   UnlockIcon,
 } from "@taostats-wallet/icons"
 import { classNames, sleep } from "@taostats-wallet/util"
+import { FadeIn } from "@taostats/components/FadeIn"
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { FC, useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { FadeIn } from "@talisman/components/FadeIn"
-import { notify, notifyUpdate } from "@talisman/components/Notifications"
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Fiat } from "@ui/domains/Asset/Fiat"

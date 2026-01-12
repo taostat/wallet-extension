@@ -1,7 +1,6 @@
 import { classNames } from "@taostats-wallet/util"
+import { provideContext } from "@taostats/util/provideContext"
 import { forwardRef, RefObject, useEffect, useMemo, useRef, useState } from "react"
-
-import { provideContext } from "@talisman/util/provideContext"
 
 type ScrollContainerProps = {
   className?: string

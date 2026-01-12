@@ -13,14 +13,14 @@ import {
   UsersIcon,
   XIcon,
 } from "@taostats-wallet/icons"
+import { Nav, NavItem } from "@taostats/components/Nav"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Drawer, IconButton } from "taostats-ui"
 
-import { Nav, NavItem } from "@talisman/components/Nav"
-import { TaostatsLogo } from "@talisman/theme/logos"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { BuildVersionPill } from "@ui/domains/Build/BuildVersionPill"

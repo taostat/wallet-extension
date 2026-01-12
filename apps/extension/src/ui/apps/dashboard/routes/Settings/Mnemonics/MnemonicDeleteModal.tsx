@@ -1,11 +1,11 @@
 import { AlertTriangleIcon } from "@taostats-wallet/icons"
+import { notify } from "@taostats/components/Notifications"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
+import { provideContext } from "@taostats/util/provideContext"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 
-import { notify } from "@talisman/components/Notifications"
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { useMnemonic, useMnemonics } from "@ui/state"
 

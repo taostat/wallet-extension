@@ -7,6 +7,10 @@ import {
   UserPlusIcon,
 } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
@@ -29,10 +33,6 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { Spacer } from "@talisman/components/Spacer"
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"

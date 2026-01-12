@@ -1,10 +1,10 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { classNames, Loadable, LoadableStatus } from "@taostats-wallet/util"
+import { FadeIn } from "@taostats/components/FadeIn"
 import { DefiPosition } from "extension-core"
 import { FC, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { FadeIn } from "@talisman/components/FadeIn"
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { FiatFromUsd } from "@ui/domains/Asset/Fiat"

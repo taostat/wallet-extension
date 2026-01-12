@@ -1,10 +1,9 @@
 import { decodeString } from "@polkadot/react-qr/util"
 import QrCodeStyling from "@solana/qr-code-styling"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { log } from "extension-shared"
 import { FC, Suspense, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 
 import { FRAME_SIZE, talismanRedHandSvg } from "./constants"
 

@@ -1,5 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import {
   EthGasSettings,
   EthPriorityOptionName,
@@ -10,7 +11,6 @@ import { FC, useCallback, useEffect, useState } from "react"
 import { Drawer, PillButton } from "taostats-ui"
 import { TransactionRequest } from "viem"
 
-import { useOpenClose } from "@talisman/hooks/useOpenClose"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 
 import { useFeePriorityOptionsUI } from "./common"

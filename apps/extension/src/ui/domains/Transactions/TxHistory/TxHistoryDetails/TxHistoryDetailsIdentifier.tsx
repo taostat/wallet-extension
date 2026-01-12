@@ -1,9 +1,8 @@
+import { CodeBlock } from "@taostats/components/CodeBlock"
+import { CopyToClipboardLinkButton } from "@taostats/components/CopyToClipboardLinkButton"
 import { WalletTransaction } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-
-import { CodeBlock } from "@talisman/components/CodeBlock"
-import { CopyToClipboardLinkButton } from "@talisman/components/CopyToClipboardLinkButton"
 
 export const TxHistoryDetailsIdentifier: FC<{
   tx: WalletTransaction

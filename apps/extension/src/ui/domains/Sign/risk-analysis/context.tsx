@@ -1,6 +1,5 @@
+import { provideContext } from "@taostats/util/provideContext"
 import { FC, ReactNode } from "react"
-
-import { provideContext } from "@talisman/util/provideContext"
 
 import { RiskAnalysisDrawers } from "./RiskAnalysisDrawers"
 import { RiskAnalysis } from "./types"

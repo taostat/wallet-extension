@@ -1,7 +1,6 @@
 import { generateMnemonic as mnemonicGenerate } from "@taostats-wallet/crypto"
+import { provideContext } from "@taostats/util/provideContext"
 import { useCallback, useMemo, useState } from "react"
-
-import { provideContext } from "@talisman/util/provideContext"
 
 type BackupCreateResult = { mnemonic: string; confirmed: boolean } | null
 type BackupCreateResultCallback = { resolve: (result: BackupCreateResult) => void }

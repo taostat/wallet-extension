@@ -1,9 +1,9 @@
 import { XIcon } from "@taostats-wallet/icons"
+import { AppPill } from "@taostats/components/AppPill"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { FC } from "react"
 import { Drawer, IconButton } from "taostats-ui"
 
-import { AppPill } from "@talisman/components/AppPill"
-import { ScrollContainer } from "@talisman/components/ScrollContainer"
 import { useCurrentSite } from "@ui/hooks/useCurrentSite"
 
 import { ConnectedAccounts } from "./ConnectedAccounts"

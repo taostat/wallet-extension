@@ -1,6 +1,6 @@
+import { FallbackErrorBoundary } from "@taostats/components/FallbackErrorBoundary"
 import { FC } from "react"
 
-import { FallbackErrorBoundary } from "@talisman/components/FallbackErrorBoundary"
 import { DecodedEvmTransaction } from "@ui/domains/Ethereum/util/decodeEvmTransaction"
 
 import { SignViewBodyShimmer } from "../Views/SignViewBodyShimmer"

@@ -1,10 +1,10 @@
 import { BalanceFormatter } from "@taostats-wallet/balances"
 import { TokenRateCurrency } from "@taostats-wallet/token-rates"
 import { classNames, Prettify } from "@taostats-wallet/util"
+import { fiatDecimalSeparator, fiatGroupSeparator, formatFiat } from "@taostats/util/formatFiat"
 import React, { FC, useCallback, useMemo } from "react"
 import CountUp from "react-countup"
 
-import { fiatDecimalSeparator, fiatGroupSeparator, formatFiat } from "@talisman/util/formatFiat"
 import { useRevealableBalance } from "@ui/hooks/useRevealableBalance"
 import { useFiatFromUsd, useSelectedCurrency } from "@ui/state"
 

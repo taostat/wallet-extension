@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { KeyIcon } from "@taostats-wallet/icons"
+import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
+import { provideContext } from "@taostats/util/provideContext"
 import { ReactNode, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { Button, FormFieldContainer, FormFieldInputText, useOpenCloseStatus } from "taostats-ui"
 import * as yup from "yup"
 
-import { CapsLockWarningIcon } from "@talisman/components/CapsLockWarningIcon"
-import { provideContext } from "@talisman/util/provideContext"
 import { api } from "@ui/api"
 import { useSensitiveState } from "@ui/hooks/useSensitiveState"
 

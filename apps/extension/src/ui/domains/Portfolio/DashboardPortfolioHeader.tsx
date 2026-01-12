@@ -9,6 +9,7 @@ import {
 } from "@taostats-wallet/icons"
 import { TalismanOrbRectangle } from "@taostats-wallet/orb"
 import { classNames, isNotNil } from "@taostats-wallet/util"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
@@ -22,7 +23,6 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsEventName, AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AccountContextMenu } from "@ui/domains/Account/AccountContextMenu"

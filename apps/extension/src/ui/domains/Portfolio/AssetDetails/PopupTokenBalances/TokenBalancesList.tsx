@@ -1,9 +1,9 @@
 import { Balances } from "@taostats-wallet/balances"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { ReactNode, Suspense } from "react"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { NetworkName } from "@ui/domains/Networks/NetworkName"

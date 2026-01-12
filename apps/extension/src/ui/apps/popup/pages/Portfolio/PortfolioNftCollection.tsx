@@ -1,6 +1,6 @@
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense, useEffect } from "react"
 
-import { SuspenseTracker } from "@talisman/components/SuspenseTracker"
 import { NftsBreadcrumb } from "@ui/domains/Portfolio/Nfts/NftsBreadcrumb"
 import { PopupNftCollection } from "@ui/domains/Portfolio/Nfts/PopupNftCollection"
 import { PortfolioTabs } from "@ui/domains/Portfolio/PortfolioTabs"

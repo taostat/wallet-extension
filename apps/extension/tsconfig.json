@@ -7,8 +7,8 @@
     "paths": {
       "@common": ["./common"],
       "@common/*": ["./common/*"],
-      "@talisman": ["./@talisman"],
-      "@talisman/*": ["./@talisman/*"],
+      "@taostats": ["./@taostats"],
+      "@taostats/*": ["./@taostats/*"],
       "@ui": ["./ui"],
       "@ui/*": ["./ui/*"],
       "@tests": ["./tests"],

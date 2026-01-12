@@ -1,4 +1,4 @@
-import { FallbackErrorBoundary } from "@talisman/components/FallbackErrorBoundary"
+import { FallbackErrorBoundary } from "@taostats/components/FallbackErrorBoundary"
 
 import { SUMMARY_COMPONENTS } from "../summary/calls"
 import { DecodedCallComponent } from "../types"

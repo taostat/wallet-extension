@@ -5,11 +5,11 @@ import {
   TransactionScanResponse,
 } from "@blockaid/client/resources/index.mjs"
 import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-provider"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { toPairs, values } from "lodash-es"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { useNetworkById } from "@ui/state"
 
 import { RiskAnalysisAssetImage } from "./RiskAnalysisAssetImage"

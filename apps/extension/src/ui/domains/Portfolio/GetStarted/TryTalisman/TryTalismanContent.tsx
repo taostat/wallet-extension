@@ -1,6 +1,7 @@
 import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
 import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import {
   ChangeEventHandler,
   FC,
@@ -13,7 +14,6 @@ import {
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
-import { shortenAddress } from "@talisman/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"

@@ -1,9 +1,9 @@
 import { bind } from "@react-rxjs/core"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
 import { useTranslation } from "react-i18next"
 import { combineLatest } from "rxjs"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { Spacer } from "@talisman/components/Spacer"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { DeleteFolderModal } from "@ui/domains/Account/DeleteFolderModal"

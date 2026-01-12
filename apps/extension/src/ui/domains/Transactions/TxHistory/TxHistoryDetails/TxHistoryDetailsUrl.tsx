@@ -1,6 +1,5 @@
+import { Favicon } from "@taostats/components/Favicon"
 import { FC, useMemo } from "react"
-
-import { Favicon } from "@talisman/components/Favicon"
 
 export const TxHistoryDetailsUrl: FC<{
   url: string

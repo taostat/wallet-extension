@@ -16,14 +16,14 @@ import {
   XIcon,
 } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Setting } from "@taostats/components/Setting"
 import { LedgerTransportType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, CtaButton, Dropdown, Modal, ModalDialog, Toggle } from "taostats-ui"
 
-import { HeaderBlock } from "@talisman/components/HeaderBlock"
-import { Setting } from "@talisman/components/Setting"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AvatarTypeSelect } from "@ui/domains/Settings/AvatarTypeSelect"
