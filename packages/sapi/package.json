@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/talismansociety/talisman.git"
   },
-  "main": "dist/taostats-sapi.cjs.js",
-  "module": "dist/taostats-sapi.esm.js",
+  "main": "dist/taostats-wallet-sapi.cjs.js",
+  "module": "dist/taostats-wallet-sapi.esm.js",
   "files": [
     "/dist"
   ],

@@ -13,8 +13,8 @@
     "url": "https://github.com/talismansociety/talisman.git"
   },
   "type": "module",
-  "main": "dist/taostats-orb.cjs.js",
-  "module": "dist/taostats-orb.esm.js",
+  "main": "dist/taostats-wallet-orb.cjs.js",
+  "module": "dist/taostats-wallet-orb.esm.js",
   "scripts": {
     "lint": "eslint src --max-warnings 0",
     "clean": "rm -rf dist .turbo node_modules"

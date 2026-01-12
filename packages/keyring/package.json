@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/talismansociety/talisman.git"
   },
-  "main": "dist/taostats-keyring.cjs.js",
-  "module": "dist/taostats-keyring.esm.js",
+  "main": "dist/taostats-wallet-keyring.cjs.js",
+  "module": "dist/taostats-wallet-keyring.esm.js",
   "files": [
     "/dist"
   ],

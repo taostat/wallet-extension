@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/talismansociety/talisman.git"
   },
-  "main": "dist/taostats-chaindata-provider.cjs.js",
-  "module": "dist/taostats-chaindata-provider.esm.js",
+  "main": "dist/taostats-wallet-chaindata-provider.cjs.js",
+  "module": "dist/taostats-wallet-chaindata-provider.esm.js",
   "files": [
     "/dist"
   ],

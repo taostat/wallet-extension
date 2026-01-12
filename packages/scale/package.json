@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/talismansociety/talisman.git"
   },
-  "main": "dist/taostats-scale.cjs.js",
-  "module": "dist/taostats-scale.esm.js",
+  "main": "dist/taostats-wallet-scale.cjs.js",
+  "module": "dist/taostats-wallet-scale.esm.js",
   "files": [
     "/dist"
   ],
