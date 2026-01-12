@@ -13,7 +13,7 @@
     "extension",
     "extension-core",
     "extension-shared",
-    "talisman-ui",
+    "taostats-ui",
     "balances-bench"
   ]
 }

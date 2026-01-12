@@ -1,4 +1,4 @@
-# talisman-ui
+# taostats-ui
 
 Shared UI components.
 
@@ -16,7 +16,7 @@ At the root of the new project, create a `tailwind.config.cjs` file with the fol
 
 ```js
 /* eslint-env es2021 */
-const TALISMAN_TAILWIND_CONFIG = require("talisman-ui/tailwind.config.cjs")
+const TALISMAN_TAILWIND_CONFIG = require("taostats-ui/tailwind.config.cjs")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
   content: [
     "./**/*.{html,ts,tsx,svg}",
     "./public/*.html",
-    "../../packages/talisman-ui/**/*.{html,ts,tsx,svg,css}",
+    "../../packages/taostats-ui/**/*.{html,ts,tsx,svg,css}",
   ],
 }
 ```
@@ -44,7 +44,7 @@ module.exports = {
 In the new project, create a `src/styles/styles.css` with the following content :
 
 ```css
-@import "talisman-ui/styles.css";
+@import "taostats-ui/styles.css";
 
 @layer base {
   /* Your base style (defaults) here */
@@ -66,8 +66,8 @@ Then import that file in your website entry point :
 import "./styles/styles.css"
 ```
 
-Note : if using webpack, postcss will throw an error when trying to import the css file from talisman-ui.  
-Add `postcss-import` to the beginning of your `plugins` array inside your `postcss.config.cjs`, and change the import to be `import "@import "talisman-ui/src/styles/styles.css";`.
+Note : if using webpack, postcss will throw an error when trying to import the css file from taostats-ui.  
+Add `postcss-import` to the beginning of your `plugins` array inside your `postcss.config.cjs`, and change the import to be `import "@import "taostats-ui/src/styles/styles.css";`.
 
 ```js
 /* eslint-env es2021 */
