@@ -171,9 +171,3 @@ When building UI features, please follow the following spec to ensure they're tr
 # builds with docker, outputs in dist folder at the root of the monorepo
 rm -rf dist && DOCKER_BUILDKIT=1 docker build --output type=local,dest=./dist .
 ```
-
-### Update packages
-
-## Security disclosures
-
-If you find a security issue or exploit, please email us at **security@taostats.xyz**. Please _DO NOT_ create an issue or PR in this repo for security issues.
