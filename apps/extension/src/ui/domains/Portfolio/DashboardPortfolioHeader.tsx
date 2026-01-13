@@ -4,7 +4,6 @@ import {
   FolderIcon,
   MoreHorizontalIcon,
   RepeatIcon,
-  SeekEyeIcon,
   SendIcon,
 } from "@taostats-wallet/icons"
 import { TalismanOrbRectangle } from "@taostats-wallet/orb"
@@ -38,7 +37,6 @@ import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
 import { useBalanceTotals, useFeatureFlag, useSelectedCurrency } from "@ui/state"
 
-import { useSeekBenefitsModal } from "./SeekBenefits/SeekBenefitsModal"
 import { usePortfolioNavigation } from "./usePortfolioNavigation"
 
 const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }> = ({
@@ -234,7 +232,6 @@ const TopActions: FC = () => {
   const { open: openRampsModal } = useRampsModal()
   const canSwap = useFeatureFlag("SWAPS")
   const canBuy = useFeatureFlag("BUY_CRYPTO")
-  const showSeekLink = useFeatureFlag("SEEK_BENEFITS")
 
   const [disableActions, disabledReason] = useMemo(() => {
     if (!!selectedAccount && !isAccountOwned(selectedAccount))
@@ -325,31 +322,6 @@ const TopActions: FC = () => {
           <Action key={index} {...action} />
         ))}
       </div>
-      {!!showSeekLink && <SeekBenefitsLink />}
     </div>
-  )
-}
-
-const SeekBenefitsLink = () => {
-  const { open } = useSeekBenefitsModal()
-
-  const handleSeekClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "SEEK" })
-    open()
-  }, [open])
-
-  return (
-    <button
-      type="button"
-      className={classNames(
-        "text-primary-700 hover:text-primary flex shrink-0 items-center gap-3 text-base",
-      )}
-      onClick={handleSeekClick}
-    >
-      <div className="flex flex-col justify-center text-[2rem]">
-        <SeekEyeIcon />
-      </div>
-      <div>SEEK</div>
-    </button>
   )
 }

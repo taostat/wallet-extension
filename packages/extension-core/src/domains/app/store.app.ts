@@ -43,8 +43,6 @@ export type AppStoreData = {
   // dismissed banners
   hideUnifiedAddressBanner?: boolean
   hideAutonomysQuestBanner?: boolean
-  hideSeekBenefitsBanner?: boolean
-  hideSeekPresaleBanner?: boolean
   hideAssetHubMigrationBanner?: boolean
 
   // represents a migration that is currently running
@@ -126,8 +124,6 @@ if (DEBUG) {
       hideGetStarted: false,
       hideUnifiedAddressBanner: false,
       hideAutonomysQuestBanner: false,
-      hideSeekBenefitsBanner: false,
-      hideSeekPresaleBanner: false,
       hideAssetHubMigrationBanner: false,
     })
   }

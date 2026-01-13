@@ -6,7 +6,6 @@ import {
   LockIcon,
   PlusIcon,
   RepeatIcon,
-  SeekEyeIcon,
   SendIcon,
   SettingsIcon,
   StarsIcon,
@@ -24,10 +23,9 @@ import { Drawer, IconButton } from "taostats-ui"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { BuildVersionPill } from "@ui/domains/Build/BuildVersionPill"
-import { useSeekBenefitsModal } from "@ui/domains/Portfolio/SeekBenefits/SeekBenefitsModal"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 import { usePopupNavOpenClose } from "@ui/hooks/usePopupNavOpenClose"
-import { useAccounts, useFeatureFlag } from "@ui/state"
+import { useAccounts } from "@ui/state"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Popup",
@@ -142,14 +140,6 @@ export const NavigationDrawer: FC = () => {
     close()
   }, [close, navigate])
 
-  const showSeekBenefits = useFeatureFlag("SEEK_BENEFITS")
-  const { open: openSeekBenefitsModal } = useSeekBenefitsModal()
-  const handleSeekBenefitsClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "Seek Benefits" })
-    openSeekBenefitsModal()
-    close()
-  }, [openSeekBenefitsModal, close])
-
   return (
     <Drawer className="h-full" containerId="main" anchor="bottom" isOpen={isOpen} onDismiss={close}>
       <div className="flex h-full w-full flex-col bg-black">
@@ -194,15 +184,6 @@ export const NavigationDrawer: FC = () => {
             <NavItem icon={<StarsIcon />} onClick={handleLatestFeaturesClick}>
               {t("Latest Features")}
             </NavItem>
-            {!!showSeekBenefits && (
-              <NavItem
-                className="hover:bg-primary/10"
-                icon={<SeekEyeIcon className="text-primary" />}
-                onClick={handleSeekBenefitsClick}
-              >
-                <span className="text-primary font-bold">SEEK</span>
-              </NavItem>
-            )}
             <NavItem icon={<SettingsIcon />} onClick={handleSettingsClick}>
               {t("All Settings")}
             </NavItem>

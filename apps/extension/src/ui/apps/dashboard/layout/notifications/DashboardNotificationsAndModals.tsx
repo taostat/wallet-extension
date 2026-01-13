@@ -7,7 +7,6 @@ import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
 import { GetStartedModals } from "@ui/domains/Portfolio/GetStarted/GetStartedModals"
-import { SeekBenefitsModal } from "@ui/domains/Portfolio/SeekBenefits/SeekBenefitsModal"
 import { RampsModal } from "@ui/domains/Ramps/RampsModal"
 import { MigratePasswordModal } from "@ui/domains/Settings/MigratePassword/MigratePasswordModal"
 import { BittensorBondModal } from "@ui/domains/Staking/Bittensor/BittensorBondModal"
@@ -58,7 +57,6 @@ export const DashboardNotificationsAndModals = () => {
       <RampsModal />
       <SwapTokensModal />
       <UnbondModal />
-      <SeekBenefitsModal />
     </Suspense>
   )
 }

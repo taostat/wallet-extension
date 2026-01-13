@@ -4,7 +4,6 @@ import {
   EyeIcon,
   EyeOffIcon,
   RepeatIcon,
-  SeekEyeIcon,
   SendIcon,
 } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
@@ -18,7 +17,6 @@ import { AnalyticsEventName, AnalyticsPage, sendAnalyticsEvent } from "@ui/api/a
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
-import { useSeekBenefitsModal } from "@ui/domains/Portfolio/SeekBenefits/SeekBenefitsModal"
 import { useRampsModal } from "@ui/domains/Ramps/useRampsModal"
 import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -163,14 +161,13 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 }
 
 const TopActions = ({ disabled }: { disabled?: boolean }) => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
   const { open: openRampsModal } = useRampsModal()
   const { open: openSwapTokensModal } = useSwapTokensModal()
   const ownedAccounts = useAccounts("owned")
   const canSwap = useFeatureFlag("SWAPS")
   const canBuy = useFeatureFlag("BUY_CRYPTO")
-  const showSeekBenefits = useFeatureFlag("SEEK_BENEFITS")
 
   const { disableActions, disabledReason } = useMemo(() => {
     const disableActions = disabled || !ownedAccounts.length
@@ -244,32 +241,6 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
           <Action key={index} {...action} />
         ))}
       </div>
-      {i18n.language === "en" && // not enough space in other languages
-        !!showSeekBenefits && <SeekBenefitsLink />}
     </div>
-  )
-}
-
-const SeekBenefitsLink = () => {
-  const { open } = useSeekBenefitsModal()
-
-  const handleSeekClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "SEEK" })
-    open()
-  }, [open])
-
-  return (
-    <button
-      type="button"
-      className={classNames(
-        "text-primary-700 hover:text-primary pointer-events-auto flex items-center gap-2.5 text-[1rem]",
-      )}
-      onClick={handleSeekClick}
-    >
-      <div className="flex flex-col justify-center text-sm">
-        <SeekEyeIcon />
-      </div>
-      <div>SEEK</div>
-    </button>
   )
 }

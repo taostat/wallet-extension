@@ -179,9 +179,9 @@ const LoginChecker: FC<PropsWithChildren> = ({ children }) => {
 
   // if we're not onboarded, redirect to onboard
   useEffect(() => {
-    if (!isOnboarded)
+    if (!isOnboarded) {
       window.location.href = window.location.href.replace("dashboard.html", "onboarding.html")
-    else if (!isLoggedIn) {
+    } else if (!isLoggedIn) {
       // if user was logged in and locked the extension from the popup, close the tab
       if (wasLoggedIn.current) window.close()
       // else (open from a bookmark?), prompt login

@@ -15,11 +15,9 @@ import { useAccounts, useAppState, useFeatureFlag } from "@ui/state"
 import { closeIfEmbeddedPopup } from "@ui/util/closeIfEmbeddedPopup"
 import { IS_POPUP } from "@ui/util/constants"
 
-import { useSeekBenefitsModal } from "../SeekBenefits/SeekBenefitsModal"
 import {
   GetStartedAddAccountIcon,
   GetStartedBuyIcon,
-  GetStartedEyeIcon,
   GetStartedReceiveIcon,
   GetStartedSwapIcon,
   GetStartedTryItIcon,
@@ -39,11 +37,9 @@ export const GetStarted = () => {
     onBuyClick,
     onLearnMoreClick,
     onDismissClick,
-    onSeekClick,
   } = useGetStarted()
 
   const canBuy = useFeatureFlag("BUY_CRYPTO")
-  const showSeekBenefits = useFeatureFlag("SEEK_BENEFITS")
 
   // ensure it appears if it was hidden and user deletes all accounts
   if (hasAccounts && isHidden) return null
@@ -111,15 +107,7 @@ export const GetStarted = () => {
       )}
 
       {IS_POPUP ? (
-        <div className={cn("grid gap-8", showSeekBenefits ? "grid-cols-3" : "grid-cols-1")}>
-          {showSeekBenefits && (
-            <GetStartedActionButton
-              className="col-span-2"
-              label={t("SEEK Benefits")}
-              iconTop={<GetStartedEyeIcon className="-ml-2 size-12" />}
-              onClick={onSeekClick}
-            />
-          )}
+        <div className={cn("grid gap-8", "grid-cols-1")}>
           <GetStartedActionButton
             label={t("About")}
             iconTop={<ArrowRightCircleIcon className="-ml-2 size-12" />}
@@ -127,18 +115,11 @@ export const GetStarted = () => {
           />
         </div>
       ) : (
-        <div className={cn("grid gap-8", showSeekBenefits ? "grid-cols-3" : "grid-cols-1")}>
-          {showSeekBenefits && (
-            <GetStartedActionButton
-              label={t("SEEK Benefits")}
-              iconTop={<GetStartedEyeIcon className="-ml-2 size-12" />}
-              onClick={onSeekClick}
-            />
-          )}
+        <div className={cn("grid gap-8", "grid-cols-1")}>
           <GetStartedActionButton
             label={t("About Talisman")}
             description={t("Discover how Talisman can elevate your web3 journey")}
-            className={cn("group", showSeekBenefits && "col-span-2")}
+            className={cn("group")}
             iconRight={
               <ChevronRightIcon className="text-body-inactive group-hover:text-body-secondary -mr-4 size-12" />
             }
@@ -160,7 +141,6 @@ const useGetStarted = () => {
   const { open: openRamps } = useRampsModal()
   const { open: openLearnMoreModal } = useLearnMoreModal()
   const { open: openTryTalismanModal } = useTryTalismanModal()
-  const { open: openSeekBenefits } = useSeekBenefitsModal()
 
   const [isHidden, setIsHidden] = useAppState("hideGetStarted")
 
@@ -213,11 +193,6 @@ const useGetStarted = () => {
     setIsHidden(true)
   }, [setIsHidden])
 
-  const onSeekClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "Seek Benefits" })
-    openSeekBenefits()
-  }, [openSeekBenefits])
-
   return {
     isHidden,
     hasAccounts,
@@ -228,7 +203,6 @@ const useGetStarted = () => {
     onBuyClick,
     onDismissClick,
     onLearnMoreClick,
-    onSeekClick,
   }
 }
 
