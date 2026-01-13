@@ -1,5 +1,4 @@
 import { NewFeaturesButton } from "../NewFeaturesButton"
-import { AssetHubMigrationBanner } from "./AssetHubMigration/AssetHubMigrationBanner"
 import { BackupReminderBanner } from "./BackupReminderBanner"
 import { UnifiedAddressInfoBanner } from "./UnifiedAddressInfoBanner"
 
@@ -9,7 +8,6 @@ export const PopupHomeBanners = () => {
       <BackupReminderBanner />
       <NewFeaturesButton />
       <UnifiedAddressInfoBanner />
-      <AssetHubMigrationBanner />
     </>
   )
 }
