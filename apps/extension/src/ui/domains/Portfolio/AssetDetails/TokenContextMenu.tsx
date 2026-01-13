@@ -11,7 +11,6 @@ import {
   ContextMenuTrigger,
   PopoverOptions,
 } from "taostats-ui"
-import urlJoin from "url-join"
 
 import { api } from "@ui/api"
 import { useBondModal } from "@ui/domains/Staking/Bond/hooks/useBondModal"
@@ -34,20 +33,6 @@ const ViewOnExplorerMenuItem: FC<{ token: EvmErc20Token }> = ({ token }) => {
   if (!canOpen) return null
 
   return <ContextMenuItem onClick={handleClick}>{t("View on explorer")}</ContextMenuItem>
-}
-
-const ViewOnCoingeckoMenuItem: FC<{ coingeckoId: string }> = ({ coingeckoId }) => {
-  const { t } = useTranslation()
-  const { genericEvent } = useAnalytics()
-
-  const handleClick = useCallback(() => {
-    window.open(urlJoin("https://coingecko.com/en/coins/", coingeckoId), "_blank")
-    genericEvent("open view on coingecko", { from: "token menu" })
-  }, [coingeckoId, genericEvent])
-
-  if (!coingeckoId) return null
-
-  return <ContextMenuItem onClick={handleClick}>{t("View on Coingecko")}</ContextMenuItem>
 }
 
 const ViewTokenDetailsMenuItem: FC<{ tokenId: TokenId }> = ({ tokenId }) => {
@@ -123,7 +108,6 @@ export const TokenContextMenu = forwardRef<HTMLElement, Props>(function AccountC
             <ViewOnExplorerMenuItem token={token} />
           </Suspense>
         )}
-        {!!token?.coingeckoId && <ViewOnCoingeckoMenuItem coingeckoId={token.coingeckoId} />}
         <Suspense fallback={<SuspenseTracker name="TokenContextMenu.Stake" />}>
           <StakeMenuItem tokenId={tokenId} />
         </Suspense>
