@@ -24,9 +24,7 @@ import {
 import * as yup from "yup"
 
 import { api } from "@ui/api"
-import { LoginBackground } from "@ui/apps/popup/components/LoginBackground"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
-import { useFirstAccountColors } from "@ui/hooks/useFirstAccountColors"
 import { useSetting } from "@ui/state"
 
 import { PopupContent, PopupFooter, PopupLayout } from "../Layout/PopupLayout"
@@ -100,8 +98,6 @@ const schema = yup
   })
   .required()
 
-const INPUT_CONTAINER_PROPS = { className: "bg-white/10" }
-
 const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
   const { t } = useTranslation()
   const { popupOpenEvent } = useAnalytics()
@@ -152,8 +148,8 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
   useDevModeAutologin({ watch, setValue, handleSubmit, submit })
 
   return (
-    <StarryBackground>
-      <PopupLayout>
+    <PopupLayout>
+      <StarryBackground>
         <Suspense fallback={<SuspenseTracker name="Background" />}>
           <HideBalancesToggle />
           <VersionInfo />
@@ -181,7 +177,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
               spellCheck={false}
               autoComplete="off"
               data-lpignore
-              containerProps={INPUT_CONTAINER_PROPS}
+              // containerProps={INPUT_CONTAINER_PROPS}
               className="placeholder:text-grey-500"
               after={<CapsLockWarningIcon />}
             />
@@ -191,7 +187,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
               primary
               disabled={!isValid}
               processing={isSubmitting}
-              className={classNames(!isValid && "bg-white/10")}
+              className={classNames(!isValid && "bg-field")}
             >
               {t("Unlock")}
             </Button>
@@ -204,8 +200,8 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
             </button>
           </form>
         </PopupFooter>
-      </PopupLayout>
-    </StarryBackground>
+      </StarryBackground>
+    </PopupLayout>
   )
 }
 

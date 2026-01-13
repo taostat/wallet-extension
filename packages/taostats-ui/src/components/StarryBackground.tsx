@@ -45,7 +45,16 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const generateStars = () => {
       const newStars: Star[] = []
-      const starCount = 80 // Optimized number for performance
+
+      // Scale star count by viewport area so small popups
+      // get fewer stars and large views get more.
+      const width = window.innerWidth || 800
+      const height = window.innerHeight || 600
+      const area = width * height
+
+      // Tunable density; clamp to avoid extremes.
+      const density = 0.0005
+      const starCount = Math.max(20, Math.min(80, Math.round(area * density)))
 
       for (let i = 0; i < starCount; i++) {
         newStars.push({
@@ -63,6 +72,13 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
     }
 
     generateStars()
+
+    const handleResize = () => generateStars()
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
 
   useEffect(() => {
@@ -139,7 +155,7 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
   return (
     <div className="relative min-h-[75vh] overflow-hidden">
       {/* Stars container */}
-      <div ref={containerRef} className="pointer-events-none fixed inset-0">
+      <div ref={containerRef} className="pointer-events-none fixed inset-0 z-0">
         {stars.map((star) => (
           <motion.div
             key={star.id}
@@ -180,7 +196,7 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
       </div>
 
       {/* Shooting Stars */}
-      <div className="pointer-events-none fixed inset-0">
+      <div className="pointer-events-none fixed inset-0 z-0">
         {shootingStars.map((shootingStar) => (
           <motion.div
             key={shootingStar.id}
@@ -223,7 +239,7 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
         ))}
       </div>
 
-      {children}
+      <div className="relative z-10">{children}</div>
     </div>
   )
 }
