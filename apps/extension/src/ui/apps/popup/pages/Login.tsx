@@ -126,7 +126,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
         if (result) {
           const qs = new URLSearchParams(window.location.search)
           if (qs.get("closeAfterLogin") === "true") window.close()
-        } else throw new Error(t("Talisman access denied"))
+        } else throw new Error(t("Taostats access denied"))
       } catch (err) {
         setError("password", { message: (err as Error)?.message ?? t("Unknown error") })
         setFocus("password", { shouldSelect: true })

@@ -1762,7 +1762,7 @@
   "Symbol": "Символ",
   "Symbol:": "Символ:",
   "Take me there": "Проводи меня туда",
-  "Talisman access denied": "Доступ к Talisman запрещен",
+  "Taostats access denied": "Доступ к Taostats запрещен",
   "Talisman awaits!": "Talisman ждет!",
   "Talisman does not curate or control which RPCs are used for these networks.": "Talisman не курирует и не контролирует, какие RPC используются для этих сетей.",
   "Talisman doesn’t apply any fee to this transaction.": "Talisman не взимает комиссию за эту транзакцию.",
