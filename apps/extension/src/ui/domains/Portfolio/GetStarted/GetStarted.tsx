@@ -21,13 +21,7 @@ import { useAccounts, useAppState, useFeatureFlag } from "@ui/state"
 import { closeIfEmbeddedPopup } from "@ui/util/closeIfEmbeddedPopup"
 import { IS_POPUP } from "@ui/util/constants"
 
-import {
-  GetStartedAddAccountIcon,
-  GetStartedBuyIcon,
-  GetStartedReceiveIcon,
-  GetStartedSwapIcon,
-  GetStartedTryItIcon,
-} from "./icons"
+import { GetStartedBuyIcon, GetStartedReceiveIcon, GetStartedSwapIcon } from "./icons"
 import { useLearnMoreModal } from "./LearnMore"
 import { useTryPageModal } from "./TryPage"
 

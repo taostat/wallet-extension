@@ -13,9 +13,7 @@ import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { AccountTypeNetworkSearch } from "@ui/domains/Account/AccountTypeNetworkSearch"
 import { AllNetworksLogoStack } from "@ui/domains/Account/AllNetworksLogoStack"
-import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { useNetworks } from "@ui/state"
 import { getIsLedgerCapable } from "@ui/util/getIsLedgerCapable"
 
@@ -111,49 +109,18 @@ function MethodTypeTab({
 
 function NewAccountMethodButtons() {
   const { t } = useTranslation()
-  const [platform, setPlatform] = useState<AccountPlatform>()
 
   return (
     <>
-      <SelectAccountTypeSectionHeader />
-      <AccountTypeNetworkSearch setAccountPlatform={setPlatform} />
       <AccountTypeMethodButton
-        disabled={platform === "polkadot"}
         title={
           <SelectAccountTypeButtonHeader
-            title={t("New Ethereum Account")}
-            tooltip={t(
-              "Pick this option for Ethereum, Base, zkSync, Arbitrum, BSC, and all EVM chains.",
-            )}
-          />
-        }
-        platform="ethereum"
-        to={`/accounts/add/derived?platform=ethereum`}
-      />
-      <AccountTypeMethodButton
-        disabled={platform === "ethereum"}
-        title={
-          <SelectAccountTypeButtonHeader
-            title={t("New Polkadot Account")}
-            tooltip={t(
-              "Pick this option for Polkadot Relay Chain, Asset Hub, Bittensor, and most Polkadot chains.",
-            )}
+            title={t("New Bittensor Account")}
+            tooltip={t("Continue to create your new Bittensor account")}
           />
         }
         platform="polkadot"
         to={`/accounts/add/derived?platform=polkadot`}
-      />
-      <AccountTypeMethodButton
-        disabled={!!platform && platform !== "solana"}
-        title={<SelectAccountTypeButtonHeader title={t("New Solana Account")} />}
-        platform="solana"
-        supportedNetworks={
-          <div className="flex items-center gap-2">
-            <NetworkLogo networkId="solana-mainnet" className="text-md" />
-            <div>{t("Solana Mainnet and testnets")}</div>
-          </div>
-        }
-        to={`/accounts/add/derived?platform=solana`}
       />
     </>
   )
@@ -222,64 +189,20 @@ function ConnectAccountMethodButtons() {
 
 function WatchedAccountMethodButtons() {
   const { t } = useTranslation()
-  const [platform, setPlatform] = useState<AccountPlatform>()
 
   return (
     <>
-      <SelectAccountTypeSectionHeader />
-      <AccountTypeNetworkSearch setAccountPlatform={setPlatform} />
       <AccountTypeMethodButton
-        disabled={!!platform && platform !== "ethereum"}
         title={
           <SelectAccountTypeButtonHeader
-            title={t("Watch Ethereum Account")}
-            tooltip={t(
-              "Pick this option for Ethereum, Base, zkSync, Arbitrum, BSC, and all EVM chains.",
-            )}
-          />
-        }
-        platform="ethereum"
-        to={`/accounts/add/watched?platform=ethereum`}
-      />
-      <AccountTypeMethodButton
-        disabled={!!platform && platform !== "polkadot"}
-        title={
-          <SelectAccountTypeButtonHeader
-            title={t("Watch Polkadot Account")}
-            tooltip={t(
-              "Pick this option for Polkadot Relay Chain, Asset Hub, Bittensor, and most Polkadot chains.",
-            )}
+            title={t("Watch Bittensor Account")}
+            tooltip={t("Continue to watch an existing Bittensor account")}
           />
         }
         platform="polkadot"
         to={`/accounts/add/watched?platform=polkadot`}
+        isWatchSection
       />
-      <AccountTypeMethodButton
-        disabled={!!platform && platform !== "solana"}
-        title={<SelectAccountTypeButtonHeader title={t("Watch Solana Account")} />}
-        platform="solana"
-        supportedNetworks={
-          <div className="flex items-center gap-2">
-            <NetworkLogo networkId="solana-mainnet" className="text-md" />
-            <div>{t("Solana Mainnet and testnets")}</div>
-          </div>
-        }
-        to={`/accounts/add/watched?platform=solana`}
-      />
-    </>
-  )
-}
-
-function SelectAccountTypeSectionHeader() {
-  const { t } = useTranslation()
-  return (
-    <>
-      <div className="text-md text-bold col-span-2 text-white">{t("Select account type")}</div>
-      <div className="col-span-2 -mt-2 text-sm text-white/40">
-        {t(
-          "If you don't know which to pick, search for the network you want to use and Talisman will recommend the account type.",
-        )}
-      </div>
     </>
   )
 }
@@ -310,12 +233,14 @@ function AccountTypeMethodButton({
   disabled,
   to,
   supportedNetworks,
+  isWatchSection = false,
 }: {
   title: ReactNode
   platform: AccountPlatform
   disabled?: boolean
   to?: string
   supportedNetworks?: ReactNode
+  isWatchSection?: boolean
 }) {
   const { t } = useTranslation()
   const networks = useNetworks()
@@ -333,7 +258,11 @@ function AccountTypeMethodButton({
         supportedNetworks ?? (
           <div className="flex items-center gap-2">
             <AllNetworksLogoStack className="text-md" ids={supportedChainIds} max={5} />
-            <div>{t("Networks supported")}</div>
+            <div>
+              {isWatchSection
+                ? t("Click here to watch en existing Bittensor account")
+                : t("Click here to create your new Bittensor account")}
+            </div>
           </div>
         )
       }

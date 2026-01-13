@@ -11,7 +11,6 @@ import {
   ManageAccountsLists,
   ManageAccountsProvider,
   ManageAccountsToolbar,
-  ManageAccountsWelcome,
 } from "@ui/domains/Account/ManageAccounts"
 import { NewFolderModal } from "@ui/domains/Account/NewFolderModal"
 import { RenameFolderModal } from "@ui/domains/Account/RenameFolderModal"
@@ -44,7 +43,6 @@ const Content = () => {
       <NewFolderModal />
       <RenameFolderModal />
       <DeleteFolderModal />
-      <ManageAccountsWelcome />
     </>
   )
 }

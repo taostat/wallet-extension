@@ -36,7 +36,6 @@ export type AppStoreData = {
   vaultVerifierCertificateMnemonicId?: string | null
   isAssetDiscoveryScanPending?: boolean
   showLedgerPolkadotGenericMigrationAlert?: boolean
-  hideManageAccountsWelcome?: boolean
   hideBittensorSubnetStakeWarning?: boolean
   hideGetStarted?: boolean
 
@@ -119,7 +118,6 @@ if (DEBUG) {
       hasBraveWarningBeenShown: false,
       analyticsRequestShown: false,
       hideBackupWarningUntil: undefined,
-      hideManageAccountsWelcome: false,
       hideBittensorSubnetStakeWarning: false,
       hideGetStarted: false,
       hideUnifiedAddressBanner: false,
