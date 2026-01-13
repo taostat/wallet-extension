@@ -14,7 +14,7 @@ const getNotificationOptions = (
         type: "basic",
         title: "Transaction in progress",
         message: `Waiting on transaction confirmation on ${networkName}.`,
-        iconUrl: "/images/tx-ok.png",
+        iconUrl: "/images/icon.png",
       }
 
     case "success":
@@ -22,7 +22,7 @@ const getNotificationOptions = (
         type: "basic",
         title: "Transaction successful",
         message: `Your transaction on ${networkName} has been confirmed.`,
-        iconUrl: "/images/tx-ok.png",
+        iconUrl: "/images/icon.png",
       }
 
     case "error":
@@ -34,7 +34,7 @@ const getNotificationOptions = (
           error?.reason ??
           error?.message ??
           `Failed transaction on ${networkName}.`,
-        iconUrl: "/images/tx-nok.png",
+        iconUrl: "/images/icon.png",
       }
 
     case "not_found":
@@ -42,15 +42,15 @@ const getNotificationOptions = (
         type: "basic",
         title: "Transaction not found",
         message: `We aren't able to determine the status of this transaction.`,
-        iconUrl: "/images/tx-nok.png",
+        iconUrl: "/images/icon.png",
       }
 
     case "autolocked":
       return {
         type: "basic",
-        title: "Talisman locked",
+        title: "Taostats locked",
         message: "Your wallet has been locked due to inactivity.",
-        iconUrl: "/images/tx-ok.png",
+        iconUrl: "/images/icon.png",
       }
   }
 }
