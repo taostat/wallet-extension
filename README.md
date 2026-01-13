@@ -1,20 +1,8 @@
 # Taostats Wallet
 
-<img src="taostats.svg" alt="Taostats" width="15%" align="right" />
-
-[![website-link](https://img.shields.io/website?label=taostats.xyz&style=flat-square&up_message=online&url=https%3A%2F%2Ftaostats.xyz)](https://taostats.xyz)
-[![discord-link](https://img.shields.io/discord/858891448271634473?logo=discord&logoColor=white&style=flat-square)](https://discord.gg/taostats)
-[![chrome-users-count](https://img.shields.io/chrome-web-store/users/fijngjgcjhjmmpcmkeiomlglpeiijkld?logo=google-chrome&logoColor=white&style=flat-square)](https://chromewebstore.google.com/detail/taostats-ethereum-and-pol/fijngjgcjhjmmpcmkeiomlglpeiijkld)  
-[![chrome-web-store-link](https://img.shields.io/chrome-web-store/v/fijngjgcjhjmmpcmkeiomlglpeiijkld?logo=google-chrome&logoColor=white&style=flat-square)](https://chromewebstore.google.com/detail/taostats-ethereum-and-pol/fijngjgcjhjmmpcmkeiomlglpeiijkld)
-[![firefox-addon-link](https://img.shields.io/amo/v/taostats-wallet-extension?logo=firefox&logoColor=white&style=flat-square)](https://addons.mozilla.org/en-US/firefox/addon/taostats-wallet-extension)
-
-**Multi-Chain Made Easy** with Taostats Wallet.  
-An ultra-secure Ethereum and Polkadot wallet for both beginners and pros.
-
 ## What's inside?
 
-This repo contains the source code for Taostats Wallet.  
-If you want to use Taostats, you can [install it for your browser by following this link](https://taostats.xyz/download).
+This repo contains the source code for Taostats Wallet.
 
 If you would like to build Taostats from source, please continue reading:
 
