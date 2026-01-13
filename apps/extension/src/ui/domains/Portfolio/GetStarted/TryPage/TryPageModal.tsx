@@ -1,37 +1,33 @@
 import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import { Modal, ModalDialog } from "taostats-ui"
 
 import { AnalyticsPage } from "@ui/api/analytics"
 
-import { TryTalismanContent } from "./TryTalismanContent"
-import { useTryTalismanModal } from "./useTryTalismanModal"
+import { TryPageContent } from "./TryPageContent"
+import { useTryPageModal } from "./useTryPageModal"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Fullscreen",
   feature: "Portfolio",
   featureVersion: 2,
-  page: "Try Talisman",
+  page: "Try Taostats Wallet",
 }
 
-export const TryTalismanModal = () => {
+export const TryPageModal = () => {
   const { t } = useTranslation()
-  const { isOpen, close } = useTryTalismanModal()
+  const { isOpen, close } = useTryPageModal()
 
   return (
     <Modal isOpen={isOpen} onDismiss={close} containerId="main">
       <ModalDialog
         centerTitle
-        title={
-          <Trans t={t}>
-            Try <span className="text-primary">Talisman</span>
-          </Trans>
-        }
+        title={<>{t("Try Taostats Wallet")}</>}
         onClose={close}
         className="h-[60rem] w-[40rem]"
       >
         <ScrollContainer className="h-full w-full">
-          <TryTalismanContent analytics={ANALYTICS_PAGE} />
+          <TryPageContent analytics={ANALYTICS_PAGE} />
         </ScrollContainer>
       </ModalDialog>
     </Modal>

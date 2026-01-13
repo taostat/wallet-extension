@@ -1,11 +1,11 @@
 import { ChevronLeftIcon } from "@taostats-wallet/icons"
 import { useCallback } from "react"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { IconButton } from "taostats-ui"
 
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
-import { TryTalismanContent } from "@ui/domains/Portfolio/GetStarted/TryTalisman/TryTalismanContent"
+import { TryPageContent } from "@ui/domains/Portfolio/GetStarted/TryPage/TryPageContent"
 
 import { PopupContent, PopupLayout } from "../Layout/PopupLayout"
 
@@ -13,7 +13,7 @@ const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Popup",
   feature: "Portfolio",
   featureVersion: 2,
-  page: "Try Talisman",
+  page: "Try Taostats Wallet",
 }
 
 const Header = () => {
@@ -32,11 +32,7 @@ const Header = () => {
           <ChevronLeftIcon />
         </IconButton>
       </div>
-      <div className="font-bold">
-        <Trans t={t}>
-          Try <span className="text-primary">Talisman</span>
-        </Trans>
-      </div>
+      <div className="font-bold">{t("Try Taostats Wallet")}</div>
       <div className="flex-1 text-right">
         <span />
       </div>
@@ -44,11 +40,11 @@ const Header = () => {
   )
 }
 
-export const TryTalismanPage = () => (
+export const TryPage = () => (
   <PopupLayout>
     <Header />
     <PopupContent>
-      <TryTalismanContent analytics={ANALYTICS_PAGE} />
+      <TryPageContent analytics={ANALYTICS_PAGE} />
     </PopupContent>
   </PopupLayout>
 )

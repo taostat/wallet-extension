@@ -46,7 +46,7 @@ import { EthereumSignRequest } from "./pages/Sign/ethereum"
 import { SolanaSignRequest } from "./pages/Sign/solana"
 import { SolanaSignInPage } from "./pages/Sign/solana/SignIn"
 import { SubstrateSignRequest } from "./pages/Sign/substrate"
-import { TryTalismanPage } from "./pages/TryTalisman"
+import { TryPage } from "./pages/TryPage"
 import { TxHistoryPage } from "./pages/TxHistory"
 import { WhatsNewPage } from "./pages/WhatsNew/WhatsNew"
 
@@ -84,7 +84,7 @@ const Popup = () => {
           <Route path={`${ENCRYPT_DECRYPT_PREFIX}/:id`} element={<Encrypt />} />
           <Route path={`${ETH_NETWORK_ADD_PREFIX}/:id`} element={<AddEthereumNetwork />} />
           <Route path={`${WATCH_ASSET_PREFIX}/:id`} element={<AddCustomErc20Token />} />
-          <Route path="try-talisman" element={<TryTalismanPage />} />
+          <Route path="try-talisman" element={<TryPage />} />
           <Route path="whats-new" element={<WhatsNewPage />} />
           <Route path="learn-more" element={<LearnMorePage />} />
           <Route path="manage-accounts" element={<ManageAccountsPage />} />

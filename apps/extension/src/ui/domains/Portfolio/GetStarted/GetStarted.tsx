@@ -23,7 +23,7 @@ import {
   GetStartedTryItIcon,
 } from "./icons"
 import { useLearnMoreModal } from "./LearnMore"
-import { useTryTalismanModal } from "./TryTalisman"
+import { useTryPageModal } from "./TryPage"
 
 export const GetStarted = () => {
   const { t } = useTranslation()
@@ -99,7 +99,7 @@ export const GetStarted = () => {
           />
           <GetStartedActionButton
             label={t("Try it")}
-            description={t("Follow a well-known account")}
+            description={t("Watch an account without entering the recovery phrase")}
             iconTop={<GetStartedTryItIcon className="size-12" />}
             onClick={onTryItClick}
           />
@@ -140,7 +140,7 @@ const useGetStarted = () => {
   const { open: openSwapTokensModal } = useSwapTokensModal()
   const { open: openRamps } = useRampsModal()
   const { open: openLearnMoreModal } = useLearnMoreModal()
-  const { open: openTryTalismanModal } = useTryTalismanModal()
+  const { open: openTryTalismanModal } = useTryPageModal()
 
   const [isHidden, setIsHidden] = useAppState("hideGetStarted")
 

@@ -1,11 +1,11 @@
 import { LearnMoreModal } from "./LearnMore"
-import { TryTalismanModal } from "./TryTalisman"
+import { TryPageModal } from "./TryPage"
 
 export const GetStartedModals = () => {
   return (
     <>
       <LearnMoreModal />
-      <TryTalismanModal />
+      <TryPageModal />
     </>
   )
 }

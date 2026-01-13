@@ -23,21 +23,15 @@ import { useResolveNsName } from "@ui/hooks/useResolveNsName"
 import { useAccounts } from "@ui/state"
 import { IS_POPUP } from "@ui/util/constants"
 
-import { useTryTalismanModal } from "./useTryTalismanModal"
+import { useTryPageModal } from "./useTryPageModal"
 
-const POPULAR_ACCOUNTS: Array<{ name?: string; address: string; description?: string }> = [
-  { name: "Vitalik Buterin", address: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" },
-  { name: "Mark Cuban", address: "0x95abda53bc5e9fbbdce34603614018d32ced219e" },
-  { name: "Steve Aoki", address: "0xe4bBCbFf51e61D0D95FcC5016609aC8354B177C4" },
-  { name: "sassal.eth", address: "0x648aA14e4424e0825A5cE739C8C68610e143FB79" },
-  { name: "Bill Laboon", address: "5HjZCeVcUVpThHNMyMBMKqN5ajph9CkDmZhn9BK48TmC3K4Y" },
-  { name: "Gavin Wood", address: "5F7LiCA6T4DWUDRQyFAWsRqVwxrJEznUtcw4WNnb5fe6snCH" },
-]
+const POPULAR_ACCOUNTS: Array<{ name?: string; address: string; description?: string }> = []
+const SHOW_POPULAR_ACCOUNTS = false
 
-export const TryTalismanContent: FC<{
+export const TryPageContent: FC<{
   analytics: AnalyticsPage
 }> = ({ analytics }) => {
-  const { close } = useTryTalismanModal()
+  const { close } = useTryPageModal()
   const { t } = useTranslation()
   const navigate = useNavigate()
 
@@ -119,7 +113,7 @@ export const TryTalismanContent: FC<{
     <div className="text-body-secondary flex flex-col gap-12 pb-12 text-sm">
       <div className="flex flex-col gap-8">
         <div className="leading-paragraph px-16 text-center text-xs">
-          {t("Explore Talisman’s unique features without importing a recovery phrase")}
+          {t("Explore our features without importing a recovery phrase")}
         </div>
         <form className="flex flex-col gap-4" onSubmit={onSubmit}>
           <div className="flex gap-4">
@@ -159,25 +153,29 @@ export const TryTalismanContent: FC<{
         </form>
       </div>
 
-      <div className="flex w-full items-center gap-10">
-        <div className="bg-grey-700 h-[1px] flex-1" />
-        <div className="text-grey-500 text-tiny">
-          {t("Or follow some of the most popular accounts")}
-        </div>
-        <div className="bg-grey-700 h-[1px] flex-1" />
-      </div>
+      {SHOW_POPULAR_ACCOUNTS ? (
+        <>
+          <div className="flex w-full items-center gap-10">
+            <div className="bg-grey-700 h-[1px] flex-1" />
+            <div className="text-grey-500 text-tiny">
+              {t("Or follow some of the most popular accounts")}
+            </div>
+            <div className="bg-grey-700 h-[1px] flex-1" />
+          </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        {POPULAR_ACCOUNTS.map((account, index) => (
-          <FollowAccountButton
-            key={index}
-            name={account.name}
-            address={account.address}
-            description={account.description}
-            analytics={analytics}
-          />
-        ))}
-      </div>
+          <div className="grid grid-cols-2 gap-4">
+            {POPULAR_ACCOUNTS.map((account, index) => (
+              <FollowAccountButton
+                key={index}
+                name={account.name}
+                address={account.address}
+                description={account.description}
+                analytics={analytics}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
 
       {allAccounts.length > 0 && (
         <button type="button" className="flex flex-col items-center gap-3" onClick={goToPortfolio}>
