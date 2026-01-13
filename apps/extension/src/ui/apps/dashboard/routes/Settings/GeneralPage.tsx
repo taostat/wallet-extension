@@ -60,7 +60,7 @@ const Content = () => {
         {hasRuntimeReloadFn ? (
           <Setting
             iconLeft={RefreshCwIcon}
-            title={t("Reload Talisman")}
+            title={t("Reload Taostats Wallet")}
             subtitle={t("Close and restart Talisman, this can help to resolve error states")}
           >
             <Button primary small onClick={runtimeReload}>

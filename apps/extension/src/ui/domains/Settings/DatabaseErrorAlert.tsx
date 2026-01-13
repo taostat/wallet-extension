@@ -63,7 +63,7 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
             <div className="mb-4 text-sm">
               {hasRuntimeReloadFn
                 ? t(
-                    "Please make sure there is free space on your disk (at least 1GB) and then reload Talisman.",
+                    "Please make sure there is free space on your disk (at least 1GB) and then reload the wallet.",
                   )
                 : t(
                     "Please make sure there is free space on your disk (at least 1GB) and then restart your browser.",
@@ -89,7 +89,7 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
           <div className="flex flex-col gap-4">
             {hasRuntimeReloadFn ? (
               <Button className="w-full" primary fullWidth small onClick={runtimeReload}>
-                {t("Reload Talisman")}
+                {t("Reload Taostats Wallet")}
               </Button>
             ) : null}
             <button

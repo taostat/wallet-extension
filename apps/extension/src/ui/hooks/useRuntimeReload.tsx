@@ -10,7 +10,7 @@ export const useRuntimeReload = (analyticsPage: AnalyticsPage) => {
     sendAnalyticsEvent({
       ...analyticsPage,
       name: "Interact",
-      action: "Reload Talisman button",
+      action: "Reload Wallet button",
     })
 
     // these do not contain any user data, they will be safely recreated on next startup
