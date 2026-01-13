@@ -1,5 +1,5 @@
 import { ErrorBoundary as SentryErrorBoundary } from "@sentry/react"
-import { TalismanDeadHandIcon } from "@taostats-wallet/icons"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { DexieError } from "dexie"
 import { DEBUG, DISCORD_URL } from "extension-shared"
 import { ReactNode, useCallback } from "react"
@@ -12,9 +12,7 @@ export const TaostatsWalletErrorBoundary = ({ children }: { children?: ReactNode
 function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) {
   const isDbVersionError = (error as DexieError)?.inner?.name === "VersionError"
   const canClearDatabases = DEBUG && isDbVersionError
-  const errorMessage = isDbVersionError
-    ? "Invalid database version"
-    : "Sorry, an error occurred in Talisman"
+  const errorMessage = isDbVersionError ? "Invalid database version" : "Sorry, an error occurred"
 
   const clearDatabases = useCallback(() => {
     indexedDB.deleteDatabase("Talisman")
@@ -30,7 +28,7 @@ function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) 
     <section className="max-w-screen text-body-secondary mx-auto flex h-[60rem] max-h-screen w-[40rem] flex-col overflow-hidden p-10 text-center">
       <div className="flex w-full flex-grow flex-col items-center justify-center gap-16">
         <h1 className="m-0 text-3xl font-bold text-white">Oops!</h1>
-        <TalismanDeadHandIcon className="text-[16rem]" />
+        <TaostatsLogo className="text-[16rem]" />
         <div className="flex flex-col gap-2">
           <div>{errorMessage}</div>
           {!canClearDatabases && (

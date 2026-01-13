@@ -2,7 +2,7 @@ import "@common/enableAnyloggerLogsInDevelopment"
 import "@common/i18nConfig"
 import "@common/zodConfig"
 
-import { renderTalisman } from "@ui"
+import { renderApp } from "@ui"
 import Onboarding from "@ui/apps/onboard"
 
-renderTalisman(<Onboarding />, { keepWalletUnlockedMode: "always" })
+renderApp(<Onboarding />, { keepWalletUnlockedMode: "always" })

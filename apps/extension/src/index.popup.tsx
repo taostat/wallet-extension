@@ -5,7 +5,7 @@ import "@common/zodConfig"
 import { appStore } from "extension-core"
 import { IS_FIREFOX, log } from "extension-shared"
 
-import { renderTalisman } from "@ui"
+import { renderApp } from "@ui"
 import Popup from "@ui/apps/popup"
 
 const adjustPopupSize = async () => {
@@ -66,5 +66,5 @@ const adjustPopupSize = async () => {
 const keepWalletUnlockedMode =
   window.location.search === "?embedded" ? "always" : "user-interaction"
 
-renderTalisman(<Popup />, { keepWalletUnlockedMode })
+renderApp(<Popup />, { keepWalletUnlockedMode })
 adjustPopupSize()

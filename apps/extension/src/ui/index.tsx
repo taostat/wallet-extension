@@ -33,17 +33,14 @@ const queryClient = new QueryClient()
 initSentryFrontend()
 const container = document.getElementById("root")
 
-export type RenderTalismanOptions = {
+export type RenderAppOptions = {
   /** Sets whether the wallet autolock timer should be restarted on a user-interaction, or on a 10s interval. */
   keepWalletUnlockedMode?: KeepWalletUnlockedMode
 }
 
 // render a context dependent app with all providers
 // could possibly re-org this slightly better
-export const renderTalisman = (
-  app: ReactNode,
-  { keepWalletUnlockedMode }: RenderTalismanOptions = {},
-) => {
+export const renderApp = (app: ReactNode, { keepWalletUnlockedMode }: RenderAppOptions = {}) => {
   if (!container) throw new Error("#root element not found.")
   const root = createRoot(container)
   root.render(

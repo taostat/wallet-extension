@@ -1,6 +1,6 @@
 import { classNames } from "@taostats-wallet/util"
 import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { HandMonoLogo } from "@taostats/theme/logos"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import {
   DetailedHTMLProps,
   FC,
@@ -38,7 +38,7 @@ export const PopupHeader: FC<ContainerProps & { right?: ReactNode }> = ({
       )}
     >
       <div className="w-16 shrink-0 text-xl">
-        <HandMonoLogo onClick={handleLogoClick} />
+        <TaostatsLogo onClick={handleLogoClick} />
       </div>
       <div>{children}</div>
       <div className="w-16 shrink-0">{right}</div>

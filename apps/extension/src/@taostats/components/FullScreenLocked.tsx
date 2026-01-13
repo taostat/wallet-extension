@@ -1,5 +1,5 @@
 import { classNames } from "@taostats-wallet/util"
-import { HandMonoLogo } from "@taostats/theme/logos"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { ReactNode } from "react"
 
 import { FadeIn } from "./FadeIn"
@@ -19,7 +19,7 @@ export const FullScreenLocked = ({ className, title, subtitle }: Props) => (
       )}
     >
       <div className="relative">
-        <HandMonoLogo className={classNames("mb-8 block text-[12rem] text-white")} />
+        <TaostatsLogo className={classNames("mb-8 block text-[12rem] text-white")} />
       </div>
       {title && <h1 className="text-md text-grey-300 mb-2 font-bold">{title}</h1>}
       {subtitle && <h2 className="text-xs">{subtitle}</h2>}
