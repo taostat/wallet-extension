@@ -1,4 +1,10 @@
-import { ArrowRightCircleIcon, ChevronRightIcon, XIcon } from "@taostats-wallet/icons"
+import {
+  ArrowRightCircleIcon,
+  ChevronRightIcon,
+  EyePlusIcon,
+  PlusCircleIcon,
+  XIcon,
+} from "@taostats-wallet/icons"
 import { classNames, cn } from "@taostats-wallet/util"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
@@ -24,6 +30,8 @@ import {
 } from "./icons"
 import { useLearnMoreModal } from "./LearnMore"
 import { useTryPageModal } from "./TryPage"
+
+const SHOW_ABOUT_LINK = false
 
 export const GetStarted = () => {
   const { t } = useTranslation()
@@ -62,7 +70,7 @@ export const GetStarted = () => {
         <div className="leading-paragraph @2xl:text-base text-xs">
           {hasAccounts
             ? t("To begin your journey across Polkadot and Ethereum")
-            : t("Add an account and add funds to get started")}
+            : t("Add an account to get started")}
         </div>
       </div>
 
@@ -90,43 +98,47 @@ export const GetStarted = () => {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           <GetStartedActionButton
             label={t("Add account")}
-            description={t("Create or import an existing account")}
-            iconTop={<GetStartedAddAccountIcon className="-ml-2 size-12" />}
+            description={t("Create a new account or import an existing one")}
+            iconTop={<PlusCircleIcon className="text-primary size-12" />}
             onClick={onAddAccountClick}
           />
           <GetStartedActionButton
             label={t("Try it")}
             description={t("Watch an account without entering the recovery phrase")}
-            iconTop={<GetStartedTryItIcon className="size-12" />}
+            iconTop={<EyePlusIcon className="text-primary size-12" />}
             onClick={onTryItClick}
           />
         </div>
       )}
 
-      {IS_POPUP ? (
-        <div className={cn("grid gap-8", "grid-cols-1")}>
-          <GetStartedActionButton
-            label={t("About")}
-            iconTop={<ArrowRightCircleIcon className="-ml-2 size-12" />}
-            onClick={onLearnMoreClick}
-          />
-        </div>
-      ) : (
-        <div className={cn("grid gap-8", "grid-cols-1")}>
-          <GetStartedActionButton
-            label={t("About Talisman")}
-            description={t("Discover how Talisman can elevate your web3 journey")}
-            className={cn("group")}
-            iconRight={
-              <ChevronRightIcon className="text-body-inactive group-hover:text-body-secondary -mr-4 size-12" />
-            }
-            onClick={onLearnMoreClick}
-          />
-        </div>
-      )}
+      {SHOW_ABOUT_LINK ? (
+        <>
+          {IS_POPUP ? (
+            <div className={cn("grid gap-8", "grid-cols-1")}>
+              <GetStartedActionButton
+                label={t("About")}
+                iconTop={<ArrowRightCircleIcon className="-ml-2 size-12" />}
+                onClick={onLearnMoreClick}
+              />
+            </div>
+          ) : (
+            <div className={cn("grid gap-8", "grid-cols-1")}>
+              <GetStartedActionButton
+                label={t("About Talisman")}
+                description={t("Discover how Talisman can elevate your web3 journey")}
+                className={cn("group")}
+                iconRight={
+                  <ChevronRightIcon className="text-body-inactive group-hover:text-body-secondary -mr-4 size-12" />
+                }
+                onClick={onLearnMoreClick}
+              />
+            </div>
+          )}
+        </>
+      ) : null}
     </div>
   )
 }
@@ -224,7 +236,7 @@ const GetStartedActionButton: FC<{
     )}
     onClick={onClick}
   >
-    <div className="flex grow flex-col gap-4">
+    <div className="flex grow flex-row gap-4">
       {iconTop}
       <div className="flex w-full flex-col gap-1">
         <div className="text-body @2xl:text-base truncate text-sm font-bold">{label}</div>
