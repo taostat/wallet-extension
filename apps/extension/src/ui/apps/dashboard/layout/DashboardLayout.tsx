@@ -148,7 +148,7 @@ const HorizontalNav = () => {
   return (
     <div className="border-grey-700 flex h-24 gap-16 rounded-lg border px-8">
       <NavButton
-        label={t("Portfolio")}
+        label={t("Home")}
         onClick={handlePortfolioClick}
         icon={TalismanHandIcon}
         route="/portfolio/*"
