@@ -13,7 +13,7 @@ const Content = () => {
     <div className="flex flex-col gap-16">
       <HeaderBlock
         title={t("Add Account")}
-        text={t("Create a new account or import an existing account")}
+        text={t("Add new account, import existing account or connect your ledger.")}
       />
       <AccountCreateMenu />
     </div>

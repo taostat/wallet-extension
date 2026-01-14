@@ -1,5 +1,5 @@
 import { AccountPlatform } from "@taostats-wallet/crypto"
-import { ChainIcon, EyePlusIcon, FilePlusIcon, InfoIcon, PlusIcon } from "@taostats-wallet/icons"
+import { ChainIcon, FilePlusIcon, InfoIcon, PlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import {
   EthereumCircleBorderedLogo,
@@ -8,7 +8,7 @@ import {
 } from "@taostats/theme/logos"
 import { isAccountPlatformCompatibleWithNetwork } from "extension-core"
 import { IS_FIREFOX } from "extension-shared"
-import { cloneElement, ReactElement, ReactNode, useCallback, useMemo, useState } from "react"
+import { cloneElement, ReactElement, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -36,8 +36,8 @@ export const AccountCreateContainer = ({ className }: { className?: string }) =>
       <div className="flex overflow-auto">
         <MethodTypeTab
           icon={<PlusIcon />}
-          title={t("New")}
-          subtitle={t("Create a new account")}
+          title={t("Add")}
+          subtitle={t("Add or watch an account")}
           methodType="new"
         />
         <MethodTypeTab
@@ -51,12 +51,6 @@ export const AccountCreateContainer = ({ className }: { className?: string }) =>
           title={t("Connect")}
           subtitle={t("Ledger, Polkadot Vault, etc")}
           methodType="connect"
-        />
-        <MethodTypeTab
-          icon={<EyePlusIcon />}
-          title={t("Watch")}
-          subtitle={t("Add a watched account")}
-          methodType="watched"
         />
       </div>
       <div className="border-grey-750 -mt-8 grid grid-cols-2 items-start gap-8 rounded rounded-tl-none border p-10">
@@ -122,6 +116,22 @@ function NewAccountMethodButtons() {
         platform="polkadot"
         to={`/accounts/add/derived?platform=polkadot`}
       />
+      <AccountCreateMethodButton
+        title={t("Import via Recovery Phrase")}
+        subtitle={t("Import your Bittensor account")}
+        to={`/accounts/add/mnemonic`}
+      />
+      <AccountTypeMethodButton
+        title={
+          <SelectAccountTypeButtonHeader
+            title={t("Watch Bittensor Account")}
+            tooltip={t("Continue to watch an existing Bittensor account")}
+          />
+        }
+        platform="polkadot"
+        to={`/accounts/add/watched?platform=polkadot`}
+        isWatchSection
+      />
     </>
   )
 }
@@ -133,20 +143,17 @@ function ImportAccountMethodButtons() {
     <>
       <AccountCreateMethodButton
         title={t("Import via Recovery Phrase")}
-        subtitle={t("Ethereum, Polkadot, and Solana accounts")}
-        networks={["ethereum", "polkadot", "solana"]}
+        subtitle={t("Import your Bittensor account")}
         to={`/accounts/add/mnemonic`}
       />
       <AccountCreateMethodButton
         title={t("Import via Private Key")}
         subtitle={t("Ethereum and Solana accounts")}
-        networks={["ethereum", "solana"]}
         to={`/accounts/add/pk`}
       />
       <AccountCreateMethodButton
         title={t("Import via JSON")}
         subtitle={t("Import your Polkadot.{js} file")}
-        networks={["polkadot"]}
         to={`/accounts/add/json`}
       />
     </>
@@ -272,26 +279,29 @@ function AccountTypeMethodButton({
   )
 }
 
-const networkChoices = {
-  polkadot: <PolkadotCircleBorderedLogo />,
-  ethereum: <EthereumCircleBorderedLogo />,
-  solana: <SolanaCircleLogo />,
-}
 function AccountCreateMethodButton({
   title,
   subtitle,
-  networks,
   disabled,
   to,
 }: {
   title: ReactNode
   subtitle: ReactNode
-  networks?: Array<"ethereum" | "polkadot" | "solana">
   disabled?: boolean
   to?: string
 }) {
   const navigate = useNavigate()
   const handleClick = useCallback(() => to !== undefined && navigate(to), [navigate, to])
+
+  const getNetworks = useNetworks()
+
+  const supportedChainIds = useMemo(
+    () =>
+      getNetworks
+        .filter((n) => isAccountPlatformCompatibleWithNetwork(n, "polkadot"))
+        .map((n) => n.id),
+    [getNetworks],
+  )
 
   return (
     <button
@@ -306,11 +316,7 @@ function AccountCreateMethodButton({
     >
       <span className="border-grey-800 w-full border-b pb-3 text-start">{title}</span>
       <span className="text-body-secondary flex items-center gap-2 pr-8 text-sm">
-        {networks?.map((network, i) => (
-          <span key={network} className={classNames(i + 1 < networks.length && "-mr-[0.8rem]")}>
-            {networkChoices[network]}
-          </span>
-        ))}
+        <AllNetworksLogoStack className="text-md" ids={supportedChainIds} max={5} />
         <span className="text-xs">{subtitle}</span>
       </span>
     </button>
