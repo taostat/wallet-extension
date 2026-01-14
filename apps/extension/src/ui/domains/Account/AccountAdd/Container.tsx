@@ -1,4 +1,3 @@
-import { AccountPlatform } from "@taostats-wallet/crypto"
 import { ChainIcon, InfoIcon, PlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { isAccountPlatformCompatibleWithNetwork } from "extension-core"
@@ -99,7 +98,6 @@ function NewAccountMethodButtons() {
             tooltip={t("Continue to create your new Bittensor account")}
           />
         }
-        platform="polkadot"
         to={`/accounts/add/derived?platform=polkadot`}
       />
       <AccountCreateMethodButton
@@ -114,7 +112,6 @@ function NewAccountMethodButtons() {
             tooltip={t("Continue to watch an existing Bittensor account")}
           />
         }
-        platform="polkadot"
         to={`/accounts/add/watched?platform=polkadot`}
         isWatchSection
       />
@@ -164,27 +161,18 @@ function SelectAccountTypeButtonHeader({ title, tooltip }: { title: string; tool
 
 function AccountTypeMethodButton({
   title,
-  platform,
   disabled,
   to,
   supportedNetworks,
   isWatchSection = false,
 }: {
   title: ReactNode
-  platform: AccountPlatform
   disabled?: boolean
   to?: string
   supportedNetworks?: ReactNode
   isWatchSection?: boolean
 }) {
   const { t } = useTranslation()
-  const networks = useNetworks()
-
-  const supportedChainIds = useMemo(
-    () =>
-      networks.filter((n) => isAccountPlatformCompatibleWithNetwork(n, platform)).map((n) => n.id),
-    [networks, platform],
-  )
 
   return (
     <AccountCreateMethodButton
@@ -192,7 +180,6 @@ function AccountTypeMethodButton({
       subtitle={
         supportedNetworks ?? (
           <div className="flex items-center gap-2">
-            <AllNetworksLogoStack className="text-md" ids={supportedChainIds} max={5} />
             <div>
               {isWatchSection
                 ? t("Click here to watch en existing Bittensor account")
@@ -242,7 +229,7 @@ function AccountCreateMethodButton({
         !disabled && "text-body cursor-pointer hover:bg-white/10 focus:bg-white/10",
       )}
     >
-      <span className="border-grey-800 w-full border-b pb-3 text-start">{title}</span>
+      <span className="w-full pb-3 text-start">{title}</span>
       <span className="text-body-secondary flex items-center gap-2 pr-8 text-sm">
         <AllNetworksLogoStack className="text-md" ids={supportedChainIds} max={5} />
         <span className="text-xs">{subtitle}</span>
