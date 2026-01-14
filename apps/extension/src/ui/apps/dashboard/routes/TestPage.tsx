@@ -5,7 +5,6 @@ import { Dispatch, FC, SetStateAction, Suspense, useEffect, useMemo, useState } 
 
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
 import { useNetworksMapById, usePortfolioGlobalData, useTokens } from "@ui/state"
-import { useDefiPositions } from "@ui/state/defi"
 import { useSolanaConnection } from "@ui/util/solana/useSolanaConnection"
 
 // At time time used to test the observables & hooks from ./ui/state, how often they suspense and emit
@@ -16,7 +15,6 @@ export const TestPage = () => {
   const [showDotNetworks, setShowDotNetworks] = useState(false)
   const [showEthNetworks, setShowEthNetworks] = useState(false)
   const [showPortfolio, setShowPortfolio] = useState(false)
-  const [showDefi, setShowDefi] = useState(false)
   const [showSolanaBalance, setShowSolanaBalance] = useState(false)
 
   return (
@@ -29,7 +27,6 @@ export const TestPage = () => {
           <ToggleButton label="eth networks" show={showEthNetworks} dispatch={setShowEthNetworks} />
           <ToggleButton label="dot networks" show={showDotNetworks} dispatch={setShowDotNetworks} />
           <ToggleButton label="portfolio" show={showPortfolio} dispatch={setShowPortfolio} />
-          <ToggleButton label="defi" show={showDefi} dispatch={setShowDefi} />
           <ToggleButton
             label="sol balance"
             show={showSolanaBalance}
@@ -42,7 +39,6 @@ export const TestPage = () => {
           {showEthNetworks && <TestEthNetworks />}
           {showDotNetworks && <TestDotNetworks />}
           {showPortfolio && <TestPortfolio />}
-          {showDefi && <TestDefi />}
           {showSolanaBalance && <TestSolanaBalance />}
         </Suspense>
       </div>
@@ -135,20 +131,6 @@ const TestSolanaBalance = () => {
   return <div>Solana Balance: {balance}</div>
 }
 
-const TestDefi = () => {
-  const defiPositions = useDefiPositions()
-
-  log.log("[DeFi] positions", { defiPositions })
-
-  return (
-    <div>
-      <div>Test Defi</div>
-      <div>Loading status: {defiPositions.status}</div>
-      <div>Positions: {defiPositions.data?.length ?? "[empty]"}</div>
-      {!!defiPositions.error && <div>Error: {defiPositions.error.message}</div>}
-    </div>
-  )
-}
 const TestPortfolio = () => (
   <PortfolioContainer>
     <div>

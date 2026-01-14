@@ -6,22 +6,15 @@ import { useLocation } from "react-router-dom"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
 
 const URL_TAB_TOKENS = "/portfolio/tokens"
-const URL_TAB_NFTS = "/portfolio/nfts"
-const URL_TAB_DEFI = "/portfolio/defi"
 
 export const PortfolioTabs: FC<{ className?: string }> = ({ className }) => {
+  return <div />
+
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigateWithQuery()
 
-  const tabs = useMemo(
-    () => [
-      { label: t("Tokens"), value: URL_TAB_TOKENS },
-      { label: t("NFTs"), value: URL_TAB_NFTS },
-      { label: t("DeFi"), value: URL_TAB_DEFI },
-    ],
-    [t],
-  )
+  const tabs = useMemo(() => [{ label: t("Tokens"), value: URL_TAB_TOKENS }], [t])
 
   const selected = useMemo(
     () => tabs.find((tab) => location.pathname.startsWith(tab.value)),
