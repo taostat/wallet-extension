@@ -6,6 +6,7 @@ import {
   XIcon,
 } from "@taostats-wallet/icons"
 import { classNames, cn } from "@taostats-wallet/util"
+import { Account } from "extension-core"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -27,8 +28,13 @@ import { useTryPageModal } from "./TryPage"
 
 const SHOW_ABOUT_LINK = false
 
+const isShownAccount = (account: Account) =>
+  ["keypair", "watch-only", "ledger-polkadot"].includes(account.type)
+
 export const GetStarted = () => {
   const { t } = useTranslation()
+  const allAccounts = useAccounts()
+  const isShowingAccounts = allAccounts.some(isShownAccount)
   const {
     isHidden,
     hasAccounts,
@@ -42,6 +48,10 @@ export const GetStarted = () => {
   } = useGetStarted()
 
   const canBuy = useFeatureFlag("BUY_CRYPTO")
+
+  if (isShowingAccounts) {
+    return null
+  }
 
   // ensure it appears if it was hidden and user deletes all accounts
   if (hasAccounts && isHidden) return null

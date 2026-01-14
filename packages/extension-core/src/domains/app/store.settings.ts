@@ -33,7 +33,7 @@ export class SettingsStore extends StorageProvider<SettingsStoreData> {}
 
 export const DEFAULT_SETTINGS: SettingsStoreData = {
   useErrorTracking: !IS_FIREFOX,
-  identiconType: "talisman-orb",
+  identiconType: "polkadot-identicon",
   useAnalyticsTracking: undefined, // undefined for onboarding
   hideBalances: false,
   hideDust: false,

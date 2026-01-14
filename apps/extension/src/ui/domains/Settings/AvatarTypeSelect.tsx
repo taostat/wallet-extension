@@ -42,7 +42,7 @@ export const AvatarTypeSelect: FC<AvatarTypeSelectProps> = ({
   const allAccounts = useAccounts()
   const address = useMemo(
     // fallbacks to a demo address picked from https://guide.kusama.network/docs/learn-accounts/#seed-generation
-    () => allAccounts?.[0]?.address ?? "5F3sa2TJAWMqDhXG6jhV4N8ko9SxwGy8TpaNS1repo5EYjQX",
+    () => allAccounts?.[0]?.address ?? "5CFHgzvoF3MyomyFGgvBkVDWGzW5xE28RafSWxACT2ZtFkag",
     [allAccounts],
   )
 
