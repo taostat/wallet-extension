@@ -211,7 +211,7 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
         </div>
 
         <div className="flex w-full items-center justify-between">
-          <BackToAddAccountButton methodType="watched" />
+          <BackToAddAccountButton methodType="new" />
           <Button
             icon={ArrowRightIcon}
             type="submit"

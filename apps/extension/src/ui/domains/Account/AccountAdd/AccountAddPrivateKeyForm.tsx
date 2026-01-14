@@ -256,7 +256,7 @@ export const AccountAddPrivateKeyForm = ({ onSuccess }: AccountAddPageProps) => 
         />
         <Spacer small />
         <div className="mt-1 flex w-full justify-between">
-          <BackToAddAccountButton methodType="import" />
+          <BackToAddAccountButton methodType="new" />
           <form.Subscribe
             selector={(state) => [
               state.canSubmit,

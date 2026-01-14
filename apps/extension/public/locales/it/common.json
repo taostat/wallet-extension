@@ -700,7 +700,7 @@
   "Ethereum, Base, zkSync, Arbitrum, BSC, and all other EVM chains": "Ethereum, Base, zkSync, Arbitrum, BSC e tutte le altre chains EVM",
   "Ethereum, Base, zkSync, Arbitrum, BSC, and EVM chains": "Ethereum, Base, zkSync, Arbitrum, BSC e chains EVM",
   "Ethereum, Moonbeam, Astar etc.": "Ethereum, Moonbeam, Astar ecc.",
-  "Ethereum, Polkadot or Ethereum accounts": "Ethereum, Polkadot o account Ethereum",
+  "Connect your ledger to your Bittensor account": "Collega il tuo Ledger al tuo account Bittensor",
   "Import your Bittensor account": "Importa il tuo account Bittensor",
   "Even if the wrapper executes successfully, the staking transaction is not guaranteed to succeed (it can still fail on-chain).": "Anche se il wrapper viene eseguito con successo, la transazione di staking non è garantita che abbia successo (può comunque fallire on-chain).",
   "EVM accounts": "Account EVM",

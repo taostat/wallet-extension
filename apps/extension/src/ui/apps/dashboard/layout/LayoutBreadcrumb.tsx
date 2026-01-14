@@ -38,19 +38,19 @@ const useBreadcrumbItems = (): Partial<Record<string, BreadcrumbItemProps[]>> =>
       "/accounts/add/mnemonic": [
         settings,
         accounts,
-        accountsAdd("import"),
+        accountsAdd("new"),
         { label: t("Recovery Phrase"), to: "/accounts/add/mnemonic" },
       ],
       "/accounts/add/pk": [
         settings,
         accounts,
-        accountsAdd("import"),
+        accountsAdd("new"),
         { label: t("Private Key"), to: "/accounts/add/pk" },
       ],
       "/accounts/add/json": [
         settings,
         accounts,
-        accountsAdd("import"),
+        accountsAdd("new"),
         { label: t("JSON"), to: "/accounts/add/json" },
       ],
       "/accounts/add/ledger": [
@@ -74,7 +74,7 @@ const useBreadcrumbItems = (): Partial<Record<string, BreadcrumbItemProps[]>> =>
       "/accounts/add/watched": [
         settings,
         accounts,
-        accountsAdd("watched"),
+        accountsAdd("new"),
         { label: t("Watched Account"), to: "/accounts/add/watched" },
       ],
 

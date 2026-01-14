@@ -87,7 +87,7 @@ export const UnlockJsonFileForm: FC = () => {
           />
         </FormFieldContainer>
         <div className="mt-8 flex w-full justify-between">
-          <BackToAddAccountButton methodType="import" />
+          <BackToAddAccountButton methodType="new" />
           <Button type="submit" primary disabled={!isValid} processing={isSubmitting}>
             {t("Unlock JSON file")}
           </Button>

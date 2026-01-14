@@ -309,7 +309,7 @@ export const AccountAddMnemonicForm = () => {
           <Spacer small />
         </div>
         <div className="mt-1 flex w-full justify-between">
-          <BackToAddAccountButton methodType="import" />
+          <BackToAddAccountButton methodType="new" />
           <Button
             className="w-[24rem]"
             type="submit"

@@ -1,13 +1,7 @@
 import { AccountPlatform } from "@taostats-wallet/crypto"
-import { ChainIcon, FilePlusIcon, InfoIcon, PlusIcon } from "@taostats-wallet/icons"
+import { ChainIcon, InfoIcon, PlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import {
-  EthereumCircleBorderedLogo,
-  PolkadotCircleBorderedLogo,
-  SolanaCircleLogo,
-} from "@taostats/theme/logos"
 import { isAccountPlatformCompatibleWithNetwork } from "extension-core"
-import { IS_FIREFOX } from "extension-shared"
 import { cloneElement, ReactElement, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -21,9 +15,7 @@ import { MethodType, useAccountCreateContext } from "./context"
 
 const methodButtonsFromMethodType = {
   new: NewAccountMethodButtons,
-  import: ImportAccountMethodButtons,
   connect: ConnectAccountMethodButtons,
-  watched: WatchedAccountMethodButtons,
 }
 
 export const AccountCreateContainer = ({ className }: { className?: string }) => {
@@ -39,12 +31,6 @@ export const AccountCreateContainer = ({ className }: { className?: string }) =>
           title={t("Add")}
           subtitle={t("Add or watch an account")}
           methodType="new"
-        />
-        <MethodTypeTab
-          icon={<FilePlusIcon />}
-          title={t("Import")}
-          subtitle={t("Import an existing account")}
-          methodType="import"
         />
         <MethodTypeTab
           icon={<ChainIcon />}
@@ -136,30 +122,6 @@ function NewAccountMethodButtons() {
   )
 }
 
-function ImportAccountMethodButtons() {
-  const { t } = useTranslation()
-
-  return (
-    <>
-      <AccountCreateMethodButton
-        title={t("Import via Recovery Phrase")}
-        subtitle={t("Import your Bittensor account")}
-        to={`/accounts/add/mnemonic`}
-      />
-      <AccountCreateMethodButton
-        title={t("Import via Private Key")}
-        subtitle={t("Ethereum and Solana accounts")}
-        to={`/accounts/add/pk`}
-      />
-      <AccountCreateMethodButton
-        title={t("Import via JSON")}
-        subtitle={t("Import your Polkadot.{js} file")}
-        to={`/accounts/add/json`}
-      />
-    </>
-  )
-}
-
 function ConnectAccountMethodButtons() {
   const { t } = useTranslation()
   const isLedgerCapable = getIsLedgerCapable()
@@ -170,45 +132,11 @@ function ConnectAccountMethodButtons() {
         title={t("Connect Ledger")}
         subtitle={
           isLedgerCapable
-            ? t("Ethereum, Polkadot or Ethereum accounts")
+            ? t("Connect your ledger to your Bittensor account")
             : t("Not supported on this browser")
         }
-        networks={isLedgerCapable ? ["ethereum", "polkadot", "solana"] : []}
         disabled={!isLedgerCapable}
         to={`/accounts/add/ledger`}
-      />
-      <AccountCreateMethodButton
-        title={t("Connect Polkadot Vault")}
-        subtitle={t("Or Parity Signer (Legacy)")}
-        networks={["polkadot"]}
-        to={`/accounts/add/qr`}
-      />
-      <AccountCreateMethodButton
-        title={t("Connect Signet")}
-        subtitle={!IS_FIREFOX ? t("Connect your Signet Vault") : t("Not supported on this browser")}
-        networks={!IS_FIREFOX ? ["polkadot"] : []}
-        disabled={IS_FIREFOX}
-        to={`/accounts/add/signet`}
-      />
-    </>
-  )
-}
-
-function WatchedAccountMethodButtons() {
-  const { t } = useTranslation()
-
-  return (
-    <>
-      <AccountTypeMethodButton
-        title={
-          <SelectAccountTypeButtonHeader
-            title={t("Watch Bittensor Account")}
-            tooltip={t("Continue to watch an existing Bittensor account")}
-          />
-        }
-        platform="polkadot"
-        to={`/accounts/add/watched?platform=polkadot`}
-        isWatchSection
       />
     </>
   )

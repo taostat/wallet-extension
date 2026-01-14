@@ -191,7 +191,7 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
   }, [accounts])
 
   if (requiresFilePassword) return null
-  if (!accounts?.length) return <BackToAddAccountButton methodType="import" />
+  if (!accounts?.length) return <BackToAddAccountButton methodType="new" />
 
   return (
     <FadeIn>
@@ -238,7 +238,7 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
         ))}
       </div>
       <div className="mt-16 flex w-full justify-between">
-        <BackToAddAccountButton methodType="import" />
+        <BackToAddAccountButton methodType="new" />
         <div className="flex justify-end gap-8">
           <UnlockJsonAccountsButton />
           <Button

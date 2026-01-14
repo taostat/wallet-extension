@@ -2,7 +2,7 @@ import { provideContext } from "@taostats/util/provideContext"
 import { useCallback } from "react"
 import { useSearchParams } from "react-router-dom"
 
-const allMethodTypes = ["new", "import", "connect", "watched"] as const satisfies string[]
+const allMethodTypes = ["new", "connect"] as const satisfies string[]
 export type MethodType = (typeof allMethodTypes)[number]
 
 const isMethodType = (item: string | null): item is MethodType =>
