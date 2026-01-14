@@ -1,6 +1,6 @@
 import { AccountPlatform } from "@taostats-wallet/crypto"
 import { classNames } from "@taostats-wallet/util"
-import { EthereumCircleLogo, PolkadotCircleLogo, SolanaLogo } from "@taostats/theme/logos"
+import { PolkadotCircleLogo } from "@taostats/theme/logos"
 import { FC, ReactNode, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -57,20 +57,6 @@ export const AccountPlatformSelector = ({
     <div className={classNames("grid w-full grid-cols-2 gap-10", className)}>
       <AccountTypeButton
         className={classNames(
-          platform === "ethereum" ? "border-body" : "border-body-secondary border-opacity-20",
-          "border",
-        )}
-        icon={<EthereumCircleLogo />}
-        title={t("Ethereum")}
-        subtitle={
-          <div className="line-clamp-2" data-testid="account-platform-selector-ethereum">
-            {t("Ethereum, Base, zkSync, Arbitrum, BSC, and all EVM chains")}
-          </div>
-        }
-        onClick={handleClick("ethereum")}
-      />
-      <AccountTypeButton
-        className={classNames(
           platform === "polkadot" ? "border-body" : "border-body-secondary border-opacity-20",
           "border",
         )}
@@ -82,20 +68,6 @@ export const AccountPlatformSelector = ({
           </div>
         }
         onClick={handleClick("polkadot")}
-      />
-      <AccountTypeButton
-        className={classNames(
-          platform === "solana" ? "border-body" : "border-body-secondary border-opacity-20",
-          "border",
-        )}
-        icon={<SolanaLogo />}
-        title={t("Solana")}
-        subtitle={
-          <div className="line-clamp-2" data-testid="account-platform-selector-solana">
-            {t("Solana Mainnet and testnets")}
-          </div>
-        }
-        onClick={handleClick("solana")}
       />
     </div>
   )

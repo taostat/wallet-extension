@@ -16,6 +16,7 @@ type AccountAddMnemonicInputs = {
 const useAccountAddMnemonicProvider = ({ onSuccess }: { onSuccess: (address: string) => void }) => {
   const [data, setData] = useState<Partial<AccountAddMnemonicInputs>>(() => ({
     mode: "first",
+    platform: "polkadot",
   }))
 
   const updateData = useCallback((newData: Partial<AccountAddMnemonicInputs>) => {

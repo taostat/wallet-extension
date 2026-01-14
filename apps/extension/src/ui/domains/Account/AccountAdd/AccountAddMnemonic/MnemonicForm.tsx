@@ -249,10 +249,10 @@ export const AccountAddMnemonicForm = () => {
     <div className="flex w-full flex-col gap-8">
       <HeaderBlock
         title={t("Import via Recovery Phrase")}
-        text={t("What type of account would you like to import?")}
+        text={t("Import your Bittensor account")}
       />
 
-      <AccountPlatformSelector defaultValue={platform} onChange={handleTypeChange} />
+      {/* <AccountPlatformSelector defaultValue={"polkadot"} onChange={handleTypeChange} /> */}
 
       <form onSubmit={handleSubmit(submit)}>
         <div className={classNames(!platform && "invisible")}>
