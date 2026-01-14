@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats-wallet/icons"
+import { ArrowRightIcon, InfoIcon } from "@taostats-wallet/icons"
 import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -52,7 +52,13 @@ const MnemonicFormInner = () => {
           {t("I have backed up my recovery phrase, don’t remind me anymore")}
         </Checkbox>
         <div className="flex flex-col gap-6">
-          <Button primary fullWidth disabled={!canConfirm} onClick={handleContinueClick}>
+          <Button
+            primary
+            fullWidth
+            disabled={!canConfirm}
+            onClick={handleContinueClick}
+            icon={ArrowRightIcon}
+          >
             {t("Verify recovery phrase")}
           </Button>
           <button
