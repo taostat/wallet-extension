@@ -123,7 +123,7 @@ export const GetStarted = () => {
           {IS_POPUP ? (
             <div className={cn("grid gap-8", "grid-cols-1")}>
               <GetStartedActionButton
-                label={t("About")}
+                label={t("Support")}
                 iconTop={<ArrowRightCircleIcon className="-ml-2 size-12" />}
                 onClick={onLearnMoreClick}
               />

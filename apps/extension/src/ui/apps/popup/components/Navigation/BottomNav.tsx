@@ -2,8 +2,8 @@ import {
   CloseIcon,
   ExpandIcon,
   HistoryIcon,
+  HomeIcon,
   MenuIcon,
-  TalismanHandIcon,
   ZapIcon,
 } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
@@ -105,7 +105,7 @@ export const BottomNav = () => {
         >
           <NavButton
             label={t("Home")}
-            icon={TalismanHandIcon}
+            icon={HomeIcon}
             onClick={handleHomeClick}
             route="/portfolio/*"
           />

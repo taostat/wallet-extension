@@ -1,4 +1,4 @@
-import { TalismanHandIcon } from "@taostats-wallet/icons"
+import { HomeIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { appStore } from "extension-core"
 import { Trans, useTranslation } from "react-i18next"
@@ -22,7 +22,7 @@ export const MigrationProgress = () => {
     >
       <div className="animate-fade-in-slow flex h-[60rem] w-[40rem] flex-col items-center justify-between overflow-hidden p-8">
         <div className="flex h-[26.8rem] flex-col items-center justify-center gap-24 pt-4">
-          <TalismanHandIcon
+          <HomeIcon
             className={classNames("h-48 w-48", !migration.errors?.length && "animate-pulse")}
           />
           <div className={classNames("text-lg font-bold")}>

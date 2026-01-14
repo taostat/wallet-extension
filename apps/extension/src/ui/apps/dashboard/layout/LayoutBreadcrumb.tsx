@@ -143,7 +143,7 @@ const useBreadcrumbItems = (): Partial<Record<string, BreadcrumbItemProps[]>> =>
         networksAndTokens,
         { label: t("Polkadot Vault Metadata"), to: "/settings/networks-tokens/qr-metadata" },
       ],
-      "/settings/about": [settings, { label: t("About"), to: "/settings/about" }],
+      "/settings/about": [settings, { label: t("Support"), to: "/settings/about" }],
       "/settings/analytics": [settings, { label: t("Usage Settings"), to: "/settings/analytics" }],
     }
   }, [location.pathname, t])

@@ -1,13 +1,13 @@
 import {
   AlertCircleIcon,
   GlobeIcon,
+  InfoIcon,
   LinkIcon,
   PencilIcon,
   PlusIcon,
   SecretIcon,
   ShieldIcon,
   SlidersIcon,
-  TalismanHandIcon,
   UsersIcon,
 } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
@@ -87,7 +87,7 @@ export const DashboardSettingsSidebar = () => {
           to="/settings/networks-tokens"
           icon={<GlobeIcon />}
         />
-        <SidebarNavItem label={t("About")} to="/settings/about" icon={<TalismanHandIcon />} />
+        <SidebarNavItem label={t("Support")} to="/settings/about" icon={<InfoIcon />} />
       </div>
     </div>
   )

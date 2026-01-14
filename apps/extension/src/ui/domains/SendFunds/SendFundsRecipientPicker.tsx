@@ -12,13 +12,7 @@ import {
   isAddressValid,
   isSs58Address,
 } from "@taostats-wallet/crypto"
-import {
-  EyeIcon,
-  LoaderIcon,
-  TalismanHandIcon,
-  UserIcon,
-  XOctagonIcon,
-} from "@taostats-wallet/icons"
+import { EyeIcon, HomeIcon, LoaderIcon, UserIcon, XOctagonIcon } from "@taostats-wallet/icons"
 import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { SearchInput } from "@taostats/components/SearchInput"
 import {
@@ -275,7 +269,7 @@ export const SendFundsRecipientPicker = () => {
               onSelect={handleSelect}
               header={
                 <>
-                  <TalismanHandIcon className="mr-2 inline-block align-text-top" />
+                  <HomeIcon className="mr-2 inline-block align-text-top" />
                   {t("My Accounts")}
                 </>
               }

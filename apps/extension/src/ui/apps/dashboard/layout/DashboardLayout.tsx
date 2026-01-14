@@ -1,4 +1,4 @@
-import { HistoryIcon, SettingsIcon, TalismanHandIcon, ZapIcon } from "@taostats-wallet/icons"
+import { HistoryIcon, HomeIcon, SettingsIcon, ZapIcon } from "@taostats-wallet/icons"
 import { classNames, isTruthy } from "@taostats-wallet/util"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TaostatsLogo } from "@taostats/theme/logos"
@@ -86,7 +86,7 @@ const NavButton: FC<{
       type="button"
       className={classNames(
         "text-body-inactive hover:text-body-secondary flex items-center gap-4",
-        routeMatch && "!text-body",
+        routeMatch && "!text-primary",
         className,
       )}
       onClick={onClick}
@@ -150,7 +150,7 @@ const HorizontalNav = () => {
       <NavButton
         label={t("Home")}
         onClick={handlePortfolioClick}
-        icon={TalismanHandIcon}
+        icon={HomeIcon}
         route="/portfolio/*"
       />
       <NavButton label={t("Staking")} onClick={handleStakingClick} icon={ZapIcon} />

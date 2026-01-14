@@ -1,4 +1,4 @@
-import { EyeIcon, TalismanHandIcon } from "@taostats-wallet/icons"
+import { EyeIcon, HomeIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { Account } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
@@ -39,7 +39,7 @@ export const ManageAccountsLists: FC<{ className?: string }> = ({ className }) =
 
   return (
     <div className={classNames("@container", className)}>
-      {!!watchedUiTree.length && <Separator icon={TalismanHandIcon} label={t("My portfolio")} />}
+      {!!watchedUiTree.length && <Separator icon={HomeIcon} label={t("My portfolio")} />}
       <ManageAccountsList
         accounts={accounts}
         balanceTotalPerAccount={balanceTotals}

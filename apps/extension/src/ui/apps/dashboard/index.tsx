@@ -27,7 +27,6 @@ import { EditNetworkPage } from "./routes/Networks/EditNetworkPage"
 import { NetworksPage } from "./routes/Networks/NetworksPage"
 import { PhishingPage } from "./routes/PhishingPage"
 import { PortfolioRoutes } from "./routes/Portfolio"
-import { AboutPage } from "./routes/Settings/AboutPage"
 import { AccountsPage } from "./routes/Settings/Accounts"
 import { AddressBookPage } from "./routes/Settings/AddressBookPage"
 import { AnalyticsOptInPage } from "./routes/Settings/AnalyticsOptInPage"
@@ -42,6 +41,7 @@ import { MnemonicsPage } from "./routes/Settings/Mnemonics/MnemonicsPage"
 import { NetworksTokensPage } from "./routes/Settings/NetworksTokensPage"
 import { QrMetadataPage } from "./routes/Settings/QrMetadataPage"
 import { SecurityPrivacyPage } from "./routes/Settings/SecurityPrivacyPage"
+import { SupportPage } from "./routes/Settings/SupportPage"
 import { TestPage } from "./routes/TestPage"
 import { AddTokenPage } from "./routes/Tokens/AddTokenPage"
 import { EditTokenPage } from "./routes/Tokens/EditTokenPage"
@@ -126,7 +126,7 @@ const DashboardInner = () => {
             <Route path="qr-metadata" element={<QrMetadataPage />} />
             <Route path="*" element={<Navigate to="" replace />} />
           </Route>
-          <Route path="about" element={<AboutPage />} />
+          <Route path="about" element={<SupportPage />} />
           <Route path="analytics" element={<AnalyticsOptInPage />} />
           {/* Old routes redirects */}
           <Route
