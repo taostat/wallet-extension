@@ -153,7 +153,7 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <div className="relative min-h-[75vh] overflow-hidden">
+    <div className="relative h-full w-full">
       {/* Stars container */}
       <div ref={containerRef} className="pointer-events-none fixed inset-0 z-0">
         {stars.map((star) => (

@@ -9,12 +9,13 @@ import { TaostatsWalletErrorBoundary } from "@taostats/components/TaostatsWallet
 import { ReactNode, StrictMode, Suspense } from "react"
 import { createRoot } from "react-dom/client"
 import { HashRouter } from "react-router-dom"
-import { FontFamily, preloadFonts } from "taostats-ui"
+import { FontFamily, preloadFonts, StarryBackground } from "taostats-ui"
 
 import { useKeepBackgroundOpen } from "@ui/hooks/useKeepBackgroundOpen"
 import { KeepWalletUnlockedMode, useKeepWalletUnlocked } from "@ui/hooks/useKeepWalletUnlocked"
 
 import { initSentryFrontend } from "../sentry"
+import { IS_POPUP } from "./util/constants"
 
 const FONT_FAMILIES: FontFamily[] = ["Everett"]
 preloadFonts(FONT_FAMILIES)
@@ -52,7 +53,9 @@ export const renderApp = (app: ReactNode, { keepWalletUnlockedMode }: RenderAppO
             <KeepWalletUnlocked mode={keepWalletUnlockedMode} />
             <Subscribe>
               <QueryClientProvider client={queryClient}>
-                <HashRouter>{app}</HashRouter>
+                <HashRouter>
+                  {!IS_POPUP ? <StarryBackground>{app}</StarryBackground> : app}
+                </HashRouter>
                 <NotificationsContainer />
               </QueryClientProvider>
             </Subscribe>

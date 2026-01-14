@@ -1,6 +1,7 @@
 import { classNames } from "@taostats-wallet/util"
 import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 
@@ -55,6 +56,9 @@ export const Portfolio = () => (
     <div id="main" className="relative size-full overflow-hidden">
       <Content>
         <div className="flex size-full flex-col gap-4 py-8">
+          <header className="flex items-center justify-between p-4 pt-0">
+            <TaostatsLogo className="h-[1.5rem] w-auto" />
+          </header>
           <PortfolioRoutes />
           <BottomNav />
         </div>
