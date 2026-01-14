@@ -12,8 +12,8 @@ const importSortConfig = {
     "", // a gap
 
     // local aliases / packages starting with one of these prefixes
-    "<TYPES>^(@common|@talisman|@ui|@tests)(/.*)?$", // type imports
-    "^(@common|@talisman|@ui|@tests)(/.*)?$", // imports
+    "<TYPES>^(@common|@taostats|@ui|@tests)(/.*)?$", // type imports
+    "^(@common|@taostats|@ui|@tests)(/.*)?$", // imports
     "", // a gap
 
     // local `./blah/something` packages

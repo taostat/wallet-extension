@@ -1,8 +1,8 @@
-# Talisman Copilot Master Prompt
+# Taostats Copilot Master Prompt
 
 ## Mission & Values
 
-- We ship a multi-chain crypto wallet where **security, privacy, and user trust outweigh convenience**.
+- We ship a Bittensor wallet.
 - Work respectfully (Contributor Covenant) and keep PRs scoped, well-tested, and well-explained (CONTRIBUTING.md).
 - Everything in this monorepo is **TypeScript**; no plain JS or other languages unless explicitly required.
 

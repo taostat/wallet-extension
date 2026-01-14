@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Talisman is a multi-chain crypto wallet browser extension supporting Ethereum, Polkadot/Substrate, and Solana networks. Security and privacy are paramount - the codebase handles mnemonics, private keys, and sensitive user data.
+Taostats Wallet is a Bittensor wallet browser extension.
 
 ## Common Commands
 
