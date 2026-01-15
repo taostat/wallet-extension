@@ -1,5 +1,5 @@
 import { Balances } from "@taostats-wallet/balances"
-import { ZapFastIcon } from "@taostats-wallet/icons"
+// import { ZapFastIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
-import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
+// import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
 import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
@@ -116,7 +116,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
           />
         </div>
       </button>
-      {canBond && (
+      {/* {canBond && (
         <>
           <div className="absolute right-8 top-0 hidden h-[6.6rem] flex-col justify-center group-hover:flex">
             <BondPillButton
@@ -131,7 +131,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             </div>
           </div>
         </>
-      )}
+      )} */}
     </div>
   )
 }

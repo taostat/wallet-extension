@@ -12,9 +12,9 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { AssetPriceChart } from "@ui/domains/Asset/AssetPriceChart"
 import { DashboardAssetDetails } from "@ui/domains/Portfolio/AssetDetails"
-import { BittensorClaimSettingsToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorClaimSettingsToolbarButton"
-import { BittensorStakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorStakeToolbarButton"
-import { BittensorUnstakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorUnstakeToolbarButton"
+// import { BittensorClaimSettingsToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorClaimSettingsToolbarButton"
+// import { BittensorStakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorStakeToolbarButton"
+// import { BittensorUnstakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorUnstakeToolbarButton"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { PortfolioToolbarButton } from "@ui/domains/Portfolio/PortfolioToolbarButton"
 import { Statistics } from "@ui/domains/Portfolio/Statistics"
@@ -83,29 +83,29 @@ const HeaderRow: FC<{
   )
 }
 
-const SendFundsButton: FC<{ symbol: string }> = ({ symbol }) => {
-  const { selectedAccount: account } = usePortfolioNavigation()
+// const SendFundsButton: FC<{ symbol: string }> = ({ symbol }) => {
+//   const { selectedAccount: account } = usePortfolioNavigation()
 
-  // don't set the token id here because it could be one of many
-  const { canSendFunds, cannotSendFundsReason, openSendFundsPopup } = useSendFundsPopup(
-    account,
-    undefined,
-    symbol,
-  )
+//   // don't set the token id here because it could be one of many
+//   const { canSendFunds, cannotSendFundsReason, openSendFundsPopup } = useSendFundsPopup(
+//     account,
+//     undefined,
+//     symbol,
+//   )
 
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <PortfolioToolbarButton onClick={openSendFundsPopup} disabled={!canSendFunds}>
-          <SendIcon />
-        </PortfolioToolbarButton>
-      </TooltipTrigger>
-      <TooltipContent>
-        {canSendFunds ? t("Send {{symbol}}", { symbol }) : cannotSendFundsReason}
-      </TooltipContent>
-    </Tooltip>
-  )
-}
+//   return (
+//     <Tooltip>
+//       <TooltipTrigger asChild>
+//         <PortfolioToolbarButton onClick={openSendFundsPopup} disabled={!canSendFunds}>
+//           <SendIcon />
+//         </PortfolioToolbarButton>
+//       </TooltipTrigger>
+//       <TooltipContent>
+//         {canSendFunds ? t("Send {{symbol}}", { symbol }) : cannotSendFundsReason}
+//       </TooltipContent>
+//     </Tooltip>
+//   )
+// }
 
 const TokenBreadcrumb: FC<{
   symbol: string
@@ -133,12 +133,12 @@ const TokenBreadcrumb: FC<{
       <div className="grow">
         <Breadcrumb items={items} />
       </div>
-      <div className="flex h-20 items-center gap-2">
+      {/* <div className="flex h-20 items-center gap-2">
         <BittensorClaimSettingsToolbarButton balances={balances} />
         <BittensorStakeToolbarButton balances={balances} />
         <BittensorUnstakeToolbarButton balances={balances} />
         <SendFundsButton symbol={symbol} />
-      </div>
+      </div> */}
     </div>
   )
 }
