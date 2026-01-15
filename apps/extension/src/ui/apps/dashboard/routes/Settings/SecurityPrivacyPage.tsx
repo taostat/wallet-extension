@@ -1,32 +1,14 @@
-import {
-  ActivityIcon,
-  AlertCircleIcon,
-  ChevronRightIcon,
-  ClockIcon,
-  InfoIcon,
-  LockIcon,
-  ShieldZapIcon,
-} from "@taostats-wallet/icons"
+import { ChevronRightIcon, ClockIcon, LockIcon } from "@taostats-wallet/icons"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Setting } from "@taostats/components/Setting"
 import { Spacer } from "@taostats/components/Spacer"
-import { IS_FIREFOX } from "extension-shared"
-import { Trans, useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { CtaButton, Toggle, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
+import { useTranslation } from "react-i18next"
+import { CtaButton } from "taostats-ui"
 
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
-import { useFeatureFlag, useSetting } from "@ui/state"
 
 const Content = () => {
   const { t } = useTranslation()
-  const [useAnalyticsTracking, setUseAnalyticsTracking] = useSetting("useAnalyticsTracking")
-  const [useErrorTracking, setUseErrorTracking] = useSetting("useErrorTracking")
-  const [autoRiskScan, setAutoRiskScan] = useSetting("autoRiskScan")
-  const navigate = useNavigate()
-
-  const withRiskAnalysis = useFeatureFlag("RISK_ANALYSIS_V2")
 
   const allBackedUp = useMnemonicsAllBackedUp()
 
@@ -57,89 +39,6 @@ const Content = () => {
           subtitle={t("Set a timer to automatically lock your Talisman wallet")}
           to={`/settings/security-privacy-settings/autolock`}
         />
-        {withRiskAnalysis && (
-          <Setting
-            iconLeft={ShieldZapIcon}
-            title={
-              <span className="inline-flex items-center gap-[0.3em]">
-                <span>{t("Auto risk scan")}</span>
-                <Tooltip>
-                  <TooltipTrigger className="inline-block">
-                    <InfoIcon />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {t(
-                      "This service is only available for some Ethereum networks and Solana, please visit Blockaid website for more information.",
-                    )}
-                  </TooltipContent>
-                </Tooltip>
-              </span>
-            }
-            subtitle={
-              <Trans t={t}>
-                Automatically assess risks of transactions via{" "}
-                <a
-                  className="text-grey-200 hover:text-body"
-                  href="https://blockaid.io"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Blockaid
-                </a>
-              </Trans>
-            }
-          >
-            <Toggle checked={autoRiskScan} onChange={(e) => setAutoRiskScan(e.target.checked)} />
-          </Setting>
-        )}
-        {!IS_FIREFOX && (
-          <>
-            <Setting
-              iconLeft={AlertCircleIcon}
-              title={t("Error reporting")}
-              subtitle={
-                <Trans t={t}>
-                  Send anonymised error reports to Talisman (via{" "}
-                  <a
-                    className="text-grey-200 hover:text-body"
-                    href="https://www.sentry.io"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    Sentry
-                  </a>
-                  )
-                </Trans>
-              }
-            >
-              <Toggle
-                checked={useErrorTracking}
-                onChange={(e) => setUseErrorTracking(e.target.checked)}
-              />
-            </Setting>
-            <Setting
-              iconLeft={ActivityIcon}
-              title={t("Analytics")}
-              subtitle={
-                <Trans t={t}>
-                  Opt in to collection of anonymised usage data.{" "}
-                  <button
-                    type="button"
-                    className="text-grey-200 hover:text-body"
-                    onClick={() => navigate("/settings/analytics")}
-                  >
-                    Learn More
-                  </button>
-                </Trans>
-              }
-            >
-              <Toggle
-                checked={useAnalyticsTracking}
-                onChange={(e) => setUseAnalyticsTracking(e.target.checked)}
-              />
-            </Setting>
-          </>
-        )}
       </div>
     </>
   )

@@ -12,7 +12,6 @@ import {
   RefreshCwIcon,
   ToolIcon,
   UsbIcon,
-  UserIcon,
   XIcon,
 } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
@@ -26,7 +25,6 @@ import { Button, CtaButton, Dropdown, Modal, ModalDialog, Toggle } from "taostat
 
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
-import { AvatarTypeSelect } from "@ui/domains/Settings/AvatarTypeSelect"
 import { useRuntimeReload } from "@ui/hooks/useRuntimeReload"
 import { useSetting } from "@ui/state"
 import { getIsLedgerCapable } from "@ui/util/getIsLedgerCapable"
@@ -106,13 +104,6 @@ const Content = () => {
           subtitle={t("Set currencies for viewing your portolio value")}
           to={`/settings/general/currency`}
         />
-        <Setting
-          iconLeft={UserIcon}
-          title={t("Account avatars")}
-          subtitle={t("Choose between the Talisman orbs or Polkadot.js identicons")}
-        >
-          <AvatarTypeSelect selectedType={identiconType} onChange={setIdenticonType} />
-        </Setting>
         <Setting
           iconLeft={UsbIcon}
           title={t("Ledger interface")}
