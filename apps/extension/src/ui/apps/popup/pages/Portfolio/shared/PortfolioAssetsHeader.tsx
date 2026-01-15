@@ -170,7 +170,7 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
         <div className="flex h-full items-center justify-end">
           <Suspense fallback={<SuspenseTracker name="PortfolioAssetHeader.Buttons" />}>
             <CopyAddressButton account={account} />
-            <SendFundsButton account={account} />
+            {/* <SendFundsButton account={account} /> */}
             {account && (
               <Tooltip>
                 <TooltipTrigger asChild>

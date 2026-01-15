@@ -19,7 +19,7 @@ export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => 
   const disabled = useMemo(() => !accounts.length, [accounts.length])
 
   return (
-    <div ref={ref} className="relative h-[14rem] w-full">
+    <div ref={ref} className="relative min-h-48 w-full">
       <button
         type="button"
         className={classNames(

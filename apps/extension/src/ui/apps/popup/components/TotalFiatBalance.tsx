@@ -80,7 +80,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
           </button>
           <Fiat
             className={classNames(
-              "overflow-hidden text-ellipsis whitespace-pre pr-10 text-[3.2rem] font-bold leading-[3.6rem] tracking-[0.016px]",
+              "overflow-hidden text-ellipsis whitespace-pre pr-10 text-[2.4rem] font-bold leading-[2.8rem] tracking-[0.016px]",
               disabled && "text-body-secondary",
             )}
             amount={portfolioTotal}
@@ -89,7 +89,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
           />
         </div>
       </div>
-      <TopActions disabled={disabled} />
+      {/* <TopActions disabled={disabled} /> */}
     </div>
   )
 }
