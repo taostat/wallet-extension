@@ -42,7 +42,8 @@ import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 import { useAnyNetwork } from "@ui/state"
 
 import { NetworkFormProvider, useNetworkForm } from "./context"
-import { NetworkRpcsField } from "./NetworkRpcsField"
+
+// import { NetworkRpcsField } from "./NetworkRpcsField"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Fullscreen",
@@ -107,6 +108,7 @@ const NetworkForm: FC = () => {
               children={(field) => (
                 <FormFieldContainer label="Network Name" error={field.state.meta.errors[0]}>
                   <FormFieldInputText
+                    disabled
                     type="text"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -124,6 +126,7 @@ const NetworkForm: FC = () => {
             <div>
               <FormFieldContainer label="Chain ID">
                 <FormFieldInputText
+                  disabled
                   type="text"
                   value={network.id}
                   readOnly
@@ -138,7 +141,9 @@ const NetworkForm: FC = () => {
             </div>
           )}
         </div>
-        <NetworkRpcsField />
+
+        {/* <NetworkRpcsField /> */}
+
         <div className="grid grid-cols-2 gap-x-12">
           <form.Field
             name="nativeCurrency.symbol"
@@ -157,6 +162,7 @@ const NetworkForm: FC = () => {
               >
                 <FormFieldInputText
                   name={field.name}
+                  disabled
                   type="text"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -184,6 +190,7 @@ const NetworkForm: FC = () => {
                 error={field.state.meta.errors[0]}
               >
                 <FormFieldInputText
+                  disabled
                   name={field.name}
                   type="number"
                   value={field.state.value}
@@ -216,6 +223,7 @@ const NetworkForm: FC = () => {
               >
                 <FormFieldInputText
                   name={field.name}
+                  disabled
                   type="text"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -251,6 +259,7 @@ const NetworkForm: FC = () => {
                 <FormFieldInputText
                   name={field.name}
                   type="text"
+                  disabled
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   autoComplete="off"
@@ -265,6 +274,7 @@ const NetworkForm: FC = () => {
           children={(field) => (
             <FormFieldContainer label="Block Explorer Url" error={field.state.meta.errors[0]}>
               <FormFieldInputText
+                disabled
                 type="text"
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
@@ -294,6 +304,7 @@ const NetworkForm: FC = () => {
               name="isTestnet"
               children={(field) => (
                 <Checkbox
+                  disabled
                   checked={field.state.value}
                   onChange={(e) => field.handleChange(e.target.checked)}
                 >
@@ -308,6 +319,7 @@ const NetworkForm: FC = () => {
                 name="hasCheckMetadataHash"
                 children={(field) => (
                   <Checkbox
+                    disabled
                     checked={field.state.value}
                     onChange={(e) => field.handleChange(e.target.checked)}
                   >
@@ -371,7 +383,8 @@ const NetworkForm: FC = () => {
                 {isNetworkKnown(network) ? t("Reset") : t("Remove")}
               </Button>
             )}
-            <form.Subscribe
+
+            {/* <form.Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting, state.isDirty]}
               children={([canSubmit, isSubmitting, isDirty]) => (
                 <Button
@@ -385,7 +398,7 @@ const NetworkForm: FC = () => {
                   {t("Save")}
                 </Button>
               )}
-            />
+            /> */}
           </div>
         </div>
       </form>

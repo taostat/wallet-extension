@@ -265,11 +265,10 @@ const ResetAllNetworksModalContent: FC<{
     >
       <p className="text-body-secondary mb-8 text-sm">
         {platform === "all"
-          ? t("This will reset active state of all networks to their Talisman defaults.")
-          : t(
-              "This will reset active state of all {{platform}} networks to their Talisman defaults.",
-              { platform },
-            )}
+          ? t("This will reset active state of all networks to their defaults.")
+          : t("This will reset active state of all {{platform}} networks to their defaults.", {
+              platform,
+            })}
       </p>
 
       <div className="mt-4 flex justify-end gap-8">
@@ -331,7 +330,7 @@ const DeactivateNetworksModalContent: FC<{
       onClose={onClose}
     >
       <p className="text-body-secondary mb-8 text-sm">
-        {t("It is recommended to deactivate unused networks to improve Talisman performance.")}
+        {t("It is recommended to deactivate unused networks to improve performance.")}
       </p>
       <div className="bg-grey-800 text-body-secondary flex h-28 w-full items-center gap-6 rounded-sm px-8 text-sm">
         {isBalancesInitializing ? (

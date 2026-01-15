@@ -46,7 +46,6 @@ const Content = () => {
   const { t } = useTranslation()
   const [hideBalances, setHideBalances] = useSetting("hideBalances")
   const [hideDust, setHideDust] = useSetting("hideDust")
-  const [identiconType, setIdenticonType] = useSetting("identiconType")
   const [allowNotifications, setAllowNotifications] = useSetting("allowNotifications")
   const [hasRuntimeReloadFn, runtimeReload] = useRuntimeReload(ANALYTICS_PAGE)
   const [developerMode, setDeveloperMode] = useSetting("developerMode")
@@ -69,7 +68,7 @@ const Content = () => {
         <Setting
           iconLeft={BellIcon}
           title={t("Allow notifications")}
-          subtitle={t("Allow Talisman to send you notifications about transactions in progress")}
+          subtitle={t("Allow notifications about transaction progress")}
         >
           <Toggle
             checked={allowNotifications}

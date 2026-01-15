@@ -22,7 +22,6 @@ import { AccountAddPrivateKeyDashboardPage } from "./routes/AccountAdd/AccountAd
 import { AccountAddQrDashboardWizard } from "./routes/AccountAdd/AccountAddQrWizard"
 import { AccountAddSignetDashboardWizard } from "./routes/AccountAdd/AccountAddSignetWizard"
 import { AccountAddWatchedPage } from "./routes/AccountAdd/AccountAddWatchedPage"
-import { AddNetworkPage } from "./routes/Networks/AddNetworkPage"
 import { EditNetworkPage } from "./routes/Networks/EditNetworkPage"
 import { NetworksPage } from "./routes/Networks/NetworksPage"
 import { PhishingPage } from "./routes/PhishingPage"
@@ -30,7 +29,6 @@ import { PortfolioRoutes } from "./routes/Portfolio"
 import { AccountsPage } from "./routes/Settings/Accounts"
 import { AddressBookPage } from "./routes/Settings/AddressBookPage"
 import { AnalyticsOptInPage } from "./routes/Settings/AnalyticsOptInPage"
-import { AssetDiscoveryPage } from "./routes/Settings/AssetsDiscovery/AssetDiscoveryPage"
 import { AutoLockTimerPage } from "./routes/Settings/AutoLockTimerPage"
 import { ChangePasswordPage } from "./routes/Settings/ChangePasswordPage"
 import { ConnectedSitesPage } from "./routes/Settings/ConnectedSitesPage"
@@ -43,7 +41,6 @@ import { QrMetadataPage } from "./routes/Settings/QrMetadataPage"
 import { SecurityPrivacyPage } from "./routes/Settings/SecurityPrivacyPage"
 import { SupportPage } from "./routes/Settings/SupportPage"
 import { TestPage } from "./routes/TestPage"
-import { AddTokenPage } from "./routes/Tokens/AddTokenPage"
 import { EditTokenPage } from "./routes/Tokens/EditTokenPage"
 import { TokensPage } from "./routes/Tokens/TokensPage"
 import { TxHistory } from "./routes/TxHistory"
@@ -90,16 +87,13 @@ const DashboardInner = () => {
           </Route>
           <Route path="networks-tokens">
             <Route path="" element={<NetworksTokensPage />} />
-            <Route path="asset-discovery" element={<AssetDiscoveryPage />} />
             <Route path="tokens">
               <Route path="" element={<TokensPage />} />
-              <Route path="add" element={<AddTokenPage />} />
               <Route path=":id" element={<EditTokenPage />} />
               <Route path="*" element={<Navigate to="" replace />} />
             </Route>
             <Route path="networks">
               <Route path="" element={<NetworksPage />} />
-              <Route path="add" element={<AddNetworkPage />} />
               <Route
                 path="ethereum"
                 element={
@@ -149,10 +143,10 @@ const DashboardInner = () => {
           element={<Navigate to="/settings/networks-tokens/networks" replace />}
         />
         <Route path="tokens" element={<Navigate to="/settings/networks-tokens/tokens" replace />} />
-        <Route
+        {/* <Route
           path="qr-metadata"
           element={<Navigate to="/settings/networks-tokens/qr-metadata" replace />}
-        />
+        /> */}
         {DEBUG && <Route path="test" element={<TestPage />} />}
         <Route path="*" element={<NavigateWithQuery url="/portfolio" replace />} />
       </Routes>

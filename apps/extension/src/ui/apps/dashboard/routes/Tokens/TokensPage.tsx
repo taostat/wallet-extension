@@ -1,23 +1,20 @@
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
-import { PlusIcon } from "@taostats-wallet/icons"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { OptionSwitch } from "@taostats/components/OptionSwitch"
 import { SearchInput } from "@taostats/components/SearchInput"
 import { Spacer } from "@taostats/components/Spacer"
-import { TogglePill } from "@taostats/components/TogglePill"
+// import { TogglePill } from "@taostats/components/TogglePill"
 import { activeTokensStore } from "extension-core"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Button, Modal, ModalDialog, PillButton, useOpenClose } from "taostats-ui"
 
-import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
+import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { NetworkCombo } from "@ui/domains/Networks/NetworkCombo"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 import { useAnyNetwork, useBalancesHydrate, useNetworks } from "@ui/state"
 
-import { PlatformOption, usePlatformOptions } from "../Networks/usePlatformOptions"
 import { TokensList } from "./TokensList"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
@@ -26,6 +23,8 @@ const ANALYTICS_PAGE: AnalyticsPage = {
   featureVersion: 1,
   page: "Settings - Tokens",
 }
+
+const platform = "polkadot"
 
 const Content = () => {
   const { t } = useTranslation()
@@ -36,23 +35,25 @@ const Content = () => {
   const location = useLocation()
 
   // filters to persist in location state
-  const [isActiveOnly, setIsActiveOnly] = useState(
-    (location.state?.isActiveOnly as boolean) ?? true,
-  )
-  const [isCustomOnly, setIsCustomOnly] = useState(
-    (location.state?.isCustomOnly as boolean) ?? false,
-  )
-  const [isHidePools, setIsHidePools] = useState((location.state?.isHidePools as boolean) ?? false)
+  const [
+    isActiveOnly,
+    // setIsActiveOnly
+  ] = useState((location.state?.isActiveOnly as boolean) ?? true)
+  const [
+    isCustomOnly,
+    // setIsCustomOnly
+  ] = useState((location.state?.isCustomOnly as boolean) ?? false)
+  const [
+    isHidePools,
+    // setIsHidePools
+  ] = useState((location.state?.isHidePools as boolean) ?? false)
   const [search, setSearch] = useState((location.state?.search as string) ?? "")
-  const [platform, setPlatform, platformOptions] = usePlatformOptions(
-    (location.state?.platform as PlatformOption) ?? ("all" as PlatformOption),
-  )
   const [networkId, setNetworkId] = useState<NetworkId | null>(location.state?.networkId ?? null)
   const networks = useNetworks({ platform, activeOnly: true, includeTestnets: true })
 
-  const toggleIsActiveOnly = useCallback(() => setIsActiveOnly((prev) => !prev), [])
-  const toggleIsCustomOnly = useCallback(() => setIsCustomOnly((prev) => !prev), [])
-  const toggleIsHidePools = useCallback(() => setIsHidePools((prev) => !prev), [])
+  // const toggleIsActiveOnly = useCallback(() => setIsActiveOnly((prev) => !prev), [])
+  // const toggleIsCustomOnly = useCallback(() => setIsCustomOnly((prev) => !prev), [])
+  // const toggleIsHidePools = useCallback(() => setIsHidePools((prev) => !prev), [])
 
   const networkOptions = useMemo(
     () => networks.concat().sort((n1, n2) => n1.name?.localeCompare(n2.name ?? "") ?? 0),
@@ -67,60 +68,29 @@ const Content = () => {
       replace: true,
       state: { search, platform, isActiveOnly, isCustomOnly, isHidePools, networkId },
     })
-  }, [
-    isActiveOnly,
-    isCustomOnly,
-    isHidePools,
-    location.pathname,
-    navigate,
-    platform,
-    search,
-    networkId,
-  ])
-
-  const handleAddToken = useCallback(() => {
-    sendAnalyticsEvent({
-      ...ANALYTICS_PAGE,
-      name: "Goto",
-      action: "Add token button",
-    })
-    navigate("./add")
-  }, [navigate])
+  }, [isActiveOnly, isCustomOnly, isHidePools, location.pathname, navigate, search, networkId])
 
   const ocResetAllModal = useOpenClose()
 
   useEffect(() => {
     // reset selected network if platform changes to an incompatible one
-    if (platform !== "all" && networkId && network?.platform !== platform) setNetworkId("ALL")
-  }, [platform, networkId, network])
+    if (networkId && network?.platform !== platform) setNetworkId("ALL")
+  }, [networkId, network])
 
   return (
     <>
       <div className="flex w-full gap-8">
-        <HeaderBlock
-          title={t("Tokens")}
-          className="grow"
-          text={t("Enable, add or delete custom tokens.")}
-        />
-        <Button primary iconLeft={PlusIcon} small onClick={handleAddToken}>
-          {t("Add custom token")}
-        </Button>
+        <HeaderBlock title={t("Tokens")} className="grow" text={t("Enable and disable tokens")} />
       </div>
       <Spacer small />
-      <OptionSwitch
-        options={platformOptions.map(({ value, label }) => [value, label] as const)}
-        className="text-xs [&>div]:h-full"
-        defaultOption={platform}
-        onChange={setPlatform}
-      />
-      <div className="h-4"></div>
+      <div className="h-4" />
       <NetworkCombo
         networks={networkOptions}
         onChange={setNetworkId}
         value={networkId}
         bgClassName="bg-grey-800"
       />
-      <div className="h-4"></div>
+      <div className="h-4" />
       <div className="flex gap-4">
         <SearchInput
           initialValue={search}
@@ -136,24 +106,24 @@ const Content = () => {
             {t("Reset active states")}
           </PillButton>
         </div>
-        <TogglePill
+        {/* <TogglePill
           label={t("Active only")}
           checked={isActiveOnly}
           onChange={toggleIsActiveOnly}
           disabled={!!search}
-        />
-        <TogglePill
+        /> */}
+        {/* <TogglePill
           label={t("Custom only")}
           checked={isCustomOnly}
           onChange={toggleIsCustomOnly}
           disabled={!!search}
-        />
-        <TogglePill
+        /> */}
+        {/* <TogglePill
           label={t("Enable pools")}
           checked={!isHidePools}
           onChange={toggleIsHidePools}
           disabled={!!search}
-        />
+        /> */}
       </div>
       <Spacer />
       <TokensList
@@ -190,7 +160,7 @@ const ResetStatesModalContent: FC<{
   return (
     <ModalDialog title={t("Reset tokens")} onClose={onClose}>
       <div className="text-body-secondary mb-8 text-sm">
-        {t("This will reset active state of all tokens to their Talisman defaults.")}
+        {t("This will reset active state of all tokens to their defaults.")}
       </div>
 
       <div className="mt-4 flex justify-end gap-8">

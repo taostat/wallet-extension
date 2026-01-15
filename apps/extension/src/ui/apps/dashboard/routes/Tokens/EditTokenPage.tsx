@@ -11,7 +11,7 @@ import {
   Token,
   TokenBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon, RotateCcwIcon, SaveIcon } from "@taostats-wallet/icons"
+import { CopyIcon, ExternalLinkIcon, RotateCcwIcon } from "@taostats-wallet/icons"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { notify } from "@taostats/components/Notifications"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
@@ -74,15 +74,12 @@ export const EditTokenPage = () => {
         title={
           <div className="flex items-center justify-between gap-5">
             {t("{{tokenSymbol}} on {{networkName}}", {
-              tokenSymbol: token.symbol,
+              tokenSymbol: token.name,
               networkName: network.name,
             })}
             <TokenTypePill type={token.type} />
           </div>
         }
-        text={t(
-          "Tokens can be created by anyone and named however they like, even to imitate existing tokens. Always ensure you have verified the token address before adding a custom token.",
-        )}
       />
       <TokenForm token={token} />
     </DashboardLayout>
@@ -135,6 +132,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
               data-lpignore
               autoComplete="off"
               readOnly
+              disabled
               small
               before={<NetworkLogo networkId={token.networkId} className="size-12" />}
             />
@@ -148,6 +146,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                 data-lpignore
                 autoComplete="off"
                 readOnly
+                disabled
                 small
                 after={
                   <LinkToExplorerIconButton
@@ -178,6 +177,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                 data-lpignore
                 autoComplete="off"
                 readOnly
+                disabled
                 small
                 after={
                   <div className="flex items-center gap-4">
@@ -215,6 +215,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   autoComplete="off"
+                  disabled
                   small
                 />
               </FormFieldContainer>
@@ -241,6 +242,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                   placeholder="0"
                   autoComplete="off"
                   readOnly={isTokenKnown(token)}
+                  disabled
                   small
                 />
               </FormFieldContainer>
@@ -272,6 +274,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                     field.handleChange(e.target.value)
                   }}
                   autoComplete="off"
+                  disabled
                   small
                   before={
                     <AssetLogo
@@ -302,6 +305,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
                   autoComplete="off"
+                  disabled
                   small
                 />
               </FormFieldContainer>
@@ -331,6 +335,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                     onChange={(e) => field.handleChange(e.target.value)}
                     autoComplete="off"
                     readOnly={isTokenKnown(token)}
+                    disabled
                     small
                   />
                 </FormFieldContainer>
@@ -371,21 +376,6 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
               {isTokenKnown(token) ? t("Reset") : t("Remove")}
             </Button>
           )}
-          <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting, state.isDirty]}
-            children={([canSubmit, isSubmitting, isDirty]) => (
-              <Button
-                primary
-                icon={SaveIcon}
-                className="h-24 w-[24rem] text-base"
-                type="submit"
-                processing={isSubmitting}
-                disabled={!isSubmitting && (!canSubmit || !isDirty)}
-              >
-                {t("Save")}
-              </Button>
-            )}
-          />
         </div>
       </form>
       <Modal isOpen={ocConfirmRemove.isOpen} onDismiss={ocConfirmRemove.close}>
@@ -418,12 +408,20 @@ const OnChainIdDisplay = ({ onChainId }: { onChainId: string | number }) => {
         spellCheck={false}
         data-lpignore
         readOnly
+        disabled
         small
       />
     )
 
   return (
-    <FormFieldTextarea value={yaml} spellCheck={false} data-lpignore readOnly rows={rowsCount} />
+    <FormFieldTextarea
+      value={yaml}
+      spellCheck={false}
+      data-lpignore
+      readOnly
+      disabled
+      rows={rowsCount}
+    />
   )
 }
 

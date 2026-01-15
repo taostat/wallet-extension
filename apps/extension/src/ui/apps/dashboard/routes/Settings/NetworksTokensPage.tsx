@@ -1,10 +1,4 @@
-import {
-  ChevronRightIcon,
-  DiamondIcon,
-  GlobeIcon,
-  ListIcon,
-  PolkadotVaultIcon,
-} from "@taostats-wallet/icons"
+import { ChevronRightIcon, GlobeIcon, ListIcon } from "@taostats-wallet/icons"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
 import { useTranslation } from "react-i18next"
@@ -17,41 +11,30 @@ const Content = () => {
 
   return (
     <>
-      <HeaderBlock
-        title={t("Networks & Tokens")}
-        text={t("View, edit and add custom networks and tokens")}
-      />
+      <HeaderBlock title={t("Networks & Tokens")} text={t("Manage networks and tokens")} />
       <Spacer large />
       <div className="flex flex-col gap-4">
-        <CtaButton
-          iconLeft={DiamondIcon}
-          iconRight={ChevronRightIcon}
-          title={t("Asset discovery")}
-          subtitle={t("Scan for well-known tokens in your accounts and add them to Talisman")}
-          to={`/settings/networks-tokens/asset-discovery`}
-        />
-        <div className="via-primary/10 my-4 h-0.5 bg-gradient-to-r from-transparent to-transparent"></div>
         <CtaButton
           iconLeft={GlobeIcon}
           iconRight={ChevronRightIcon}
           title={t("Manage networks")}
-          subtitle={t("Add, enable and disable networks")}
+          subtitle={t("Enable and disable networks")}
           to={`/settings/networks-tokens/networks`}
         />
         <CtaButton
           iconLeft={ListIcon}
           iconRight={ChevronRightIcon}
           title={t("Manage tokens")}
-          subtitle={t("View all tokens, and add or delete custom ERC20 tokens")}
+          subtitle={t("Enable and disable tokens")}
           to={`/settings/networks-tokens/tokens`}
         />
-        <CtaButton
+        {/* <CtaButton
           iconLeft={PolkadotVaultIcon}
           iconRight={ChevronRightIcon}
           title={t("Polkadot Vault metadata")}
           subtitle={t("Register networks on your Polkadot Vault device, or update their metadata")}
           to={`/settings/networks-tokens/qr-metadata`}
-        />
+        /> */}
       </div>
     </>
   )
