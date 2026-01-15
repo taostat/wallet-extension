@@ -1,7 +1,6 @@
 import imgBraveFlag from "@taostats/theme/images/brave_flag.gif"
 import { appStore } from "extension-core"
-import { BRAVE_BALANCES_URL } from "extension-shared"
-import { FC, useCallback, useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Toggle } from "taostats-ui"
 
@@ -27,15 +26,11 @@ export const BraveWarningModal: FC<BraveWarningModalProps> = () => {
     return () => sub.unsubscribe()
   }, [])
 
-  const handleReadMoreClick = useCallback(() => {
-    window.open(BRAVE_BALANCES_URL, "_blank")
-  }, [])
-
   return (
     <div className="text-body-secondary flex w-full flex-col gap-8">
       <p className="text-body-secondary [&>strong]:text-body px-8 text-xs">
         <Trans t={t}>
-          Brave limits the amount of networks Talisman can connect to. In order to view all your
+          Brave limits the amount of networks extensions can connect to. In order to view all your
           balances please disable the <strong>Restrict WebSockets Pool</strong> flag and restart
           Brave.
         </Trans>
@@ -54,9 +49,8 @@ export const BraveWarningModal: FC<BraveWarningModalProps> = () => {
       >
         {t("Open Brave flags")}
       </Button>
-      <Button onClick={handleReadMoreClick}>{t("Read the docs")}</Button>
       <div className="text-body-secondary flex w-full items-center justify-center gap-4 text-sm">
-        <div>{t("Don't prompt me again")}</div>
+        <div>{t("Don't ask again")}</div>
         <Toggle
           checked={hideBraveWarning}
           onChange={(e) => appStore.set({ hideBraveWarning: e.target.checked })}

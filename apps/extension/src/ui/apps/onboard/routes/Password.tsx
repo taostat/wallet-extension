@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
+import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
 import { PasswordStrength } from "@taostats/components/PasswordStrength"
@@ -86,9 +87,10 @@ export const PasswordPage = () => {
   }, [setValue])
 
   const navigateNext = useCallback(() => {
-    if (isResettingWallet || IS_FIREFOX) setOnboarded()
-    else navigate("/privacy")
-  }, [isResettingWallet, setOnboarded, navigate])
+    setOnboarded()
+    // if (isResettingWallet || IS_FIREFOX) setOnboarded()
+    // else navigate("/privacy")
+  }, [setOnboarded])
 
   const submit = useCallback(
     async (fields: FormData) => {
@@ -133,7 +135,7 @@ export const PasswordPage = () => {
         </OnboardDialog>
       )}
       {!passwordExists && (
-        <OnboardDialog title={t("Step 1, set a password")}>
+        <OnboardDialog title={t("Set a password")}>
           <p>
             {t(
               "This is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols and numbers.",
@@ -179,6 +181,7 @@ export const PasswordPage = () => {
               </FormFieldContainer>
             </div>
             <Button
+              icon={ArrowRightIcon}
               fullWidth
               primary
               type="submit"

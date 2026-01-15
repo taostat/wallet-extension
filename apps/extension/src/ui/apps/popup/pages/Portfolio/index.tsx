@@ -6,7 +6,7 @@ import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
-import BraveWarningPopupBanner from "@ui/domains/Settings/BraveWarning/BraveWarningPopupBanner"
+// import BraveWarningPopupBanner from "@ui/domains/Settings/BraveWarning/BraveWarningPopupBanner"
 import MigratePasswordAlert from "@ui/domains/Settings/MigratePasswordAlert"
 
 import { BottomNav } from "../../components/Navigation/BottomNav"
@@ -23,7 +23,7 @@ const PortfolioRoutes = () => (
       <Route path="*" element={<PortfolioAccounts />} />
     </Routes>
     <Suspense fallback={<SuspenseTracker name="HasAccountsPortfolioContent" />}>
-      <BraveWarningPopupBanner />
+      {/* <BraveWarningPopupBanner /> */}
       <MigratePasswordAlert />
     </Suspense>
   </>

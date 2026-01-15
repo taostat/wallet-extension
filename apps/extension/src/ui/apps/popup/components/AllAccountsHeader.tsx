@@ -1,5 +1,4 @@
 import { ChevronRightIcon, PopoutIcon } from "@taostats-wallet/icons"
-import { TalismanOrbRectangle } from "@taostats-wallet/orb"
 import { classNames } from "@taostats-wallet/util"
 import { Account } from "extension-core"
 import { FC, useCallback, useMemo, useRef } from "react"
@@ -30,12 +29,6 @@ export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => 
         onClick={!disabled ? handleClick : undefined}
         disabled={disabled}
       >
-        {!disabled && !!accounts?.[0]?.address && (
-          <TalismanOrbRectangle
-            seed={accounts[0].address}
-            className="absolute left-0 top-0 z-0 size-full select-none rounded-sm opacity-30"
-          />
-        )}
         {!disabled && <ChevronRightIcon className="z-10" />}
       </button>
       <TotalFiatBalance

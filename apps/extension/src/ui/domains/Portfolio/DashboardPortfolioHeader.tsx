@@ -98,7 +98,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
   return (
     <div className="flex h-14 items-center gap-3 text-base">
       <AllAccountsIcon className="shrink-0 text-[2rem]" />
-      <div>{t("All Accounts")}</div>
+      <div>{t("Total Portfolio")}</div>
     </div>
   )
 }
@@ -121,12 +121,6 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
         className,
       )}
     >
-      {!!selectedAccounts.length && (
-        <TalismanOrbRectangle
-          seed={selectedAccounts?.[0]?.address}
-          className="absolute left-0 top-0 z-0 size-full select-none rounded-sm opacity-30"
-        />
-      )}
       <div className="z-[1] flex w-full flex-col gap-4 overflow-hidden">
         <SelectionScope folder={selectedFolder} account={selectedAccount} />
         <div className="flex w-full max-w-full items-center gap-6">

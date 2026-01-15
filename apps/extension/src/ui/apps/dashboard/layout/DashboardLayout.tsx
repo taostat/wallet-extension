@@ -1,14 +1,13 @@
-import { HistoryIcon, HomeIcon, SettingsIcon, ZapIcon } from "@taostats-wallet/icons"
+import { HistoryIcon, HomeIcon, SettingsIcon } from "@taostats-wallet/icons"
 import { classNames, isTruthy } from "@taostats-wallet/util"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TaostatsLogo } from "@taostats/theme/logos"
-import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { matchPath, useLocation, useNavigate, useSearchParams } from "react-router-dom"
+import { PillButton } from "taostats-ui"
 
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
-import { BuildVersionPill } from "@ui/domains/Build/BuildVersionPill"
 
 import { DashboardAccountsSidebar } from "./DashboardAccountsSidebar"
 import { DashboardSettingsSidebar } from "./DashboardSettingsSidebar"
@@ -28,7 +27,11 @@ export const DashboardLayout: FC<{
           <div className="w-[29.6rem] shrink-0 pb-20">
             <div className="hidden h-48 w-[29.6rem] shrink-0 items-center gap-4 sm:flex">
               <TaostatsLogo className="h-[3rem] w-[14.7172rem]" />
-              <BuildVersionPill className="bg-primary/5 text-primary hover:bg-primary/20 rounded-3xl" />
+              <PillButton className="bg-primary/5 text-primary hover:bg-primary/20 rounded-3xl">
+                <div className="flex items-center gap-2">
+                  <span>Wallet</span>
+                </div>
+              </PillButton>
             </div>
             <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Sidebar" />}>
               {sidebar === "accounts" && <DashboardAccountsSidebar />}
@@ -38,7 +41,7 @@ export const DashboardLayout: FC<{
           {/* Main area */}
           <div className="grow pb-20">
             <div className="flex w-full flex-col items-center">
-              <div className="flex h-48 w-full shrink-0 items-center justify-center">
+              <div className="flex h-48 w-full shrink-0 items-center justify-end px-8">
                 <HorizontalNav />
               </div>
               <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Content" />}>
@@ -118,15 +121,6 @@ const HorizontalNav = () => {
     navigate("/portfolio/tokens" + (searchParams.size ? `?${searchParams}` : ""))
   }, [navigate, searchParams])
 
-  const handleStakingClick = useCallback(() => {
-    sendAnalyticsEvent({
-      ...ANALYTICS_PAGE,
-      name: "Goto",
-      action: "Staking button",
-    })
-    window.open(TAOSTATS_WEB_APP_STAKING_URL, "_blank")
-  }, [])
-
   const handleActivityClick = useCallback(() => {
     sendAnalyticsEvent({
       ...ANALYTICS_PAGE,
@@ -153,9 +147,8 @@ const HorizontalNav = () => {
         icon={HomeIcon}
         route="/portfolio/*"
       />
-      <NavButton label={t("Staking")} onClick={handleStakingClick} icon={ZapIcon} />
       <NavButton
-        label={t("Activity")}
+        label={t("History")}
         onClick={handleActivityClick}
         icon={HistoryIcon}
         route="/tx-history"
