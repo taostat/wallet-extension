@@ -48,7 +48,6 @@ import { SolanaSignInPage } from "./pages/Sign/solana/SignIn"
 import { SubstrateSignRequest } from "./pages/Sign/substrate"
 import { TryPage } from "./pages/TryPage"
 import { TxHistoryPage } from "./pages/TxHistory"
-import { WhatsNewPage } from "./pages/WhatsNew/WhatsNew"
 
 const Popup = () => {
   const { isLoggedIn, isOnboarded, isMigrating } = useLoginCheck()
@@ -84,8 +83,7 @@ const Popup = () => {
           <Route path={`${ENCRYPT_DECRYPT_PREFIX}/:id`} element={<Encrypt />} />
           <Route path={`${ETH_NETWORK_ADD_PREFIX}/:id`} element={<AddEthereumNetwork />} />
           <Route path={`${WATCH_ASSET_PREFIX}/:id`} element={<AddCustomErc20Token />} />
-          <Route path="try-talisman" element={<TryPage />} />
-          <Route path="whats-new" element={<WhatsNewPage />} />
+          <Route path="try-page" element={<TryPage />} />
           <Route path="learn-more" element={<LearnMorePage />} />
           <Route path="manage-accounts" element={<ManageAccountsPage />} />
           <Route path="tx-history" element={<TxHistoryPage />} />

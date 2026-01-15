@@ -172,7 +172,7 @@ const useGetStarted = () => {
   const onTryItClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "try talisman" })
 
-    if (IS_POPUP) navigate("/try-talisman")
+    if (IS_POPUP) navigate("/try-page")
     else openTryTalismanModal()
   }, [navigate, openTryTalismanModal])
 

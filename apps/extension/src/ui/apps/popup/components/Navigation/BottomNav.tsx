@@ -116,7 +116,7 @@ export const BottomNav = () => {
             onClick={handleTxHistoryClick}
             route="/tx-history"
           />
-          <NavButton label={t("Fullscreen")} icon={ExpandIcon} onClick={handleExpandClick} />
+          <NavButton label={t("Full Screen")} icon={ExpandIcon} onClick={handleExpandClick} />
           {isQuickSettingsOpen ? (
             <NavButton
               label={t("Close")}

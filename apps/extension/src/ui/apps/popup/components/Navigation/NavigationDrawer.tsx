@@ -1,23 +1,17 @@
 import {
   AlertCircleIcon,
-  ExternalLinkIcon,
   GlobeIcon,
   KeyIcon,
   LockIcon,
   PlusIcon,
-  RepeatIcon,
-  SendIcon,
   SettingsIcon,
-  StarsIcon,
   UsersIcon,
   XIcon,
 } from "@taostats-wallet/icons"
 import { Nav, NavItem } from "@taostats/components/Nav"
 import { TaostatsLogo } from "@taostats/theme/logos"
-import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import { Drawer, IconButton } from "taostats-ui"
 
 import { api } from "@ui/api"
@@ -25,7 +19,6 @@ import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { BuildVersionPill } from "@ui/domains/Build/BuildVersionPill"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 import { usePopupNavOpenClose } from "@ui/hooks/usePopupNavOpenClose"
-import { useAccounts } from "@ui/state"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Popup",
@@ -37,7 +30,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 export const NavigationDrawer: FC = () => {
   const { t } = useTranslation()
   const { isOpen, close } = usePopupNavOpenClose()
-  const ownedAccounts = useAccounts("owned")
 
   const handleLock = useCallback(async () => {
     sendAnalyticsEvent({
@@ -67,35 +59,6 @@ export const NavigationDrawer: FC = () => {
     })
     api.dashboardOpen("/settings/address-book")
     window.close()
-  }, [])
-
-  const handleSendFundsClick = useCallback(async () => {
-    sendAnalyticsEvent({
-      ...ANALYTICS_PAGE,
-      name: "Goto",
-      action: "Send Funds button",
-    })
-    await api.sendFundsOpen()
-    window.close()
-  }, [])
-
-  // TODO: Make this button open in-wallet swaps when we have feature parity with Portal
-  // const canSwap = useFeatureFlag("SWAPS")
-  // import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
-  // const { open: openSwapTokensModal } = useSwapTokensModal()
-  const handleSwapClick = useCallback(async () => {
-    sendAnalyticsEvent({
-      ...ANALYTICS_PAGE,
-      name: "Goto",
-      action: "Swap button",
-    })
-
-    /*if (!canSwap) */ return window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank"), window.close()
-
-    // await openSwapTokensModal()
-    // import { sleep } from "@taostats-wallet/util"
-    // await sleep(150)
-    // close()
   }, [])
 
   const allBackedUp = useMnemonicsAllBackedUp()
@@ -129,17 +92,6 @@ export const NavigationDrawer: FC = () => {
     window.close()
   }, [])
 
-  const navigate = useNavigate()
-  const handleLatestFeaturesClick = useCallback(() => {
-    sendAnalyticsEvent({
-      ...ANALYTICS_PAGE,
-      name: "Goto",
-      action: "Latest Features button",
-    })
-    navigate("/whats-new")
-    close()
-  }, [close, navigate])
-
   return (
     <Drawer className="h-full" containerId="main" anchor="bottom" isOpen={isOpen} onDismiss={close}>
       <div className="flex h-full w-full flex-col bg-black">
@@ -157,17 +109,6 @@ export const NavigationDrawer: FC = () => {
             <NavItem icon={<PlusIcon />} onClick={handleAddAccountClick}>
               {t("Add Account")}
             </NavItem>
-            {!!ownedAccounts.length && (
-              <NavItem icon={<SendIcon />} onClick={handleSendFundsClick}>
-                {t("Send Funds")}
-              </NavItem>
-            )}
-            <NavItem icon={<RepeatIcon />} onClick={handleSwapClick}>
-              <span className="flex items-center gap-2">
-                {t("Swap")}
-                {/*!canSwap && */ <ExternalLinkIcon />}
-              </span>
-            </NavItem>
             <NavItem icon={<UsersIcon />} onClick={handleAddressBookClick}>
               {t("Address Book")}
             </NavItem>
@@ -180,9 +121,6 @@ export const NavigationDrawer: FC = () => {
                 {t("Backup Wallet")}
                 {!allBackedUp && <AlertCircleIcon className="text-primary ml-2 inline text-sm" />}
               </span>
-            </NavItem>
-            <NavItem icon={<StarsIcon />} onClick={handleLatestFeaturesClick}>
-              {t("Latest Features")}
             </NavItem>
             <NavItem icon={<SettingsIcon />} onClick={handleSettingsClick}>
               {t("All Settings")}
