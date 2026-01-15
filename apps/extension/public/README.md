@@ -1,8 +1,8 @@
-# Talisman Browser Extension
+# Taostats Browser Extension
 
 ## Notes for reviewers
 
-Talisman extension uses a library called `@polkadot/wasm-crypto-wasm` to provide cryptographic signing and verification functionality. The library contains compiled web assembly code, which will appear in the build files for this extension as something like:
+The extension uses a library called `@polkadot/wasm-crypto-wasm` to provide cryptographic signing and verification functionality. The library contains compiled web assembly code, which will appear in the build files for this extension as something like:
 
 ```js
 {

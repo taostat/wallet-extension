@@ -1,6 +1,5 @@
 import { classNames } from "@taostats-wallet/util"
 import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import {
   DetailedHTMLProps,
   FC,
@@ -38,7 +37,13 @@ export const PopupHeader: FC<ContainerProps & { right?: ReactNode }> = ({
       )}
     >
       <div className="w-16 shrink-0 text-xl">
-        <TaostatsLogo onClick={handleLogoClick} />
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-element-interactions */}
+        <img
+          src="/images/icon-round.png"
+          alt="Taostats Logo"
+          onClick={handleLogoClick}
+          className="cursor-pointer"
+        />
       </div>
       <div>{children}</div>
       <div className="w-16 shrink-0">{right}</div>
