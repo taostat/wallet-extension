@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: ./apps/extension/dist/chrome/talisman_extension_ci_${{ steps.vars.outputs.sha_short }}_chrome.zip
+          path: ./apps/extension/dist/chrome/taostats_extension_ci_${{ steps.vars.outputs.sha_short }}_chrome.zip
           retention-days: 5
 
   # This job will use the files from the build job to run Playwright tests

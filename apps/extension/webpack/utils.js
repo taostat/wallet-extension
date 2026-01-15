@@ -41,15 +41,15 @@ const getRelease = (env) => {
 const getArchiveFileName = (env) => {
   switch (env.build) {
     case "ci":
-      return `talisman_extension_ci_${getGitShortHash() ?? Date.now()}_${browser}.zip`
+      return `taostats_extension_ci_${getGitShortHash() ?? Date.now()}_${browser}.zip`
     case "canary":
-      return `talisman_extension_v${
+      return `taostats_extension_v${
         process.env.npm_package_version
       }_${getGitShortHash()}_canary_${browser}.zip`
     case "production":
-      return `talisman_extension_v${process.env.npm_package_version}_${browser}.zip`
+      return `taostats_extension_v${process.env.npm_package_version}_${browser}.zip`
     default:
-      return `talisman_extension_${getGitShortHash()}_${browser}.zip`
+      return `taostats_extension_${getGitShortHash()}_${browser}.zip`
   }
 }
 
