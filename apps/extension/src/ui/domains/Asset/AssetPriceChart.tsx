@@ -66,6 +66,13 @@ export const AssetPriceChart: FC<{
     [selectedTokenId, tokensWithCoingeckoId],
   )
 
+  const netuid = useMemo(() => {
+    const token = tokensWithCoingeckoId.find((t) => t.id === selectedTokenId)
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- netuid is not a standard property but may exist sometimes
+    return token && "netuid" in token ? ((token as any).netuid ?? null) : null
+  }, [selectedTokenId, tokensWithCoingeckoId])
+
   const [timespan, setTimespan] = useState<ChartSpan>("D")
 
   const { data: prices, refetch } = useMarketChart(coingeckoId, currency, timespan)
@@ -76,15 +83,11 @@ export const AssetPriceChart: FC<{
     refetch()
   }, [tokenRates, refetch])
 
-  const handleCoingeckoClick = useCallback(() => {
-    if (!coingeckoId) return
+  const handleOpenClick = useCallback(() => {
+    if (!netuid) return
 
-    window.open(
-      `https://www.coingecko.com/en/coins/${coingeckoId}`,
-      "_blank",
-      "noopener noreferrer",
-    )
-  }, [coingeckoId])
+    window.open(`https://www.taostats.io/subnets/${netuid}`, "_blank", "noopener noreferrer")
+  }, [netuid])
 
   const [hoveredValue, setHoveredValue] = useState<number | null>(null)
   const formattedHoveredValue = useMemo(() => {
@@ -133,9 +136,11 @@ export const AssetPriceChart: FC<{
               )}
             </div>
           )}
-          <IconButton onClick={handleCoingeckoClick} className="text-base">
-            <ExternalLinkIcon />
-          </IconButton>
+          {netuid !== null ? (
+            <IconButton onClick={handleOpenClick} className="text-base">
+              <ExternalLinkIcon />
+            </IconButton>
+          ) : null}
         </div>
       </div>
 

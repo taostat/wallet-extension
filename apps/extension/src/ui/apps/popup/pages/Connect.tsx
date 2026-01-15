@@ -37,7 +37,7 @@ const NoAccountWarning = ({
         <p className="text-body-secondary text-center">
           <Trans
             t={t}
-            defaults="This application requires a <br/><strong>{{type}} account</strong> to connect.<br/>Would you like to create or import one?"
+            defaults="This application requires a<br/>Bittensor account to connect.<br/>Would you like to create or import one?"
             components={{ strong: <strong className="text-body" />, br: <br /> }}
             values={{ type: capitalize(type) }}
           />

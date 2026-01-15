@@ -58,7 +58,7 @@ const Content = () => {
           <Setting
             iconLeft={RefreshCwIcon}
             title={t("Reload Taostats Wallet")}
-            subtitle={t("Close and restart the wallet, this sometimes helps fix errors.")}
+            subtitle={t("Close and restart the wallet, this sometimes helps fix errors")}
           >
             <Button primary small onClick={runtimeReload}>
               {t("Reload")}
