@@ -16,7 +16,10 @@ export const ConnectedAccountsPolkadot: FC<{
     () => activeAccounts.some((acc) => isAccountAddressEthereum(acc[0]) && acc[1]),
     [activeAccounts],
   )
-  const [enableEvmAccounts, setEnableEvmAccounts] = useState(hasEthereumActiveAccounts)
+  const [
+    enableEvmAccounts,
+    // setEnableEvmAccounts
+  ] = useState(hasEthereumActiveAccounts)
 
   const displayedAccounts = useMemo(
     () => activeAccounts.filter(([acc]) => enableEvmAccounts || !isAccountAddressEthereum(acc)),

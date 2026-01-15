@@ -89,7 +89,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
           />
         </div>
       </div>
-      {/* <TopActions disabled={disabled} /> */}
+      <TopActions disabled={disabled} />
     </div>
   )
 }
@@ -161,6 +161,9 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 }
 
 const TopActions = ({ disabled }: { disabled?: boolean }) => {
+  // TODO: tmp disable top actions
+  return null
+
   const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
   const { open: openRampsModal } = useRampsModal()

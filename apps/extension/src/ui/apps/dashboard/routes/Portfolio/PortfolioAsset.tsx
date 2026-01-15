@@ -1,14 +1,15 @@
 import { Balances } from "@taostats-wallet/balances"
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { SendIcon } from "@taostats-wallet/icons"
+// import { SendIcon } from "@taostats-wallet/icons"
 import { Breadcrumb } from "@taostats/components/Breadcrumb"
 import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
-import { t } from "i18next"
+// import { t } from "i18next"
 import { uniq } from "lodash-es"
 import { FC, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
-import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
+
+// import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { AssetPriceChart } from "@ui/domains/Asset/AssetPriceChart"
 import { DashboardAssetDetails } from "@ui/domains/Portfolio/AssetDetails"
@@ -16,17 +17,17 @@ import { DashboardAssetDetails } from "@ui/domains/Portfolio/AssetDetails"
 // import { BittensorStakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorStakeToolbarButton"
 // import { BittensorUnstakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorUnstakeToolbarButton"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
-import { PortfolioToolbarButton } from "@ui/domains/Portfolio/PortfolioToolbarButton"
+// import { PortfolioToolbarButton } from "@ui/domains/Portfolio/PortfolioToolbarButton"
 import { Statistics } from "@ui/domains/Portfolio/Statistics"
 import { useDisplayBalances } from "@ui/domains/Portfolio/useDisplayBalances"
-import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
+// import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import {
   BalanceSummary,
   useTokenBalancesSummary,
 } from "@ui/domains/Portfolio/useTokenBalancesSummary"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
-import { useSendFundsPopup } from "@ui/hooks/useSendFundsPopup"
+// import { useSendFundsPopup } from "@ui/hooks/useSendFundsPopup"
 import { usePortfolioBalances } from "@ui/state"
 
 const HeaderRow: FC<{
@@ -110,7 +111,10 @@ const HeaderRow: FC<{
 const TokenBreadcrumb: FC<{
   symbol: string
   balances: Balances
-}> = ({ symbol, balances }) => {
+}> = ({
+  symbol,
+  // balances
+}) => {
   const { t } = useTranslation()
 
   const navigate = useNavigateWithQuery()

@@ -153,7 +153,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
           />
         </div>
       </div>
-      {/* <TopActions /> */}
+      <TopActions />
     </div>
   )
 }
@@ -314,6 +314,9 @@ const TopActions: FC = () => {
       openRampsModal,
     ],
   )
+
+  // TODO: Re-enable once staking in app is complete
+  return null
 
   return (
     <div className="z-[1] flex w-full items-center justify-between gap-8">

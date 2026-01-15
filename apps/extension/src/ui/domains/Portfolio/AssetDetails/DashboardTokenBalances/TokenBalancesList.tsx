@@ -34,7 +34,7 @@ type TokenBalancesListProps = {
 export const TokenBalancesList = ({
   tokenId,
   token,
-  balances,
+  // balances,
   detailRowsLength,
   chainOrNetworkId,
   summary,

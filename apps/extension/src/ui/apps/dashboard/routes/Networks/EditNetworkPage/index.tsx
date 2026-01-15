@@ -9,7 +9,7 @@ import {
   Network,
   NetworkBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
-import { CopyIcon, RotateCcwIcon, SaveIcon } from "@taostats-wallet/icons"
+import { CopyIcon, RotateCcwIcon } from "@taostats-wallet/icons"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { notify } from "@taostats/components/Notifications"
 import { t } from "i18next"
