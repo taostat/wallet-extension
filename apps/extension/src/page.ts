@@ -41,7 +41,7 @@ const enable = async (origin: string): Promise<Injected> => {
 function inject() {
   // inject substrate wallet provider
   injectExtension(enable, {
-    name: "talisman",
+    name: "taostats",
     version: process.env.VERSION ?? "",
   })
 

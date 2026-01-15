@@ -34,7 +34,7 @@ import {
 import { VersionedTransaction } from "@solana/web3.js"
 import { StandardConnect, StandardDisconnect, StandardEvents } from "@wallet-standard/features"
 import bs58 from "bs58"
-import { TALISMAN_LOGO_BASE64 } from "inject/shared/logo"
+import { LOGO_BASE64 } from "inject/shared/logo"
 
 import type { SolanaChain } from "./solana"
 import type { TalismanSol } from "./window"
@@ -45,8 +45,8 @@ import { deserializeSolWalletAccount } from "./util"
 export class TalismanSolWallet implements Wallet {
   readonly #listeners: { [E in StandardEventsNames]?: StandardEventsListeners[E][] } = {}
   readonly #version = "1.0.0" as const
-  readonly #name = "Talisman" as const
-  readonly #icon = TALISMAN_LOGO_BASE64
+  readonly #name = "Taostats" as const
+  readonly #icon = LOGO_BASE64
   #account: TalismanSolWalletAccount | null = null
   readonly #talisman: TalismanSol
 

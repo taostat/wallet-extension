@@ -1,4 +1,4 @@
-import { TALISMAN_LOGO_BASE64 } from "inject/shared/logo"
+import { LOGO_BASE64 } from "inject/shared/logo"
 
 import { type EthProvider } from "./types"
 
@@ -15,9 +15,9 @@ interface EIP6963ProviderDetail {
 }
 
 const PROVIDER_INFO: EIP6963ProviderInfo = {
-  icon: TALISMAN_LOGO_BASE64,
-  name: "Talisman",
-  rdns: "xyz.talisman",
+  icon: LOGO_BASE64,
+  name: "Taostats",
+  rdns: "io.taostats",
   uuid: crypto.randomUUID(),
 }
 
