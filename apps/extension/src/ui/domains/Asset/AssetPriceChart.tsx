@@ -339,7 +339,7 @@ const Chart: FC<{
 
     // Create a gradient
     const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height)
-    gradient.addColorStop(0, "rgba(213, 255, 92, 0.2)") // Start color (top)
+    gradient.addColorStop(0, "rgba(0, 219, 188, 0.2)") // Start color (top)
     gradient.addColorStop(1, "rgba(213, 255, 92, 0)") // End color (bottom)
 
     const chart = new ChartJs(canvas, {
@@ -372,7 +372,7 @@ const Chart: FC<{
             intersect: false,
             displayColors: false,
             backgroundColor: "#2E3221",
-            titleColor: "#d5ff5c",
+            titleColor: "#00dbbc",
             titleFont: {
               size: variant === "large" ? 14 : 12,
               weight: 400,
@@ -425,7 +425,7 @@ const Chart: FC<{
           {
             label: "Price",
             data: allPrices,
-            borderColor: "#d5ff5c",
+            borderColor: "#00dbbc",
             pointRadius: 0,
             tension: 0.1,
             fill: true,
