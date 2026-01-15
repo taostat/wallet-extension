@@ -5,7 +5,7 @@ import { SignerPayloadJSON } from "@substrate/txwrapper-core"
 
 import { WalletTransactionInfo } from "../transactions"
 
-export interface TalismanMetadataDef extends PjsMetadataDef {
+export interface TMetadataDef extends PjsMetadataDef {
   metadataRpc?: `0x${string}`
 }
 
@@ -44,5 +44,5 @@ export type SubstrateMessages = {
     SubstrateRequestSubmitBittensorMevShield,
     SubstrateResponseSubmit,
   ]
-  "pri(substrate.metadata.get)": [SubstrateRequestChainMetadata, TalismanMetadataDef | undefined]
+  "pri(substrate.metadata.get)": [SubstrateRequestChainMetadata, TMetadataDef | undefined]
 }

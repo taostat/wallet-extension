@@ -61,9 +61,7 @@ const Header = () => {
     <div className="flex w-full items-end justify-between gap-8">
       <div className="flex flex-col gap-2">
         <div className="text-body text-bold text-lg">{t("Recent Activity")}</div>
-        <div className="text-body-secondary text-sm">
-          {t("Review the latest transactions submitted by Talisman.")}
-        </div>
+        <div className="text-body-secondary text-sm">{t("Review your latest transactions.")}</div>
       </div>
       <div>
         <NetworkFilterButton />

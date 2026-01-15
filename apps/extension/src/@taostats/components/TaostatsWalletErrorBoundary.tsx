@@ -15,12 +15,12 @@ function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) 
   const errorMessage = isDbVersionError ? "Invalid database version" : "Sorry, an error occurred"
 
   const clearDatabases = useCallback(() => {
-    indexedDB.deleteDatabase("Talisman")
-    indexedDB.deleteDatabase("TalismanBalances")
-    indexedDB.deleteDatabase("TalismanChaindata")
-    indexedDB.deleteDatabase("TalismanChaindataV4")
-    indexedDB.deleteDatabase("TalismanConnectionMeta")
-    alert("Databases cleared. Please click OK for Talisman to reinitialise")
+    indexedDB.deleteDatabase("TaostatsExtension")
+    indexedDB.deleteDatabase("TaostatsExtensionBalances")
+    indexedDB.deleteDatabase("TaostatsExtensionChaindata")
+    indexedDB.deleteDatabase("TaostatsExtensionChaindataV4")
+    indexedDB.deleteDatabase("TaostatsExtensionConnectionMeta")
+    alert("Databases cleared. Please click OK to reinitialise")
     chrome.runtime.reload()
   }, [])
 

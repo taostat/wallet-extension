@@ -10,12 +10,12 @@ type ChainBackoffInterval = {
   interval: number
 }
 
-export class TalismanConnectionMetaDatabase extends Dexie {
+export class TaostatsExtensionConnectionMetaDatabase extends Dexie {
   chainPriorityRpcs!: Dexie.Table<ChainPriorityRpcs, DotNetworkId>
   chainBackoffInterval!: Dexie.Table<ChainBackoffInterval, DotNetworkId>
 
   constructor() {
-    super("TalismanConnectionMeta")
+    super("TaostatsExtensionConnectionMeta")
 
     // https://dexie.org/docs/Tutorial/Design#database-versioning
     this.version(2).stores({
@@ -32,4 +32,4 @@ export class TalismanConnectionMetaDatabase extends Dexie {
   }
 }
 
-export const db = new TalismanConnectionMetaDatabase()
+export const db = new TaostatsExtensionConnectionMetaDatabase()

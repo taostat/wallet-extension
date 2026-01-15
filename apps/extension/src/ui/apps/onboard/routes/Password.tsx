@@ -3,11 +3,9 @@ import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
 import { PasswordStrength } from "@taostats/components/PasswordStrength"
-import { IS_FIREFOX } from "extension-shared"
 import { useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
 import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import * as yup from "yup"
 
@@ -54,9 +52,7 @@ export const PasswordPage = () => {
   const { t } = useTranslation()
   useAnalyticsPageView(ANALYTICS_PAGE)
 
-  const { data, createPassword, isResettingWallet, passwordExists, setOnboarded } = useOnboard()
-
-  const navigate = useNavigate()
+  const { data, createPassword, passwordExists, setOnboarded } = useOnboard()
 
   const {
     register,
@@ -88,8 +84,6 @@ export const PasswordPage = () => {
 
   const navigateNext = useCallback(() => {
     setOnboarded()
-    // if (isResettingWallet || IS_FIREFOX) setOnboarded()
-    // else navigate("/privacy")
   }, [setOnboarded])
 
   const submit = useCallback(

@@ -10,13 +10,13 @@ import { sentry } from "../config/sentry"
 import { db } from "../db"
 import { decodeMetadataRpc, encodeMetadataRpc } from "../domains/metadata/helpers"
 import { metadataUpdatesStore } from "../domains/metadata/metadataUpdates"
-import { TalismanMetadataDef } from "../domains/substrate/types"
+import { TMetadataDef } from "../domains/substrate/types"
 import { chainConnector } from "../rpcs/chain-connector"
 import { chaindataProvider } from "../rpcs/chaindata"
 import { getRuntimeVersion } from "./getRuntimeVersion"
 
-const CACHE_RESULTS = new Map<string, TalismanMetadataDef>()
-const CACHE_PROMISES = new Map<string, Promise<TalismanMetadataDef | undefined>>()
+const CACHE_RESULTS = new Map<string, TMetadataDef>()
+const CACHE_PROMISES = new Map<string, Promise<TMetadataDef | undefined>>()
 
 const getResultCacheKey = (genesisHash: HexString, specVersion?: number) =>
   !specVersion || !genesisHash ? null : `${genesisHash}-${specVersion}`
@@ -32,7 +32,7 @@ const getPromiseCacheKey = (chainIdOrHash: string, specVersion?: number) =>
 export const getMetadataDef = async (
   chainIdOrHash: string,
   specVersion?: number,
-): Promise<TalismanMetadataDef | undefined> => {
+): Promise<TMetadataDef | undefined> => {
   const cacheKey = getPromiseCacheKey(chainIdOrHash, specVersion)
 
   // prevent concurrent calls that would fetch the same data
@@ -50,7 +50,7 @@ export const getMetadataDef = async (
 const getMetadataDefInner = async (
   chainIdOrHash: string,
   specVersion?: number,
-): Promise<TalismanMetadataDef | undefined> => {
+): Promise<TMetadataDef | undefined> => {
   const [chain, genesisHash] = await getChainAndGenesisHashFromIdOrHash(chainIdOrHash)
 
   const cacheKey = getResultCacheKey(genesisHash, specVersion)
@@ -160,7 +160,7 @@ export const fetchMetadataDefFromChain = async (
 
   /** defaults to `getLatestMetadataRpc`, but can be overridden */
   fetchMethod: (chainId: NetworkId) => Promise<`0x${string}`> = getLatestMetadataRpc,
-): Promise<TalismanMetadataDef | undefined> => {
+): Promise<TMetadataDef | undefined> => {
   const [metadataRpc, chainProperties] = await Promise.all([
     fetchMethod(chain.id),
     chainConnector.send(chain.id, "system_properties", [], true),
@@ -201,7 +201,7 @@ export const fetchMetadataDefFromChain = async (
       : chainProperties.tokenDecimals,
     metaCalls: undefined, // won't be used anymore, yeet
     metadataRpc: encodeMetadataRpc(metadataRpc),
-  } as TalismanMetadataDef
+  } as TMetadataDef
 }
 
 // useful for developer when testing updates

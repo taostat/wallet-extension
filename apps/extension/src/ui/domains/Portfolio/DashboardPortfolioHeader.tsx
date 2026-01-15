@@ -6,7 +6,6 @@ import {
   RepeatIcon,
   SendIcon,
 } from "@taostats-wallet/icons"
-import { TalismanOrbRectangle } from "@taostats-wallet/orb"
 import { classNames, isNotNil } from "@taostats-wallet/util"
 import { shortenAddress } from "@taostats/util/shortenAddress"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"

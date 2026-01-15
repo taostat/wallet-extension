@@ -2,23 +2,23 @@ import { Dexie } from "dexie"
 
 import { ProtectorSources, ProtectorStorage } from "../domains/app/protector/ParaverseProtector"
 import { DiscoveredBalance } from "../domains/assetDiscovery/types"
-import { TalismanMetadataDef } from "../domains/substrate/types"
+import { TMetadataDef } from "../domains/substrate/types"
 import { LegacyWalletTransaction, WalletTransaction } from "../domains/transactions/types"
 import { DbBlobId, DbBlobItem } from "./blobs"
 import { upgradeRemoveSymbolFromNativeTokenId } from "./upgrades/2024-01-25-upgradeRemoveSymbolFromNativeTokenId"
 
 export const MIGRATION_ERROR_MSG = "Talisman Dexie Migration Error"
 
-class TalismanDatabase extends Dexie {
+class TaostatsExtensionDatabase extends Dexie {
   assetDiscovery!: Dexie.Table<DiscoveredBalance, string>
-  metadata!: Dexie.Table<TalismanMetadataDef, string>
+  metadata!: Dexie.Table<TMetadataDef, string>
   phishing!: Dexie.Table<ProtectorStorage, ProtectorSources>
   transactions!: Dexie.Table<LegacyWalletTransaction, string>
   transactionsV2!: Dexie.Table<WalletTransaction, string>
   blobs!: Dexie.Table<DbBlobItem, DbBlobId>
 
   constructor() {
-    super("Talisman")
+    super("TaostatsExtension")
 
     // https://dexie.org/docs/Tutorial/Design#database-versioning
     this.version(8).upgrade(upgradeRemoveSymbolFromNativeTokenId)
@@ -56,4 +56,4 @@ class TalismanDatabase extends Dexie {
   }
 }
 
-export const db = new TalismanDatabase()
+export const db = new TaostatsExtensionDatabase()

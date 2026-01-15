@@ -95,7 +95,7 @@ const executeMigration = async () => {
     await assetDiscoveryStore.clear()
 
     try {
-      indexedDB.deleteDatabase("TalismanBalances")
+      indexedDB.deleteDatabase("TaostatsExtensionBalances")
     } catch {
       // ignore, this is not critical
     }
@@ -107,8 +107,7 @@ const executeMigration = async () => {
       currentMigration: {
         name: MIGRATION_LABEL,
         progress: 1,
-        acknowledgeRequest:
-          "Your Talisman has been upgraded to improve performance. Your portfolio may briefly show no balances as it is refreshed.",
+        acknowledgeRequest: "Your Taostats Extension has been upgraded.",
       },
     })
 

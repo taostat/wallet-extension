@@ -1,7 +1,7 @@
 import { hexToU8a, u8aToHex } from "@polkadot/util"
 import { base64Decode, base64Encode } from "@polkadot/util-crypto"
 
-import { TalismanMetadataDef } from "../substrate/types"
+import { TMetadataDef } from "../substrate/types"
 
 // these are stored as base64 for lower storage size
 export const decodeMetaCalls = (encoded: string) => base64Decode(encoded)
@@ -17,7 +17,7 @@ export const encodeMetadataRpc = (metadataRpc: `0x${string}`) => base64Encode(he
  * @param metadata
  * @returns a value that can be used to initialize a TypeRegistry
  */
-export const getMetadataFromDef = (metadata: TalismanMetadataDef) => {
+export const getMetadataFromDef = (metadata: TMetadataDef) => {
   try {
     if (metadata.metadataRpc) return decodeMetadataRpc(metadata.metadataRpc)
     if (metadata.metaCalls) return decodeMetaCalls(metadata.metaCalls)
@@ -28,7 +28,7 @@ export const getMetadataFromDef = (metadata: TalismanMetadataDef) => {
   return undefined
 }
 
-export const getMetadataRpcFromDef = (metadataDef?: TalismanMetadataDef) => {
+export const getMetadataRpcFromDef = (metadataDef?: TMetadataDef) => {
   if (metadataDef?.metadataRpc) return decodeMetadataRpc(metadataDef.metadataRpc)
   return undefined
 }

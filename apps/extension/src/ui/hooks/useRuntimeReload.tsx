@@ -1,5 +1,5 @@
 import { connectionMetaDb } from "@taostats-wallet/connection-meta"
-import { assetDiscoveryStore, db as talismanDb } from "extension-core"
+import { assetDiscoveryStore, db as mainDb } from "extension-core"
 import { useCallback, useState } from "react"
 
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
@@ -17,10 +17,10 @@ export const useRuntimeReload = (analyticsPage: AnalyticsPage) => {
     await Promise.allSettled([
       assetDiscoveryStore.reset(),
       connectionMetaDb.delete(),
-      talismanDb.metadata.clear(),
-      talismanDb.blobs.clear(), // chaindata, balances, nfts etc
-      tryDeleteDatabase("TalismanChaindata"), // old chaindata db
-      tryDeleteDatabase("TalismanChaindataV4"), // current chaindata db, it will be recreated on next startup
+      mainDb.metadata.clear(),
+      mainDb.blobs.clear(), // chaindata, balances, nfts etc
+      tryDeleteDatabase("TaostatsExtensionChaindata"), // old chaindata db
+      tryDeleteDatabase("TaostatsExtensionChaindataV4"), // current chaindata db, it will be recreated on next startup
     ])
 
     chrome.runtime.reload()

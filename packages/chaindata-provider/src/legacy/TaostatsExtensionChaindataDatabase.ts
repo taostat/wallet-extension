@@ -6,13 +6,13 @@ import { upgradeRemoveSymbolFromNativeTokenId } from "../upgrades/2024-01-25-upg
 import { LegacyChain, LegacyChainId, LegacyCustomChain } from "./Chain"
 import { LegacyCustomEvmNetwork, LegacyEvmNetwork, LegacyEvmNetworkId } from "./EvmNetwork"
 
-class TalismanChaindataDatabase extends Dexie {
+class TaostatsExtensionChaindataDatabase extends Dexie {
   chains!: Dexie.Table<LegacyChain | LegacyCustomChain, LegacyChainId>
   evmNetworks!: Dexie.Table<LegacyEvmNetwork | LegacyCustomEvmNetwork, LegacyEvmNetworkId>
   tokens!: Dexie.Table<Token, TokenId>
 
   constructor() {
-    super("TalismanChaindata")
+    super("TaostatsExtensionChaindata")
 
     // https://dexie.org/docs/Tutorial/Design#database-versioning
     this.version(2)
@@ -33,4 +33,4 @@ class TalismanChaindataDatabase extends Dexie {
 }
 
 /** @deprecated */
-export const getChaindataDbV3 = () => new TalismanChaindataDatabase()
+export const getChaindataDbV3 = () => new TaostatsExtensionChaindataDatabase()
