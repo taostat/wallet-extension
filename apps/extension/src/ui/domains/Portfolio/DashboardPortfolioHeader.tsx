@@ -1,7 +1,6 @@
 import {
   ArrowDownIcon,
   CreditCardIcon,
-  ExternalLinkIcon,
   FolderIcon,
   MoreHorizontalIcon,
   RepeatIcon,
@@ -15,7 +14,6 @@ import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMatch } from "react-router-dom"
 import {
-  Button,
   ContextMenuTrigger,
   IconButton,
   Tooltip,
