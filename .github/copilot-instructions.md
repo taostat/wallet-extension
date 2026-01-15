@@ -35,7 +35,7 @@
 ## Architecture & Reuse
 
 - Favor **RxJS (+ @react-rxjs/core)** for state/logic that must run in both UI and service-worker contexts so we can reuse the same streams across backend and frontend; React local state is fine for purely local UI concerns.
-- Reuse existing packages/modules (`@talismn/balances`, `chaindata-provider`, shared stores, UI components) before inventing new abstractions.
+- Reuse existing packages/modules before inventing new abstractions.
 - Keep modules composable and documented (see `BalancesModules.md` for expectations on APIs, storage, hydration).
 - Encourage `lodash-es` helpers when they keep code clear/concise.
 - Ensure opt-in analytics/telemetry flows stay optional and clearly communicated (see `AnalyticsOptInInfo.tsx`).

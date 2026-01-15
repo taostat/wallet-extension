@@ -1,20 +1,18 @@
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { OptionSwitch } from "@taostats/components/OptionSwitch"
 import { Spacer } from "@taostats/components/Spacer"
-import { ProviderType } from "extension-core"
-import { TAOSTATS_WEB_APP_URL } from "extension-shared"
-import { useMemo, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
+import { useMemo } from "react"
+import { useTranslation } from "react-i18next"
 
 import { useAuthorisedSites } from "@ui/state"
 
 import { AuthorizedSite } from "./AuthorisedSite"
 import { AuthorisedSitesBatchActions } from "./AuthorisedSiteBatchActions"
 
+const providerType = "polkadot"
+
 export const AuthorisedSites = () => {
   const { t } = useTranslation()
   const sites = useAuthorisedSites()
-  const [providerType, setProviderType] = useState<ProviderType>("polkadot")
 
   const siteIds = useMemo(() => {
     if (!sites) return []
@@ -23,33 +21,18 @@ export const AuthorisedSites = () => {
       switch (providerType) {
         case "polkadot":
           return !!site.addresses
-        case "ethereum":
-          return !!site.ethAddresses
-        case "solana":
-          return !!site.solAddresses
         default:
           return false
       }
     })
-  }, [providerType, sites])
+  }, [sites])
 
-  const [hasPolkadotSites, hasEthereumSites, hasSolanaSites] = useMemo(
-    () => [
-      Object.values(sites).some((site) => !!site.addresses),
-      Object.values(sites).some((site) => !!site.ethAddresses),
-      Object.values(sites).some((site) => !!site.solAddresses),
-    ],
+  const [hasPolkadotSites] = useMemo(
+    () => [Object.values(sites).some((site) => !!site.addresses)],
     [sites],
   )
 
-  const showBatchActions = useMemo(
-    () =>
-      (providerType === "polkadot" && hasPolkadotSites) ||
-      (providerType === "ethereum" && hasEthereumSites) ||
-      (providerType === "solana" && hasSolanaSites),
-
-    [hasEthereumSites, hasPolkadotSites, hasSolanaSites, providerType],
-  )
+  const showBatchActions = hasPolkadotSites
 
   return (
     <>
@@ -59,18 +42,6 @@ export const AuthorisedSites = () => {
       />
       <Spacer large />
       <div className="flex items-center justify-between">
-        <div>
-          <OptionSwitch
-            options={[
-              ["ethereum", t("Ethereum")],
-              ["polkadot", t("Polkadot")],
-              ["solana", t("Solana")],
-            ]}
-            className="text-xs [&>div]:h-full"
-            defaultOption="ethereum"
-            onChange={setProviderType}
-          />
-        </div>
         {showBatchActions && <AuthorisedSitesBatchActions providerType={providerType} />}
       </div>
       <Spacer small />
@@ -80,32 +51,7 @@ export const AuthorisedSites = () => {
         ))}
         {providerType === "polkadot" && !hasPolkadotSites && (
           <div className="bg-grey-850 text-body-secondary w-full rounded p-8">
-            <Trans
-              t={t}
-              components={{
-                Link: (
-                  // eslint-disable-next-line jsx-a11y/anchor-has-content
-                  <a
-                    href={TAOSTATS_WEB_APP_URL}
-                    target="_blank"
-                    className="text-grey-200 hover:text-body"
-                  ></a>
-                ),
-              }}
-              defaults="You haven't connected to any Polkadot sites yet. Why not start with <Link>Talisman Portal</Link>?"
-            ></Trans>
-          </div>
-        )}
-        {sites && !hasEthereumSites && providerType === "ethereum" && (
-          // This should never be displayed unless we decide to display the provider switcher without check
-          <div className="bg-grey-850 text-body-secondary w-full rounded p-8">
-            {t("You haven't connected to any Ethereum sites yet.")}
-          </div>
-        )}
-        {sites && !hasSolanaSites && providerType === "solana" && (
-          // This should never be displayed unless we decide to display the provider switcher without check
-          <div className="bg-grey-850 text-body-secondary w-full rounded p-8">
-            {t("You haven't connected to any Solana sites yet.")}
+            {t("You haven't connected to any sites yet.")}
           </div>
         )}
       </div>

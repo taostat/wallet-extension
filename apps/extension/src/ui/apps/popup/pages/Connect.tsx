@@ -174,15 +174,12 @@ export const ConnectPolkadot: ConnectComponent = ({
 
   return (
     <PopupContent>
-      <h3 className="text-body-secondary mb-6 mt-0 pt-10 text-sm">
-        {t("Choose the account(s) you'd like to connect")}
-      </h3>
       <section className="flex flex-col gap-4">
         <ConnectAccountsContainer
           status="disabled"
           connectedAddresses={connected}
           label={t("Polkadot")}
-          infoText={t(`Accounts will be connected via the Polkadot provider`)}
+          infoText={t(`Choose which accounts you want to connect`)}
           isSingleProvider
         >
           <ConnectedAccountsPolkadot

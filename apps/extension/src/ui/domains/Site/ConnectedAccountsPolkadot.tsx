@@ -1,8 +1,6 @@
-import { InfoIcon } from "@taostats-wallet/icons"
 import { Account, isAccountAddressEthereum } from "extension-core"
 import { FC, Fragment, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { ConnectAccountToggleButtonRow } from "./ConnectAccountToggleButtonRow"
 
@@ -45,39 +43,9 @@ export const ConnectedAccountsPolkadot: FC<{
     onUpdateAccounts(displayedAccounts.map(([a]) => a.address))
   }, [displayedAccounts, onUpdateAccounts])
 
-  const handleToggleEvmAccounts = useCallback(() => {
-    setEnableEvmAccounts((enabled) => {
-      if (enabled) {
-        onUpdateAccounts(
-          activeAccounts
-            .filter(([acc, isConnected]) => !isAccountAddressEthereum(acc) && isConnected)
-            .map(([a]) => a.address),
-        )
-      }
-      return !enabled
-    })
-  }, [activeAccounts, onUpdateAccounts])
-
   return (
     <>
       <div className="mb-2 mt-6 flex w-full items-center justify-between gap-3 overflow-hidden px-8 text-xs">
-        <Checkbox
-          checked={enableEvmAccounts}
-          onClick={handleToggleEvmAccounts}
-          childProps={{ className: "flex items-center gap-2" }}
-        >
-          <span className="truncate">{t("Ethereum accounts")}</span>
-          <Tooltip>
-            <TooltipTrigger>
-              <InfoIcon />
-            </TooltipTrigger>
-            <TooltipContent>
-              {t(
-                "Some Polkadot apps may not work with Ethereum-type accounts. Using an EVM account via Substrate could break certain dApps.",
-              )}
-            </TooltipContent>
-          </Tooltip>
-        </Checkbox>
         <div className="flex items-center gap-2 truncate">
           <button
             type="button"

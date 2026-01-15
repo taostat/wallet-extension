@@ -28,7 +28,6 @@ import * as yup from "yup"
 
 import { api } from "@ui/api"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
-import { AccountPlatformSelector } from "@ui/domains/Account/AccountPlatformSelector"
 import { useAccounts } from "@ui/state"
 
 import { BackToAddAccountButton } from "../BackToAddAccountButton"
@@ -204,22 +203,6 @@ export const AccountAddMnemonicForm = () => {
       }
     },
     [updateData, navigate, t, onSuccess],
-  )
-
-  const handleTypeChange = useCallback(
-    (platform: AccountPlatform) => {
-      setValue("platform", platform, { shouldValidate: true })
-      setValue(
-        "derivationPath",
-        platform === "ethereum"
-          ? getEthDerivationPath()
-          : getDerivationPathForCurve(getDefaultCurveForAccountPlatform(platform)),
-        {
-          shouldValidate: true,
-        },
-      )
-    },
-    [setValue],
   )
 
   const handleModeChange = useCallback(
