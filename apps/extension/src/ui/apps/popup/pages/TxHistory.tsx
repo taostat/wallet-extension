@@ -43,9 +43,7 @@ const Header = () => {
   return (
     <div className="flex w-full shrink-0 flex-col gap-2 px-8 py-12">
       <div className="text-body text-lg font-bold">{t("Recent Activity")}</div>
-      <div className="text-body-secondary text-xs">
-        {t("Review the latest transactions submitted by Talisman.")}
-      </div>
+      <div className="text-body-secondary text-xs">{t("Review your latest transactions.")}</div>
     </div>
   )
 }

@@ -7,7 +7,7 @@ import { LegacyWalletTransaction, WalletTransaction } from "../domains/transacti
 import { DbBlobId, DbBlobItem } from "./blobs"
 import { upgradeRemoveSymbolFromNativeTokenId } from "./upgrades/2024-01-25-upgradeRemoveSymbolFromNativeTokenId"
 
-export const MIGRATION_ERROR_MSG = "Talisman Dexie Migration Error"
+export const MIGRATION_ERROR_MSG = "Dexie Migration Error"
 
 class TaostatsExtensionDatabase extends Dexie {
   assetDiscovery!: Dexie.Table<DiscoveredBalance, string>

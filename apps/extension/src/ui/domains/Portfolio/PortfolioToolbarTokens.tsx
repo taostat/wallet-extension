@@ -1,4 +1,4 @@
-import { GlobeIcon, ToolbarSortIcon } from "@taostats-wallet/icons"
+import { ExternalLinkIcon, GlobeIcon, ToolbarSortIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { SearchInput } from "@taostats/components/SearchInput"
 import { t } from "i18next"
@@ -30,6 +30,7 @@ import { IS_POPUP } from "@ui/util/constants"
 import { NetworkLogo } from "../Networks/NetworkLogo"
 import { NetworkOptionsModal } from "./NetworkOptionsModal"
 import { PortfolioToolbarButton } from "./PortfolioToolbarButton"
+import { usePortfolioNavigation } from "./usePortfolioNavigation"
 
 const NetworkFilterButton = () => {
   const allNetworkOptions = useAllNetworkOptions()
@@ -145,6 +146,29 @@ const TokensSortButton = () => {
   )
 }
 
+const OpenInTaostatsButton = () => {
+  const { selectedAccount } = usePortfolioNavigation()
+
+  const handleOpenCurrentAccountInTaostats = useCallback(() => {
+    if (!selectedAccount) return
+    window.open(`https://dash.taostats.io/portfolio/${selectedAccount.address}`, "_blank")
+  }, [selectedAccount])
+
+  if (!selectedAccount) return null
+  return (
+    <>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <PortfolioToolbarButton onClick={handleOpenCurrentAccountInTaostats}>
+            <ExternalLinkIcon />
+          </PortfolioToolbarButton>
+        </TooltipTrigger>
+        <TooltipContent>Open in Taostats Porfolio Tracker</TooltipContent>
+      </Tooltip>
+    </>
+  )
+}
+
 export const PortfolioToolbarTokens = () => {
   return (
     <div className="@container flex h-16 w-full min-w-[30rem] shrink-0 items-center justify-between gap-4 overflow-hidden">
@@ -155,6 +179,7 @@ export const PortfolioToolbarTokens = () => {
         {!IS_POPUP && <TokensSortButton />}
         <NetworkFilterButton />
       </div>
+      <OpenInTaostatsButton />
     </div>
   )
 }
