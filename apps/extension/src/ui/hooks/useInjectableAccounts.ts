@@ -7,13 +7,13 @@ import {
   isAccountPlatformSolana,
   ProviderType,
 } from "extension-core"
-import { isTalismanUrl } from "extension-shared"
+import { isInternalUrl } from "extension-shared"
 import { useMemo } from "react"
 
 import { useAccounts, useSettingValue } from "@ui/state"
 
 export const useInjectableAccounts = (siteUrl: string, provider: ProviderType) => {
-  const isTalismanSite = isTalismanUrl(siteUrl)
+  const isInternalSite = isInternalUrl(siteUrl)
   const isDevMode = useSettingValue("developerMode")
   const accounts = useAccounts()
 
@@ -30,9 +30,9 @@ export const useInjectableAccounts = (siteUrl: string, provider: ProviderType) =
 
   return useMemo(() => {
     if (isDevMode) return providerCompatibleAccounts
-    if (isTalismanSite) return providerCompatibleAccounts.filter(isAccountNotContact)
+    if (isInternalSite) return providerCompatibleAccounts.filter(isAccountNotContact)
     return providerCompatibleAccounts.filter(
       (account) => !isAccountInTypes(account, ["contact", "watch-only"]),
     )
-  }, [isDevMode, isTalismanSite, providerCompatibleAccounts])
+  }, [isDevMode, isInternalSite, providerCompatibleAccounts])
 }

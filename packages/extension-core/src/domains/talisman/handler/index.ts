@@ -1,5 +1,5 @@
 import { isNetworkCustom, isTokenCustom } from "@taostats-wallet/chaindata-provider"
-import { isTalismanUrl } from "extension-shared"
+import { isInternalUrl } from "extension-shared"
 import { map } from "rxjs"
 
 import type { MessageTypes, RequestTypes, ResponseType } from "../../../types"
@@ -31,9 +31,9 @@ export default class TalismanHandler extends TabsHandler {
     url: string,
   ): Promise<ResponseType<TMessageType>> {
     // these methods are pub() because they're exposed to dapps,
-    // BUT they're actually only exposed to dapps where isTalismanHostname is true
+    // BUT they're actually only exposed to dapps where isInternalHostname is true
     // which is only app.talisman.xyz in production, and also localhost in dev
-    if (!isTalismanUrl(url)) throw new Error(`Origin not allowed for message type ${type}`)
+    if (!isInternalUrl(url)) throw new Error(`Origin not allowed for message type ${type}`)
 
     switch (type) {
       case "pub(talisman.customSubstrateChains.subscribe)": {

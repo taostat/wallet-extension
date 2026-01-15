@@ -1,2 +1,2 @@
-export * from "./isTalismanHostname"
-export * from "./isTalismanUrl"
+export * from "./isInternalHostname"
+export * from "./isInternalUrl"

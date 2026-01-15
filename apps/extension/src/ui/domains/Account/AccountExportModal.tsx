@@ -54,7 +54,7 @@ export const useAccountExportModal = () => {
     async (password: string, newPw: string) => {
       if (!account) return
       const { exportedJson } = await api.accountExport(account.address, password, newPw)
-      downloadJson(exportedJson, `${exportedJson.meta?.name || "talisman"}`)
+      downloadJson(exportedJson, `${exportedJson.meta?.name || "taostats"}`)
     },
     [account],
   )

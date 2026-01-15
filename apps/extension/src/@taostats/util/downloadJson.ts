@@ -3,7 +3,7 @@ type TJson = {
   [key: string]: any
 }
 
-const downloadJson = (json: TJson, name = "talisman") => {
+const downloadJson = (json: TJson, name = "taostats") => {
   const blob = new Blob([JSON.stringify(json, null, 2)], { type: "text/json" })
   const link = document.createElement("a")
 

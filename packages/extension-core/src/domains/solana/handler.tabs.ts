@@ -18,7 +18,7 @@ import { urlToDomain } from "../../util/urlToDomain"
 import { keyringStore } from "../keyring/store"
 import { signSolana } from "../signing/requests"
 import { SolSignRequest, SolSignResult } from "../signing/types"
-import { requestAuthoriseSite, requestSolanaSignIn } from "../sitesAuthorised/requests"
+import { requestAuthoriseSite } from "../sitesAuthorised/requests"
 import sitesAuthorisedStore from "../sitesAuthorised/store"
 import { AuthorizedSite } from "../sitesAuthorised/types"
 import { watchSolanaTransaction } from "../transactions/watchSolanaTransaction"
@@ -39,14 +39,6 @@ export class SolanaTabsHandler extends TabsHandler {
           url,
           port,
           request as RequestTypes["pub(solana.provider.subscribe)"],
-        )
-      }
-
-      case "pub(solana.provider.signIn)": {
-        return requestSolanaSignIn(
-          request as RequestTypes["pub(solana.provider.signIn)"],
-          url,
-          port,
         )
       }
 

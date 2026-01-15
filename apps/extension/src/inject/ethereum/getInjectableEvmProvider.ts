@@ -44,7 +44,7 @@ export const getInjectableEvmProvider = (sendRequest: SendRequest) => {
   // prevents errors on dapps which unbind methods of the object (ex: orbiter.finance)
   // makes it hard to type, but we don't need to as we don't consume it ourselves
   const provider: any = {
-    isTalisman: true,
+    isTaostats: true,
     isMetaMask: true, // dapps use this to determine if wallet supports adding custom networks and tokens
 
     // MM's quick access properties

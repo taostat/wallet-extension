@@ -34,6 +34,6 @@ export const announceProvider = (provider: EthProvider) => {
   // respond to dapp requesting announcements
   window.addEventListener("eip6963:requestProvider", broadcast)
 
-  // broadcast the provider immediately (in case Talisman injects after the dapp has requested announcements)
+  // broadcast the provider immediately (in case the extension injects after the dapp has requested announcements)
   broadcast()
 }

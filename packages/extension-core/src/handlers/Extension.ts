@@ -1,5 +1,5 @@
 import { isAccountOwned } from "@taostats-wallet/keyring"
-import { IS_FIREFOX, isTalismanHostname } from "extension-shared"
+import { IS_FIREFOX, isInternalHostname } from "extension-shared"
 
 import { db } from "../db"
 import { AccountsHandler } from "../domains/accounts"
@@ -92,7 +92,7 @@ export default class Extension extends ExtensionHandler {
           const existingAddresses = autoAddSite.addresses || []
 
           const newAddresses = accounts
-            .filter((acc) => isTalismanHostname(autoAddSite.url) || isAccountOwned(acc))
+            .filter((acc) => isInternalHostname(autoAddSite.url) || isAccountOwned(acc))
             .filter(({ address }) => !existingAddresses.includes(address))
             .map(({ address }) => address)
 

@@ -158,8 +158,6 @@ export const api: MessageTypes = {
     messageService.sendMessage("pri(sites.requests.approve)", { id, addresses }),
   authrequestReject: (id) => messageService.sendMessage("pri(sites.requests.reject)", { id }),
   authrequestIgnore: (id) => messageService.sendMessage("pri(sites.requests.ignore)", { id }),
-  authrequestApproveSolSignIn: (id, result) =>
-    messageService.sendMessage("pri(sites.requests.approveSolSignIn)", { id, result }),
 
   // track metadata updates ----------------------------------------------
   metadataUpdatesSubscribe: (genesisHash, cb) =>

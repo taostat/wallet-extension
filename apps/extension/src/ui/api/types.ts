@@ -19,7 +19,6 @@ import {
   AuthorizedSites,
   AuthRequestAddresses,
   AuthRequestId,
-  AuthSolanaSignInApprove,
   BalanceSubscriptionResponse,
   BittensorValidator,
   ChangePasswordStatusUpdate,
@@ -28,7 +27,6 @@ import {
   DefiPosition,
   EncryptRequestId,
   EvmAddress,
-  KnownRequestId,
   LoggedinType,
   MetadataUpdateStatus,
   Mnemonic,
@@ -176,10 +174,6 @@ export default interface MessageTypes {
   authrequestApprove: (id: AuthRequestId, addresses: AuthRequestAddresses) => Promise<boolean>
   authrequestReject: (id: AuthRequestId) => Promise<boolean>
   authrequestIgnore: (id: AuthRequestId) => Promise<boolean>
-  authrequestApproveSolSignIn: (
-    id: KnownRequestId<"auth-sol-signIn">,
-    result: AuthSolanaSignInApprove["result"],
-  ) => Promise<boolean>
 
   metadataUpdatesSubscribe: (
     genesisHash: HexString,

@@ -1,6 +1,6 @@
 import { assert } from "@polkadot/util"
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { isTalismanHostname } from "extension-shared"
+import { isInternalHostname } from "extension-shared"
 
 import { SubscribableByIdStorageProvider } from "../../libs/Store"
 import { urlToDomain } from "../../util/urlToDomain"
@@ -107,7 +107,7 @@ export class SitesAuthorizedStore extends SubscribableByIdStorageProvider<
           }
         }
         // don't forget Talisman web app
-        if (type === "polkadot" && !isTalismanHostname(host)) {
+        if (type === "polkadot" && !isInternalHostname(host)) {
           if (!sites[host].ethAddresses) delete sites[host]
           else {
             delete sites[host].addresses
@@ -123,7 +123,7 @@ export class SitesAuthorizedStore extends SubscribableByIdStorageProvider<
     await this.mutate((sites) => {
       for (const host of Object.keys(sites)) {
         // disconnect all accounts unless it's Talisman web app
-        if (type === "polkadot" && sites[host].addresses && !isTalismanHostname(host))
+        if (type === "polkadot" && sites[host].addresses && !isInternalHostname(host))
           sites[host].addresses = []
         if (type === "ethereum" && sites[host].ethAddresses) sites[host].ethAddresses = []
       }

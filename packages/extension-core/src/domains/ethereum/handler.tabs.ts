@@ -9,7 +9,7 @@ import {
 } from "@taostats-wallet/chaindata-provider"
 import { normalizeAddress } from "@taostats-wallet/crypto"
 import { throwAfter } from "@taostats-wallet/util"
-import { DEFAULT_ETH_CHAIN_ID, isTalismanUrl, log } from "extension-shared"
+import { DEFAULT_ETH_CHAIN_ID, isInternalUrl, log } from "extension-shared"
 import i18next from "i18next"
 import {
   createClient,
@@ -181,7 +181,7 @@ export class EthTabsHandler extends TabsHandler {
         filterAccountsByAddresses(site.ethAddresses),
         {
           developerMode: await this.stores.settings.get("developerMode"),
-          includePortalOnlyInfo: isTalismanUrl(site.url),
+          includePortalOnlyInfo: isInternalUrl(site.url),
         },
       )
         .filter(({ type }) => type === "ethereum")

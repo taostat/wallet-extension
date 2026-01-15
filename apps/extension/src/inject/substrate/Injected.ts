@@ -10,7 +10,7 @@ import Signer from "@polkadot/extension-base/page/Signer"
 
 // external to class
 let sendRequest: SendRequest
-export class TalismanSigner extends Signer {
+export class TaostatsSigner extends Signer {
   constructor(_sendRequest: SendRequest) {
     super(_sendRequest)
     sendRequest = _sendRequest
@@ -33,11 +33,11 @@ export class TalismanSigner extends Signer {
   }
 }
 
-export default class TalismanInjected extends PolkadotInjected {
-  public readonly signer: TalismanSigner
+export default class TaostatsInjected extends PolkadotInjected {
+  public readonly signer: TaostatsSigner
 
   constructor(sendRequest: SendRequest) {
     super(sendRequest)
-    this.signer = new TalismanSigner(sendRequest)
+    this.signer = new TaostatsSigner(sendRequest)
   }
 }

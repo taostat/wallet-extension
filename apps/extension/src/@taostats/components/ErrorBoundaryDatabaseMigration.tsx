@@ -5,7 +5,7 @@ import { ProcessAnimation } from "taostats-ui"
 const ErrorMessage = () => (
   <div className="text-whit mx-auto flex h-[60rem] w-[40rem] flex-col px-12 py-16 text-center">
     <div className="flex grow flex-col justify-center font-bold">
-      <div className="text-xl">Updating Talisman</div>
+      <div className="text-xl">Updating</div>
       <div className="my-[4.4rem]">
         <ProcessAnimation status="processing" className="h-[15rem]" />
       </div>

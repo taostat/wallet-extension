@@ -3,13 +3,11 @@
 
 // Adapted from https://github.com/polkadot-js/extension/packages/extension-base/src/page.ts
 import type { Message } from "@polkadot/extension-base/types"
-import { DEBUG, isTalismanHostname } from "extension-shared"
-import { injectSolana } from "inject/solana/injectSolana"
+import { DEBUG, isInternalHostname } from "extension-shared"
 
 import type { Injected } from "./inject/substrate/types"
 import WindowMessageService from "./common/WindowMessageService"
-import { injectEthereum } from "./inject/ethereum/injectEthereum"
-import TalismanInjected from "./inject/substrate/Injected"
+import TaostatsInjected from "./inject/substrate/Injected"
 import { injectExtension } from "./inject/substrate/injectExtension"
 import { injectSubstrate } from "./inject/substrate/injectSubstrate"
 
@@ -32,10 +30,10 @@ const redirectIfPhishing = () => messageService.sendMessage("pub(phishing.redire
 const enable = async (origin: string): Promise<Injected> => {
   await messageService.sendMessage("pub(authorize.tab)", { origin, provider: "polkadot" })
 
-  // Pretend that the TalismanInjected object is an Injected object (v. similar) to make the injectExtension work
+  // Pretend that the TaostatsInjected object is an Injected object (v. similar) to make the injectExtension work
   // Pretty sure there is a bug in Polkadot.js's typings which means this is required
-  // Could cause problems if TalismanInjected diverges from Injected
-  return new TalismanInjected(messageService.sendMessage) as Injected
+  // Could cause problems if TaostatsInjected diverges from Injected
+  return new TaostatsInjected(messageService.sendMessage) as Injected
 }
 
 function inject() {
@@ -45,10 +43,7 @@ function inject() {
     version: process.env.VERSION ?? "",
   })
 
-  injectEthereum(messageService.sendMessage)
-  injectSolana(messageService.sendMessage)
-
-  if (isTalismanHostname(window.location.hostname)) injectSubstrate(messageService.sendMessage)
+  if (isInternalHostname(window.location.hostname)) injectSubstrate(messageService.sendMessage)
 }
 
 inject()

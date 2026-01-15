@@ -15,7 +15,7 @@ import {
 } from "@polkadot/extension-base/background/types"
 import { PHISHING_PAGE_REDIRECT } from "@polkadot/extension-base/defaults"
 import { assert, isNumber } from "@polkadot/util"
-import { isTalismanUrl, log } from "extension-shared"
+import { isInternalUrl, log } from "extension-shared"
 import { combineLatest } from "rxjs"
 
 import type { MessageTypes, RequestType, ResponseType, SubscriptionMessageTypes } from "../types"
@@ -109,7 +109,7 @@ export default class Tabs extends TabsHandler {
     return getPublicAccounts(
       await keyringStore.getAccounts(),
       filterAccountsByAddresses(site.addresses, anyType),
-      { developerMode, includePortalOnlyInfo: isTalismanUrl(site.url) },
+      { developerMode, includePortalOnlyInfo: isInternalUrl(site.url) },
     )
   }
 

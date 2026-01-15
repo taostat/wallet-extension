@@ -16,7 +16,7 @@ import type {
   Web3AccountsOptions,
 } from "@polkadot/extension-inject/types"
 
-import type { TalismanSigner as TalismanInjectedSigner } from "./Injected"
+import type { TaostatsSigner as TalismanInjectedSigner } from "./Injected"
 
 export type {
   InjectOptions,

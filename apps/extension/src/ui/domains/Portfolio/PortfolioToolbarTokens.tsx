@@ -163,7 +163,7 @@ const OpenInTaostatsButton = () => {
             <ExternalLinkIcon />
           </PortfolioToolbarButton>
         </TooltipTrigger>
-        <TooltipContent>Open in Taostats Porfolio Tracker</TooltipContent>
+        <TooltipContent>Open in Taostats Portfolio Tracker</TooltipContent>
       </Tooltip>
     </>
   )

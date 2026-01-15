@@ -44,7 +44,7 @@ module.exports = {
     "../../packages/extension-core/src/**/*.{ts,tsx}",
     // wallet ui
     "src/ui/**/*.{ts,tsx,md}",
-    // wallet @talisman components
+    // wallet @taostats components
     "src/@taostats/**/*.{ts,tsx}",
   ],
   output: ".i18next-parser/locales/$LOCALE/$NAMESPACE.json", // this should not be commited
