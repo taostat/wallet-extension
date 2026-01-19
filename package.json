@@ -47,7 +47,8 @@
     "test:e2e:debug": "pnpm exec playwright test --debug",
     "test:e2e:trace": "pnpm exec playwright test --trace on && pnpm exec playwright show-report",
     "test:e2e:stress": "pnpm exec playwright test --repeat-each=20 --workers 1 --trace on",
-    "clean": "pnpm run -r --parallel clean & rm -rf dist .turbo node_modules & wait"
+    "clean": "pnpm run -r --parallel clean & rm -rf dist .turbo node_modules & wait",
+    "vbump": "cd apps/extension && pnpm version patch --no-git-tag-version --no-commit-hooks"
   },
   "dependencies": {
     "polkadot-api": "1.13.1"
