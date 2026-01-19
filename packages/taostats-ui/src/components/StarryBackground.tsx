@@ -115,8 +115,8 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
 
     // Create shooting stars at random intervals
     const interval = setInterval(() => {
-      if (Math.random() < 0.2) {
-        // 20% chance every interval
+      if (Math.random() < 0.6) {
+        // 60% chance every interval
         createShootingStar()
       }
     }, 5000) // Check every 5 seconds

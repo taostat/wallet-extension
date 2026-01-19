@@ -133,13 +133,7 @@ export const [usePortfolioSymbolBalancesByFilter, getPortfolioSymbolBalancesByFi
         const symbolBalances = Object.entries(groupedByToken)
           .map(([key, tokenBalances]): SymbolBalances => [key, new Balances(tokenBalances)])
           .sort(sortFn)
-          .filter(
-            hideDust
-              ? ([, balances]) =>
-                  balances.each.flatMap((b) => b.token?.coingeckoId ?? []).length === 0 ||
-                  balances.sum.fiat("usd").total >= 1
-              : () => true,
-          )
+          .filter(hideDust ? ([, balances]) => balances.sum.fiat("usd").total >= 1 : () => true)
 
         const available = symbolBalances
           .map(([symbol, balances]): [string, Balances] => [
