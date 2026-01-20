@@ -41,10 +41,10 @@ const apiUrl = "https://lifi.talisman.xyz/v1"
 const PROTOCOL: SupportedSwapProtocol = "lifi" as const
 const PROTOCOL_NAME = "LI.FI"
 const DECENTRALISATION_SCORE = 2
-const TALISMAN_FEE = 0.002 // We take a fee of 0.2%
+const TAOSTATS_FEE = 0.002 // We take a fee of 0.2%
 const LIFI_FEE = 0.0025 // lifi takes a fee of 0.25%
 
-lifiSdk.createConfig({ integrator: "talisman", apiUrl })
+lifiSdk.createConfig({ integrator: "taostats", apiUrl })
 
 type RouteProps = {
   fromAssetId?: string
@@ -67,10 +67,10 @@ const customFeeForRoute = async ({
   // use default fee
   return undefined
 }
-const getTalismanFee = async (route: RouteProps) => {
+const getTaostatsFee = async (route: RouteProps) => {
   const customFee = await customFeeForRoute(route)
   if (customFee !== undefined) return customFee
-  return TALISMAN_FEE
+  return TAOSTATS_FEE
 }
 
 const assetsSelector = atom(async (get): Promise<SwappableAssetBaseType[]> => {
@@ -146,7 +146,7 @@ const routesAtom = atom(async (get) => {
 
     get(swapQuoteRefresherAtom)
 
-    const fee = await getTalismanFee({ fromAssetId: fromAsset?.id, toAssetId: toAsset?.id })
+    const fee = await getTaostatsFee({ fromAssetId: fromAsset?.id, toAssetId: toAsset?.id })
     return await lifiSdk.getRoutes({
       fromAddress,
       toAddress,
@@ -155,7 +155,7 @@ const routesAtom = atom(async (get) => {
       fromAmount: fromAmount.planck.toString(),
       fromTokenAddress: fromAsset.contractAddress ?? zeroAddress,
       toTokenAddress: toAsset.contractAddress ?? zeroAddress,
-      options: { integrator: "talisman", fee },
+      options: { integrator: "taostats", fee },
     })
   } catch (cause) {
     // eslint-disable-next-line no-console
@@ -217,16 +217,16 @@ const routeQuoteAtom = atomFamily((id: string) =>
         })
       }
 
-      // add talisman fee
-      const talismanFee = await getTalismanFee({
+      // add taostats fee
+      const taostatsFee = await getTaostatsFee({
         fromAssetId: fromAsset?.id,
         toAssetId: toAsset?.id,
       })
       fees.push({
         amount: BigNumber(step.estimate.fromAmount.toString())
           .times(10 ** -fromAsset.decimals)
-          .times(Math.round((LIFI_FEE + talismanFee) * 10_000) / 10_000),
-        name: "Talisman Fee",
+          .times(Math.round((LIFI_FEE + taostatsFee) * 10_000) / 10_000),
+        name: "Taostats Fee",
         tokenId: fromAsset.id,
       })
 
@@ -255,7 +255,7 @@ const routeQuoteAtom = atomFamily((id: string) =>
         fees,
         providerLogo: step.toolDetails.logoURI,
         providerName: step.toolDetails.name,
-        talismanFee: Math.round((LIFI_FEE + talismanFee) * 10_000) / 10_000,
+        taostatsFee: Math.round((LIFI_FEE + taostatsFee) * 10_000) / 10_000,
         data: { ...route, transactionRequest: transaction.transactionRequest },
         maxNativeTokenGasBuffer: totalGasLimit,
       }

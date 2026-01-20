@@ -3,11 +3,11 @@ import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { talismanRedHandSvg } from "../Sign/Qr/constants"
+import { taostatsRedHandSvg } from "../Sign/Qr/constants"
 
 export const TextQrCode = ({
   data,
-  image = talismanRedHandSvg,
+  image = taostatsRedHandSvg,
   imageOptions = {},
 }: {
   data?: string

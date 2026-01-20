@@ -69,19 +69,19 @@ export const useBittensorStakingPayload = ({
     return taoToAlpha(minTaoStake, alphaPrice)
   }, [minTaoStake, alphaPrice])
 
-  // amount to be swapped. in case of taoToAlpha on a subnet, we need to subtract the talisman fee first or it will invalidate the simulation.
+  // amount to be swapped. in case of taoToAlpha on a subnet, we need to subtract the taostats fee first or it will invalidate the simulation.
   const amount = useMemo(() => {
     if (typeof netuid !== "number" || typeof amountIn !== "bigint") return null
     if (netuid === 0) return amountIn
 
     switch (direction) {
       case "taoToAlpha": {
-        const talismanFee = calculateFee({
+        const taostatsFee = calculateFee({
           amount: amountIn,
           fee: subnetFee,
           seekDiscount: tier.discount,
         })
-        return amountIn - talismanFee
+        return amountIn - taostatsFee
       }
       case "alphaToTao":
         return amountIn
@@ -119,7 +119,7 @@ export const useBittensorStakingPayload = ({
     return Number(scaledPriceImpact) / 100
   }, [alphaPrice, swapPrice])
 
-  const talismanFee = useMemo(() => {
+  const taostatsFee = useMemo(() => {
     if (typeof amountIn !== "bigint" || !simulation) return null
     // WARNING: because of slippage it would make more sense to send alpha instead of tao when unstaking
     return calculateFee({
@@ -130,15 +130,15 @@ export const useBittensorStakingPayload = ({
   }, [amountIn, direction, simulation, subnetFee, tier.discount])
 
   const amountOut = useMemo(() => {
-    if (!simulation || typeof talismanFee !== "bigint") return 0n // TODO should be null
+    if (!simulation || typeof taostatsFee !== "bigint") return 0n // TODO should be null
 
     switch (direction) {
       case "taoToAlpha":
         return simulation.alpha_amount
       case "alphaToTao":
-        return simulation.tao_amount - talismanFee
+        return simulation.tao_amount - taostatsFee
     }
-  }, [direction, simulation, talismanFee])
+  }, [direction, simulation, taostatsFee])
 
   const {
     data: swapPayload,
@@ -153,7 +153,7 @@ export const useBittensorStakingPayload = ({
     hotkey,
     amount,
     priceLimit,
-    talismanFee,
+    taostatsFee,
   })
 
   const {
@@ -168,7 +168,7 @@ export const useBittensorStakingPayload = ({
     hotkey: hotkey ?? MOCKED_HOTKEY,
     amount: amount ?? minTaoBond,
     priceLimit: priceLimit ?? 1_000n,
-    talismanFee: talismanFee ?? 1_000n,
+    taostatsFee: taostatsFee ?? 1_000n,
   })
 
   return {
@@ -188,7 +188,7 @@ export const useBittensorStakingPayload = ({
       isErrorAlphaPrice,
     errorPayload,
     amountOut,
-    talismanFee,
+    taostatsFee,
     payload: swapPayload?.payload,
     txMetadata: swapPayload?.txMetadata,
     alphaPrice,
@@ -236,7 +236,7 @@ type useBittensorAnyStakingPayloadProps = {
   netuid: number | null
   amount: bigint | null | undefined
   priceLimit: bigint | null
-  talismanFee: bigint | null
+  taostatsFee: bigint | null
 }
 
 const useBittensorAnyStakingPayload = ({
@@ -247,7 +247,7 @@ const useBittensorAnyStakingPayload = ({
   hotkey,
   amount,
   priceLimit,
-  talismanFee,
+  taostatsFee,
 }: useBittensorAnyStakingPayloadProps) => {
   return useQuery({
     queryKey: [
@@ -259,7 +259,7 @@ const useBittensorAnyStakingPayload = ({
       hotkey,
       amount?.toString(),
       priceLimit?.toString(),
-      talismanFee?.toString(),
+      taostatsFee?.toString(),
     ],
     queryFn: () => {
       if (
@@ -268,7 +268,7 @@ const useBittensorAnyStakingPayload = ({
         !hotkey ||
         typeof amount !== "bigint" ||
         typeof priceLimit !== "bigint" ||
-        typeof talismanFee !== "bigint" ||
+        typeof taostatsFee !== "bigint" ||
         typeof netuid !== "number"
       )
         return null
@@ -282,7 +282,7 @@ const useBittensorAnyStakingPayload = ({
             amount,
             priceLimit,
             netuid,
-            talismanFee,
+            taostatsFee,
           })
         case "alphaToTao":
           return getBittensorUnbondPayload({
@@ -292,7 +292,7 @@ const useBittensorAnyStakingPayload = ({
             amount,
             priceLimit,
             netuid,
-            talismanFee,
+            taostatsFee,
           })
       }
     },

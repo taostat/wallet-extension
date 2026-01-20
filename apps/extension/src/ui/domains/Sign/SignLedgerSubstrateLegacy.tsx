@@ -3,7 +3,7 @@ import { log } from "extension-shared"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
-import { getTalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { getTaostatsLedgerError } from "@ui/hooks/ledger/errors"
 import { useLedgerSubstrateLegacy } from "@ui/hooks/ledger/useLedgerSubstrateLegacy"
 import { useAccountByAddress } from "@ui/state"
 
@@ -29,7 +29,7 @@ export const SignLedgerSubstrateLegacy: FC<SignHardwareSubstrateProps> = ({
   const signWithLedger = useCallback(async () => {
     if (!payload || !onSigned || !account) return
     if (isJsonPayload(payload) && !registry)
-      return setError(getTalismanLedgerError(t("Missing registry.")))
+      return setError(getTaostatsLedgerError(t("Missing registry.")))
 
     onSentToDevice?.(true)
     setIsSigning(true)
@@ -40,7 +40,7 @@ export const SignLedgerSubstrateLegacy: FC<SignHardwareSubstrateProps> = ({
       // await to keep loader spinning until popup closes
       await onSigned({ signature })
     } catch (err) {
-      const error = getTalismanLedgerError(err)
+      const error = getTaostatsLedgerError(err)
       log.error("signLedger", { error })
       setError(error)
     } finally {

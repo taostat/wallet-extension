@@ -97,17 +97,17 @@ export default class TalismanRpcHandler extends TabsHandler {
     url: string,
   ): Promise<ResponseType<TMessageType>> {
     switch (type) {
-      case "pub(talisman.rpc.byGenesisHash.send)":
+      case "pub(taostats.rpc.byGenesisHash.send)":
         return this.rpcTalismanByGenesisHashSend(request as RequestRpcByGenesisHashSend)
 
-      case "pub(talisman.rpc.byGenesisHash.subscribe)":
+      case "pub(taostats.rpc.byGenesisHash.subscribe)":
         return this.rpcTalismanByGenesisHashSubscribe(
           request as RequestRpcByGenesisHashSubscribe,
           id,
           port,
         )
 
-      case "pub(talisman.rpc.byGenesisHash.unsubscribe)":
+      case "pub(taostats.rpc.byGenesisHash.unsubscribe)":
         return this.rpcTalismanByGenesisHashUnsubscribe(
           request as RequestRpcByGenesisHashUnsubscribe,
         )

@@ -16,7 +16,7 @@ import type {
   Web3AccountsOptions,
 } from "@polkadot/extension-inject/types"
 
-import type { TaostatsSigner as TalismanInjectedSigner } from "./Injected"
+import type { TaostatsSigner as TaostatsInjectedSigner } from "./Injected"
 
 export type {
   InjectOptions,
@@ -44,7 +44,7 @@ export interface InjectedMetadata {
 }
 export interface Injected extends PjsInjected {
   metadata?: InjectedMetadata
-  signer: TalismanInjectedSigner
+  signer: TaostatsInjectedSigner
 }
 export interface InjectedWindowProvider {
   enable: (origin: string) => Promise<Injected>

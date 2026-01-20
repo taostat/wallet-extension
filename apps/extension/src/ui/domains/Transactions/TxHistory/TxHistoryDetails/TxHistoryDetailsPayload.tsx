@@ -92,7 +92,7 @@ export const TxHistoryDetailsPayload: FC<{
 }
 
 const decodeSolanaTx = (encoded: string) => {
-  // workaround bugged data encoding from older versions of Talisman
+  // workaround bugged data encoding from older versions of Taostats
   if (encoded.includes(",")) {
     // 1. Convert CSV string -> Uint8Array
     const byteArray = Uint8Array.from(

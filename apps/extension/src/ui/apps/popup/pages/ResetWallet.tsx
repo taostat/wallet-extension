@@ -47,13 +47,13 @@ const ConfirmDrawer = ({
             <AlertTriangleIcon className="text-brand-orange text-[4.8rem]" />
           </div>
           <div className="max-w-[30rem] font-bold leading-[2.2rem] text-white">
-            {t("Are you sure you want to reset your Talisman wallet?")}
+            {t("Are you sure you want to reset your Taostats wallet?")}
           </div>
         </div>
         <div className="text-body-secondary my-8 text-sm">
           <p className="px-4 text-center">
             {t(
-              "Your current wallet, accounts and assets will be erased from Talisman. You will need to re-import your original account using your recovery (seed) phrase or private key.",
+              "Your current wallet, accounts and assets will be erased from Taostats. You will need to re-import your original account using your recovery (seed) phrase or private key.",
             )}
           </p>
           <p className="mt-12 text-center">

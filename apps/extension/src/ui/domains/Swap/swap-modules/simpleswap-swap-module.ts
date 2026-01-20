@@ -71,16 +71,16 @@ import simpleswapLogo from "./simpleswap-logo.svg?url"
 export const PROTOCOL: SupportedSwapProtocol = "simpleswap"
 export const PROTOCOL_NAME = "SimpleSwap"
 const DECENTRALISATION_SCORE = 1
-const TALISMAN_FEE = 0.015
-const TALISMAN_FEE_DISCOUNTED = 0.004
+const TAOSTATS_FEE = 0
+const TAOSTATS_FEE_DISCOUNTED = 0
 
 type RouteProps = { currencyFrom: string; currencyTo: string }
 const discountedRoute = async ({ currencyFrom, currencyTo }: RouteProps) => {
   const { simpleswapDiscountedCurrencies: discounted = [] } = await remoteConfigStore.get("swaps")
   return discounted.includes(currencyFrom) || discounted.includes(currencyTo)
 }
-const getTalismanFee = async (route: RouteProps) =>
-  (await discountedRoute(route)) ? TALISMAN_FEE_DISCOUNTED : TALISMAN_FEE
+const getTaostatsFee = async (route: RouteProps) =>
+  (await discountedRoute(route)) ? TAOSTATS_FEE_DISCOUNTED : TAOSTATS_FEE
 const getApiKey = async (route: RouteProps) =>
   (await discountedRoute(route))
     ? (await remoteConfigStore.get("swaps")).simpleswapApiKeyDiscounted
@@ -569,7 +569,7 @@ const quote: QuoteFunction = loadable(
       currencyTo,
       fixed: false,
     })
-    const talismanFee = await getTalismanFee({ currencyFrom, currencyTo })
+    const taostatsFee = await getTaostatsFee({ currencyFrom, currencyTo })
 
     // check for error object
     if (!output || typeof output !== "string") {
@@ -584,19 +584,19 @@ const quote: QuoteFunction = loadable(
           fees: [],
           providerLogo: LOGO,
           providerName: PROTOCOL_NAME,
-          talismanFee,
+          taostatsFee,
         }
       }
       return null
     }
 
     const gasFee = await estimateGas(get)
-    // add talisman fee
+    // add taostats fee
     const fees: QuoteFee[] = (gasFee ? [gasFee] : []).concat({
       amount: BigNumber(fromAmount.planck.toString())
         .times(10 ** -fromAmount.decimals)
-        .times(talismanFee),
-      name: "Talisman Fee",
+        .times(taostatsFee),
+      name: "Taostats Fee",
       tokenId: fromAsset.id,
     })
 
@@ -610,7 +610,7 @@ const quote: QuoteFunction = loadable(
       fees,
       providerLogo: LOGO,
       providerName: PROTOCOL_NAME,
-      talismanFee,
+      taostatsFee,
     }
   }),
 )

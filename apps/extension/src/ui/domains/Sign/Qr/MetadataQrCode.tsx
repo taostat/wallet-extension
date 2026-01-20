@@ -26,7 +26,7 @@ export const MetadataQrCode = ({ genesisHash, specVersion, qrCodeSource }: Props
       const hexData = await api.generateChainMetadataQr(genesisHash, Number(specVersion))
       return hexToU8a(hexData)
     },
-    enabled: qrCodeSource === "talisman",
+    enabled: qrCodeSource === "taostats",
     refetchInterval: false,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -34,7 +34,7 @@ export const MetadataQrCode = ({ genesisHash, specVersion, qrCodeSource }: Props
 
   const qrCodeLogo = qrCodeLogoForSource(qrCodeSource)
   const [ref, loaded, onLoad] = useImageLoaded()
-  if (latestMetadataQrUrl && qrCodeSource !== "talisman")
+  if (latestMetadataQrUrl && qrCodeSource !== "taostats")
     return (
       <>
         <img

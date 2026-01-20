@@ -21,7 +21,7 @@ export const SignDcentUnsupportedMessage: FC<
   const { t } = useTranslation()
 
   const [displayedErrorMessage, setDisplayedErrorMessage] = useState<string | undefined>(
-    t("Sorry, D'CENT is no longer supported in Talisman"),
+    t("Sorry, D'CENT is no longer supported in Taostats"),
   )
 
   return (

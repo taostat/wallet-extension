@@ -110,7 +110,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
     },
   })
 
-  const { isActive, setActive, isActiveSetByUser, resetToTalismanDefault } =
+  const { isActive, setActive, isActiveSetByUser, resetToTaostatsDefault } =
     useActivableToken(token)
 
   return (
@@ -354,7 +354,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                   <TooltipTrigger
                     className="text-primary text-xs"
                     type="button"
-                    onClick={resetToTalismanDefault}
+                    onClick={resetToTaostatsDefault}
                   >
                     <RotateCcwIcon />
                   </TooltipTrigger>
@@ -548,8 +548,8 @@ const ConfirmRemove: FC<{
         <div className="text-base">
           {isTokenKnown(saved) ? (
             <Trans t={t}>
-              This will reset <span className="text-body">{saved?.symbol}</span> to its Talisman
-              default state. Are you sure you want to continue ?
+              This will reset <span className="text-body">{saved?.symbol}</span> to its default
+              state. Are you sure you want to continue ?
             </Trans>
           ) : (
             <Trans t={t}>

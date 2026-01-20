@@ -37,7 +37,7 @@ export const ErrorMessageDrawer: FC<{
           <p className="text-body-secondary mt-4">
             <Trans
               t={t}
-              defaults="Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Talisman settings</Link>"
+              defaults="Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>"
               components={{
                 Link: (
                   // eslint-disable-next-line jsx-a11y/anchor-has-content

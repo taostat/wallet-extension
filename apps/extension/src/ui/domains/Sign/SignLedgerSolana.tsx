@@ -4,7 +4,7 @@ import { AccountOfType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback } from "react"
 
-import { getTalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { getTaostatsLedgerError } from "@ui/hooks/ledger/errors"
 import { useLedgerSolana } from "@ui/hooks/ledger/useLedgerSolana"
 
 import { SignLedgerBase } from "./SignLedgerBase"
@@ -91,7 +91,7 @@ export const SignLedgerSolana: FC<{
         }
       }
     } catch (err) {
-      const error = getTalismanLedgerError(err)
+      const error = getTaostatsLedgerError(err)
       log.error("signLedger", { error })
       setError(error)
     } finally {

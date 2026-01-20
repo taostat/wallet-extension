@@ -2,7 +2,7 @@ import { log } from "extension-shared"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
-import { getTalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { getTaostatsLedgerError } from "@ui/hooks/ledger/errors"
 import { useLedgerEthereum } from "@ui/hooks/ledger/useLedgerEthereum"
 
 import { SignHardwareEthereumProps } from "./SignHardwareEthereum"
@@ -41,12 +41,12 @@ export const SignLedgerEthereum: FC<SignHardwareEthereumProps> = ({
       const errCheck = err as Error & { statusCode?: number; reason?: string }
       if (errCheck.reason === "invalid object key - maxPriorityFeePerGas") {
         setError(
-          getTalismanLedgerError(
-            t("Sorry, Talisman doesn't support signing transactions with Ledger on this network."),
+          getTaostatsLedgerError(
+            t("Sorry, Taostats doesn't support signing transactions with Ledger on this network."),
           ),
         )
       } else {
-        const error = getTalismanLedgerError(err)
+        const error = getTaostatsLedgerError(err)
         log.error("signLedger", { error })
         setError(error)
       }

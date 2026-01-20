@@ -5,7 +5,7 @@ import { t } from "i18next"
 import { useCallback, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
-import { getTalismanLedgerError, TalismanLedgerError } from "./errors"
+import { getTaostatsLedgerError, TaostatsLedgerError } from "./errors"
 import { useLedgerTransport } from "./useLedgerTransport"
 
 type LedgerRequest<T> = (ledger: LedgerSolanaApp) => Promise<T>
@@ -17,7 +17,7 @@ export const useLedgerSolana = () => {
 
   const withLedger = useCallback(
     async <T>(request: LedgerRequest<T>): Promise<T> => {
-      if (refIsBusy.current) throw new TalismanLedgerError("Busy", t("Ledger is busy"))
+      if (refIsBusy.current) throw new TaostatsLedgerError("Busy", t("Ledger is busy"))
 
       refIsBusy.current = true
 
@@ -28,7 +28,7 @@ export const useLedgerSolana = () => {
         return await request(ledger)
       } catch (err) {
         await closeTransport()
-        throw getTalismanLedgerError(err, "Solana")
+        throw getTaostatsLedgerError(err, "Solana")
       } finally {
         refIsBusy.current = false
       }
@@ -70,7 +70,7 @@ const signWithLedger = async (
     (await ledger.getAddress(account.derivationPath, false)).address,
   )
   if (!isAddressEqual(address, account.address))
-    throw getTalismanLedgerError(
+    throw getTaostatsLedgerError(
       t(
         "Connected Ledger device does not match the selected account. Please connect the correct device and retry.",
       ),
@@ -78,7 +78,7 @@ const signWithLedger = async (
 
   switch (type) {
     case "message": {
-      throw getTalismanLedgerError(t("Solana message signing with Ledger is not supported."))
+      throw getTaostatsLedgerError(t("Solana message signing with Ledger is not supported."))
 
       const res = await ledger.signOffchainMessage(account.derivationPath, payload)
       return res.signature

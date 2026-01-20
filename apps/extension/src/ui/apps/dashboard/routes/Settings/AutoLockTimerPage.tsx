@@ -30,7 +30,7 @@ export const Content = () => {
       <HeaderBlock
         title={t("Auto-lock Timer")}
         text={t(
-          "Set a timer to automatically lock the Talisman wallet extension after the following period of inactivity",
+          "Set a timer to automatically lock the Taostats wallet extension after the following period of inactivity",
         )}
       />
       <Spacer />

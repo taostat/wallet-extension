@@ -61,7 +61,7 @@ export const RiskAnalysisPromptAutoRiskScan: FC = () => {
               )}
             </p>
             <p className="mt-4 text-center">
-              {t("You may change this later from Talisman settings.")}
+              {t("You may change this later from Taostats settings.")}
             </p>
           </div>
         </div>

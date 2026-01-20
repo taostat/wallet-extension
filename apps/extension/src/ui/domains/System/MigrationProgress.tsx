@@ -26,7 +26,7 @@ export const MigrationProgress = () => {
             className={classNames("h-48 w-48", !migration.errors?.length && "animate-pulse")}
           />
           <div className={classNames("text-lg font-bold")}>
-            {migration.errors?.length ? t("Talisman update failed") : t("Talisman update")}
+            {migration.errors?.length ? t("Taostats update failed") : t("Taostats update")}
           </div>
         </div>
         <div className="flex h-[26.8rem] max-h-[26.8rem] w-full flex-col items-center justify-center gap-12">

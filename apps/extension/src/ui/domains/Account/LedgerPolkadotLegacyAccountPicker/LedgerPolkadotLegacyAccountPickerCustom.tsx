@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next"
 import { FormFieldContainer, FormFieldInputText, Tooltip, TooltipTrigger } from "taostats-ui"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"
-import { getTalismanLedgerError, TalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { getTaostatsLedgerError, TaostatsLedgerError } from "@ui/hooks/ledger/errors"
 import { useLedgerSubstrateAppByChain } from "@ui/hooks/ledger/useLedgerSubstrateApp"
 import { useAccountImportBalances } from "@ui/hooks/useAccountImportBalances"
 import { useAccounts, useNetworkById } from "@ui/state"
@@ -283,7 +283,7 @@ const useLedgerAccountAddress = (account: CustomAccountDetails) => {
   const loadAccountInfo = useCallback(async () => {
     if (!account) return
     if (state.account === account && state.address) return // result is up to date
-    if (refIsBusy.current) throw new TalismanLedgerError("Busy", t("Ledger is busy"))
+    if (refIsBusy.current) throw new TaostatsLedgerError("Busy", t("Ledger is busy"))
     refIsBusy.current = true
 
     setState({ account, address: undefined })
@@ -302,7 +302,7 @@ const useLedgerAccountAddress = (account: CustomAccountDetails) => {
         message: t("Ledger is ready."),
       })
     } catch (err) {
-      const error = getTalismanLedgerError(err)
+      const error = getTaostatsLedgerError(err)
       log.error("Failed to load page", { err })
       setConnectionStatus({
         status: "error",

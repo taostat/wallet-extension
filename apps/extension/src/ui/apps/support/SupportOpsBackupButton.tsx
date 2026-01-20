@@ -4,7 +4,7 @@ import { FC, useCallback } from "react"
 import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
 import { SupportOpsCtaButton } from "./shared/SupportOpsCtaButton"
-import { TalismanJsonBackup } from "./shared/types"
+import { TaostatsJsonBackup } from "./shared/types"
 
 export const SupportOpsBackup = () => {
   const { isOpen, open, close } = useOpenClose()
@@ -13,7 +13,7 @@ export const SupportOpsBackup = () => {
     <>
       <SupportOpsCtaButton
         title="Backup"
-        description="Export your Talisman data to a file"
+        description="Export your Taostats data to a file"
         onClick={open}
       />
 
@@ -34,8 +34,8 @@ const BackupModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
     <ModalDialog title="Backup" className="w-[40rem]" onClose={onClose}>
       <div className="flex flex-col gap-10">
         <p className="text-body-secondary leading-paragraph">
-          This will save all your Talisman data into a file, which you can use to restore your
-          Talisman on another browser.
+          This will save all your Taostats data into a file, which you can use to restore your
+          Taostats on another browser.
           <br />
           Make sure to store this file securely.
         </p>
@@ -43,7 +43,7 @@ const BackupModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
           <p>
             <strong>DO NOT</strong> share your backup file with <strong>anyone</strong>.
             <br />
-            The Talisman support team will <strong>never</strong> ask for it.
+            The Taostats support team will <strong>never</strong> ask for it.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-10">
@@ -58,12 +58,12 @@ const BackupModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
 }
 
 const backupLocalStorage = async () => {
-  const backup: TalismanJsonBackup = {
-    isTalismanBackup: true,
+  const backup: TaostatsJsonBackup = {
+    isTaostatsBackup: true,
     version: process.env.VERSION!,
     timestamp: Date.now(),
     storage: await chrome.storage.local.get(),
   }
 
-  downloadJson(backup, `backup.talisman.${backup.timestamp}`)
+  downloadJson(backup, `backup.taostats.${backup.timestamp}`)
 }

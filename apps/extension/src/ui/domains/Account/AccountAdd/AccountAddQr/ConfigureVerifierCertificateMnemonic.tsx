@@ -62,7 +62,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
         className="mb-12"
         title={t("Configure your Polkadot Vault Verifier Certificate Mnemonic")}
         text={t(
-          "To use your Polkadot Vault with Talisman, you need to configure your Polkadot Vault Verifier Certificate Mnemonic.",
+          "To use your Polkadot Vault with Taostats, you need to configure your Polkadot Vault Verifier Certificate Mnemonic.",
         )}
       />
       {(!state.verifierCertificateConfig ||
@@ -72,7 +72,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
           <div className="text-body-secondary text-sm">
             <Trans t={t}>
               Polkadot Vault requires that the specification and the metadata for each chain are
-              signed with a 'Verifier Certificate'. Talisman can generate its own Verifier
+              signed with a 'Verifier Certificate'. Taostats can generate its own Verifier
               Certificate from a mnemonic, enabling you to add networks and update metadata on your
               Polkadot Vault device without needing to trust an external source. If you prefer to
               use an external Verifier Certificate, you can use the Parity or Nova Wallet metadata
@@ -85,7 +85,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
               target="_blank"
               className="hover:text-primary text-grey-200"
             >
-              {t("Read more about Talisman's Polkadot Vault integration here.")}
+              {t("Read more about Taostats' Polkadot Vault integration here.")}
             </a>
           </span>
           <span>{t("Choose an option")}</span>
@@ -93,7 +93,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
           {existingMnemonicId && (
             <VerifierCertificateOption
               text={t(
-                "Use this option to use your existing Talisman recovery phrase as your Polkadot Vault Verifier Certificate Mnemonic. Choose this option if you are not sure what to do.",
+                "Use this option to use your existing Taostats recovery phrase as your Polkadot Vault Verifier Certificate Mnemonic. Choose this option if you are not sure what to do.",
               )}
             >
               <Button
@@ -106,7 +106,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
                   })
                 }
               >
-                {t("Use my existing Talisman mnemonic")}
+                {t("Use my existing Taostats mnemonic")}
               </Button>
             </VerifierCertificateOption>
           )}
@@ -136,7 +136,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
           )}
           <VerifierCertificateOption
             text={t(
-              "Import a new recovery phrase to use as your Polkadot Vault Verifier Certificate Mnemonic. You should use this option if you already have a Polkadot Vault account in another instance of Talisman, or you want to use a different mnemonic to your existing Talisman mnemonic.",
+              "Import a new recovery phrase to use as your Polkadot Vault Verifier Certificate Mnemonic. You should use this option if you already have a Polkadot Vault account in another instance of Taostats, or you want to use a different mnemonic to your existing Taostats mnemonic.",
             )}
           >
             <Button

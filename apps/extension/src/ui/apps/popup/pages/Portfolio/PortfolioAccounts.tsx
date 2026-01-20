@@ -380,7 +380,7 @@ export const PortfolioAccounts = () => {
             : undefined
 
         const getSearchContent = (account?: Account) =>
-          [account?.name, account?.address, account?.type?.replaceAll(/talisman/gi, "")]
+          [account?.name, account?.address, account?.type?.replaceAll(/taostats/gi, "")]
             .join(" ")
             .toLowerCase()
 

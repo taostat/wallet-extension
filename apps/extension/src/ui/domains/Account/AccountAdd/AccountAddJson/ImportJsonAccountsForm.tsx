@@ -199,7 +199,7 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
         <div className="bg-grey-850 text-body-secondary mb-8 flex w-full items-center gap-6 rounded p-8">
           <AlertCircleIcon className="shrink-0 text-lg" />
           <div className="grow">
-            {t("All accounts included in this file already exist in Talisman.")}
+            {t("All accounts included in this file already exist in Taostats.")}
           </div>
         </div>
       )}

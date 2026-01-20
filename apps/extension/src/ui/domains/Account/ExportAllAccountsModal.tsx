@@ -92,7 +92,7 @@ const ExportAllAccountsForm = ({ onSuccess }: { onSuccess?: () => void }) => {
       if (!password) return
       try {
         const { exportedJson } = await api.accountExportAll(password, newPw)
-        downloadJson(exportedJson, "talisman-accounts")
+        downloadJson(exportedJson, "taostats-accounts")
         onSuccess && onSuccess()
       } catch (err) {
         setError("newPwConfirm", {
@@ -117,8 +117,8 @@ const ExportAllAccountsForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         <p className="text-body-secondary my-8 text-sm">
           <Trans t={t}>
             Set a password for your JSON export. We strongly suggest using a{" "}
-            <span className="text-white">different password</span> from your Talisman wallet
-            password. This avoids exposing your Talisman password to other wallets or applications.
+            <span className="text-white">different password</span> from your Taostats wallet
+            password. This avoids exposing your Taostats password to other wallets or applications.
           </Trans>
         </p>
         <p className="text-body-secondary text-sm">

@@ -53,7 +53,7 @@ export const BackUpMnemonicDialog = () => {
       <p className="text-body-secondary text-sm">{t("Have you backed up your recovery phrase?")}</p>
       <p className="text-body-secondary text-sm">
         {t(
-          "Your recovery phrase is used to restore your Talisman accounts if you forget your password or lose access to your device.",
+          "Your recovery phrase is used to restore your Taostats accounts if you forget your password or lose access to your device.",
         )}
       </p>
       <p className="text-body-secondary text-sm">

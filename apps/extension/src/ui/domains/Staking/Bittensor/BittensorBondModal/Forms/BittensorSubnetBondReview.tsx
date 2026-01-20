@@ -32,7 +32,7 @@ import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
 import { useGetSubnetFee } from "../../hooks/useGetSubnetFee"
 import {
   HIGH_PRICE_IMPACT,
-  TALISMAN_FEE_BITTENSOR,
+  TAOSTATS_FEE_BITTENSOR,
   VERY_HIGH_PRICE_IMPACT,
 } from "../../utils/constants"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
@@ -62,7 +62,7 @@ export const BittensorSubnetBondReview = () => {
     slippage,
     warningDrawer,
     isSubnetUnbond,
-    talismanFee,
+    taostatsFee,
     swapPrice,
     errorFeeEstimate,
     amountOut,
@@ -86,7 +86,7 @@ export const BittensorSubnetBondReview = () => {
   const { discount } = tier
 
   const subnetFeeDiscount = useMemo(() => {
-    if (subnetFee === TALISMAN_FEE_BITTENSOR) {
+    if (subnetFee === TAOSTATS_FEE_BITTENSOR) {
       // No discount
       return 0
     } else if (subnetFee === 0) {
@@ -94,8 +94,8 @@ export const BittensorSubnetBondReview = () => {
       return MAX_TOTAL_FEE_DISCOUNT
     } else {
       // Calculate discount percentage
-      const discountDiff = TALISMAN_FEE_BITTENSOR - subnetFee
-      return discountDiff / TALISMAN_FEE_BITTENSOR
+      const discountDiff = TAOSTATS_FEE_BITTENSOR - subnetFee
+      return discountDiff / TAOSTATS_FEE_BITTENSOR
     }
   }, [subnetFee])
 
@@ -284,7 +284,7 @@ export const BittensorSubnetBondReview = () => {
           </div>
           <div className="flex items-center justify-between gap-8 pt-2 text-xs">
             <div className="flex items-center gap-2 whitespace-nowrap">
-              <div>{t("Talisman Fee")} </div>
+              <div>{t("Taostats Fee")} </div>
               <Tooltip>
                 <TooltipTrigger>
                   <InfoIcon />
@@ -292,8 +292,8 @@ export const BittensorSubnetBondReview = () => {
                 <TooltipContent>
                   <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                     {subnetFee === 0
-                      ? t("Talisman doesn’t apply any fee to this transaction.")
-                      : t(`Talisman applies a ${TALISMAN_FEE_BITTENSOR}% fee to each transaction.`)}
+                      ? t("Taostats doesn’t apply any fee to this transaction.")
+                      : t(`Taostats applies a ${TAOSTATS_FEE_BITTENSOR}% fee to each transaction.`)}
                   </span>
                 </TooltipContent>
               </Tooltip>
@@ -319,7 +319,7 @@ export const BittensorSubnetBondReview = () => {
               )}
             </div>
             <StakingFeeEstimate
-              plancks={talismanFee}
+              plancks={taostatsFee}
               tokenId={feeToken?.id}
               isLoading={isLoading}
               error={errorFeeEstimate}

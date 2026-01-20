@@ -26,7 +26,7 @@ const Content = () => {
           title={t("Change password")}
           subtitle={
             allBackedUp
-              ? t("Change your Talisman password")
+              ? t("Change your Taostats password")
               : t("Please back up your recovery phrase before you change your password.")
           }
           to={`/settings/security-privacy-settings/change-password`}
@@ -36,7 +36,7 @@ const Content = () => {
           iconLeft={ClockIcon}
           iconRight={ChevronRightIcon}
           title={t("Auto-lock timer")}
-          subtitle={t("Set a timer to automatically lock your Talisman wallet")}
+          subtitle={t("Set a timer to automatically lock your Taostats wallet")}
           to={`/settings/security-privacy-settings/autolock`}
         />
       </div>

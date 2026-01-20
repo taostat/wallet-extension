@@ -14,7 +14,7 @@ import TalismanRpcHandler from "./rpc"
 /**
  * Disabled all these messages for now by throwing an error, verified it doesn't break portal
  */
-export default class TalismanHandler extends TabsHandler {
+export default class TaostatsHandler extends TabsHandler {
   readonly #subHandlers: readonly TabsHandler[]
 
   constructor(stores: TabStore) {
@@ -32,11 +32,11 @@ export default class TalismanHandler extends TabsHandler {
   ): Promise<ResponseType<TMessageType>> {
     // these methods are pub() because they're exposed to dapps,
     // BUT they're actually only exposed to dapps where isInternalHostname is true
-    // which is only app.talisman.xyz in production, and also localhost in dev
+    // which is only dash.taostats.io in production, and also localhost in dev
     if (!isInternalUrl(url)) throw new Error(`Origin not allowed for message type ${type}`)
 
     switch (type) {
-      case "pub(talisman.customSubstrateChains.subscribe)": {
+      case "pub(taostats.customSubstrateChains.subscribe)": {
         throw new Error("Not implemented")
         return genericSubscription(
           id,
@@ -47,13 +47,13 @@ export default class TalismanHandler extends TabsHandler {
         )
       }
 
-      case "pub(talisman.customSubstrateChains.unsubscribe)": {
+      case "pub(taostats.customSubstrateChains.unsubscribe)": {
         throw new Error("Not implemented")
-        const subId = request as RequestTypes["pub(talisman.customSubstrateChains.unsubscribe)"]
+        const subId = request as RequestTypes["pub(taostats.customSubstrateChains.unsubscribe)"]
         return unsubscribe(subId)
       }
 
-      case "pub(talisman.customEvmNetworks.subscribe)": {
+      case "pub(taostats.customEvmNetworks.subscribe)": {
         throw new Error("Not implemented")
         return genericSubscription(
           id,
@@ -64,13 +64,13 @@ export default class TalismanHandler extends TabsHandler {
         )
       }
 
-      case "pub(talisman.customEvmNetworks.unsubscribe)": {
+      case "pub(taostats.customEvmNetworks.unsubscribe)": {
         throw new Error("Not implemented")
-        const subId = request as RequestTypes["pub(talisman.customEvmNetworks.unsubscribe)"]
+        const subId = request as RequestTypes["pub(taostats.customEvmNetworks.unsubscribe)"]
         return unsubscribe(subId)
       }
 
-      case "pub(talisman.customTokens.subscribe)": {
+      case "pub(taostats.customTokens.subscribe)": {
         throw new Error("Not implemented")
         return genericSubscription(
           id,
@@ -79,13 +79,13 @@ export default class TalismanHandler extends TabsHandler {
         )
       }
 
-      case "pub(talisman.customTokens.unsubscribe)": {
+      case "pub(taostats.customTokens.unsubscribe)": {
         throw new Error("Not implemented")
-        const subId = request as RequestTypes["pub(talisman.customTokens.unsubscribe)"]
+        const subId = request as RequestTypes["pub(taostats.customTokens.unsubscribe)"]
         return unsubscribe(subId)
       }
 
-      case "pub(talisman.extension.openPortfolio)": {
+      case "pub(taostats.extension.openPortfolio)": {
         await windowManager.openDashboard({ route: "/portfolio" })
         return true
       }

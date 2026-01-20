@@ -41,7 +41,7 @@ export const BackupReminderBanner = () => {
         <p className="text-body-secondary mt-2">
           {hasFundsInNotBackedUpMnemonics
             ? t(
-                "You have funds! Talisman is a non custodial wallet so only you have access to your keys, make sure you have backed them up or you may lose access to your funds.",
+                "You have funds! Taostats is a non custodial wallet so only you have access to your keys, make sure you have backed them up or you may lose access to your funds.",
               )
             : t(
                 "Your recovery phrases control your accounts. Talisman is a non-custodial wallet, so only you have access to your keys. Make sure you’ve backed them up.",

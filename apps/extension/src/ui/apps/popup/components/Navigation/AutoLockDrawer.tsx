@@ -54,7 +54,7 @@ const AutoLockDrawerContent = () => {
       <div className="px-8">
         <p className="text-xs">
           {t(
-            "Set a timer to automatically lock the Talisman wallet extension after the following period of inactivity",
+            "Set a timer to automatically lock the Taostats wallet extension after the following period of inactivity",
           )}
         </p>
       </div>

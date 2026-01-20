@@ -18,7 +18,7 @@ import { AuthorisedSiteMessages } from "../domains/sitesAuthorised/types"
 import { SolanaExtensionMessages } from "../domains/solana"
 import { SolanaTabsMessages } from "../domains/solana/types.tabs"
 import { SubstrateMessages } from "../domains/substrate/types"
-import { TalismanMessages } from "../domains/talisman/types"
+import { TaostatsMessages } from "../domains/talisman/types"
 import { TokenRatesMessages } from "../domains/tokenRates/types"
 import { ChaindataMessages, SendFundsMessages } from "./domains"
 
@@ -84,7 +84,7 @@ type AllMessages = Omit<PolkadotRequestSignatures, RemovedMessages> &
   MetadataMessages &
   MnemonicMessages &
   SigningMessages &
-  TalismanMessages &
+  TaostatsMessages &
   TokenRatesMessages &
   SubstrateMessages &
   SolanaExtensionMessages &

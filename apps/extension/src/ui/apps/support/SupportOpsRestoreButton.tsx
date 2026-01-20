@@ -3,7 +3,7 @@ import { ChangeEventHandler, FC, useCallback, useState } from "react"
 import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
 import { SupportOpsCtaButton } from "./shared/SupportOpsCtaButton"
-import { TalismanJsonBackup } from "./shared/types"
+import { TaostatsJsonBackup } from "./shared/types"
 
 export const SupportOpsRestoreButton = () => {
   const { isOpen, open, close } = useOpenClose()
@@ -12,7 +12,7 @@ export const SupportOpsRestoreButton = () => {
     <>
       <SupportOpsCtaButton
         title="Restore"
-        description="Import your Talisman data from a backup file"
+        description="Import your Taostats data from a backup file"
         onClick={open}
       />
       <Modal isOpen={isOpen} onDismiss={close}>
@@ -23,7 +23,7 @@ export const SupportOpsRestoreButton = () => {
 }
 
 const RestoreModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [state, setState] = useState<{ isInvalid?: boolean; backup?: TalismanJsonBackup }>(
+  const [state, setState] = useState<{ isInvalid?: boolean; backup?: TaostatsJsonBackup }>(
     () => ({}),
   )
 
@@ -36,8 +36,8 @@ const RestoreModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
     const reader = new FileReader()
     reader.onload = (re) => {
       try {
-        const backup = JSON.parse(re.target?.result as string) as TalismanJsonBackup
-        if (backup.isTalismanBackup) return setState({ backup })
+        const backup = JSON.parse(re.target?.result as string) as TaostatsJsonBackup
+        if (backup.isTaostatsBackup) return setState({ backup })
       } catch (err) {
         // filed to parse
       }
@@ -55,7 +55,7 @@ const RestoreModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
     <ModalDialog title="Restore" className="w-[50rem]" onClose={onClose}>
       <div className="flex flex-col gap-10">
         <p className="text-body-secondary leading-paragraph">
-          This will replace all existing Talisman data with the data from your backup file.
+          This will replace all existing Taostats data with the data from your backup file.
         </p>
         <div className="bg-alert-warn/10 text-alert-warn flex items-center justify-center gap-8 rounded p-5 px-8 text-center text-sm">
           <p>Warning: All existing data will be erased and replaced.</p>
@@ -66,7 +66,7 @@ const RestoreModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
             <input type="file" accept=".json,application/json" onChange={handleChange}></input>
           </div>
           {state.isInvalid && (
-            <div className="text-alert-warn">Selected file is not a Talisman backup file.</div>
+            <div className="text-alert-warn">Selected file is not a Taostats backup file.</div>
           )}
           {state.backup && <div className="text-body-secondary">Ready to restore</div>}
         </div>
@@ -82,7 +82,7 @@ const RestoreModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
   )
 }
 
-const restoreLocalStorage = async (backup: TalismanJsonBackup) => {
+const restoreLocalStorage = async (backup: TaostatsJsonBackup) => {
   await chrome.storage.local.clear()
   await chrome.storage.local.set(backup.storage)
   chrome.runtime.reload()

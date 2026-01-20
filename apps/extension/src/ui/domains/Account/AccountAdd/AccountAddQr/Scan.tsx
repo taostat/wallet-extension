@@ -60,12 +60,12 @@ export const Scan = () => {
                   ? // ENABLED AND NO ERROR
                     {
                       title: t("Approve camera permissions"),
-                      body: t("Allow Talisman to access your camera to scan QR codes"),
+                      body: t("Allow Taostats to access your camera to scan QR codes"),
                     }
                   : // NOT ENABLED
                     {
                       title: t("Approve camera permissions"),
-                      body: t("Allow Talisman to access your camera to scan QR codes"),
+                      body: t("Allow Taostats to access your camera to scan QR codes"),
                       extra: (
                         <button
                           type="button"

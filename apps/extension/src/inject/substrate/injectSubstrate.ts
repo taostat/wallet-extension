@@ -3,8 +3,8 @@ import type { HexString } from "@polkadot/util/types"
 import type { DotNetwork, EthNetwork, Token } from "@taostats-wallet/chaindata-provider"
 import type { ResponseType, SendRequest } from "extension-core"
 
-type TalismanWindow = typeof globalThis & {
-  talismanSub?: ReturnType<typeof rpcProvider> &
+type TaostatsWindow = typeof globalThis & {
+  taostatsSub?: ReturnType<typeof rpcProvider> &
     ReturnType<typeof tokensProvider> &
     ReturnType<typeof extensionUiProvider>
 }
@@ -14,8 +14,8 @@ const rpcProvider = (sendRequest: SendRequest) => ({
     genesisHash: HexString,
     method: string,
     params: unknown[],
-  ): Promise<ResponseType<"pub(talisman.rpc.byGenesisHash.send)">> =>
-    sendRequest("pub(talisman.rpc.byGenesisHash.send)", { genesisHash, method, params }),
+  ): Promise<ResponseType<"pub(taostats.rpc.byGenesisHash.send)">> =>
+    sendRequest("pub(taostats.rpc.byGenesisHash.send)", { genesisHash, method, params }),
 
   rpcByGenesisHashSubscribe: (
     genesisHash: HexString,
@@ -24,9 +24,9 @@ const rpcProvider = (sendRequest: SendRequest) => ({
     params: unknown[],
     callback: ProviderInterfaceCallback,
     timeout: number | false,
-  ): Promise<ResponseType<"pub(talisman.rpc.byGenesisHash.subscribe)">> =>
+  ): Promise<ResponseType<"pub(taostats.rpc.byGenesisHash.subscribe)">> =>
     sendRequest(
-      "pub(talisman.rpc.byGenesisHash.subscribe)",
+      "pub(taostats.rpc.byGenesisHash.subscribe)",
       { genesisHash, subscribeMethod, responseMethod, params, timeout },
       ({ error, data }) => callback(error, data),
     ),
@@ -34,8 +34,8 @@ const rpcProvider = (sendRequest: SendRequest) => ({
   rpcByGenesisHashUnsubscribe: (
     subscriptionId: string,
     unsubscribeMethod: string,
-  ): Promise<ResponseType<"pub(talisman.rpc.byGenesisHash.unsubscribe)">> =>
-    sendRequest("pub(talisman.rpc.byGenesisHash.unsubscribe)", {
+  ): Promise<ResponseType<"pub(taostats.rpc.byGenesisHash.unsubscribe)">> =>
+    sendRequest("pub(taostats.rpc.byGenesisHash.unsubscribe)", {
       subscriptionId,
       unsubscribeMethod,
     }),
@@ -43,30 +43,30 @@ const rpcProvider = (sendRequest: SendRequest) => ({
 
 const tokensProvider = (sendRequest: SendRequest) => ({
   subscribeCustomSubstrateChains: (callback: (chains: DotNetwork[]) => unknown) => {
-    const idPromise = sendRequest("pub(talisman.customSubstrateChains.subscribe)", null, callback)
+    const idPromise = sendRequest("pub(taostats.customSubstrateChains.subscribe)", null, callback)
     return () =>
-      idPromise.then((id) => sendRequest("pub(talisman.customSubstrateChains.unsubscribe)", id))
+      idPromise.then((id) => sendRequest("pub(taostats.customSubstrateChains.unsubscribe)", id))
   },
   subscribeCustomEvmNetworks: (callback: (networks: EthNetwork[]) => unknown) => {
-    const idPromise = sendRequest("pub(talisman.customEvmNetworks.subscribe)", null, callback)
+    const idPromise = sendRequest("pub(taostats.customEvmNetworks.subscribe)", null, callback)
     return () =>
-      idPromise.then((id) => sendRequest("pub(talisman.customEvmNetworks.unsubscribe)", id))
+      idPromise.then((id) => sendRequest("pub(taostats.customEvmNetworks.unsubscribe)", id))
   },
   subscribeCustomTokens: (callback: (tokens: Token[]) => unknown) => {
-    const idPromise = sendRequest("pub(talisman.customTokens.subscribe)", null, callback)
-    return () => idPromise.then((id) => sendRequest("pub(talisman.customTokens.unsubscribe)", id))
+    const idPromise = sendRequest("pub(taostats.customTokens.subscribe)", null, callback)
+    return () => idPromise.then((id) => sendRequest("pub(taostats.customTokens.unsubscribe)", id))
   },
 })
 
 const extensionUiProvider = (sendRequest: SendRequest) => ({
-  openFullscreenPortfolio: () => sendRequest("pub(talisman.extension.openPortfolio)", null),
+  openFullscreenPortfolio: () => sendRequest("pub(taostats.extension.openPortfolio)", null),
 })
 
 export const injectSubstrate = (sendRequest: SendRequest) => {
   // small helper with the typescript types, just cast window
-  const windowInject = window as TalismanWindow
+  const windowInject = window as TaostatsWindow
 
-  windowInject.talismanSub = {
+  windowInject.taostatsSub = {
     ...rpcProvider(sendRequest),
     ...tokensProvider(sendRequest),
     ...extensionUiProvider(sendRequest),

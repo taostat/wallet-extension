@@ -6,7 +6,7 @@ import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { getTalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { getTaostatsLedgerError } from "@ui/hooks/ledger/errors"
 import { useAccountImportBalances } from "@ui/hooks/useAccountImportBalances"
 import { useAccounts, useNetworkById, useNetworks } from "@ui/state"
 
@@ -167,7 +167,7 @@ const useLedgerSubstrateGenericAccounts = (
           message: t("Ledger is ready."),
         })
       } catch (err) {
-        const error = getTalismanLedgerError(err)
+        const error = getTaostatsLedgerError(err)
         log.error("Failed to load page", { err })
         setConnectionStatus({
           status: "error",

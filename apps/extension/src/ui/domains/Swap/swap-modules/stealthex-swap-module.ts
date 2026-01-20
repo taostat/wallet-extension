@@ -76,7 +76,7 @@ export const PROTOCOL: SupportedSwapProtocol = "stealthex" as const
 export const PROTOCOL_NAME = "StealthEX"
 const DECENTRALISATION_SCORE = 1.5
 type FeeProps = { fromAsset: SwappableAssetBaseType; toAsset: SwappableAssetBaseType }
-const getTalismanTotalFee = ({ fromAsset, toAsset }: FeeProps) => {
+const getTaostatsTotalFee = ({ fromAsset, toAsset }: FeeProps) => {
   const isSubToOrFromEvm =
     (fromAsset.networkType === "substrate" && toAsset.networkType === "evm") ||
     (fromAsset.networkType === "evm" && toAsset.networkType === "substrate")
@@ -101,10 +101,10 @@ const BUILT_IN_FEE = 0.004 // StealthEX always includes an affiliate fee of 0.4%
 const getAdditionalFee = (feeProps: FeeProps) =>
   Math.max(
     // we want a total fee of x,
-    // so get the total talisman fee for this route,
+    // so get the total taostats fee for this route,
     // then subtract the built-in fee of 0.4%, which is applied to all exchanges made via stealthex
-    getTalismanTotalFee(feeProps) - BUILT_IN_FEE,
-    // if the talisman total fee is less than the built-in fee, default to an additional_fee of 0.0
+    getTaostatsTotalFee(feeProps) - BUILT_IN_FEE,
+    // if the taostats total fee is less than the built-in fee, default to an additional_fee of 0.0
     0,
   )
 // Our UI represents a 1% fee as `0.01`, but the StealthEX api represents a 1% fee as `1.0`.
@@ -554,7 +554,7 @@ const quote: QuoteFunction = loadable(
 
     try {
       // TODO: Return `null` or an error when getRange / getEstimate fails
-      // Error format: `return { decentralisationScore: DECENTRALISATION_SCORE, protocol: PROTOCOL, inputAmountBN: fromAmount.planck, outputAmountBN: 0n, error: '<error here>', timeInSec: 5 * 60, fees: [], providerLogo: LOGO, providerName: PROTOCOL_NAME, talismanFee: Math.max(getTalismanTotalFee({ fromAsset, toAsset }), BUILT_IN_FEE), }`
+      // Error format: `return { decentralisationScore: DECENTRALISATION_SCORE, protocol: PROTOCOL, inputAmountBN: fromAmount.planck, outputAmountBN: 0n, error: '<error here>', timeInSec: 5 * 60, fees: [], providerLogo: LOGO, providerName: PROTOCOL_NAME, taostatsFee: Math.max(getTaostatsTotalFee({ fromAsset, toAsset }), BUILT_IN_FEE), }`
       const estimate = await stealthexSdk.getEstimate({
         route: { from, to },
         amount: fromAmount.toNumber(),
@@ -563,13 +563,13 @@ const quote: QuoteFunction = loadable(
 
       const gasFee = await estimateGas(get)
       // relative fee, multiply by fromAmount to get planck fee
-      const talismanFee = Math.max(getTalismanTotalFee({ fromAsset, toAsset }), BUILT_IN_FEE)
-      // add talisman fee
+      const taostatsFee = Math.max(getTaostatsTotalFee({ fromAsset, toAsset }), BUILT_IN_FEE)
+      // add taostats fee
       const fees: QuoteFee[] = (gasFee ? [gasFee] : []).concat({
         amount: BigNumber(fromAmount.planck.toString())
           .times(10 ** -fromAmount.decimals)
-          .times(talismanFee),
-        name: "Talisman Fee",
+          .times(taostatsFee),
+        name: "Taostats Fee",
         tokenId: fromAsset.id,
       })
 
@@ -583,7 +583,7 @@ const quote: QuoteFunction = loadable(
         fees,
         providerLogo: LOGO,
         providerName: PROTOCOL_NAME,
-        talismanFee,
+        taostatsFee,
       }
     } catch (cause) {
       // eslint-disable-next-line no-console

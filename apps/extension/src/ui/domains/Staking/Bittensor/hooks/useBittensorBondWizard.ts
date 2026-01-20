@@ -174,7 +174,7 @@ const useBittensorBondWizardProvider = () => {
     minTaoStake,
     minAlphaUnstake,
     priceImpact,
-    talismanFee,
+    taostatsFee,
     slippage,
     amountOut,
   } = useGetBittensorStakeInfo({
@@ -520,7 +520,7 @@ const useBittensorBondWizardProvider = () => {
     stakeType,
     alphaPrice,
     swapPrice,
-    talismanFee,
+    taostatsFee,
     amountOut,
     priceImpact,
     withMevShield,

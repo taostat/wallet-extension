@@ -56,8 +56,8 @@ const AccountIconInner: FC<AccountIconProps> = ({ address, className, genesisHas
   const [identiconType] = useSetting("identiconType")
 
   // apply look & feel from props if provided (should only be the case in AvatarTypeSelector)
-  // fallbacks to settings store, or default talisman-orb value
-  const displayType = useMemo(() => type ?? identiconType ?? "talisman-orb", [identiconType, type])
+  // fallbacks to settings store, or default taostats-orb value
+  const displayType = useMemo(() => type ?? identiconType ?? "taostats-orb", [identiconType, type])
 
   return (
     <div className={classNames("relative inline-block shrink-0", className)}>

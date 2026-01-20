@@ -25,22 +25,22 @@ export type RequestRpcByGenesisHashUnsubscribe = {
   unsubscribeMethod: string
 }
 
-export interface TalismanMessages {
+export interface TaostatsMessages {
   // chain message signatures
-  "pub(talisman.rpc.byGenesisHash.send)": [RequestRpcByGenesisHashSend, UnknownJsonRpcResponse]
-  "pub(talisman.rpc.byGenesisHash.subscribe)": [
+  "pub(taostats.rpc.byGenesisHash.send)": [RequestRpcByGenesisHashSend, UnknownJsonRpcResponse]
+  "pub(taostats.rpc.byGenesisHash.subscribe)": [
     RequestRpcByGenesisHashSubscribe,
     string,
     { error: Error | null; data: unknown },
   ]
-  "pub(talisman.rpc.byGenesisHash.unsubscribe)": [RequestRpcByGenesisHashUnsubscribe, boolean]
-  "pub(talisman.extension.openPortfolio)": [null, boolean]
+  "pub(taostats.rpc.byGenesisHash.unsubscribe)": [RequestRpcByGenesisHashUnsubscribe, boolean]
+  "pub(taostats.extension.openPortfolio)": [null, boolean]
 
   // TODO yeet everything below once discussed with the team
-  "pub(talisman.customSubstrateChains.subscribe)": [null, string, DotNetwork[]]
-  "pub(talisman.customSubstrateChains.unsubscribe)": [string, boolean]
-  "pub(talisman.customEvmNetworks.subscribe)": [null, string, EthNetwork[]]
-  "pub(talisman.customEvmNetworks.unsubscribe)": [string, boolean]
-  "pub(talisman.customTokens.subscribe)": [null, string, Token[]]
-  "pub(talisman.customTokens.unsubscribe)": [string, boolean]
+  "pub(taostats.customSubstrateChains.subscribe)": [null, string, DotNetwork[]]
+  "pub(taostats.customSubstrateChains.unsubscribe)": [string, boolean]
+  "pub(taostats.customEvmNetworks.subscribe)": [null, string, EthNetwork[]]
+  "pub(taostats.customEvmNetworks.unsubscribe)": [string, boolean]
+  "pub(taostats.customTokens.subscribe)": [null, string, Token[]]
+  "pub(taostats.customTokens.unsubscribe)": [string, boolean]
 }

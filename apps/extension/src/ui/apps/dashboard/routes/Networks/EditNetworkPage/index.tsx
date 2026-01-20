@@ -88,7 +88,7 @@ const NetworkForm: FC = () => {
 
   const { form, network } = useNetworkForm()
 
-  const { isActive, setActive, isActiveSetByUser, resetToTalismanDefault } =
+  const { isActive, setActive, isActiveSetByUser, resetToTaostatsDefault } =
     useActivableNetwork(network)
 
   return (
@@ -361,7 +361,7 @@ const NetworkForm: FC = () => {
                     <TooltipTrigger
                       className="text-primary text-xs"
                       type="button"
-                      onClick={resetToTalismanDefault}
+                      onClick={resetToTaostatsDefault}
                     >
                       <RotateCcwIcon />
                     </TooltipTrigger>
@@ -474,8 +474,8 @@ const ConfirmRemove: FC<{
         <div className="text-base">
           {isNetworkKnown(saved) ? (
             <Trans t={t}>
-              This will reset <span className="text-body">{saved?.name}</span> to its Talisman
-              default state. Are you sure you want to continue ?
+              This will reset <span className="text-body">{saved?.name}</span> to its default
+              state. Are you sure you want to continue ?
             </Trans>
           ) : (
             <Trans t={t}>

@@ -54,7 +54,7 @@ export const AddEthereumNetwork = () => {
           <h1 className="text-md mb-12 mt-8 font-bold">{t("Add Network")}</h1>
           <p className="text-body-secondary leading-[2.6rem]">
             <Trans t={t}>
-              This app wants to connect Talisman to the{" "}
+              This app wants to connect Taostats to the{" "}
               <span className="bg-grey-850 text-body inline-block h-[2.6rem] items-center rounded-3xl px-3 font-light">
                 {request.network.name}
               </span>{" "}

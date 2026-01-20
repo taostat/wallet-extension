@@ -92,7 +92,7 @@ export const getNomPoolStakingPayload = async (
     : undefined
 
   const call_remark = sapi.getDecodedCall("System", "remark_with_event", {
-    remark: Binary.fromText("Seek the Talisman"),
+    remark: Binary.fromText("Taostats"),
   })
 
   return sapi.getExtrinsicPayload(
@@ -104,6 +104,6 @@ export const getNomPoolStakingPayload = async (
 }
 export const cleanupNomPoolName = (name: string | null | undefined) =>
   name
-    ?.replace(": app.talisman.xyz/staking", "")
+    ?.replace(": dash.taostats.io/stake", "")
     .replace(" | Auto-Compound > $2USD", "")
     .replace(" | Auto-Compound > 1 DOT", "") ?? null

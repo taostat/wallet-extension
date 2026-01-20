@@ -8,9 +8,9 @@ export const HIGH_PRICE_IMPACT = 2
 export const VERY_HIGH_PRICE_IMPACT = 5
 export const BITTENSOR_TOKEN_ID = subNativeTokenId("bittensor")
 
-export const TALISMAN_FEE_RECEIVER_ADDRESS_BITTENSOR =
-  "5DzsVV2L4M9r4uWoyarzPyhfeCv6DDAEs5rM2bpHjmerPcGa"
+export const TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR =
+  "5FNxL46parYKx4yPZcihEWuAFYtGE92SLgWStsHDjodanPSG"
 
-export const TALISMAN_FEE_BITTENSOR = 0.3
+export const TAOSTATS_FEE_BITTENSOR = 0
 
 export const DEFAULT_ROOT_CLAIM_TYPE: RootClaimType = "Swap"

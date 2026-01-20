@@ -131,8 +131,8 @@ export const GetStarted = () => {
           ) : (
             <div className={cn("grid gap-8", "grid-cols-1")}>
               <GetStartedActionButton
-                label={t("About Talisman")}
-                description={t("Discover how Talisman can elevate your web3 journey")}
+                label={t("About Taostats")}
+                description={t("Discover how Taostats can elevate your web3 journey")}
                 className={cn("group")}
                 iconRight={
                   <ChevronRightIcon className="text-body-inactive group-hover:text-body-secondary -mr-4 size-12" />
@@ -170,7 +170,7 @@ const useGetStarted = () => {
   }, [navigate])
 
   const onTryItClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "try talisman" })
+    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "try taostats" })
 
     if (IS_POPUP) navigate("/try-page")
     else openTryTalismanModal()

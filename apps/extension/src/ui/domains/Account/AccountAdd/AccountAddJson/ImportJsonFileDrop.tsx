@@ -105,7 +105,7 @@ const JsonFileDrop: FC<{ onChange?: (file?: File) => void; isInvalid: boolean }>
             ? t("File not supported")
             : file
               ? t("Replace File")
-              : t("Talisman supports the import of multiple accounts")}
+              : t("Taostats supports the import of multiple accounts")}
         </div>
       </div>
     </div>

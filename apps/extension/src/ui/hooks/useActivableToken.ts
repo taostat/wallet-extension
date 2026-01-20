@@ -24,7 +24,7 @@ export const useActivableToken = (token: Token | undefined) => {
 
   const isActiveSetByUser = useMemo(() => token && token.id in activeTokens, [token, activeTokens])
 
-  const resetToTalismanDefault = useCallback(() => {
+  const resetToTaostatsDefault = useCallback(() => {
     if (!token) throw new Error("Token not found")
     activeTokensStore.resetActive(token.id)
   }, [token])
@@ -40,6 +40,6 @@ export const useActivableToken = (token: Token | undefined) => {
      * If false, active state comes from chaindata default value.
      */
     isActiveSetByUser,
-    resetToTalismanDefault,
+    resetToTaostatsDefault,
   }
 }

@@ -92,7 +92,7 @@ const useStatusDetails = (tx?: WalletTransaction) => {
       case "unknown":
         return {
           title: t("Transaction not found"),
-          subtitle: t("Transaction was submitted, but Talisman is unable to track its progress."),
+          subtitle: t("Transaction was submitted, but Taostats is unable to track its progress."),
           animStatus: "failure",
         }
       case "replaced": {

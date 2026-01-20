@@ -63,7 +63,7 @@ export const MetadataStatus = ({ genesisHash, specVersion }: Props) => {
             rel="noreferrer noopener"
             className="text-grey-200 hover:text-white"
           >
-            add this chain to Talisman&nbsp;
+            add this chain to Taostats&nbsp;
             <ExternalLinkIcon className="inline" />
           </a>{" "}
           in order to update the metadata or your transaction may fail.

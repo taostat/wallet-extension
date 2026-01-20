@@ -104,7 +104,7 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
     <Tooltip>
       <TooltipContent>
         <AddressTooltip
-          address={account ? resolvedAddress : address} // don't show both formats for talisman accounts
+          address={account ? resolvedAddress : address} // don't show both formats for taostats accounts
           resolvedAddress={resolvedAddress}
           onChainId={onChainId ?? undefined}
           chainName={chain?.name}

@@ -35,7 +35,7 @@ export const useGetBittensorStakeInfo = ({
     minTaoStake,
     minAlphaUnstake,
     amountOut,
-    talismanFee,
+    taostatsFee,
     errorPayload,
     swapPrice,
     priceImpact,
@@ -74,7 +74,7 @@ export const useGetBittensorStakeInfo = ({
     minTaoStake,
     minAlphaUnstake,
     priceImpact,
-    talismanFee,
+    taostatsFee,
     amountOut,
     slippage,
   }

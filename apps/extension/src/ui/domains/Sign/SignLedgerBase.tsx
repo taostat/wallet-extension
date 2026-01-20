@@ -3,14 +3,14 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { TalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { TaostatsLedgerError } from "@ui/hooks/ledger/errors"
 
 import { ErrorMessageDrawer } from "./ErrorMessageDrawer"
 import { SignApproveButton } from "./SignApproveButton"
 
 export const SignLedgerBase: FC<{
   isProcessing: boolean
-  error: TalismanLedgerError | null
+  error: TaostatsLedgerError | null
   containerId?: string
   className?: string
   disabled?: boolean

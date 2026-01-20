@@ -5,7 +5,7 @@ import { log } from "extension-shared"
 import { FC, Suspense, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import { FRAME_SIZE, talismanRedHandSvg } from "./constants"
+import { FRAME_SIZE, taostatsRedHandSvg } from "./constants"
 
 type Props = {
   data?: Uint8Array
@@ -68,7 +68,7 @@ const QrCodeInner = ({ data, image, imageOptions }: Props) => {
           dotsOptions: { type: "square" },
           cornersSquareOptions: { type: "square" },
           cornersDotOptions: { type: "square" },
-          image: image ?? talismanRedHandSvg,
+          image: image ?? taostatsRedHandSvg,
           imageOptions: {
             hideBackgroundDots: true,
             imageSize: 0.7,

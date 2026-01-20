@@ -63,7 +63,7 @@ export type BaseQuote<TData = any> = {
   inputAmountBN: bigint
   error?: string
   fees: QuoteFee[]
-  talismanFee?: number
+  taostatsFee?: number
   data?: TData
   timeInSec: number
   providerLogo: string
@@ -143,7 +143,7 @@ export type SwapModule = {
     allowReap?: boolean,
   ) => Atom<Promise<{ payload: SignerPayloadJSON; txMetadata?: Uint8Array } | null>>
 
-  // talisman curated data
+  // taostats curated data
   decentralisationScore: number
   approvalAtom?: Atom<{
     contractAddress: string
