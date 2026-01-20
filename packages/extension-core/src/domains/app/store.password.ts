@@ -31,13 +31,13 @@ export type PasswordStoreData = {
 }
 
 const initialData = {
-  // passwords from early versions of Talisman were 'trimmed'.
+  // passwords from early versions were 'trimmed'.
   isTrimmed: true,
   isHashed: false,
   salt: undefined,
 }
 
-const ALARM_NAME = "talisman-autolock-alarm"
+const ALARM_NAME = "taostats-autolock-alarm"
 
 export class PasswordStore extends StorageProvider<PasswordStoreData> {
   isLoggedIn = new BehaviorSubject<LoggedInType>(UNKNOWN)
