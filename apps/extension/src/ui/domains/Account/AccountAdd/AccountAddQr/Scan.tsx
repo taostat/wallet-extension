@@ -43,7 +43,7 @@ export const Scan = () => {
                   {
                     title: t("Approve camera permissions"),
                     body: t(
-                      "It looks like you’ve blocked permissions for Talisman to access your camera",
+                      "It looks like you’ve blocked permissions for Taostats to access your camera",
                     ),
                     extra: (
                       <button
