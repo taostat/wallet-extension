@@ -1,11 +1,4 @@
-import {
-  ArrowDownIcon,
-  CreditCardIcon,
-  EyeIcon,
-  EyeOffIcon,
-  RepeatIcon,
-  SendIcon,
-} from "@taostats-wallet/icons"
+import { ArrowDownIcon, EyeIcon, EyeOffIcon, RepeatIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
@@ -17,7 +10,6 @@ import { AnalyticsEventName, AnalyticsPage, sendAnalyticsEvent } from "@ui/api/a
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
-import { useRampsModal } from "@ui/domains/Ramps/useRampsModal"
 import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
@@ -166,11 +158,9 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
 
   const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
-  const { open: openRampsModal } = useRampsModal()
   const { open: openSwapTokensModal } = useSwapTokensModal()
   const ownedAccounts = useAccounts("owned")
   const canSwap = useFeatureFlag("SWAPS")
-  const canBuy = useFeatureFlag("BUY_CRYPTO")
 
   const { disableActions, disabledReason } = useMemo(() => {
     const disableActions = disabled || !ownedAccounts.length
@@ -213,28 +203,8 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
           disabled: disableActions,
           disabledReason,
         },
-        canBuy
-          ? {
-              analyticsName: "Goto" as const,
-              analyticsAction: "open ramps",
-              label: t("Buy/Sell"),
-              icon: CreditCardIcon,
-              onClick: () => openRampsModal(),
-              disabled: disableActions,
-              disabledReason,
-            }
-          : null,
       ].filter(isNotNil),
-    [
-      canBuy,
-      canSwap,
-      disableActions,
-      disabledReason,
-      openCopyAddressModal,
-      openRampsModal,
-      openSwapTokensModal,
-      t,
-    ],
+    [canSwap, disableActions, disabledReason, openCopyAddressModal, openSwapTokensModal, t],
   )
 
   return (

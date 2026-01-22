@@ -18,7 +18,6 @@ import { AccountExportPrivateKeyModal } from "@ui/domains/Account/AccountExportP
 import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
-import { RampsModal } from "@ui/domains/Ramps/RampsModal"
 import { DatabaseErrorAlert } from "@ui/domains/Settings/DatabaseErrorAlert"
 import { BittensorBondModal } from "@ui/domains/Staking/Bittensor/BittensorBondModal"
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
@@ -93,7 +92,6 @@ const Popup = () => {
         <ExplorerNetworkPickerModal />
         <LedgerPolkadotUpgradeAlertDrawer />
         <NomPoolWithdrawModal />
-        <RampsModal />
         <SwapTokensModal />
         <UnbondModal />
       </Suspense>

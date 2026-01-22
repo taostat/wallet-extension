@@ -10,13 +10,12 @@ import { IconButton } from "taostats-ui"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
-import { useRampsModal } from "@ui/domains/Ramps/useRampsModal"
 import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
 import { useAccounts, useAppState, useFeatureFlag } from "@ui/state"
 import { closeIfEmbeddedPopup } from "@ui/util/closeIfEmbeddedPopup"
 import { IS_POPUP } from "@ui/util/constants"
 
-import { GetStartedBuyIcon, GetStartedReceiveIcon, GetStartedSwapIcon } from "./icons"
+import { GetStartedReceiveIcon, GetStartedSwapIcon } from "./icons"
 import { useTryPageModal } from "./TryPage"
 
 const isShownAccount = (account: Account) =>
@@ -33,11 +32,8 @@ export const GetStarted = () => {
     onTryItClick,
     onReceiveClick,
     onSwapClick,
-    onBuyClick,
     onDismissClick,
   } = useGetStarted()
-
-  const canBuy = useFeatureFlag("BUY_CRYPTO")
 
   if (isShowingAccounts) {
     return null
@@ -82,14 +78,6 @@ export const GetStarted = () => {
             iconTop={<GetStartedSwapIcon className="size-10" />}
             onClick={onSwapClick}
           />
-          {canBuy && (
-            <GetStartedActionButton
-              label={t("Buy")}
-              className="text-sm"
-              iconTop={<GetStartedBuyIcon className="size-10" />}
-              onClick={onBuyClick}
-            />
-          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-8">
@@ -118,7 +106,6 @@ const useGetStarted = () => {
   const navigate = useNavigate()
   const { open: onCopyAddressModal } = useCopyAddressModal()
   const { open: openSwapTokensModal } = useSwapTokensModal()
-  const { open: openRamps } = useRampsModal()
   const { open: openTryModal } = useTryPageModal()
 
   const [isHidden, setIsHidden] = useAppState("hideGetStarted")
@@ -154,12 +141,6 @@ const useGetStarted = () => {
     closeIfEmbeddedPopup()
   }, [canSwap, openSwapTokensModal])
 
-  const onBuyClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "open ramps" })
-
-    openRamps()
-  }, [openRamps])
-
   const onDismissClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "dismiss get started" })
     setIsHidden(true)
@@ -172,7 +153,6 @@ const useGetStarted = () => {
     onTryItClick,
     onSwapClick,
     onReceiveClick,
-    onBuyClick,
     onDismissClick,
   }
 }

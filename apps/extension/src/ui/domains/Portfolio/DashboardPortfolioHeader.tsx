@@ -1,10 +1,4 @@
-import {
-  ArrowDownIcon,
-  CreditCardIcon,
-  FolderIcon,
-  MoreHorizontalIcon,
-  SendIcon,
-} from "@taostats-wallet/icons"
+import { ArrowDownIcon, FolderIcon, MoreHorizontalIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
 import { shortenAddress } from "@taostats/util/shortenAddress"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
@@ -29,9 +23,8 @@ import { FolderContextMenu } from "@ui/domains/Account/FolderContextMenu"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
-import { useRampsModal } from "@ui/domains/Ramps/useRampsModal"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
-import { useBalanceTotals, useFeatureFlag, useSelectedCurrency } from "@ui/state"
+import { useBalanceTotals, useSelectedCurrency } from "@ui/state"
 
 import { usePortfolioNavigation } from "./usePortfolioNavigation"
 
@@ -215,11 +208,12 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 }
 
 const TopActions: FC = () => {
+  // TODO: Re-enable once staking in app is complete
+  return null
+
   const { selectedAccounts, selectedAccount } = usePortfolioNavigation()
   const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
-  const { open: openRampsModal } = useRampsModal()
-  const canBuy = useFeatureFlag("BUY_CRYPTO")
 
   const [disableActions, disabledReason] = useMemo(() => {
     if (!!selectedAccount && !isAccountOwned(selectedAccount))
@@ -264,17 +258,6 @@ const TopActions: FC = () => {
             }),
           disabled: !selectedAccounts.length, // always allow, as long as there is at least one account
         },
-        canBuy
-          ? {
-              analyticsName: "Goto" as const,
-              analyticsAction: "open ramps",
-              label: t("Buy/Sell"),
-              icon: CreditCardIcon,
-              onClick: () => openRampsModal(),
-              disabled: disableActions,
-              disabledReason,
-            }
-          : null,
       ].filter(isNotNil),
     [
       t,
@@ -282,16 +265,11 @@ const TopActions: FC = () => {
       disabledReason,
       selectedAccount,
       selectedAccounts.length,
-      canBuy,
       selectedAddress,
       symbol,
       openCopyAddressModal,
-      openRampsModal,
     ],
   )
-
-  // TODO: Re-enable once staking in app is complete
-  return null
 
   return (
     <div className="z-[1] flex w-full items-center justify-between gap-8">

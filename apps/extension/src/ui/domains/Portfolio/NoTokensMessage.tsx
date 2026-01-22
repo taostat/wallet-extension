@@ -1,13 +1,11 @@
-import { CopyIcon, CreditCardIcon } from "@taostats-wallet/icons"
+import { CopyIcon } from "@taostats-wallet/icons"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "taostats-ui"
 
 import { useAnalytics } from "@ui/hooks/useAnalytics"
-import { useFeatureFlag } from "@ui/state"
 
 import { useCopyAddressModal } from "../CopyAddress"
-import { useRampsModal } from "../Ramps/useRampsModal"
 import { usePortfolioNavigation } from "./usePortfolioNavigation"
 
 type NoTokensMessageProps = {
@@ -25,13 +23,6 @@ export const NoTokensMessage = ({ symbol }: NoTokensMessageProps) => {
     genericEvent("open receive", { from: "NoTokensMessage" })
   }, [selectedAccount?.address, genericEvent, open])
 
-  const showBuyCrypto = useFeatureFlag("BUY_CRYPTO")
-  const { open: openRampsModal } = useRampsModal()
-  const handleBuyCryptoClick = useCallback(() => {
-    genericEvent("open ramps", { from: "NoTokensMessage" })
-    openRampsModal()
-  }, [genericEvent, openRampsModal])
-
   return (
     <div className="bg-field text-body-secondary flex flex-col items-center justify-center rounded py-36">
       <div>
@@ -45,11 +36,6 @@ export const NoTokensMessage = ({ symbol }: NoTokensMessageProps) => {
         <PillButton size="sm" icon={CopyIcon} onClick={handleCopy}>
           {t("Copy Address")}
         </PillButton>
-        {showBuyCrypto && (
-          <PillButton size="sm" icon={CreditCardIcon} onClick={handleBuyCryptoClick}>
-            {t("Buy Crypto")}
-          </PillButton>
-        )}
       </div>
     </div>
   )
