@@ -153,8 +153,6 @@ export const isCurveCompatibleWithChain = (
 }
 
 const isAccountCompatibleWithDotNetwork = (chain: DotNetwork, account: Account) => {
-  // consider only substrate and ethereum accounts
-  if (!isAccountPlatformPolkadot(account) && !isAccountPlatformEthereum(account)) return false
   // except ethereum ledger accounts which can't sign substrate payloads
   if (account.type === "ledger-ethereum") return false
 
@@ -169,12 +167,9 @@ const isAccountCompatibleWithDotNetwork = (chain: DotNetwork, account: Account) 
 
 export const isAccountCompatibleWithNetwork = (network: Network, account: Account) => {
   switch (network.platform) {
-    case "ethereum":
-      return isAccountPlatformEthereum(account)
     case "polkadot":
       return isAccountCompatibleWithDotNetwork(network, account)
-    case "solana":
-      return isAccountPlatformSolana(account)
+
     default:
       log.warn("Unsupported network platform", network)
       throw new Error("Unsupported network platform")

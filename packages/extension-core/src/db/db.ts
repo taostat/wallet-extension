@@ -1,13 +1,21 @@
+import { Address } from "@taostats-wallet/balances"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { Dexie } from "dexie"
 
 import { ProtectorSources, ProtectorStorage } from "../domains/app/protector/ParaverseProtector"
-import { DiscoveredBalance } from "../domains/assetDiscovery/types"
 import { TMetadataDef } from "../domains/substrate/types"
 import { LegacyWalletTransaction, WalletTransaction } from "../domains/transactions/types"
 import { DbBlobId, DbBlobItem } from "./blobs"
 import { upgradeRemoveSymbolFromNativeTokenId } from "./upgrades/2024-01-25-upgradeRemoveSymbolFromNativeTokenId"
 
 export const MIGRATION_ERROR_MSG = "Dexie Migration Error"
+
+type DiscoveredBalance = {
+  id: string
+  address: Address
+  tokenId: TokenId
+  balance: string
+}
 
 class TaostatsExtensionDatabase extends Dexie {
   assetDiscovery!: Dexie.Table<DiscoveredBalance, string>

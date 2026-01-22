@@ -6,8 +6,6 @@ import type {
 import { TransactionInstruction } from "@solana/web3.js"
 import {
   DotNetworkId,
-  EthNetworkId,
-  SolNetworkId,
   Token,
   TokenId,
   TokenOfType,

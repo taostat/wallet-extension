@@ -1,10 +1,8 @@
 import { DotNetwork, Network, NetworkPlatform } from "./networks"
 import {
-  EvmNativeTokenSchema,
   parseEvmErc20TokenId,
   parseEvmNativeTokenId,
   parseEvmUniswapV2TokenId,
-  parseSolSplTokenId,
   parseSubAssetTokenId,
   parseSubDTaoTokenId,
   parseSubForeignAssetTokenId,
@@ -18,7 +16,6 @@ import {
   TokenIdSpecs,
   TokenType,
 } from "./tokens"
-import { parseSolNativeTokenId, SolNativeTokenSchema } from "./tokens/SolNativeToken"
 
 export type NetworkOfPlatform<P extends NetworkPlatform> = Extract<Network, { platform: P }>
 
@@ -40,14 +37,6 @@ export const isNetworkDot = (network: Network | null | undefined) => {
   return isNetworkOfPlatform(network, "polkadot")
 }
 
-export const isNetworkEth = (network: Network | null | undefined) => {
-  return isNetworkOfPlatform(network, "ethereum")
-}
-
-export const isNetworkSol = (network: Network | null | undefined) => {
-  return isNetworkOfPlatform(network, "solana")
-}
-
 export const getNetworkGenesisHash = <
   Net extends Network,
   Res = Net extends DotNetwork ? DotNetwork["genesisHash"] : undefined,
@@ -60,8 +49,6 @@ export const getNetworkGenesisHash = <
 export type TokenOfType<T extends TokenType> = Extract<Token, { type: T }>
 export type TokenOfPlatform<P extends NetworkPlatform> = Extract<Token, { platform: P }>
 export type DotToken = TokenOfPlatform<"polkadot">
-export type EthToken = TokenOfPlatform<"ethereum">
-export type SolToken = TokenOfPlatform<"solana">
 
 export const isTokenOfPlatform = <P extends NetworkPlatform>(
   token: Token | null | undefined,
@@ -130,10 +117,6 @@ export const isTokenEvmUniswapV2 = (token: Token | null | undefined) => {
   return isTokenOfType(token, "evm-uniswapv2")
 }
 
-export const isTokenSolSpl = (token: Token | null | undefined) => {
-  return isTokenOfType(token, "sol-spl")
-}
-
 export const parseTokenId = <T extends TokenType>(tokenId: TokenId): TokenIdSpecs<T> => {
   const parts = tokenId.split(":")
   if (parts.length < 2) throw new Error(`Invalid TokenId: ${tokenId}`)
@@ -161,10 +144,6 @@ export const parseTokenId = <T extends TokenType>(tokenId: TokenId): TokenIdSpec
       return parseSubTokensTokenId(tokenId) as TokenIdSpecs<T>
     case "substrate-hydration":
       return parseSubHydrationTokenId(tokenId) as TokenIdSpecs<T>
-    case "sol-native":
-      return parseSolNativeTokenId(tokenId) as TokenIdSpecs<T>
-    case "sol-spl":
-      return parseSolSplTokenId(tokenId) as TokenIdSpecs<T>
   }
 }
 
@@ -173,8 +152,6 @@ export const networkIdFromTokenId = (tokenId: TokenId): Network["id"] =>
 
 const PLATFORM_NATIVE_TOKENS = {
   polkadot: SubNativeTokenSchema.shape.type.value,
-  ethereum: EvmNativeTokenSchema.shape.type.value,
-  solana: SolNativeTokenSchema.shape.type.value,
 }
 
 export type NativeTokenType<P extends NetworkPlatform = NetworkPlatform> =

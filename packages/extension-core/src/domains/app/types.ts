@@ -1,4 +1,4 @@
-import { DotNetworkId, EthNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
+import { DotNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
 
 import { ValidRequests } from "../../libs/requests/types"
 import { Address } from "../../types/base"
@@ -31,7 +31,7 @@ export type RemoteConfigStoreData = {
     apiUrl: string
   }
   nominationPools: Record<DotNetworkId, number[]>
-  stakingPools: Record<DotNetworkId | EthNetworkId, (number | string)[]>
+  stakingPools: Record<DotNetworkId, (number | string)[]>
   postHogUrl: string
   documentation: {
     unifiedAddressDocsUrl: string

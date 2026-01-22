@@ -5,14 +5,11 @@ import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@taostats-wallet/icons
 import { classNames, planckToTokens } from "@taostats-wallet/util"
 import { useScrollContainer } from "@taostats/components/ScrollContainer"
 import {
-  isTxInfoApproval,
   isTxInfoSwap,
   isTxInfoTransfer,
   TransactionStatus,
   WalletTransaction,
   WalletTransactionDot,
-  WalletTransactionEth,
-  WalletTransactionSol,
 } from "extension-core"
 import { IS_FIREFOX } from "extension-shared"
 import { FC, ReactNode, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -25,13 +22,7 @@ import { Tokens } from "@ui/domains/Asset/Tokens"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { useSwapStatus } from "@ui/domains/Swap/hooks/useSwapStatus"
 import { useFaviconUrl } from "@ui/hooks/useFaviconUrl"
-import {
-  useNetworkByGenesisHash,
-  useNetworkById,
-  useSelectedCurrency,
-  useToken,
-  useTokenRates,
-} from "@ui/state"
+import { useNetworkByGenesisHash, useSelectedCurrency, useToken, useTokenRates } from "@ui/state"
 import { IS_POPUP } from "@ui/util/constants"
 
 import { ReplacementCallbackArgs } from "../TxProgress"
@@ -163,9 +154,7 @@ type TransactionRowProps = {
   onSelectTx: (tx: WalletTransaction) => void
 }
 
-type TransactionRowEthProps = TransactionRowProps & { tx: WalletTransactionEth }
 type TransactionRowDotProps = TransactionRowProps & { tx: WalletTransactionDot }
-type TransactionRowSolProps = TransactionRowProps & { tx: WalletTransactionSol }
 
 const Favicon: FC<{ siteUrl: string; className?: string }> = ({ siteUrl, className }) => {
   const iconUrl = useFaviconUrl(siteUrl)
@@ -249,11 +238,7 @@ const SwapTransactionStatusLabel = ({ tx }: { tx: WalletTransaction }) => {
   const { t } = useTranslation()
   const swapExchangeId =
     isTxInfoSwap(tx.txInfo) && "exchangeId" in tx.txInfo ? tx.txInfo.exchangeId : undefined
-  const swapLifiHash =
-    isTxInfoSwap(tx.txInfo) && tx.txInfo.type === "swap-lifi" && tx.platform === "ethereum"
-      ? tx.hash
-      : undefined
-  const swapStatus = useSwapStatus(tx.txInfo?.type, swapExchangeId ?? swapLifiHash)
+  const swapStatus = useSwapStatus(tx.txInfo?.type, swapExchangeId)
 
   // show regular tx status while tx is still submitting
   if (tx.status !== "success") return <TransactionStatusLabel status={tx.status} />
@@ -340,135 +325,6 @@ const TransactionRowBase: FC<{
         </div>
       </div>
     </button>
-  )
-}
-
-const TransactionRowEvm: FC<TransactionRowEthProps> = ({ tx, onSelectTx }) => {
-  const evmNetwork = useNetworkById(tx.networkId, "ethereum")
-
-  const txTransfer = isTxInfoTransfer(tx.txInfo) ? tx.txInfo : undefined
-  const txSwap = isTxInfoSwap(tx.txInfo) ? tx.txInfo : undefined
-  const txApproval = isTxInfoApproval(tx.txInfo) ? tx.txInfo : undefined
-
-  const tokenId = txTransfer?.tokenId || txSwap?.fromTokenId || txApproval?.tokenId
-
-  const token = useToken(tokenId)
-  const tokenRates = useTokenRates(tokenId)
-  const currency = useSelectedCurrency()
-
-  const { isTransfer, amount } = useMemo(() => {
-    // legacy entries do not have a type, in that case assume it's a transfer
-    const isTransfer = token && txTransfer
-
-    return {
-      isTransfer,
-      amount: isTransfer
-        ? new BalanceFormatter(txTransfer?.value, token.decimals, tokenRates)
-        : null,
-    }
-  }, [token, tokenRates, txTransfer])
-
-  const fromToken = useToken(txSwap?.fromTokenId)
-  const toToken = useToken(txSwap?.toTokenId)
-
-  const handleRowClick = useCallback(() => onSelectTx(tx), [onSelectTx, tx])
-
-  const { t } = useTranslation()
-
-  return (
-    <TransactionRowBase
-      logo={
-        tx.siteUrl ? (
-          <TxIconContainer tooltip={tx.siteUrl} networkId={evmNetwork?.id}>
-            <Favicon siteUrl={tx.siteUrl} className="!h-16 !w-16" />
-          </TxIconContainer>
-        ) : txSwap ? (
-          <div className="flex items-center">
-            <TxIconContainer networkId={fromToken?.networkId ?? fromToken?.networkId}>
-              <TokenLogo tokenId={fromToken?.id} className="!h-16 !w-16" />
-            </TxIconContainer>
-            <TxIconContainer className="-ml-4" networkId={toToken?.networkId ?? toToken?.networkId}>
-              <TokenLogo tokenId={toToken?.id} className="!h-16 !w-16" />
-            </TxIconContainer>
-          </div>
-        ) : isTransfer && token ? (
-          <TxIconContainer
-            tooltip={`${token?.symbol} on ${evmNetwork?.name}`}
-            networkId={evmNetwork?.id}
-          >
-            <TokenLogo tokenId={token.id} className="!h-16 !w-16" />
-          </TxIconContainer>
-        ) : (
-          <TxIconContainer tooltip={evmNetwork?.name}>
-            <NetworkLogo networkId={evmNetwork?.id} className="!h-16 !w-16" />
-          </TxIconContainer>
-        )
-      }
-      status={
-        <>
-          {txSwap ? (
-            <Suspense fallback={<SwapTransactionStatusLabelFallback />}>
-              <SwapTransactionStatusLabel tx={tx} />
-            </Suspense>
-          ) : (
-            <TransactionStatusLabel status={tx.status} />
-          )}
-          {tx.isReplacement && (
-            <span className="bg-alert-warn/25 text-alert-warn rounded px-3 py-1 text-[10px] font-light">
-              {t("Replacement")}
-            </span>
-          )}
-        </>
-      }
-      wen={<DistanceToNow timestamp={tx.timestamp} />}
-      onClick={handleRowClick}
-      tokens={
-        txSwap ? (
-          // tx is a swap deposit
-          <div className="flex flex-col">
-            <div className="flex items-center justify-end gap-1">
-              <Tokens
-                className="pointer-events-none"
-                amount={planckToTokens(txSwap.fromAmount, fromToken?.decimals)}
-                decimals={fromToken?.decimals}
-                noCountUp
-                noTooltip
-                symbol={fromToken?.symbol}
-                isBalance
-              />
-              <ArrowRightIcon className="text-body-inactive" />
-            </div>
-            <Tokens
-              className="pointer-events-none"
-              amount={planckToTokens(txSwap.toAmount, toToken?.decimals)}
-              decimals={toToken?.decimals ?? 0}
-              noCountUp
-              noTooltip
-              symbol={toToken?.symbol}
-              isBalance
-            />
-          </div>
-        ) : (
-          !!amount &&
-          !!token && (
-            <Tokens
-              className="pointer-events-none"
-              amount={amount.tokens}
-              decimals={token.decimals}
-              noCountUp
-              noTooltip
-              symbol={token.symbol}
-              isBalance
-            />
-          )
-        )
-      }
-      fiat={
-        isTransfer &&
-        !!amount &&
-        !!amount.fiat(currency) && <Fiat amount={amount} noCountUp isBalance />
-      }
-    />
   )
 }
 
@@ -591,130 +447,11 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
   )
 }
 
-const TransactionRowSol: FC<TransactionRowSolProps> = ({ tx, onSelectTx }) => {
-  const txTransfer = isTxInfoTransfer(tx.txInfo) ? tx.txInfo : undefined
-  const txSwap = isTxInfoSwap(tx.txInfo) ? tx.txInfo : undefined
-  const txApproval = isTxInfoApproval(tx.txInfo) ? tx.txInfo : undefined
-
-  const tokenId = txTransfer?.tokenId || txSwap?.fromTokenId || txApproval?.tokenId
-
-  const chain = useNetworkById(tx.networkId, "solana")
-  const token = useToken(tokenId)
-  const tokenRates = useTokenRates(tokenId)
-  const currency = useSelectedCurrency()
-
-  const { isTransfer, amount } = useMemo(() => {
-    // historically txInfo wasnt a property, transfer params were set on the tx object
-    const isTransfer = token && txTransfer
-
-    return {
-      isTransfer,
-      amount: isTransfer
-        ? new BalanceFormatter(txTransfer?.value, token.decimals, tokenRates)
-        : null,
-    }
-  }, [token, tokenRates, txTransfer])
-
-  const fromToken = useToken(txSwap?.fromTokenId)
-  const toToken = useToken(txSwap?.toTokenId)
-
-  const handleRowClick = useCallback(() => onSelectTx(tx), [onSelectTx, tx])
-
-  return (
-    <TransactionRowBase
-      onClick={handleRowClick}
-      logo={
-        tx.siteUrl ? (
-          <TxIconContainer tooltip={tx.siteUrl} networkId={chain?.id}>
-            <Favicon siteUrl={tx.siteUrl} className="!h-16 !w-16" />
-          </TxIconContainer>
-        ) : txSwap ? (
-          <div className="flex items-center">
-            <TxIconContainer networkId={fromToken?.networkId ?? fromToken?.networkId}>
-              <TokenLogo tokenId={fromToken?.id} className="!h-16 !w-16" />
-            </TxIconContainer>
-            <TxIconContainer className="-ml-4" networkId={toToken?.networkId ?? toToken?.networkId}>
-              <TokenLogo tokenId={toToken?.id} className="!h-16 !w-16" />
-            </TxIconContainer>
-          </div>
-        ) : isTransfer && token ? (
-          <TxIconContainer tooltip={`${token?.symbol} on ${chain?.name}`} networkId={chain?.id}>
-            <TokenLogo tokenId={token.id} className="!h-16 !w-16" />
-          </TxIconContainer>
-        ) : (
-          <TxIconContainer tooltip={chain?.name}>
-            <NetworkLogo networkId={chain?.id} className="!h-16 !w-16" />
-          </TxIconContainer>
-        )
-      }
-      status={
-        txSwap ? (
-          <Suspense fallback={<SwapTransactionStatusLabelFallback />}>
-            <SwapTransactionStatusLabel tx={tx} />
-          </Suspense>
-        ) : (
-          <TransactionStatusLabel status={tx.status} />
-        )
-      }
-      wen={<DistanceToNow timestamp={tx.timestamp} />}
-      tokens={
-        txSwap ? (
-          // tx is a swap deposit
-          <div className="flex flex-col">
-            <div className="flex items-center justify-end gap-1">
-              <Tokens
-                className="pointer-events-none"
-                amount={planckToTokens(txSwap.fromAmount, fromToken?.decimals)}
-                decimals={fromToken?.decimals}
-                symbol={fromToken?.symbol}
-                noCountUp
-                noTooltip
-                isBalance
-              />
-              <ArrowRightIcon className="text-body-inactive" />
-            </div>
-            <Tokens
-              className="pointer-events-none"
-              amount={planckToTokens(txSwap.toAmount, toToken?.decimals)}
-              decimals={toToken?.decimals ?? 0}
-              symbol={toToken?.symbol}
-              noCountUp
-              noTooltip
-              isBalance
-            />
-          </div>
-        ) : (
-          !!amount &&
-          !!token && (
-            <Tokens
-              className="pointer-events-none"
-              amount={amount.tokens}
-              decimals={token.decimals}
-              noCountUp
-              noTooltip
-              symbol={token.symbol}
-              isBalance
-            />
-          )
-        )
-      }
-      fiat={
-        isTransfer &&
-        !!amount &&
-        !!amount.fiat(currency) && <Fiat amount={amount} noCountUp isBalance />
-      }
-    />
-  )
-}
-
 const TransactionRow: FC<TransactionRowProps> = ({ tx, ...props }) => {
   switch (tx.platform) {
-    case "ethereum":
-      return <TransactionRowEvm tx={tx} {...props} />
     case "polkadot":
       return <TransactionRowDot tx={tx} {...props} />
-    case "solana":
-      return <TransactionRowSol tx={tx} {...props} />
+
     default:
       return null
   }

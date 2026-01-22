@@ -20,7 +20,6 @@ import {
   TxHistoryDetailsPayloadDisplayMode,
 } from "./TxHistoryDetails/TxHistoryDetailsPayload"
 import { TxHistoryDetailsTimestamp } from "./TxHistoryDetails/TxHistoryDetailsTimestamp"
-import { TxHistoryDetailsTokens } from "./TxHistoryDetails/TxHistoryDetailsTokens"
 import { TxHistoryDetailsTxInfo } from "./TxHistoryDetails/TxHistoryDetailsTxInfo"
 import { TxHistoryDetailsUrl } from "./TxHistoryDetails/TxHistoryDetailsUrl"
 
@@ -124,10 +123,8 @@ const TxHistoryActions: FC<TxHistoryActionsProps> = ({ tx }) => {
       return `https://simpleswap.io/exchange?id=${swapInfo.exchangeId}`
     if (swapInfo.type === "swap-stealthex" && swapInfo.exchangeId)
       return `https://stealthex.io/exchange?id=${swapInfo.exchangeId}`
-    if (swapInfo.type === "swap-lifi" && tx.platform === "ethereum")
-      return `https://scan.li.fi/tx/${tx.hash}`
     return undefined
-  }, [swapInfo, tx])
+  }, [swapInfo])
 
   const explorerLinks = useMemo(() => {
     if (!network) return []
@@ -185,8 +182,6 @@ type TxHistoryDetailsProps = {
 }
 
 const TxHistoryDetails: FC<TxHistoryDetailsProps> = ({ tx }) => {
-  const network = useNetworkById(tx.networkId)
-
   return (
     <div className="flex w-full flex-col gap-4 overflow-hidden">
       <TxHistoryDetailsRow title={t("Network")}>
@@ -200,23 +195,13 @@ const TxHistoryDetails: FC<TxHistoryDetailsProps> = ({ tx }) => {
       <TxHistoryDetailsRow title={t("From")}>
         <TxHistoryDetailsAddress networkId={tx.networkId} address={tx.account} />
       </TxHistoryDetailsRow>
-      {tx.platform === "ethereum" && tx.payload.to && (
-        <TxHistoryDetailsRow title={t("To")}>
-          <TxHistoryDetailsAddress networkId={tx.networkId} address={tx.payload.to} />
-        </TxHistoryDetailsRow>
-      )}
-      {tx.platform === "ethereum" && !!tx.payload.value && network?.nativeTokenId && (
-        <TxHistoryDetailsRow title={t("Value")}>
-          <TxHistoryDetailsTokens value={tx.payload.value} tokenId={network.nativeTokenId} />
-        </TxHistoryDetailsRow>
-      )}
-      {(tx.platform === "ethereum" || tx.platform === "polkadot") && (
+      {tx.platform === "polkadot" && (
         <TxHistoryDetailsRow title={t("Nonce")}>{tx.nonce}</TxHistoryDetailsRow>
       )}
       <TxHistoryDetailsRow title={t("Submitted at")}>
         <TxHistoryDetailsTimestamp timestamp={tx.timestamp} />
       </TxHistoryDetailsRow>
-      {(tx.platform === "ethereum" || tx.platform === "polkadot") && (
+      {tx.platform === "polkadot" && (
         <TxHistoryDetailsRow title={t("Block number")}>{tx.blockNumber}</TxHistoryDetailsRow>
       )}
       {!!tx.txInfo && (
@@ -227,9 +212,7 @@ const TxHistoryDetails: FC<TxHistoryDetailsProps> = ({ tx }) => {
       <TxHistoryDetailsRow title={t("Payload")} extra={<TxHistoryDetailsPayloadDisplayMode />}>
         <TxHistoryDetailsPayload tx={tx} />
       </TxHistoryDetailsRow>
-      <TxHistoryDetailsRow
-        title={tx.platform === "solana" ? t("Signature") : t("Transaction hash")}
-      >
+      <TxHistoryDetailsRow title={t("Transaction hash")}>
         <TxHistoryDetailsIdentifier tx={tx} />
       </TxHistoryDetailsRow>
     </div>
@@ -252,5 +235,4 @@ const TxHistoryDetailsRow: FC<{ title: ReactNode; extra?: ReactNode; children: R
   )
 }
 
-const getTransactionId = (tx: WalletTransaction) =>
-  tx.platform === "solana" ? tx.signature : tx.hash
+const getTransactionId = (tx: WalletTransaction) => tx.hash

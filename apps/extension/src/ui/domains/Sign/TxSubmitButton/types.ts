@@ -1,7 +1,4 @@
-import { Transaction, VersionedTransaction } from "@solana/web3.js"
-import { EthNetworkId, SolNetworkId } from "@taostats-wallet/chaindata-provider"
 import { SignerPayloadJSON, WalletTransactionInfo } from "extension-core"
-import { TransactionRequest } from "viem"
 
 export type TxSubmitButtonTransactionDot = {
   platform: "polkadot"
@@ -10,24 +7,7 @@ export type TxSubmitButtonTransactionDot = {
   txMetadata?: Uint8Array | `0x${string}`
 }
 
-export type TxSubmitButtonTransactionEth = {
-  platform: "ethereum"
-  networkId: EthNetworkId
-  payload: TransactionRequest
-  txInfo?: WalletTransactionInfo
-}
-
-export type TxSubmitButtonTransactionSol = {
-  platform: "solana"
-  networkId: SolNetworkId
-  payload: Transaction | VersionedTransaction
-  txInfo?: WalletTransactionInfo
-}
-
-export type TxSubmitButtonTransaction =
-  | TxSubmitButtonTransactionDot
-  | TxSubmitButtonTransactionEth
-  | TxSubmitButtonTransactionSol
+export type TxSubmitButtonTransaction = TxSubmitButtonTransactionDot
 
 type TransactionPlatform = TxSubmitButtonTransaction["platform"]
 
@@ -35,11 +15,7 @@ export type TxSubmitButtonProps<
   P extends TransactionPlatform | undefined = undefined,
   Tx = P extends "polkadot"
     ? TxSubmitButtonTransactionDot
-    : P extends "ethereum"
-      ? TxSubmitButtonTransactionEth
-      : P extends "solana"
-        ? TxSubmitButtonTransactionSol
-        : TxSubmitButtonTransaction | null | undefined,
+    : TxSubmitButtonTransaction | null | undefined,
 > = {
   tx: Tx
   containerId?: string
