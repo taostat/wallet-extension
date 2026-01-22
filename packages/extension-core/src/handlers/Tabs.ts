@@ -35,7 +35,6 @@ import {
   ResponseEncryptDecrypt,
   ResponseEncryptEncrypt,
 } from "../domains/encrypt/types"
-import { EthTabsHandler } from "../domains/ethereum"
 import { keyringStore } from "../domains/keyring/store"
 import { requestInjectMetadata } from "../domains/metadata/requests"
 import { signSubstrate } from "../domains/signing/requests"
@@ -45,10 +44,9 @@ import {
   AuthorizedSites,
   RequestAuthorizeTab,
 } from "../domains/sitesAuthorised/types"
-import { SolanaTabsHandler } from "../domains/solana/handler.tabs"
-import TaostatsHandler from "../domains/talisman/handler"
-import { UnknownJsonRpcResponse } from "../domains/talisman/types"
-import { talismanAnalytics } from "../libs/Analytics"
+import TaostatsHandler from "../domains/wallet/handler"
+import { UnknownJsonRpcResponse } from "../domains/wallet/types"
+import { walletAnalytics } from "../libs/Analytics"
 import { TabsHandler } from "../libs/Handler"
 import { chaindataProvider } from "../rpcs/chaindata"
 import { SubstrateSignResponse } from "../types/domains"
@@ -66,9 +64,6 @@ export default class Tabs extends TabsHandler {
 
     // routing to sub-handlers
     this.#routes = {
-      eth: new EthTabsHandler(stores),
-      solana: new SolanaTabsHandler(stores),
-      // TODO rename eth => ethereum (requires changing prefix in all requests)
       talisman: new TaostatsHandler(stores),
     }
   }
@@ -301,7 +296,7 @@ export default class Tabs extends TabsHandler {
         message: "Redirect from phishing site",
         extra: { url },
       })
-      talismanAnalytics.capture("Redirect from phishing site", { url })
+      walletAnalytics.capture("Redirect from phishing site", { url })
       this.redirectPhishingLanding(url)
 
       return true

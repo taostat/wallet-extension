@@ -14,7 +14,7 @@ import type {
   SignerPayloadJSON,
 } from "./types"
 import { sentry } from "../../config/sentry"
-import { talismanAnalytics } from "../../libs/Analytics"
+import { walletAnalytics } from "../../libs/Analytics"
 import { ExtensionHandler } from "../../libs/Handler"
 import { requestStore } from "../../libs/requests/store"
 import { windowManager } from "../../libs/WindowManager"
@@ -129,7 +129,7 @@ export default class SigningHandler extends ExtensionHandler {
         signature = request.sign(registry, pair).signature
       }
 
-      talismanAnalytics.captureDelayed(
+      walletAnalytics.captureDelayed(
         isJsonPayload(payload) ? "sign transaction approve" : "sign approve",
         {
           ...analyticsProperties,
@@ -216,7 +216,7 @@ export default class SigningHandler extends ExtensionHandler {
           ? "qr"
           : undefined
 
-    talismanAnalytics.captureDelayed(
+    walletAnalytics.captureDelayed(
       isJsonPayload(payload) ? "sign transaction approve" : "sign approve",
       {
         ...analyticsProperties,
@@ -235,7 +235,7 @@ export default class SigningHandler extends ExtensionHandler {
     const queued = requestStore.getRequest(id)
     assert(queued, "Unable to find request")
 
-    talismanAnalytics.captureDelayed("sign reject", {
+    walletAnalytics.captureDelayed("sign reject", {
       networkType: "substrate",
     })
     queued.reject(new Error("Cancelled"))

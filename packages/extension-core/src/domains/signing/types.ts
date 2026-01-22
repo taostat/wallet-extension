@@ -3,12 +3,10 @@ import {
   RequestSigningApproveSignature as PolkadotRequestSigningApproveSignature,
   RequestSign,
 } from "@polkadot/extension-base/background/types"
-import { EthNetworkId, SolNetworkId } from "@taostats-wallet/chaindata-provider"
 import { Account } from "@taostats-wallet/keyring"
 import { RpcTransactionRequest } from "viem"
 
 import { BaseRequest, BaseRequestId } from "../../types/base"
-import { EthGasSettingsEip1559, EthGasSettingsLegacy } from "../ethereum/types"
 
 export type { SignerPayloadJSON, SignerPayloadRaw } // Make this available elsewhere also
 
@@ -56,85 +54,15 @@ export interface SubstrateSigningRequest extends BaseSigningRequest<SUBSTRATE_SI
 
 export type SubstrateSignResponse = Omit<SignerResult, "id"> & { id: string }
 
-export interface EthBaseSignRequest<T extends ETH_SIGN | ETH_SEND> extends BaseSigningRequest<T> {
-  ethChainId: EthNetworkId
-  account: Account
-  request: string | RpcTransactionRequest
-}
-
-export type ETH_SIGN = "eth-sign"
-export type ETH_SEND = "eth-send"
-export type SOL_SIGN = "sol-sign"
-
-const ETH_SIGN: ETH_SIGN = "eth-sign"
-const ETH_SEND: ETH_SEND = "eth-send"
-const SOL_SIGN: SOL_SIGN = "sol-sign"
-
 export const SIGNING_TYPES = {
-  ETH_SIGN,
-  ETH_SEND,
   SUBSTRATE_SIGN,
-  SOL_SIGN,
 }
 
-export type EthSignMessageMethod =
-  | "personal_sign"
-  | "eth_signTypedData"
-  | "eth_signTypedData_v1"
-  | "eth_signTypedData_v3"
-  | "eth_signTypedData_v4"
-
-export interface EthSignRequest extends EthBaseSignRequest<ETH_SIGN> {
-  request: string
-  ethChainId: EthNetworkId
-  method: EthSignMessageMethod
-  params: unknown[]
-}
-
-export interface EthSignAndSendRequest extends EthBaseSignRequest<ETH_SEND> {
-  request: RpcTransactionRequest
-  ethChainId: EthNetworkId
-  method: "eth_sendTransaction"
-}
-
-export type AnyEthSigningRequest = EthSignAndSendRequest | EthSignRequest
-export type AnySigningRequest = SubstrateSigningRequest | AnyEthSigningRequest | SolSigningRequest
-
-export type SolSignRequest =
-  | {
-      type: "message"
-      message: string
-    }
-  | {
-      type: "transaction"
-      transaction: string
-      send: boolean
-    }
-
-export type SolSignResult =
-  | {
-      type: "message"
-      signature: string
-    }
-  | {
-      type: "transaction"
-      transaction: string
-      networkId?: SolNetworkId
-    }
-
-export interface SolSigningRequest extends BaseSigningRequest<SOL_SIGN> {
-  request: SolSignRequest
-  account: Account
-}
+export type AnySigningRequest = SubstrateSigningRequest
 
 export type SigningRequests = {
-  "eth-sign": [EthSignRequest, string]
-  "eth-send": [EthSignAndSendRequest, string]
   "substrate-sign": [SubstrateSigningRequest, SubstrateSignResponse]
-  "sol-sign": [SolSigningRequest, SolSignResult]
 }
-
-export type EthResponseSign = string
 
 export type TransactionMethod = {
   section: string
@@ -169,34 +97,6 @@ export type TransactionDetails = {
 }
 
 export type SignerPayloadGenesisHash = SignerPayloadJSON["genesisHash"] // extracting this out because it's liable to change to HexString in future
-
-// eth fees types ----------------------------------
-export type EthPriorityOptionNameEip1559 = "low" | "medium" | "high" | "custom"
-export type EthPriorityOptionNameLegacy = "recommended" | "custom"
-export type EthPriorityOptionName = EthPriorityOptionNameEip1559 | EthPriorityOptionNameLegacy
-
-export type GasSettingsByPriorityEip1559 = { type: "eip1559" } & Record<
-  EthPriorityOptionNameEip1559,
-  EthGasSettingsEip1559
->
-export type GasSettingsByPriorityLegacy = { type: "legacy" } & Record<
-  EthPriorityOptionNameLegacy,
-  EthGasSettingsLegacy
->
-export type GasSettingsByPriority = GasSettingsByPriorityEip1559 | GasSettingsByPriorityLegacy
-
-export type EthBaseFeeTrend = "idle" | "decreasing" | "increasing" | "toTheMoon"
-
-export type EthTransactionDetails = {
-  evmNetworkId: EthNetworkId
-  estimatedGas: bigint
-  gasPrice: bigint
-  estimatedFee: bigint
-  estimatedL1DataFee: bigint | null
-  maxFee: bigint
-  baseFeePerGas?: bigint | null
-  baseFeeTrend?: EthBaseFeeTrend
-}
 
 export interface SigningMessages {
   // signing message signatures

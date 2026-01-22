@@ -1,9 +1,7 @@
 import { assert } from "@polkadot/util"
 import { log, PORT_EXTENSION } from "extension-shared"
 
-import { cleanupEvmErrorMessage, getEvmErrorCause } from "../domains/ethereum/errors"
 import { MessageTypes, TransportRequestMessage } from "../types"
-import { AnyEthRequest } from "../types/domains"
 import Extension from "./Extension"
 import { extensionStores, tabStores } from "./stores"
 import Tabs from "./Tabs"
@@ -58,7 +56,7 @@ const PORT_DISCONNECTED_MESSAGES = [
   "Attempt to postMessage on disconnected port",
 ]
 
-const talismanHandler = <TMessageType extends MessageTypes>(
+const taostatsHandler = <TMessageType extends MessageTypes>(
   data: TransportRequestMessage<TMessageType>,
   port: chrome.runtime.Port,
   extensionPortName = PORT_EXTENSION,
@@ -68,9 +66,7 @@ const talismanHandler = <TMessageType extends MessageTypes>(
   const isExtension = port.name === extensionPortName
   const sender = port.sender as chrome.runtime.MessageSender
   const from = isExtension ? "extension" : sender?.url || "<unknown>"
-  const source = `${formatFrom(from)}: ${id}: ${
-    message === "pub(eth.request)" ? `${message} ${(request as AnyEthRequest).method}` : message
-  }`
+  const source = `${formatFrom(from)}: ${id}: ${message}`
   const shouldLog = !OBFUSCATE_LOG_MESSAGES.includes(message)
 
   if (!IGNORED_LOG_MESSAGES.includes(message))
@@ -127,21 +123,7 @@ const talismanHandler = <TMessageType extends MessageTypes>(
         return
       }
 
-      if (["pub(eth.request)", "pri(eth.request)"].includes(message)) {
-        const evmError = getEvmErrorCause(error)
-        safePostMessage(port, {
-          id,
-          error: cleanupEvmErrorMessage(
-            (message === "pri(eth.request)" && evmError.details) ||
-              (evmError.shortMessage ?? evmError.message ?? "Unknown error"),
-          ),
-          code: error.code,
-          rpcData: evmError.data, // don't use "data" as property name or viem will interpret it differently
-          isEthProviderRpcError: true,
-        })
-      } else {
-        safePostMessage(port, { id, error: error.message })
-      }
+      safePostMessage(port, { id, error: error.message })
     })
     .finally(() => {
       // heap cleanup
@@ -149,4 +131,4 @@ const talismanHandler = <TMessageType extends MessageTypes>(
     })
 }
 
-export default talismanHandler
+export default taostatsHandler

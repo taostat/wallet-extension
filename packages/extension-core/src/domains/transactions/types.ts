@@ -1,11 +1,5 @@
 import { Address } from "@taostats-wallet/balances"
-import {
-  DotNetworkId,
-  EthNetworkId,
-  SolNetworkId,
-  TokenId,
-} from "@taostats-wallet/chaindata-provider"
-import { TransactionRequest } from "viem"
+import { DotNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
 
 import { SignerPayloadJSON } from "../signing/types"
 
@@ -80,13 +74,6 @@ export type LegacyWalletTransactionBase = WalletTransactionTransferInfo & {
 }
 
 /** @deprecated */
-export type LegacyWalletTransactionEth = LegacyWalletTransactionBase & {
-  networkType: "evm"
-  evmNetworkId: EthNetworkId
-  unsigned: TransactionRequest<string>
-}
-
-/** @deprecated */
 export type LegacyWalletTransactionDot = LegacyWalletTransactionBase & {
   networkType: "substrate"
   genesisHash: `0x${string}`
@@ -95,7 +82,7 @@ export type LegacyWalletTransactionDot = LegacyWalletTransactionBase & {
 
 // Named Wallet* this to avoid conflicts with types from various Dexie, Polkadot and Ethers libraries
 /** @deprecated */
-export type LegacyWalletTransaction = LegacyWalletTransactionEth | LegacyWalletTransactionDot
+export type LegacyWalletTransaction = LegacyWalletTransactionDot
 
 export type WalletTransactionDot = {
   id: string
@@ -115,37 +102,4 @@ export type WalletTransactionDot = {
   extrinsicIndex?: number
 }
 
-export type WalletTransactionEth = {
-  id: string
-  platform: "ethereum"
-  networkId: EthNetworkId
-  account: `0x${string}`
-  status: TransactionStatus
-  confirmed: boolean
-  payload: TransactionRequest<string>
-  hash: `0x${string}`
-  siteUrl?: string
-  label?: string
-  nonce: number
-  timestamp: number
-  txInfo?: WalletTransactionInfo
-  blockNumber?: string
-  isReplacement?: boolean
-}
-
-export type WalletTransactionSol = {
-  id: string
-  platform: "solana"
-  networkId: SolNetworkId
-  account: string
-  status: TransactionStatus
-  confirmed: boolean
-  payload: string // base58 encoded Transaction (legacy) or VersionedTransaction (new)
-  signature: string // base58 encoded signature, serves as tx hash for crafting block explorer links
-  siteUrl?: string
-  label?: string
-  timestamp: number
-  txInfo?: WalletTransactionInfo
-}
-
-export type WalletTransaction = WalletTransactionDot | WalletTransactionEth | WalletTransactionSol
+export type WalletTransaction = WalletTransactionDot

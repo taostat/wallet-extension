@@ -5,7 +5,6 @@ import { Migration, MigrationFunction } from "../../../libs/migrations/types"
 import { StorageProvider } from "../../../libs/Store"
 import { chaindataProvider } from "../../../rpcs/chaindata"
 import { activeChainsStore } from "../../chains/store.activeChains"
-import { activeEvmNetworksStore } from "../../ethereum/store.activeEvmNetworks"
 import { addressBookStore } from "../store.addressBook"
 import { settingsStore } from "../store.settings"
 
@@ -58,19 +57,11 @@ export const migrateEnabledTestnets: Migration = {
 
     // if user doesn't have testnets enabled, reset active status for all testnets
     if (!useTestnets) {
-      const [chains, evmNetworks] = await Promise.all([
-        chaindataProvider.getNetworks("polkadot"),
-        chaindataProvider.getNetworks("ethereum"),
-      ])
+      const [chains] = await Promise.all([chaindataProvider.getNetworks("polkadot")])
 
       const chainTestnetIds = chains.filter((n) => n.isTestnet).map((n) => n.id)
       await activeChainsStore.mutate((prev) =>
         Object.fromEntries(Object.entries(prev).filter(([id]) => !chainTestnetIds.includes(id))),
-      )
-
-      const evmTestnetIds = evmNetworks.filter((n) => n.isTestnet).map((n) => n.id)
-      await activeEvmNetworksStore.mutate((prev) =>
-        Object.fromEntries(Object.entries(prev).filter(([id]) => !evmTestnetIds.includes(id))),
       )
     }
 

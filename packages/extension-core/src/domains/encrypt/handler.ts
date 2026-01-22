@@ -5,7 +5,7 @@ import { log } from "extension-shared"
 
 import type { MessageTypes, RequestTypes, ResponseType } from "../../types"
 import { sentry } from "../../config/sentry"
-import { talismanAnalytics } from "../../libs/Analytics"
+import { walletAnalytics } from "../../libs/Analytics"
 import { ExtensionHandler } from "../../libs/Handler"
 import { requestStore } from "../../libs/requests/store"
 import { Port } from "../../types/base"
@@ -35,7 +35,7 @@ export default class EncryptHandler extends ExtensionHandler {
         kp,
       )
 
-      talismanAnalytics.capture("encrypt message approve")
+      walletAnalytics.capture("encrypt message approve")
 
       resolve({
         id,
@@ -65,7 +65,7 @@ export default class EncryptHandler extends ExtensionHandler {
       // get decrypted response as integer array
       const decryptResult = sr25519Decrypt(u8aToU8a(payload.message), { secretKey })
 
-      talismanAnalytics.capture("decrypt message approve")
+      walletAnalytics.capture("decrypt message approve")
 
       resolve({
         id,
@@ -85,7 +85,7 @@ export default class EncryptHandler extends ExtensionHandler {
 
     assert(queued, "Unable to find request")
 
-    talismanAnalytics.capture("encrypt/decrypt message reject")
+    walletAnalytics.capture("encrypt/decrypt message reject")
 
     queued.reject(new Error("Cancelled"))
 

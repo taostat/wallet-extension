@@ -53,23 +53,6 @@ export default class TaostatsHandler extends TabsHandler {
         return unsubscribe(subId)
       }
 
-      case "pub(taostats.customEvmNetworks.subscribe)": {
-        throw new Error("Not implemented")
-        return genericSubscription(
-          id,
-          port,
-          chaindataProvider
-            .getNetworks$("ethereum")
-            .pipe(map((networks) => networks.filter(isNetworkCustom))),
-        )
-      }
-
-      case "pub(taostats.customEvmNetworks.unsubscribe)": {
-        throw new Error("Not implemented")
-        const subId = request as RequestTypes["pub(taostats.customEvmNetworks.unsubscribe)"]
-        return unsubscribe(subId)
-      }
-
       case "pub(taostats.customTokens.subscribe)": {
         throw new Error("Not implemented")
         return genericSubscription(

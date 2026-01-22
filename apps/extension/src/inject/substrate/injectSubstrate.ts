@@ -47,11 +47,6 @@ const tokensProvider = (sendRequest: SendRequest) => ({
     return () =>
       idPromise.then((id) => sendRequest("pub(taostats.customSubstrateChains.unsubscribe)", id))
   },
-  subscribeCustomEvmNetworks: (callback: (networks: EthNetwork[]) => unknown) => {
-    const idPromise = sendRequest("pub(taostats.customEvmNetworks.subscribe)", null, callback)
-    return () =>
-      idPromise.then((id) => sendRequest("pub(taostats.customEvmNetworks.unsubscribe)", id))
-  },
   subscribeCustomTokens: (callback: (tokens: Token[]) => unknown) => {
     const idPromise = sendRequest("pub(taostats.customTokens.subscribe)", null, callback)
     return () => idPromise.then((id) => sendRequest("pub(taostats.customTokens.unsubscribe)", id))

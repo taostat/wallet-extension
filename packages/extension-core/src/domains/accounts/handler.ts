@@ -35,7 +35,7 @@ import type {
   ResponseAccountExport,
 } from "./types"
 import { genericAsyncSubscription } from "../../handlers/subscriptions"
-import { talismanAnalytics } from "../../libs/Analytics"
+import { walletAnalytics } from "../../libs/Analytics"
 import { ExtensionHandler } from "../../libs/Handler"
 import { Port } from "../../types/base"
 import { getSecretKeyFromPjsJson } from "../keyring/getSecretKeyFromPjsJson"
@@ -78,7 +78,7 @@ export default class AccountsHandler extends ExtensionHandler {
     if (method === "polkadot-vault") method = "qr"
     if (method === "watch-only") method = "watched"
 
-    talismanAnalytics.capture("account create", {
+    walletAnalytics.capture("account create", {
       type,
       method,
       isOnboarded: await this.stores.app.getIsOnboarded(),
@@ -111,7 +111,7 @@ export default class AccountsHandler extends ExtensionHandler {
     const account = await keyringStore.getAccount(address)
     assert(account, "Unable to find account")
 
-    talismanAnalytics.capture("account forget", {
+    walletAnalytics.capture("account forget", {
       type: account.type,
       curve: account.type === "keypair" ? account.curve : undefined,
     })
@@ -135,7 +135,7 @@ export default class AccountsHandler extends ExtensionHandler {
     await this.stores.password.checkPassword(password)
 
     const { err, val } = await withPjsKeyringPair(address, async (pair) => {
-      talismanAnalytics.capture("account export", { type: pair.type, mode: "json" })
+      walletAnalytics.capture("account export", { type: pair.type, mode: "json" })
 
       return {
         exportedJson: pair.toJson(exportPw),
@@ -195,7 +195,7 @@ export default class AccountsHandler extends ExtensionHandler {
     await this.stores.password.checkPassword(password)
 
     const { err, val } = await withSecretKey(address, async (secretKey, curve) => {
-      talismanAnalytics.capture("account export", { type: curve, mode: "pk" })
+      walletAnalytics.capture("account export", { type: curve, mode: "pk" })
 
       switch (curve) {
         case "ethereum":

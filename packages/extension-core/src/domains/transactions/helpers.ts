@@ -1,12 +1,8 @@
 import { TypeRegistry } from "@polkadot/types"
 import { HexString } from "@polkadot/util/types"
-import { Transaction, VersionedTransaction } from "@solana/web3.js"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
-import { EthNetworkId, SolNetworkId } from "@taostats-wallet/chaindata-provider"
-import { parseTransactionInfo, serializeTransaction } from "@taostats-wallet/solana"
 import { log } from "extension-shared"
 import merge from "lodash-es/merge"
-import { Hex, TransactionRequest } from "viem"
 
 import { db } from "../../db"
 import { filterIsSameNetworkAndAddressTx } from "./exports"
@@ -20,79 +16,6 @@ type AddTransactionOptions = {
 
 const DEFAULT_OPTIONS: AddTransactionOptions = {
   label: "Transaction",
-}
-
-export const addSolTransaction = async (
-  networkId: SolNetworkId,
-  transaction: Transaction | VersionedTransaction,
-  options: AddTransactionOptions = {},
-) => {
-  const { siteUrl, label, txInfo } = merge(structuredClone(DEFAULT_OPTIONS), options)
-
-  try {
-    const { signature, address: account } = parseTransactionInfo(transaction)
-    if (!networkId || !signature || !account) throw new Error("Invalid transaction")
-
-    await db.transactionsV2.add({
-      id: signature,
-      platform: "solana",
-      networkId,
-      account,
-      signature,
-      payload: serializeTransaction(transaction),
-      status: "pending",
-      confirmed: false,
-      siteUrl,
-      label,
-      txInfo,
-      timestamp: Date.now(),
-    })
-  } catch (err) {
-    log.error("addSolTransaction", { err, transaction, options })
-  }
-}
-
-export const addEvmTransaction = async (
-  networkId: EthNetworkId,
-  hash: Hex,
-  payload: TransactionRequest<string>,
-  options: AddTransactionOptions = {},
-) => {
-  const { siteUrl, label, txInfo } = merge(structuredClone(DEFAULT_OPTIONS), options)
-
-  try {
-    if (!networkId || !payload.from || payload.nonce === undefined)
-      throw new Error("Invalid transaction")
-
-    const isReplacement =
-      (await db.transactionsV2
-        .filter(
-          (row) =>
-            row.platform === "ethereum" &&
-            row.networkId === networkId &&
-            row.nonce === payload.nonce,
-        )
-        .count()) > 0
-
-    await db.transactionsV2.add({
-      id: hash,
-      hash,
-      platform: "ethereum",
-      networkId,
-      account: payload.from,
-      nonce: payload.nonce,
-      isReplacement,
-      payload,
-      status: "pending",
-      siteUrl,
-      label,
-      confirmed: false,
-      txInfo,
-      timestamp: Date.now(),
-    })
-  } catch (err) {
-    log.error("addEvmTransaction", { err, hash, payload, options })
-  }
 }
 
 export const addSubstrateTransaction = async (
@@ -148,8 +71,9 @@ export const updateTransactionStatus = async (
     existing.status = status
     existing.confirmed = !!confirmed
 
-    if (existing.platform !== "solana" && blockNumber !== undefined)
+    if (blockNumber !== undefined) {
       existing.blockNumber = blockNumber.toString()
+    }
 
     await db.transactionsV2.update(id, existing)
 
@@ -160,13 +84,7 @@ export const updateTransactionStatus = async (
         // mark pending transactions with the same nonce as replaced
         await db.transactionsV2
           .filter(filterIsSameNetworkAndAddressTx(tx))
-          .filter(
-            (row) =>
-              row.platform !== "solana" &&
-              tx.platform !== "solana" &&
-              row.nonce === tx.nonce &&
-              ["pending", "unknown"].includes(row.status),
-          )
+          .filter((row) => row.nonce === tx.nonce && ["pending", "unknown"].includes(row.status))
           .modify({ status: "replaced" })
 
         // mark pending transactions with a lower nonce as unknown
@@ -174,8 +92,6 @@ export const updateTransactionStatus = async (
           .filter(filterIsSameNetworkAndAddressTx(tx))
           .filter(
             (row) =>
-              row.platform !== "solana" &&
-              tx.platform !== "solana" &&
               typeof row.nonce === "number" &&
               typeof tx.nonce === "number" &&
               row.nonce < tx.nonce &&
@@ -208,11 +124,7 @@ export const updateTransactionsRestart = async () => {
       await db.transactionsV2
         .filter(filterIsSameNetworkAndAddressTx(successfulTx))
         .filter(
-          (row) =>
-            row.platform !== "solana" &&
-            successfulTx.platform !== "solana" &&
-            row.nonce === successfulTx.nonce &&
-            ["pending", "unknown"].includes(row.status),
+          (row) => row.nonce === successfulTx.nonce && ["pending", "unknown"].includes(row.status),
         )
         .modify({ status: "error" })
     }

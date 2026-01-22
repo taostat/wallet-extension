@@ -4,9 +4,7 @@ import { log, PORT_CONTENT, PORT_EXTENSION } from "extension-shared"
 import { sentry } from "./config/sentry"
 import { passwordStore } from "./domains/app/store.password"
 import { sessionStore } from "./domains/app/store.session"
-import { assetDiscoveryScanner } from "./domains/assetDiscovery/scanner"
-import { initialiseSolanaAssetDiscovery } from "./domains/assetDiscovery/solana"
-import talismanHandler from "./handlers"
+import taostatsHandler from "./handlers"
 import { IconManager } from "./libs/IconManager"
 import { setWalletReady } from "./libs/isWalletReady"
 import { MigrationRunner, migrations } from "./libs/migrations"
@@ -63,11 +61,7 @@ const migrationSub = passwordStore.isLoggedIn.subscribe(async (isLoggedIn) => {
     // only do this once
     migrationSub.unsubscribe()
 
-    setWalletReady() // set the wallet ready state to true, so workers such as asset discovery can start
-
-    // start the asset discovery scanner after migrations are complete
-    assetDiscoveryScanner.startPendingScan()
-    initialiseSolanaAssetDiscovery()
+    setWalletReady() // set the wallet ready state to true
   }
 })
 
@@ -88,7 +82,7 @@ chrome.runtime.onConnect.addListener((_port): void => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const messageHandler = (data: any) => {
-    if (port) talismanHandler(data, port)
+    if (port) taostatsHandler(data, port)
   }
   port.onMessage.addListener(messageHandler)
 

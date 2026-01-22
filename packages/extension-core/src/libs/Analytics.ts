@@ -5,7 +5,7 @@ import { PostHogCaptureProperties } from "../domains/analytics/types"
 import { settingsStore } from "../domains/app/store.settings"
 import { withGeneralReport } from "./GeneralReport"
 
-class TalismanAnalytics {
+class WalletAnalytics {
   #enabled = !IS_FIREFOX && Boolean(process.env.POSTHOG_AUTH_TOKEN)
 
   async capture(eventName: string, properties?: PostHogCaptureProperties) {
@@ -34,4 +34,4 @@ class TalismanAnalytics {
   }
 }
 
-export const talismanAnalytics = new TalismanAnalytics()
+export const walletAnalytics = new WalletAnalytics()

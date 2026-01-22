@@ -4,7 +4,6 @@ export type * from "@taostats-wallet/keyring"
 export {
   isAccountOfType,
   isAccountAddressEthereum,
-  isAccountPlatformEthereum,
   isAccountExternal,
   isAccountInTypes,
   isAccountOwned,
@@ -17,5 +16,4 @@ export {
   isAccountNotContact,
   getAccountGenesisHash,
   getAccountSignetUrl,
-  isAccountPlatformSolana,
 } from "@taostats-wallet/keyring"

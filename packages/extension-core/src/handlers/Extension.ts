@@ -12,19 +12,16 @@ import { ChaindataHandler } from "../domains/chaindata/handler"
 import { ChainsHandler } from "../domains/chains"
 import { DefiHandler } from "../domains/defi/handler"
 import { EncryptHandler } from "../domains/encrypt"
-import { EthHandler } from "../domains/ethereum"
 import { keyringStore } from "../domains/keyring/store"
 import { MetadataHandler } from "../domains/metadata"
 import MnemonicHandler from "../domains/mnemonics/handler"
-import { NftsHandler } from "../domains/nfts"
 import { SendFundsHandler } from "../domains/sendFunds/handler"
 import { SigningHandler } from "../domains/signing"
 import { SitesAuthorisationHandler } from "../domains/sitesAuthorised"
-import { SolanaExtensionHandler } from "../domains/solana/handler.extension"
 import { SubHandler } from "../domains/substrate/handler.extension"
 import TokenRatesHandler from "../domains/tokenRates/handler"
 import { updateTransactionsRestart } from "../domains/transactions/helpers"
-import { talismanAnalytics } from "../libs/Analytics"
+import { walletAnalytics } from "../libs/Analytics"
 import { spawnTaskToCreateNewReport } from "../libs/GeneralReport"
 import { ExtensionHandler } from "../libs/Handler"
 import { MessageTypes, RequestType, ResponseType } from "../types"
@@ -48,16 +45,12 @@ export default class Extension extends ExtensionHandler {
       balances: new BalancesHandler(stores),
       defi: new DefiHandler(stores),
       encrypt: new EncryptHandler(stores),
-      eth: new EthHandler(stores),
       metadata: new MetadataHandler(stores),
       mnemonics: new MnemonicHandler(stores),
       signing: new SigningHandler(stores),
       sites: new SitesAuthorisationHandler(stores),
       tokenRates: new TokenRatesHandler(stores),
       substrate: new SubHandler(stores),
-      solana: new SolanaExtensionHandler(stores),
-      assetDiscovery: new AssetDiscoveryHandler(stores),
-      nfts: new NftsHandler(stores),
       bittensor: new BittensorHandler(stores),
       sendFunds: new SendFundsHandler(stores),
     }
@@ -135,7 +128,7 @@ export default class Extension extends ExtensionHandler {
           waitForReportCreated: true,
         })
 
-        await talismanAnalytics.capture("wallet upgraded")
+        await walletAnalytics.capture("wallet upgraded")
         await this.stores.app.set({ lastWalletUpgradedEvent: process.env.VERSION })
       })()
     }

@@ -55,25 +55,6 @@ const migrateLegacyTransaction = (tx: LegacyWalletTransaction): WalletTransactio
       txInfo,
     }
 
-  if (tx.networkType === "evm") {
-    return {
-      id: tx.hash,
-      platform: "ethereum",
-      networkId: tx.evmNetworkId,
-      account: tx.account as `0x${string}`,
-      payload: tx.unsigned,
-      status: tx.status,
-      timestamp: tx.timestamp,
-      hash: tx.hash as `0x${string}`,
-      nonce: tx.nonce as number,
-      confirmed: !!tx.confirmed,
-      label: tx.label,
-      siteUrl: tx.siteUrl,
-      isReplacement: !!tx.isReplacement,
-      txInfo,
-    }
-  }
-
   return null
 }
 

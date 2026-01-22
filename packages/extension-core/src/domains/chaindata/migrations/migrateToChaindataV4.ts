@@ -1,12 +1,8 @@
 import {
   DotNetwork,
-  EthNetwork,
-  EvmNativeToken,
   getChaindataDbV3,
   LegacyChain,
   LegacyCustomChain,
-  LegacyCustomEvmNetwork,
-  LegacyEvmNetwork,
   subForeignAssetTokenId,
   SubNativeToken,
   subNativeTokenId,
@@ -18,11 +14,9 @@ import { filter, firstValueFrom } from "rxjs"
 import { db as walletDb } from "../../../db"
 import { Migration, MigrationFunction } from "../../../libs/migrations/types"
 import { appStore } from "../../app/store.app"
-import { assetDiscoveryStore } from "../../assetDiscovery/store"
 import { activeNetworksStore } from "../../balances/store.activeNetworks"
 import { activeTokensStore } from "../../balances/store.activeTokens"
 import { activeChainsStore } from "../../chains/store.activeChains"
-import { activeEvmNetworksStore } from "../../ethereum/store.activeEvmNetworks"
 import { customChaindataStore } from "../store.customChaindata"
 
 const MIGRATION_LABEL = "Updating Balances System"
@@ -36,7 +30,6 @@ const executeMigration = async () => {
   try {
     await appStore.set({ currentMigration: { name: MIGRATION_LABEL, progress: 0 } })
 
-    const oldActiveEvmNetworks = await activeEvmNetworksStore.get()
     const oldActiveChains = await activeChainsStore.get()
     const oldActiveTokens = await activeTokensStore.get()
 
@@ -61,7 +54,7 @@ const executeMigration = async () => {
     )
 
     // migrate active networks and tokens
-    await activeNetworksStore.set(assign({}, oldActiveEvmNetworks, oldActiveChains))
+    await activeNetworksStore.set(assign({}, {}, oldActiveChains))
 
     await appStore.set({ currentMigration: { name: MIGRATION_LABEL, progress: 0.5 } })
 
@@ -82,17 +75,12 @@ const executeMigration = async () => {
 
     await appStore.set({ currentMigration: { name: MIGRATION_LABEL, progress: 0.7 } })
 
-    await migrateCustomEvmNetworks(oldEvmNetworks, oldTokensMap)
-
     await appStore.set({ currentMigration: { name: MIGRATION_LABEL, progress: 0.8 } })
 
     // migrate tx history
     await migrateTransactions(oldToNewTokenId)
 
     await appStore.set({ currentMigration: { name: MIGRATION_LABEL, progress: 0.9 } })
-
-    // clear asset discovery pending queue
-    await assetDiscoveryStore.clear()
 
     try {
       indexedDB.deleteDatabase("TaostatsExtensionBalances")
@@ -274,62 +262,6 @@ const migrateCustomChains = async (
       await customChaindataStore.upsertNetwork(customNetwork, nativeToken)
     } catch (err) {
       log.error(`Error migrating custom chain ${customChain.id}`, err)
-      continue
-    }
-  }
-}
-
-const migrateCustomEvmNetworks = async (
-  oldEvmNetworks: (LegacyEvmNetwork | LegacyCustomEvmNetwork)[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  oldTokensMap: Record<string, any>,
-) => {
-  for (const customEvmNetwork of oldEvmNetworks.filter(
-    (chain): chain is LegacyCustomEvmNetwork => "isCustom" in chain && chain.isCustom,
-  )) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const oldNativeToken: any = oldTokensMap[customEvmNetwork.nativeToken?.id ?? ""]
-    if (!oldNativeToken) {
-      log.warn(
-        `No native token found for custom evmNetwork ${customEvmNetwork.id}, skipping migration`,
-      )
-      continue
-    }
-
-    const nativeToken: EvmNativeToken = {
-      id: subNativeTokenId(customEvmNetwork.id),
-      networkId: customEvmNetwork.id,
-      type: "evm-native",
-      platform: "ethereum",
-      symbol: oldNativeToken.symbol,
-      decimals: oldNativeToken.decimals,
-      coingeckoId: oldNativeToken.coingeckoId,
-      name: oldNativeToken.symbol,
-      isDefault: true,
-    }
-
-    const customNetwork: EthNetwork = {
-      id: customEvmNetwork.id,
-      platform: "ethereum",
-      nativeTokenId: nativeToken.id,
-      name: customEvmNetwork.name as string,
-      isTestnet: customEvmNetwork.isTestnet,
-      rpcs: customEvmNetwork.rpcs?.map((r) => r.url) ?? [],
-      blockExplorerUrls: [], // high risk of this not being set as it was introduced recently. its unlikely to have block explorer urls in custom chains anyway
-      nativeCurrency: {
-        symbol: nativeToken.symbol,
-        name: nativeToken.name ?? nativeToken.symbol,
-        decimals: nativeToken.decimals,
-        coingeckoId: nativeToken.coingeckoId,
-      },
-      preserveGasEstimate: customEvmNetwork.preserveGasEstimate ?? false,
-      isDefault: true,
-    }
-
-    try {
-      await customChaindataStore.upsertNetwork(customNetwork, nativeToken)
-    } catch (err) {
-      log.error(`Error migrating custom chain ${customEvmNetwork.id}`, err)
       continue
     }
   }
