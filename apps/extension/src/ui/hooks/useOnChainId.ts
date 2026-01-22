@@ -35,7 +35,7 @@ export const useOnChainId = (address?: string) => {
   return [onChainId, rest] as const
 }
 
-const cacheKey = "TalismanOnChainIdsCache"
+const cacheKey = "TaostatsOnChainIdsCache"
 const persistItemDuration = 15_778_476_000 // 6 months in milliseconds
 const onChainIdsCache = new Map<string, { onChainId?: string | null; updated?: number }>(
   JSON.parse(localStorage.getItem(cacheKey) ?? "[]"),

@@ -35,7 +35,6 @@ import { AddCustomErc20Token } from "./pages/AddCustomErc20Token"
 import { AddEthereumNetwork } from "./pages/AddEthereumNetwork"
 import { Connect } from "./pages/Connect"
 import { Encrypt } from "./pages/Encrypt"
-import { LearnMorePage } from "./pages/LearnMore/LearnMore"
 import { LoginViewManager } from "./pages/Login"
 import { ManageAccountsPage } from "./pages/ManageAccounts"
 import { Metadata } from "./pages/Metadata"
@@ -76,7 +75,6 @@ const Popup = () => {
           <Route path={`${ETH_NETWORK_ADD_PREFIX}/:id`} element={<AddEthereumNetwork />} />
           <Route path={`${WATCH_ASSET_PREFIX}/:id`} element={<AddCustomErc20Token />} />
           <Route path="try-page" element={<TryPage />} />
-          <Route path="learn-more" element={<LearnMorePage />} />
           <Route path="manage-accounts" element={<ManageAccountsPage />} />
           <Route path="tx-history" element={<TxHistoryPage />} />
           <Route path="send/*" element={<SendFundsPage />} />

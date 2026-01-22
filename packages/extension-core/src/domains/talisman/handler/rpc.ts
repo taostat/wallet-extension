@@ -12,10 +12,10 @@ import {
   UnknownJsonRpcResponse,
 } from "../types"
 
-export default class TalismanRpcHandler extends TabsHandler {
-  #talismanByGenesisHashSubscriptions = new Map<string, (unsubscribeMethod: string) => void>()
+export default class RpcHandler extends TabsHandler {
+  #walletByGenesisHashSubscriptions = new Map<string, (unsubscribeMethod: string) => void>()
 
-  private async rpcTalismanByGenesisHashSend(
+  private async rpcByGenesisHashSend(
     request: RequestRpcByGenesisHashSend,
   ): Promise<UnknownJsonRpcResponse> {
     const { genesisHash, method, params } = request
@@ -26,7 +26,7 @@ export default class TalismanRpcHandler extends TabsHandler {
     return await chainConnector.send(chain.id, method, params)
   }
 
-  private async rpcTalismanByGenesisHashSubscribe(
+  private async rpcByGenesisHashSubscribe(
     request: RequestRpcByGenesisHashSubscribe,
     id: string,
     port: Port,
@@ -64,24 +64,24 @@ export default class TalismanRpcHandler extends TabsHandler {
       timeout,
     )
 
-    this.#talismanByGenesisHashSubscriptions.set(subscriptionId, unsubscribe)
+    this.#walletByGenesisHashSubscriptions.set(subscriptionId, unsubscribe)
     port.onDisconnect.addListener(() =>
       // end subscription when port closes
-      this.rpcTalismanByGenesisHashUnsubscribe({ subscriptionId, unsubscribeMethod: "" }),
+      this.rpcByGenesisHashUnsubscribe({ subscriptionId, unsubscribeMethod: "" }),
     )
 
     return subscriptionId
   }
 
-  private async rpcTalismanByGenesisHashUnsubscribe(
+  private async rpcByGenesisHashUnsubscribe(
     request: RequestRpcByGenesisHashUnsubscribe,
   ): Promise<boolean> {
     const { subscriptionId, unsubscribeMethod } = request
 
-    if (!this.#talismanByGenesisHashSubscriptions.has(subscriptionId)) return false
+    if (!this.#walletByGenesisHashSubscriptions.has(subscriptionId)) return false
 
-    const unsubscribe = this.#talismanByGenesisHashSubscriptions.get(subscriptionId)
-    this.#talismanByGenesisHashSubscriptions.delete(subscriptionId)
+    const unsubscribe = this.#walletByGenesisHashSubscriptions.get(subscriptionId)
+    this.#walletByGenesisHashSubscriptions.delete(subscriptionId)
 
     unsubscribe && unsubscribe(unsubscribeMethod)
 
@@ -98,19 +98,13 @@ export default class TalismanRpcHandler extends TabsHandler {
   ): Promise<ResponseType<TMessageType>> {
     switch (type) {
       case "pub(taostats.rpc.byGenesisHash.send)":
-        return this.rpcTalismanByGenesisHashSend(request as RequestRpcByGenesisHashSend)
+        return this.rpcByGenesisHashSend(request as RequestRpcByGenesisHashSend)
 
       case "pub(taostats.rpc.byGenesisHash.subscribe)":
-        return this.rpcTalismanByGenesisHashSubscribe(
-          request as RequestRpcByGenesisHashSubscribe,
-          id,
-          port,
-        )
+        return this.rpcByGenesisHashSubscribe(request as RequestRpcByGenesisHashSubscribe, id, port)
 
       case "pub(taostats.rpc.byGenesisHash.unsubscribe)":
-        return this.rpcTalismanByGenesisHashUnsubscribe(
-          request as RequestRpcByGenesisHashUnsubscribe,
-        )
+        return this.rpcByGenesisHashUnsubscribe(request as RequestRpcByGenesisHashUnsubscribe)
 
       default:
         throw new Error(`Unable to handle message of type ${type}`)

@@ -1,11 +1,5 @@
-import {
-  ArrowRightCircleIcon,
-  ChevronRightIcon,
-  EyePlusIcon,
-  PlusCircleIcon,
-  XIcon,
-} from "@taostats-wallet/icons"
-import { classNames, cn } from "@taostats-wallet/util"
+import { EyePlusIcon, PlusCircleIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { Account } from "extension-core"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
@@ -23,10 +17,7 @@ import { closeIfEmbeddedPopup } from "@ui/util/closeIfEmbeddedPopup"
 import { IS_POPUP } from "@ui/util/constants"
 
 import { GetStartedBuyIcon, GetStartedReceiveIcon, GetStartedSwapIcon } from "./icons"
-import { useLearnMoreModal } from "./LearnMore"
 import { useTryPageModal } from "./TryPage"
-
-const SHOW_ABOUT_LINK = false
 
 const isShownAccount = (account: Account) =>
   ["keypair", "watch-only", "ledger-polkadot"].includes(account.type)
@@ -43,7 +34,6 @@ export const GetStarted = () => {
     onReceiveClick,
     onSwapClick,
     onBuyClick,
-    onLearnMoreClick,
     onDismissClick,
   } = useGetStarted()
 
@@ -117,32 +107,6 @@ export const GetStarted = () => {
           />
         </div>
       )}
-
-      {SHOW_ABOUT_LINK ? (
-        <>
-          {IS_POPUP ? (
-            <div className={cn("grid gap-8", "grid-cols-1")}>
-              <GetStartedActionButton
-                label={t("Support")}
-                iconTop={<ArrowRightCircleIcon className="-ml-2 size-12" />}
-                onClick={onLearnMoreClick}
-              />
-            </div>
-          ) : (
-            <div className={cn("grid gap-8", "grid-cols-1")}>
-              <GetStartedActionButton
-                label={t("About Taostats")}
-                description={t("Discover how Taostats can elevate your web3 journey")}
-                className={cn("group")}
-                iconRight={
-                  <ChevronRightIcon className="text-body-inactive group-hover:text-body-secondary -mr-4 size-12" />
-                }
-                onClick={onLearnMoreClick}
-              />
-            </div>
-          )}
-        </>
-      ) : null}
     </div>
   )
 }
@@ -155,8 +119,7 @@ const useGetStarted = () => {
   const { open: onCopyAddressModal } = useCopyAddressModal()
   const { open: openSwapTokensModal } = useSwapTokensModal()
   const { open: openRamps } = useRampsModal()
-  const { open: openLearnMoreModal } = useLearnMoreModal()
-  const { open: openTryTalismanModal } = useTryPageModal()
+  const { open: openTryModal } = useTryPageModal()
 
   const [isHidden, setIsHidden] = useAppState("hideGetStarted")
 
@@ -173,8 +136,8 @@ const useGetStarted = () => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "try taostats" })
 
     if (IS_POPUP) navigate("/try-page")
-    else openTryTalismanModal()
-  }, [navigate, openTryTalismanModal])
+    else openTryModal()
+  }, [navigate, openTryModal])
 
   const onReceiveClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "receive" })
@@ -197,13 +160,6 @@ const useGetStarted = () => {
     openRamps()
   }, [openRamps])
 
-  const onLearnMoreClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "learn more" })
-
-    if (IS_POPUP) navigate("/learn-more")
-    else openLearnMoreModal()
-  }, [navigate, openLearnMoreModal])
-
   const onDismissClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "dismiss get started" })
     setIsHidden(true)
@@ -218,7 +174,6 @@ const useGetStarted = () => {
     onReceiveClick,
     onBuyClick,
     onDismissClick,
-    onLearnMoreClick,
   }
 }
 

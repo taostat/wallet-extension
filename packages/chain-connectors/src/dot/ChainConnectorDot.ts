@@ -1,6 +1,6 @@
 import type { ProviderInterface, ProviderInterfaceCallback } from "@polkadot/rpc-provider/types"
 import { DotNetworkId, IChaindataNetworkProvider } from "@taostats-wallet/chaindata-provider"
-import { TalismanConnectionMetaDatabase } from "@taostats-wallet/connection-meta"
+import { TaostatsExtensionConnectionMetaDatabase } from "@taostats-wallet/connection-meta"
 import { Deferred, isTruthy, sleep, throwAfter } from "@taostats-wallet/util"
 
 import log from "../log"
@@ -80,7 +80,7 @@ type SocketUserId = number
  */
 export class ChainConnectorDot implements IChainConnectorDot {
   #chaindataChainProvider: IChaindataNetworkProvider
-  #connectionMetaDb?: TalismanConnectionMetaDatabase
+  #connectionMetaDb?: TaostatsExtensionConnectionMetaDatabase
 
   #socketConnections: Record<DotNetworkId, Websocket> = {}
   #socketKeepAliveIntervals: Record<DotNetworkId, ReturnType<typeof setInterval>> = {}
@@ -88,7 +88,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
 
   constructor(
     chaindataChainProvider: IChaindataNetworkProvider,
-    connectionMetaDb?: TalismanConnectionMetaDatabase,
+    connectionMetaDb?: TaostatsExtensionConnectionMetaDatabase,
   ) {
     this.#chaindataChainProvider = chaindataChainProvider
     this.#connectionMetaDb = connectionMetaDb

@@ -9,7 +9,7 @@ import { genericSubscription, unsubscribe } from "../../../handlers/subscription
 import { TabsHandler } from "../../../libs/Handler"
 import { windowManager } from "../../../libs/WindowManager"
 import { chaindataProvider } from "../../../rpcs/chaindata"
-import TalismanRpcHandler from "./rpc"
+import RpcHandler from "./rpc"
 
 /**
  * Disabled all these messages for now by throwing an error, verified it doesn't break portal
@@ -20,7 +20,7 @@ export default class TaostatsHandler extends TabsHandler {
   constructor(stores: TabStore) {
     super(stores)
 
-    this.#subHandlers = [new TalismanRpcHandler(stores)]
+    this.#subHandlers = [new RpcHandler(stores)]
   }
 
   public async handle<TMessageType extends MessageTypes>(

@@ -79,7 +79,7 @@ export const useResolveNsName = (resolveName?: string, options?: Options) => {
   return [address, { isNsLookup, nsLookupType, isNsFetching, ...rest }] as const
 }
 
-const cacheKey = "TalismanNsNamesCache"
+const cacheKey = "TaostatsNsNamesCache"
 const persistItemDuration = 15_778_476_000 // 6 months in milliseconds
 const nsNamesCache = new Map<string, { result?: [string, NsLookupType] | null; updated?: number }>(
   JSON.parse(localStorage.getItem(cacheKey) ?? "[]"),
@@ -99,6 +99,3 @@ const persistNsNamesCache = () =>
         ),
     ),
   )
-
-/** Removes any data left over in the @deprecated cache */
-localStorage.removeItem("TalismanEnsNamesCache")
