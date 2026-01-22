@@ -3,10 +3,8 @@ import { FadeIn } from "@taostats/components/FadeIn"
 import { FC, ReactNode } from "react"
 import { createPortal } from "react-dom"
 
-import { ViewDetailsEth } from "@ui/domains/Sign/ViewDetails/ViewDetailsEth"
 import { ViewDetailsSub } from "@ui/domains/Sign/ViewDetails/ViewDetailsSub"
 
-import { RiskAnalysisPillButton } from "./risk-analysis/RiskAnalysisPillButton"
 import { SubSignDecoded } from "./Substrate/decode/SubSignDecoded"
 
 type SignContainerProps = {
@@ -36,11 +34,9 @@ export const SignContainer: FC<SignContainerProps> = ({
         {children}
       </div>
       <div className="flex w-full justify-center">
-        {networkType === "ethereum" && <ViewDetailsEth />}
         {networkType === "substrate" && <ViewDetailsSub />}
       </div>
       <div className="mb-8 mt-12 grow text-center">
-        {networkType === "ethereum" && <RiskAnalysisPillButton />}
         {networkType === "substrate" && <SubSignDecoded />}
       </div>
       {alert && alertContainer && createPortal(alert, alertContainer)}

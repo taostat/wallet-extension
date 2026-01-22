@@ -70,16 +70,8 @@ export const isTokenOfPlatform = <P extends NetworkPlatform>(
   return !!token && token.platform === platform
 }
 
-export const isTokenEth = (token: Token | null | undefined) => {
-  return isTokenOfPlatform(token, "ethereum")
-}
-
 export const isTokenDot = (token: Token | null | undefined) => {
   return isTokenOfPlatform(token, "polkadot")
-}
-
-export const isTokenSol = (token: Token | null | undefined) => {
-  return isTokenOfPlatform(token, "solana")
 }
 
 export const isTokenNeedExistentialDeposit = (token: Token) => "existentialDeposit" in token

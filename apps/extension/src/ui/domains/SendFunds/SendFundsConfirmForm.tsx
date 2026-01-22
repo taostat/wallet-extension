@@ -1,4 +1,3 @@
-import { isTokenEth } from "@taostats-wallet/chaindata-provider"
 import { AlertCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { ScrollContainer } from "@taostats/components/ScrollContainer"
@@ -13,11 +12,8 @@ import { useSelectedCurrency } from "@ui/state"
 import { Fiat } from "../Asset/Fiat"
 import { TokenLogo } from "../Asset/TokenLogo"
 import { TokensAndFiat } from "../Asset/TokensAndFiat"
-import { EthFeeSelect } from "../Ethereum/GasSettings/EthFeeSelect"
 import { NetworkLogo } from "../Networks/NetworkLogo"
 import { BittensorValidatorName } from "../Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
-import { RiskAnalysisProvider } from "../Sign/risk-analysis/context"
-import { RiskAnalysisPillButton } from "../Sign/risk-analysis/RiskAnalysisPillButton"
 import { TxSubmitButton } from "../Sign/TxSubmitButton/TxSignButton"
 import { TxSubmitButtonTransaction } from "../Sign/TxSubmitButton/types"
 import { AddressDisplay } from "./AddressDisplay"
@@ -228,24 +224,6 @@ const SendButton = () => {
               txInfo,
             }
           : null
-      case "ethereum":
-        return transaction.tx
-          ? {
-              platform: "ethereum",
-              networkId: network.id,
-              payload: transaction.tx,
-              txInfo,
-            }
-          : null
-      case "solana":
-        return transaction.tx
-          ? {
-              platform: "solana",
-              networkId: network.id,
-              payload: transaction.tx,
-              txInfo,
-            }
-          : null
       default:
         throw new Error(`Unsupported transaction platform`)
     }
@@ -267,71 +245,11 @@ const SendButton = () => {
   )
 }
 
-const EthFeeSummary = () => {
-  const { t } = useTranslation()
-  const { token, network, transaction } = useSendFunds()
-
-  if (!token || transaction?.platform !== "ethereum" || network?.platform !== "ethereum")
-    return null
-
-  const {
-    tx,
-    txDetails,
-    priority,
-    gasSettingsByPriority,
-    setCustomSettings,
-    setPriority,
-    networkUsage,
-    isLoading,
-  } = transaction
-
-  return (
-    <>
-      <div className="mt-2 flex h-12 items-center justify-between gap-8 text-xs">
-        <div className="text-body-secondary">{t("Transaction Priority")}</div>
-        <div>
-          {network.nativeTokenId && priority && tx && txDetails && (
-            <EthFeeSelect
-              tokenId={network.nativeTokenId}
-              drawerContainerId="main"
-              gasSettingsByPriority={gasSettingsByPriority}
-              setCustomSettings={setCustomSettings}
-              onChange={setPriority}
-              priority={priority}
-              txDetails={txDetails}
-              networkUsage={networkUsage}
-              tx={tx}
-            />
-          )}
-        </div>
-      </div>
-      <div className="mt-4 flex h-[1.7rem] items-center justify-between gap-8 text-xs">
-        <div className="text-body-secondary">
-          {t("Estimated Fee")} <SendFundsFeeTooltip />
-        </div>
-        <div className="text-body">
-          <div className="inline-flex h-[1.7rem] items-center">
-            <>
-              {isLoading && <LoaderIcon className="animate-spin-slow mr-2 inline align-text-top" />}
-              {txDetails?.estimatedFee && network && (
-                <TokensAndFiat
-                  planck={txDetails.estimatedFee.toString()}
-                  tokenId={network.nativeTokenId}
-                />
-              )}
-            </>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
 const DefaultFeeSummary = () => {
   const { t } = useTranslation()
   const { transaction, feeToken, tip, tipToken } = useSendFunds()
 
-  if (!transaction || transaction.platform === "ethereum") return null
+  if (!transaction) return null
 
   const { isRefetching, isLoading, estimatedFee, error } = transaction
 
@@ -377,66 +295,50 @@ const DefaultFeeSummary = () => {
 }
 
 const FeeSummary = () => {
-  const { token } = useSendFunds()
-
-  if (isTokenEth(token)) return <EthFeeSummary />
   return <DefaultFeeSummary />
 }
 
 export const SendFundsConfirmForm = () => {
   const { t } = useTranslation()
-  const { from, to, network, transaction } = useSendFunds()
-
-  const riskAnalysis = useMemo(() => {
-    switch (transaction?.platform) {
-      case "ethereum":
-      case "solana":
-        return transaction.riskAnalysis
-      default:
-        return undefined
-    }
-  }, [transaction])
+  const { from, to, network } = useSendFunds()
 
   return (
     <ExternalAddressWarningProvider>
-      <RiskAnalysisProvider riskAnalysis={riskAnalysis}>
-        <div className="flex h-full w-full flex-col items-center gap-6 px-12 pb-8">
-          <ScrollContainer
-            className="w-full grow"
-            innerClassName="flex flex-col w-full items-center space-between min-h-full"
-          >
-            <div className="h-32 text-lg font-bold">{t("You are sending")}</div>
-            <div className="w-full grow">
-              <div className="bg-grey-900 text-body-secondary flex flex-col rounded px-12 py-8 leading-[140%]">
-                <div className="text-body flex h-16 items-center justify-between gap-8">
-                  <div className="text-body-secondary whitespace-nowrap">{t("Amount")}</div>
-                  <AmountDisplay />
-                </div>
-                <div className="flex h-16 items-center justify-between gap-8">
-                  <div className="text-body-secondary whitespace-nowrap">{t("From")}</div>
-                  <AddressDisplay className="h-16" address={from} networkId={network?.id} />
-                </div>
-                <div className="flex h-16 items-center justify-between gap-8">
-                  <div className="text-body-secondary whitespace-nowrap">{t("To")}</div>
-                  <AddressDisplay className="h-16" address={to} networkId={network?.id} />
-                </div>
-                <div className="py-8">
-                  <hr className="text-grey-800" />
-                </div>
-                <BittensorAlphaTokenRow />
-                <div className="mt-4 flex items-center justify-between gap-8 text-xs">
-                  <div className="text-body-secondary">{t("Network")}</div>
-                  <NetworkDisplay />
-                </div>
-                <FeeSummary />
-                <TotalAmountRow />
+      <div className="flex h-full w-full flex-col items-center gap-6 px-12 pb-8">
+        <ScrollContainer
+          className="w-full grow"
+          innerClassName="flex flex-col w-full items-center space-between min-h-full"
+        >
+          <div className="h-32 text-lg font-bold">{t("You are sending")}</div>
+          <div className="w-full grow">
+            <div className="bg-grey-900 text-body-secondary flex flex-col rounded px-12 py-8 leading-[140%]">
+              <div className="text-body flex h-16 items-center justify-between gap-8">
+                <div className="text-body-secondary whitespace-nowrap">{t("Amount")}</div>
+                <AmountDisplay />
               </div>
+              <div className="flex h-16 items-center justify-between gap-8">
+                <div className="text-body-secondary whitespace-nowrap">{t("From")}</div>
+                <AddressDisplay className="h-16" address={from} networkId={network?.id} />
+              </div>
+              <div className="flex h-16 items-center justify-between gap-8">
+                <div className="text-body-secondary whitespace-nowrap">{t("To")}</div>
+                <AddressDisplay className="h-16" address={to} networkId={network?.id} />
+              </div>
+              <div className="py-8">
+                <hr className="text-grey-800" />
+              </div>
+              <BittensorAlphaTokenRow />
+              <div className="mt-4 flex items-center justify-between gap-8 text-xs">
+                <div className="text-body-secondary">{t("Network")}</div>
+                <NetworkDisplay />
+              </div>
+              <FeeSummary />
+              <TotalAmountRow />
             </div>
-          </ScrollContainer>
-          {riskAnalysis && <RiskAnalysisPillButton />}
-          <SendButton />
-        </div>
-      </RiskAnalysisProvider>
+          </div>
+        </ScrollContainer>
+        <SendButton />
+      </div>
     </ExternalAddressWarningProvider>
   )
 }

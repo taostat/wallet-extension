@@ -3,7 +3,6 @@ import { abiMulticall, erc20BalancesAggregatorAbi } from "@taostats-wallet/balan
 import {
   EthNetworkId,
   EvmErc20Token,
-  isTokenEth,
   Token,
   TokenId,
   TokenList,
@@ -589,15 +588,16 @@ class AssetDiscoveryScanner {
     this.#preventAutoStart = true
 
     try {
-      const [discoveredBalances] = await Promise.all([db.assetDiscovery.toArray()])
+      // const [discoveredBalances] = await Promise.all([db.assetDiscovery.toArray()])
 
-      const tokenIds = uniq(discoveredBalances.map((entry) => entry.tokenId))
-      const tokens = (
-        await Promise.all(tokenIds.map((tokenId) => chaindataProvider.getTokenById(tokenId)))
-      ).filter(isTokenEth)
-      await activeTokensStore.set(Object.fromEntries(tokens.map((t) => [t.id, true])))
+      // const tokenIds = uniq(discoveredBalances.map((entry) => entry.tokenId))
+      // const tokens = (
+      //   await Promise.all(tokenIds.map((tokenId) => chaindataProvider.getTokenById(tokenId)))
+      // ).filter(isTokenEth)
+      // await activeTokensStore.set(Object.fromEntries(tokens.map((t) => [t.id, true])))
 
-      const evmNetworkIds = uniq(tokens.map((token) => token.networkId))
+      // const evmNetworkIds = uniq(tokens.map((token) => token.networkId))
+      const evmNetworkIds: string[] = []
       await activeNetworksStore.set(
         Object.fromEntries(evmNetworkIds.map((networkId) => [networkId, true])),
       )
