@@ -64,16 +64,7 @@ export const EnterPasswordForm = () => {
       <p className="text-body-secondary mb-10 text-sm">
         <Trans t={t}>
           We have upgraded our security measures, including an updated password policy and advanced
-          password encryption.{" "}
-          <a
-            href="https://medium.com/we-are-talisman/talismans-security-model-1e60391694c0"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="text-white opacity-100"
-          >
-            Learn more
-          </a>{" "}
-          about our new security features.
+          password encryption.
         </Trans>
       </p>
       <p className="text-body-secondary text-sm">{t("Enter your current password to continue")}</p>

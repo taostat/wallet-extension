@@ -9,15 +9,15 @@ import { useRampTokens } from "./useRampTokens"
 
 export const useRampSellTokens = (currency: string | undefined) => {
   const remoteConfig = useRemoteConfig()
-  const talismanTokens = useTokensMap({ activeOnly: false, includeTestnets: false })
+  const tokenMap = useTokensMap({ activeOnly: false, includeTestnets: false })
 
   const { data, isLoading, error } = useRampTokens(currency, "sell")
 
   const tokens = useMemo<Token[] | undefined>(() => {
     return data?.assets
-      .map((asset) => getTokenFromRampAsset(asset, remoteConfig, talismanTokens))
+      .map((asset) => getTokenFromRampAsset(asset, remoteConfig, tokenMap))
       .filter(isNotNil)
-  }, [data?.assets, remoteConfig, talismanTokens])
+  }, [data?.assets, remoteConfig, tokenMap])
 
   return { tokens, isLoading, error }
 }
