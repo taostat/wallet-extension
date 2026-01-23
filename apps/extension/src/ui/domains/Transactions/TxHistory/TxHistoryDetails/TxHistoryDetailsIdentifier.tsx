@@ -11,11 +11,8 @@ export const TxHistoryDetailsIdentifier: FC<{
 
   const identifier = useMemo(() => {
     switch (tx.platform) {
-      case "ethereum":
       case "polkadot":
         return tx.hash
-      case "solana":
-        return tx.signature
     }
   }, [tx])
 

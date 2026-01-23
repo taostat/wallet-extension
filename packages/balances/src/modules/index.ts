@@ -1,6 +1,3 @@
-import { EvmErc20BalanceModule } from "./evm-erc20"
-import { EvmNativeBalanceModule } from "./evm-native"
-import { EvmUniswapV2BalanceModule } from "./evm-uniswapv2"
 import { SubAssetsBalanceModule } from "./substrate-assets"
 import { SubDTaoBalanceModule } from "./substrate-dtao"
 import { SubForeignAssetsBalanceModule } from "./substrate-foreignassets"
@@ -17,16 +14,9 @@ export const BALANCE_MODULES = [
   SubForeignAssetsBalanceModule,
   SubPsp22BalanceModule,
   SubTokensBalanceModule,
-  EvmErc20BalanceModule,
-  EvmUniswapV2BalanceModule,
-  EvmNativeBalanceModule,
 ]
 
 export type AnyBalanceModule = (typeof BALANCE_MODULES)[number] // TODO yeet ? should use IBalance
-
-export * from "./evm-native"
-export * from "./evm-erc20"
-export * from "./evm-uniswapv2"
 
 export * from "./substrate-native"
 export * from "./substrate-assets"

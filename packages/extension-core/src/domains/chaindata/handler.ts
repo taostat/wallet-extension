@@ -3,7 +3,6 @@ import { isNativeToken, isNetworkOfPlatform } from "@taostats-wallet/chaindata-p
 import { genericSubscription } from "../../handlers/subscriptions"
 import { ExtensionHandler } from "../../libs/Handler"
 import { chainConnector } from "../../rpcs/chain-connector"
-import { chainConnectorEvm } from "../../rpcs/chain-connector-evm"
 import { chaindataProvider } from "../../rpcs/chaindata"
 import { MessageTypes, RequestTypes, ResponseType } from "../../types"
 import { Port } from "../../types/base"
@@ -77,6 +76,5 @@ export class ChaindataHandler extends ExtensionHandler {
 }
 
 const clearRpcProviderCache = async (networkId: string) => {
-  chainConnectorEvm.clearRpcProvidersCache(networkId)
   await chainConnector.reset(networkId)
 }

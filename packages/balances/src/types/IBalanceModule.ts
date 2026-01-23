@@ -1,8 +1,4 @@
-import type {
-  IChainConnectorDot,
-  IChainConnectorEth,
-  IChainConnectorSol,
-} from "@taostats-wallet/chain-connectors"
+import type { IChainConnectorDot } from "@taostats-wallet/chain-connectors"
 import { TransactionInstruction } from "@solana/web3.js"
 import {
   DotNetworkId,
@@ -17,13 +13,9 @@ import type { Address, IBalance, MiniMetadata } from "."
 
 export type TokenPlatform<T extends TokenType> = TokenOfType<T>["platform"]
 
-export type PlatformConnector<P extends TokenPlatform<TokenType>> = P extends "ethereum"
-  ? IChainConnectorEth
-  : P extends "polkadot"
-    ? IChainConnectorDot
-    : P extends "solana"
-      ? IChainConnectorSol
-      : never
+export type PlatformConnector<P extends TokenPlatform<TokenType>> = P extends "polkadot"
+  ? IChainConnectorDot
+  : never
 
 type DotTransferCallData = {
   address: string
@@ -84,55 +76,27 @@ export interface IBalanceModule<
         }
       : never,
   ) => TokenPlatform<Type> extends "polkadot" ? MiniMetadata<MiniMetadataExtra> : never
+  fetchTokens: (arg: {
+    networkId: DotNetworkId
+    tokens: TokenConfig[]
+    connector: PlatformConnector<TokenPlatform<Type>>
+    miniMetadata: MiniMetadata<MiniMetadataExtra>
+    cache: Record<TokenId, unknown>
+  }) => Promise<TokenOfType<Type>[]>
 
-  // cache is used for modules that need to do a lot of queries to validate token data from chain, such as evm-erc20 and evm-uniswapv2
-  // chaindata handles the storage of the cache
-  fetchTokens: (
-    arg: TokenPlatform<Type> extends "polkadot"
-      ? {
-          networkId: DotNetworkId
-          tokens: TokenConfig[]
-          connector: PlatformConnector<TokenPlatform<Type>>
-          miniMetadata: MiniMetadata<MiniMetadataExtra>
-          cache: Record<TokenId, unknown>
-        }
-      : {
-          networkId: SolNetworkId
-          tokens: TokenConfig[]
-          connector: PlatformConnector<TokenPlatform<Type>>
-          cache: Record<TokenId, unknown>
-        },
-  ) => Promise<TokenOfType<Type>[]>
+  fetchBalances: (arg: {
+    networkId: DotNetworkId
+    tokensWithAddresses: TokensWithAddresses
+    connector: PlatformConnector<TokenPlatform<Type>>
+    miniMetadata: MiniMetadata<MiniMetadataExtra>
+  }) => Promise<FetchBalanceResults>
 
-  fetchBalances: (
-    arg: TokenPlatform<Type> extends "polkadot"
-      ? {
-          networkId: DotNetworkId
-          tokensWithAddresses: TokensWithAddresses
-          connector: PlatformConnector<TokenPlatform<Type>>
-          miniMetadata: MiniMetadata<MiniMetadataExtra>
-        }
-      : {
-          networkId: EthNetworkId
-          tokensWithAddresses: TokensWithAddresses
-          connector: PlatformConnector<TokenPlatform<Type>>
-        },
-  ) => Promise<FetchBalanceResults>
-
-  subscribeBalances: (
-    arg: TokenPlatform<Type> extends "polkadot"
-      ? {
-          networkId: DotNetworkId
-          tokensWithAddresses: TokensWithAddresses
-          connector: PlatformConnector<TokenPlatform<Type>>
-          miniMetadata: MiniMetadata<MiniMetadataExtra>
-        }
-      : {
-          networkId: EthNetworkId
-          tokensWithAddresses: TokensWithAddresses
-          connector: PlatformConnector<TokenPlatform<Type>>
-        },
-  ) => Observable<FetchBalanceResults>
+  subscribeBalances: (arg: {
+    networkId: DotNetworkId
+    tokensWithAddresses: TokensWithAddresses
+    connector: PlatformConnector<TokenPlatform<Type>>
+    miniMetadata: MiniMetadata<MiniMetadataExtra>
+  }) => Observable<FetchBalanceResults>
 
   getTransferCallData: (
     arg: TokenPlatform<Type> extends "polkadot"

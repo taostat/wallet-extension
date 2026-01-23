@@ -643,12 +643,6 @@ export const approvalAtom = atom(async (get) => {
   // chain unsupported
   if (!chain) return null
 
-  const evmNetworks = await get(atomWithObservable(() => getNetworks$({ platform: "ethereum" })))
-  const network = evmNetworks.find(
-    (network) => network.id.toString() === approval.chainId.toString(),
-  )
-  if (!network) return null
-
   // trigger approval check when updated
   get(approvalCounterAtom)
 
