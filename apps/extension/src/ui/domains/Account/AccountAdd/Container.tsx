@@ -32,7 +32,6 @@ export const AccountCreateContainer = ({ className }: { className?: string }) =>
 
 function NewAccountMethodButtons() {
   const { t } = useTranslation()
-  const isLedgerCapable = getIsLedgerCapable()
 
   return (
     <>
@@ -59,16 +58,6 @@ function NewAccountMethodButtons() {
         }
         to={`/accounts/add/watched?platform=polkadot`}
         isWatchSection
-      />
-      <AccountCreateMethodButton
-        title={t("Connect Ledger")}
-        subtitle={
-          isLedgerCapable
-            ? t("Connect your ledger to your Bittensor account")
-            : t("Not supported on this browser")
-        }
-        disabled={!isLedgerCapable}
-        to={`/accounts/add/ledger`}
       />
     </>
   )
@@ -179,9 +168,9 @@ function AccountCreateMethodButton({
       disabled={disabled}
       onClick={handleClick}
       className={classNames(
-        "relative flex flex-col gap-12 rounded bg-[#1e1e1e] p-10",
+        "relative flex flex-col gap-12 rounded bg-white/5 p-10",
         disabled && "text-body-secondary opacity-40",
-        !disabled && "text-body cursor-pointer hover:bg-[#292929] focus:bg-[#292929]",
+        !disabled && "text-body cursor-pointer hover:bg-white/10 focus:bg-white/10",
       )}
     >
       <span className="w-full pb-3 text-start">{title}</span>

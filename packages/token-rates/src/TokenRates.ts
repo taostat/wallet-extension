@@ -21,18 +21,43 @@ export type CoinsApiConfig = {
   apiUrl: string
 }
 
+export const DEFAULT_COINSAPI_CONFIG: CoinsApiConfig = {
+  apiUrl: "https://coins.talisman.xyz",
+}
 export async function fetchTokenRates(
   tokens: Record<TokenId, Token>,
   currencyIds: TokenRateCurrency[] = ALL_CURRENCY_IDS,
-  config: CoinsApiConfig | undefined,
+  config: CoinsApiConfig = DEFAULT_COINSAPI_CONFIG,
 ): Promise<TokenRatesList> {
-  if (!config) {
-    throw new Error("CoinsApiConfig is required in fetchTokenRates")
-  }
-
   // create a map from `coingeckoId` -> `tokenId` for each token
   const coingeckoIdToTokenIds = Object.values(tokens)
     .flatMap((token) => {
+      // BEGIN: LP tokens have a rate which is calculated later on, using the rates of two other tokens.
+      //
+      // This section contains the logic such that: if token is an LP token, then fetch the rates for the two underlying tokens.
+      if (token.type === "evm-uniswapv2") {
+        if (token.platform !== "ethereum") return []
+
+        const getToken = (
+          evmNetworkId: string,
+          tokenAddress: `0x${string}`,
+          coingeckoId: string,
+        ) => ({
+          id: evmErc20TokenId(evmNetworkId, tokenAddress),
+          coingeckoId,
+        })
+
+        const token0 = token.coingeckoId0
+          ? [getToken(token.networkId, token.tokenAddress0, token.coingeckoId0)]
+          : []
+        const token1 = token.coingeckoId1
+          ? [getToken(token.networkId, token.tokenAddress1, token.coingeckoId1)]
+          : []
+
+        return [...token0, ...token1]
+      }
+      // END: LP tokens have a rate which is calculated later on, using the rates of two other tokens.
+
       // ignore tokens which don't have a coingeckoId
       if (!token.coingeckoId) return []
 

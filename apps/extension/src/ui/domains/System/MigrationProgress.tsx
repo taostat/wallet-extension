@@ -1,7 +1,6 @@
 import { HomeIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { appStore } from "extension-core"
-import { DISCORD_URL } from "extension-shared"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
@@ -36,12 +35,12 @@ export const MigrationProgress = () => {
               <div className="text-body-secondary">
                 <Trans
                   t={t}
-                  defaults="If you need assistance, contact us on Discord at <Link />"
+                  defaults="If you need assistance, contact our help-desk on Discord at <Link />"
                   values={migration}
                   components={{
                     Link: (
-                      <a className="text-body underline" href={DISCORD_URL}>
-                        {DISCORD_URL}
+                      <a className="text-body underline" href={"https://discord.gg/talisman"}>
+                        https://discord.gg/talisman
                       </a>
                     ),
                   }}
