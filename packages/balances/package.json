@@ -31,7 +31,6 @@
     "@taostats-wallet/crypto": "workspace:*",
     "@taostats-wallet/sapi": "workspace:*",
     "@taostats-wallet/scale": "workspace:*",
-    "@taostats-wallet/solana": "workspace:*",
     "@taostats-wallet/token-rates": "workspace:*",
     "@taostats-wallet/util": "workspace:*",
     "anylogger": "^1.0.11",

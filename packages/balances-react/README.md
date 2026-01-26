@@ -1,1 +1,1 @@
-# @talismn/balances-react
+# @taostats-wallet/balances-react

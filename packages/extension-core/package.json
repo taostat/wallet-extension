@@ -47,7 +47,6 @@
     "@taostats-wallet/keyring": "workspace:*",
     "@taostats-wallet/sapi": "workspace:*",
     "@taostats-wallet/scale": "workspace:*",
-    "@taostats-wallet/solana": "workspace:*",
     "@taostats-wallet/token-rates": "workspace:*",
     "@taostats-wallet/util": "workspace:*",
     "bcryptjs": "^2.4.3",

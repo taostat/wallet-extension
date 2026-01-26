@@ -49,7 +49,6 @@
     "@taostats-wallet/sapi": "workspace:*",
     "@taostats-wallet/scale": "workspace:*",
     "@talismn/siws": "^0.0.19",
-    "@taostats-wallet/solana": "workspace:*",
     "@taostats-wallet/token-rates": "workspace:*",
     "@taostats-wallet/util": "workspace:*",
     "@tanstack/react-form": "^1.12.3",

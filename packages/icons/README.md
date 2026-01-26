@@ -1,1 +1,1 @@
-# @talismn/icons
+# @taostats-wallet/icons

@@ -1,1 +1,1 @@
-# @talismn/chain-connector
+# @taostats-wallet/chain-connector

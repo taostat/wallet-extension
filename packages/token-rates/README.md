@@ -1,1 +1,1 @@
-# @talismn/token-rates
+# @taostats-wallet/token-rates

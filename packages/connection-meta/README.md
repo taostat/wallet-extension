@@ -1,1 +1,1 @@
-# @talismn/connection-meta
+# @taostats-wallet/connection-meta
