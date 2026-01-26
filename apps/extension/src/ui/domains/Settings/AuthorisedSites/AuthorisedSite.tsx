@@ -97,14 +97,11 @@ export const AuthorizedSite: FC<{
             <button className="hover:text-body" onClick={() => toggleAll(false)}>
               {t("Disconnect All")}
             </button>
-            {provider !== "ethereum" && (
-              <>
-                <Rule />
-                <button className="hover:text-body" onClick={() => toggleAll(true)}>
-                  {t("Connect All")}
-                </button>
-              </>
-            )}
+
+            <Rule />
+            <button className="hover:text-body" onClick={() => toggleAll(true)}>
+              {t("Connect All")}
+            </button>
           </div>
           {availableAddresses.map((address) => (
             <AuthorisedSiteAccount

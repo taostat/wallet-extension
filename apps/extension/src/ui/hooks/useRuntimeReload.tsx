@@ -1,5 +1,5 @@
 import { connectionMetaDb } from "@taostats-wallet/connection-meta"
-import { assetDiscoveryStore, db as mainDb } from "extension-core"
+import { db as mainDb } from "extension-core"
 import { useCallback, useState } from "react"
 
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
@@ -15,7 +15,6 @@ export const useRuntimeReload = (analyticsPage: AnalyticsPage) => {
 
     // these do not contain any user data, they will be safely recreated on next startup
     await Promise.allSettled([
-      assetDiscoveryStore.reset(),
       connectionMetaDb.delete(),
       mainDb.metadata.clear(),
       mainDb.blobs.clear(), // chaindata, balances, nfts etc

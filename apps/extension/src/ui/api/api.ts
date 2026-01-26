@@ -1,11 +1,5 @@
 import { HexString } from "@polkadot/util/types"
-import {
-  ResponseSolanaSubmit,
-  SignerPayloadJSON,
-  SolRpcRequest,
-  SolRpcResponse,
-  WalletTransactionInfo,
-} from "extension-core"
+import { SignerPayloadJSON, WalletTransactionInfo } from "extension-core"
 
 import PortMessageService from "@common/PortMessageService"
 
@@ -106,15 +100,9 @@ export const api: MessageTypes = {
     messageService.subscribe("pri(accounts.catalog.subscribe)", null, cb),
   accountsCatalogRunActions: (actions) =>
     messageService.sendMessage("pri(accounts.catalog.runActions)", actions),
-  accountsOnChainIdsResolveNames: (names) =>
-    messageService.sendMessage("pri(accounts.onChainIds.resolveNames)", names),
-  accountsOnChainIdsLookupAddresses: (addresses) =>
-    messageService.sendMessage("pri(accounts.onChainIds.lookupAddresses)", addresses),
   accountForget: (address) => messageService.sendMessage("pri(accounts.forget)", { address }),
   accountExport: (address, password, exportPw) =>
     messageService.sendMessage("pri(accounts.export)", { address, password, exportPw }),
-  accountExportPrivateKey: (address, password) =>
-    messageService.sendMessage("pri(accounts.export.pk)", { address, password }),
   accountExportAll: (password, exportPw) =>
     messageService.sendMessage("pri(accounts.export.all)", { password, exportPw }),
   accountRename: (address, name) =>
@@ -189,56 +177,6 @@ export const api: MessageTypes = {
   // tokenRates message types
   tokenRates: (cb) => messageService.subscribe("pri(tokenRates.subscribe)", null, cb),
 
-  // eth related messages
-  ethSignAndSend: (evmNetworkId, unsigned, txInfo) =>
-    messageService.sendMessage("pri(eth.signing.signAndSend)", {
-      evmNetworkId,
-      unsigned,
-      txInfo,
-    }),
-  ethSendSigned: (evmNetworkId, unsigned, signed, txInfo) =>
-    messageService.sendMessage("pri(eth.signing.sendSigned)", {
-      evmNetworkId,
-      unsigned,
-      signed,
-      txInfo,
-    }),
-  ethApproveSign: (id) =>
-    messageService.sendMessage("pri(eth.signing.approveSign)", {
-      id,
-    }),
-  ethApproveSignHardware: (id, signedPayload) =>
-    messageService.sendMessage("pri(eth.signing.approveSignHardware)", {
-      id,
-      signedPayload,
-    }),
-  ethApproveSignAndSend: (id, transaction) =>
-    messageService.sendMessage("pri(eth.signing.approveSignAndSend)", {
-      id,
-      transaction,
-    }),
-  ethApproveSignAndSendHardware: (id, unsigned, signedPayload) =>
-    messageService.sendMessage("pri(eth.signing.approveSignAndSendHardware)", {
-      id,
-      unsigned,
-      signedPayload,
-    }),
-  ethCancelSign: (id) =>
-    messageService.sendMessage("pri(eth.signing.cancel)", {
-      id,
-    }),
-  ethRequest: (request) => messageService.sendMessage("pri(eth.request)", request),
-  ethGetTransactionsCount: (address, evmNetworkId) =>
-    messageService.sendMessage("pri(eth.transactions.count)", { address, evmNetworkId }),
-  ethNetworkAddApprove: (id) => messageService.sendMessage("pri(eth.networks.add.approve)", { id }),
-  ethNetworkAddCancel: (id) => messageService.sendMessage("pri(eth.networks.add.cancel)", { id }),
-
-  // ethereum watch assets
-  ethWatchAssetRequestApprove: (id) =>
-    messageService.sendMessage("pri(eth.watchasset.requests.approve)", { id }),
-  ethWatchAssetRequestCancel: (id) =>
-    messageService.sendMessage("pri(eth.watchasset.requests.cancel)", { id }),
-
   // substrate rpc messages
   subSend: <T>(chainId: string, method: string, params: unknown[], isCacheable?: boolean) =>
     messageService.sendMessage("pri(substrate.rpc.send)", {
@@ -263,34 +201,6 @@ export const api: MessageTypes = {
       genesisHash,
       specVersion,
     }),
-
-  // solana
-  solSend: <T>(networkId: string, request: SolRpcRequest) =>
-    messageService.sendMessage("pri(solana.rpc.send)", {
-      networkId,
-      request,
-    }) as Promise<SolRpcResponse<T>>,
-  solSubmit: (networkId: string, transaction: string, txInfo?: WalletTransactionInfo) =>
-    messageService.sendMessage("pri(solana.rpc.submit)", {
-      networkId,
-      transaction,
-      txInfo,
-    }) as Promise<ResponseSolanaSubmit>,
-  solSignApprove: (req) =>
-    messageService.sendMessage("pri(solana.sign.approve)", req) as Promise<void>,
-
-  // asset discovery
-  assetDiscoveryStartScan: (scope) =>
-    messageService.sendMessage("pri(assetDiscovery.scan.start)", scope),
-  assetDiscoveryStopScan: () => messageService.sendMessage("pri(assetDiscovery.scan.stop)", null),
-
-  // nfts
-  nftsSubscribe: (cb) => messageService.subscribe("pri(nfts.subscribe)", null, cb),
-  nftsSetHidden: (id, isHidden) =>
-    messageService.sendMessage("pri(nfts.collection.setHidden)", { id, isHidden }),
-  nftsSetFavorite: (id, isFavorite) =>
-    messageService.sendMessage("pri(nfts.setFavorite)", { id, isFavorite }),
-  nftsRefreshMetadata: (id) => messageService.sendMessage("pri(nfts.refreshMetadata)", { id }),
 
   defiPositionsSubscribe: (cb) =>
     messageService.subscribe("pri(defi.positions.subscribe)", null, cb),

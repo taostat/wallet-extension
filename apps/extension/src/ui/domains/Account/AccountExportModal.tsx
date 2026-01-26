@@ -4,12 +4,7 @@ import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMess
 import { PasswordStrength } from "@taostats/components/PasswordStrength"
 import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import downloadJson from "@taostats/util/downloadJson"
-import {
-  Account,
-  isAccountOfType,
-  isAccountPlatformEthereum,
-  isAccountPlatformPolkadot,
-} from "extension-core"
+import { Account, isAccountOfType, isAccountPlatformPolkadot } from "extension-core"
 import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
@@ -45,8 +40,7 @@ export const useAccountExportModal = () => {
   )
 
   const canExportAccountFunc = (account?: Account | null) =>
-    isAccountOfType(account, "keypair") &&
-    (isAccountPlatformPolkadot(account) || isAccountPlatformEthereum(account))
+    isAccountOfType(account, "keypair") && isAccountPlatformPolkadot(account)
 
   const canExportAccount = useMemo(() => canExportAccountFunc(account), [account])
 

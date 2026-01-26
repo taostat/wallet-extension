@@ -23,8 +23,6 @@ import {
 import { isAddSubstrateLedgerAppType } from "@ui/util/typeCheckers"
 
 import { AddSubstrateLedgerAppType, useAddLedgerAccount } from "./context"
-import { ConnectLedgerEthereum } from "./Shared/ConnectLedgerEthereum"
-import { ConnectLedgerSolana } from "./Shared/ConnectLedgerSolana"
 import { ConnectLedgerSubstrateGeneric } from "./Shared/ConnectLedgerSubstrateGeneric"
 import { ConnectLedgerSubstrateLegacy } from "./Shared/ConnectLedgerSubstrateLegacy"
 
@@ -315,12 +313,6 @@ export const AddLedgerSelectNetwork = () => {
                 />
               )}
             </>
-          )}
-          {platform === "ethereum" && (
-            <ConnectLedgerEthereum className="mt-14" onReadyChanged={setIsLedgerReady} />
-          )}
-          {platform === "solana" && (
-            <ConnectLedgerSolana className="mt-14" onReadyChanged={setIsLedgerReady} />
           )}
         </div>
       </div>

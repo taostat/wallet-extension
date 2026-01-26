@@ -1,6 +1,6 @@
-import { isNetworkDot, isNetworkEth } from "@taostats-wallet/chaindata-provider"
+import { isNetworkDot } from "@taostats-wallet/chaindata-provider"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { isAccountAddressEthereum, isAccountAddressSs58 } from "extension-core"
+import { isAccountAddressSs58 } from "extension-core"
 import { FC, PropsWithChildren, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -37,30 +37,19 @@ const PortfolioAccountCheck: FC<PropsWithChildren> = ({ children }) => {
   const { networks } = usePortfolioGlobalData()
   const { selectedAccounts } = usePortfolioNavigation()
 
-  const [chains, evmNetworks] = useMemo(() => {
+  const [chains] = useMemo(() => {
     const chains = networks.filter(isNetworkDot)
-    const evmNetworks = networks.filter(isNetworkEth)
-    return [chains, evmNetworks]
+    return [chains]
   }, [networks])
 
-  const [hasOnlyEthAccounts, hasOnlySs58Accounts] = useMemo(
-    () => [
-      !!selectedAccounts.length && selectedAccounts.every((a) => isAccountAddressEthereum(a)),
-      !!selectedAccounts.length && selectedAccounts.every((a) => isAccountAddressSs58(a)),
-    ],
+  const [hasOnlySs58Accounts] = useMemo(
+    () => [!!selectedAccounts.length && selectedAccounts.every((a) => isAccountAddressSs58(a))],
     [selectedAccounts],
   )
 
   if (!selectedAccounts.length) return <GetStarted />
-
   if (!networks.length) return <EnableNetworkMessage />
   if (hasOnlySs58Accounts && !chains.length) return <EnableNetworkMessage type="substrate" />
-  if (
-    hasOnlyEthAccounts &&
-    !evmNetworks.length &&
-    !chains.filter((c) => c.account === "secp256k1").length
-  )
-    return <EnableNetworkMessage type="evm" />
 
   return <>{children}</>
 }

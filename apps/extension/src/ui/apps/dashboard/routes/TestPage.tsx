@@ -1,11 +1,9 @@
-import { PublicKey } from "@solana/web3.js"
 import { log } from "extension-shared"
 import { groupBy } from "lodash-es"
 import { Dispatch, FC, SetStateAction, Suspense, useEffect, useMemo, useState } from "react"
 
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
 import { useNetworksMapById, usePortfolioGlobalData, useTokens } from "@ui/state"
-import { useSolanaConnection } from "@ui/util/solana/useSolanaConnection"
 
 // At time time used to test the observables & hooks from ./ui/state, how often they suspense and emit
 // But can be used to test virtually anything in the app
@@ -13,9 +11,7 @@ export const TestPage = () => {
   const [showTokens, setShowTokens] = useState(false)
   const [showAllNetworks, setShowAllNetworks] = useState(false)
   const [showDotNetworks, setShowDotNetworks] = useState(false)
-  const [showEthNetworks, setShowEthNetworks] = useState(false)
   const [showPortfolio, setShowPortfolio] = useState(false)
-  const [showSolanaBalance, setShowSolanaBalance] = useState(false)
 
   return (
     <div className="container mx-auto my-12">
@@ -24,22 +20,14 @@ export const TestPage = () => {
         <div className="flex flex-wrap gap-4">
           <ToggleButton label="all tokens" show={showTokens} dispatch={setShowTokens} />
           <ToggleButton label="all networks" show={showAllNetworks} dispatch={setShowAllNetworks} />
-          <ToggleButton label="eth networks" show={showEthNetworks} dispatch={setShowEthNetworks} />
           <ToggleButton label="dot networks" show={showDotNetworks} dispatch={setShowDotNetworks} />
           <ToggleButton label="portfolio" show={showPortfolio} dispatch={setShowPortfolio} />
-          <ToggleButton
-            label="sol balance"
-            show={showSolanaBalance}
-            dispatch={setShowSolanaBalance}
-          />
         </div>
         <Suspense fallback={<div>Loading...</div>}>
           {showTokens && <TestTokens />}
           {showAllNetworks && <TestAllNetworks />}
-          {showEthNetworks && <TestEthNetworks />}
           {showDotNetworks && <TestDotNetworks />}
           {showPortfolio && <TestPortfolio />}
-          {showSolanaBalance && <TestSolanaBalance />}
         </Suspense>
       </div>
     </div>
@@ -93,42 +81,6 @@ const TestDotNetworks = () => {
       <div>Dot Networks: {Object.keys(networks).length}</div>
     </div>
   )
-}
-const TestEthNetworks = () => {
-  const networks = useNetworksMapById({ platform: "ethereum" })
-
-  useEffect(() => {
-    log.log("Eth Networks changed", Object.keys(networks).length)
-  }, [networks])
-
-  return (
-    <div>
-      <div>Eth Networks: {Object.keys(networks).length}</div>
-    </div>
-  )
-}
-
-const TestSolanaBalance = () => {
-  const connection = useSolanaConnection("solana-mainnet")
-  const [balance, setBalance] = useState("")
-
-  useEffect(() => {
-    if (!connection) return
-    // Example of fetching a balance, replace with actual logic
-    connection
-      .getBalance(new PublicKey("5xJvx7YrqCqgyzxx4PQXt1AVbxioUsGABf2zevmYC8UL"))
-      .then((bal) => {
-        setBalance(bal.toString())
-        log.log("Fetched Solana balance:", bal)
-      })
-      .catch((error) => {
-        log.error("Error fetching Solana balance:", error)
-      })
-  }, [connection])
-
-  // Placeholder for Solana balance test
-  // This would typically involve fetching balances using a Solana connector
-  return <div>Solana Balance: {balance}</div>
 }
 
 const TestPortfolio = () => (

@@ -1,3 +1,4 @@
+import { HexString } from "@polkadot/util/types"
 import { ChevronDownIcon, GlobeIcon } from "@taostats-wallet/icons"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
@@ -18,7 +19,7 @@ const NetworkFilterButton = () => {
 
   const handleSelect = useCallback(
     (networkId: string | null) => {
-      setNetworkId(networkId)
+      setNetworkId(networkId as HexString)
       close()
     },
     [close, setNetworkId],

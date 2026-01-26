@@ -14,8 +14,6 @@ import {
 
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 import { useCombinedSubnetData } from "@ui/domains/Staking/hooks/bittensor/dTao/useCombinedSubnetData"
-import { useGetSeekDiscount } from "@ui/domains/Staking/Seek/hooks/useGetSeekDiscount"
-import { SeekGetFeeDiscountsDrawer } from "@ui/domains/Staking/Seek/SeekGetFeeDiscountsDrawer"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
 import { useAppState, useFeatureFlag } from "@ui/state"
 
@@ -75,7 +73,6 @@ export const BittensorSubnetBondReview = () => {
     setStep,
   } = useBittensorBondWizard()
   const { t } = useTranslation()
-  const { tier } = useGetSeekDiscount()
   const { seekDiscountDrawer } = useBittensorBondWizard()
   const { close } = useBittensorBondModal()
   const subnetFee = useGetSubnetFee({
@@ -83,33 +80,9 @@ export const BittensorSubnetBondReview = () => {
     direction: stakeDirection === "bond" ? "taoToAlpha" : "alphaToTao",
   })
 
-  const { discount } = tier
-
-  const subnetFeeDiscount = useMemo(() => {
-    if (subnetFee === TAOSTATS_FEE_BITTENSOR) {
-      // No discount
-      return 0
-    } else if (subnetFee === 0) {
-      // 100% discount
-      return MAX_TOTAL_FEE_DISCOUNT
-    } else {
-      // Calculate discount percentage
-      const discountDiff = TAOSTATS_FEE_BITTENSOR - subnetFee
-      return discountDiff / TAOSTATS_FEE_BITTENSOR
-    }
-  }, [subnetFee])
-
   const totalFeeDiscount = useMemo(() => {
-    if (subnetFeeDiscount === MAX_TOTAL_FEE_DISCOUNT) {
-      // Discount cannot be greater than 100%
-      return MAX_TOTAL_FEE_DISCOUNT
-    } else if (isSeekTaoDiscountEnabled) {
-      // Calculate total discount, combining subnet fee discount and seek discount
-      return tier.discount + subnetFeeDiscount
-    }
-    // subnet fee discount only
-    return subnetFeeDiscount
-  }, [subnetFeeDiscount, isSeekTaoDiscountEnabled, tier.discount])
+    return 0
+  }, [])
 
   const totalDiscountPercent = useMemo(() => `${totalFeeDiscount * 100}%`, [totalFeeDiscount])
   const isSeekDrawerEnabled = useMemo(
@@ -323,7 +296,7 @@ export const BittensorSubnetBondReview = () => {
               tokenId={feeToken?.id}
               isLoading={isLoading}
               error={errorFeeEstimate}
-              tokensClassName={discount > 0 && isSeekTaoDiscountEnabled ? "text-[#D5FF5C]" : ""}
+              tokensClassName=""
               noCountUp
               noFiat
             />
@@ -349,12 +322,6 @@ export const BittensorSubnetBondReview = () => {
         ))}
       <BittensorSlippageDrawer />
       <BittensorWarningDrawer setHasAckWarning={setHasAckWarning} />
-      <SeekGetFeeDiscountsDrawer
-        isOpen={seekDiscountDrawer.isOpen}
-        onDismiss={seekDiscountDrawer.close}
-        onCloseModal={close}
-        containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
-      />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />
     </BittensorModalLayout>
   )

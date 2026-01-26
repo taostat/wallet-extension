@@ -7,7 +7,6 @@ import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 
 import { useGetBittensorMinJoinBond } from "../../hooks/bittensor/useGetBittensorMinJoinBond"
 import { useGetBittensorDefaultMinStake } from "../../hooks/bittensor/useGetBittensorMinStake"
-import { useGetSeekDiscount } from "../../Seek/hooks/useGetSeekDiscount"
 import {
   getBittensorStakingPayload,
   getBittensorUnbondPayload,
@@ -38,7 +37,6 @@ export const useBittensorStakingPayload = ({
   direction,
   amountIn,
 }: UseBittensorStakingPayloadProps) => {
-  const { tier } = useGetSeekDiscount()
   const subnetFee = useGetSubnetFee({ netuid: netuid ?? 0, direction })
   const [slippage] = useBittensorSubnetSlippage(netuid)
 
@@ -76,17 +74,16 @@ export const useBittensorStakingPayload = ({
 
     switch (direction) {
       case "taoToAlpha": {
-        const taostatsFee = calculateFee({
+        const appStakingFee = calculateFee({
           amount: amountIn,
           fee: subnetFee,
-          seekDiscount: tier.discount,
         })
-        return amountIn - taostatsFee
+        return amountIn - appStakingFee
       }
       case "alphaToTao":
         return amountIn
     }
-  }, [amountIn, direction, netuid, subnetFee, tier.discount])
+  }, [amountIn, direction, netuid, subnetFee])
 
   const {
     data: simulation,
@@ -125,9 +122,8 @@ export const useBittensorStakingPayload = ({
     return calculateFee({
       amount: direction === "taoToAlpha" ? amountIn : simulation?.tao_amount,
       fee: subnetFee,
-      seekDiscount: tier.discount,
     })
-  }, [amountIn, direction, simulation, subnetFee, tier.discount])
+  }, [amountIn, direction, simulation, subnetFee])
 
   const amountOut = useMemo(() => {
     if (!simulation || typeof taostatsFee !== "bigint") return 0n // TODO should be null
@@ -205,25 +201,13 @@ export const useBittensorStakingPayload = ({
   }
 }
 
-const calculateFee = ({
-  amount,
-  fee,
-  seekDiscount,
-}: {
-  amount: bigint | null
-  fee: number
-  seekDiscount: number
-}): bigint => {
+const calculateFee = ({ amount, fee }: { amount: bigint | null; fee: number }): bigint => {
   if (!amount) return 0n
   if (fee < 0) {
     throw new Error("Fee percentage cannot be negative")
   }
 
-  if (seekDiscount === 0 || !seekDiscount) {
-    return (amount * BigInt(Math.round(fee * 100))) / BigInt(10000)
-  }
-
-  const discountedFee = fee * (1 - seekDiscount)
+  const discountedFee = fee
 
   return (amount * BigInt(Math.round(discountedFee * 100))) / BigInt(10000)
 }

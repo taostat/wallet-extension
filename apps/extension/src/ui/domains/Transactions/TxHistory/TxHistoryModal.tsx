@@ -11,7 +11,7 @@ import { Button, Modal, ModalDialog } from "taostats-ui"
 import { useNetworkById } from "@ui/state"
 import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
 
-import { ReplacementCallbackArgs, TxProgress } from "../TxProgress"
+import { TxProgress } from "../TxProgress"
 import { TxHistoryDetailsAddress } from "./TxHistoryDetails/TxHistoryDetailsAddress"
 import { TxHistoryDetailsIdentifier } from "./TxHistoryDetails/TxHistoryDetailsIdentifier"
 import { TxHistoryDetailsNetwork } from "./TxHistoryDetails/TxHistoryDetailsNetwork"
@@ -27,15 +27,9 @@ type TxHistoryModalProps = {
   tx?: WalletTransaction
   isOpen: boolean
   onClose: () => void
-  onReplacementComplete?: (args: ReplacementCallbackArgs) => void
 }
 
-export const TxHistoryModal: FC<TxHistoryModalProps> = ({
-  tx,
-  isOpen,
-  onClose,
-  onReplacementComplete,
-}) => {
+export const TxHistoryModal: FC<TxHistoryModalProps> = ({ tx, isOpen, onClose }) => {
   // cache the tx so we continue displaying it while modal fades out
   const [cachedTx, setCachedTx] = useState(() => tx)
   useEffect(() => {
@@ -51,11 +45,7 @@ export const TxHistoryModal: FC<TxHistoryModalProps> = ({
     <Modal isOpen={isOpen} onDismiss={onClose} containerId="main">
       {!!displayTx && (
         <DialogWrapper tx={displayTx} onClose={onClose}>
-          <ModalContent
-            tx={displayTx}
-            onClose={onClose}
-            onReplacementComplete={onReplacementComplete}
-          />
+          <ModalContent tx={displayTx} onClose={onClose} />
         </DialogWrapper>
       )}
     </Modal>
@@ -82,17 +72,11 @@ const DialogWrapper: FC<{ tx: WalletTransaction; onClose: () => void; children: 
 const ModalContent: FC<{
   tx: WalletTransaction
   onClose: () => void
-  onReplacementComplete?: (args: ReplacementCallbackArgs) => void
-}> = ({ tx, onClose, onReplacementComplete }) => {
+}> = ({ tx, onClose }) => {
   switch (tx.status) {
     case "pending":
       return (
-        <TxProgress
-          hash={getTransactionId(tx)}
-          onClose={onClose}
-          networkIdOrHash={tx.networkId}
-          onReplacementComplete={onReplacementComplete}
-        />
+        <TxProgress hash={getTransactionId(tx)} onClose={onClose} networkIdOrHash={tx.networkId} />
       )
     default:
       return <TxHistoryDetailsContent tx={tx} />

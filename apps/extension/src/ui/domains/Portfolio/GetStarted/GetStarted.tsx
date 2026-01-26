@@ -10,8 +10,7 @@ import { IconButton } from "taostats-ui"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
-import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
-import { useAccounts, useAppState, useFeatureFlag } from "@ui/state"
+import { useAccounts, useAppState } from "@ui/state"
 import { closeIfEmbeddedPopup } from "@ui/util/closeIfEmbeddedPopup"
 import { IS_POPUP } from "@ui/util/constants"
 
@@ -105,7 +104,6 @@ const useGetStarted = () => {
 
   const navigate = useNavigate()
   const { open: onCopyAddressModal } = useCopyAddressModal()
-  const { open: openSwapTokensModal } = useSwapTokensModal()
   const { open: openTryModal } = useTryPageModal()
 
   const [isHidden, setIsHidden] = useAppState("hideGetStarted")
@@ -132,14 +130,12 @@ const useGetStarted = () => {
     onCopyAddressModal()
   }, [onCopyAddressModal])
 
-  const canSwap = useFeatureFlag("SWAPS")
   const onSwapClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "swap" })
 
-    if (canSwap) return void openSwapTokensModal()
     window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank")
     closeIfEmbeddedPopup()
-  }, [canSwap, openSwapTokensModal])
+  }, [])
 
   const onDismissClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "dismiss get started" })

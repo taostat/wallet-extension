@@ -13,9 +13,7 @@ export const addressEncodingFromCurve = (curve: KeypairCurve): AddressEncoding =
       // The format MAY be bech32m, but it might also be bech32 or base58check.
       // bech32m is the most recent format.
       return "bech32m"
-    case "ethereum":
-      return "ethereum"
-    case "solana":
-      return "base58solana"
+    default:
+      throw new Error("Unsupported curve in addressEncodingFromCurve")
   }
 }

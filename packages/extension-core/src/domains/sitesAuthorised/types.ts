@@ -46,6 +46,7 @@ export declare type AuthUrls = AuthorizedSites
 export type AuthorizedSite = {
   id: string
   addresses?: AuthorizedSiteAddresses
+  ethAddresses?: AuthorizedSiteAddresses
   origin: string
   url: string
   connectAllSubstrate?: boolean

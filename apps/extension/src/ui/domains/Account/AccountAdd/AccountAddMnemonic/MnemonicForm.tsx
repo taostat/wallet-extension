@@ -7,7 +7,6 @@ import { Spacer } from "@taostats/components/Spacer"
 import {
   getDefaultCurveForAccountPlatform,
   getDerivationPathForCurve,
-  getEthDerivationPath,
   SUPPORTED_ACCOUNT_PLATFORMS,
 } from "extension-core"
 import { DEBUG } from "extension-shared"
@@ -211,9 +210,7 @@ export const AccountAddMnemonicForm = () => {
       if (mode === "first")
         setValue(
           "derivationPath",
-          platform === "ethereum"
-            ? getEthDerivationPath()
-            : getDerivationPathForCurve(getDefaultCurveForAccountPlatform(platform)),
+          getDerivationPathForCurve(getDefaultCurveForAccountPlatform(platform)),
           {
             shouldValidate: true,
           },

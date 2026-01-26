@@ -3,9 +3,7 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 
 import { MsgSignButtonDot } from "./MsgSignButtonDot"
-import { MsgSignButtonEth } from "./MsgSignButtonEth"
 import { MsgSignButtonFallback } from "./MsgSignButtonFallback"
-import { MsgSignButtonSol } from "./MsgSignButtonSol"
 import { MsgSignButtonProps } from "./types"
 
 /**
@@ -36,26 +34,6 @@ export const MsgSignButton: FC<MsgSignButtonProps> = ({
     case "polkadot":
       return (
         <MsgSignButtonDot
-          containerId={containerId}
-          label={label}
-          payload={payload}
-          onSubmit={onSubmit}
-          className={className}
-        />
-      )
-    case "ethereum":
-      return (
-        <MsgSignButtonEth
-          containerId={containerId}
-          label={label}
-          payload={payload}
-          onSubmit={onSubmit}
-          className={className}
-        />
-      )
-    case "solana":
-      return (
-        <MsgSignButtonSol
           containerId={containerId}
           label={label}
           payload={payload}

@@ -8,7 +8,6 @@ import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { useOnChainId } from "@ui/hooks/useOnChainId"
 import { useAccountByAddress, useNetworkById } from "@ui/state"
 
 import { AccountIcon } from "../../Account/AccountIcon"
@@ -63,8 +62,6 @@ export const StakingAccountDisplay: FC<AddressDisplayProps> = ({ address, chainI
     return chain && address ? encodeAnyAddress(address, { ss58Format: chain.prefix }) : address
   }, [address, chain])
 
-  const [onChainId] = useOnChainId(resolvedAddress ?? undefined)
-
   const text = useMemo(
     () => account?.name ?? (address ? shortenAddress(address, 6, 6) : null),
     [account?.name, address],
@@ -78,7 +75,7 @@ export const StakingAccountDisplay: FC<AddressDisplayProps> = ({ address, chainI
         <AddressTooltip
           address={account ? resolvedAddress : address} // don't show both formats for taostats accounts
           resolvedAddress={resolvedAddress}
-          onChainId={onChainId ?? undefined}
+          onChainId={undefined}
           chainName={chain?.name}
         />
       </TooltipContent>

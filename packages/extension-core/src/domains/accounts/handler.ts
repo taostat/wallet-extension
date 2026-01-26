@@ -5,13 +5,10 @@ import { assert, objectSpread, stringToU8a } from "@polkadot/util"
 import { jsonEncrypt } from "@polkadot/util-crypto"
 import {
   addressFromMnemonic,
-  base58,
   base64,
   getAccountPlatformFromAddress,
-  hex,
   KeypairCurve,
 } from "@taostats-wallet/crypto"
-import { getPublicKeySolana } from "@taostats-wallet/crypto/src/derivation/deriveSolana"
 import { AccountType, AddAccountKeypairOptions } from "@taostats-wallet/keyring"
 import { log } from "extension-shared"
 import { combineLatest } from "rxjs"
@@ -22,7 +19,6 @@ import type {
   RequestAccountCreateFromJson,
   RequestAccountExport,
   RequestAccountExportAll,
-  RequestAccountExportPrivateKey,
   RequestAccountExternalSetIsPortfolio,
   RequestAccountForget,
   RequestAccountRename,
@@ -44,7 +40,6 @@ import { getNextDerivationPathForMnemonicId } from "../keyring/utils"
 import { withPjsKeyringPair } from "../keyring/withPjsKeyringPair"
 import { withSecretKey } from "../keyring/withSecretKey"
 import { sortAccounts } from "./helpers"
-import { lookupAddresses, resolveNames } from "./helpers.onChainIds"
 import { AccountsCatalogData, emptyCatalog } from "./store.catalog"
 
 // existing values for the method field, prior to keyring migration
@@ -188,29 +183,6 @@ export default class AccountsHandler extends ExtensionHandler {
     return { exportedJson }
   }
 
-  private async accountExportPrivateKey({
-    address,
-    password,
-  }: RequestAccountExportPrivateKey): Promise<string> {
-    await this.stores.password.checkPassword(password)
-
-    const { err, val } = await withSecretKey(address, async (secretKey, curve) => {
-      walletAnalytics.capture("account export", { type: curve, mode: "pk" })
-
-      switch (curve) {
-        case "ethereum":
-          return hex.encode(secretKey)
-        case "solana":
-          return base58.encode(new Uint8Array([...secretKey, ...getPublicKeySolana(secretKey)]))
-        default:
-          throw new Error("Unsupported curve")
-      }
-    })
-
-    if (err) throw new Error(val as string)
-    return val
-  }
-
   private async accountExternalSetIsPortfolio({
     address,
     isPortfolio,
@@ -352,8 +324,6 @@ export default class AccountsHandler extends ExtensionHandler {
         return this.accountExport(request as RequestAccountExport)
       case "pri(accounts.export.all)":
         return this.accountExportAll(request as RequestAccountExportAll)
-      case "pri(accounts.export.pk)":
-        return this.accountExportPrivateKey(request as RequestAccountExportPrivateKey)
       case "pri(accounts.rename)":
         return this.accountRename(request as RequestAccountRename)
       case "pri(accounts.update.contact)":
@@ -368,10 +338,6 @@ export default class AccountsHandler extends ExtensionHandler {
         return this.addressLookup(request as RequestAddressLookup)
       case "pri(accounts.derivationPath.next)":
         return this.getNextDerivationPath(request as RequestNextDerivationPath)
-      case "pri(accounts.onChainIds.resolveNames)":
-        return Object.fromEntries(await resolveNames(request as string[]))
-      case "pri(accounts.onChainIds.lookupAddresses)":
-        return Object.fromEntries(await lookupAddresses(request as string[]))
       default:
         throw new Error(`Unable to handle message of type ${type}`)
     }

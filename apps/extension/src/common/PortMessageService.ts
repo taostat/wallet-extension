@@ -19,11 +19,6 @@ import type {
 } from "extension-core"
 import { log, PORT_EXTENSION } from "extension-shared"
 
-import {
-  ETH_ERROR_EIP1474_INTERNAL_ERROR,
-  WrappedEthProviderRpcError,
-} from "../inject/ethereum/EthProviderRpcError"
-
 export interface Handler {
   message: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -206,17 +201,12 @@ export default class PortMessageService {
         "PortMessageService.handleResponse : subscription callback will not be called for falsy values, don't use booleans",
       )
 
-    if (data.subscription && handler.subscriber) handler.subscriber(data.subscription)
-    else if (data.error) {
-      if (data.isEthProviderRpcError) {
-        handler.reject(
-          new WrappedEthProviderRpcError(
-            data.error,
-            data.code ?? ETH_ERROR_EIP1474_INTERNAL_ERROR,
-            data.rpcData,
-          ),
-        )
-      } else handler.reject(new Error(data.error))
-    } else handler.resolve(data.response)
+    if (data.subscription && handler.subscriber) {
+      handler.subscriber(data.subscription)
+    } else if (data.error) {
+      handler.reject(new Error(data.error))
+    } else {
+      handler.resolve(data.response)
+    }
   }
 }

@@ -25,8 +25,8 @@ export const ConnectedAccountsPill: FC = () => {
   const [showConnectedAccounts, setShowConnectedAccounts] = useState(false)
 
   const { count, label } = useMemo(() => {
-    const { addresses = [], ethAddresses = [], solAddresses = [] } = site || {}
-    const connected: Account[] = uniq([...addresses, ...ethAddresses, ...solAddresses])
+    const { addresses = [] } = site || {}
+    const connected: Account[] = uniq([...addresses])
       .map((a) => accounts.find(({ address }) => isAddressEqual(address, a)))
       .filter(isNotNil)
 
@@ -53,7 +53,7 @@ export const ConnectedAccountsPill: FC = () => {
     }
   }, [currentSite.url])
 
-  if (!site?.addresses && !site?.ethAddresses && !site?.solAddresses) return null
+  if (!site?.addresses) return null
 
   return (
     <>

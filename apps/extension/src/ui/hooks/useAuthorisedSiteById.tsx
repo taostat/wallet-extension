@@ -5,8 +5,7 @@ import {
   AuthorizedSiteId,
   ProviderType,
 } from "extension-core"
-import { DEFAULT_ETH_CHAIN_ID } from "extension-shared"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useMemo } from "react"
 
 import { api } from "@ui/api"
 import { useAuthorisedSites } from "@ui/state"
@@ -27,16 +26,10 @@ const useAuthorisedSiteById = (id: AuthorizedSiteId, type: ProviderType) => {
 
   const connected = useMemo(() => {
     const connectedPolkadot = sites[id]?.addresses ?? []
-    const connectedEthereum = sites[id]?.ethAddresses ?? []
-    const connectedSolana = sites[id]?.solAddresses ?? []
 
     switch (type) {
       case "polkadot":
         return connectedPolkadot.filter(isAddressIn(availableAddresses))
-      case "ethereum":
-        return connectedEthereum.filter(isAddressIn(availableAddresses))
-      case "solana":
-        return connectedSolana.filter(isAddressIn(availableAddresses))
       default:
         throw new Error("provider type not set")
     }
@@ -48,12 +41,6 @@ const useAuthorisedSiteById = (id: AuthorizedSiteId, type: ProviderType) => {
       switch (type) {
         case "polkadot":
           update.addresses = newAddresses
-          break
-        case "ethereum":
-          update.ethAddresses = newAddresses
-          break
-        case "solana":
-          update.solAddresses = newAddresses
           break
         default:
           throw new Error("provider type not set")
@@ -73,12 +60,6 @@ const useAuthorisedSiteById = (id: AuthorizedSiteId, type: ProviderType) => {
             ? connected.filter((a) => !isAddressEqual(a, address))
             : [...connected, address]
           break
-        case "ethereum":
-          newAddresses = isConnectedAddress(address) ? [] : [address]
-          break
-        case "solana":
-          newAddresses = isConnectedAddress(address) ? [] : [address]
-          break
         default:
           throw new Error("provider type not set")
       }
@@ -97,20 +78,6 @@ const useAuthorisedSiteById = (id: AuthorizedSiteId, type: ProviderType) => {
     api.authorizedSiteForget(id, type)
   }, [id, type])
 
-  const [ethChainId, setEthChainId] = useState(sites?.[id]?.ethChainId ?? DEFAULT_ETH_CHAIN_ID)
-
-  useEffect(() => {
-    setEthChainId(sites?.[id]?.ethChainId ?? DEFAULT_ETH_CHAIN_ID)
-  }, [id, sites])
-
-  const handleSetEthChainId = useCallback(
-    (chainId: number) => {
-      setEthChainId(chainId)
-      api.authorizedSiteUpdate(id, { ethChainId: chainId })
-    },
-    [id],
-  )
-
   return {
     ...sites[id],
     connected,
@@ -118,8 +85,6 @@ const useAuthorisedSiteById = (id: AuthorizedSiteId, type: ProviderType) => {
     toggleOne,
     toggleAll,
     forget,
-    ethChainId,
-    setEthChainId: handleSetEthChainId,
   }
 }
 

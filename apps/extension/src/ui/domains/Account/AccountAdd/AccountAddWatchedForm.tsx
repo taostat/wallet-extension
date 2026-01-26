@@ -14,8 +14,6 @@ import * as yup from "yup"
 import { api } from "@ui/api"
 import { AccountAddPageProps } from "@ui/domains/Account/AccountAdd/types"
 import { AccountPlatformSelector } from "@ui/domains/Account/AccountPlatformSelector"
-import { AddressFieldNsBadge } from "@ui/domains/Account/AddressFieldNsBadge"
-import { useResolveNsName } from "@ui/hooks/useResolveNsName"
 import { useAccounts } from "@ui/state"
 
 import { BackToAddAccountButton } from "./BackToAddAccountButton"
@@ -74,22 +72,11 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
   })
 
   const { platform, searchAddress } = watch()
-  const [nsLookup, { nsLookupType, isNsLookup, isNsFetching }] = useResolveNsName(searchAddress)
 
   useEffect(() => {
-    if (!isNsLookup) {
-      setValue("address", searchAddress, { shouldValidate: true })
-      return
-    }
-
-    if (isNsFetching) {
-      // while querying NS service the address should be empty so form is invalid without displaying an error
-      setValue("address", "", { shouldValidate: true })
-    } else
-      setValue("address", nsLookup ?? (nsLookup === null ? "invalid" : ""), {
-        shouldValidate: true,
-      })
-  }, [nsLookup, isNsLookup, searchAddress, setValue, isNsFetching])
+    setValue("address", searchAddress, { shouldValidate: true })
+    return
+  }, [searchAddress, setValue])
 
   const submit = useCallback(
     async ({ name, address, isPortfolio }: FormData) => {
@@ -186,14 +173,6 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
                 spellCheck={false}
                 autoComplete="off"
                 data-lpignore
-                after={
-                  <AddressFieldNsBadge
-                    nsLookup={nsLookup}
-                    nsLookupType={nsLookupType}
-                    isNsLookup={isNsLookup}
-                    isNsFetching={isNsFetching}
-                  />
-                }
               />
             </FormFieldContainer>
             <div className="bg-grey-850 mt-4 flex h-[58px] w-full items-center rounded px-12">

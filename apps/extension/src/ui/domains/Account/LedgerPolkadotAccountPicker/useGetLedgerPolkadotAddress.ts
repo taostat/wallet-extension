@@ -1,4 +1,3 @@
-import { normalizeAddress } from "@taostats-wallet/crypto"
 import { GenericeResponseAddress, SubstrateAppParams } from "@zondax/ledger-substrate/dist/common"
 import { LedgerPolkadotCurve } from "extension-core"
 import { useCallback, useRef } from "react"
@@ -10,7 +9,7 @@ export const useGetLedgerPolkadotAddress = (
   curve: LedgerPolkadotCurve,
   legacyApp?: SubstrateAppParams | null,
 ) => {
-  const { getAddressEcdsa, getAddressEd25519 } = useLedgerPolkadot({ legacyApp })
+  const { getAddressEd25519 } = useLedgerPolkadot({ legacyApp })
 
   // derivation path => address cache, usefull when going back to previous page
   const refAddressCache = useRef<Record<string, Promise<GenericeResponseAddress>>>({})
@@ -27,25 +26,24 @@ export const useGetLedgerPolkadotAddress = (
 
       if (!refAddressCache.current[cacheKey]) {
         switch (curve) {
-          case "ethereum":
-            refAddressCache.current[cacheKey] = getAddressEcdsa(derivationPath)
-            break
           case "ed25519":
             refAddressCache.current[cacheKey] = getAddressEd25519(derivationPath, prefix)
             break
+          default:
+            throw new Error("Unsupported curve in getAddress")
         }
       }
 
       const result = await refAddressCache.current[cacheKey]
 
       switch (curve) {
-        case "ethereum":
-          return normalizeAddress(`0x${result.address}`)
         case "ed25519":
           return result.address
+        default:
+          throw new Error("Unsupported curve in getAddress")
       }
     },
-    [curve, getAddressEcdsa, getAddressEd25519, legacyApp],
+    [curve, getAddressEd25519, legacyApp],
   )
 
   return { getAddress }

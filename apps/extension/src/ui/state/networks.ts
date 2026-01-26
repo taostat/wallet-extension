@@ -27,14 +27,10 @@ export const [useNetworkDisplayTypesMapById, networkDisplayTypesMapById$] = bind
         networks.map((network) => {
           // use name that describes the network type
           switch (network.platform) {
-            case "ethereum":
-              return [network.id, t("Ethereum Blockchain")]
             case "polkadot": {
               const dotNetwork = network as DotNetwork
               return [network.id, getDotNetworkType(dotNetwork, networksById, t)]
             }
-            case "solana":
-              return [network.id, t("Solana Blockchain")]
           }
         }),
       )

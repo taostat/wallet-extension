@@ -1,6 +1,6 @@
-import { isNetworkDot, isNetworkEth } from "@taostats-wallet/chaindata-provider"
+import { isNetworkDot } from "@taostats-wallet/chaindata-provider"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { isAccountAddressEthereum, isAccountAddressSs58 } from "extension-core"
+import { isAccountAddressSs58 } from "extension-core"
 import { FC, Suspense, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMatch } from "react-router-dom"
@@ -16,11 +16,10 @@ import { usePortfolioGlobalData } from "@ui/state"
 
 import { PortfolioAssetsHeader } from "./shared/PortfolioAssetsHeader"
 
-const EnableNetworkMessage: FC<{ type?: "substrate" | "evm" }> = ({ type }) => {
+const EnableNetworkMessage: FC<{ type?: "substrate" }> = ({ type }) => {
   const { t } = useTranslation()
   const handleClick = useCallback(() => {
     if (type === "substrate") api.dashboardOpen("/settings/networks-tokens/networks/polkadot")
-    else if (type === "evm") api.dashboardOpen("/settings/networks-tokens/networks/ethereum")
     else api.dashboardOpen("/settings/networks-tokens/networks")
     window.close()
   }, [type])
@@ -53,21 +52,14 @@ const MainContent: FC = () => {
 
   const matchTokens = useMatch("/portfolio/tokens")
 
-  const [chains, evmNetworks] = useMemo(() => {
+  const [chains] = useMemo(() => {
     const chains = networks.filter(isNetworkDot)
-    const evmNetworks = networks.filter(isNetworkEth)
-    return [chains, evmNetworks]
+    return [chains]
   }, [networks])
 
   if (!account?.type && !networks.length) return <EnableNetworkMessage />
   if (isAccountAddressSs58(account) && !chains.length)
     return <EnableNetworkMessage type="substrate" />
-  if (
-    isAccountAddressEthereum(account) &&
-    !evmNetworks.length &&
-    !chains.filter((c) => c.account === "secp256k1").length
-  )
-    return <EnableNetworkMessage type="evm" />
 
   if (matchTokens)
     return (

@@ -19,7 +19,7 @@ import { log } from "extension-shared"
 import { getAccountKeypairType } from "../keyring/getKeypairTypeFromAccount"
 import { AccountsCatalogStore } from "./store.catalog"
 
-export const SUPPORTED_ACCOUNT_PLATFORMS: AccountPlatform[] = ["ethereum", "polkadot", "solana"]
+export const SUPPORTED_ACCOUNT_PLATFORMS: AccountPlatform[] = ["polkadot"]
 
 const sortAccountsByCreationDate = (acc1: Account, acc2: Account) => {
   const acc1Created = acc1.createdAt
@@ -120,12 +120,9 @@ export const getPublicAccounts = (
 
 export const getDefaultCurveForAccountPlatform = (platform: AccountPlatform): KeypairCurve => {
   switch (platform) {
-    case "ethereum":
-      return "ethereum"
     case "polkadot":
       return "sr25519"
-    case "solana":
-      return "solana"
+
     default:
       throw new Error("Unsupported account platform")
   }

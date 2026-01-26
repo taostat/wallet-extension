@@ -10,11 +10,7 @@ import {
 } from "@dnd-kit/core"
 import { SortableContext, sortableKeyboardCoordinates, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import {
-  DotNetworkSchema,
-  isNetworkDot,
-  SolNetworkSchema,
-} from "@taostats-wallet/chaindata-provider"
+import { DotNetworkSchema, isNetworkDot } from "@taostats-wallet/chaindata-provider"
 import { DragIcon, LoaderIcon, PlusIcon, TrashIcon } from "@taostats-wallet/icons"
 import { TFunction } from "i18next"
 import { FC } from "react"
@@ -22,11 +18,7 @@ import { useTranslation } from "react-i18next"
 import { FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import { z } from "zod/v4"
 
-import {
-  fetchEthChainId,
-  getDotGenesisHashFromRpc,
-  getSolGenesisHashFromRpc,
-} from "@ui/domains/Networks/helpers"
+import { getDotGenesisHashFromRpc } from "@ui/domains/Networks/helpers"
 
 import { RpcFormData, useNetworkForm } from "./context"
 
@@ -165,23 +157,12 @@ export const SortableRpcField: FC<SortableRpcItemProps> = ({
         )}
         asyncDebounceMs={150}
         validators={{
-          onChangeAsync: async ({ value, signal }) => {
+          onChangeAsync: async ({ value }) => {
             if (!value) return t("Url is required")
             try {
               switch (network.platform) {
                 case "polkadot": {
                   const genesisHash = await fetchDotGenesisHash(t, value)
-                  if (genesisHash !== network.genesisHash)
-                    return t("RPC doesn't match chain's genesis hash")
-                  return undefined
-                }
-                case "ethereum": {
-                  const chainId = await fetchEthChainId(value, signal)
-                  if (chainId !== network.id) return t("RPC doesn't match chain's chain ID")
-                  return undefined
-                }
-                case "solana": {
-                  const genesisHash = await fetchSolGenesisHash(t, value)
                   if (genesisHash !== network.genesisHash)
                     return t("RPC doesn't match chain's genesis hash")
                   return undefined
@@ -205,19 +186,6 @@ const fetchDotGenesisHash = async (t: TFunction, rpcUrl: string) => {
   if (!genesisHash) throw new Error(t("Failed to query RPC"))
 
   const parsedGenesisHash = DotNetworkSchema.shape.genesisHash.safeParse(genesisHash)
-  if (!parsedGenesisHash.success) throw new Error(parsedGenesisHash.error.issues[0].message)
-
-  return parsedGenesisHash.data
-}
-
-const fetchSolGenesisHash = async (t: TFunction, rpcUrl: string) => {
-  const parsedRpcUrl = z.url({ protocol: /^https?$/ }).safeParse(rpcUrl) // validate URL
-  if (!parsedRpcUrl.success) throw new Error(parsedRpcUrl.error.issues[0].message)
-
-  const genesisHash = await getSolGenesisHashFromRpc(parsedRpcUrl.data)
-  if (!genesisHash) throw new Error(t("Failed to query RPC"))
-
-  const parsedGenesisHash = SolNetworkSchema.shape.genesisHash.safeParse(genesisHash)
   if (!parsedGenesisHash.success) throw new Error(parsedGenesisHash.error.issues[0].message)
 
   return parsedGenesisHash.data

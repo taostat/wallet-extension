@@ -12,7 +12,7 @@ import {
   WalletTransactionDot,
 } from "extension-core"
 import { IS_FIREFOX } from "extension-shared"
-import { FC, ReactNode, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
@@ -20,12 +20,10 @@ import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { Tokens } from "@ui/domains/Asset/Tokens"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
-import { useSwapStatus } from "@ui/domains/Swap/hooks/useSwapStatus"
 import { useFaviconUrl } from "@ui/hooks/useFaviconUrl"
 import { useNetworkByGenesisHash, useSelectedCurrency, useToken, useTokenRates } from "@ui/state"
 import { IS_POPUP } from "@ui/util/constants"
 
-import { ReplacementCallbackArgs } from "../TxProgress"
 import { DistanceToNow } from "./DistanceToNow"
 import { useTxHistory } from "./TxHistoryContext"
 import { TxHistoryModal } from "./TxHistoryModal"
@@ -48,10 +46,6 @@ export const TxHistoryList = () => {
 
   const handleCloseModal = useCallback(() => {
     setSelectedTxId(undefined)
-  }, [])
-
-  const handleReplacementComplete = useCallback(({ txId }: ReplacementCallbackArgs) => {
-    setSelectedTxId(txId)
   }, [])
 
   useEffect(() => {
@@ -90,12 +84,7 @@ export const TxHistoryList = () => {
       )}
       {isLoading && <TransactionRowShimmer />}
 
-      <TxHistoryModal
-        tx={selectedTx}
-        isOpen={!!selectedTxId}
-        onClose={handleCloseModal}
-        onReplacementComplete={handleReplacementComplete}
-      />
+      <TxHistoryModal tx={selectedTx} isOpen={!!selectedTxId} onClose={handleCloseModal} />
     </div>
   )
 }
@@ -234,54 +223,6 @@ const TransactionStatusLabel: FC<{ status: TransactionStatus }> = ({ status }) =
   }
 }
 
-const SwapTransactionStatusLabel = ({ tx }: { tx: WalletTransaction }) => {
-  const { t } = useTranslation()
-  const swapExchangeId =
-    isTxInfoSwap(tx.txInfo) && "exchangeId" in tx.txInfo ? tx.txInfo.exchangeId : undefined
-  const swapStatus = useSwapStatus(tx.txInfo?.type, swapExchangeId)
-
-  // show regular tx status while tx is still submitting
-  if (tx.status !== "success") return <TransactionStatusLabel status={tx.status} />
-
-  switch (swapStatus) {
-    case "waiting":
-    case "confirming":
-    case "exchanging":
-    case "sending":
-    case "verifying":
-      return (
-        <>
-          {swapStatus === "waiting" ? <span>{t("Depositing funds")} </span> : null}
-          {swapStatus === "confirming" ? <span>{t("Confirming")} </span> : null}
-          {swapStatus === "exchanging" ? <span>{t("Exchanging")} </span> : null}
-          {swapStatus === "sending" ? <span>{t("Sending")} </span> : null}
-          {swapStatus === "verifying" ? <span>{t("Verifying")} </span> : null}
-          <LoaderIcon className="animate-spin-slow text-body-disabled" />
-        </>
-      )
-    case "failed":
-    case "refunded":
-    case "expired":
-    case "invalid":
-      return <TransactionStatusLabel status="error" />
-    case "finished":
-      return <TransactionStatusLabel status={tx.status} />
-    default:
-      return <TransactionStatusLabel status="unknown" />
-  }
-}
-const SwapTransactionStatusLabelFallback = () => {
-  const { t } = useTranslation()
-  return (
-    <>
-      <span className="bg-body-disabled select-none rounded text-transparent">
-        {t("Submitting")}{" "}
-      </span>
-      <LoaderIcon className="animate-spin-slow text-body-disabled" />
-    </>
-  )
-}
-
 const TransactionRowBase: FC<{
   logo: ReactNode
   status: ReactNode
@@ -385,17 +326,7 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
           </TxIconContainer>
         )
       }
-      status={
-        <>
-          {txSwap ? (
-            <Suspense fallback={<SwapTransactionStatusLabelFallback />}>
-              <SwapTransactionStatusLabel tx={tx} />
-            </Suspense>
-          ) : (
-            <TransactionStatusLabel status={tx.status} />
-          )}
-        </>
-      }
+      status={<TransactionStatusLabel status={tx.status} />}
       wen={<DistanceToNow timestamp={tx.timestamp} />}
       tokens={
         txSwap ? (

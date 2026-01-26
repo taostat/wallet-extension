@@ -46,7 +46,6 @@
     "@taostats-wallet/chaindata-provider": "workspace:*",
     "@taostats-wallet/crypto": "workspace:*",
     "@taostats-wallet/icons": "workspace:*",
-    "@taostats-wallet/on-chain-id": "workspace:*",
     "@taostats-wallet/orb": "workspace:*",
     "@taostats-wallet/sapi": "workspace:*",
     "@taostats-wallet/scale": "workspace:*",

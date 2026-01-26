@@ -2,7 +2,6 @@ import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense, useEffect, useState } from "react"
 
 import { AccountExportModal } from "@ui/domains/Account/AccountExportModal"
-import { AccountExportPrivateKeyModal } from "@ui/domains/Account/AccountExportPrivateKeyModal"
 import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
@@ -13,7 +12,6 @@ import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/Bitte
 import { BondModal } from "@ui/domains/Staking/Bond/BondModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
 import { UnbondModal } from "@ui/domains/Staking/Unbond/UnbondModal"
-import { SwapTokensModal } from "@ui/domains/Swap/components/SwapTokensModal"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 
 import DashboardNotifications from "."
@@ -41,7 +39,6 @@ export const DashboardNotificationsAndModals = () => {
       <DashboardNotifications />
       {/* below components can be rendered from anywhere */}
       <AccountExportModal />
-      <AccountExportPrivateKeyModal />
       <AccountRemoveModal />
       <AccountRenameModal />
       <BondModal />
@@ -53,7 +50,6 @@ export const DashboardNotificationsAndModals = () => {
       <MigratePasswordModal />
       <NomPoolWithdrawModal />
       <OnboardingToast />
-      <SwapTokensModal />
       <UnbondModal />
     </Suspense>
   )

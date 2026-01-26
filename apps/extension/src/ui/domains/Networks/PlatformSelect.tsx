@@ -8,10 +8,7 @@ type NetworkPlatformOption = {
   label: string
 }
 
-const OPTIONS: NetworkPlatformOption[] = [
-  { value: "polkadot", label: "Polkadot" },
-  { value: "ethereum", label: "Ethereum" },
-]
+const OPTIONS: NetworkPlatformOption[] = [{ value: "polkadot", label: "Polkadot" }]
 
 export const PlatformSelect: FC<{
   value: NetworkPlatform | null

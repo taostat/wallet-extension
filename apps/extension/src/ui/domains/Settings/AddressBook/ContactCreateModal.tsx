@@ -16,9 +16,7 @@ import * as yup from "yup"
 
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
-import { AddressFieldNsBadge } from "@ui/domains/Account/AddressFieldNsBadge"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
-import { useResolveNsName } from "@ui/hooks/useResolveNsName"
 import { useAccounts } from "@ui/state"
 
 import { ContactNetworkPickerButton } from "./ContactNetworkModal"
@@ -60,8 +58,6 @@ export const ContactCreateModal = ({ isOpen, close }: ContactModalProps) => {
             const encoding = getAccountPlatformFromAddress(value)
             switch (encoding) {
               case "polkadot":
-              case "ethereum":
-              case "solana":
                 break
               default:
                 return ctx.createError({ message: t("Unsupported address type") })
@@ -114,27 +110,14 @@ export const ContactCreateModal = ({ isOpen, close }: ContactModalProps) => {
     })
   }, [setValue, searchAddress])
 
-  const [nsLookup, { nsLookupType, isNsLookup, isNsFetching }] = useResolveNsName(searchAddress)
   useEffect(() => {
-    if (!isNsLookup) {
-      setValue("address", searchAddress, {
-        shouldValidate: true,
-        shouldTouch: true,
-        shouldDirty: true,
-      })
-      return
-    }
-
-    if (isNsFetching) {
-      // while querying NS service the address should be empty so form is invalid without displaying an error
-      setValue("address", "", { shouldValidate: true })
-    } else
-      setValue("address", nsLookup ?? (nsLookup === null ? "invalid" : ""), {
-        shouldValidate: true,
-        shouldTouch: true,
-        shouldDirty: true,
-      })
-  }, [nsLookup, isNsLookup, searchAddress, setValue, isNsFetching])
+    setValue("address", searchAddress, {
+      shouldValidate: true,
+      shouldTouch: true,
+      shouldDirty: true,
+    })
+    return
+  }, [searchAddress, setValue])
 
   const compatibleNetworks = useChainsFilteredByAddressPrefix(address)
   const [compatibleNetworksById, compatibleNetworksByGenesisHash] = useMemo(
@@ -217,14 +200,6 @@ export const ContactCreateModal = ({ isOpen, close }: ContactModalProps) => {
                   spellCheck="false"
                   /* Fixes implicit min-width of approx. 180px */
                   size={1}
-                  after={
-                    <AddressFieldNsBadge
-                      nsLookup={nsLookup}
-                      nsLookupType={nsLookupType}
-                      isNsLookup={isNsLookup}
-                      isNsFetching={isNsFetching}
-                    />
-                  }
                 />
               </FormFieldContainer>
               {isAddressSs58 && (

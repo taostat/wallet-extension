@@ -4,16 +4,12 @@ import type { HexString } from "@polkadot/util/types"
 import { IBalance } from "@taostats-wallet/balances"
 import { Network, NetworkId, Token, TokenId } from "@taostats-wallet/chaindata-provider"
 import { KeypairCurve } from "@taostats-wallet/crypto"
-import { NsLookupType } from "@taostats-wallet/on-chain-id"
 import { TokenRatesStorage } from "@taostats-wallet/token-rates"
 import { Loadable } from "@taostats-wallet/util"
 import {
   Account,
-  AddEthereumChainRequestId,
   AddressesAndTokens,
   AnalyticsCaptureRequest,
-  AnyEthRequestChainId,
-  AssetDiscoveryScanScope,
   AuthorisedSiteUpdate,
   AuthorizedSite,
   AuthorizedSites,
@@ -26,11 +22,9 @@ import {
   DecryptRequestId,
   DefiPosition,
   EncryptRequestId,
-  EvmAddress,
   LoggedinType,
   MetadataUpdateStatus,
   Mnemonic,
-  NftData,
   ProviderType,
   RequestAccountContactUpdate,
   RequestAccountsCatalogAction,
@@ -42,22 +36,16 @@ import {
   RequestMetadataId,
   RequestNetworkUpsert,
   RequestSetVerifierCertificateMnemonic,
-  RequestSolanaSignApprove,
-  ResponseSolanaSubmit,
   SendFundsOpenRequest,
   SignerPayloadGenesisHash,
   SignerPayloadJSON,
   SigningRequestID,
-  SolRpcRequest,
-  SolRpcResponse,
   Trees,
   UnsubscribeFn,
   ValidRequests,
   WalletTransactionInfo,
-  WatchAssetRequestId,
 } from "extension-core"
 import { MetadataDef } from "inject/substrate/types"
-import { TransactionRequest } from "viem"
 
 export default interface MessageTypes {
   keepalive: () => Promise<boolean>
@@ -132,10 +120,6 @@ export default interface MessageTypes {
   accountsSubscribe: (cb: (accounts: Account[]) => void) => UnsubscribeFn
   accountsCatalogSubscribe: (cb: (trees: Trees) => void) => UnsubscribeFn
   accountsCatalogRunActions: (actions: RequestAccountsCatalogAction[]) => Promise<boolean>
-  accountsOnChainIdsResolveNames: (
-    names: string[],
-  ) => Promise<Record<string, [string, NsLookupType] | null>>
-  accountsOnChainIdsLookupAddresses: (addresses: string[]) => Promise<Record<string, string | null>>
   accountForget: (address: string) => Promise<boolean>
   accountExport: (
     address: string,
@@ -146,7 +130,6 @@ export default interface MessageTypes {
     password: string,
     exportPw: string,
   ) => Promise<{ exportedJson: KeyringPairs$Json }>
-  accountExportPrivateKey: (address: string, password: string) => Promise<string>
   accountRename: (address: string, name: string) => Promise<boolean>
   accountUpdateContact: (options: RequestAccountContactUpdate) => Promise<boolean>
   addressLookup: (lookup: RequestAddressLookup) => Promise<string>
@@ -200,42 +183,6 @@ export default interface MessageTypes {
   // tokenRates message types
   tokenRates: (cb: (rates: TokenRatesStorage) => void) => UnsubscribeFn
 
-  // eth related messages
-  ethSignAndSend: (
-    evmNetworkId: NetworkId,
-    unsigned: TransactionRequest<string>,
-    txInfo?: WalletTransactionInfo,
-  ) => Promise<HexString>
-  ethSendSigned: (
-    evmNetworkId: NetworkId,
-    unsigned: TransactionRequest<string>,
-    signed: HexString,
-    txInfo?: WalletTransactionInfo,
-  ) => Promise<HexString>
-  ethApproveSign: (id: SigningRequestID<"eth-sign">) => Promise<boolean>
-  ethApproveSignHardware: (
-    id: SigningRequestID<"eth-sign">,
-    signature: HexString,
-  ) => Promise<boolean>
-  ethApproveSignAndSend: (
-    id: SigningRequestID<"eth-send">,
-    transaction: TransactionRequest<string>,
-  ) => Promise<boolean>
-  ethApproveSignAndSendHardware: (
-    id: SigningRequestID<"eth-send">,
-    unsigned: TransactionRequest<string>,
-    signedTransaction: HexString,
-  ) => Promise<boolean>
-  ethCancelSign: (id: SigningRequestID<"eth-sign" | "eth-send">) => Promise<boolean>
-  ethRequest: (request: AnyEthRequestChainId) => Promise<unknown>
-  ethGetTransactionsCount: (address: EvmAddress, evmNetworkId: NetworkId) => Promise<number>
-  ethNetworkAddApprove: (id: AddEthereumChainRequestId) => Promise<boolean>
-  ethNetworkAddCancel: (is: AddEthereumChainRequestId) => Promise<boolean>
-
-  // ethereum tokens message types
-  ethWatchAssetRequestApprove: (id: WatchAssetRequestId) => Promise<boolean>
-  ethWatchAssetRequestCancel: (is: WatchAssetRequestId) => Promise<boolean>
-
   // substrate rpc calls
   subSend: <T>(
     chainId: NetworkId,
@@ -253,27 +200,11 @@ export default interface MessageTypes {
     txInfo?: WalletTransactionInfo,
   ) => Promise<{ hash: HexString }>
 
-  solSend: <T>(networkId: string, request: SolRpcRequest) => Promise<SolRpcResponse<T>>
-  solSubmit: (
-    networkId: string,
-    transaction: string,
-    txInfo?: WalletTransactionInfo,
-  ) => Promise<ResponseSolanaSubmit>
-  solSignApprove: (req: RequestSolanaSignApprove) => Promise<void>
-
   // substrate chain metadata
   subChainMetadata: (
     genesisHash: HexString,
     specVersion?: number,
   ) => Promise<MetadataDef | undefined>
-
-  assetDiscoveryStartScan: (scope: AssetDiscoveryScanScope) => Promise<boolean>
-  assetDiscoveryStopScan: () => Promise<boolean>
-
-  nftsSubscribe: (cb: (data: NftData) => void) => UnsubscribeFn
-  nftsSetHidden: (id: string, isHidden: boolean) => Promise<boolean>
-  nftsSetFavorite: (id: string, isFavorite: boolean) => Promise<boolean>
-  nftsRefreshMetadata: (id: string) => Promise<boolean>
 
   defiPositionsSubscribe: (cb: (positions: Loadable<DefiPosition[]>) => void) => UnsubscribeFn
 

@@ -1,10 +1,5 @@
 import useStatus, { SetStatusFn, StatusOptions } from "@taostats/hooks/useStatus"
-import {
-  AnySigningRequest,
-  isEthereumRequest,
-  KnownRespondableRequest,
-  SigningRequests,
-} from "extension-core"
+import { AnySigningRequest, KnownRespondableRequest, SigningRequests } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback } from "react"
 
@@ -47,11 +42,7 @@ export const useAnySigningRequest = <T extends AnySigningRequest>({
         setStatus.success("Approved")
       } catch (err) {
         log.error("failed to approve", { err })
-        setStatus.error(
-          isEthereumRequest(currentRequest)
-            ? (err as Error).message
-            : "Failed to approve sign request",
-        )
+        setStatus.error("Failed to approve sign request")
       }
     },
     [approveSignFn, currentRequest, setStatus],
@@ -74,7 +65,7 @@ export const useAnySigningRequest = <T extends AnySigningRequest>({
 
   return {
     ...currentRequest,
-    isEthereumRequest: currentRequest && isEthereumRequest(currentRequest),
+    isEthereumRequest: false,
     status,
     setStatus,
     message,

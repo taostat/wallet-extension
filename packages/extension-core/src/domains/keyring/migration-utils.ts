@@ -6,8 +6,9 @@ export const pjsKeypairTypeToCurve = (type: KeypairType): KeypairCurve => {
     case "ed25519":
     case "sr25519":
     case "ecdsa":
-    case "ethereum":
       return type
+    default:
+      throw new Error("Unsupported keypair type")
   }
 }
 
@@ -16,7 +17,6 @@ export const curveToPjsKeypairType = (curve: KeypairCurve): KeypairType => {
     case "ed25519":
     case "sr25519":
     case "ecdsa":
-    case "ethereum":
       return curve
     default:
       throw new Error("Unsupported curve")

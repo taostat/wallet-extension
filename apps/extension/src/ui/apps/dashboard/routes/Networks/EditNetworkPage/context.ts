@@ -2,7 +2,6 @@ import { useForm } from "@tanstack/react-form"
 import {
   isNativeToken,
   isNetworkDot,
-  isNetworkEth,
   Network,
   NetworkPlatform,
 } from "@taostats-wallet/chaindata-provider"
@@ -51,7 +50,7 @@ const networkToFormData = (network: Network): NetworkEditFormData => ({
   nativeCurrency: network.nativeCurrency,
   accountFormat: isNetworkDot(network) ? network.account : undefined,
   hasCheckMetadataHash: isNetworkDot(network) ? network.hasCheckMetadataHash : undefined,
-  preserveGasEstimate: isNetworkEth(network) ? network.preserveGasEstimate : undefined,
+  preserveGasEstimate: undefined,
 })
 
 const formDataToNetwork = (network: Network, formData: NetworkEditFormData): Network => {
@@ -66,10 +65,6 @@ const formDataToNetwork = (network: Network, formData: NetworkEditFormData): Net
 
   if (isNetworkDot(newNetwork)) {
     newNetwork.hasCheckMetadataHash = formData.hasCheckMetadataHash
-  }
-
-  if (isNetworkEth(newNetwork)) {
-    newNetwork.preserveGasEstimate = formData.preserveGasEstimate
   }
 
   return newNetwork

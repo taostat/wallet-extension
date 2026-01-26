@@ -13,12 +13,12 @@ import { BehaviorSubject } from "rxjs"
 import { useOpenClose } from "taostats-ui"
 import { Hex } from "viem"
 
+import { useFeeToken } from "@ui/domains/SendFunds/useFeeToken"
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useAccountByAddress, usePortfolioBalances, useToken, useTokenRates } from "@ui/state"
 
 import { useExistentialDeposit } from "../../../../hooks/useExistentialDeposit"
-import { useFeeToken } from "../../../SendFunds/useFeeToken"
 import { ROOT_NETUID } from "../utils/constants"
 import {
   BittensorStakingPosition,

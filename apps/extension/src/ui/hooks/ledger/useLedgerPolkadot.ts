@@ -106,10 +106,8 @@ const getAddress = async (ledger: PolkadotGenericApp, path: string, curve: Ledge
       const { address } = await ledger.getAddressEd25519(path, 42)
       return address
     }
-    case "ethereum": {
-      const { address } = await ledger.getAddressEcdsa(path)
-      return `0x${address}`
-    }
+    default:
+      throw new Error("Unsupported curve in getAddress")
   }
 }
 
@@ -123,8 +121,8 @@ const signWithMetadata = (
   switch (curve) {
     case "ed25519":
       return ledger.signWithMetadataEd25519(path, txBlob, txMetadata)
-    case "ethereum":
-      return ledger.signWithMetadataEcdsa(path, txBlob, txMetadata)
+    default:
+      throw new Error("Unsupported curve in signWithMetadata")
   }
 }
 
@@ -140,10 +138,8 @@ const signRawPayload = async (
       // skip first byte (sig type) or signatureVerify fails, this seems specific to ed25519 signatures
       return signature.slice(1)
     }
-    case "ethereum": {
-      const { signature } = await ledger.signRawEcdsa(path, txBlob)
-      return signature
-    }
+    default:
+      throw new Error("Unsupported curve in signRawPayload")
   }
 }
 
