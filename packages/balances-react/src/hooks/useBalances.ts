@@ -23,7 +23,7 @@ export const useBalances = () => {
   return useAtomValue(balancesAtom)
 }
 
-// TODO: Extract to shared definition between extension and @talismn/balances-react
+// TODO: Extract to shared definition between extension and balances-react
 export type BalancesStatus =
   | { status: "live" }
   | { status: "fetching" }

@@ -59,7 +59,7 @@ function eraseRecord<T>(record: Record<string, T>, cb?: (item: T) => void): void
 }
 
 /**
- * # @talismn/chain-connector/Websocket
+ * # chain-connector/Websocket
  *
  * @name Websocket
  *
@@ -69,7 +69,7 @@ function eraseRecord<T>(record: Record<string, T>, cb?: (item: T) => void): void
  * <BR>
  *
  * ```javascript
- * import { Websocket } from '@talismn/chain-connector';
+ * import { Websocket } from '@taostats-wallet/chain-connector';
  *
  * const provider = new Websocket('ws://127.0.0.1:9944');
  * ```
@@ -312,7 +312,7 @@ export class Websocket implements ProviderInterface {
   public send<T = any>(
     method: string,
     params: unknown[],
-    /** @deprecated \@talismn/chain-connector doesn't implement a cache */
+    /** @deprecated \chain-connector package doesn't implement a cache */
     isCacheable?: boolean,
     subscription?: SubscriptionHandler,
   ): Promise<T> {

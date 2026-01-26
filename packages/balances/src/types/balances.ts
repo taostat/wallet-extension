@@ -398,7 +398,7 @@ export class Balance {
   get rates(): TokenRates | null {
     // uniswap v2 lp tokens need the rates from the underlying pool assets
     //
-    // To note: `@talismn/token-rates` knows to fetch the `coingeckoId0` and `coingeckoId1` rates for evm-uniswapv2 tokens.
+    // To note: `token-rates` package knows to fetch the `coingeckoId0` and `coingeckoId1` rates for evm-uniswapv2 tokens.
     // They are then stored in `this.#db.tokenRates` using the `tokenId0` and `tokenId1` keys.
     //
     // This means that those rates are always available for calculating the uniswapv2 rates,
