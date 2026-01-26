@@ -133,14 +133,7 @@ apiUrl = ""
 
 [swaps]
 questApi = ""
-lifiApiKey = "a4bcc4a5-679a-415a-9220-d1b5e09b0fb8.df20c39d-3144-4e0b-b15f-9c035dc09ff5"
-# a list of additional tokens to enable swaps for, which might not be available from lifi by default
-lifiTalismanTokens = [
-  "1:evm-erc20:0x07C3E739C65f81Ea79d19A88d27de4C9f15f8Df0", # SEEK on Eth
-  "137:evm-erc20:0x2a69b0383759572081c09f0a68d3a8a955751dde", # DEEK on Polygon
 
-  "1:evm-erc20:0x92f419fb7a750aed295b0ddf536276bf5a40124f", # TATSU on Eth
-]
 simpleswapApiKey = "9d6ee1b3-1fc1-4fd5-8baf-751c29b9fda8"
 simpleswapApiKeyDiscounted = "7697b46d-1de3-4d11-ac71-17137bceb081"
 simpleswapDiscountedCurrencies = ["usd1"]
@@ -210,12 +203,6 @@ promotedSellTokens = [
   # "137:evm-erc20:0x2a69b0383759572081c09f0a68d3a8a955751dde", # DEEK on Polygon
 ]
 
-# a map from token to talisman fee amount
-# the default talisman fee for tokens not in this list is 0.2 (0.2%)
-[swaps.lifiCustomFeeTokens]
-"137:evm-erc20:0x2a69b0383759572081c09f0a68d3a8a955751dde" = 0.2
-# "1:evm-erc20:0x07C3E739C65f81Ea79d19A88d27de4C9f15f8Df0" = 0.2 # SEEK on Eth
-
 [nominationPools]
 polkadot-asset-hub = [282, 12, 16]
 kusama-asset-hub = [15]
@@ -229,23 +216,6 @@ bittensor = ["5FtBncJvGhxjBs4aFn2pid6aur9tBUuo9QR7sHe5DkoRizzo"]
 
 [documentation]
 unifiedAddressDocsUrl = "https://wiki.polkadot.network/docs/learn-accounts#unified-address-format"
-
-[ramps]
-# NOTE: rampApiKey is deprecated as of v3.1.13, starting from this version the ramp key is automatically
-# included via our proxy api hosted at https://ramp-api.talisman.xyz
-rampApiKey = "w6tsjwjtcwty6gfkj2u39vbpcdp9a2a7yyq7gvjp"
-coinbaseProjectId = "63080e24-dc8e-45d0-9618-467b8c222f9e"
-pinnedTokens = [
-  # deprecated ids
-  "polkadot-substrate-native",
-  "1-evm-native",
-  "bittensor-substrate-native",
-
-  # new ids v2.12+
-  "polkadot:substrate-native",
-  "1:evm-native",
-  "bittensor:substrate-native"
-]
 
 [ramps.rampNetworks]
 POLKADOT = "polkadot"
