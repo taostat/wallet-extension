@@ -8,7 +8,7 @@ import { getMetadataFromDef, getMetadataRpcFromDef } from "../domains/metadata/h
 import { chaindataProvider } from "../rpcs/chaindata"
 import { getMetadataDef } from "./getMetadataDef"
 
-// metadata may have been added manually to the store, for a chain that Talisman doesn't know about (not in chaindata)
+// metadata may have been added manually to the store, for a chain that the wallet doesn't know about (not in chaindata)
 // => use either chainId or genesisHash as identifier
 
 /**

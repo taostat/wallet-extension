@@ -4,7 +4,7 @@ const MIN_DIGITS = 4 // less truncates more than what compact formating is
 export const MAX_DECIMALS_FORMAT = 12
 
 /**
- * Custom decimal number formatting for Talisman
+ * Custom decimal number formatting
  * note that the NumberFormat().format() call is the ressource heavy part, it's not worth trying to optimize other parts
  * @param num input number
  * @param digits number of significant digits to display

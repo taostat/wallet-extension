@@ -64,7 +64,7 @@ export default class Tabs extends TabsHandler {
 
     // routing to sub-handlers
     this.#routes = {
-      talisman: new TaostatsHandler(stores),
+      taostats: new TaostatsHandler(stores),
     }
   }
 
@@ -82,7 +82,7 @@ export default class Tabs extends TabsHandler {
       // this url was seen in the past
       assert(
         siteFromUrl.addresses?.length,
-        `No Talisman wallet accounts are authorised to connect to ${url}`,
+        `No Taostats Wallet accounts are authorised to connect to ${url}`,
       )
 
       return false
@@ -317,7 +317,7 @@ export default class Tabs extends TabsHandler {
     }
     // Always check for onboarding before doing anything else
     // Because of chrome extensions can be synchronised on multiple computers,
-    // Talisman may be installed on computers where user do not want to onboard
+    // Wallet may be installed on computers where user do not want to onboard
     // => Do not trigger onboarding, just throw an error
     await this.stores.app.ensureOnboarded()
 

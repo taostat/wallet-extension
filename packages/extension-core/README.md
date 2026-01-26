@@ -1,1 +1,1 @@
-Backend of the Talisman browser extension.
+Backend of the browser extension.

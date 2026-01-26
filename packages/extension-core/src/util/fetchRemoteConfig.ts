@@ -1,12 +1,9 @@
-import {
-  log,
-  // TALISMAN_CONFIG_URL
-} from "extension-shared"
+import { log } from "extension-shared"
 import toml from "toml"
 
 import { RemoteConfigStoreData } from "../domains/app/types"
 
-// export const REMOTE_CONFIG_URL = "https://talismansociety.github.io/talisman-config/config.toml"
+// export const REMOTE_CONFIG_URL = "taostats.url/to/remote-config.toml"
 
 export const fetchRemoteConfig = async () => {
   log.debug("Fetching config.toml")
@@ -116,7 +113,7 @@ MATIC_ETH = "137-evm-erc20-0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"
 
 # FOR QA BUILDS ONLY - TO DELETE AFTER 2.8.0 RELEASE
 [rampNetworks]
-# maps Ramp network ids to Talisman chain & evmNetwork ids
+# maps Ramp network ids to chain & evmNetwork ids
 POLKADOT = "polkadot"
 DOT = "polkadot-asset-hub"
 KUSAMA = "kusama"

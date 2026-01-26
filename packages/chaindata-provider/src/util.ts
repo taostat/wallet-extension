@@ -7,7 +7,7 @@ export const getGithubTokenLogoUrl = (tokenId: KNOWN_TOKEN_ID): string => {
 }
 
 /**
- * Use only if you are sure this token is supported by Talisman or the url might 404
+ * Use only if you are sure this token is supported or the url might 404
  * @param coingeckoId
  * @returns
  */

@@ -40,7 +40,7 @@ export default class AppHandler extends ExtensionHandler {
     const accounts = await keyringStore.getAccounts()
     assert(!accounts.length, "Accounts already exist")
 
-    // Before any accounts are created, we want to add talisman.xyz as an authorised site with connectAllSubstrate
+    // Before any accounts are created, we want to add taostats as an authorised site with connectAllSubstrate
     this.stores.sites.set({
       [TAOSTATS_WEB_APP_DOMAIN]: {
         addresses: [],

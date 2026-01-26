@@ -26,7 +26,7 @@ export default class EncryptHandler extends ExtensionHandler {
 
       const kp: Keypair = { publicKey: getPublicKeyFromSecret(secretKey, curve), secretKey }
 
-      assert(kp.secretKey.length === 64, "Talisman secretKey is incorrect length")
+      assert(kp.secretKey.length === 64, "secretKey is incorrect length")
 
       // get encrypted result as integer array
       const encryptResult = sr25519Encrypt(
@@ -60,7 +60,7 @@ export default class EncryptHandler extends ExtensionHandler {
       const { payload } = request
 
       assert(curve === "sr25519", "Unsupported curve")
-      assert(secretKey.length === 64, "Talisman secretKey is incorrect length")
+      assert(secretKey.length === 64, "secretKey is incorrect length")
 
       // get decrypted response as integer array
       const decryptResult = sr25519Decrypt(u8aToU8a(payload.message), { secretKey })

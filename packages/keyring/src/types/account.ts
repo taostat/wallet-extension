@@ -55,7 +55,7 @@ export type AccountPolkadotVault = AccountBase & {
 export type AccountSignet = AccountBase & {
   type: "signet"
   genesisHash: `0x${string}`
-  url: string // usually https://signet.talisman.xyz or https://polkadotmultisig.com/
+  url: string
 }
 
 // Idea: dynamically derived account

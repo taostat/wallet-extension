@@ -16,11 +16,11 @@ At the root of the new project, create a `tailwind.config.cjs` file with the fol
 
 ```js
 /* eslint-env es2021 */
-const TALISMAN_TAILWIND_CONFIG = require("taostats-ui/tailwind.config.cjs")
+const TAILWIND_CONFIG = require("taostats-ui/tailwind.config.cjs")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  ...TALISMAN_TAILWIND_CONFIG,
+  ...TAILWIND_CONFIG,
   content: [
     "./**/*.{html,ts,tsx,svg}",
     "./public/*.html",

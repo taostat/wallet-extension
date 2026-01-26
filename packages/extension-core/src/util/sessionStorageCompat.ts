@@ -2,7 +2,7 @@ interface SessionStorageData {
   password?: string
 }
 
-abstract class TalismanSessionStorage {
+abstract class WalletSessionStorage {
   abstract get<K extends keyof SessionStorageData>(
     key: K,
   ): Promise<SessionStorageData[K] | undefined>
@@ -11,7 +11,7 @@ abstract class TalismanSessionStorage {
   abstract clear(): Promise<void>
 }
 
-class MemoryStorage implements TalismanSessionStorage {
+class MemoryStorage implements WalletSessionStorage {
   #data: SessionStorageData = {}
 
   constructor(initialData: SessionStorageData = {}) {
@@ -49,7 +49,7 @@ class MemoryStorage implements TalismanSessionStorage {
   }
 }
 
-class SessionStorage implements TalismanSessionStorage {
+class SessionStorage implements WalletSessionStorage {
   set(data: Partial<SessionStorageData>) {
     return chrome.storage.session.set(data)
   }
@@ -67,7 +67,7 @@ class SessionStorage implements TalismanSessionStorage {
   }
 }
 
-let sessionStorage: TalismanSessionStorage
+let sessionStorage: WalletSessionStorage
 if (chrome && chrome.storage.session) {
   sessionStorage = new SessionStorage()
 } else {

@@ -49,7 +49,7 @@ export class SitesAuthorizedStore extends SubscribableByIdStorageProvider<
   ): Promise<boolean> {
     const entry = await this.getSiteFromUrl(url)
     const addresses = entry?.addresses
-    assert(addresses, `Site ${url} has not been authorised for Talisman yet`)
+    assert(addresses, `Site ${url} has not been authorised for Taostats Wallet yet`)
     assert(addresses.length, `No Taostats wallet accounts are authorised to connect to ${url}`)
 
     // check the supplied address is authorised to interact with this URL
