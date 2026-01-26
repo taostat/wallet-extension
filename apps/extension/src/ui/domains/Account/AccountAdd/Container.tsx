@@ -1,7 +1,7 @@
-import { ChainIcon, InfoIcon, PlusIcon } from "@taostats-wallet/icons"
+import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { isAccountPlatformCompatibleWithNetwork } from "extension-core"
-import { cloneElement, ReactElement, ReactNode, useCallback, useMemo } from "react"
+import { ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -10,7 +10,7 @@ import { AllNetworksLogoStack } from "@ui/domains/Account/AllNetworksLogoStack"
 import { useNetworks } from "@ui/state"
 import { getIsLedgerCapable } from "@ui/util/getIsLedgerCapable"
 
-import { MethodType, useAccountCreateContext } from "./context"
+import { useAccountCreateContext } from "./context"
 
 const methodButtonsFromMethodType = {
   new: NewAccountMethodButtons,
@@ -18,71 +18,15 @@ const methodButtonsFromMethodType = {
 }
 
 export const AccountCreateContainer = ({ className }: { className?: string }) => {
-  const { t } = useTranslation()
   const { methodType } = useAccountCreateContext()
   const MethodButtonsComponent = methodButtonsFromMethodType[methodType] ?? null
 
   return (
     <div className={classNames("justify-left flex flex-col gap-8", className)}>
-      <div className="flex overflow-auto">
-        <MethodTypeTab
-          icon={<PlusIcon />}
-          title={t("Add")}
-          subtitle={t("Add or watch an account")}
-          methodType="new"
-        />
-        <MethodTypeTab
-          icon={<ChainIcon />}
-          title={t("Connect")}
-          subtitle={t("Ledger, Polkadot Vault, etc")}
-          methodType="connect"
-        />
-      </div>
-      <div className="border-grey-750 -mt-8 grid grid-cols-2 items-start gap-8 rounded rounded-tl-none border p-10">
+      <div className="border-grey-750 -mt-8 grid grid-cols-2 items-start gap-8 rounded border p-10">
         <MethodButtonsComponent />
       </div>
     </div>
-  )
-}
-
-function MethodTypeTab({
-  className,
-  icon,
-  title,
-  subtitle,
-  methodType,
-}: {
-  className?: string
-  icon: ReactElement
-  title: ReactNode
-  subtitle: ReactNode
-  methodType: MethodType
-}) {
-  const { methodType: selectedMethodType, setMethodType } = useAccountCreateContext()
-  const isSelected = selectedMethodType === methodType
-
-  return (
-    <button
-      type="button"
-      className={classNames(
-        "flex items-center justify-start gap-4 rounded-t border border-b-0 border-transparent p-6 opacity-70 lg:flex-grow lg:[&:last-of-type]:rounded-br",
-        "focus:bg-grey-750 hover:bg-grey-750 focus:border-grey-750 hover:border-grey-750 hover:opacity-100 focus:opacity-100",
-        isSelected && "border-grey-750 bg-grey-850 opacity-100",
-        className,
-      )}
-      onClick={(e) => (setMethodType(methodType), e.currentTarget.blur())}
-    >
-      <div className="text-primary text-lg">{cloneElement(icon, { className: "stroke-1" })}</div>
-      <div
-        className={classNames(
-          "hidden flex-col items-start justify-start gap-2 lg:flex",
-          isSelected && "flex",
-        )}
-      >
-        <div className="text-base font-bold">{title}</div>
-        <div className="text-body-secondary whitespace-pre text-xs">{subtitle}</div>
-      </div>
-    </button>
   )
 }
 
