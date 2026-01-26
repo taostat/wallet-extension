@@ -81,12 +81,6 @@ BLOCKAID_DAPP_SCAN = false       # blockaid phishing checks
 ASSET_HUB_MIGRATION_BANNER = false
 
 # DEPRECATED as of 2.8.0
-[rampConfig]
-rampBasePath = "https://app.ramp.network"
-rampApiBasePath = "https://api.ramp.network/api/host-api/v3"
-rampApiKey = "w6tsjwjtcwty6gfkj2u39vbpcdp9a2a7yyq7gvjp"
-
-# DEPRECATED as of 2.8.0
 [rampSupportedTokenIds]
 # To support more tokens add "CHAIN_SYMBOL: tokenId".
 # Get the "chain" key and token "symbol" from Ramp's API response, and the tokenId from our chaindata.
