@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/chaindata-provider",
   "version": "1.3.3",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/chaindata-provider",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-chaindata-provider.cjs.js",
   "module": "dist/taostats-wallet-chaindata-provider.esm.js",

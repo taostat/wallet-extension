@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/solana",
   "version": "0.0.5",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/solana",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-solana.cjs.js",
   "module": "dist/taostats-wallet-solana.esm.js",

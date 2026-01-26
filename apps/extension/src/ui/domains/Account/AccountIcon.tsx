@@ -1,12 +1,11 @@
 import type { IconTheme } from "@polkadot/react-identicon/types"
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
-import { TalismanOrb } from "@taostats-wallet/orb"
 import { classNames } from "@taostats-wallet/util"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Address, IdenticonType } from "extension-core"
 import { CSSProperties, FC, lazy, Suspense, useMemo } from "react"
 
-import { useNetworkByGenesisHash, useSetting } from "@ui/state"
+import { useNetworkByGenesisHash } from "@ui/state"
 
 import { NetworkLogo } from "../Networks/NetworkLogo"
 
@@ -52,20 +51,10 @@ export const PolkadotAvatar = ({ seed }: { seed: string }) => {
   )
 }
 
-const AccountIconInner: FC<AccountIconProps> = ({ address, className, genesisHash, type }) => {
-  const [identiconType] = useSetting("identiconType")
-
-  // apply look & feel from props if provided (should only be the case in AvatarTypeSelector)
-  // fallbacks to settings store, or default taostats-orb value
-  const displayType = useMemo(() => type ?? identiconType ?? "taostats-orb", [identiconType, type])
-
+const AccountIconInner: FC<AccountIconProps> = ({ address, className, genesisHash }) => {
   return (
     <div className={classNames("relative inline-block shrink-0", className)}>
-      {displayType === "polkadot-identicon" ? (
-        <PolkadotAvatar seed={address} />
-      ) : (
-        <TalismanOrb seed={address} />
-      )}
+      <PolkadotAvatar seed={address} />
       {genesisHash && (
         <Suspense fallback={<SuspenseTracker name="AccountIconInner.Badge" />}>
           <ChainBadge genesisHash={genesisHash} />

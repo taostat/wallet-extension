@@ -45,7 +45,6 @@
     "@taostats-wallet/connection-meta": "workspace:*",
     "@taostats-wallet/crypto": "workspace:*",
     "@taostats-wallet/keyring": "workspace:*",
-    "@taostats-wallet/orb": "workspace:*",
     "@taostats-wallet/sapi": "workspace:*",
     "@taostats-wallet/scale": "workspace:*",
     "@taostats-wallet/solana": "workspace:*",

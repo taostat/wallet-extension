@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/icons",
   "version": "0.1.5",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/icons",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-icons.cjs.js",
   "module": "dist/taostats-wallet-icons.esm.js",

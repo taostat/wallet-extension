@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/chain-connectors",
   "version": "0.0.12",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/chain-connectors",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-chain-connectors.cjs.js",
   "module": "dist/taostats-wallet-chain-connectors.esm.js",

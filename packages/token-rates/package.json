@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/token-rates",
   "version": "3.0.14",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/token-rates",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-token-rates.cjs.js",
   "module": "dist/taostats-wallet-token-rates.esm.js",

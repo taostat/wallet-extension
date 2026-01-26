@@ -139,7 +139,7 @@ async function getGeneralReport({
 
   // account type breakdown
   const accountBreakdown: Record<Lowercase<LegacyAccountOrigin>, number> = {
-    talisman: 0,
+    taostats: 0,
     qr: 0,
     ledger: 0,
     dcent: 0,
@@ -290,7 +290,7 @@ async function getGeneralReport({
 const getLegacyAccountOrigin = (account: Account): LegacyAccountOrigin => {
   switch (account.type) {
     case "keypair":
-      return LegacyAccountOrigin.Talisman
+      return LegacyAccountOrigin.Taostats
     case "ledger-ethereum":
     case "ledger-polkadot":
       return LegacyAccountOrigin.Ledger
