@@ -129,7 +129,7 @@ WORLDCHAIN = "480"
 MOONBEAM = "1284"
 
 [coingecko]
-apiUrl = "https://cgp.talisman.xyz"
+apiUrl = ""
 
 [swaps]
 questApi = ""
