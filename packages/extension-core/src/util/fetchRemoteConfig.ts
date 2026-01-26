@@ -238,31 +238,6 @@ TELOS = "40"
 WORLDCHAIN = "480"
 MOONBEAM = "1284"
 
-[seek]
-tokenId = "1:evm-erc20:0x07c3e739c65f81ea79d19a88d27de4c9f15f8df0" # eth mainnet contract
-stakingUrl = "https://app.talisman.xyz/staking/providers?action=stake&type=seek"
-docsUrl = "https://docs.talisman.xyz/talisman/seek/seek-benefits"
-tradeUrl = "https://docs.talisman.xyz/talisman/seek/get-seek"
-stakingContractNetworkId = "1"
-stakingContractAddress = "0x52b8969f9c1d1effd4f0abea2104df02b65c165c" # eth mainnet contract
-stakingEarlyRewardBoost = "420%"
-webAppStakingPath = "/staking/providers?action=stake&type=seek"
-
-[[seek.discountTiers]]
-tier = 0
-min = "0"
-discount = 0
-
-[[seek.discountTiers]]
-tier = 1
-min = "200000000000000000000"  # 200 * 10^18
-discount = 0.05
-
-[[seek.discountTiers]]
-tier = 2
-min = "1000000000000000000000"  # 1,000 * 10^18
-discount = 0.15
-
 [earn]
 
 [earn.yieldxyzNetworks]
