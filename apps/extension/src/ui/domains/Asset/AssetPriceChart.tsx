@@ -23,6 +23,16 @@ export const AssetPriceChart: FC<{
   tokenIds: TokenId[]
   variant: ChartVariant
   className?: string
+}> = () => {
+  // TODO: Return null for now until we implement endpoint to retrieve data in the desired format for the chart
+  return null
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const AssetPriceChartOriginal: FC<{
+  tokenIds: TokenId[]
+  variant: ChartVariant
+  className?: string
 }> = ({ tokenIds, variant, className }) => {
   const { t } = useTranslation()
   const currency = useSelectedCurrency()
