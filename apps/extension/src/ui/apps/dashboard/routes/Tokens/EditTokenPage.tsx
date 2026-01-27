@@ -11,11 +11,10 @@ import {
   Token,
   TokenBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon, RotateCcwIcon } from "@taostats-wallet/icons"
+import { ExternalLinkIcon, RotateCcwIcon } from "@taostats-wallet/icons"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { notify } from "@taostats/components/Notifications"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -166,33 +165,6 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
               label={isTokenSubForeignAssets(token) ? t("XCM Location") : t("Token Key")}
             >
               <OnChainIdDisplay onChainId={token.onChainId} />
-            </FormFieldContainer>
-          )}
-          {isTokenInTypes(token, ["evm-erc20", "evm-uniswapv2", "substrate-psp22"]) && (
-            <FormFieldContainer label={t("Contract Address")}>
-              <FormFieldInputText
-                type="text"
-                value={token.contractAddress}
-                spellCheck={false}
-                data-lpignore
-                autoComplete="off"
-                readOnly
-                disabled
-                small
-                after={
-                  <div className="flex items-center gap-4">
-                    <LinkToExplorerIconButton
-                      networkId={token.networkId}
-                      target={{ type: token.type, address: token.contractAddress }}
-                      className="text-[2rem]]"
-                    />
-                    <CopyAddressIconButton
-                      address={token.contractAddress}
-                      className="text-[2rem]"
-                    />
-                  </div>
-                }
-              />
             </FormFieldContainer>
           )}
         </div>
@@ -422,35 +394,6 @@ const OnChainIdDisplay = ({ onChainId }: { onChainId: string | number }) => {
       disabled
       rows={rowsCount}
     />
-  )
-}
-
-const CopyAddressIconButton: FC<{ address: string; className?: string }> = ({
-  address,
-  className,
-}) => {
-  const { t } = useTranslation()
-  const handleClick = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(address)
-      notify({
-        type: "success",
-        title: t(`Address copied`),
-        subtitle: shortenAddress(address, 6, 6),
-      })
-    } catch (err) {
-      notify({
-        type: "error",
-        title: t("Error"),
-        subtitle: (err as Error).message ?? "Failed to copy address",
-      })
-    }
-  }, [address, t])
-
-  return (
-    <IconButton className={className} onClick={handleClick} disabled={!address}>
-      <CopyIcon />
-    </IconButton>
   )
 }
 

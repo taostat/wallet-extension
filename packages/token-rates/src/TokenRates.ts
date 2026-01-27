@@ -1,4 +1,4 @@
-import { evmErc20TokenId, Token, TokenId } from "@taostats-wallet/chaindata-provider"
+import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
 
 import {
   SUPPORTED_CURRENCIES,
@@ -17,47 +17,28 @@ export class TokenRatesError extends Error {
 }
 
 export const ALL_CURRENCY_IDS = Object.keys(SUPPORTED_CURRENCIES) as TokenRateCurrency[]
-export type CoinsApiConfig = {
+export type TokenRatesApiConfig = {
   apiUrl: string
 }
 
-export const DEFAULT_COINSAPI_CONFIG: CoinsApiConfig = {
+export const DEFAULT_TOKEN_RATES_CONFIG: TokenRatesApiConfig = {
   apiUrl: "https://coins.talisman.xyz",
 }
+
+// export const DEFAULT_TOKEN_RATES_CONFIG: TokenRatesApiConfig = {
+//   apiUrl: "http://localhost:3001/api/wallet/",
+// }
+
 export async function fetchTokenRates(
   tokens: Record<TokenId, Token>,
   currencyIds: TokenRateCurrency[] = ALL_CURRENCY_IDS,
-  config: CoinsApiConfig = DEFAULT_COINSAPI_CONFIG,
+  config: TokenRatesApiConfig = DEFAULT_TOKEN_RATES_CONFIG,
 ): Promise<TokenRatesList> {
+  console.log("🐸🐸🐸 fetchTokenRates", { tokens, currencyIds, config })
+
   // create a map from `coingeckoId` -> `tokenId` for each token
   const coingeckoIdToTokenIds = Object.values(tokens)
     .flatMap((token) => {
-      // BEGIN: LP tokens have a rate which is calculated later on, using the rates of two other tokens.
-      //
-      // This section contains the logic such that: if token is an LP token, then fetch the rates for the two underlying tokens.
-      if (token.type === "evm-uniswapv2") {
-        if (token.platform !== "ethereum") return []
-
-        const getToken = (
-          evmNetworkId: string,
-          tokenAddress: `0x${string}`,
-          coingeckoId: string,
-        ) => ({
-          id: evmErc20TokenId(evmNetworkId, tokenAddress),
-          coingeckoId,
-        })
-
-        const token0 = token.coingeckoId0
-          ? [getToken(token.networkId, token.tokenAddress0, token.coingeckoId0)]
-          : []
-        const token1 = token.coingeckoId1
-          ? [getToken(token.networkId, token.tokenAddress1, token.coingeckoId1)]
-          : []
-
-        return [...token0, ...token1]
-      }
-      // END: LP tokens have a rate which is calculated later on, using the rates of two other tokens.
-
       // ignore tokens which don't have a coingeckoId
       if (!token.coingeckoId) return []
 
@@ -100,6 +81,10 @@ export async function fetchTokenRates(
       ]
     : [coingeckoIds, currencyIds]
 
+  console.log("🐸🐸🐸🐸 2FETCHING TOKEN RATES FROM", `${config.apiUrl}/token-rates`, "with body", {
+    coingeckoIds: effectiveCoingeckoIds,
+    currencyIds: effectiveCurrencyIds,
+  })
   const response = await fetch(`${config.apiUrl}/token-rates`, {
     method: "POST",
     body: JSON.stringify({
@@ -107,6 +92,18 @@ export async function fetchTokenRates(
       currencyIds: effectiveCurrencyIds,
     }),
   })
+
+  // console.log("🐸🐸🐸🐸 FETCHING TOKEN RATES FROM", `${config.apiUrl}/token-rates`, "with body", {
+  //   ids: effectiveCoingeckoIds,
+  //   currencyIds: effectiveCurrencyIds,
+  // })
+  // const response = await fetch(`${config.apiUrl}/token-rates`, {
+  //   method: "POST",
+  //   body: JSON.stringify({
+  //     ids: effectiveCoingeckoIds,
+  //     currencyIds: effectiveCurrencyIds,
+  //   }),
+  // })
 
   const rawTokenRates: RawTokenRates = await response.json()
 
@@ -154,6 +151,8 @@ export async function fetchTokenRates(
       token.coingeckoId ? (tokenRates[token.coingeckoId] ?? null) : null,
     ]),
   ) as TokenRatesList
+
+  console.log("😱😱😱 3ratesList", { ratesList })
 
   return ratesList
 }

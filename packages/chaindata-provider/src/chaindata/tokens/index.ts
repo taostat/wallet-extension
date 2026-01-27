@@ -1,4 +1,3 @@
-export * from "./EvmErc20Token"
 export * from "./EvmNativeToken"
 export * from "./EvmUniswapV2Token"
 export * from "./SubstrateAssetsToken"

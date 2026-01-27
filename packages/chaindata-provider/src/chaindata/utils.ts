@@ -1,6 +1,5 @@
 import { DotNetwork, Network, NetworkPlatform } from "./networks"
 import {
-  parseEvmErc20TokenId,
   parseEvmNativeTokenId,
   parseEvmUniswapV2TokenId,
   parseSubAssetTokenId,
@@ -109,10 +108,6 @@ export const isTokenEvmNative = (token: Token | null | undefined) => {
   return isTokenOfType(token, "evm-native")
 }
 
-export const isTokenEvmErc20 = (token: Token | null | undefined) => {
-  return isTokenOfType(token, "evm-erc20")
-}
-
 export const isTokenEvmUniswapV2 = (token: Token | null | undefined) => {
   return isTokenOfType(token, "evm-uniswapv2")
 }
@@ -126,8 +121,6 @@ export const parseTokenId = <T extends TokenType>(tokenId: TokenId): TokenIdSpec
   switch (type) {
     case "evm-native":
       return parseEvmNativeTokenId(tokenId) as TokenIdSpecs<T>
-    case "evm-erc20":
-      return parseEvmErc20TokenId(tokenId) as TokenIdSpecs<T>
     case "evm-uniswapv2":
       return parseEvmUniswapV2TokenId(tokenId) as TokenIdSpecs<T>
     case "substrate-native":

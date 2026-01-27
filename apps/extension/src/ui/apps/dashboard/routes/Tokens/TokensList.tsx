@@ -76,8 +76,7 @@ export const TokensList: FC<{
         (t) =>
           !lowerSearch ||
           [t.symbol, t.name, t.type].join().toLowerCase().includes(lowerSearch) ||
-          (isTokenInTypes(t, ["evm-erc20", "evm-uniswapv2"]) &&
-            isAddressEqual(t.contractAddress, lowerSearch)),
+          (isTokenInTypes(t, ["evm-uniswapv2"]) && isAddressEqual(t.contractAddress, lowerSearch)),
       )
 
     // exact matches first
@@ -240,7 +239,7 @@ const useBlockExplorerUrl = (token: Token) => {
     const url = network?.blockExplorerUrls[0]
     if (!url) return null
 
-    if (isTokenInTypes(token, ["evm-erc20", "evm-uniswapv2"]))
+    if (isTokenInTypes(token, ["evm-uniswapv2"]))
       return urlJoin(url, "token", token.contractAddress)
 
     return null

@@ -4,7 +4,6 @@ import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { useTokenBalances } from "../useTokenBalances"
 import { TokenBalancesDetailRow } from "./TokenBalancesDetailRow"
 import { TokenBalancesList } from "./TokenBalancesList"
-import { TokenBalancesUniswapV2Row } from "./TokenBalancesUniswapV2Row"
 
 type TokenBalancesParams = {
   balances: Balances
@@ -35,17 +34,6 @@ export const PopupTokenBalances = ({ balances, tokenId }: TokenBalancesParams) =
       detailRowsLength={detailRows.length}
       chainOrNetworkId={chainOrNetwork.id}
     >
-      {isUniswapV2LpToken &&
-        balances.sorted
-          .filter((balance) => balance.total.planck > 0n)
-          .map((balance, i, balances) => (
-            <TokenBalancesUniswapV2Row
-              key={balance.id}
-              balance={balance}
-              isLastBalance={balances.length === i + 1}
-              status={status}
-            />
-          ))}
       {!isUniswapV2LpToken &&
         detailRows
           .filter((row) => row.tokens.gt(0))

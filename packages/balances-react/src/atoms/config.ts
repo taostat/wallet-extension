@@ -1,13 +1,13 @@
 import { DotNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
-import { CoinsApiConfig, DEFAULT_COINSAPI_CONFIG } from "@taostats-wallet/token-rates"
+import { DEFAULT_TOKEN_RATES_CONFIG, TokenRatesApiConfig } from "@taostats-wallet/token-rates"
 import { atom } from "jotai"
 
-const innerCoinsApiConfigAtom = atom<CoinsApiConfig>(DEFAULT_COINSAPI_CONFIG)
-export const coinsApiConfigAtom = atom<CoinsApiConfig, [Partial<CoinsApiConfig>], void>(
+const innerCoinsApiConfigAtom = atom<TokenRatesApiConfig>(DEFAULT_TOKEN_RATES_CONFIG)
+export const coinsApiConfigAtom = atom<TokenRatesApiConfig, [Partial<TokenRatesApiConfig>], void>(
   (get) => get(innerCoinsApiConfigAtom),
   (_get, set, options) =>
     set(innerCoinsApiConfigAtom, {
-      apiUrl: options.apiUrl ?? DEFAULT_COINSAPI_CONFIG.apiUrl,
+      apiUrl: options.apiUrl ?? DEFAULT_TOKEN_RATES_CONFIG.apiUrl,
     }),
 )
 

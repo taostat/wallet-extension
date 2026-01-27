@@ -2,7 +2,6 @@ import { Balances } from "@taostats-wallet/balances"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 
 import { useTokenBalances } from "../useTokenBalances"
-import { ChainTokenBalancesUniswapV2Row } from "./ChainTokenBalancesUniswapV2Row"
 import { TokenBalancesDetailRow } from "./TokenBalancesDetailRow"
 import { TokenBalancesList } from "./TokenBalancesList"
 
@@ -33,17 +32,6 @@ export const TokenBalances = ({ balances, tokenId }: TokenBalancesParams) => {
       status={status}
       symbol={token.symbol}
     >
-      {isUniswapV2LpToken &&
-        balances.sorted
-          .filter((balance) => balance.total.planck > 0n)
-          .map((balance, i, balances) => (
-            <ChainTokenBalancesUniswapV2Row
-              key={balance.id}
-              balance={balance}
-              isLastBalance={balances.length === i + 1}
-              status={status}
-            />
-          ))}
       {!isUniswapV2LpToken &&
         detailRows
           .filter((row) => row.tokens.gt(0))
