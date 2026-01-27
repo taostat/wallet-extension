@@ -156,7 +156,6 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
   const activeTokens = useActiveTokensState()
   const network = useAnyNetwork(token.networkId)
   const blockExplorerUrl = useBlockExplorerUrl(token)
-  const coingeckoUrl = useCoingeckoUrl(token)
 
   if (!network) return null
 
@@ -209,11 +208,6 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
                   {t("View on block explorer")}
                 </ContextMenuItem>
               )}
-              {coingeckoUrl && (
-                <ContextMenuItem onClick={() => window.open(coingeckoUrl, "_blank")}>
-                  {t("View on Coingecko")}
-                </ContextMenuItem>
-              )}
             </ContextMenuContent>
           </ContextMenu>
         </div>
@@ -244,12 +238,4 @@ const useBlockExplorerUrl = (token: Token) => {
 
     return null
   }, [network?.blockExplorerUrls, token])
-}
-
-const useCoingeckoUrl = (token: Token) => {
-  return useMemo(
-    () =>
-      token.coingeckoId ? urlJoin("https://coingecko.com/en/coins/", token.coingeckoId) : null,
-    [token],
-  )
 }

@@ -391,7 +391,8 @@ export class Balance {
   }
   get rates(): TokenRates | null {
     // dTAO balances need to be converted to the native token to compute their rate, unless we have a coingeckoId
-    if (this.token?.type === "substrate-dtao" && !this.token.coingeckoId) {
+    // if (this.token?.type === "substrate-dtao" && !this.token.coingeckoId) {
+    if (this.token?.type === "substrate-dtao" && this.token.netuid === undefined) {
       if (!this.#db?.tokenRates) return null
 
       const balances = this.#valueGetter.get("free")
