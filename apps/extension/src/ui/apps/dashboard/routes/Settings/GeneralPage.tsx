@@ -6,7 +6,6 @@ import {
   CheckIcon,
   ChevronRightIcon,
   CoinsIcon,
-  DollarSignIcon,
   EyeOffIcon,
   FlagIcon,
   RefreshCwIcon,
@@ -95,13 +94,6 @@ const Content = () => {
           title={t("Language")}
           subtitle={t("Change the wallet display language")}
           to={`/settings/general/language`}
-        />
-        <CtaButton
-          iconLeft={DollarSignIcon}
-          iconRight={ChevronRightIcon}
-          title={t("Currency")}
-          subtitle={t("Set currencies for viewing your portolio value")}
-          to={`/settings/general/currency`}
         />
         <Setting
           iconLeft={UsbIcon}

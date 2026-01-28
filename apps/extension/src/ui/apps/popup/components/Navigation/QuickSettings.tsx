@@ -8,12 +8,12 @@ import { Toggle } from "taostats-ui"
 import { languages } from "@common/i18nConfig"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
-import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
-import { useFavoriteCurrencies } from "@ui/hooks/useFavoriteCurrencies"
+// import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
+// import { useFavoriteCurrencies } from "@ui/hooks/useFavoriteCurrencies"
 import { useSetting } from "@ui/state"
 
 import { AutoLockDrawer, useAutoLockDrawerOpenClose } from "./AutoLockDrawer"
-import { CurrenciesDrawer, useCurrenciesDrawerOpenClose } from "./CurrenciesDrawer"
+// import { CurrenciesDrawer, useCurrenciesDrawerOpenClose } from "./CurrenciesDrawer"
 import { LanguageDrawer, useLanguageDrawerOpenClose } from "./LanguageDrawer"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
@@ -69,7 +69,7 @@ export const QuickSettingsModal: FC = () => {
         <div className="bg-grey-800 h-0.5 w-full"></div>
         <div className="flex w-full flex-col">
           <LanguageRow />
-          <CurrenciesRow />
+          {/* <CurrenciesRow /> */}
           <AutoLockRow />
           <HideBalancesRow />
           <HideSmallBalancesRow />
@@ -133,37 +133,37 @@ const AutoLockRow = () => {
   )
 }
 
-const CurrenciesRow = () => {
-  const { t } = useTranslation()
-  const { open } = useCurrenciesDrawerOpenClose()
-  const [favorites] = useFavoriteCurrencies()
+// const CurrenciesRow = () => {
+//   const { t } = useTranslation()
+//   const { open } = useCurrenciesDrawerOpenClose()
+//   const [favorites] = useFavoriteCurrencies()
 
-  const moreLabel = useMemo(() => {
-    const moreItems = favorites.length - 3
-    return moreItems > 0 ? `+${moreItems}` : null
-  }, [favorites])
+//   const moreLabel = useMemo(() => {
+//     const moreItems = favorites.length - 3
+//     return moreItems > 0 ? `+${moreItems}` : null
+//   }, [favorites])
 
-  return (
-    <SettingRow label={t("Currencies")}>
-      <button type="button" onClick={open} className="opacity-90 hover:opacity-100">
-        {favorites.slice(0, 3).map((currency) => (
-          <img
-            key={currency}
-            className="border-0.5 border-grey-800 -ml-2 inline-block size-10 shrink-0 rounded-full border align-middle"
-            alt={currency}
-            src={currencyConfig[currency]?.icon}
-          />
-        ))}
-        {moreLabel && (
-          <div className="text-body-secondary border-0.5 border-grey-800 -ml-2 inline-flex size-10 shrink-0 items-center justify-center rounded-full border bg-black align-middle text-[0.9rem]">
-            {moreLabel}
-          </div>
-        )}
-      </button>
-      <CurrenciesDrawer />
-    </SettingRow>
-  )
-}
+//   return (
+//     <SettingRow label={t("Currencies")}>
+//       <button type="button" onClick={open} className="opacity-90 hover:opacity-100">
+//         {favorites.slice(0, 3).map((currency) => (
+//           <img
+//             key={currency}
+//             className="border-0.5 border-grey-800 -ml-2 inline-block size-10 shrink-0 rounded-full border align-middle"
+//             alt={currency}
+//             src={currencyConfig[currency]?.icon}
+//           />
+//         ))}
+//         {moreLabel && (
+//           <div className="text-body-secondary border-0.5 border-grey-800 -ml-2 inline-flex size-10 shrink-0 items-center justify-center rounded-full border bg-black align-middle text-[0.9rem]">
+//             {moreLabel}
+//           </div>
+//         )}
+//       </button>
+//       <CurrenciesDrawer />
+//     </SettingRow>
+//   )
+// }
 
 const HideBalancesRow = () => {
   const { t } = useTranslation()
