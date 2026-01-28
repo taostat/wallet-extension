@@ -23,7 +23,9 @@ export type TokenRatesApiConfig = {
 }
 
 export const DEFAULT_TOKEN_RATES_CONFIG: TokenRatesApiConfig = {
-  apiUrl: process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet",
+  // Use env override when set, otherwise fall back to production URL.
+  // `??` ensures the type is always `string` (not `string | undefined`).
+  apiUrl: process.env.TAOSTATS_API_URL ?? "https://taostats.io/api/wallet",
 }
 
 export async function fetchTokenRates(
@@ -127,10 +129,7 @@ export async function fetchTokenRates(
   ) as TokenRatesList
 
   const rootEntry = ratesList["bittensor:substrate-dtao:0"]
-  if (!rootEntry) {
-    // eslint-disable-next-line no-console
-    console.error("Root entry not found")
-  } else {
+  if (rootEntry) {
     ratesList["bittensor:substrate-native"] = cloneDeep(rootEntry)
   }
 

@@ -22,10 +22,10 @@ const { SourceMapDevToolPlugin } = require("webpack")
 /** @type { import('webpack').Configuration } */
 const config = (env) => {
   if (env.build === "production") {
-    if (!process.env.POSTHOG_AUTH_TOKEN) {
-      console.warn("Missing POSTHOG_AUTH_TOKEN env variable")
-      throw new Error("Missing POSTHOG_AUTH_TOKEN env variable")
-    }
+    // if (!process.env.POSTHOG_AUTH_TOKEN) {
+    //   console.warn("Missing POSTHOG_AUTH_TOKEN env variable")
+    //   throw new Error("Missing POSTHOG_AUTH_TOKEN env variable")
+    // }
   }
 
   return merge(common(env), {
