@@ -390,8 +390,7 @@ export class Balance {
     return this.token?.decimals || null
   }
   get rates(): TokenRates | null {
-    // dTAO balances need to be converted to the native token to compute their rate, unless we have a coingeckoId
-    // if (this.token?.type === "substrate-dtao" && !this.token.coingeckoId) {
+    // dTAO balances need to be converted to the native token to compute their rate, unless we have a netuid
     if (this.token?.type === "substrate-dtao" && this.token.netuid === undefined) {
       if (!this.#db?.tokenRates) return null
 
