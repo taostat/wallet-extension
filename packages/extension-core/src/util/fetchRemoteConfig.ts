@@ -3,7 +3,7 @@ import toml from "toml"
 
 import { RemoteConfigStoreData } from "../domains/app/types"
 
-// export const REMOTE_CONFIG_URL = "taostats.url/to/remote-config.toml"
+// export const REMOTE_CONFIG_URL = "http://localhost:3001/api/wallet/remote-config"
 
 export const fetchRemoteConfig = async () => {
   log.debug("Fetching config.toml")
@@ -212,7 +212,7 @@ aleph-zero = [47]
 analog-timechain = [1]
 
 [stakingPools]
-bittensor = ["5FtBncJvGhxjBs4aFn2pid6aur9tBUuo9QR7sHe5DkoRizzo"]
+bittensor = ["5GKH9FPPnWSUoeeTJp19wVtd84XqFW4pyK2ijV2GsFbhTrP1"]
 
 [documentation]
 unifiedAddressDocsUrl = "https://wiki.polkadot.network/docs/learn-accounts#unified-address-format"

@@ -23,7 +23,7 @@ export type TokenRatesApiConfig = {
 }
 
 export const DEFAULT_TOKEN_RATES_CONFIG: TokenRatesApiConfig = {
-  apiUrl: "http://localhost:3001/api/wallet",
+  apiUrl: process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet",
 }
 
 export async function fetchTokenRates(
@@ -73,7 +73,7 @@ export async function fetchTokenRates(
   }
 
   // taostats api call
-  const response = await fetch(`${DEFAULT_TOKEN_RATES_CONFIG.apiUrl}/token-rates`, {
+  const response = await fetch(`${config.apiUrl}/token-rates`, {
     method: "POST",
     body: JSON.stringify(requestBody),
   })

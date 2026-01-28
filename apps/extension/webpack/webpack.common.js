@@ -183,6 +183,11 @@ const config = (env) => ({
       "process.env.TAOSTATS_BASE_PATH": JSON.stringify(
         env.build === "dev" ? process.env.TAOSTATS_BASE_PATH || "" : "",
       ),
+      "process.env.TAOSTATS_API_URL": JSON.stringify(
+        env.build === "dev"
+          ? process.env.TAOSTATS_API_URL || "http://localhost:3001/api/wallet"
+          : process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet",
+      ),
       "process.env.LOG_SUBSCRIPTION_CALLBACKS": JSON.stringify(
         env.build === "dev" || ["canary", "ci", "qa"].includes(env.build)
           ? process.env.LOG_SUBSCRIPTION_CALLBACKS || ""
