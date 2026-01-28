@@ -1,5 +1,5 @@
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { uniq } from "lodash-es"
+import { cloneDeep, uniq } from "lodash-es"
 
 import {
   SUPPORTED_CURRENCIES,
@@ -22,7 +22,7 @@ export type TokenRatesApiConfig = {
   apiUrl: string
 }
 
-const USE_TAOSTATS_API = true
+const USE_TAOSTATS_API = false
 
 export const DEFAULT_TOKEN_RATES_CONFIG: TokenRatesApiConfig = {
   apiUrl: "http://localhost:3001/api/wallet",
@@ -33,10 +33,12 @@ export async function fetchTokenRates(
   currencyIdsParam: TokenRateCurrency[] = ALL_CURRENCY_IDS,
   config: TokenRatesApiConfig = DEFAULT_TOKEN_RATES_CONFIG,
 ): Promise<TokenRatesList> {
+  return fetchTokenRatesOld(tokens, currencyIdsParam, config)
+
   const taostatsVersion = await fetchTokenRatesNew(tokens, currencyIdsParam, config)
   const oldVersion = await fetchTokenRatesOld(tokens, currencyIdsParam, config)
 
-  console.log("🍕🍕🍕🍕🍕🍕", { taostatsVersion, oldVersion })
+  console.log("🍕🍕🍕🍕🍕🍕", { USE_TAOSTATS_API, taostatsVersion, oldVersion })
 
   return USE_TAOSTATS_API ? taostatsVersion : oldVersion
 }
@@ -149,7 +151,7 @@ export async function fetchTokenRatesNew(
   }
 
   const tokenRates = parseTokenRatesFromApiNew(rawTokenRates, netuids, currencyIds)
-  console.log("😱😱😱", { tokenRates })
+  console.log("😱😱😱", { rawTokenRates, tokenRates })
 
   // build a TokenRatesList from the token prices result
   const ratesList: TokenRatesList = Object.fromEntries(
@@ -160,6 +162,14 @@ export async function fetchTokenRatesNew(
   ) as TokenRatesList
 
   console.log("😱😱😱", { ratesList })
+
+  const rootEntry = ratesList["bittensor:substrate-dtao:0"]
+  console.log("😱😱😱", { rootEntry })
+  if (!rootEntry) {
+    console.error("Root entry not found")
+  } else {
+    ratesList["bittensor:substrate-native"] = cloneDeep(rootEntry)
+  }
 
   return ratesList
 }
