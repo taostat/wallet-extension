@@ -2,18 +2,17 @@ import { Observable, shareReplay } from "rxjs"
 
 import log from "../log"
 import bittensorChaindata from "./bittensor-chaindata.json"
-import { fetchChaindata } from "./net"
+import { fetchChaindataFromTaostats } from "./fetchChainDataFromTaostats"
 import { Chaindata, ChaindataFileSchema } from "./schema"
 
 // Temporarily disabled - will be re-enabled to fetch from a different source in the future
-const ENABLE_GITHUB_FETCH = false
+const ENABLE_REMOTE_CHAIN_DATA_FETCH = true
 
 const REFRESH_INTERVAL = 300_000 // 5 mins
 
 let lastUpdatedAt = 0
 
-// Original GitHub fetch Observable (currently disabled)
-const githubChaindataFetch$ = new Observable<Chaindata>((subscriber) => {
+const taostatsChaindataFetch$ = new Observable<Chaindata>((subscriber) => {
   const controller = new AbortController()
   subscriber.add(() => controller.abort())
 
@@ -26,17 +25,19 @@ const githubChaindataFetch$ = new Observable<Chaindata>((subscriber) => {
       if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay))
       if (controller.signal.aborted) return
 
-      log.debug("[githubChaindata$] Refreshing chaindata from GitHub")
-      const data = await fetchChaindata(controller.signal)
+      log.debug("[taostatsChaindata$] Refreshing chaindata from Taostats")
+      const data = await fetchChaindataFromTaostats(controller.signal)
       lastUpdatedAt = Date.now()
 
       const start = performance.now()
       const validation = ChaindataFileSchema.safeParse(data)
       log.debug(
-        "[githubChaindata$] Chaindata schema validation: %sms",
+        "[taostatsChaindata$] Chaindata schema validation: %sms",
         (performance.now() - start).toFixed(2),
       )
-      if (!validation.success) throw new Error("GitHub chaindata failed schema validation")
+      if (!validation.success) {
+        throw new Error(`Taostats chaindata failed schema validation. ${validation.error.message}`)
+      }
 
       subscriber.next(validation.data)
     } catch (error) {
@@ -71,7 +72,7 @@ const localBittensorChaindata$ = new Observable<Chaindata>((subscriber) => {
   }
 }).pipe(shareReplay({ bufferSize: 1, refCount: true }))
 
-// Export the active Observable (switch between fetch and local by toggling ENABLE_GITHUB_FETCH)
-export const githubChaindata$ = ENABLE_GITHUB_FETCH
-  ? githubChaindataFetch$
+// Export the active Observable (switch between fetch and local by toggling ENABLE_REMOTE_CHAIN_DATA_FETCH)
+export const chaindata$ = ENABLE_REMOTE_CHAIN_DATA_FETCH
+  ? taostatsChaindataFetch$
   : localBittensorChaindata$

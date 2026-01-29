@@ -31,5 +31,5 @@ export const TERMS_OF_USE_URL = `${TAOSTATS_WEB_APP_URL}/extension/terms-of-use`
 export const CONNECT_LEDGER_DOCS_URL = `${DOCS_URL_PREFIX}/start/importing-external-wallets/import-from-ledger`
 
 // Images
-export const UNKNOWN_TOKEN_URL = "/images/unknown-token.svg"
-export const UNKNOWN_NETWORK_URL = "/images/unknown-network.svg"
+export const UNKNOWN_TOKEN_URL = "/images/icon.png"
+export const UNKNOWN_NETWORK_URL = "/images/icon.png"
