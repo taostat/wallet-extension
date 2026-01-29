@@ -110,9 +110,11 @@ const HeaderRow: FC<{
 
 const TokenBreadcrumb: FC<{
   symbol: string
+  name: string
   balances: Balances
 }> = ({
-  symbol,
+  name,
+  // symbol,
   // balances
 }) => {
   const { t } = useTranslation()
@@ -126,11 +128,11 @@ const TokenBreadcrumb: FC<{
         onClick: () => navigate("/portfolio/tokens"),
       },
       {
-        label: <div className="text-body font-bold">{symbol}</div>,
+        label: <div className="text-body font-bold">{name}</div>,
         onClick: undefined,
       },
     ]
-  }, [t, symbol, navigate])
+  }, [t, name, navigate])
 
   return (
     <div className="flex h-20 items-center justify-between">
@@ -176,7 +178,7 @@ export const PortfolioAsset = () => {
 
   return (
     <>
-      <TokenBreadcrumb symbol={symbol} balances={balancesToDisplay} />
+      <TokenBreadcrumb name={token?.name || symbol} symbol={symbol} balances={balancesToDisplay} />
       <HeaderRow token={token} summary={summary} />
       <DashboardAssetDetails balances={balancesToDisplay} symbol={symbol} />
     </>

@@ -21,7 +21,7 @@ import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountsStack } from "@ui/domains/Account/AccountIconsStack"
 import { Address } from "@ui/domains/Account/Address"
-import { useAccounts, useAppState, useMnemonics } from "@ui/state"
+import { useAccounts, useMnemonics } from "@ui/state"
 
 import { MnemonicBackupModalProvider, useMnemonicBackupModal } from "./MnemonicBackupModal"
 import {
@@ -106,13 +106,13 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
   const { t } = useTranslation()
   const { isOpen, toggle } = useOpenClose()
   const { open: openRename } = useMnemonicRenameModal()
-  const { open: openSetPvVerifier, isVerifier } = useMnemonicSetPvVerifierModal()
+  const { isVerifier } = useMnemonicSetPvVerifierModal()
   const { open: openDelete, canDelete } = useMnemonicDeleteModal()
   const { open: openBackup } = useMnemonicBackupModal()
   const refActions = useRef<HTMLDivElement>(null)
   const refBackup = useRef<HTMLButtonElement>(null)
 
-  const hasVerifierCertificateMnemonic = Boolean(useAppState("vaultVerifierCertificateMnemonicId"))
+  // const hasVerifierCertificateMnemonic = Boolean(useAppState("vaultVerifierCertificateMnemonicId"))
 
   const [actionsWidth, setActionsWidth] = useState<number>()
   const actionsStyle = useMemo(() => ({ width: actionsWidth }), [actionsWidth])
@@ -126,10 +126,6 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
   const handleRenameClick = useCallback(() => {
     openRename(mnemonic.id)
   }, [mnemonic.id, openRename])
-
-  const handleSetVerifierClick = useCallback(() => {
-    openSetPvVerifier(mnemonic.id)
-  }, [mnemonic.id, openSetPvVerifier])
 
   const handleDeleteClick = useCallback(() => {
     openDelete(mnemonic.id)
@@ -198,14 +194,6 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
                   )}
                 </div>
               </ContextMenuItem>
-              {hasVerifierCertificateMnemonic && (
-                <ContextMenuItem
-                  onClick={handleSetVerifierClick}
-                  disabled={isVerifier(mnemonic.id)}
-                >
-                  {t("Set as Polkadot Vault Verifier Certificate")}
-                </ContextMenuItem>
-              )}
               <ContextMenuItem onClick={handleDeleteClick} disabled={!canDelete(mnemonic.id)}>
                 {t("Delete")}
               </ContextMenuItem>

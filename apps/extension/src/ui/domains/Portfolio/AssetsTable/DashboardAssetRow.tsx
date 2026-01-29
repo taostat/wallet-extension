@@ -8,7 +8,7 @@ import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 // import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
-import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
+// import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
@@ -43,7 +43,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
   const isUniswapV2LpToken = token?.type === "evm-uniswapv2"
   const tvl = useUniswapV2LpTokenTotalValueLocked(token, rate?.price, balances)
 
-  const { canBond } = useBondButton({ balances })
+  // const { canBond } = useBondButton({ balances })
 
   if (!token || !network || !summary) return null
 
@@ -87,7 +87,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
           </div>
         </div>
         <div className="h-[6.6rem] text-right">
-          <AssetBalanceCellValue
+          {/* <AssetBalanceCellValue
             locked
             render={summary.lockedTokens.gt(0)}
             tokens={summary.lockedTokens}
@@ -99,9 +99,9 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
               status.status === "fetching" && "animate-pulse transition-opacity",
             )}
             noCountUp={noCountUp}
-          />
+          /> */}
         </div>
-        <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 text-right">
+        {/* <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 text-right">
           <AssetBalanceCellValue
             render
             tokens={summary.availableTokens}
@@ -109,7 +109,21 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             symbol={isUniswapV2LpToken ? "" : token.symbol}
             balancesStatus={status}
             className={classNames(
-              canBond && "group-hover:hidden",
+              // canBond && "group-hover:hidden",
+              status.status === "fetching" && "animate-pulse transition-opacity",
+            )}
+            noCountUp={noCountUp}
+          />
+        </div> */}
+        <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 text-right">
+          <AssetBalanceCellValue
+            render
+            tokens={summary.totalTokens}
+            fiat={summary.totalFiat}
+            symbol={isUniswapV2LpToken ? "" : token.symbol}
+            balancesStatus={status}
+            className={classNames(
+              // canBond && "group-hover:hidden",
               status.status === "fetching" && "animate-pulse transition-opacity",
             )}
             noCountUp={noCountUp}
