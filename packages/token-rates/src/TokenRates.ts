@@ -25,7 +25,7 @@ export type TokenRatesApiConfig = {
 export const DEFAULT_TOKEN_RATES_CONFIG: TokenRatesApiConfig = {
   // Use env override when set, otherwise fall back to production URL.
   // `??` ensures the type is always `string` (not `string | undefined`).
-  apiUrl: process.env.TAOSTATS_API_URL ?? "https://taostats.io/api/wallet",
+  apiUrl: process.env.TAOSTATS_API_URL ?? "https://taostats.io/api/wallet-extension",
 }
 
 export async function fetchTokenRates(
@@ -70,15 +70,10 @@ export async function fetchTokenRates(
 
   const hasVsTao = currencyIds.includes("tao")
 
-  const requestBody = {
-    ids: netuids,
-  }
-
   // taostats api call
-  const response = await fetch(`${config.apiUrl}/token-rates`, {
-    method: "POST",
-    body: JSON.stringify(requestBody),
-  })
+  // currently returns all subnets, so no need to pass in netuids
+  // this may change
+  const response = await fetch(`${config.apiUrl}/token-rates`)
 
   const rawTokenRates: RawTokenRates = await response.json()
 

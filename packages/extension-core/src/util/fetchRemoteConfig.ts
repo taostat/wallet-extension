@@ -3,7 +3,7 @@ import toml from "toml"
 
 import { RemoteConfigStoreData } from "../domains/app/types"
 
-// export const REMOTE_CONFIG_URL = "http://localhost:3001/api/wallet/remote-config"
+// export const REMOTE_CONFIG_URL = "http://localhost:3001/api/wallet-extension/remote-config"
 
 export const fetchRemoteConfig = async () => {
   log.debug("Fetching config.toml")
