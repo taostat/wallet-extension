@@ -1481,7 +1481,7 @@
   "Risk Assessment is not supported for this network. Proceed at your own risk.": "La valutazione del rischio non è supportata per questa rete. Procedi a tuo rischio e pericolo.",
   "Root stake claim settings": "Impostazioni di richiesta di stake root",
   "Root Staking": "Staking Radice",
-  "Rootnet staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Rootnet staking.": "Lo staking su Rootnet non è soggetto ad attacchi MEV nello stesso modo, quindi MEV Shield è disabilitato per lo staking su Rootnet.",
+  "Root staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Root staking.": "Lo staking su Root non è soggetto ad attacchi MEV nello stesso modo, quindi MEV Shield è disabilitato per lo staking su Root.",
   "RPC doesn't match chain's chain ID": "RPC non corrisponde all'ID catena della catena",
   "RPC doesn't match chain's genesis hash": "L'RPC non corrisponde all'hash di genesi della catena",
   "RPC Url": "URL RPC",

@@ -1481,7 +1481,7 @@
   "Risk Assessment is not supported for this network. Proceed at your own risk.": "Đánh giá rủi ro không được hỗ trợ cho mạng này. Tiếp tục và tự chịu rủi ro.",
   "Root stake claim settings": "Cài đặt yêu cầu quyền sở hữu gốc",
   "Root Staking": "Staking Gốc",
-  "Rootnet staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Rootnet staking.": "Staking trên Rootnet không bị ảnh hưởng bởi các cuộc tấn công MEV theo cách tương tự, vì vậy MEV Shield bị vô hiệu hóa đối với staking trên Rootnet.",
+  "Root staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Root staking.": "Staking trên Root không bị ảnh hưởng bởi các cuộc tấn công MEV theo cách tương tự, vì vậy MEV Shield bị vô hiệu hóa đối với staking trên Root.",
   "RPC doesn't match chain's chain ID": "RPC không khớp với Chain ID của chuỗi ",
   "RPC doesn't match chain's genesis hash": "RPC không khớp với mã băm khởi đầu của chuỗi ",
   "RPC Url": "Địa chỉ URL của RPC",
