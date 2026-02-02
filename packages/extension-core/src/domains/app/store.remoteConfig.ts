@@ -43,17 +43,6 @@ export const DEFAULT_REMOTE_CONFIG: RemoteConfigStoreData = {
     unifiedAddressDocsUrl:
       "https://polkadot-ux-bounty.notion.site/UXB-1-User-Wiki-Page-188e1c2781f380259c4ef29041bacc49",
   },
-  seek: {
-    tokenId: "",
-    stakingUrl: "",
-    docsUrl: "",
-    tradeUrl: "",
-    stakingContractNetworkId: "",
-    stakingContractAddress: "0x",
-    webAppStakingPath: "",
-    stakingEarlyRewardBoost: "",
-    discountTiers: [],
-  },
   bittensor: {
     fee: {
       buy: {},
@@ -81,10 +70,7 @@ export class RemoteConfigStore extends StorageProvider<RemoteConfigStoreData> {
         )
 
         if (DEBUG) {
-          config.featureFlags.SEEK_BENEFITS = true
-          config.featureFlags.SEEK_TAO_DISCOUNT = true
           config.featureFlags.ASSET_HUB_MIGRATION_BANNER = true
-          config.featureFlags.SEEK_PRESALE = true
         }
 
         // first arg is an empty object so that DEFAULT_REMOTE_CONFIG is not mutated

@@ -74,9 +74,6 @@ RISK_ANALYSIS_V2 = true         # enables tx validation
 AUTONOMYS_QUEST_BANNER = false
 NFTS = false                    # obsolete, replaced by NFT_V2
 NFTS_V2 = true
-SEEK_TAO_DISCOUNT = true
-SEEK_BENEFITS = true
-SEEK_PRESALE = false
 BLOCKAID_DAPP_SCAN = false       # blockaid phishing checks
 ASSET_HUB_MIGRATION_BANNER = false
 

@@ -143,7 +143,6 @@ const useBittensorBondWizardProvider = () => {
   const stakeTypeDrawer = useOpenClose()
   const slippageDrawer = useOpenClose()
   const warningDrawer = useOpenClose()
-  const seekDiscountDrawer = useOpenClose()
 
   const { data: sapi } = useScaleApi(nativeToken?.networkId)
 
@@ -497,7 +496,6 @@ const useBittensorBondWizardProvider = () => {
     stakeTypeDrawer,
     slippageDrawer,
     warningDrawer,
-    seekDiscountDrawer,
     isFormValid,
     step,
     hash,

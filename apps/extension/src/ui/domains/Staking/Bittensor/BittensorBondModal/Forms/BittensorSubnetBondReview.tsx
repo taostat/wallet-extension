@@ -1,6 +1,6 @@
 import { EditIcon, InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -15,7 +15,7 @@ import {
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 import { useCombinedSubnetData } from "@ui/domains/Staking/hooks/bittensor/dTao/useCombinedSubnetData"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
-import { useAppState, useFeatureFlag } from "@ui/state"
+import { useAppState } from "@ui/state"
 
 import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
@@ -36,13 +36,10 @@ import {
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
 import { BittensorWarningDrawer } from "../Drawers/BittensorWarningDrawer"
 
-const MAX_TOTAL_FEE_DISCOUNT = 1
-
 export const BittensorSubnetBondReview = () => {
   const [isDisabled, setIsDisabled] = useState(true)
   const [hideWarning] = useAppState("hideBittensorSubnetStakeWarning")
   const [hasAckWarning, setHasAckWarning] = useState<boolean>(hideWarning || false)
-  const isSeekTaoDiscountEnabled = useFeatureFlag("SEEK_TAO_DISCOUNT")
   const ocMevShieldInfo = useOpenClose()
 
   const {
@@ -73,23 +70,13 @@ export const BittensorSubnetBondReview = () => {
     setStep,
   } = useBittensorBondWizard()
   const { t } = useTranslation()
-  const { seekDiscountDrawer } = useBittensorBondWizard()
   const { close } = useBittensorBondModal()
   const subnetFee = useGetSubnetFee({
     netuid: netuid ?? 0,
     direction: stakeDirection === "bond" ? "taoToAlpha" : "alphaToTao",
   })
 
-  const totalFeeDiscount = useMemo(() => {
-    return 0
-  }, [])
-
-  const totalDiscountPercent = useMemo(() => `${totalFeeDiscount * 100}%`, [totalFeeDiscount])
-  const isSeekDrawerEnabled = useMemo(
-    () => isSeekTaoDiscountEnabled && totalFeeDiscount < MAX_TOTAL_FEE_DISCOUNT,
-    [isSeekTaoDiscountEnabled, totalFeeDiscount],
-  )
-
+  
   const { isLoading } = useCombinedSubnetData(networkId)
 
   const { open } = slippageDrawer
@@ -270,26 +257,6 @@ export const BittensorSubnetBondReview = () => {
                   </span>
                 </TooltipContent>
               </Tooltip>
-              {(totalFeeDiscount > 0 || isSeekTaoDiscountEnabled) && (
-                <button
-                  type="button"
-                  className={classNames(
-                    "rounded-[43px] bg-[#D5FF5C] bg-opacity-[0.1] px-3 py-1",
-                    !isSeekDrawerEnabled && "cursor-default",
-                  )}
-                  onClick={isSeekDrawerEnabled ? seekDiscountDrawer.open : undefined}
-                >
-                  <div className="text-[1rem] text-[#D5FF5C]">
-                    {totalFeeDiscount > 0 ? (
-                      <>
-                        {totalDiscountPercent} {t("Off Fees")}
-                      </>
-                    ) : (
-                      t("Get Discount")
-                    )}
-                  </div>
-                </button>
-              )}
             </div>
             <StakingFeeEstimate
               plancks={taostatsFee}
@@ -383,7 +350,7 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
           </li>
           <li>
             {t(
-              "Rootnet staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Rootnet staking.",
+              "Root staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Root staking.",
             )}
           </li>
         </ul>
