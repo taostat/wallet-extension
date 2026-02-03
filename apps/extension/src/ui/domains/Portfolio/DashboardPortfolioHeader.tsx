@@ -208,8 +208,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 }
 
 const TopActions: FC = () => {
-  // TODO: Re-enable once staking in app is complete
-  return null
 
   const { selectedAccounts, selectedAccount } = usePortfolioNavigation()
   const { t } = useTranslation()

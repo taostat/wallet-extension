@@ -11,7 +11,9 @@ export const TokenDisplaySymbol: FC<{ tokenId: TokenId }> = ({ tokenId }) => {
 
   if (!token) return null
 
-  if (token.type === "substrate-dtao") return token.netuid ? token.name : token.symbol
+  if (token.type === "substrate-dtao") {
+    return token.netuid ? token.name : token.symbol
+  }
 
   return token.symbol
 }

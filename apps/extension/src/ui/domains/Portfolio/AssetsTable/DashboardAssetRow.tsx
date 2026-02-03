@@ -18,15 +18,12 @@ import { useNetworkById } from "@ui/state"
 import { TokenLogo } from "../../Asset/TokenLogo"
 import { AssetBalanceCellValue } from "../AssetBalanceCellValue"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
-import { PortfolioNetworksLogoStack } from "./PortfolioNetworksLogoStack"
-import { usePortfolioNetworkIds } from "./usePortfolioNetworkIds"
 
 export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
   balances,
   noCountUp,
 }) => {
   const { t } = useTranslation()
-  const networkIds = usePortfolioNetworkIds(balances)
   const { genericEvent } = useAnalytics()
 
   const status = useBalancesStatus(balances)
@@ -70,11 +67,6 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
                   </span>
                 )}
               </div>
-              {!!networkIds.length && (
-                <div>
-                  <PortfolioNetworksLogoStack networkIds={networkIds} max={3} />
-                </div>
-              )}
             </div>
             {isUniswapV2LpToken && typeof tvl === "number" && (
               <div className="text-body-secondary whitespace-nowrap">

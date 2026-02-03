@@ -1,0 +1,196 @@
+import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
+import { ExternalLinkIcon } from "@taostats-wallet/icons"
+import {
+  WalletTransaction,
+  WalletTransactionDot,
+} from "extension-core"
+import { FC, useMemo } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { Button, ProcessAnimation, ProcessAnimationStatus } from "taostats-ui"
+
+import { useAnyNetwork, useNetworkById, useTransaction } from "@ui/state"
+
+const getBlockExplorerUrl = (network: Network | undefined | null, hash: string) => {
+  return getBlockExplorerUrls(network!, { type: "transaction", id: hash })[0] ?? null
+}
+
+
+
+const useStatusDetails = (tx?: WalletTransaction) => {
+  const { t } = useTranslation()
+  const { title, subtitle, animStatus } = useMemo<{
+    title: string
+    subtitle: string
+    animStatus: ProcessAnimationStatus
+  }>(() => {
+    // missing tx can occur while loading
+    if (!tx)
+      return {
+        title: "",
+        subtitle: "",
+        animStatus: "processing",
+      }
+
+
+
+    switch (tx.status) {
+      case "unknown":
+        return {
+          title: t("Transaction not found"),
+          subtitle: t("Transaction was submitted, but Talisman is unable to track its progress."),
+          animStatus: "failure",
+        }
+      case "replaced": {
+        return {
+          title: t("Transaction cancelled"),
+          subtitle: t("This transaction has been replaced with another one"),
+          animStatus: "failure",
+        }
+      }
+      case "error":
+        return {
+          title: t("Failure"),
+          subtitle: t("Transaction failed."),
+          animStatus: "failure",
+        }
+      case "success":
+        return {
+          title: t("Success"),
+          subtitle: t("Your transfer was successful!"),
+          animStatus: "success",
+        }
+      case "pending":
+        return {
+          title: t("Transfer in progress"),
+          subtitle: t("This may take a few minutes."),
+          animStatus: "processing",
+        }
+    }
+  }, [tx, t])
+
+  return {
+    title,
+    subtitle,
+    animStatus,
+  }
+}
+
+type SendFundsProgressBaseProps = {
+  tx?: WalletTransaction
+  className?: string
+  blockNumber?: string
+  onClose?: () => void
+  href?: string
+}
+
+const SendFundsProgressBase: FC<SendFundsProgressBaseProps> = ({
+  tx,
+  blockNumber,
+  href,
+  onClose,
+}) => {
+  const { t } = useTranslation()
+  const { title, subtitle, animStatus } = useStatusDetails(tx)
+
+  return (
+    <div className="flex h-full w-full flex-col items-center">
+      <div className="text-body mt-32 text-lg font-bold">{title}</div>
+      <div className="text-body-secondary mt-12 text-center text-base font-light">{subtitle}</div>
+      <ProcessAnimation status={animStatus} className="mb-8 mt-[7.5rem] h-[14.5rem]" />
+      <div className="text-body-secondary flex w-full grow flex-col justify-center gap-10 px-10 text-center">
+        <div>
+          {blockNumber ? (
+            <>
+              {tx?.confirmed ? t("Confirmed in") : t("Included in")}{" "}
+              {href ? (
+                <a target="_blank" className="hover:text-body text-grey-200" href={href}>
+                  {t("block #{{blockNumber}}", { blockNumber })}{" "}
+                  <ExternalLinkIcon className="inline align-text-top" />
+                </a>
+              ) : (
+                <span className="text-body">{t("block #{{blockNumber}}", { blockNumber })}</span>
+              )}
+            </>
+          ) : href ? (
+            <Trans t={t}>
+              View transaction on{" "}
+              <a target="_blank" className="hover:text-body text-grey-200" href={href}>
+                block explorer <ExternalLinkIcon className="inline align-text-top" />
+              </a>
+            </Trans>
+          ) : null}
+        </div>
+        <div className="h-[3.6rem]">
+          {tx?.status === "success" && !tx?.confirmed && (
+            <div className="text-secondary h-[3.6rem] animate-pulse">
+              {t("You may close this window or wait for the transaction to be confirmed")}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <Button fullWidth onClick={onClose}>
+        {t("Close")}
+      </Button>
+    </div>
+  )
+}
+
+type SendFundsProgressSubstrateProps = {
+  tx: WalletTransactionDot
+  onClose?: () => void
+  className?: string
+}
+
+const SendFundsProgressSubstrate: FC<SendFundsProgressSubstrateProps> = ({
+  tx,
+  onClose,
+  className,
+}) => {
+  const chain = useNetworkById(tx.networkId)
+  const href = useMemo(() => getBlockExplorerUrl(chain, tx.hash), [chain, tx.hash])
+
+  return (
+    <SendFundsProgressBase
+      tx={tx}
+      className={className}
+      onClose={onClose}
+      blockNumber={tx.blockNumber}
+      href={href}
+    />
+  )
+}
+
+
+
+
+
+type SendFundsProgressProps = {
+  txId: string
+  networkId: string
+  onClose?: () => void
+  className?: string
+}
+
+export const SendFundsProgress: FC<SendFundsProgressProps> = ({
+  txId,
+  networkId,
+  onClose,
+  className,
+}) => {
+  const tx = useTransaction(txId)
+  const network = useAnyNetwork(networkId)
+
+  // tx is null if not found in db
+  if (tx === null) {
+    const href = getBlockExplorerUrl(network, txId)
+    return <SendFundsProgressBase href={href} className={className} onClose={onClose} />
+  }
+
+  switch (tx?.platform) {
+    case "polkadot":
+      return <SendFundsProgressSubstrate tx={tx} onClose={onClose} className={className} />
+  }
+
+  return null
+}

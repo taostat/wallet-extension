@@ -35,6 +35,7 @@ import { Portfolio } from "./pages/Portfolio"
 import { SubstrateSignRequest } from "./pages/Sign/substrate"
 import { TryPage } from "./pages/TryPage"
 import { TxHistoryPage } from "./pages/TxHistory"
+import { SendFundsPage } from "./pages/SendFunds"
 
 const Popup = () => {
   const { isLoggedIn, isOnboarded, isMigrating } = useLoginCheck()
@@ -67,6 +68,7 @@ const Popup = () => {
           <Route path="try-page" element={<TryPage />} />
           <Route path="manage-accounts" element={<ManageAccountsPage />} />
           <Route path="tx-history" element={<TxHistoryPage />} />
+          <Route path="send/*" element={<SendFundsPage />} />
           <Route path="*" element={<Navigate to="/portfolio" replace />} />
         </Routes>
       </Suspense>
