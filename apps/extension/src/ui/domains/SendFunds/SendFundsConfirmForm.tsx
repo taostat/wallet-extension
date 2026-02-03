@@ -33,7 +33,15 @@ const AmountDisplay = () => {
   return (
     <div className="flex w-full items-center justify-end gap-4 text-right">
       <TokenLogo tokenId={token.id} className="text-lg" />
-      <TokensAndFiat tokenId={token.id} planck={amount?.planck} noCountUp />
+      <TokensAndFiat
+        tokenId={token.id}
+        planck={amount?.planck}
+        noCountUp
+        noFiat={
+          (token.type === "substrate-dtao" && token.netuid === 0) ||
+          token.type === "substrate-native"
+        }
+      />
     </div>
   )
 }
@@ -248,6 +256,7 @@ const SendButton = () => {
 const DefaultFeeSummary = () => {
   const { t } = useTranslation()
   const { transaction, feeToken, tip, tipToken } = useSendFunds()
+  const selectedCurrency = useSelectedCurrency()
 
   if (!transaction) return null
 
@@ -279,7 +288,11 @@ const DefaultFeeSummary = () => {
             <>
               {isLoading && <LoaderIcon className="animate-spin-slow mr-2 inline align-text-top" />}
               {estimatedFee && feeToken && (
-                <TokensAndFiat planck={estimatedFee} tokenId={feeToken.id} />
+                <TokensAndFiat
+                  planck={estimatedFee}
+                  tokenId={feeToken.id}
+                  noFiat={selectedCurrency === "tao"}
+                />
               )}
               {error && (
                 <WithTooltip tooltip={(error as Error).message}>
@@ -309,7 +322,6 @@ export const SendFundsConfirmForm = () => {
           className="w-full grow"
           innerClassName="flex flex-col w-full items-center space-between min-h-full"
         >
-          <div className="h-32 text-lg font-bold">{t("You are sending")}</div>
           <div className="w-full grow">
             <div className="bg-grey-900 text-body-secondary flex flex-col rounded px-12 py-8 leading-[140%]">
               <div className="text-body flex h-16 items-center justify-between gap-8">
