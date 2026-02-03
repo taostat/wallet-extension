@@ -21,6 +21,15 @@ const {
   getSupportedLanguages,
 } = require("./utils")
 
+const getTaostatsApiUrl = (env) => {
+  const taostatsApiUrl =
+    env.build === "dev"
+      ? process.env.TAOSTATS_API_URL
+      : process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet-extension"
+
+  return taostatsApiUrl
+}
+
 /** @type { import('webpack').Configuration } */
 const config = (env) => ({
   entry: {
@@ -183,11 +192,7 @@ const config = (env) => ({
       "process.env.TAOSTATS_BASE_PATH": JSON.stringify(
         env.build === "dev" ? process.env.TAOSTATS_BASE_PATH || "" : "",
       ),
-      "process.env.TAOSTATS_API_URL": JSON.stringify(
-        env.build === "dev"
-          ? process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet-extension"
-          : process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet-extension",
-      ),
+      "process.env.TAOSTATS_API_URL": JSON.stringify(getTaostatsApiUrl(env)),
       "process.env.LOG_SUBSCRIPTION_CALLBACKS": JSON.stringify(
         env.build === "dev" || ["canary", "ci", "qa"].includes(env.build)
           ? process.env.LOG_SUBSCRIPTION_CALLBACKS || ""
