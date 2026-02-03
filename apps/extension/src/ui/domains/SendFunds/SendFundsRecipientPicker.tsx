@@ -2,11 +2,9 @@ import {
   DotNetwork,
   getNetworkGenesisHash,
   isNetworkDot,
-  Network,
 } from "@taostats-wallet/chaindata-provider"
 import {
   decodeSs58Address,
-  getAccountPlatformFromAddress,
   isAddressEqual,
   isAddressValid,
   isSs58Address,
@@ -19,7 +17,6 @@ import {
 } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Drawer, useOpenClose } from "taostats-ui"
 
 import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { SearchInput } from "@taostats/components/SearchInput"
@@ -51,62 +48,10 @@ const AddressFormatError = ({ chain }: { chain?: DotNetwork }) => {
   )
 }
 
-const UnknownAddressDrawer = ({
-  close,
-  isOpen,
-  onProceed,
-  address,
-  chain,
-}: {
-  close: () => void
-  isOpen: boolean
-  onProceed: (address: string) => void
-  address: string
-  chain?: Network
-}) => {
-  const { t } = useTranslation()
-
-  const handleProceedClick = useCallback(() => {
-    onProceed(address)
-    close()
-  }, [close, onProceed, address])
-
-  return (
-    <Drawer containerId="main" isOpen={isOpen} anchor="bottom" onDismiss={close}>
-      <div className="bg-black-tertiary flex max-w-[42rem] flex-col items-center gap-12 rounded-t-xl p-12">
-        <div className="flex flex-col gap-4 text-center">
-          <p className="px-10 font-bold text-white">
-            {t("Sending to the wrong network will result in a loss of funds")}
-          </p>
-          <p className="text-body-secondary text-sm">
-            {t(
-              "If you are sending to a centralized exchange, ensure this address is on the correct network.",
-            )}
-          </p>
-          <div className="mt-4 flex items-center justify-between gap-8 text-xs">
-            <div className="text-body-secondary">{t("Selected Network")}</div>
-            <div className="text-body flex items-center gap-4">
-              <NetworkLogo networkId={chain?.id} className="text-md" />
-              {chain?.name}
-            </div>
-          </div>
-        </div>
-        <div className="grid w-full grid-cols-2 gap-8">
-          <Button onClick={close}>{t("Cancel")}</Button>
-          <Button primary onClick={handleProceedClick} data-testid="send-funds-proceed-button">
-            {t("Proceed")}
-          </Button>
-        </div>
-      </div>
-    </Drawer>
-  )
-}
-
 export const SendFundsRecipientPicker = () => {
   const { t } = useTranslation()
   const { from, to, set, tokenId } = useSendFundsWizard()
   const { setRecipientWarning } = useSendFunds()
-  const { open, close, isOpen } = useOpenClose()
   const [search, setSearch] = useState("")
   const token = useToken(tokenId)
   const network = useNetworkById(token?.networkId)
@@ -178,24 +123,6 @@ export const SendFundsRecipientPicker = () => {
     [set, setRecipientWarning],
   )
 
-  const [unknownAddress, setUnknownAddress] = useState<string>()
-  const handleSelectUnknownAddress = useCallback(
-    (address: string) => {
-      switch (getAccountPlatformFromAddress(address)) {
-        case "polkadot": {
-          setUnknownAddress(address)
-          open()
-          break
-        }
-        default: {
-          handleSelect(address)
-          break
-        }
-      }
-    },
-    [handleSelect, open],
-  )
-
   const handleSubmitSearch = useCallback(() => {
     if (newAddress && !newAddress.ss58FormatError) set("to", newAddress.address, true)
   }, [newAddress, set])
@@ -225,7 +152,7 @@ export const SendFundsRecipientPicker = () => {
                 accounts={[newAddress]}
                 noFormat // preserve user input chain format
                 selected={to}
-                onSelect={handleSelectUnknownAddress}
+                onSelect={handleSelect}
               />
             )}
             <SendFundsAccountsList
@@ -274,15 +201,6 @@ export const SendFundsRecipientPicker = () => {
           </>
         )}
       </ScrollContainer>
-      {unknownAddress && (
-        <UnknownAddressDrawer
-          isOpen={isOpen}
-          close={close}
-          onProceed={handleSelect}
-          address={unknownAddress}
-          chain={network ?? undefined}
-        />
-      )}
     </div>
   )
 }
