@@ -2,6 +2,8 @@ import { LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { useTranslation } from "react-i18next"
 
+import { useSelectedCurrency } from "@ui/state"
+
 import { TokensAndFiat } from "../../Asset/TokensAndFiat"
 import { NetworkLogo } from "../../Networks/NetworkLogo"
 import { SendFundsFeeTooltip } from "../SendFundsFeeTooltip"
@@ -27,6 +29,7 @@ const NetworkRow = () => {
 export const FeesSummary = () => {
   const { t } = useTranslation()
   const { feeToken, estimatedFee, isLoading } = useSendFunds()
+  const selectedCurrency = useSelectedCurrency()
 
   return (
     <Container
@@ -50,7 +53,11 @@ export const FeesSummary = () => {
             </div>
           )}
           {estimatedFee && feeToken && (
-            <TokensAndFiat planck={estimatedFee.planck} tokenId={feeToken.id} />
+            <TokensAndFiat
+              planck={estimatedFee.planck}
+              tokenId={feeToken.id}
+              noFiat={selectedCurrency === "tao"}
+            />
           )}
         </div>
       </div>

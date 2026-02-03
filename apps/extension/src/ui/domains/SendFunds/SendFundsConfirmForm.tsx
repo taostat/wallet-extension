@@ -34,6 +34,8 @@ const AmountDisplay = () => {
     <div className="flex w-full items-center justify-end gap-4 text-right">
       <TokenLogo tokenId={token.id} className="text-lg" />
       <TokensAndFiat
+        tokensClassName="text-sm"
+        fiatClassName="text-sm"
         tokenId={token.id}
         planck={amount?.planck}
         noCountUp
@@ -100,7 +102,7 @@ const TotalAmountRow = () => {
       <div className="text-body-secondary">{t("Total Amount")}</div>
       <div className="text-body">
         {totalValue ? (
-          <Fiat amount={totalValue} />
+          <Fiat amount={totalValue} currencyDisplay={currency === "tao" ? "code" : undefined} />
         ) : (
           <LoaderIcon className="animate-spin-slow mr-2 inline align-text-top" />
         )}
@@ -325,16 +327,16 @@ export const SendFundsConfirmForm = () => {
           <div className="w-full grow">
             <div className="bg-grey-900 text-body-secondary flex flex-col rounded px-12 py-8 leading-[140%]">
               <div className="text-body flex h-16 items-center justify-between gap-8">
-                <div className="text-body-secondary whitespace-nowrap">{t("Amount")}</div>
+                <div className="text-body-secondary whitespace-nowrap text-sm">{t("Amount")}</div>
                 <AmountDisplay />
               </div>
               <div className="flex h-16 items-center justify-between gap-8">
-                <div className="text-body-secondary whitespace-nowrap">{t("From")}</div>
-                <AddressDisplay className="h-16" address={from} networkId={network?.id} />
+                <div className="text-body-secondary whitespace-nowrap text-sm">{t("From")}</div>
+                <AddressDisplay className="h-16 text-sm" address={from} networkId={network?.id} />
               </div>
               <div className="flex h-16 items-center justify-between gap-8">
-                <div className="text-body-secondary whitespace-nowrap">{t("To")}</div>
-                <AddressDisplay className="h-16" address={to} networkId={network?.id} />
+                <div className="text-body-secondary whitespace-nowrap text-sm">{t("To")}</div>
+                <AddressDisplay className="h-16 text-sm" address={to} networkId={network?.id} />
               </div>
               <div className="py-8">
                 <hr className="text-grey-800" />
