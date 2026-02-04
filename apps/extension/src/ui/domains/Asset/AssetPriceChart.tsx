@@ -78,9 +78,8 @@ const AssetPriceChartOriginal: FC<{
 
   const netuid = useMemo(() => {
     const token = tokensWithCoingeckoId.find((t) => t.id === selectedTokenId)
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- netuid is not a standard property but may exist sometimes
-    return token && "netuid" in token ? ((token as any).netuid ?? null) : null
+    if (token?.type === "substrate-dtao") return token.netuid ?? null
+    return null
   }, [selectedTokenId, tokensWithCoingeckoId])
 
   const [timespan, setTimespan] = useState<ChartSpan>("D")

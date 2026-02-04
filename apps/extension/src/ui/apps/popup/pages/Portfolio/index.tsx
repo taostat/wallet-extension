@@ -19,7 +19,7 @@ const PortfolioRoutes = () => (
   <>
     <Routes>
       <Route path="tokens" element={<PortfolioAssets />} />
-      <Route path="tokens/:symbol" element={<PortfolioAsset />} />
+      <Route path="tokens/:netuid" element={<PortfolioAsset />} />
       <Route path="*" element={<PortfolioAccounts />} />
     </Routes>
     <Suspense fallback={<SuspenseTracker name="HasAccountsPortfolioContent" />}>

@@ -33,8 +33,25 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
   const navigate = useNavigateWithQuery()
   const handleClick = useCallback(() => {
     if (!token) return
+
+    // Prefer using netuid for dTAO (substrate-dtao) tokens so we can distinguish subnets.
+    if (token.type === "substrate-dtao") {
+      const netuid = token.netuid
+      navigate(`/portfolio/tokens/${netuid}`)
+      genericEvent("goto portfolio asset", {
+        from: "dashboard",
+        symbol: token.symbol,
+        netuid,
+      })
+      return
+    }
+
+    // Fallback: use symbol for non-dTAO tokens.
     navigate(`/portfolio/tokens/${encodeURIComponent(token.symbol)}`)
-    genericEvent("goto portfolio asset", { from: "dashboard", symbol: token.symbol })
+    genericEvent("goto portfolio asset", {
+      from: "dashboard",
+      symbol: token.symbol,
+    })
   }, [genericEvent, navigate, token])
 
   const isUniswapV2LpToken = token?.type === "evm-uniswapv2"

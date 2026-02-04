@@ -362,7 +362,8 @@ const BittensorAlphaTokenRow: FC = () => {
   const { t } = useTranslation()
   const { token } = useSendFunds()
 
-  if (token?.type !== "substrate-dtao") return null
+  // Only show this row for dTAO (substrate-dtao) tokens; ensures netuid access is safe.
+  if (!token || token.type !== "substrate-dtao") return null
 
   return (
     <div className="mt-4 flex w-full items-center justify-between gap-8 overflow-hidden text-xs">

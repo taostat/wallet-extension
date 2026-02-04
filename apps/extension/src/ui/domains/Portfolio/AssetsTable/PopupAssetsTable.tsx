@@ -2,13 +2,13 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { Balances } from "@taostats-wallet/balances"
 import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+
 import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
 import { FadeIn } from "@taostats/components/FadeIn"
 import { useScrollContainer } from "@taostats/components/ScrollContainer"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
-import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-
 import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
@@ -70,8 +70,24 @@ const AssetRow: FC<{
   const handleClick = useCallback(() => {
     if (!token) return
 
+    // Prefer using netuid for dTAO (substrate-dtao) tokens so we can distinguish subnets.
+    if (token.type === "substrate-dtao") {
+      const netuidValue = token.netuid
+      navigate(`/portfolio/tokens/${netuidValue}`)
+      genericEvent("goto portfolio asset", {
+        from: "popup",
+        symbol: token.symbol,
+        netuid: netuidValue,
+      })
+      return
+    }
+
+    // Fallback: use symbol for non-dTAO tokens.
     navigate(`/portfolio/tokens/${encodeURIComponent(token.symbol)}`)
-    genericEvent("goto portfolio asset", { from: "popup", symbol: token.symbol })
+    genericEvent("goto portfolio asset", {
+      from: "popup",
+      symbol: token.symbol,
+    })
   }, [genericEvent, navigate, token])
 
   const { tokens, fiat } = useMemo(() => {

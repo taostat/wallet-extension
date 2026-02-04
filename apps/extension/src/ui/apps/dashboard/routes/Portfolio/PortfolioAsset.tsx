@@ -1,16 +1,15 @@
 import { Balances } from "@taostats-wallet/balances"
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
 import { SendIcon } from "@taostats-wallet/icons"
-import { Breadcrumb } from "@taostats/components/Breadcrumb"
-import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
 import { t } from "i18next"
 import { uniq } from "lodash-es"
 import { FC, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
-
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { Breadcrumb } from "@taostats/components/Breadcrumb"
+import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
 import { AssetPriceChart } from "@ui/domains/Asset/AssetPriceChart"
 import { DashboardAssetDetails } from "@ui/domains/Portfolio/AssetDetails"
 // import { BittensorClaimSettingsToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorClaimSettingsToolbarButton"
@@ -109,14 +108,10 @@ const SendFundsButton: FC<{ symbol: string }> = ({ symbol }) => {
 }
 
 const TokenBreadcrumb: FC<{
-  symbol: string
   name: string
+  symbol?: string
   balances: Balances
-}> = ({
-  name,
-  symbol,
-  // balances
-}) => {
+}> = ({ name, symbol }) => {
   const { t } = useTranslation()
 
   const navigate = useNavigateWithQuery()
@@ -143,44 +138,63 @@ const TokenBreadcrumb: FC<{
         {/* <BittensorClaimSettingsToolbarButton balances={balances} />
         <BittensorStakeToolbarButton balances={balances} />
         <BittensorUnstakeToolbarButton balances={balances} /> */}
-        <SendFundsButton symbol={symbol} />
+        {symbol && <SendFundsButton symbol={symbol} />}
       </div>
     </div>
   )
 }
 
 const usePortfolioAsset = () => {
-  const { symbol } = useParams()
+  const { netuid: assetId } = useParams()
   const { allBalances } = usePortfolioBalances()
 
-  const balances = useMemo(
-    // TODO: Move the association between a token on multiple chains into the backend / subsquid.
-    // We will eventually need to handle the scenario where two tokens with the same symbol are not the same token.
-    () => allBalances.find((b) => b.token?.symbol === symbol),
-    [allBalances, symbol],
-  )
+  const balances = useMemo(() => {
+    if (!assetId) return new Balances([])
+
+    const parsed = Number(assetId)
+
+    // If the URL param parses as a number, prefer matching by netuid (for dTAO / Bittensor assets).
+    if (!Number.isNaN(parsed)) {
+      const match = allBalances.find(
+        (b) => b.token?.type === "substrate-dtao" && b.token.netuid === parsed,
+      )
+      return match ?? new Balances([])
+    }
+
+    // Fallback: match by symbol for non-dTAO tokens or legacy URLs.
+    const match = allBalances.find((b) => b.token?.symbol === assetId)
+    return match ?? new Balances([])
+  }, [allBalances, assetId])
 
   const { token, rate, summary } = useTokenBalancesSummary(balances)
   const balancesToDisplay = useDisplayBalances(balances)
 
-  return { symbol, token, rate, balances, balancesToDisplay, summary }
+  return { assetId, token, rate, balances, balancesToDisplay, summary }
 }
 
 export const PortfolioAsset = () => {
-  const { symbol, token, balancesToDisplay, summary } = usePortfolioAsset()
+  const { assetId, token, balancesToDisplay, summary } = usePortfolioAsset()
   const { pageOpenEvent } = useAnalytics()
 
   useEffect(() => {
-    pageOpenEvent("portfolio asset", { symbol })
-  }, [pageOpenEvent, symbol])
+    pageOpenEvent("portfolio asset", {
+      assetId,
+      symbol: token?.symbol,
+      ...(token?.type === "substrate-dtao" ? { netuid: token.netuid } : {}),
+    })
+  }, [assetId, pageOpenEvent, token])
 
-  if (!symbol) return <NavigateWithQuery url="/portfolio" />
+  if (!assetId || !balancesToDisplay) return <NavigateWithQuery url="/portfolio" />
 
   return (
     <>
-      <TokenBreadcrumb name={token?.name || symbol} symbol={symbol} balances={balancesToDisplay} />
+      <TokenBreadcrumb
+        name={token?.name || token?.symbol || assetId}
+        symbol={token?.symbol}
+        balances={balancesToDisplay}
+      />
       <HeaderRow token={token} summary={summary} />
-      <DashboardAssetDetails balances={balancesToDisplay} symbol={symbol} />
+      <DashboardAssetDetails balances={balancesToDisplay} symbol={token?.symbol || assetId} />
     </>
   )
 }
@@ -190,6 +204,7 @@ export const PortfolioAssetHeader = () => {
 
   // all tokenIds that match the symbol and have a coingeckoId
   const tokenIds = useMemo(() => {
+    if (!balances) return [] as TokenId[]
     return uniq(balances.each.filter((b) => !!b.token?.coingeckoId).map((b) => b.token?.id)).filter(
       Boolean,
     ) as TokenId[]

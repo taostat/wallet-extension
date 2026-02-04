@@ -16,7 +16,15 @@ import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNaviga
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalances, usePortfolioBalances, useSelectedCurrency } from "@ui/state"
 
-const PageContent = ({ balances, symbol }: { balances: Balances; symbol: string }) => {
+const PageContent = ({
+  balances,
+  symbol,
+  name,
+}: {
+  balances: Balances
+  symbol: string
+  name: string
+}) => {
   const navigate = useNavigate()
   const balancesToDisplay = useDisplayBalances(balances)
   const currency = useSelectedCurrency()
@@ -41,7 +49,7 @@ const PageContent = ({ balances, symbol }: { balances: Balances; symbol: string 
         <IconButton onClick={handleBackBtnClick}>
           <ChevronLeftIcon />
         </IconButton>
-        <div className="shrink-0">{symbol}</div>
+        <div className="shrink-0">{name}</div>
         <div className="flex grow items-center justify-end gap-3">
           <div className="text-body-secondary text-sm">{t("Total")}</div>
           <Fiat amount={total} isBalance />
@@ -57,7 +65,7 @@ const PageContent = ({ balances, symbol }: { balances: Balances; symbol: string 
 }
 
 export const PortfolioAsset = () => {
-  const { symbol } = useParams()
+  const { netuid: assetId } = useParams()
   const { selectedAccount: account } = usePortfolioNavigation()
   const allBalances = useBalances()
   const { networkBalances } = usePortfolioBalances()
@@ -68,18 +76,35 @@ export const PortfolioAsset = () => {
     [account, allBalances, networkBalances],
   )
 
-  const balances = useMemo(
-    // TODO: Move the association between a token on multiple chains into the backend / subsquid.
-    // We will eventually need to handle the scenario where two tokens with the same symbol are not the same token.
-    () => accountBalances.find((b) => b.token?.symbol === symbol),
-    [accountBalances, symbol],
-  )
+  const balances = useMemo(() => {
+    if (!assetId) return undefined
+
+    const parsed = Number(assetId)
+
+    // If the URL param parses as a number, prefer matching by netuid (for dTAO / Bittensor assets).
+    if (!Number.isNaN(parsed)) {
+      return accountBalances.find(
+        (b) => b.token?.type === "substrate-dtao" && b.token.netuid === parsed,
+      )
+    }
+
+    // Fallback: match by symbol for non-dTAO tokens or legacy URLs.
+    return accountBalances.find((b) => b.token?.symbol === assetId)
+  }, [accountBalances, assetId])
+
+  // Derive a representative token from the balances set (e.g. first token).
+  const firstToken = balances?.each[0]?.token
+  const displaySymbol = firstToken?.symbol ?? assetId ?? ""
 
   useEffect(() => {
-    popupOpenEvent("portfolio asset", { symbol })
-  }, [popupOpenEvent, symbol])
+    popupOpenEvent("portfolio asset", {
+      assetId,
+      symbol: firstToken?.symbol,
+      ...(firstToken?.type === "substrate-dtao" ? { netuid: firstToken.netuid } : {}),
+    })
+  }, [assetId, firstToken, popupOpenEvent])
 
-  if (!symbol) return <Navigate to="/portfolio" />
+  if (!assetId || !balances) return <Navigate to="/portfolio" />
 
-  return <PageContent balances={balances} symbol={symbol} />
+  return <PageContent balances={balances} symbol={displaySymbol} name={firstToken?.name ?? ""} />
 }
