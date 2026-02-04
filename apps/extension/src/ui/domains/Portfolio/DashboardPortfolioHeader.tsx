@@ -1,6 +1,5 @@
 import { ArrowDownIcon, FolderIcon, MoreHorizontalIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -13,6 +12,7 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsEventName, AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AccountContextMenu } from "@ui/domains/Account/AccountContextMenu"
@@ -106,7 +106,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
   return (
     <div
       className={classNames(
-        "bg-grey-900 relative z-0 flex flex-col items-start justify-between rounded-lg p-10",
+        "bg-grey-900 relative z-0 flex flex-col items-start justify-between gap-4 rounded-lg p-10",
         className,
       )}
     >
@@ -208,7 +208,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 }
 
 const TopActions: FC = () => {
-
   const { selectedAccounts, selectedAccount } = usePortfolioNavigation()
   const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
@@ -271,7 +270,7 @@ const TopActions: FC = () => {
 
   return (
     <div className="z-[1] flex w-full items-center justify-between gap-8">
-      <div className="flex justify-center gap-4" data-testid="top-actions-buttons">
+      <div className="flex justify-center gap-4">
         {topActions.map((action, index) => (
           <Action key={index} {...action} />
         ))}
