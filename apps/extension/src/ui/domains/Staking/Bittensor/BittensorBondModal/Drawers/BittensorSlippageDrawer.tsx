@@ -87,7 +87,7 @@ export const BittensorSlippageDrawer = () => {
         </div>
         <FormFieldInputText
           small
-          containerProps={{ className: "px-6 text-right bg-black" }}
+          containerProps={{ className: "px-6 text-right bg-field" }}
           after={
             <div className="flex items-center gap-4">
               <div>%</div>

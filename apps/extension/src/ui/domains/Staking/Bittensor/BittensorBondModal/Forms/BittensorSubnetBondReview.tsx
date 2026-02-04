@@ -13,7 +13,6 @@ import {
 } from "taostats-ui"
 
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
-import { useCombinedSubnetData } from "@ui/domains/Staking/hooks/bittensor/dTao/useCombinedSubnetData"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
 import { useAppState } from "@ui/state"
 
@@ -21,18 +20,12 @@ import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
 import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
-import { StakingUnbondingPeriod } from "../../../shared/StakingUnbondingPeriod"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
 import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorBondModal } from "../../hooks/useBittensorBondModal"
 import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
-import { useGetSubnetFee } from "../../hooks/useGetSubnetFee"
-import {
-  HIGH_PRICE_IMPACT,
-  TAOSTATS_FEE_BITTENSOR,
-  VERY_HIGH_PRICE_IMPACT,
-} from "../../utils/constants"
+import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
 import { BittensorWarningDrawer } from "../Drawers/BittensorWarningDrawer"
 
@@ -43,7 +36,6 @@ export const BittensorSubnetBondReview = () => {
   const ocMevShieldInfo = useOpenClose()
 
   const {
-    networkId,
     nativeToken,
     dtaoToken,
     account,
@@ -51,15 +43,10 @@ export const BittensorSubnetBondReview = () => {
     amountIn,
     txMetadata,
     hotkey,
-    netuid,
-    feeToken,
     slippageDrawer,
     slippage,
-    warningDrawer,
     isSubnetUnbond,
-    taostatsFee,
     swapPrice,
-    errorFeeEstimate,
     amountOut,
     stakeDirection,
     priceImpact,
@@ -71,15 +58,8 @@ export const BittensorSubnetBondReview = () => {
   } = useBittensorBondWizard()
   const { t } = useTranslation()
   const { close } = useBittensorBondModal()
-  const subnetFee = useGetSubnetFee({
-    netuid: netuid ?? 0,
-    direction: stakeDirection === "bond" ? "taoToAlpha" : "alphaToTao",
-  })
-
-  const { isLoading } = useCombinedSubnetData(networkId)
 
   const { open } = slippageDrawer
-  const { open: openWarningDrawer } = warningDrawer
 
   useEffect(() => {
     // enable confirm button 0.5 second after the screen is open, to ensure the user doesnt accidentally click it (ex: double click from prev screen)
@@ -104,7 +84,7 @@ export const BittensorSubnetBondReview = () => {
     >
       <div className="space-y-[0.75rem]">
         <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
-          <div className="flex items-center justify-between gap-8 pb-2">
+          <div className="flex items-center justify-between gap-8 pb-2 text-sm">
             <div className="whitespace-nowrap">{t("Amount")} </div>
             <div className="overflow-hidden">
               <TokensAndFiat
@@ -114,12 +94,12 @@ export const BittensorSubnetBondReview = () => {
                 withLogo
                 className="flex items-center"
                 tokensClassName="text-body"
-                logoClassName="size-12"
+                logoClassName="size-8"
                 fiatClassName="text-body-secondary"
               />
             </div>
           </div>
-          <div className="flex items-center justify-between gap-8 pt-2">
+          <div className="flex items-center justify-between gap-8 pt-2 text-sm">
             <div className="whitespace-nowrap">{t("Account")} </div>
             <div className="overflow-hidden">
               <StakingAccountDisplay address={account.address} chainId={nativeToken?.networkId} />
@@ -156,13 +136,6 @@ export const BittensorSubnetBondReview = () => {
               </div>
             </div>
           )}
-          <div className="flex items-center justify-between gap-8 py-2 text-xs">
-            <div className="whitespace-nowrap">{t("Unbonding Period")} </div>
-            <div className="text-body truncate">
-              <StakingUnbondingPeriod chainId={nativeToken?.networkId} />
-            </div>
-          </div>
-
           <div className="flex items-center justify-between gap-8 pt-2 text-xs">
             <div className="whitespace-nowrap">{t("Estimated amount")}</div>
             <div className="overflow-hidden">
@@ -241,51 +214,20 @@ export const BittensorSubnetBondReview = () => {
             <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
             <FeeEstimate />
           </div>
-          <div className="flex items-center justify-between gap-8 pt-2 text-xs">
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <div>{t("Taostats Fee")} </div>
-              <Tooltip>
-                <TooltipTrigger>
-                  <InfoIcon />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                    {subnetFee === 0
-                      ? t("Taostats doesn’t apply any fee to this transaction.")
-                      : t(`Taostats applies a ${TAOSTATS_FEE_BITTENSOR}% fee to each transaction.`)}
-                  </span>
-                </TooltipContent>
-              </Tooltip>
-            </div>
-            <StakingFeeEstimate
-              plancks={taostatsFee}
-              tokenId={feeToken?.id}
-              isLoading={isLoading}
-              error={errorFeeEstimate}
-              tokensClassName=""
-              noCountUp
-              noFiat
-            />
-          </div>
         </div>
       </div>
       <div className="grow"></div>
-      {payload &&
-        (!hasAckWarning ? (
-          <Button primary onClick={openWarningDrawer}>
-            {t("Confirm")}
-          </Button>
-        ) : (
-          <SapiSendButton
-            containerId="StakingModalDialog"
-            label={stakeDirection === "bond" ? t("Stake") : t("Unstake")}
-            payload={payload}
-            onSubmitted={onSubmitted}
-            txMetadata={txMetadata}
-            disabled={isDisabled}
-            mode={withMevShield ? "bittensor-mev-shield" : "default"}
-          />
-        ))}
+      {payload && (
+        <SapiSendButton
+          containerId="StakingModalDialog"
+          label={stakeDirection === "bond" ? t("Stake") : t("Unstake")}
+          payload={payload}
+          onSubmitted={onSubmitted}
+          txMetadata={txMetadata}
+          disabled={isDisabled}
+          mode={withMevShield ? "bittensor-mev-shield" : "default"}
+        />
+      )}
       <BittensorSlippageDrawer />
       <BittensorWarningDrawer setHasAckWarning={setHasAckWarning} />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />

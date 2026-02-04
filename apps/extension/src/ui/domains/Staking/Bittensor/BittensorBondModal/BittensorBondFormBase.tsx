@@ -38,6 +38,7 @@ import { BittensorSelectStakeDrawer } from "./Drawers/BittensorSelectStakeDrawer
 
 const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, account }) => {
   const balance = useBalance(account.address, token.id)
+  const selectedCurrency = useSelectedCurrency()
 
   if (!balance) return null
 
@@ -49,6 +50,7 @@ const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, accou
       className={classNames(balance.status !== "live" && "animate-pulse")}
       tokensClassName="text-body"
       fiatClassName="text-body-secondary"
+      noFiat={selectedCurrency === "tao"}
     />
   )
 }

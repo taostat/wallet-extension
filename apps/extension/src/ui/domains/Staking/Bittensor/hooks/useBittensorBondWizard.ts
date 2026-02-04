@@ -431,7 +431,7 @@ const useBittensorBondWizardProvider = () => {
 
     // no staking operation can be less than minTaoStake
     if (amountAlpha?.planck && minAlphaUnstake && amountAlpha.planck < minAlphaUnstake)
-      return t("Minimum unbond is {{amount}} {{symbol}}", {
+      return t("Minimum unstake is {{amount}} {{symbol}}", {
         amount: new BalanceFormatter(minAlphaUnstake, dtaoToken?.decimals).tokens,
         symbol: dtaoToken?.symbol,
       })

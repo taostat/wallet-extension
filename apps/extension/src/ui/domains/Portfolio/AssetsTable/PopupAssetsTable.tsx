@@ -13,8 +13,8 @@ import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { Tokens } from "@ui/domains/Asset/Tokens"
-// import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
-// import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
+import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
+import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
@@ -105,8 +105,8 @@ const AssetRow: FC<{
   const isUniswapV2LpToken = token?.type === "evm-uniswapv2"
   const tvl = useUniswapV2LpTokenTotalValueLocked(token, rate?.price, balances)
 
-  // const { canBond } = useBondButton({ balances })
-  // const showStakingButton = canBond && !locked
+  const { canBond } = useBondButton({ balances })
+  const showStakingButton = canBond && !locked
 
   if (!token || !summary || !network) return null
 
@@ -159,7 +159,7 @@ const AssetRow: FC<{
               className={classNames(
                 "whitespace-nowrap text-sm font-bold",
                 locked ? "text-body-secondary" : "text-white",
-                // showStakingButton && "group-hover:hidden",
+                showStakingButton && "group-hover:hidden",
               )}
             >
               <Tokens
@@ -177,7 +177,7 @@ const AssetRow: FC<{
             <div
               className={classNames(
                 "text-body-secondary leading-base text-xs",
-                // showStakingButton && "group-hover:hidden",
+                showStakingButton && "group-hover:hidden",
               )}
             >
               {fiat === null ? "-" : <Fiat amount={fiat} isBalance noCountUp={noCountUp} />}
@@ -185,7 +185,7 @@ const AssetRow: FC<{
           </div>
         </div>
       </button>
-      {/* {showStakingButton && (
+      {showStakingButton && (
         <div className="absolute right-4 top-0 hidden h-28 flex-col justify-center group-hover:flex">
           <BondPillButton
             balances={balances}
@@ -193,7 +193,7 @@ const AssetRow: FC<{
             className="[>svg]:text-[2rem] text-base"
           />
         </div>
-      )} */}
+      )}
     </div>
   )
 }

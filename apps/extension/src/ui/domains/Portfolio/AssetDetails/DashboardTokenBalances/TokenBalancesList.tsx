@@ -9,11 +9,11 @@ import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { NetworkName } from "@ui/domains/Networks/NetworkName"
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
-// import { BondButton } from "@ui/domains/Staking/Bond/BondButton"
+import { BondButton } from "@ui/domains/Staking/Bond/BondButton"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
 
 import { BalanceSummary } from "../../useTokenBalancesSummary"
-// import { BittensorUnstakeButton } from "../BittensorUnstakeButton"
+import { BittensorUnstakeButton } from "../BittensorUnstakeButton"
 import { CopyAddressButton } from "../CopyAddressIconButton"
 // import { SendFundsTokenButton } from "../SendFundsTokenIconButton"
 import { TokenContextMenu } from "../TokenContextMenu"
@@ -34,7 +34,7 @@ type TokenBalancesListProps = {
 export const TokenBalancesList = ({
   tokenId,
   token,
-  // balances,
+  balances,
   detailRowsLength,
   chainOrNetworkId,
   summary,
@@ -63,7 +63,7 @@ export const TokenBalancesList = ({
               <div className="text-body truncate font-bold">{token.name}</div>
               <div className="text-body flex shrink-0 items-center text-base font-bold">
                 <CopyAddressButton networkId={chainOrNetworkId} />
-                {/* <BittensorUnstakeButton balances={balances} /> */}
+                <BittensorUnstakeButton balances={balances} />
                 <Suspense fallback={<SuspenseTracker name="ChainTokenBalances.Buttons" />}>
                   {/* <SendFundsTokenButton tokenId={tokenId} /> */}
                   {tokenId && (
@@ -106,9 +106,9 @@ export const TokenBalancesList = ({
           />
         </div>
         <div className="flex items-center justify-end">
-          {/* <div>
+          <div>
             <BondButton balances={balances} />
-          </div> */}
+          </div>
           <AssetBalanceCellValue
             tokens={summary.availableTokens}
             fiat={summary.availableFiat}

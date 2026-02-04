@@ -3,6 +3,8 @@ import { classNames } from "@taostats-wallet/util"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 
+import { useSelectedCurrency } from "@ui/state"
+
 import { TokensAndFiat } from "../../Asset/TokensAndFiat"
 
 export const StakingFeeEstimate: FC<{
@@ -16,6 +18,9 @@ export const StakingFeeEstimate: FC<{
   tokensClassName?: string
 }> = ({ error, isLoading, plancks, tokenId, noCountUp, noFiat, className, tokensClassName }) => {
   const { t } = useTranslation()
+  const selectedCurrency = useSelectedCurrency()
+  // When display currency is TAO, hide fiat to avoid showing TAO twice (e.g. "0.01 TAO (0.01 TAO)")
+  const hideFiat = noFiat || selectedCurrency === "tao"
   return (
     <>
       {error ? (
@@ -29,7 +34,7 @@ export const StakingFeeEstimate: FC<{
           tokensClassName={classNames("text-body", tokensClassName)}
           fiatClassName="text-body-secondary"
           noCountUp={noCountUp}
-          noFiat={noFiat}
+          noFiat={hideFiat}
           className={classNames(isLoading && "animate-pulse", className)}
         />
       ) : isLoading ? (

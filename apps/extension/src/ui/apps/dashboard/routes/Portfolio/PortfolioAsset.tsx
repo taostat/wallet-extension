@@ -13,8 +13,8 @@ import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
 import { AssetPriceChart } from "@ui/domains/Asset/AssetPriceChart"
 import { DashboardAssetDetails } from "@ui/domains/Portfolio/AssetDetails"
 // import { BittensorClaimSettingsToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorClaimSettingsToolbarButton"
-// import { BittensorStakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorStakeToolbarButton"
-// import { BittensorUnstakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorUnstakeToolbarButton"
+import { BittensorStakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorStakeToolbarButton"
+import { BittensorUnstakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorUnstakeToolbarButton"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { PortfolioToolbarButton } from "@ui/domains/Portfolio/PortfolioToolbarButton"
 import { Statistics } from "@ui/domains/Portfolio/Statistics"
@@ -111,7 +111,7 @@ const TokenBreadcrumb: FC<{
   name: string
   symbol?: string
   balances: Balances
-}> = ({ name, symbol }) => {
+}> = ({ name, symbol, balances }) => {
   const { t } = useTranslation()
 
   const navigate = useNavigateWithQuery()
@@ -135,9 +135,9 @@ const TokenBreadcrumb: FC<{
         <Breadcrumb items={items} />
       </div>
       <div className="flex h-20 items-center gap-2">
-        {/* <BittensorClaimSettingsToolbarButton balances={balances} />
+        {/* <BittensorClaimSettingsToolbarButton balances={balances} /> */}
         <BittensorStakeToolbarButton balances={balances} />
-        <BittensorUnstakeToolbarButton balances={balances} /> */}
+        <BittensorUnstakeToolbarButton balances={balances} />
         {symbol && <SendFundsButton symbol={symbol} />}
       </div>
     </div>

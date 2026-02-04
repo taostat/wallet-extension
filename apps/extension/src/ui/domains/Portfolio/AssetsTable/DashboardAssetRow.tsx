@@ -1,5 +1,5 @@
 import { Balances } from "@taostats-wallet/balances"
-// import { ZapFastIcon } from "@taostats-wallet/icons"
+import { ZapFastIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
@@ -7,8 +7,8 @@ import { useTranslation } from "react-i18next"
 import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
-// import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
-// import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
+import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
+import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
@@ -57,7 +57,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
   const isUniswapV2LpToken = token?.type === "evm-uniswapv2"
   const tvl = useUniswapV2LpTokenTotalValueLocked(token, rate?.price, balances)
 
-  // const { canBond } = useBondButton({ balances })
+  const { canBond } = useBondButton({ balances })
 
   if (!token || !network || !summary) return null
 
@@ -118,7 +118,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             symbol={isUniswapV2LpToken ? "" : token.symbol}
             balancesStatus={status}
             className={classNames(
-              // canBond && "group-hover:hidden",
+              canBond && "group-hover:hidden",
               status.status === "fetching" && "animate-pulse transition-opacity",
             )}
             noCountUp={noCountUp}
@@ -132,14 +132,14 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             symbol={isUniswapV2LpToken ? "" : token.symbol}
             balancesStatus={status}
             className={classNames(
-              // canBond && "group-hover:hidden",
+              canBond && "group-hover:hidden",
               status.status === "fetching" && "animate-pulse transition-opacity",
             )}
             noCountUp={noCountUp}
           />
         </div>
       </button>
-      {/* {canBond && (
+      {canBond && (
         <>
           <div className="absolute right-8 top-0 hidden h-[6.6rem] flex-col justify-center group-hover:flex">
             <BondPillButton
@@ -154,7 +154,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             </div>
           </div>
         </>
-      )} */}
+      )}
     </div>
   )
 }
