@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { KeyIcon } from "@taostats-wallet/icons"
-import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
 import { log } from "extension-shared"
 import { CSSProperties, FC, useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
@@ -14,6 +13,8 @@ import {
   useOpenClose,
 } from "taostats-ui"
 import * as yup from "yup"
+
+import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
 
 import { useJsonAccountImport } from "./context"
 

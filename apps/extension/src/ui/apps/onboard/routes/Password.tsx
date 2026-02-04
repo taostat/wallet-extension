@@ -1,14 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
-import { PasswordStrength } from "@taostats/components/PasswordStrength"
 import { useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import * as yup from "yup"
 
+import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
+import { PasswordStrength } from "@taostats/components/PasswordStrength"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 

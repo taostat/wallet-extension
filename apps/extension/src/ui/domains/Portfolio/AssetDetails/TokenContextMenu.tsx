@@ -1,7 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { MoreHorizontalIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -12,6 +11,7 @@ import {
   PopoverOptions,
 } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { useBondModal } from "@ui/domains/Staking/Bond/hooks/useBondModal"
 import { useNomPoolStakingStatus } from "@ui/domains/Staking/hooks/nomPools/useNomPoolStakingStatus"

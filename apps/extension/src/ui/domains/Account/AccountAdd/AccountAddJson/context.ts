@@ -6,11 +6,11 @@ import { base64Decode, decodeAddress, encodeAddress, jsonDecrypt } from "@polkad
 import { EncryptedJson, KeypairType } from "@polkadot/util-crypto/types"
 import { Address, Balances } from "@taostats-wallet/balances"
 import { encodeAnyAddress, isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
-import { provideContext } from "@taostats/util/provideContext"
 import { Account, LegacyAccountOrigin } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback, useEffect, useMemo, useState } from "react"
 
+import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { useAccountImportBalances } from "@ui/hooks/useAccountImportBalances"
 import { useAccounts, useNetworks } from "@ui/state"

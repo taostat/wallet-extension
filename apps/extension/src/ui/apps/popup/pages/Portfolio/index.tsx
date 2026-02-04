@@ -1,10 +1,10 @@
 import { classNames } from "@taostats-wallet/util"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
 // import BraveWarningPopupBanner from "@ui/domains/Settings/BraveWarning/BraveWarningPopupBanner"
 import MigratePasswordAlert from "@ui/domains/Settings/MigratePasswordAlert"

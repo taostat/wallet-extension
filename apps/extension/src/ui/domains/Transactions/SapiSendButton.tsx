@@ -1,7 +1,6 @@
 import { AlertCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { toHex } from "@taostats-wallet/scale"
 import { classNames } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { AccountPolkadotVault, SignerPayloadJSON, WalletTransactionInfo } from "extension-core"
 import { log } from "extension-shared"
 import { FC, Suspense, useCallback, useMemo, useState } from "react"
@@ -9,6 +8,7 @@ import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 import { Hex } from "viem"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 import { useAccountByAddress } from "@ui/state"
 

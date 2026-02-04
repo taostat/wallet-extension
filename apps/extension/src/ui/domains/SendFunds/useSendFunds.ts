@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query"
 import { Address, Balance, BalanceFormatter, BalanceTransferType } from "@taostats-wallet/balances"
 import {
   isTokenDot,
@@ -6,7 +7,6 @@ import {
   TokenId,
 } from "@taostats-wallet/chaindata-provider"
 import { formatDecimals, isNotNil } from "@taostats-wallet/util"
-import { useQuery } from "@tanstack/react-query"
 import { WalletTransactionInfo } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"

@@ -39,7 +39,7 @@ const getTokenFilter = (address: string) => {
   switch (accountEncoding) {
     case "ss58":
       return isTokenDot
-    
+
     default:
       throw new Error(`Unsupported address encoding: ${accountEncoding}`)
   }

@@ -1,5 +1,3 @@
-import { FadeIn } from "@taostats/components/FadeIn"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import {
   AUTH_PREFIX,
   ENCRYPT_DECRYPT_PREFIX,
@@ -10,6 +8,8 @@ import {
 import { Suspense, useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 
+import { FadeIn } from "@taostats/components/FadeIn"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { AccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
@@ -32,10 +32,10 @@ import { LoginViewManager } from "./pages/Login"
 import { ManageAccountsPage } from "./pages/ManageAccounts"
 import { Metadata } from "./pages/Metadata"
 import { Portfolio } from "./pages/Portfolio"
+import { SendFundsPage } from "./pages/SendFunds"
 import { SubstrateSignRequest } from "./pages/Sign/substrate"
 import { TryPage } from "./pages/TryPage"
 import { TxHistoryPage } from "./pages/TxHistory"
-import { SendFundsPage } from "./pages/SendFunds"
 
 const Popup = () => {
   const { isLoggedIn, isOnboarded, isMigrating } = useLoginCheck()

@@ -1,11 +1,11 @@
 import { ArrowRightIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { SelectedIndicator } from "@taostats/components/SelectedIndicator"
 import { isTokenActive } from "extension-core"
 import { ReactNode, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { SelectedIndicator } from "@taostats/components/SelectedIndicator"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { Fiat } from "@ui/domains/Asset/Fiat"

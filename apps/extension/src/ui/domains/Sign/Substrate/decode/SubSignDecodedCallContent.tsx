@@ -2,8 +2,6 @@ import { encodeAddressSs58 } from "@taostats-wallet/crypto"
 import { LoaderIcon } from "@taostats-wallet/icons"
 import { DecodedCall, ScaleApi } from "@taostats-wallet/sapi"
 import { classNames, isAscii } from "@taostats-wallet/util"
-import { CodeBlock } from "@taostats/components/CodeBlock"
-import { FallbackErrorBoundary } from "@taostats/components/FallbackErrorBoundary"
 import DOMPurify from "dompurify"
 import { SignerPayloadJSON } from "extension-core"
 import { log } from "extension-shared"
@@ -13,6 +11,9 @@ import { marked } from "marked"
 import { Binary } from "polkadot-api"
 import { FC, Suspense, useMemo } from "react"
 import { useTranslation } from "react-i18next"
+
+import { CodeBlock } from "@taostats/components/CodeBlock"
+import { FallbackErrorBoundary } from "@taostats/components/FallbackErrorBoundary"
 
 import { SubSignDecodedCallSummaryBlock } from "./SubSignDecodedCallSummaryBlock"
 

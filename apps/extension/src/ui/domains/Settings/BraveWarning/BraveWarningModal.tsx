@@ -1,8 +1,9 @@
-import imgBraveFlag from "@taostats/theme/images/brave_flag.gif"
 import { appStore } from "extension-core"
 import { FC, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Toggle } from "taostats-ui"
+
+import imgBraveFlag from "@taostats/theme/images/brave_flag.gif"
 
 type BraveWarningModalProps = {
   className?: string

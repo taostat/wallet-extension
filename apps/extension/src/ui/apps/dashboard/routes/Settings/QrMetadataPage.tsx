@@ -1,14 +1,14 @@
 import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { LoaderIcon, SecretIcon } from "@taostats-wallet/icons"
-import { FadeIn } from "@taostats/components/FadeIn"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify } from "@taostats/components/Notifications"
 import { log, POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Dropdown } from "taostats-ui"
 
+import { FadeIn } from "@taostats/components/FadeIn"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import {

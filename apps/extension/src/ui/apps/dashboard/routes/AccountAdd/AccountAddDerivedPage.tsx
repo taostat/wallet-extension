@@ -1,7 +1,7 @@
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
 import { useTranslation } from "react-i18next"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountAddDerivedForm } from "@ui/domains/Account/AccountAdd/AccountAddDerived/AccountAddDerivedForm"
 import { useSelectAccountAndNavigate } from "@ui/hooks/useSelectAccountAndNavigate"

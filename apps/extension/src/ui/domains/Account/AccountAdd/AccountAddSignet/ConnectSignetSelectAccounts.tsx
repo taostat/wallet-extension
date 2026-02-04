@@ -1,12 +1,12 @@
 import { ArrowRightIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify, notifyUpdate } from "@taostats/components/Notifications"
-import { Spacer } from "@taostats/components/Spacer"
 import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Checkbox } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
+import { Spacer } from "@taostats/components/Spacer"
 import { api } from "@ui/api"
 
 import { AccountIcon } from "../../AccountIcon"

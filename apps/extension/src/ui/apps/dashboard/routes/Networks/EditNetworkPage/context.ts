@@ -5,14 +5,14 @@ import {
   Network,
   NetworkPlatform,
 } from "@taostats-wallet/chaindata-provider"
-import { notify } from "@taostats/components/Notifications"
-import { provideContext } from "@taostats/util/provideContext"
 import { log } from "extension-shared"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { firstValueFrom } from "rxjs"
 
+import { notify } from "@taostats/components/Notifications"
+import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { getToken$ } from "@ui/state"
 

@@ -1,12 +1,12 @@
 import { HistoryIcon, HomeIcon, SettingsIcon } from "@taostats-wallet/icons"
 import { classNames, isTruthy } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { FC, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { matchPath, useLocation, useNavigate, useSearchParams } from "react-router-dom"
 import { PillButton } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 
 import { DashboardAccountsSidebar } from "./DashboardAccountsSidebar"

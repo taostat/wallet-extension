@@ -76,7 +76,6 @@ export const BittensorSubnetBondReview = () => {
     direction: stakeDirection === "bond" ? "taoToAlpha" : "alphaToTao",
   })
 
-  
   const { isLoading } = useCombinedSubnetData(networkId)
 
   const { open } = slippageDrawer

@@ -12,9 +12,6 @@ import {
   TokenBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
 import { ExternalLinkIcon, RotateCcwIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify } from "@taostats/components/Notifications"
-import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -34,6 +31,9 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"

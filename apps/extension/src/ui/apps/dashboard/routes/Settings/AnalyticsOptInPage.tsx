@@ -1,7 +1,7 @@
-import { Setting } from "@taostats/components/Setting"
 import { useTranslation } from "react-i18next"
 import { Toggle } from "taostats-ui"
 
+import { Setting } from "@taostats/components/Setting"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AnalyticsOptInInfo } from "@ui/domains/Settings/Analytics/AnalyticsOptInInfo"
 import { useSetting } from "@ui/state"

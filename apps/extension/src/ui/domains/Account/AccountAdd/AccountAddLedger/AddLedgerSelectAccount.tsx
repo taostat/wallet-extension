@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { sleep } from "@taostats-wallet/util"
-import { notify, notifyUpdate } from "@taostats/components/Notifications"
 import { useCallback, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
@@ -8,6 +7,7 @@ import { Navigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 import * as yup from "yup"
 
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
 import { CHAIN_ID_TO_LEDGER_APP_NAME } from "@ui/hooks/ledger/common"
 import { useLedgerSubstrateAppByName } from "@ui/hooks/ledger/useLedgerSubstrateApp"
 

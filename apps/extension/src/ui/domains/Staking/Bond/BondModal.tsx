@@ -1,9 +1,10 @@
 import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
+
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 
 import { ModalContent } from "../shared/ModalContent"
 import { BondFollowUp } from "./BondFollowUp"

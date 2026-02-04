@@ -1,10 +1,10 @@
 import { HexString } from "@polkadot/util/types"
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
-import { notify, notifyUpdate } from "@taostats/components/Notifications"
-import { provideContext } from "@taostats/util/provideContext"
 import { useCallback, useReducer } from "react"
 import { useTranslation } from "react-i18next"
 
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
+import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { useHasVerifierCertificateMnemonic } from "@ui/hooks/useHasVerifierCertificateMnemonic"
 import { useQrCodeAccounts } from "@ui/hooks/useQrCodeAccounts"

@@ -1,13 +1,13 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
 import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInput } from "@taostats/components/SearchInput"
 import { Account, Address, getAccountGenesisHash } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
 
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { useAccounts, useNetworkById } from "@ui/state"
 
 import { BondAccountsList } from "./BondAccountsList"

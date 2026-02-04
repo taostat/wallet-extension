@@ -8,12 +8,12 @@ import {
   UsersIcon,
   XIcon,
 } from "@taostats-wallet/icons"
-import { Nav, NavItem } from "@taostats/components/Nav"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, IconButton } from "taostats-ui"
 
+import { Nav, NavItem } from "@taostats/components/Nav"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { BuildVersionPill } from "@ui/domains/Build/BuildVersionPill"

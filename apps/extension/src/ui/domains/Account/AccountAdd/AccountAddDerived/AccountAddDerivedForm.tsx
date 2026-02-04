@@ -3,8 +3,6 @@ import { useQuery } from "@tanstack/react-query"
 import { AccountPlatform, isValidDerivationPath, KeypairCurve } from "@taostats-wallet/crypto"
 import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
-import { notify, notifyUpdate } from "@taostats/components/Notifications"
 import {
   getDefaultCurveForAccountPlatform,
   getDerivationPathForCurve,
@@ -28,6 +26,8 @@ import {
 } from "taostats-ui"
 import * as yup from "yup"
 
+import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import {
   MnemonicCreateModal,

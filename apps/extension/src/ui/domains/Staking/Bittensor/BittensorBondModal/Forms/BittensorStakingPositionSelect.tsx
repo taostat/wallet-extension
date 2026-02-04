@@ -1,11 +1,11 @@
 import { classNames, cn } from "@taostats-wallet/util"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInputControlled } from "@taostats/components/SearchInputControlled"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { t } from "i18next"
 import { FC, useCallback, useDeferredValue, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInputControlled } from "@taostats/components/SearchInputControlled"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Fiat } from "@ui/domains/Asset/Fiat"

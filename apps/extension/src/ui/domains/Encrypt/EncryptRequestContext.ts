@@ -1,8 +1,8 @@
-import useStatus from "@taostats/hooks/useStatus"
 import { AnyEncryptRequest, isDecryptRequest } from "extension-core"
 import { DEBUG } from "extension-shared"
 import { useCallback } from "react"
 
+import useStatus from "@taostats/hooks/useStatus"
 import { api } from "@ui/api"
 
 export const useEncryptRequest = (currentRequest?: AnyEncryptRequest) => {

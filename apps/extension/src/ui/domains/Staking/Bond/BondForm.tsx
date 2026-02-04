@@ -1,7 +1,6 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
 import { InfoIcon, SwapIcon } from "@taostats-wallet/icons"
 import { classNames, tokensToPlanck } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Account } from "extension-core"
 import {
   ChangeEventHandler,
@@ -18,6 +17,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { Button, PillButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useInputAutoWidth } from "@ui/hooks/useInputAutoWidth"
 import { useBalance, useSelectedCurrency } from "@ui/state"
 

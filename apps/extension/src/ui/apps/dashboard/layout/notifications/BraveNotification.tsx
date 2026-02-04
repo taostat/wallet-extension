@@ -1,10 +1,10 @@
 import { BraveIcon } from "@taostats-wallet/icons"
-import { useIsBrave } from "@taostats/hooks/useIsBrave"
-import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Modal, ModalDialog } from "taostats-ui"
 
+import { useIsBrave } from "@taostats/hooks/useIsBrave"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { BraveWarningModal } from "@ui/domains/Settings/BraveWarning/BraveWarningModal"
 import { useAppState } from "@ui/state"
 

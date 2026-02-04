@@ -1,10 +1,6 @@
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
 import { CopyIcon, MoreHorizontalIcon, PlusIcon, UserPlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
@@ -24,6 +20,10 @@ import {
   PillButton,
 } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"

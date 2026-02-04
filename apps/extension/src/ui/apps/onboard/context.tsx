@@ -1,8 +1,8 @@
-import { provideContext } from "@taostats/util/provideContext"
 import { passwordStore, settingsStore } from "extension-core"
 import { ReactNode, useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
+import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { useAppState, useIsOnboarded } from "@ui/state"
 

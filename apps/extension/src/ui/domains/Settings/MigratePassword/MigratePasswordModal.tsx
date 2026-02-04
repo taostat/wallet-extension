@@ -1,6 +1,7 @@
-import { statusOptions } from "@taostats/hooks/useStatus"
 import { useTranslation } from "react-i18next"
 import { Modal, ModalDialog, ProcessAnimation } from "taostats-ui"
+
+import { statusOptions } from "@taostats/hooks/useStatus"
 
 import { BackUpMnemonicDialog } from "./BackUpMnemonicDialog"
 import { MigratePasswordProvider, useMigratePassword } from "./context"

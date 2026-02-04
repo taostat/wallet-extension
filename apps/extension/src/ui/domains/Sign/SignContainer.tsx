@@ -1,8 +1,8 @@
 import { classNames } from "@taostats-wallet/util"
-import { FadeIn } from "@taostats/components/FadeIn"
 import { FC, ReactNode } from "react"
 import { createPortal } from "react-dom"
 
+import { FadeIn } from "@taostats/components/FadeIn"
 import { ViewDetailsSub } from "@ui/domains/Sign/ViewDetails/ViewDetailsSub"
 
 import { SubSignDecoded } from "./Substrate/decode/SubSignDecoded"

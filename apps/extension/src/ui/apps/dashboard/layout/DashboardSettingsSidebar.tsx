@@ -11,12 +11,12 @@ import {
   UsersIcon,
 } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { FC, ReactNode, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, To, useMatch, useNavigate } from "react-router-dom"
 import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 

@@ -1,5 +1,4 @@
 import { MoreHorizontalIcon } from "@taostats-wallet/icons"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Account, getAccountGenesisHash } from "extension-core"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -12,6 +11,7 @@ import {
   PopoverOptions,
 } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useAccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { useAccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { useAccountRenameModal } from "@ui/domains/Account/AccountRenameModal"

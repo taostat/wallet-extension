@@ -1,11 +1,11 @@
 import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
 import { Account } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useOpenClose } from "taostats-ui"
 
+import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
 import { AccountsStack } from "@ui/domains/Account/AccountIconsStack"
 import { useAccounts } from "@ui/state"
 

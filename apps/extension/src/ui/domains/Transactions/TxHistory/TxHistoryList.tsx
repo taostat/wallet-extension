@@ -3,7 +3,6 @@ import { BalanceFormatter } from "@taostats-wallet/balances"
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
 import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@taostats-wallet/icons"
 import { classNames, planckToTokens } from "@taostats-wallet/util"
-import { useScrollContainer } from "@taostats/components/ScrollContainer"
 import {
   isTxInfoSwap,
   isTxInfoTransfer,
@@ -16,6 +15,7 @@ import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { useScrollContainer } from "@taostats/components/ScrollContainer"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { Tokens } from "@ui/domains/Asset/Tokens"

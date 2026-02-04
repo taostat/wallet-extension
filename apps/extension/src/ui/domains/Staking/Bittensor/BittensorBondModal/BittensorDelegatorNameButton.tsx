@@ -1,6 +1,7 @@
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
+
+import { shortenAddress } from "@taostats/util/shortenAddress"
 
 import { useCombinedBittensorValidatorsData } from "../../hooks/bittensor/useCombinedBittensorValidatorsData"
 import { useBittensorBondWizard } from "../hooks/useBittensorBondWizard"

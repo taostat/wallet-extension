@@ -1,6 +1,7 @@
 import { DecodedCall } from "@taostats-wallet/sapi"
-import { FallbackErrorBoundary } from "@taostats/components/FallbackErrorBoundary"
 import { FC } from "react"
+
+import { FallbackErrorBoundary } from "@taostats/components/FallbackErrorBoundary"
 
 import { SUMMARY_COMPONENTS } from "../summary/calls"
 import { DecodedCallComponent, SummaryButtonDisplayMode } from "../types"

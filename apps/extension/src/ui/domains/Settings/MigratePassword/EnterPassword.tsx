@@ -1,11 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
 import { useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, FormFieldContainer, FormFieldInputText, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
+import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
 import { api } from "@ui/api"
 
 import { useMigratePassword } from "./context"

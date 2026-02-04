@@ -1,5 +1,6 @@
-import { provideContext } from "@taostats/util/provideContext"
 import { useCallback, useState } from "react"
+
+import { provideContext } from "@taostats/util/provideContext"
 
 const useManageAccountsProvider = () => {
   const [{ search }, setState] = useState<{ search: string }>({

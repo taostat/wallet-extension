@@ -1,11 +1,11 @@
 import { Transition, TransitionChild } from "@headlessui/react"
 import { ArrowUpRightIcon } from "@taostats-wallet/icons"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Toggle } from "taostats-ui"
 
 import { languages } from "@common/i18nConfig"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 // import { currencyConfig } from "@ui/domains/Asset/currencyConfig"

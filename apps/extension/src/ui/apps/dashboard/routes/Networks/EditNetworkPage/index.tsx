@@ -9,8 +9,6 @@ import {
   NetworkBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
 import { RotateCcwIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify } from "@taostats/components/Notifications"
 import { FC, useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
@@ -29,6 +27,8 @@ import {
 } from "taostats-ui"
 import { z } from "zod/v4"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"

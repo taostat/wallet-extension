@@ -7,12 +7,12 @@ import {
   getLockTitle,
 } from "@taostats-wallet/balances"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { sortBigBy } from "@taostats/util/bigHelper"
 import BigNumber from "bignumber.js"
 import { Address } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
+import { sortBigBy } from "@taostats/util/bigHelper"
 import { cleanupNomPoolName } from "@ui/domains/Staking/helpers"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNetworkById, useSelectedCurrency, useToken } from "@ui/state"

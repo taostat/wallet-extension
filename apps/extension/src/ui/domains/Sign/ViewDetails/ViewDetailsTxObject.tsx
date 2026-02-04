@@ -1,8 +1,9 @@
 import { classNames } from "@taostats-wallet/util"
-import { CodeBlock } from "@taostats/components/CodeBlock"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
+
+import { CodeBlock } from "@taostats/components/CodeBlock"
 
 import { ViewDetailsField } from "./ViewDetailsField"
 

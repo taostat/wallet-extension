@@ -2,8 +2,6 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { GlobeIcon, LockIcon, ToolbarSortIcon, UserIcon } from "@taostats-wallet/icons"
 import { classNames, cn, planckToTokens } from "@taostats-wallet/util"
-import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInputControlled } from "@taostats/components/SearchInputControlled"
 import {
   FC,
   useCallback,
@@ -25,6 +23,8 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
+import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInputControlled } from "@taostats/components/SearchInputControlled"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { Tokens } from "@ui/domains/Asset/Tokens"

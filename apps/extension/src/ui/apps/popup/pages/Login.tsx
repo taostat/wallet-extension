@@ -1,9 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import {
   SubmitHandler,
@@ -23,6 +20,9 @@ import {
 } from "taostats-ui"
 import * as yup from "yup"
 
+import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useSetting } from "@ui/state"
