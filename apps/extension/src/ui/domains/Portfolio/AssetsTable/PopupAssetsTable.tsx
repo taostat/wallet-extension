@@ -14,7 +14,7 @@ import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { Tokens } from "@ui/domains/Asset/Tokens"
 // import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
-import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
+// import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
@@ -26,8 +26,6 @@ import { StaleBalancesIcon } from "../StaleBalancesIcon"
 import { usePortfolioDisplayBalances } from "../useDisplayBalances"
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
-import { PortfolioNetworksLogoStack } from "./PortfolioNetworksLogoStack"
-import { usePortfolioNetworkIds } from "./usePortfolioNetworkIds"
 import { usePortfolioSymbolBalancesByFilter } from "./usePortfolioSymbolBalances"
 
 const AssetRowSkeleton = ({ className }: { className?: string }) => {
@@ -58,7 +56,6 @@ const AssetRow: FC<{
   noCountUp: boolean
   locked?: boolean
 }> = ({ balances, locked, noCountUp }) => {
-  const networkIds = usePortfolioNetworkIds(balances)
   const { genericEvent } = useAnalytics()
 
   const status = useBalancesStatus(balances)
@@ -108,8 +105,8 @@ const AssetRow: FC<{
   const isUniswapV2LpToken = token?.type === "evm-uniswapv2"
   const tvl = useUniswapV2LpTokenTotalValueLocked(token, rate?.price, balances)
 
-  const { canBond } = useBondButton({ balances })
-  const showStakingButton = canBond && !locked
+  // const { canBond } = useBondButton({ balances })
+  // const showStakingButton = canBond && !locked
 
   if (!token || !summary || !network) return null
 
@@ -135,11 +132,6 @@ const AssetRow: FC<{
                     {t("Testnet")}
                   </div>
                 )}
-                {!!networkIds.length && (
-                  <div className="shrink-0 text-base">
-                    <PortfolioNetworksLogoStack networkIds={networkIds} max={3} />
-                  </div>
-                )}
               </div>
             </div>
 
@@ -150,7 +142,11 @@ const AssetRow: FC<{
               </div>
             )}
             {!isUniswapV2LpToken && (
-              <AssetPrice tokenId={token.id} balances={balances} className="text-xs" />
+              <AssetPrice
+                tokenId={token.id}
+                balances={balances}
+                className="text-body-secondary text-xs"
+              />
             )}
           </div>
           <div
@@ -163,7 +159,7 @@ const AssetRow: FC<{
               className={classNames(
                 "whitespace-nowrap text-sm font-bold",
                 locked ? "text-body-secondary" : "text-white",
-                showStakingButton && "group-hover:hidden",
+                // showStakingButton && "group-hover:hidden",
               )}
             >
               <Tokens
@@ -181,7 +177,7 @@ const AssetRow: FC<{
             <div
               className={classNames(
                 "text-body-secondary leading-base text-xs",
-                showStakingButton && "group-hover:hidden",
+                // showStakingButton && "group-hover:hidden",
               )}
             >
               {fiat === null ? "-" : <Fiat amount={fiat} isBalance noCountUp={noCountUp} />}

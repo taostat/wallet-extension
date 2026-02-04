@@ -174,13 +174,7 @@ const TokenRow: FC<TokenRowProps> = ({
         >
           <div className="flex grow items-center gap-2 overflow-hidden">
             {!!token.name && token.name !== token.symbol && (
-              <div className="text-body-inactive truncate font-normal">
-                {token.name === "SN0 | Root"
-                  ? "Root Stake"
-                  : token.name === "Bittensor"
-                    ? "Unstaked Tao"
-                    : token.name}
-              </div>
+              <div className="text-body-inactive truncate font-normal">{token.name}</div>
             )}
             {selected && <CheckCircleIcon className="inline shrink-0 align-text-top" />}
           </div>
@@ -202,18 +196,21 @@ const TokenRow: FC<TokenRowProps> = ({
                 <BittensorValidatorName hotkey={token.hotkey} />
               </div>
             </div>
-            <div className={classNames(isLoading && "animate-pulse")}>
-              {hasFiatRate ? (
-                <Fiat
-                  amount={balances.sum.fiat(currency).transferable}
-                  isBalance
-                  noCountUp
-                  className="text-nowrap"
-                />
-              ) : (
-                "-"
-              )}
-            </div>
+            {token.netuid === 0 ? null : (
+              <div className={classNames(isLoading && "animate-pulse")}>
+                {hasFiatRate ? (
+                  <Fiat
+                    amount={balances.sum.fiat(currency).transferable}
+                    isBalance
+                    noCountUp
+                    className="text-nowrap"
+                    currencyDisplay={currency === "tao" ? "code" : undefined}
+                  />
+                ) : (
+                  "-"
+                )}
+              </div>
+            )}
           </div>
         ) : null}
       </div>
@@ -358,12 +355,29 @@ const TokensList: FC<TokensListProps> = ({
     sortTokens,
   ])
 
+  const tokensWithMappedNames = useMemo(() => {
+    return tokensWithBalances.map((t) => {
+      return {
+        ...t,
+        token: {
+          ...t.token,
+          name:
+            t.token.name === "SN0 | Root"
+              ? "Root Stake"
+              : t.token.name === "Bittensor"
+                ? "Unstaked Tao"
+                : t.token.name,
+        },
+      }
+    })
+  }, [tokensWithBalances])
+
   // apply user search
   const tokens = useMemo(() => {
-    if (!search) return tokensWithBalances
+    if (!search) return tokensWithMappedNames
 
     const ls = search?.toLowerCase()
-    return tokensWithBalances
+    return tokensWithMappedNames
       .filter(
         (t) =>
           !ls ||
@@ -376,7 +390,7 @@ const TokensList: FC<TokensListProps> = ({
         if (s1 !== ls && s2 === ls) return 1
         return 0
       })
-  }, [search, tokensWithBalances])
+  }, [search, tokensWithMappedNames])
 
   const handleTokenClick = useCallback(
     (tokenId: string) => {
