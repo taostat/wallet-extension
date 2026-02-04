@@ -1080,7 +1080,7 @@
   "Minimum purchase is {{value}}": "Acquisto minimo è {{value}}",
   "Minimum sell is {{value}}": "La vendita minima è {{value}}",
   "Minimum time before exit can be initiated": "Tempo minimo prima che l'uscita possa essere avviata",
-  "Minimum unbond is {{amount}} {{symbol}}": "Il minimo di unbond è {{amount}} {{symbol}}",
+  "Minimum unstake is {{amount}} {{symbol}}": "Il minimo di unstake è {{amount}} {{symbol}}",
   "Missing contract address": "Indirizzo del contratto mancante",
   "Missing registry.": "Registro mancante.",
   "Missing short metadata": "Metadati brevi mancanti",

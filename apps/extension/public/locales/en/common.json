@@ -1080,7 +1080,7 @@
   "Minimum purchase is {{value}}": "Minimum purchase is {{value}}",
   "Minimum sell is {{value}}": "Minimum sell is {{value}}",
   "Minimum time before exit can be initiated": "Minimum time before exit can be initiated",
-  "Minimum unbond is {{amount}} {{symbol}}": "Minimum unbond is {{amount}} {{symbol}}",
+  "Minimum unstake is {{amount}} {{symbol}}": "Minimum unstake is {{amount}} {{symbol}}",
   "Missing contract address": "Missing contract address",
   "Missing registry.": "Missing registry.",
   "Missing short metadata": "Missing short metadata",

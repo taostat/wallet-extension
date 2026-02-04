@@ -1080,7 +1080,7 @@
   "Minimum purchase is {{value}}": "Минимальная сумма покупки составляет {{value}}",
   "Minimum sell is {{value}}": "Минимальная продажа составляет {{value}}",
   "Minimum time before exit can be initiated": "Минимальное время до начала выхода",
-  "Minimum unbond is {{amount}} {{symbol}}": "Минимальное отвязывание — {{amount}} {{symbol}}",
+  "Minimum unstake is {{amount}} {{symbol}}": "Минимальный unstake — {{amount}} {{symbol}}",
   "Missing contract address": "Отсутствующий адрес контракта",
   "Missing registry.": "Отсутствующий реестр.",
   "Missing short metadata": "Отсутствие коротких метаданных",

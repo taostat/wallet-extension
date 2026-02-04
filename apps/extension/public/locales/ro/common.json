@@ -1080,7 +1080,7 @@
   "Minimum purchase is {{value}}": "Achiziția minimă este {{value}}",
   "Minimum sell is {{value}}": "Vânzarea minimă este {{value}}",
   "Minimum time before exit can be initiated": "Timpul minim înainte ca ieșirea să poată fi inițiată",
-  "Minimum unbond is {{amount}} {{symbol}}": "Debondarea minimă este {{amount}} {{symbol}}",
+  "Minimum unstake is {{amount}} {{symbol}}": "Retragerea minimă din stake este {{amount}} {{symbol}}",
   "Missing contract address": "Adresă de contract lipsă",
   "Missing registry.": "Registru lipsă.",
   "Missing short metadata": "Metadate scurte lipsă",

@@ -1080,7 +1080,7 @@
   "Minimum purchase is {{value}}": "Mức mua tối thiểu là {{value}}",
   "Minimum sell is {{value}}": "Giá bán tối thiểu là {{value}}",
   "Minimum time before exit can be initiated": "Thời gian tối thiểu trước khi có thể bắt đầu thoát",
-  "Minimum unbond is {{amount}} {{symbol}}": "Số lượng tối thiểu để hủy liên kết là {{amount}} {{symbol}}",
+  "Minimum unstake is {{amount}} {{symbol}}": "Số lượng tối thiểu để unstake là {{amount}} {{symbol}}",
   "Missing contract address": "Thiếu địa chỉ hợp đồng",
   "Missing registry.": "Thiếu sổ đăng ký.",
   "Missing short metadata": "Thiếu siêu dữ liệu ngắn gọn",
