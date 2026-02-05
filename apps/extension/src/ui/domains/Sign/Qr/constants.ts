@@ -24,7 +24,7 @@ export const PV_CMD_SIGN_SPEC = new Uint8Array([0xc1])
 export const POLKADOT_GENESIS_HASH =
   "0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3"
 
-export const talismanRedHandSvg =
+export const taostatsRedHandSvg =
   `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy` +
   `8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iI2ZkNDg0OCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJtMzMuODc5IDM1LjExNy0uNSAxOS4xNjVjOC4xMDcgNC4xNjggMTUuNz` +
   `UgNC4wNzUgMjQuNzQgMi4wNjMgMy41Ni0xLjM5NyA2LjA1Ni0xLjcwMiA5LjUxMSAwIDkuMDY3IDIuODE2IDE2Ljk2OSAxLjk1IDI1LjE4NS0yLjI0M2wtLjQ4NS0xOS` +

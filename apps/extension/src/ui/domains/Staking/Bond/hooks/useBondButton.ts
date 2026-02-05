@@ -2,7 +2,6 @@ import { Balance, Balances } from "@taostats-wallet/balances"
 import { NetworkId, subNativeTokenId, TokenId } from "@taostats-wallet/chaindata-provider"
 import { isNotNil } from "@taostats-wallet/util"
 import { Address, RemoteConfigStoreData } from "extension-core"
-import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { MouseEventHandler, useCallback, useMemo } from "react"
 
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -68,11 +67,6 @@ export const useBondButton = ({
           })
           break
         }
-        case "seek": {
-          const seekStakingPath = remoteConfig.seek.webAppStakingPath
-          window.open(`${TAOSTATS_WEB_APP_URL}${seekStakingPath}`, "_blank", "noopener")
-          break
-        }
         case "nominationPool": {
           const { address, tokenId, poolId } = bestBondableBalance
           open({ address, tokenId, poolId })
@@ -80,14 +74,7 @@ export const useBondButton = ({
         }
       }
     },
-    [
-      bestBondableBalance,
-      genericEvent,
-      handleOpenBittensorModal,
-      ignoreExistingSettings,
-      remoteConfig.seek.webAppStakingPath,
-      open,
-    ],
+    [bestBondableBalance, genericEvent, handleOpenBittensorModal, ignoreExistingSettings, open],
   )
 
   return {
@@ -98,13 +85,6 @@ export const useBondButton = ({
 }
 
 type BondableBalance =
-  | {
-      type: "seek"
-      tokenId: TokenId
-      address: Address
-      amount: bigint
-      isBonding: boolean
-    }
   | {
       type: "bittensor"
       networkId: NetworkId
@@ -132,19 +112,6 @@ const getBondableBalance = (
 ): BondableBalance | null => {
   const token = balance.token
   if (!token) return null
-
-  /**
-   * Seek Staking
-   */
-  if (token.id === remoteConfig.seek.tokenId) {
-    return {
-      type: "seek",
-      tokenId: token.id,
-      address: balance.address,
-      amount: balance.transferable.planck,
-      isBonding: false, // TODO add meta to balance if already staking
-    }
-  }
 
   /**
    * Bittensor Staking

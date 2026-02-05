@@ -1,10 +1,11 @@
 import { bind } from "@react-rxjs/core"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { Account } from "extension-core"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
 import { Modal, ModalDialog } from "taostats-ui"
+
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"
 import { AccountRename } from "./AccountRename"

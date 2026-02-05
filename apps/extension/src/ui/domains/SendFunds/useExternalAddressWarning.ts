@@ -1,7 +1,7 @@
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { provideContext } from "@taostats/util/provideContext"
 import { useCallback, useEffect, useMemo, useState } from "react"
 
+import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { useAccounts, useConfirmedAddresses } from "@ui/state"
 

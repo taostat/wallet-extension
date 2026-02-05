@@ -9,12 +9,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "taostats-ui"
 import { useHasVerifierCertificateMnemonic } from "@ui/hooks/useHasVerifierCertificateMnemonic"
 import { useNetworkByGenesisHash, useNetworkById } from "@ui/state"
 
-import { novaLogoSvg, parityLogoSvg, talismanRedHandSvg } from "./constants"
+import { novaLogoSvg, parityLogoSvg, taostatsRedHandSvg } from "./constants"
 
-export type QrCodeSource = "talisman" | "parity" | "novasama" | "other"
+export type QrCodeSource = "taostats" | "parity" | "novasama" | "other"
 
 const lastSelected = new (class {
-  #key = "TalismanQrCodeSourceLastSelected"
+  #key = "TaostatsQrCodeSourceLastSelected"
   #map = () => new Map<string, QrCodeSource>(JSON.parse(localStorage.getItem(this.#key) ?? "[]"))
   get = (genesisHash: string | null | undefined) =>
     genesisHash ? this.#map().get(genesisHash) : undefined
@@ -26,8 +26,8 @@ const lastSelected = new (class {
 })()
 
 export const qrCodeLogoForSource = (source: QrCodeSource) =>
-  source === "talisman"
-    ? talismanRedHandSvg
+  source === "taostats"
+    ? taostatsRedHandSvg
     : source === "parity"
       ? parityLogoSvg
       : source === "novasama"
@@ -41,8 +41,8 @@ export const useQrCodeSourceSelectorState = (genesisHash: HexString | null | und
   const chainspecQrUrl = chain?.chainspecQrUrl
   const latestMetadataQrUrl = chain?.latestMetadataQrUrl
   const sources = useMemo<QrCodeSource[]>(() => {
-    const talismanSource: QrCodeSource[] = verifierCertificateMnemonic ? ["talisman"] : []
-    return talismanSource.concat(
+    const taostatsSource: QrCodeSource[] = verifierCertificateMnemonic ? ["taostats"] : []
+    return taostatsSource.concat(
       ...((): QrCodeSource[] => {
         if (!chainspecQrUrl || !latestMetadataQrUrl) return []
 
@@ -69,8 +69,8 @@ export const useQrCodeSourceSelectorState = (genesisHash: HexString | null | und
   const defaultSourceForChain =
     sources.includes("parity") && parityDefaultChains.includes(genesisHash ?? "0x")
       ? "parity"
-      : sources.includes("talisman")
-        ? "talisman"
+      : sources.includes("taostats")
+        ? "taostats"
         : undefined
 
   // remember the last selected source for each chain

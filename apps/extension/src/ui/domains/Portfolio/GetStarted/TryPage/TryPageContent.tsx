@@ -1,7 +1,6 @@
 import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
 import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import {
   ChangeEventHandler,
   FC,
@@ -14,12 +13,11 @@ import {
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { Address } from "@ui/domains/Account/Address"
-import { AddressFieldNsBadge } from "@ui/domains/Account/AddressFieldNsBadge"
-import { useResolveNsName } from "@ui/hooks/useResolveNsName"
 import { useAccounts } from "@ui/state"
 import { IS_POPUP } from "@ui/util/constants"
 
@@ -40,7 +38,6 @@ export const TryPageContent: FC<{
 
   const [searchAddress, setSearchAddress] = useState("")
   const [address, setAddress] = useState("")
-  const [nsLookup, { nsLookupType, isNsLookup, isNsFetching }] = useResolveNsName(searchAddress)
 
   useEffect(() => {
     const isValidAddress = (() => {
@@ -51,18 +48,13 @@ export const TryPageContent: FC<{
         return false
       }
     })()
-    const isValid = isNsLookup || isValidAddress
+    const isValid = isValidAddress
 
     // remove error before submission if address is valid
     if (isValid) setError(null)
 
-    if (isNsLookup) {
-      if (isNsFetching) return setAddress("")
-      return setAddress(nsLookup ?? (nsLookup === null ? "invalid" : ""))
-    }
-
     setAddress(searchAddress)
-  }, [nsLookup, isNsFetching, isNsLookup, searchAddress])
+  }, [searchAddress])
 
   const onSubmit = useCallback<FormEventHandler>(
     async (event) => {
@@ -83,7 +75,7 @@ export const TryPageContent: FC<{
         const [resultAddress] = await api.accountAddExternal([
           {
             type: "watch-only",
-            name: isNsLookup ? searchAddress : shortenAddress(address),
+            name: shortenAddress(address),
             address,
             isPortfolio: true,
           },
@@ -97,7 +89,7 @@ export const TryPageContent: FC<{
         setError(t("Please enter a valid Polkadot or Ethereum address"))
       }
     },
-    [analytics, address, isNsLookup, searchAddress, navigate, close, t],
+    [analytics, address, navigate, close, t],
   )
   const onInputChange = useCallback<ChangeEventHandler<HTMLInputElement>>((event) => {
     setSearchAddress(event.target.value)
@@ -122,21 +114,11 @@ export const TryPageContent: FC<{
                 type="text"
                 className={classNames(
                   "bg-black-secondary text-body placeholder:text-body-disabled w-full rounded px-8 py-6",
-                  isNsLookup && "pr-16",
                 )}
                 placeholder={t("Enter any wallet address")}
                 value={searchAddress}
                 onChange={onInputChange}
               />
-              <div className="absolute right-4 top-0 flex h-full items-center">
-                <AddressFieldNsBadge
-                  small
-                  nsLookup={nsLookup}
-                  nsLookupType={nsLookupType}
-                  isNsLookup={isNsLookup}
-                  isNsFetching={isNsFetching}
-                />
-              </div>
             </div>
 
             <button

@@ -1,5 +1,4 @@
 import { assert } from "@polkadot/util"
-import { DEFAULT_ETH_CHAIN_ID } from "extension-shared"
 
 import type { Port } from "../../types/base"
 import type { AuthorizedSite, RequestAuthorizeTab } from "./types"
@@ -54,18 +53,6 @@ export const requestAuthoriseSite = async (
       switch (provider) {
         case "polkadot": {
           siteAuth.addresses = addresses
-          break
-        }
-        case "ethereum": {
-          siteAuth.ethAddresses = addresses
-
-          // set a default value for ethChainId only if empty
-          // some sites switch the network before requesting auth, ex nova.arbiscan.io
-          if (!siteAuth.ethChainId) siteAuth.ethChainId = DEFAULT_ETH_CHAIN_ID
-          break
-        }
-        case "solana": {
-          siteAuth.solAddresses = addresses
           break
         }
       }

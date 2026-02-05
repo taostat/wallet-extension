@@ -1,11 +1,11 @@
 import { isAscii, u8aToString, u8aUnwrapBytes } from "@polkadot/util"
 import { SiwsMessage, parseMessage as siwsParseMessage } from "@talismn/siws"
 import { normalizeAddress } from "@taostats-wallet/crypto"
-import { AppPill } from "@taostats/components/AppPill"
 import { SignerPayloadRaw } from "extension-core"
 import { useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
+import { AppPill } from "@taostats/components/AppPill"
 import {
   PopupContent,
   PopupFooter,

@@ -23,7 +23,7 @@ export type AnalyticsSendEvent = {
 
 type AnalyticsData = { data: AnalyticsEvent[]; distinctId?: string }
 
-const TALISMAN_PROPERTIES = {
+const WALLET_PROPERTIES = {
   appVersion: process.env.VERSION,
   appBuild: process.env.BUILD,
   testBuild: DEBUG || ["dev", "qa", "ci"].includes(process.env.BUILD as string),
@@ -46,7 +46,7 @@ class AnalyticsStore extends StorageProvider<AnalyticsData> {
       // and `localStorage` is the only built-in way for posthog to persist the distinct_id.
       let posthogDistinctId = await this.get("distinctId")
 
-      // if this Talisman instance doesn't already have a persisted distinct_id, randomly generate one
+      // if this instance doesn't already have a persisted distinct_id, randomly generate one
       if (posthogDistinctId === undefined) {
         posthogDistinctId = v4()
         await this.mutate((data) => ({ ...data, distinctId: posthogDistinctId }))
@@ -75,7 +75,7 @@ class AnalyticsStore extends StorageProvider<AnalyticsData> {
 
     const properties = {
       ...rawProperties,
-      ...TALISMAN_PROPERTIES,
+      ...WALLET_PROPERTIES,
       distinct_id,
     }
 

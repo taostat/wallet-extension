@@ -1,1 +1,1 @@
-# @talismn/sapi
+# @taostats-wallet/sapi

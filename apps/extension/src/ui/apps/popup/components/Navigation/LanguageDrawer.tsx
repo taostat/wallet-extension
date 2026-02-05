@@ -1,12 +1,12 @@
 import { ChevronLeftIcon } from "@taostats-wallet/icons"
-import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, IconButton } from "taostats-ui"
 
 import { languages } from "@common/i18nConfig"
+import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 
 export const useLanguageDrawerOpenClose = () => useGlobalOpenClose("language-drawer")
 

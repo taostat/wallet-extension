@@ -1,5 +1,0 @@
-{
-  "extends": "@taostats-wallet/tsconfig/es6-react.json",
-  "include": ["src"],
-  "exclude": ["**/node_modules", "**/.*/", "**/*.spec.ts", "**/*.test.ts"]
-}

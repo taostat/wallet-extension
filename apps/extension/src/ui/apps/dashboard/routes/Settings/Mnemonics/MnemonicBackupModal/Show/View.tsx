@@ -1,8 +1,8 @@
-import { notify } from "@taostats/components/Notifications"
 import { ChangeEventHandler, FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Checkbox } from "taostats-ui"
 
+import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { Mnemonic } from "@ui/domains/Mnemonic/Mnemonic"
 import { useMnemonicUnlock } from "@ui/domains/Mnemonic/MnemonicUnlock"

@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { bind } from "@react-rxjs/core"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { AccountsCatalogTree } from "extension-core"
 import { RefCallback, useCallback, useEffect, useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
@@ -9,6 +8,7 @@ import { BehaviorSubject } from "rxjs"
 import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { api } from "@ui/api"
 
 type FolderProps = {

@@ -4,7 +4,7 @@ import { ScaleApi } from "@taostats-wallet/sapi"
 import { Binary } from "polkadot-api"
 
 import { StakeDirection } from "../hooks/types"
-import { ROOT_NETUID, TALISMAN_FEE_RECEIVER_ADDRESS_BITTENSOR } from "./constants"
+import { ROOT_NETUID, TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR } from "./constants"
 
 export type BittensorSwapSimulation = {
   tao_amount: bigint
@@ -59,7 +59,7 @@ export const getBittensorStakingPayload = async ({
   amount,
   priceLimit,
   netuid,
-  talismanFee,
+  taostatsFee,
 }: {
   sapi: ScaleApi
   address: string
@@ -67,7 +67,7 @@ export const getBittensorStakingPayload = async ({
   amount: bigint
   priceLimit: bigint
   netuid: number
-  talismanFee: bigint
+  taostatsFee: bigint
 }) => {
   if (netuid === 0) {
     return sapi.getExtrinsicPayload(
@@ -81,7 +81,7 @@ export const getBittensorStakingPayload = async ({
             amount_staked: amount,
           }),
           sapi.getDecodedCall("System", "remark_with_event", {
-            remark: Binary.fromText("talisman-bittensor"),
+            remark: Binary.fromText("taostats-bittensor"),
           }),
         ],
       },
@@ -101,11 +101,11 @@ export const getBittensorStakingPayload = async ({
           allow_partial: false,
         }),
         sapi.getDecodedCall("Balances", "transfer_keep_alive", {
-          dest: Enum("Id", TALISMAN_FEE_RECEIVER_ADDRESS_BITTENSOR),
-          value: talismanFee,
+          dest: Enum("Id", TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR),
+          value: taostatsFee,
         }),
         sapi.getDecodedCall("System", "remark_with_event", {
-          remark: Binary.fromText("talisman-bittensor"),
+          remark: Binary.fromText("taostats-bittensor"),
         }),
       ],
     },
@@ -118,7 +118,7 @@ type GetBittensorUnbondPayload = {
   address: string
   hotkey: string
   amount: bigint
-  talismanFee: bigint
+  taostatsFee: bigint
   priceLimit: bigint
   netuid: number
 }
@@ -130,7 +130,7 @@ export const getBittensorUnbondPayload = ({
   amount,
   netuid,
   priceLimit,
-  talismanFee,
+  taostatsFee,
 }: GetBittensorUnbondPayload) => {
   if (netuid === ROOT_NETUID) {
     return sapi.getExtrinsicPayload(
@@ -144,7 +144,7 @@ export const getBittensorUnbondPayload = ({
             amount_unstaked: amount,
           }),
           sapi.getDecodedCall("System", "remark_with_event", {
-            remark: Binary.fromText("talisman-bittensor"),
+            remark: Binary.fromText("taostats-bittensor"),
           }),
         ],
       },
@@ -164,11 +164,11 @@ export const getBittensorUnbondPayload = ({
           allow_partial: false,
         }),
         sapi.getDecodedCall("Balances", "transfer_keep_alive", {
-          dest: Enum("Id", TALISMAN_FEE_RECEIVER_ADDRESS_BITTENSOR),
-          value: talismanFee,
+          dest: Enum("Id", TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR),
+          value: taostatsFee,
         }),
         sapi.getDecodedCall("System", "remark_with_event", {
-          remark: Binary.fromText("talisman-bittensor"),
+          remark: Binary.fromText("taostats-bittensor"),
         }),
       ],
     },

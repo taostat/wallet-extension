@@ -26,7 +26,7 @@ import {
 import { isBackgroundPage } from "../../util/isBackgroundPage"
 import { passwordStore } from "../app/store.password"
 
-const TALISMAN_KEYRING_LOCAL_STORAGE_KEY = "keyring"
+const WALLET_KEYRING_LOCAL_STORAGE_KEY = "keyring"
 
 /**
  * Keyring with data stored in extension's local storage.
@@ -74,8 +74,8 @@ class KeyringStore {
 
   private async init() {
     try {
-      const storage = await chrome.storage.local.get(TALISMAN_KEYRING_LOCAL_STORAGE_KEY)
-      this.#json$.next(storage[TALISMAN_KEYRING_LOCAL_STORAGE_KEY])
+      const storage = await chrome.storage.local.get(WALLET_KEYRING_LOCAL_STORAGE_KEY)
+      this.#json$.next(storage[WALLET_KEYRING_LOCAL_STORAGE_KEY])
     } catch (cause) {
       throw new Error("Failed to load keyring", { cause })
     }
@@ -85,7 +85,7 @@ class KeyringStore {
     try {
       const json = keyring.toJson()
       await chrome.storage.local.set({
-        [TALISMAN_KEYRING_LOCAL_STORAGE_KEY]: json,
+        [WALLET_KEYRING_LOCAL_STORAGE_KEY]: json,
       })
       this.#json$.next(json)
     } catch (err) {
@@ -261,7 +261,7 @@ class KeyringStore {
       const keyring = await this.load()
       const serialized = await keyring.export(oldPassword, newPassword)
 
-      await chrome.storage.local.set({ [TALISMAN_KEYRING_LOCAL_STORAGE_KEY]: serialized })
+      await chrome.storage.local.set({ [WALLET_KEYRING_LOCAL_STORAGE_KEY]: serialized })
       this.#json$.next(serialized)
     })
   }
@@ -281,7 +281,7 @@ class KeyringStore {
       const newJson = await keyring.export(jsonPassword, password)
 
       // persist new data
-      await chrome.storage.local.set({ [TALISMAN_KEYRING_LOCAL_STORAGE_KEY]: newJson })
+      await chrome.storage.local.set({ [WALLET_KEYRING_LOCAL_STORAGE_KEY]: newJson })
 
       this.#json$.next(newJson)
     })

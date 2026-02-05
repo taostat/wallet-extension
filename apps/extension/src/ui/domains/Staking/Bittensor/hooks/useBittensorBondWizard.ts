@@ -5,7 +5,6 @@ import {
   subNativeTokenId,
   TokenId,
 } from "@taostats-wallet/chaindata-provider"
-import { provideContext } from "@taostats/util/provideContext"
 import { Address, isAccountOfType } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -13,12 +12,13 @@ import { BehaviorSubject } from "rxjs"
 import { useOpenClose } from "taostats-ui"
 import { Hex } from "viem"
 
+import { provideContext } from "@taostats/util/provideContext"
+import { useFeeToken } from "@ui/domains/SendFunds/useFeeToken"
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useAccountByAddress, usePortfolioBalances, useToken, useTokenRates } from "@ui/state"
 
 import { useExistentialDeposit } from "../../../../hooks/useExistentialDeposit"
-import { useFeeToken } from "../../../SendFunds/useFeeToken"
 import { ROOT_NETUID } from "../utils/constants"
 import {
   BittensorStakingPosition,
@@ -143,7 +143,6 @@ const useBittensorBondWizardProvider = () => {
   const stakeTypeDrawer = useOpenClose()
   const slippageDrawer = useOpenClose()
   const warningDrawer = useOpenClose()
-  const seekDiscountDrawer = useOpenClose()
 
   const { data: sapi } = useScaleApi(nativeToken?.networkId)
 
@@ -174,7 +173,7 @@ const useBittensorBondWizardProvider = () => {
     minTaoStake,
     minAlphaUnstake,
     priceImpact,
-    talismanFee,
+    taostatsFee,
     slippage,
     amountOut,
   } = useGetBittensorStakeInfo({
@@ -432,7 +431,7 @@ const useBittensorBondWizardProvider = () => {
 
     // no staking operation can be less than minTaoStake
     if (amountAlpha?.planck && minAlphaUnstake && amountAlpha.planck < minAlphaUnstake)
-      return t("Minimum unbond is {{amount}} {{symbol}}", {
+      return t("Minimum unstake is {{amount}} {{symbol}}", {
         amount: new BalanceFormatter(minAlphaUnstake, dtaoToken?.decimals).tokens,
         symbol: dtaoToken?.symbol,
       })
@@ -497,7 +496,6 @@ const useBittensorBondWizardProvider = () => {
     stakeTypeDrawer,
     slippageDrawer,
     warningDrawer,
-    seekDiscountDrawer,
     isFormValid,
     step,
     hash,
@@ -520,7 +518,7 @@ const useBittensorBondWizardProvider = () => {
     stakeType,
     alphaPrice,
     swapPrice,
-    talismanFee,
+    taostatsFee,
     amountOut,
     priceImpact,
     withMevShield,

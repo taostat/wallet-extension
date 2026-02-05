@@ -1,8 +1,9 @@
 import { AccountPlatform } from "@taostats-wallet/crypto"
 import { classNames } from "@taostats-wallet/util"
-import { PolkadotCircleLogo } from "@taostats/theme/logos"
 import { FC, ReactNode, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+
+import { PolkadotCircleLogo } from "@taostats/theme/logos"
 
 const AccountTypeButton: FC<{
   className?: string

@@ -2,9 +2,7 @@ import {
   Account,
   isAccountInTypes,
   isAccountNotContact,
-  isAccountPlatformEthereum,
   isAccountPlatformPolkadot,
-  isAccountPlatformSolana,
   ProviderType,
 } from "extension-core"
 import { isInternalUrl } from "extension-shared"
@@ -21,10 +19,6 @@ export const useInjectableAccounts = (siteUrl: string, provider: ProviderType) =
     switch (provider) {
       case "polkadot":
         return accounts.filter(isAccountPlatformPolkadot)
-      case "ethereum":
-        return accounts.filter(isAccountPlatformEthereum)
-      case "solana":
-        return accounts.filter(isAccountPlatformSolana)
     }
   }, [accounts, provider])
 

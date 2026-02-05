@@ -1,9 +1,10 @@
 import { ExtensionButtonIcon, PinIcon } from "@taostats-wallet/icons"
-import { notifyCustom } from "@taostats/components/Notifications"
 import { IS_FIREFOX } from "extension-shared"
 import { useEffect, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useSearchParams } from "react-router-dom"
+
+import { notifyCustom } from "@taostats/components/Notifications"
 
 // without this singleton, if the full page loader appears the hook and associated notification may trigger twice
 const CACHE = {

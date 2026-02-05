@@ -1,17 +1,12 @@
 import { Prettify } from "@taostats-wallet/util"
 
 import type { EncryptRequests } from "../../domains/encrypt/types"
-import type { EthRequests } from "../../domains/ethereum/types"
 import type { MetadataRequests } from "../../domains/metadata/types"
 import type { SigningRequests } from "../../domains/signing/types"
 import type { SitesAuthRequests } from "../../domains/sitesAuthorised/types"
 
 // all types of requests can go here
-export type KnownRequests = SigningRequests &
-  SitesAuthRequests &
-  MetadataRequests &
-  EthRequests &
-  EncryptRequests
+export type KnownRequests = SigningRequests & SitesAuthRequests & MetadataRequests & EncryptRequests
 /* KnownRequests types should be objects like: 
   { [name: string]: [RequestType, ResponseType] }
 */

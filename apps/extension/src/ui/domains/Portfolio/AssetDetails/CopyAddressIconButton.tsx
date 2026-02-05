@@ -1,10 +1,10 @@
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
 import { CopyIcon } from "@taostats-wallet/icons"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { FC, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 

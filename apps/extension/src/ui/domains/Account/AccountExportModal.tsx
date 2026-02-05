@@ -1,15 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { bind } from "@react-rxjs/core"
-import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
-import { PasswordStrength } from "@taostats/components/PasswordStrength"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
-import downloadJson from "@taostats/util/downloadJson"
-import {
-  Account,
-  isAccountOfType,
-  isAccountPlatformEthereum,
-  isAccountPlatformPolkadot,
-} from "extension-core"
+import { Account, isAccountOfType, isAccountPlatformPolkadot } from "extension-core"
 import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { Trans, useTranslation } from "react-i18next"
@@ -17,6 +8,10 @@ import { BehaviorSubject } from "rxjs"
 import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
+import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
+import { PasswordStrength } from "@taostats/components/PasswordStrength"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
+import downloadJson from "@taostats/util/downloadJson"
 import { api } from "@ui/api"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"
@@ -45,8 +40,7 @@ export const useAccountExportModal = () => {
   )
 
   const canExportAccountFunc = (account?: Account | null) =>
-    isAccountOfType(account, "keypair") &&
-    (isAccountPlatformPolkadot(account) || isAccountPlatformEthereum(account))
+    isAccountOfType(account, "keypair") && isAccountPlatformPolkadot(account)
 
   const canExportAccount = useMemo(() => canExportAccountFunc(account), [account])
 
@@ -132,8 +126,8 @@ const ExportAccountForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         <p className="text-body-secondary my-8 text-sm">
           <Trans t={t}>
             Set a password for your JSON export. We strongly suggest using a{" "}
-            <span className="text-white">different password</span> from your Talisman wallet
-            password. This avoids exposing your Talisman password to other wallets or applications.
+            <span className="text-white">different password</span> from your Taostats wallet
+            password. This avoids exposing your Taostats password to other wallets or applications.
           </Trans>
         </p>
 

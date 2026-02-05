@@ -1,7 +1,7 @@
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { useTranslation } from "react-i18next"
 import { Modal, ModalDialog } from "taostats-ui"
 
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { AnalyticsPage } from "@ui/api/analytics"
 
 import { TryPageContent } from "./TryPageContent"

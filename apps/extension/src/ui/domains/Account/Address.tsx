@@ -1,10 +1,9 @@
 import { encodeAnyAddress } from "@taostats-wallet/crypto"
 import { classNames } from "@taostats-wallet/util"
-import { WithTooltip } from "@taostats/components/Tooltip"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { FC, useMemo } from "react"
 
-import { useOnChainId } from "@ui/hooks/useOnChainId"
+import { WithTooltip } from "@taostats/components/Tooltip"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { useNetworkByGenesisHash } from "@ui/state"
 
 type AddressProps = {
@@ -27,7 +26,6 @@ export const Address: FC<AddressProps> = ({
   as: Component = "span",
   className,
   noTooltip,
-  noOnChainId,
   noShorten,
 }) => {
   // if we're not in a popup, no need to wrap
@@ -35,24 +33,20 @@ export const Address: FC<AddressProps> = ({
 
   const chain = useNetworkByGenesisHash(genesisHash)
 
-  // if address has an onChainId, show that instead of the shortenedAddress
-  const [onChainId] = useOnChainId(address)
   const formatted = useMemo(() => {
-    if (!noOnChainId && onChainId) return onChainId
     const addressWithPrefix =
       address && chain ? encodeAnyAddress(address, { ss58Format: chain.prefix }) : address
     if (noShorten) return addressWithPrefix
     if (!addressWithPrefix) return addressWithPrefix
     return shortenAddress(addressWithPrefix, startCharCount, endCharCount)
-  }, [noOnChainId, onChainId, address, chain, noShorten, startCharCount, endCharCount])
+  }, [address, chain, noShorten, startCharCount, endCharCount])
   if (!formatted) return null
 
   const display = (
     <span
       className={classNames(
         // don't wrap shortenedAddresses onto two lines when low on space
-        // e.g. `0x00…0000` -> `0x00…\n0000`
-        !onChainId && "whitespace-nowrap",
+        "whitespace-nowrap",
       )}
     >
       {formatted}

@@ -1,10 +1,10 @@
 import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { Card } from "@taostats/components/Card"
 import { useCallback } from "react"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
 
+import { Card } from "@taostats/components/Card"
 import { api } from "@ui/api"
 import { sendAnalyticsEvent } from "@ui/api/analytics"
 
@@ -30,22 +30,8 @@ export const AlertCard = ({ className, onAccept }: Props) => {
         <>
           <p className="text-sm">
             {t(
-              "We’ve upgraded our security measures, including enhanced password encryption. You must upgrade now to continue using Talisman.",
+              "We’ve upgraded our security measures, including enhanced password encryption. You must upgrade now to continue using Taostats.",
             )}
-          </p>
-
-          <p className="text-sm">
-            <Trans t={t}>
-              <a
-                href="https://medium.com/we-are-talisman/talismans-security-model-1e60391694c0"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="text-body underline"
-              >
-                Learn more
-              </a>{" "}
-              about our new security features.
-            </Trans>
           </p>
         </>
       }

@@ -1,10 +1,10 @@
-import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
-import { Favicon } from "@taostats/components/Favicon"
 import { ProviderType } from "extension-core"
 import { FC, useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
+import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
+import { Favicon } from "@taostats/components/Favicon"
 import useAuthorisedSiteById from "@ui/hooks/useAuthorisedSiteById"
 
 import { AuthorisedSiteAccount } from "./AuthorisedSiteAccount"
@@ -97,14 +97,11 @@ export const AuthorizedSite: FC<{
             <button className="hover:text-body" onClick={() => toggleAll(false)}>
               {t("Disconnect All")}
             </button>
-            {provider !== "ethereum" && (
-              <>
-                <Rule />
-                <button className="hover:text-body" onClick={() => toggleAll(true)}>
-                  {t("Connect All")}
-                </button>
-              </>
-            )}
+
+            <Rule />
+            <button className="hover:text-body" onClick={() => toggleAll(true)}>
+              {t("Connect All")}
+            </button>
           </div>
           {availableAddresses.map((address) => (
             <AuthorisedSiteAccount

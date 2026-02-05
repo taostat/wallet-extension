@@ -35,7 +35,6 @@ import {
   ResponseEncryptDecrypt,
   ResponseEncryptEncrypt,
 } from "../domains/encrypt/types"
-import { EthTabsHandler } from "../domains/ethereum"
 import { keyringStore } from "../domains/keyring/store"
 import { requestInjectMetadata } from "../domains/metadata/requests"
 import { signSubstrate } from "../domains/signing/requests"
@@ -45,10 +44,9 @@ import {
   AuthorizedSites,
   RequestAuthorizeTab,
 } from "../domains/sitesAuthorised/types"
-import { SolanaTabsHandler } from "../domains/solana/handler.tabs"
-import TalismanHandler from "../domains/talisman/handler"
-import { UnknownJsonRpcResponse } from "../domains/talisman/types"
-import { talismanAnalytics } from "../libs/Analytics"
+import TaostatsHandler from "../domains/wallet/handler"
+import { UnknownJsonRpcResponse } from "../domains/wallet/types"
+import { walletAnalytics } from "../libs/Analytics"
 import { TabsHandler } from "../libs/Handler"
 import { chaindataProvider } from "../rpcs/chaindata"
 import { SubstrateSignResponse } from "../types/domains"
@@ -66,10 +64,7 @@ export default class Tabs extends TabsHandler {
 
     // routing to sub-handlers
     this.#routes = {
-      eth: new EthTabsHandler(stores),
-      solana: new SolanaTabsHandler(stores),
-      // TODO rename eth => ethereum (requires changing prefix in all requests)
-      talisman: new TalismanHandler(stores),
+      taostats: new TaostatsHandler(stores),
     }
   }
 
@@ -87,7 +82,7 @@ export default class Tabs extends TabsHandler {
       // this url was seen in the past
       assert(
         siteFromUrl.addresses?.length,
-        `No Talisman wallet accounts are authorised to connect to ${url}`,
+        `No Taostats Wallet accounts are authorised to connect to ${url}`,
       )
 
       return false
@@ -301,7 +296,7 @@ export default class Tabs extends TabsHandler {
         message: "Redirect from phishing site",
         extra: { url },
       })
-      talismanAnalytics.capture("Redirect from phishing site", { url })
+      walletAnalytics.capture("Redirect from phishing site", { url })
       this.redirectPhishingLanding(url)
 
       return true
@@ -322,7 +317,7 @@ export default class Tabs extends TabsHandler {
     }
     // Always check for onboarding before doing anything else
     // Because of chrome extensions can be synchronised on multiple computers,
-    // Talisman may be installed on computers where user do not want to onboard
+    // Wallet may be installed on computers where user do not want to onboard
     // => Do not trigger onboarding, just throw an error
     await this.stores.app.ensureOnboarded()
 

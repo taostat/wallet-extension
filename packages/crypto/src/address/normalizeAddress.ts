@@ -1,9 +1,4 @@
-import {
-  checksumEthereumAddress,
-  decodeSs58Address,
-  detectAddressEncoding,
-  encodeAddressSs58,
-} from "./encoding"
+import { decodeSs58Address, detectAddressEncoding, encodeAddressSs58 } from "./encoding"
 
 const CACHE = new Map<string, string>()
 
@@ -19,8 +14,6 @@ export const normalizeAddress = (address: string) => {
 
 const normalizeAnyAddress = (address: string) => {
   switch (detectAddressEncoding(address)) {
-    case "ethereum":
-      return checksumEthereumAddress(address)
     case "bech32m":
     case "bech32":
     case "base58check":
@@ -30,5 +23,7 @@ const normalizeAnyAddress = (address: string) => {
       const [pk] = decodeSs58Address(address)
       return encodeAddressSs58(pk, 42)
     }
+    default:
+      throw new Error("Unsupported encoding in normalizeAnyAddress")
   }
 }

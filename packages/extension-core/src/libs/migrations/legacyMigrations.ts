@@ -10,7 +10,7 @@ import { changePassword } from "./legacyHelpers"
 
 export const migrateConnectAllSubstrate = async (previousVersion: string) => {
   if (!lt(previousVersion, "1.14.0")) return
-  // once off migration to add `connectAllSubstrate` to the record for the Talisman Web App
+  // once off migration to add `connectAllSubstrate` to the record for the Web App
   const site = await sitesAuthorisedStore.get(TAOSTATS_WEB_APP_DOMAIN)
   if (!site) {
     const localData = await chrome.storage.local.get()

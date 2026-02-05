@@ -1,13 +1,13 @@
+import { LoaderIcon } from "@taostats-wallet/icons"
 import { MIGRATION_ERROR_MSG } from "extension-core"
 import { Component, ErrorInfo, ReactNode } from "react"
-import { ProcessAnimation } from "taostats-ui"
 
 const ErrorMessage = () => (
   <div className="text-whit mx-auto flex h-[60rem] w-[40rem] flex-col px-12 py-16 text-center">
     <div className="flex grow flex-col justify-center font-bold">
       <div className="text-xl">Updating</div>
       <div className="my-[4.4rem]">
-        <ProcessAnimation status="processing" className="h-[15rem]" />
+        <LoaderIcon className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
       </div>
       <div className="text-md">
         Adding new and improved

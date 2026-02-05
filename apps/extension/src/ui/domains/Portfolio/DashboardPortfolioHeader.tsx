@@ -1,15 +1,6 @@
-import {
-  ArrowDownIcon,
-  CreditCardIcon,
-  FolderIcon,
-  MoreHorizontalIcon,
-  RepeatIcon,
-  SendIcon,
-} from "@taostats-wallet/icons"
+import { ArrowDownIcon, FolderIcon, MoreHorizontalIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
-import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMatch } from "react-router-dom"
@@ -21,6 +12,7 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsEventName, AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AccountContextMenu } from "@ui/domains/Account/AccountContextMenu"
@@ -31,10 +23,8 @@ import { FolderContextMenu } from "@ui/domains/Account/FolderContextMenu"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
-import { useRampsModal } from "@ui/domains/Ramps/useRampsModal"
-import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
-import { useBalanceTotals, useFeatureFlag, useSelectedCurrency } from "@ui/state"
+import { useBalanceTotals, useSelectedCurrency } from "@ui/state"
 
 import { usePortfolioNavigation } from "./usePortfolioNavigation"
 
@@ -116,7 +106,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
   return (
     <div
       className={classNames(
-        "bg-grey-900 relative z-0 flex flex-col items-start justify-between rounded-lg p-10",
+        "bg-grey-900 relative z-0 flex flex-col items-start justify-between gap-4 rounded-lg p-10",
         className,
       )}
     >
@@ -221,10 +211,6 @@ const TopActions: FC = () => {
   const { selectedAccounts, selectedAccount } = usePortfolioNavigation()
   const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
-  const { open: openSwapTokensModal } = useSwapTokensModal()
-  const { open: openRampsModal } = useRampsModal()
-  const canSwap = useFeatureFlag("SWAPS")
-  const canBuy = useFeatureFlag("BUY_CRYPTO")
 
   const [disableActions, disabledReason] = useMemo(() => {
     if (!!selectedAccount && !isAccountOwned(selectedAccount))
@@ -269,28 +255,6 @@ const TopActions: FC = () => {
             }),
           disabled: !selectedAccounts.length, // always allow, as long as there is at least one account
         },
-        {
-          analyticsName: "Goto" as const,
-          analyticsAction: "open swap",
-          label: t("Swap"),
-          icon: RepeatIcon,
-          onClick: canSwap
-            ? () => openSwapTokensModal()
-            : () => window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank"),
-          disabled: disableActions,
-          disabledReason,
-        },
-        canBuy
-          ? {
-              analyticsName: "Goto" as const,
-              analyticsAction: "open ramps",
-              label: t("Buy/Sell"),
-              icon: CreditCardIcon,
-              onClick: () => openRampsModal(),
-              disabled: disableActions,
-              disabledReason,
-            }
-          : null,
       ].filter(isNotNil),
     [
       t,
@@ -298,22 +262,15 @@ const TopActions: FC = () => {
       disabledReason,
       selectedAccount,
       selectedAccounts.length,
-      canSwap,
-      canBuy,
       selectedAddress,
       symbol,
       openCopyAddressModal,
-      openSwapTokensModal,
-      openRampsModal,
     ],
   )
 
-  // TODO: Re-enable once staking in app is complete
-  return null
-
   return (
     <div className="z-[1] flex w-full items-center justify-between gap-8">
-      <div className="flex justify-center gap-4" data-testid="top-actions-buttons">
+      <div className="flex justify-center gap-4">
         {topActions.map((action, index) => (
           <Action key={index} {...action} />
         ))}

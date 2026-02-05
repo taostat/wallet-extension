@@ -1,7 +1,8 @@
 import { QrIcon } from "@taostats-wallet/icons"
+import { IconButton } from "taostats-ui"
+
 import { notify } from "@taostats/components/Notifications"
 import { shortenAddress } from "@taostats/util/shortenAddress"
-import { IconButton } from "taostats-ui"
 
 import i18next from "../../common/i18nConfig"
 

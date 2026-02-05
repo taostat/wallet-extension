@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next"
 import { lt } from "semver"
 
 import { getPolkadotLedgerDerivationPath } from "./common"
-import { getOpenLedgerAppError, getTalismanLedgerError, TalismanLedgerError } from "./errors"
+import { getOpenLedgerAppError, getTaostatsLedgerError, TaostatsLedgerError } from "./errors"
 import { useLedgerTransport } from "./useLedgerTransport"
 
 type LedgerRequest<T> = (ledger: PolkadotGenericApp) => Promise<T>
@@ -34,7 +34,7 @@ export const useLedgerPolkadot = ({ legacyApp } = DEFAULT_PROPS) => {
 
   const withLedger = useCallback(
     async <T>(request: LedgerRequest<T>): Promise<T> => {
-      if (refIsBusy.current) throw new TalismanLedgerError("Busy", t("Ledger is busy"))
+      if (refIsBusy.current) throw new TaostatsLedgerError("Busy", t("Ledger is busy"))
 
       refIsBusy.current = true
 
@@ -47,7 +47,7 @@ export const useLedgerPolkadot = ({ legacyApp } = DEFAULT_PROPS) => {
         await closeTransport()
         const appName =
           !legacyApp || legacyApp?.name === "Polkadot" ? "Polkadot" : "Polkadot Migration"
-        throw getTalismanLedgerError(err, appName)
+        throw getTaostatsLedgerError(err, appName)
       } finally {
         refIsBusy.current = false
       }
@@ -83,9 +83,9 @@ export const useLedgerPolkadot = ({ legacyApp } = DEFAULT_PROPS) => {
       return withLedger(async (ledger) => {
         // check if installed app supports secp256k1 accounts
         const appInfo = await ledger.appInfo()
-        if (!appInfo.appVersion) throw getTalismanLedgerError("Failed to get app version")
+        if (!appInfo.appVersion) throw getTaostatsLedgerError("Failed to get app version")
         if (lt(appInfo.appVersion, "100.0.14"))
-          throw getTalismanLedgerError("Please update your Ledger Polkadot app from Ledger Live")
+          throw getTaostatsLedgerError("Please update your Ledger Polkadot app from Ledger Live")
 
         return ledger.getAddressEcdsa(bip44path, false)
       })
@@ -106,10 +106,8 @@ const getAddress = async (ledger: PolkadotGenericApp, path: string, curve: Ledge
       const { address } = await ledger.getAddressEd25519(path, 42)
       return address
     }
-    case "ethereum": {
-      const { address } = await ledger.getAddressEcdsa(path)
-      return `0x${address}`
-    }
+    default:
+      throw new Error("Unsupported curve in getAddress")
   }
 }
 
@@ -123,8 +121,8 @@ const signWithMetadata = (
   switch (curve) {
     case "ed25519":
       return ledger.signWithMetadataEd25519(path, txBlob, txMetadata)
-    case "ethereum":
-      return ledger.signWithMetadataEcdsa(path, txBlob, txMetadata)
+    default:
+      throw new Error("Unsupported curve in signWithMetadata")
   }
 }
 
@@ -140,10 +138,8 @@ const signRawPayload = async (
       // skip first byte (sig type) or signatureVerify fails, this seems specific to ed25519 signatures
       return signature.slice(1)
     }
-    case "ethereum": {
-      const { signature } = await ledger.signRawEcdsa(path, txBlob)
-      return signature
-    }
+    default:
+      throw new Error("Unsupported curve in signRawPayload")
   }
 }
 
@@ -163,7 +159,7 @@ const signPayload = async (
   // find the app that defines which derivation path to use
   const app = supportedApps.find((a) => a.name === (account.app ?? "Polkadot"))
   if (!app)
-    throw getTalismanLedgerError(
+    throw getTaostatsLedgerError(
       t("Could not find which Ledger app can be used with this account. Please contact support."),
     )
 
@@ -172,7 +168,7 @@ const signPayload = async (
 
   const address = await getAddress(ledger, path, account.curve)
   if (!isAddressEqual(address, account.address))
-    throw getTalismanLedgerError(
+    throw getTaostatsLedgerError(
       t(
         "Connected Ledger device does not match the selected account. Please connect the correct device and retry.",
       ),
@@ -180,17 +176,17 @@ const signPayload = async (
 
   if (isJsonPayload(payload)) {
     if (!payload.withSignedTransaction)
-      throw getTalismanLedgerError(
+      throw getTaostatsLedgerError(
         t("This dapp needs to be updated in order to support Ledger signing."),
       )
-    if (!registry) throw getTalismanLedgerError(t("Missing registry."))
+    if (!registry) throw getTaostatsLedgerError(t("Missing registry."))
 
     const hasCheckMetadataHash = registry.metadata.extrinsic.transactionExtensions.some(
       (ext) => ext.identifier.toString() === "CheckMetadataHash",
     )
     if (!hasCheckMetadataHash)
-      throw getTalismanLedgerError(t("This network doesn't support Ledger Polkadot Generic App."))
-    if (!txMetadata) throw getTalismanLedgerError(t("Missing short metadata"))
+      throw getTaostatsLedgerError(t("This network doesn't support Ledger Polkadot Generic App."))
+    if (!txMetadata) throw getTaostatsLedgerError(t("Missing short metadata"))
 
     const unsigned = registry.createType("ExtrinsicPayload", payload)
 

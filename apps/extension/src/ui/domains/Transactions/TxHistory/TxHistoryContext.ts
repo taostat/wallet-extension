@@ -1,11 +1,11 @@
 import { HexString } from "@polkadot/util/types"
-import { EthNetworkId, Network } from "@taostats-wallet/chaindata-provider"
+import { Network } from "@taostats-wallet/chaindata-provider"
 import { normalizeAddress } from "@taostats-wallet/crypto"
-import { provideContext } from "@taostats/util/provideContext"
 import { WalletTransaction } from "extension-core"
 import uniq from "lodash-es/uniq"
 import { useCallback, useMemo, useState } from "react"
 
+import { provideContext } from "@taostats/util/provideContext"
 import { useAccountByAddress, useAccounts, useNetworks, useTransactions } from "@ui/state"
 
 const useTxHistoryProvider = () => {
@@ -16,7 +16,7 @@ const useTxHistoryProvider = () => {
 
   const [{ addresses, networkId }, setState] = useState<{
     addresses: string[] | null
-    networkId: HexString | EthNetworkId | null
+    networkId: HexString | null
   }>({
     addresses: null,
     networkId: null,
@@ -51,7 +51,7 @@ const useTxHistoryProvider = () => {
   )
 
   const setNetworkId = useCallback(
-    (networkId: HexString | EthNetworkId | null) => setState((state) => ({ ...state, networkId })),
+    (networkId: HexString | null) => setState((state) => ({ ...state, networkId })),
     [],
   )
 
@@ -74,7 +74,7 @@ export const [TxHistoryProvider, useTxHistory] = provideContext(useTxHistoryProv
 
 const getTransactions = (
   addresses: string[] | null,
-  networkId: HexString | EthNetworkId | null,
+  networkId: HexString | null,
   allTransactions: WalletTransaction[] | undefined,
 ) => {
   const encodedAddresses = addresses?.map(normalizeAddress) ?? []

@@ -1,14 +1,14 @@
 import { useCallback, useState } from "react"
 
-import { TalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { TaostatsLedgerError } from "@ui/hooks/ledger/errors"
 
 export const useSignLedgerBase = () => {
   const [{ isSigning, error }, setState] = useState<{
     isSigning: boolean
-    error: TalismanLedgerError | null
+    error: TaostatsLedgerError | null
   }>({ isSigning: false, error: null })
 
-  const setError = useCallback((error: TalismanLedgerError | null) => {
+  const setError = useCallback((error: TaostatsLedgerError | null) => {
     setState({ isSigning: false, error })
   }, [])
 

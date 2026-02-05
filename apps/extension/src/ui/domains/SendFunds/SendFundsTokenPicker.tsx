@@ -1,10 +1,4 @@
-import {
-  isTokenDot,
-  isTokenEth,
-  isTokenSol,
-  Token,
-  TokenId,
-} from "@taostats-wallet/chaindata-provider"
+import { isTokenDot, Token, TokenId } from "@taostats-wallet/chaindata-provider"
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
 import { useCallback, useMemo } from "react"
 
@@ -45,10 +39,7 @@ const getTokenFilter = (address: string) => {
   switch (accountEncoding) {
     case "ss58":
       return isTokenDot
-    case "ethereum":
-      return isTokenEth
-    case "base58solana":
-      return isTokenSol
+
     default:
       throw new Error(`Unsupported address encoding: ${accountEncoding}`)
   }

@@ -1,6 +1,7 @@
-import { provideContext } from "@taostats/util/provideContext"
 import { SIGNET_APP_URL } from "extension-shared"
 import { useMemo, useState } from "react"
+
+import { provideContext } from "@taostats/util/provideContext"
 
 import { AccountAddPageProps } from "../types"
 import { SignetVault } from "./types"

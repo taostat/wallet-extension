@@ -1,5 +1,4 @@
 import { classNames } from "@taostats-wallet/util"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import {
   DetailedHTMLProps,
   FC,
@@ -11,6 +10,7 @@ import {
 } from "react"
 import { useLocation } from "react-router-dom"
 
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { api } from "@ui/api"
 
 import { BottomNav } from "../components/Navigation/BottomNav"

@@ -1,4 +1,4 @@
 export {
-  TaostatsExtensionConnectionMetaDatabase as TalismanConnectionMetaDatabase,
+  TaostatsExtensionConnectionMetaDatabase,
   db as connectionMetaDb,
-} from "./TalismanConnectionMetaDatabase"
+} from "./TaostatsConnectionMetaDatabase"

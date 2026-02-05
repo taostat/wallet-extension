@@ -3,8 +3,6 @@ import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { AccountPlatform } from "@taostats-wallet/crypto"
 import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
 import { t } from "i18next"
 import { FC, ReactNode, useCallback, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -13,6 +11,8 @@ import { useNavigate } from "react-router-dom"
 import { Button, Dropdown, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import * as yup from "yup"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
 import { AccountPlatformSelector } from "@ui/domains/Account/AccountPlatformSelector"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import {
@@ -23,8 +23,6 @@ import {
 import { isAddSubstrateLedgerAppType } from "@ui/util/typeCheckers"
 
 import { AddSubstrateLedgerAppType, useAddLedgerAccount } from "./context"
-import { ConnectLedgerEthereum } from "./Shared/ConnectLedgerEthereum"
-import { ConnectLedgerSolana } from "./Shared/ConnectLedgerSolana"
 import { ConnectLedgerSubstrateGeneric } from "./Shared/ConnectLedgerSubstrateGeneric"
 import { ConnectLedgerSubstrateLegacy } from "./Shared/ConnectLedgerSubstrateLegacy"
 
@@ -315,12 +313,6 @@ export const AddLedgerSelectNetwork = () => {
                 />
               )}
             </>
-          )}
-          {platform === "ethereum" && (
-            <ConnectLedgerEthereum className="mt-14" onReadyChanged={setIsLedgerReady} />
-          )}
-          {platform === "solana" && (
-            <ConnectLedgerSolana className="mt-14" onReadyChanged={setIsLedgerReady} />
           )}
         </div>
       </div>

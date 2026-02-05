@@ -1,9 +1,10 @@
 import { ErrorBoundary as SentryErrorBoundary } from "@sentry/react"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { DexieError } from "dexie"
 import { DEBUG, DISCORD_URL } from "extension-shared"
 import { ReactNode, useCallback } from "react"
 import { Button } from "taostats-ui"
+
+import { TaostatsLogo } from "@taostats/theme/logos"
 
 export const TaostatsWalletErrorBoundary = ({ children }: { children?: ReactNode }) => (
   <SentryErrorBoundary fallback={ErrorMessage}>{children}</SentryErrorBoundary>

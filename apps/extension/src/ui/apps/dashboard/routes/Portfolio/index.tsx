@@ -1,6 +1,6 @@
-import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
 import { Route, Routes } from "react-router-dom"
 
+import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
@@ -16,7 +16,7 @@ export const PortfolioRoutes = () => (
       {/* share layout to prevent tabs flickering */}
       <PortfolioLayout toolbar={<PortfolioToolbar />} header={<PortfolioHeader />}>
         <Routes>
-          <Route path="tokens/:symbol" element={<PortfolioAsset />} />
+          <Route path="tokens/:netuid" element={<PortfolioAsset />} />
           <Route path="tokens" element={<PortfolioAssets />} />
           <Route path="*" element={<NavigateWithQuery url="tokens" />} />
         </Routes>
@@ -35,7 +35,7 @@ const PortfolioToolbar = () => {
 
 const PortfolioHeader = () => (
   <Routes>
-    <Route path="tokens/:symbol" element={<PortfolioAssetHeader />} />
+    <Route path="tokens/:netuid" element={<PortfolioAssetHeader />} />
     <Route path="*" element={<DashboardPortfolioHeader />} />
   </Routes>
 )

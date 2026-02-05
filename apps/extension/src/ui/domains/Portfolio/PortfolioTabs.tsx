@@ -1,8 +1,8 @@
-import { Tabs } from "@taostats/components/Tabs"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 
+import { Tabs } from "@taostats/components/Tabs"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
 
 const URL_TAB_TOKENS = "/portfolio/tokens"

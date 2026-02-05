@@ -1,9 +1,9 @@
 import { ExternalLinkIcon, HelpCircleIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { DISCORD_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 
 const Content = () => {

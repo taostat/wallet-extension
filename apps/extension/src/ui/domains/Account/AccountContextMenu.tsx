@@ -1,6 +1,4 @@
-import { isEthereumAddress } from "@taostats-wallet/crypto"
 import { MoreHorizontalIcon } from "@taostats-wallet/icons"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Account, getAccountGenesisHash } from "extension-core"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -13,18 +11,15 @@ import {
   PopoverOptions,
 } from "taostats-ui"
 
-import { api } from "@ui/api"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useAccountExportModal } from "@ui/domains/Account/AccountExportModal"
-import { useAccountExportPrivateKeyModal } from "@ui/domains/Account/AccountExportPrivateKeyModal"
 import { useAccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { useAccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
 import { useViewOnExplorer } from "@ui/domains/ViewOnExplorer"
 import { useAccountToggleIsPortfolio } from "@ui/hooks/useAccountToggleIsPortfolio"
-import { useActiveAssetDiscoveryNetworkIds } from "@ui/hooks/useAllActiveNetworkIds"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useAccountByAddress, useNetworkByGenesisHash } from "@ui/state"
-import { IS_EMBEDDED_POPUP, IS_POPUP } from "@ui/util/constants"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"
 
@@ -110,33 +105,11 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
     [_openAccountExportModal, account],
   )
 
-  const { canExportAccountFunc: canExportAccountPkFunc, open: _openAccountExportPkModal } =
-    useAccountExportPrivateKeyModal()
-  const canExportPk = useMemo(
-    () => canExportAccountPkFunc(account),
-    [account, canExportAccountPkFunc],
-  )
-  const openAccountExportPkModal = useCallback(
-    () => _openAccountExportPkModal(account),
-    [_openAccountExportPkModal, account],
-  )
-
   const { open: _openAccountRemoveModal } = useAccountRemoveModal()
   const openAccountRemoveModal = useCallback(
     () => _openAccountRemoveModal(account),
     [_openAccountRemoveModal, account],
   )
-
-  const networkIds = useActiveAssetDiscoveryNetworkIds()
-  const canScanTokens = useMemo(() => account && isEthereumAddress(account.address), [account])
-  const scanTokensClick = useCallback(() => {
-    if (!account) return
-    api.assetDiscoveryStartScan({ networkIds, addresses: [account.address], withApi: true })
-    if (IS_POPUP) {
-      api.dashboardOpen("/settings/networks-tokens/asset-discovery")
-      if (IS_EMBEDDED_POPUP) window.close()
-    }
-  }, [account, networkIds])
 
   const goToManageAccounts = useCallback(() => navigate("/settings/accounts"), [navigate])
 
@@ -164,19 +137,9 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
               {canRename && (
                 <ContextMenuItem onClick={openAccountRenameModal}>{t("Rename")}</ContextMenuItem>
               )}
-              {canScanTokens && (
-                <ContextMenuItem onClick={scanTokensClick}>
-                  {t("Scan missing tokens")}
-                </ContextMenuItem>
-              )}
               {canExport && (
                 <ContextMenuItem onClick={openAccountExportModal}>
                   {t("Export as JSON")}
-                </ContextMenuItem>
-              )}
-              {canExportPk && (
-                <ContextMenuItem onClick={openAccountExportPkModal}>
-                  {t("Export private key")}
                 </ContextMenuItem>
               )}
               <ContextMenuItem onClick={openAccountRemoveModal}>

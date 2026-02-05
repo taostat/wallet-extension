@@ -1,10 +1,10 @@
 import { AlertTriangleIcon } from "@taostats-wallet/icons"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
+import { TaostatsLogo } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 
 type PhishingPageProps = {

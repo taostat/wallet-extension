@@ -1,16 +1,6 @@
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
-import {
-  CopyIcon,
-  MoreHorizontalIcon,
-  PlusIcon,
-  SendIcon,
-  UserPlusIcon,
-} from "@taostats-wallet/icons"
+import { CopyIcon, MoreHorizontalIcon, PlusIcon, UserPlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
@@ -28,11 +18,12 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
   PillButton,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
 } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
@@ -45,7 +36,6 @@ import { ExistingContactComponentProps } from "@ui/domains/Settings/AddressBook/
 import { useViewOnExplorer } from "@ui/domains/ViewOnExplorer"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
-import { useSendFundsPopup } from "@ui/hooks/useSendFundsPopup"
 import { useBalances, useContacts, useNetworkByGenesisHash } from "@ui/state"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
@@ -80,12 +70,6 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
   const { t } = useTranslation()
   const { genericEvent } = useAnalytics()
   const { open: openCopyAddressModal } = useCopyAddressModal()
-  const { canSendFunds, cannotSendFundsReason, openSendFundsPopup } = useSendFundsPopup(
-    undefined,
-    undefined,
-    undefined,
-    contact.address,
-  )
   const contactChain = useNetworkByGenesisHash(contact.genesisHash)
   const { open: viewOnExplorer, canOpen: canViewOnExplorer } = useViewOnExplorer(
     contact.address,
@@ -141,17 +125,6 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
         <SquareButton onClick={handleCopyClick}>
           <CopyIcon />
         </SquareButton>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            {/* wrap in a div because disabled buttons can't have tooltips */}
-            <div>
-              <SquareButton disabled={!canSendFunds} onClick={openSendFundsPopup}>
-                <SendIcon />
-              </SquareButton>
-            </div>
-          </TooltipTrigger>
-          {cannotSendFundsReason && <TooltipContent>{cannotSendFundsReason}</TooltipContent>}
-        </Tooltip>
         <ContextMenu placement="bottom-end">
           <ContextMenuTrigger asChild>
             <SquareButton>
@@ -162,19 +135,6 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
             <Suspense fallback={<SuspenseTracker name="AddressBookContactItem.ContextMenu" />}>
               <ContextMenuItem onClick={() => handleEdit(contact.address)}>
                 {t("Edit contact")}
-              </ContextMenuItem>
-              <ContextMenuItem
-                disabled={!canSendFunds}
-                onClick={openSendFundsPopup}
-                className="disabled:!text-body-disabled disabled:!cursor-not-allowed disabled:!bg-transparent"
-              >
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    {/* wrap in a div to prevent a button inside button situation */}
-                    <div>{t("Send to this contact")}</div>
-                  </TooltipTrigger>
-                  {/* TODO fix tooltip which appears behind context menu */}
-                </Tooltip>
               </ContextMenuItem>
               <ContextMenuItem onClick={handleCopyClick}>{t("Copy address")}</ContextMenuItem>
               <ContextMenuItem

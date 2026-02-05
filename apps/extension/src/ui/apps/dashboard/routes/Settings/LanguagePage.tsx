@@ -1,10 +1,10 @@
-import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
 import { languages } from "@common/i18nConfig"
+import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 
 const Content = () => {

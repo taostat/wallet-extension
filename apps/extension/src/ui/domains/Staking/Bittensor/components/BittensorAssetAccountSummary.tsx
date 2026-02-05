@@ -1,8 +1,9 @@
 import type { ReactNode } from "react"
 import { Token } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense } from "react"
+
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 
 import { BondAccountPillButton } from "../../Bond/BondAccountPillButton"
 import { AssetPill } from "./AssetPill"

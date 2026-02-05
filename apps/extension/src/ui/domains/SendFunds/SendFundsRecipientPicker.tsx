@@ -2,19 +2,14 @@ import {
   DotNetwork,
   getNetworkGenesisHash,
   isNetworkDot,
-  isNetworkEth,
-  Network,
 } from "@taostats-wallet/chaindata-provider"
 import {
   decodeSs58Address,
-  getAccountPlatformFromAddress,
   isAddressEqual,
   isAddressValid,
   isSs58Address,
 } from "@taostats-wallet/crypto"
-import { EyeIcon, HomeIcon, LoaderIcon, UserIcon, XOctagonIcon } from "@taostats-wallet/icons"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInput } from "@taostats/components/SearchInput"
+import { EyeIcon, HomeIcon, UserIcon, XOctagonIcon } from "@taostats-wallet/icons"
 import {
   isAccountCompatibleWithNetwork,
   isAccountOwned,
@@ -22,10 +17,10 @@ import {
 } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, Drawer, useOpenClose } from "taostats-ui"
 
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
-import { useResolveNsName } from "@ui/hooks/useResolveNsName"
 import { useAccounts, useNetworkById, useToken } from "@ui/state"
 
 import { NetworkLogo } from "../Networks/NetworkLogo"
@@ -53,62 +48,10 @@ const AddressFormatError = ({ chain }: { chain?: DotNetwork }) => {
   )
 }
 
-const UnknownAddressDrawer = ({
-  close,
-  isOpen,
-  onProceed,
-  address,
-  chain,
-}: {
-  close: () => void
-  isOpen: boolean
-  onProceed: (address: string) => void
-  address: string
-  chain?: Network
-}) => {
-  const { t } = useTranslation()
-
-  const handleProceedClick = useCallback(() => {
-    onProceed(address)
-    close()
-  }, [close, onProceed, address])
-
-  return (
-    <Drawer containerId="main" isOpen={isOpen} anchor="bottom" onDismiss={close}>
-      <div className="bg-black-tertiary flex max-w-[42rem] flex-col items-center gap-12 rounded-t-xl p-12">
-        <div className="flex flex-col gap-4 text-center">
-          <p className="px-10 font-bold text-white">
-            {t("Sending to the wrong network will result in a loss of funds")}
-          </p>
-          <p className="text-body-secondary text-sm">
-            {t(
-              "If you are sending to a centralized exchange, ensure this address is on the correct network.",
-            )}
-          </p>
-          <div className="mt-4 flex items-center justify-between gap-8 text-xs">
-            <div className="text-body-secondary">{t("Selected Network")}</div>
-            <div className="text-body flex items-center gap-4">
-              <NetworkLogo networkId={chain?.id} className="text-md" />
-              {chain?.name}
-            </div>
-          </div>
-        </div>
-        <div className="grid w-full grid-cols-2 gap-8">
-          <Button onClick={close}>{t("Cancel")}</Button>
-          <Button primary onClick={handleProceedClick} data-testid="send-funds-proceed-button">
-            {t("Proceed")}
-          </Button>
-        </div>
-      </div>
-    </Drawer>
-  )
-}
-
 export const SendFundsRecipientPicker = () => {
   const { t } = useTranslation()
   const { from, to, set, tokenId } = useSendFundsWizard()
   const { setRecipientWarning } = useSendFunds()
-  const { open, close, isOpen } = useOpenClose()
   const [search, setSearch] = useState("")
   const token = useToken(tokenId)
   const network = useNetworkById(token?.networkId)
@@ -147,10 +90,6 @@ export const SendFundsRecipientPicker = () => {
     ]
   }, [matchingAccounts])
 
-  const [nsLookup, { isNsLookup, isNsFetching }] = useResolveNsName(search, {
-    ens: isNetworkEth(network),
-  })
-
   const newAddress = useMemo<{
     address: string
     name?: string
@@ -173,17 +112,8 @@ export const SendFundsRecipientPicker = () => {
       return { address: search }
     }
 
-    if (
-      isNsLookup &&
-      nsLookup &&
-      isAddressValid(nsLookup) &&
-      isAddressCompatibleWithNetwork(network, nsLookup)
-    ) {
-      return { name: search, address: nsLookup }
-    }
-
     return null
-  }, [isNsLookup, matchingAccounts.length, network, nsLookup, search])
+  }, [matchingAccounts.length, network, search])
 
   const handleSelect = useCallback(
     (address: string) => {
@@ -191,24 +121,6 @@ export const SendFundsRecipientPicker = () => {
       setRecipientWarning(undefined)
     },
     [set, setRecipientWarning],
-  )
-
-  const [unknownAddress, setUnknownAddress] = useState<string>()
-  const handleSelectUnknownAddress = useCallback(
-    (address: string) => {
-      switch (getAccountPlatformFromAddress(address)) {
-        case "polkadot": {
-          setUnknownAddress(address)
-          open()
-          break
-        }
-        default: {
-          handleSelect(address)
-          break
-        }
-      }
-    },
-    [handleSelect, open],
   )
 
   const handleSubmitSearch = useCallback(() => {
@@ -226,11 +138,6 @@ export const SendFundsRecipientPicker = () => {
             autoFocus
             onChange={setSearch}
             placeholder={t("Enter address")}
-            after={
-              isNsLookup && isNsFetching ? (
-                <LoaderIcon className="text-body-disabled animate-spin-slow shrink-0" />
-              ) : null
-            }
           />
         </div>
       </div>
@@ -245,7 +152,7 @@ export const SendFundsRecipientPicker = () => {
                 accounts={[newAddress]}
                 noFormat // preserve user input chain format
                 selected={to}
-                onSelect={handleSelectUnknownAddress}
+                onSelect={handleSelect}
               />
             )}
             <SendFundsAccountsList
@@ -294,15 +201,6 @@ export const SendFundsRecipientPicker = () => {
           </>
         )}
       </ScrollContainer>
-      {unknownAddress && (
-        <UnknownAddressDrawer
-          isOpen={isOpen}
-          close={close}
-          onProceed={handleSelect}
-          address={unknownAddress}
-          chain={network ?? undefined}
-        />
-      )}
     </div>
   )
 }

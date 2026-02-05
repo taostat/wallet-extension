@@ -2,9 +2,7 @@ import { Balances } from "@taostats-wallet/balances"
 import { isNetworkCustom, isTokenCustom } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
 import { Account, isAccountOwned } from "@taostats-wallet/keyring"
-import { isNotNil } from "@taostats-wallet/util"
 import { DEBUG, IS_FIREFOX } from "extension-shared"
-import { uniq } from "lodash-es"
 import groupBy from "lodash-es/groupBy"
 import { filter, firstValueFrom, map } from "rxjs"
 
@@ -16,7 +14,6 @@ import { settingsStore } from "../domains/app/store.settings"
 import { balancesStore$ } from "../domains/balances/store.balances"
 import { walletBalances$ } from "../domains/balances/walletBalances"
 import { keyringStore } from "../domains/keyring/store"
-import { nftsStore$ } from "../domains/nfts/store"
 import { tokenRatesStore } from "../domains/tokenRates"
 import { chaindataProvider } from "../rpcs/chaindata"
 import { privacyRoundCurrency } from "../util/privacyRoundCurrency"
@@ -142,7 +139,7 @@ async function getGeneralReport({
 
   // account type breakdown
   const accountBreakdown: Record<Lowercase<LegacyAccountOrigin>, number> = {
-    talisman: 0,
+    taostats: 0,
     qr: 0,
     ledger: 0,
     dcent: 0,
@@ -269,29 +266,6 @@ async function getGeneralReport({
 
   const numTokens = sortedFiatSumPerChainToken.length
 
-  //
-  // nfts
-  //
-  const { nfts, collections } = await firstValueFrom(nftsStore$)
-  const ownedNfts = nfts.filter((nft) =>
-    ownedAddresses.some((ownedAddress) => isAddressEqual(nft.owner, ownedAddress)),
-  )
-
-  const TOP_NFT_COLLECTIONS_COUNT = 20
-  const nftsCount = ownedNfts.length
-
-  const nftsTotalValue = ownedNfts.reduce((total, nft) => total + (nft.price || 0) * nft.amount, 0)
-
-  const topNftCollections = uniq(
-    nfts
-      .concat()
-      .sort((n1, n2) => (n1.price ?? 0) - (n2.price ?? 0))
-      .map((nft) => nft.collectionId),
-  )
-    .slice(0, TOP_NFT_COLLECTIONS_COUNT)
-    .map((cid) => collections.find((c) => c.id === cid)?.name)
-    .filter(isNotNil)
-
   return {
     // accounts
     accountBreakdown,
@@ -308,11 +282,6 @@ async function getGeneralReport({
     topToken,
     numTokens,
 
-    // nfts
-    nftsCount,
-    nftsTotalValue,
-    topNftCollections,
-
     // util
     lastGeneralReport: Math.trunc(Date.now() / 1000),
   }
@@ -321,7 +290,7 @@ async function getGeneralReport({
 const getLegacyAccountOrigin = (account: Account): LegacyAccountOrigin => {
   switch (account.type) {
     case "keypair":
-      return LegacyAccountOrigin.Talisman
+      return LegacyAccountOrigin.Taostats
     case "ledger-ethereum":
     case "ledger-polkadot":
       return LegacyAccountOrigin.Ledger

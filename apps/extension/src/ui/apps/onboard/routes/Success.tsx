@@ -33,7 +33,7 @@ export const SuccessPage = () => {
           icon={ArrowRightIcon}
           primary
           onClick={completeOnboarding}
-          data-testid="onboarding-enter-talisman-button"
+          data-testid="onboarding-enter-taostats-button"
         >
           {t("Enter")}
         </Button>

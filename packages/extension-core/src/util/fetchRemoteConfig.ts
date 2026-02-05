@@ -1,12 +1,9 @@
-import {
-  log,
-  // TALISMAN_CONFIG_URL
-} from "extension-shared"
+import { log } from "extension-shared"
 import toml from "toml"
 
 import { RemoteConfigStoreData } from "../domains/app/types"
 
-// export const REMOTE_CONFIG_URL = "https://talismansociety.github.io/talisman-config/config.toml"
+// export const REMOTE_CONFIG_URL = "http://localhost:3001/api/wallet-extension/remote-config"
 
 export const fetchRemoteConfig = async () => {
   log.debug("Fetching config.toml")
@@ -77,17 +74,8 @@ RISK_ANALYSIS_V2 = true         # enables tx validation
 AUTONOMYS_QUEST_BANNER = false
 NFTS = false                    # obsolete, replaced by NFT_V2
 NFTS_V2 = true
-SEEK_TAO_DISCOUNT = true
-SEEK_BENEFITS = true
-SEEK_PRESALE = false
 BLOCKAID_DAPP_SCAN = false       # blockaid phishing checks
 ASSET_HUB_MIGRATION_BANNER = false
-
-# DEPRECATED as of 2.8.0
-[rampConfig]
-rampBasePath = "https://app.ramp.network"
-rampApiBasePath = "https://api.ramp.network/api/host-api/v3"
-rampApiKey = "w6tsjwjtcwty6gfkj2u39vbpcdp9a2a7yyq7gvjp"
 
 # DEPRECATED as of 2.8.0
 [rampSupportedTokenIds]
@@ -116,7 +104,7 @@ MATIC_ETH = "137-evm-erc20-0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"
 
 # FOR QA BUILDS ONLY - TO DELETE AFTER 2.8.0 RELEASE
 [rampNetworks]
-# maps Ramp network ids to Talisman chain & evmNetwork ids
+# maps Ramp network ids to chain & evmNetwork ids
 POLKADOT = "polkadot"
 DOT = "polkadot-asset-hub"
 KUSAMA = "kusama"
@@ -138,18 +126,11 @@ WORLDCHAIN = "480"
 MOONBEAM = "1284"
 
 [coingecko]
-apiUrl = "https://cgp.talisman.xyz"
+apiUrl = ""
 
 [swaps]
 questApi = ""
-lifiApiKey = "a4bcc4a5-679a-415a-9220-d1b5e09b0fb8.df20c39d-3144-4e0b-b15f-9c035dc09ff5"
-# a list of additional tokens to enable swaps for, which might not be available from lifi by default
-lifiTalismanTokens = [
-  "1:evm-erc20:0x07C3E739C65f81Ea79d19A88d27de4C9f15f8Df0", # SEEK on Eth
-  "137:evm-erc20:0x2a69b0383759572081c09f0a68d3a8a955751dde", # DEEK on Polygon
 
-  "1:evm-erc20:0x92f419fb7a750aed295b0ddf536276bf5a40124f", # TATSU on Eth
-]
 simpleswapApiKey = "9d6ee1b3-1fc1-4fd5-8baf-751c29b9fda8"
 simpleswapApiKeyDiscounted = "7697b46d-1de3-4d11-ac71-17137bceb081"
 simpleswapDiscountedCurrencies = ["usd1"]
@@ -219,12 +200,6 @@ promotedSellTokens = [
   # "137:evm-erc20:0x2a69b0383759572081c09f0a68d3a8a955751dde", # DEEK on Polygon
 ]
 
-# a map from token to talisman fee amount
-# the default talisman fee for tokens not in this list is 0.2 (0.2%)
-[swaps.lifiCustomFeeTokens]
-"137:evm-erc20:0x2a69b0383759572081c09f0a68d3a8a955751dde" = 0.2
-# "1:evm-erc20:0x07C3E739C65f81Ea79d19A88d27de4C9f15f8Df0" = 0.2 # SEEK on Eth
-
 [nominationPools]
 polkadot-asset-hub = [282, 12, 16]
 kusama-asset-hub = [15]
@@ -234,27 +209,10 @@ aleph-zero = [47]
 analog-timechain = [1]
 
 [stakingPools]
-bittensor = ["5FtBncJvGhxjBs4aFn2pid6aur9tBUuo9QR7sHe5DkoRizzo"]
+bittensor = ["5GKH9FPPnWSUoeeTJp19wVtd84XqFW4pyK2ijV2GsFbhTrP1"]
 
 [documentation]
 unifiedAddressDocsUrl = "https://wiki.polkadot.network/docs/learn-accounts#unified-address-format"
-
-[ramps]
-# NOTE: rampApiKey is deprecated as of v3.1.13, starting from this version the ramp key is automatically
-# included via our proxy api hosted at https://ramp-api.talisman.xyz
-rampApiKey = "w6tsjwjtcwty6gfkj2u39vbpcdp9a2a7yyq7gvjp"
-coinbaseProjectId = "63080e24-dc8e-45d0-9618-467b8c222f9e"
-pinnedTokens = [
-  # deprecated ids
-  "polkadot-substrate-native",
-  "1-evm-native",
-  "bittensor-substrate-native",
-
-  # new ids v2.12+
-  "polkadot:substrate-native",
-  "1:evm-native",
-  "bittensor:substrate-native"
-]
 
 [ramps.rampNetworks]
 POLKADOT = "polkadot"
@@ -276,31 +234,6 @@ LINEA = "59144"
 TELOS = "40"
 WORLDCHAIN = "480"
 MOONBEAM = "1284"
-
-[seek]
-tokenId = "1:evm-erc20:0x07c3e739c65f81ea79d19a88d27de4c9f15f8df0" # eth mainnet contract
-stakingUrl = "https://app.talisman.xyz/staking/providers?action=stake&type=seek"
-docsUrl = "https://docs.talisman.xyz/talisman/seek/seek-benefits"
-tradeUrl = "https://docs.talisman.xyz/talisman/seek/get-seek"
-stakingContractNetworkId = "1"
-stakingContractAddress = "0x52b8969f9c1d1effd4f0abea2104df02b65c165c" # eth mainnet contract
-stakingEarlyRewardBoost = "420%"
-webAppStakingPath = "/staking/providers?action=stake&type=seek"
-
-[[seek.discountTiers]]
-tier = 0
-min = "0"
-discount = 0
-
-[[seek.discountTiers]]
-tier = 1
-min = "200000000000000000000"  # 200 * 10^18
-discount = 0.05
-
-[[seek.discountTiers]]
-tier = 2
-min = "1000000000000000000000"  # 1,000 * 10^18
-discount = 0.15
 
 [earn]
 

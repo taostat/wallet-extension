@@ -12,7 +12,7 @@ export function useGetInfiniteSubnetIdentities() {
     },
     queryFn: ({ pageParam = 1, signal }) =>
       fetchTaostats<SubnetApiDescriptionsResponse>({
-        path: "/api/subnet/identity/v1",
+        path: "/subnet-identity",
         params: { page: pageParam },
         signal,
         includeAuthHeader: true,

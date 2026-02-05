@@ -1,14 +1,14 @@
 import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { LoaderIcon, SecretIcon } from "@taostats-wallet/icons"
-import { FadeIn } from "@taostats/components/FadeIn"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify } from "@taostats/components/Notifications"
 import { log, POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button, Dropdown } from "taostats-ui"
 
+import { FadeIn } from "@taostats/components/FadeIn"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import {
@@ -63,7 +63,7 @@ const SetVerifierCertificateContentInner = () => {
       </h3>
       <p>
         {t(
-          "Talisman's QR codes are generated from live network data and signed with the recovery phrase that you've chosen as Polkadot Vault Verifier Certificate.",
+          "Taostats' QR codes are generated from live network data and signed with the recovery phrase that you've chosen as Polkadot Vault Verifier Certificate.",
         )}
       </p>
       <p>{t("Select the recovery phrase to use a verifier certificate, or generate a new one.")}</p>
@@ -77,7 +77,7 @@ const SetVerifierCertificateContentInner = () => {
           <Trans t={t}>
             <span className="text-body">Caution:</span> Once you register networks in Polkadot Vault
             using metadata signed by this Verifier Certificate, changing it or removing it in
-            Talisman will cause accounts for those networks held in Polkadot Vault to become
+            Taostats will cause accounts for those networks held in Polkadot Vault to become
             unusable.
           </Trans>
         </p>
@@ -187,7 +187,7 @@ const MetadataPortalContent = () => {
                   ></a>
                 ),
               }}
-              defaults="Talisman's QR codes are generated from live network data and signed with the recovery phrase that you've chosen as Polkadot Vault Verifier Certificate. <Link>Learn more</Link>"
+              defaults="Taostats' QR codes are generated from live network data and signed with the recovery phrase that you've chosen as Polkadot Vault Verifier Certificate. <Link>Learn more</Link>"
             />
           </p>
           <p className="flex items-center gap-3">
@@ -217,10 +217,10 @@ const MetadataPortalContent = () => {
                 <LoaderIcon className="animate-spin-slow text-3xl" />
               </div>
               {tab === "specs" && (
-                <NetworkSpecsQrCode genesisHash={chain.genesisHash} qrCodeSource="talisman" />
+                <NetworkSpecsQrCode genesisHash={chain.genesisHash} qrCodeSource="taostats" />
               )}
               {tab === "metadata" && (
-                <MetadataQrCode genesisHash={chain.genesisHash} qrCodeSource="talisman" />
+                <MetadataQrCode genesisHash={chain.genesisHash} qrCodeSource="taostats" />
               )}
             </div>
           </FadeIn>

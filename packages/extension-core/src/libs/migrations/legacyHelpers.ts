@@ -18,7 +18,7 @@ import {
   ChangePasswordStatusUpdateType,
 } from "../../types/domains"
 
-const TALISMAN_BACKUP_KEYRING_KEY = "talismanKeyringBackup"
+const BACKUP_KEYRING_KEY = "walletKeyringBackup"
 
 const eligiblePairFilter = (pair: KeyringPair | KeyringJson) =>
   !pair.meta.isHardware && !pair.meta.isExternal
@@ -26,18 +26,17 @@ const eligiblePairFilter = (pair: KeyringPair | KeyringJson) =>
 const restoreBackupKeyring = async (
   password: string,
 ): Promise<Result<boolean, "No keyring backup found" | "Unable to restore backup keyring">> => {
-  const backupJsonObj = await chrome.storage.local.get(TALISMAN_BACKUP_KEYRING_KEY)
+  const backupJsonObj = await chrome.storage.local.get(BACKUP_KEYRING_KEY)
 
-  if (!backupJsonObj || !backupJsonObj[TALISMAN_BACKUP_KEYRING_KEY])
-    return Err("No keyring backup found")
+  if (!backupJsonObj || !backupJsonObj[BACKUP_KEYRING_KEY]) return Err("No keyring backup found")
 
-  const backupJson = backupJsonObj[TALISMAN_BACKUP_KEYRING_KEY]
+  const backupJson = backupJsonObj[BACKUP_KEYRING_KEY]
   try {
     keyring.restoreAccounts(JSON.parse(backupJson), password)
   } catch (error) {
     return Err("Unable to restore backup keyring")
   }
-  await chrome.storage.local.remove(TALISMAN_BACKUP_KEYRING_KEY)
+  await chrome.storage.local.remove(BACKUP_KEYRING_KEY)
   return Ok(true)
 }
 
@@ -105,7 +104,7 @@ export const changePassword = async (
       keyring.getPairs().map(({ address }) => address),
       currentPw,
     )
-    await chrome.storage.local.set({ [TALISMAN_BACKUP_KEYRING_KEY]: JSON.stringify(backupJson) })
+    await chrome.storage.local.set({ [BACKUP_KEYRING_KEY]: JSON.stringify(backupJson) })
 
     // attempt to migrate keypairs first
     const keypairMigrationResult = await migratePairs(currentPw, newPw)
@@ -141,7 +140,7 @@ export const changePassword = async (
     log.error("Error migrating password: ", error)
     return Err("Error changing password")
   }
-  await chrome.storage.local.remove(TALISMAN_BACKUP_KEYRING_KEY)
+  await chrome.storage.local.remove(BACKUP_KEYRING_KEY)
   // success
   return Ok(true)
 }

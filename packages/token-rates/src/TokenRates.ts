@@ -1,4 +1,5 @@
-import { evmErc20TokenId, Token, TokenId } from "@taostats-wallet/chaindata-provider"
+import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
+import { cloneDeep, uniq } from "lodash-es"
 
 import {
   SUPPORTED_CURRENCIES,
@@ -17,103 +18,70 @@ export class TokenRatesError extends Error {
 }
 
 export const ALL_CURRENCY_IDS = Object.keys(SUPPORTED_CURRENCIES) as TokenRateCurrency[]
-export type CoinsApiConfig = {
+export type TokenRatesApiConfig = {
   apiUrl: string
 }
 
-export const DEFAULT_COINSAPI_CONFIG: CoinsApiConfig = {
-  apiUrl: "https://coins.talisman.xyz",
+export const DEFAULT_TOKEN_RATES_CONFIG: TokenRatesApiConfig = {
+  // Use env override when set, otherwise fall back to production URL.
+  // `??` ensures the type is always `string` (not `string | undefined`).
+  apiUrl: process.env.TAOSTATS_API_URL ?? "https://taostats.io/api/wallet-extension",
 }
+
 export async function fetchTokenRates(
   tokens: Record<TokenId, Token>,
-  currencyIds: TokenRateCurrency[] = ALL_CURRENCY_IDS,
-  config: CoinsApiConfig = DEFAULT_COINSAPI_CONFIG,
+  currencyIdsParam: TokenRateCurrency[] = ALL_CURRENCY_IDS,
+  config: TokenRatesApiConfig = DEFAULT_TOKEN_RATES_CONFIG,
 ): Promise<TokenRatesList> {
-  // create a map from `coingeckoId` -> `tokenId` for each token
-  const coingeckoIdToTokenIds = Object.values(tokens)
-    .flatMap((token) => {
-      // BEGIN: LP tokens have a rate which is calculated later on, using the rates of two other tokens.
-      //
-      // This section contains the logic such that: if token is an LP token, then fetch the rates for the two underlying tokens.
-      if (token.type === "evm-uniswapv2") {
-        if (token.platform !== "ethereum") return []
+  const currencyIds = [...new Set(currencyIdsParam).add("tao")]
 
-        const getToken = (
-          evmNetworkId: string,
-          tokenAddress: `0x${string}`,
-          coingeckoId: string,
-        ) => ({
-          id: evmErc20TokenId(evmNetworkId, tokenAddress),
-          coingeckoId,
-        })
-
-        const token0 = token.coingeckoId0
-          ? [getToken(token.networkId, token.tokenAddress0, token.coingeckoId0)]
-          : []
-        const token1 = token.coingeckoId1
-          ? [getToken(token.networkId, token.tokenAddress1, token.coingeckoId1)]
-          : []
-
-        return [...token0, ...token1]
+  const filteredTokens = Object.values(tokens)
+    .filter((token) => token.type === "substrate-dtao")
+    .map((token) => {
+      return {
+        id: token.id,
+        type: token.type,
+        netuid: token.netuid,
+        networkId: token.networkId,
       }
-      // END: LP tokens have a rate which is calculated later on, using the rates of two other tokens.
-
-      // ignore tokens which don't have a coingeckoId
-      if (!token.coingeckoId) return []
-
-      return [{ id: token.id, coingeckoId: token.coingeckoId }]
     })
+    .filter((token) => token.networkId === "bittensor")
 
-    // get each token's coingeckoId
-    .reduce(
-      (coingeckoIdToTokenIds, { id, coingeckoId }) => {
-        if (!coingeckoIdToTokenIds[coingeckoId]) coingeckoIdToTokenIds[coingeckoId] = []
-        coingeckoIdToTokenIds[coingeckoId].push(id)
-        return coingeckoIdToTokenIds
-      },
-      {} as Record<string, string[]>,
-    )
+  const filteredTokenMap = filteredTokens.reduce(
+    (acc, token) => {
+      acc[token.id] = token
+      return acc
+    },
+    {} as Record<string, (typeof filteredTokens)[number]>,
+  )
 
-  // create a list of coingeckoIds we want to fetch
-  const coingeckoIds = Object.keys(coingeckoIdToTokenIds).sort()
+  // create a map from `netuid` --> `tokenId` for each token
+  const netuidToTokenIds = filteredTokens.reduce(
+    (acc, token) => {
+      acc[token.netuid.toString()] = [token.id]
+      return acc
+    },
+    {} as Record<string, [string]>,
+  )
 
-  // skip network request if there is nothing for us to fetch
-  if (coingeckoIds.length < 1) return {}
+  // Get list of netuids to fetch
+  // Ensure we always get the root netuid (netuid 0) too
+  const netuids = [...new Set(uniq(Object.keys(netuidToTokenIds)).sort()).add("0")]
 
-  // If `currencyIds` includes `tao`, we need to always fetch the `bittensor` coingeckoId and the `usd` currency,
-  // we can use these to calculate the currency rate for TAO relative to all other tokens.
-  //
-  // We support showing balances in TAO just like we support BTC/ETH/DOT, but coingecko doesn't support TAO as a vs currency rate.
-  // We can macgyver our own TOKEN<>TAO rate by combining the TOKEN<>USD data with the TAO<>USD data.
   const hasVsTao = currencyIds.includes("tao")
-  const [effectiveCoingeckoIds, effectiveCurrencyIds] = hasVsTao
-    ? [
-        [...new Set(coingeckoIds).add("bittensor")],
-        [
-          ...new Set(
-            // don't request `tao` from coingecko (we calculate it from `usd`)
-            currencyIds.filter((c) => c !== "tao"),
-          )
-            // always include `usd` (so we can calculate `tao`)
-            .add("usd"),
-        ],
-      ]
-    : [coingeckoIds, currencyIds]
 
-  const response = await fetch(`${config.apiUrl}/token-rates`, {
-    method: "POST",
-    body: JSON.stringify({
-      coingeckoIds: effectiveCoingeckoIds,
-      currencyIds: effectiveCurrencyIds,
-    }),
-  })
+  // taostats api call
+  // currently returns all subnets, so no need to pass in netuids
+  // this may change
+  const response = await fetch(`${config.apiUrl}/token-rates`)
 
   const rawTokenRates: RawTokenRates = await response.json()
 
   if (hasVsTao) {
     // calculate the TAO<>USD rate
-    const effectiveTaoIndex = effectiveCoingeckoIds.indexOf("bittensor")
-    const effectiveUsdIndex = effectiveCurrencyIds.indexOf("usd")
+
+    const effectiveTaoIndex = netuids.indexOf("0")
+    const effectiveUsdIndex = 0
     const taoUsdRate = rawTokenRates[effectiveTaoIndex]?.[effectiveUsdIndex]?.[0]
     const taoUsdChange24h = rawTokenRates[effectiveTaoIndex]?.[effectiveUsdIndex]?.[2]
 
@@ -145,35 +113,40 @@ export async function fetchTokenRates(
     })
   }
 
-  const tokenRates = parseTokenRatesFromApi(rawTokenRates, coingeckoIds, currencyIds)
+  const tokenRates = parseTokenRatesFromApiNew(rawTokenRates, netuids, currencyIds)
 
   // build a TokenRatesList from the token prices result
   const ratesList: TokenRatesList = Object.fromEntries(
-    Object.entries(tokens).map(([tokenId, token]) => [
+    Object.entries(filteredTokenMap).map(([tokenId, token]) => [
       tokenId,
-      token.coingeckoId ? (tokenRates[token.coingeckoId] ?? null) : null,
+      token.netuid !== undefined ? (tokenRates[String(token.netuid)] ?? null) : null,
     ]),
   ) as TokenRatesList
+
+  const rootEntry = ratesList["bittensor:substrate-dtao:0"]
+  if (rootEntry) {
+    ratesList["bittensor:substrate-native"] = cloneDeep(rootEntry)
+  }
 
   return ratesList
 }
 
-// To save on bandwidth and work around response size limits, values are returned without json property names
+// values are returned without json property names
 // (e.g. [[[12, 12332, 0.5]]] instead of { dot : {usd: { value: 12, marketCap: 12332, change24h: 0.5 }} })
 type RawTokenRates = [number | null, number | null, number | null][][]
 
-const parseTokenRatesFromApi = (
+const parseTokenRatesFromApiNew = (
   rawTokenRates: RawTokenRates,
-  coingeckoIds: string[],
+  netuids: string[],
   currencyIds: TokenRateCurrency[],
 ): TokenRatesList => {
   return Object.fromEntries(
-    coingeckoIds.map((coingeckoId, idx) => {
+    netuids.map((netuid, idx) => {
       const rates = rawTokenRates[idx]
-      if (!rates) return [coingeckoId, null]
+      if (!rates) return [netuid, null]
 
       return [
-        coingeckoId,
+        netuid,
         Object.fromEntries(
           currencyIds.map((currencyId, idx) => {
             const curRate = rates[idx]

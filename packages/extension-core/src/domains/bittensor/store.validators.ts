@@ -1,5 +1,5 @@
 import { keepAlive, Loadable } from "@taostats-wallet/util"
-import { log, TAOSTATS_BASE_PATH } from "extension-shared"
+import { log, TAOSTATS_API_URL } from "extension-shared"
 import { Observable, shareReplay, startWith } from "rxjs"
 
 import { getBlobStore } from "../../db"
@@ -31,7 +31,7 @@ const fetchBittensorValidatorsPage = async (
   signal?: AbortSignal,
 ): Promise<BittensorValidatorsData> => {
   const res = await fetch(
-    `${TAOSTATS_BASE_PATH}/api/dtao/validator/latest/v1?page=${page}&limit=${MAX_PAGE_SIZE}`,
+    `${TAOSTATS_API_URL}/validator-data?page=${page}&limit=${MAX_PAGE_SIZE}`,
     {
       method: "GET",
       headers: {

@@ -104,14 +104,14 @@ scope.addEventProcessor(async (event: Event) => {
   return event
 })
 
-type TalismanSentryClient = {
+type SentryClient = {
   init: () => void
   captureException: typeof captureException
   captureEvent: typeof captureEvent
   captureMessage: typeof captureMessage
 }
 
-export const sentry: TalismanSentryClient = {
+export const sentry: SentryClient = {
   init: () => client.init(),
   captureException: (exception, hintOrContext) => {
     // From https://github.com/getsentry/sentry-javascript/blob/0d558dea4a580dce7717f5093ad3b62a3c4733bd/packages/core/src/utils/prepareEvent.ts#L358

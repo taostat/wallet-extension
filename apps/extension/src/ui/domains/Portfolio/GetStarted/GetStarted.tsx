@@ -1,11 +1,5 @@
-import {
-  ArrowRightCircleIcon,
-  ChevronRightIcon,
-  EyePlusIcon,
-  PlusCircleIcon,
-  XIcon,
-} from "@taostats-wallet/icons"
-import { classNames, cn } from "@taostats-wallet/util"
+import { EyePlusIcon, PlusCircleIcon, XIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
 import { Account } from "extension-core"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
@@ -16,17 +10,12 @@ import { IconButton } from "taostats-ui"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
-import { useRampsModal } from "@ui/domains/Ramps/useRampsModal"
-import { useSwapTokensModal } from "@ui/domains/Swap/hooks/useSwapTokensModal"
-import { useAccounts, useAppState, useFeatureFlag } from "@ui/state"
+import { useAccounts, useAppState } from "@ui/state"
 import { closeIfEmbeddedPopup } from "@ui/util/closeIfEmbeddedPopup"
 import { IS_POPUP } from "@ui/util/constants"
 
-import { GetStartedBuyIcon, GetStartedReceiveIcon, GetStartedSwapIcon } from "./icons"
-import { useLearnMoreModal } from "./LearnMore"
+import { GetStartedReceiveIcon, GetStartedSwapIcon } from "./icons"
 import { useTryPageModal } from "./TryPage"
-
-const SHOW_ABOUT_LINK = false
 
 const isShownAccount = (account: Account) =>
   ["keypair", "watch-only", "ledger-polkadot"].includes(account.type)
@@ -42,12 +31,8 @@ export const GetStarted = () => {
     onTryItClick,
     onReceiveClick,
     onSwapClick,
-    onBuyClick,
-    onLearnMoreClick,
     onDismissClick,
   } = useGetStarted()
-
-  const canBuy = useFeatureFlag("BUY_CRYPTO")
 
   if (isShowingAccounts) {
     return null
@@ -92,14 +77,6 @@ export const GetStarted = () => {
             iconTop={<GetStartedSwapIcon className="size-10" />}
             onClick={onSwapClick}
           />
-          {canBuy && (
-            <GetStartedActionButton
-              label={t("Buy")}
-              className="text-sm"
-              iconTop={<GetStartedBuyIcon className="size-10" />}
-              onClick={onBuyClick}
-            />
-          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-8">
@@ -117,32 +94,6 @@ export const GetStarted = () => {
           />
         </div>
       )}
-
-      {SHOW_ABOUT_LINK ? (
-        <>
-          {IS_POPUP ? (
-            <div className={cn("grid gap-8", "grid-cols-1")}>
-              <GetStartedActionButton
-                label={t("Support")}
-                iconTop={<ArrowRightCircleIcon className="-ml-2 size-12" />}
-                onClick={onLearnMoreClick}
-              />
-            </div>
-          ) : (
-            <div className={cn("grid gap-8", "grid-cols-1")}>
-              <GetStartedActionButton
-                label={t("About Talisman")}
-                description={t("Discover how Talisman can elevate your web3 journey")}
-                className={cn("group")}
-                iconRight={
-                  <ChevronRightIcon className="text-body-inactive group-hover:text-body-secondary -mr-4 size-12" />
-                }
-                onClick={onLearnMoreClick}
-              />
-            </div>
-          )}
-        </>
-      ) : null}
     </div>
   )
 }
@@ -153,10 +104,7 @@ const useGetStarted = () => {
 
   const navigate = useNavigate()
   const { open: onCopyAddressModal } = useCopyAddressModal()
-  const { open: openSwapTokensModal } = useSwapTokensModal()
-  const { open: openRamps } = useRampsModal()
-  const { open: openLearnMoreModal } = useLearnMoreModal()
-  const { open: openTryTalismanModal } = useTryPageModal()
+  const { open: openTryModal } = useTryPageModal()
 
   const [isHidden, setIsHidden] = useAppState("hideGetStarted")
 
@@ -170,11 +118,11 @@ const useGetStarted = () => {
   }, [navigate])
 
   const onTryItClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "try talisman" })
+    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "try taostats" })
 
     if (IS_POPUP) navigate("/try-page")
-    else openTryTalismanModal()
-  }, [navigate, openTryTalismanModal])
+    else openTryModal()
+  }, [navigate, openTryModal])
 
   const onReceiveClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "receive" })
@@ -182,27 +130,12 @@ const useGetStarted = () => {
     onCopyAddressModal()
   }, [onCopyAddressModal])
 
-  const canSwap = useFeatureFlag("SWAPS")
   const onSwapClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "swap" })
 
-    if (canSwap) return void openSwapTokensModal()
     window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank")
     closeIfEmbeddedPopup()
-  }, [canSwap, openSwapTokensModal])
-
-  const onBuyClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "open ramps" })
-
-    openRamps()
-  }, [openRamps])
-
-  const onLearnMoreClick = useCallback(() => {
-    sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "learn more" })
-
-    if (IS_POPUP) navigate("/learn-more")
-    else openLearnMoreModal()
-  }, [navigate, openLearnMoreModal])
+  }, [])
 
   const onDismissClick = useCallback(() => {
     sendAnalyticsEvent({ ...ANALYTICS_PAGE, name: "Goto", action: "dismiss get started" })
@@ -216,9 +149,7 @@ const useGetStarted = () => {
     onTryItClick,
     onSwapClick,
     onReceiveClick,
-    onBuyClick,
     onDismissClick,
-    onLearnMoreClick,
   }
 }
 

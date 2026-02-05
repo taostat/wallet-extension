@@ -1,6 +1,6 @@
 import { bind } from "@react-rxjs/core"
 import { Balances, HydrateDb } from "@taostats-wallet/balances"
-import { isNetworkEth, Network, Token } from "@taostats-wallet/chaindata-provider"
+import { Network, Token } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
 import { isTruthy } from "@taostats-wallet/util"
 import { Account } from "extension-core"
@@ -33,20 +33,10 @@ export const [useAllNetworkOptions, allNetworkOptions$] = bind(
     networkDisplayNamesMapById$,
   ]).pipe(
     map(([networks, networkDisplayNames]) => {
-      // we want only one entry for moonbeam and other networks that have substrateChainId
-      const networkIdsToExclude = new Set<string>(
-        networks
-          .filter(isNetworkEth)
-          .map((n) => n.substrateChainId)
-          .filter(isTruthy),
-      )
-
       const networkOptions: NetworkOption[] = networks
-        .filter((n) => !networkIdsToExclude.has(n.id) && !!networkDisplayNames[n.id])
+        .filter((n) => !!networkDisplayNames[n.id])
         .map((n) => {
-          const networkIds = [n.id, n.platform === "ethereum" ? n.substrateChainId : null].filter(
-            isTruthy,
-          )
+          const networkIds = [n.id].filter(isTruthy)
 
           return {
             id: networkIds.join(":"),

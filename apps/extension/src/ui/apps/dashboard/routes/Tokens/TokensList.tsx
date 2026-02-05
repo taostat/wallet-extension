@@ -76,8 +76,7 @@ export const TokensList: FC<{
         (t) =>
           !lowerSearch ||
           [t.symbol, t.name, t.type].join().toLowerCase().includes(lowerSearch) ||
-          (isTokenInTypes(t, ["evm-erc20", "evm-uniswapv2"]) &&
-            isAddressEqual(t.contractAddress, lowerSearch)),
+          (isTokenInTypes(t, ["evm-uniswapv2"]) && isAddressEqual(t.contractAddress, lowerSearch)),
       )
 
     // exact matches first
@@ -157,7 +156,6 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
   const activeTokens = useActiveTokensState()
   const network = useAnyNetwork(token.networkId)
   const blockExplorerUrl = useBlockExplorerUrl(token)
-  const coingeckoUrl = useCoingeckoUrl(token)
 
   if (!network) return null
 
@@ -210,11 +208,6 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
                   {t("View on block explorer")}
                 </ContextMenuItem>
               )}
-              {coingeckoUrl && (
-                <ContextMenuItem onClick={() => window.open(coingeckoUrl, "_blank")}>
-                  {t("View on Coingecko")}
-                </ContextMenuItem>
-              )}
             </ContextMenuContent>
           </ContextMenu>
         </div>
@@ -240,17 +233,9 @@ const useBlockExplorerUrl = (token: Token) => {
     const url = network?.blockExplorerUrls[0]
     if (!url) return null
 
-    if (isTokenInTypes(token, ["evm-erc20", "evm-uniswapv2"]))
+    if (isTokenInTypes(token, ["evm-uniswapv2"]))
       return urlJoin(url, "token", token.contractAddress)
 
     return null
   }, [network?.blockExplorerUrls, token])
-}
-
-const useCoingeckoUrl = (token: Token) => {
-  return useMemo(
-    () =>
-      token.coingeckoId ? urlJoin("https://coingecko.com/en/coins/", token.coingeckoId) : null,
-    [token],
-  )
 }

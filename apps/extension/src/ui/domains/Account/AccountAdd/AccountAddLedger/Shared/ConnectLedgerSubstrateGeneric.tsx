@@ -14,17 +14,17 @@ export const ConnectLedgerSubstrateGeneric: FC<{
   legacyAppName?: string | null
 }> = ({ onReadyChanged, className, legacyAppName, curve }) => {
   const legacyApp = useLedgerSubstrateAppByName(legacyAppName)
-  const { getAddressEd25519, getAddressEcdsa } = useLedgerPolkadot({ legacyApp })
+  const { getAddressEd25519 } = useLedgerPolkadot({ legacyApp })
 
   const isReadyCheck = useCallback(() => {
     const derivationPath = getPolkadotLedgerDerivationPath({ legacyApp })
     switch (curve) {
-      case "ethereum":
-        return getAddressEcdsa(derivationPath)
       case "ed25519":
         return getAddressEd25519(derivationPath)
+      default:
+        throw new Error("Unsupported curve in isReadyCheck")
     }
-  }, [curve, getAddressEcdsa, getAddressEd25519, legacyApp])
+  }, [curve, getAddressEd25519, legacyApp])
 
   return (
     <ConnectLedgerBase

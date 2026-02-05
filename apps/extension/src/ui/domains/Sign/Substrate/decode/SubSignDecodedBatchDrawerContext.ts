@@ -1,6 +1,7 @@
 import { DecodedCall } from "@taostats-wallet/sapi"
-import { provideContext } from "@taostats/util/provideContext"
 import { useCallback, useEffect, useMemo, useState } from "react"
+
+import { provideContext } from "@taostats/util/provideContext"
 
 import { DecodedBatchCall } from "../types"
 

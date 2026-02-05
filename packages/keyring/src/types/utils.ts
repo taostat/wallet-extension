@@ -116,29 +116,6 @@ export const isAccountAddressEthereum = (
   return !!account && isEthereumAddress(account.address)
 }
 
-type AccountPlatformEthereum = Extract<
-  Account,
-  { type: (typeof ACCOUNT_TYPES_PLATFORM_ETHEREUM)[number] }
-> & {
-  address: `0x${string}`
-}
-export const isAccountPlatformEthereum = (
-  account: Account | null | undefined,
-): account is AccountPlatformEthereum => {
-  return !!account && account.type !== "ledger-polkadot" && isEthereumAddress(account.address)
-}
-
-type AccountPlatformSolana = Extract<
-  Account,
-  { type: (typeof ACCOUNT_TYPES_PLATFORM_SOLANA)[number] }
->
-
-export const isAccountPlatformSolana = (
-  account: Account | null | undefined,
-): account is AccountPlatformSolana => {
-  return !!account && isSolanaAddress(account.address)
-}
-
 type AccountPlatformPolkadot = Extract<
   Account,
   { type: (typeof ACCOUNT_TYPES_PLATFORM_POLKADOT)[number] }

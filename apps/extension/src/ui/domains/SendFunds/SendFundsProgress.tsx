@@ -1,128 +1,55 @@
-import { HexString } from "@polkadot/util/types"
 import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
-import { ExternalLinkIcon, RocketIcon, XCircleIcon } from "@taostats-wallet/icons"
-import {
-  WalletTransaction,
-  WalletTransactionDot,
-  WalletTransactionEth,
-  WalletTransactionSol,
-} from "extension-core"
-import { FC, useCallback, useMemo, useState } from "react"
+import { CheckCircleIcon, ExternalLinkIcon, LoaderIcon, XCircleIcon } from "@taostats-wallet/icons"
+import { WalletTransaction, WalletTransactionDot } from "extension-core"
+import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { Button, PillButton, ProcessAnimation, ProcessAnimationStatus } from "taostats-ui"
+import { Button } from "taostats-ui"
 
-import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import { useAnyNetwork, useNetworkById, useTransaction } from "@ui/state"
-
-import { TxReplaceDrawer, TxReplaceType } from "../Transactions"
 
 const getBlockExplorerUrl = (network: Network | undefined | null, hash: string) => {
   return getBlockExplorerUrls(network!, { type: "transaction", id: hash })[0] ?? null
 }
 
-const TxReplaceActions: FC<{ tx: WalletTransaction }> = ({ tx }) => {
-  const { t } = useTranslation()
-  const [replaceType, setReplaceType] = useState<TxReplaceType>()
-  const { gotoProgress } = useSendFundsWizard()
-  const network = useNetworkById(tx.networkId, "ethereum")
-
-  const handleShowDrawer = useCallback((type: TxReplaceType) => () => setReplaceType(type), [])
-
-  const handleClose = useCallback(
-    (newHash?: HexString) => {
-      setReplaceType(undefined)
-      if (newHash && network) {
-        gotoProgress({ txId: newHash, networkId: network.id })
-      }
-    },
-    [gotoProgress, network],
-  )
-
-  if (!network) return null
-  if (tx.status !== "pending") return null
-  if (network?.preserveGasEstimate) return null
-
-  return (
-    <>
-      <div className="flex w-full items-center justify-center gap-4">
-        <PillButton
-          size="sm"
-          onClick={handleShowDrawer("speed-up")}
-          icon={RocketIcon}
-          className="!p-4"
-        >
-          {t("Speed Up")}
-        </PillButton>
-        <PillButton
-          size="sm"
-          onClick={handleShowDrawer("cancel")}
-          icon={XCircleIcon}
-          className="!p-4"
-        >
-          {t("Cancel Transfer")}
-        </PillButton>
-      </div>
-      <TxReplaceDrawer tx={tx} type={replaceType} onClose={handleClose} />
-    </>
-  )
-}
-
 const useStatusDetails = (tx?: WalletTransaction) => {
   const { t } = useTranslation()
-  const { title, subtitle, animStatus } = useMemo<{
+  const { title, subtitle } = useMemo<{
     title: string
     subtitle: string
-    animStatus: ProcessAnimationStatus
   }>(() => {
     // missing tx can occur while loading
     if (!tx)
       return {
         title: "",
         subtitle: "",
-        animStatus: "processing",
       }
-
-    const isReplacementCancel =
-      tx.platform === "ethereum" &&
-      tx.isReplacement &&
-      tx.payload.value &&
-      BigInt(tx.payload.value) === 0n
 
     switch (tx.status) {
       case "unknown":
         return {
           title: t("Transaction not found"),
           subtitle: t("Transaction was submitted, but Talisman is unable to track its progress."),
-          animStatus: "failure",
         }
       case "replaced": {
         return {
           title: t("Transaction cancelled"),
           subtitle: t("This transaction has been replaced with another one"),
-          animStatus: "failure",
         }
       }
       case "error":
         return {
           title: t("Failure"),
-          subtitle: isReplacementCancel ? t("Failed to cancel transfer") : t("Transaction failed."),
-          animStatus: "failure",
+          subtitle: t("Transaction failed."),
         }
       case "success":
         return {
-          title: isReplacementCancel ? t("Transaction cancelled") : t("Success"),
-          subtitle: isReplacementCancel
-            ? t("Your transfer was cancelled")
-            : t("Your transfer was successful!"),
-          animStatus: isReplacementCancel ? "failure" : "success",
+          title: t("Success"),
+          subtitle: t("Your transfer was successful!"),
         }
       case "pending":
         return {
-          title: isReplacementCancel ? t("Cancelling transaction") : t("Transfer in progress"),
-          subtitle: isReplacementCancel
-            ? t("Attempting to cancel transfer")
-            : t("This may take a few minutes."),
-          animStatus: "processing",
+          title: t("Transfer in progress"),
+          subtitle: t("This may take a few minutes."),
         }
     }
   }, [tx, t])
@@ -130,7 +57,6 @@ const useStatusDetails = (tx?: WalletTransaction) => {
   return {
     title,
     subtitle,
-    animStatus,
   }
 }
 
@@ -149,13 +75,31 @@ const SendFundsProgressBase: FC<SendFundsProgressBaseProps> = ({
   onClose,
 }) => {
   const { t } = useTranslation()
-  const { title, subtitle, animStatus } = useStatusDetails(tx)
+  const { title, subtitle } = useStatusDetails(tx)
 
   return (
     <div className="flex h-full w-full flex-col items-center">
       <div className="text-body mt-32 text-lg font-bold">{title}</div>
       <div className="text-body-secondary mt-12 text-center text-base font-light">{subtitle}</div>
-      <ProcessAnimation status={animStatus} className="mb-8 mt-[7.5rem] h-[14.5rem]" />
+
+      {tx?.status === "pending" && (
+        <div className="my-12 flex w-full justify-center">
+          <LoaderIcon className="animate-spin-slow text-secondary h-12 w-12" />
+        </div>
+      )}
+
+      {tx?.status === "success" && (
+        <div className="my-12 flex w-full justify-center">
+          <CheckCircleIcon className="text-alert-success h-12 w-12" />
+        </div>
+      )}
+
+      {tx?.status === "error" && (
+        <div className="my-12 flex w-full justify-center">
+          <XCircleIcon className="text-alert-error h-12 w-12" />
+        </div>
+      )}
+
       <div className="text-body-secondary flex w-full grow flex-col justify-center gap-10 px-10 text-center">
         <div>
           {blockNumber ? (
@@ -180,7 +124,6 @@ const SendFundsProgressBase: FC<SendFundsProgressBaseProps> = ({
           ) : null}
         </div>
         <div className="h-[3.6rem]">
-          {tx?.status === "pending" && <TxReplaceActions tx={tx} />}
           {tx?.status === "success" && !tx?.confirmed && (
             <div className="text-secondary h-[3.6rem] animate-pulse">
               {t("You may close this window or wait for the transaction to be confirmed")}
@@ -221,53 +164,6 @@ const SendFundsProgressSubstrate: FC<SendFundsProgressSubstrateProps> = ({
   )
 }
 
-type SendFundsProgressSolanaProps = {
-  tx: WalletTransactionSol
-  onClose?: () => void
-  className?: string
-}
-
-const SendFundsProgressSolana: FC<SendFundsProgressSolanaProps> = ({ tx, onClose, className }) => {
-  const network = useNetworkById(tx.networkId, "solana")
-  const href = useMemo(
-    () =>
-      network
-        ? getBlockExplorerUrls(network, {
-            type: "transaction",
-            id: tx.signature,
-          })[0]
-        : undefined,
-    [network, tx.signature],
-  )
-
-  return <SendFundsProgressBase tx={tx} className={className} onClose={onClose} href={href} />
-}
-
-type SendFundsProgressEvmProps = {
-  tx: WalletTransactionEth
-  onClose?: () => void
-  className?: string
-}
-
-const SendFundsProgressProgressEvm: FC<SendFundsProgressEvmProps> = ({
-  tx,
-  className,
-  onClose,
-}) => {
-  const network = useNetworkById(tx.networkId, "ethereum")
-  const href = useMemo(() => getBlockExplorerUrl(network, tx.hash), [network, tx.hash])
-
-  return (
-    <SendFundsProgressBase
-      tx={tx}
-      className={className}
-      onClose={onClose}
-      blockNumber={tx.blockNumber}
-      href={href}
-    />
-  )
-}
-
 type SendFundsProgressProps = {
   txId: string
   networkId: string
@@ -291,12 +187,8 @@ export const SendFundsProgress: FC<SendFundsProgressProps> = ({
   }
 
   switch (tx?.platform) {
-    case "ethereum":
-      return <SendFundsProgressProgressEvm tx={tx} onClose={onClose} className={className} />
     case "polkadot":
       return <SendFundsProgressSubstrate tx={tx} onClose={onClose} className={className} />
-    case "solana":
-      return <SendFundsProgressSolana tx={tx} onClose={onClose} className={className} />
   }
 
   return null

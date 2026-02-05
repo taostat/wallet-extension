@@ -1,9 +1,5 @@
-import Keyring, { decodeAddress } from "@polkadot/keyring"
-import {
-  decodeSs58Address,
-  detectAddressEncoding,
-  isEthereumAddress,
-} from "@taostats-wallet/crypto"
+import Keyring from "@polkadot/keyring"
+import { decodeSs58Address, detectAddressEncoding } from "@taostats-wallet/crypto"
 
 import { Address } from "../../types/base"
 
@@ -15,10 +11,6 @@ const getPublicKeyFromAddress = (address: string) => {
     case "ss58": {
       const [publicKey] = decodeSs58Address(address)
       return publicKey
-    }
-    case "ethereum": {
-      // This is a hack: there is no way to obtain a public key from an ethereum address
-      return decodeAddress(address)
     }
     default: {
       throw new Error("Unsupported address encoding")
@@ -34,7 +26,7 @@ const getPublicKeyFromAddress = (address: string) => {
  */
 export const getPjsKeyringPairFake = (address: Address) => {
   // we only need to specify this for ethereum addresses
-  const type = isEthereumAddress(address) ? "ethereum" : undefined
+  const type = undefined
 
   // use a PJS in-memory keyring to create the pair
   const keyring = new Keyring({})

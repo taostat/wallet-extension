@@ -1,9 +1,9 @@
-import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
+import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useSetting } from "@ui/state"
 
@@ -30,7 +30,7 @@ export const Content = () => {
       <HeaderBlock
         title={t("Auto-lock Timer")}
         text={t(
-          "Set a timer to automatically lock the Talisman wallet extension after the following period of inactivity",
+          "Set a timer to automatically lock the Taostats wallet extension after the following period of inactivity",
         )}
       />
       <Spacer />

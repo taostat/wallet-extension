@@ -1,14 +1,15 @@
 import { Balances } from "@taostats-wallet/balances"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { ReactNode, Suspense } from "react"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { NetworkName } from "@ui/domains/Networks/NetworkName"
 import { BondButton } from "@ui/domains/Staking/Bond/BondButton"
 import { useToken } from "@ui/state"
+import { getTokenName } from "@ui/util/getTokenName"
 
 import { BittensorUnstakeButton } from "../BittensorUnstakeButton"
 import { CopyAddressButton } from "../CopyAddressIconButton"
@@ -48,7 +49,7 @@ export const TokenBalancesList = ({
         </div>
         <div className="flex grow flex-col justify-center gap-2 overflow-hidden pr-8">
           <div className="flex grow items-center gap-3">
-            <div className="text-body truncate font-bold">{token.name}</div>
+            <div className="text-body truncate font-bold">{getTokenName(token.name)}</div>
             <div className="flex items-center">
               <CopyAddressButton networkId={chainOrNetworkId} />
               <BittensorUnstakeButton balances={balances} />

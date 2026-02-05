@@ -1,10 +1,10 @@
-import { isTokenEth } from "@taostats-wallet/chaindata-provider"
 import { LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { useTranslation } from "react-i18next"
 
+import { useSelectedCurrency } from "@ui/state"
+
 import { TokensAndFiat } from "../../Asset/TokensAndFiat"
-import { EthFeeSelect } from "../../Ethereum/GasSettings/EthFeeSelect"
 import { NetworkLogo } from "../../Networks/NetworkLogo"
 import { SendFundsFeeTooltip } from "../SendFundsFeeTooltip"
 import { useSendFunds } from "../useSendFunds"
@@ -26,60 +26,16 @@ const NetworkRow = () => {
   )
 }
 
-const EvmFeeSettingsRow = () => {
-  const { t } = useTranslation()
-  const { token, network, transaction } = useSendFunds()
-
-  if (
-    !token ||
-    transaction?.platform !== "ethereum" ||
-    network?.platform !== "ethereum" ||
-    !isTokenEth(token)
-  )
-    return null
-
-  const {
-    tx,
-    txDetails,
-    priority,
-    gasSettingsByPriority,
-    setCustomSettings,
-    setPriority,
-    networkUsage,
-  } = transaction
-
-  return (
-    <div className="flex h-12 w-full items-center justify-between gap-4">
-      <div>{t("Transaction Priority")}</div>
-      <div>
-        {network.nativeTokenId && priority && tx && txDetails && (
-          <EthFeeSelect
-            tokenId={network.nativeTokenId}
-            drawerContainerId="main"
-            gasSettingsByPriority={gasSettingsByPriority}
-            setCustomSettings={setCustomSettings}
-            onChange={setPriority}
-            priority={priority}
-            txDetails={txDetails}
-            networkUsage={networkUsage}
-            tx={tx}
-          />
-        )}
-      </div>
-    </div>
-  )
-}
-
 export const FeesSummary = () => {
   const { t } = useTranslation()
   const { feeToken, estimatedFee, isLoading } = useSendFunds()
+  const selectedCurrency = useSelectedCurrency()
 
   return (
     <Container
       className={classNames("space-y-4 px-8 py-4", isLoading && !estimatedFee && "animate-pulse")}
     >
       <NetworkRow />
-      <EvmFeeSettingsRow />
       <div className="flex w-full items-center justify-between gap-4">
         <div className="whitespace-nowrap">
           {t("Estimated Fee")} <SendFundsFeeTooltip />
@@ -97,7 +53,11 @@ export const FeesSummary = () => {
             </div>
           )}
           {estimatedFee && feeToken && (
-            <TokensAndFiat planck={estimatedFee.planck} tokenId={feeToken.id} />
+            <TokensAndFiat
+              planck={estimatedFee.planck}
+              tokenId={feeToken.id}
+              noFiat={selectedCurrency === "tao"}
+            />
           )}
         </div>
       </div>

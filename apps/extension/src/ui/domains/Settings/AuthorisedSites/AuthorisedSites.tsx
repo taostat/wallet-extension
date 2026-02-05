@@ -1,8 +1,8 @@
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
 import { useAuthorisedSites } from "@ui/state"
 
 import { AuthorizedSite } from "./AuthorisedSite"

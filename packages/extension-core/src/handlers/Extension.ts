@@ -5,26 +5,22 @@ import { db } from "../db"
 import { AccountsHandler } from "../domains/accounts"
 import AppHandler from "../domains/app/handler"
 import { hideGetStartedOnceFunded } from "../domains/app/hideGetStartedOnceFunded"
-import { AssetDiscoveryHandler } from "../domains/assetDiscovery/handler"
 import { BalancesHandler } from "../domains/balances"
 import { BittensorHandler } from "../domains/bittensor/handler"
 import { ChaindataHandler } from "../domains/chaindata/handler"
 import { ChainsHandler } from "../domains/chains"
 import { DefiHandler } from "../domains/defi/handler"
 import { EncryptHandler } from "../domains/encrypt"
-import { EthHandler } from "../domains/ethereum"
 import { keyringStore } from "../domains/keyring/store"
 import { MetadataHandler } from "../domains/metadata"
 import MnemonicHandler from "../domains/mnemonics/handler"
-import { NftsHandler } from "../domains/nfts"
 import { SendFundsHandler } from "../domains/sendFunds/handler"
 import { SigningHandler } from "../domains/signing"
 import { SitesAuthorisationHandler } from "../domains/sitesAuthorised"
-import { SolanaExtensionHandler } from "../domains/solana/handler.extension"
 import { SubHandler } from "../domains/substrate/handler.extension"
 import TokenRatesHandler from "../domains/tokenRates/handler"
 import { updateTransactionsRestart } from "../domains/transactions/helpers"
-import { talismanAnalytics } from "../libs/Analytics"
+import { walletAnalytics } from "../libs/Analytics"
 import { spawnTaskToCreateNewReport } from "../libs/GeneralReport"
 import { ExtensionHandler } from "../libs/Handler"
 import { MessageTypes, RequestType, ResponseType } from "../types"
@@ -48,16 +44,12 @@ export default class Extension extends ExtensionHandler {
       balances: new BalancesHandler(stores),
       defi: new DefiHandler(stores),
       encrypt: new EncryptHandler(stores),
-      eth: new EthHandler(stores),
       metadata: new MetadataHandler(stores),
       mnemonics: new MnemonicHandler(stores),
       signing: new SigningHandler(stores),
       sites: new SitesAuthorisationHandler(stores),
       tokenRates: new TokenRatesHandler(stores),
       substrate: new SubHandler(stores),
-      solana: new SolanaExtensionHandler(stores),
-      assetDiscovery: new AssetDiscoveryHandler(stores),
-      nfts: new NftsHandler(stores),
       bittensor: new BittensorHandler(stores),
       sendFunds: new SendFundsHandler(stores),
     }
@@ -135,7 +127,7 @@ export default class Extension extends ExtensionHandler {
           waitForReportCreated: true,
         })
 
-        await talismanAnalytics.capture("wallet upgraded")
+        await walletAnalytics.capture("wallet upgraded")
         await this.stores.app.set({ lastWalletUpgradedEvent: process.env.VERSION })
       })()
     }
@@ -161,20 +153,6 @@ export default class Extension extends ExtensionHandler {
     //   3. close the database connection only when it is no longer required
     //      (or re-use the connection when it's being accessed elsewhere in our code!)
     db.metadata.toArray()
-
-    db.on("ready", async () => {
-      // TODO: Add back this migration logic to delete old data from localStorage/old idb-managed db
-      // (We don't store metadata OR chains in here anymore, so we have no idea whether or not its has already been initialised)
-      // // if store has no chains yet, consider it's a fresh install or legacy version
-      // if ((await db.chains.count()) < 1) {
-      //
-      //   // delete old idb-managed metadata+metadataRpc db
-      //   indexedDB.deleteDatabase("talisman")
-      //
-      //   // TODO: Add this back again, but as an internal part of the @talismn/chaindata-provider lib
-      //   // // initial data provisioning (workaround to wallet beeing installed when subsquid is down)
-      // }
-    })
 
     // marks all pending transaction as status unknown
     updateTransactionsRestart()

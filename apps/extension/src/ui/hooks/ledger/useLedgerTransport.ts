@@ -9,7 +9,7 @@ import { useCallback, useEffect, useRef } from "react"
 import { useSettingValue } from "@ui/state"
 import { getIsLedgerCapable } from "@ui/util/getIsLedgerCapable"
 
-import { getTalismanLedgerError } from "./errors"
+import { getTaostatsLedgerError } from "./errors"
 
 const LEDGER_IN_PROGRESS_ERROR = "An operation that changes interface state is in progress."
 
@@ -17,7 +17,7 @@ const IS_USB_SUPPORTED = getIsLedgerCapable("usb")
 const IS_HID_SUPPORTED = getIsLedgerCapable("hid")
 
 const safelyCreateTransport = async (type: LedgerTransportType, attempt = 1) => {
-  if (attempt > 5) throw getTalismanLedgerError("Unable to connect to Ledger")
+  if (attempt > 5) throw getTaostatsLedgerError("Unable to connect to Ledger")
 
   try {
     switch (type) {
@@ -32,7 +32,7 @@ const safelyCreateTransport = async (type: LedgerTransportType, attempt = 1) => 
       await sleep(200) // it should be almost instant but just in case, wait 1 second max (5 x 200ms)
       return safelyCreateTransport(type, attempt + 1)
     }
-    throw getTalismanLedgerError(err)
+    throw getTaostatsLedgerError(err)
   }
 }
 
@@ -46,9 +46,9 @@ const createTransport = async (type: LedgerTransportType): Promise<Transport> =>
       return await safelyCreateTransport("usb")
     }
 
-    throw getTalismanLedgerError("Ledger is not supported on your browser.")
+    throw getTaostatsLedgerError("Ledger is not supported on your browser.")
   } catch (err) {
-    throw getTalismanLedgerError(err)
+    throw getTaostatsLedgerError(err)
   }
 }
 

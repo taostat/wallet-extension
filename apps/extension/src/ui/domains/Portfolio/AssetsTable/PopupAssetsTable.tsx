@@ -2,18 +2,18 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { Balances } from "@taostats-wallet/balances"
 import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
+
 import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
 import { FadeIn } from "@taostats/components/FadeIn"
 import { useScrollContainer } from "@taostats/components/ScrollContainer"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
-import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-
 import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { Tokens } from "@ui/domains/Asset/Tokens"
-// import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
+import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
 import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
@@ -26,8 +26,6 @@ import { StaleBalancesIcon } from "../StaleBalancesIcon"
 import { usePortfolioDisplayBalances } from "../useDisplayBalances"
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
-import { PortfolioNetworksLogoStack } from "./PortfolioNetworksLogoStack"
-import { usePortfolioNetworkIds } from "./usePortfolioNetworkIds"
 import { usePortfolioSymbolBalancesByFilter } from "./usePortfolioSymbolBalances"
 
 const AssetRowSkeleton = ({ className }: { className?: string }) => {
@@ -58,7 +56,6 @@ const AssetRow: FC<{
   noCountUp: boolean
   locked?: boolean
 }> = ({ balances, locked, noCountUp }) => {
-  const networkIds = usePortfolioNetworkIds(balances)
   const { genericEvent } = useAnalytics()
 
   const status = useBalancesStatus(balances)
@@ -70,8 +67,24 @@ const AssetRow: FC<{
   const handleClick = useCallback(() => {
     if (!token) return
 
+    // Prefer using netuid for dTAO (substrate-dtao) tokens so we can distinguish subnets.
+    if (token.type === "substrate-dtao") {
+      const netuidValue = token.netuid
+      navigate(`/portfolio/tokens/${netuidValue}`)
+      genericEvent("goto portfolio asset", {
+        from: "popup",
+        symbol: token.symbol,
+        netuid: netuidValue,
+      })
+      return
+    }
+
+    // Fallback: use symbol for non-dTAO tokens.
     navigate(`/portfolio/tokens/${encodeURIComponent(token.symbol)}`)
-    genericEvent("goto portfolio asset", { from: "popup", symbol: token.symbol })
+    genericEvent("goto portfolio asset", {
+      from: "popup",
+      symbol: token.symbol,
+    })
   }, [genericEvent, navigate, token])
 
   const { tokens, fiat } = useMemo(() => {
@@ -119,11 +132,6 @@ const AssetRow: FC<{
                     {t("Testnet")}
                   </div>
                 )}
-                {!!networkIds.length && (
-                  <div className="shrink-0 text-base">
-                    <PortfolioNetworksLogoStack networkIds={networkIds} max={3} />
-                  </div>
-                )}
               </div>
             </div>
 
@@ -134,7 +142,11 @@ const AssetRow: FC<{
               </div>
             )}
             {!isUniswapV2LpToken && (
-              <AssetPrice tokenId={token.id} balances={balances} className="text-xs" />
+              <AssetPrice
+                tokenId={token.id}
+                balances={balances}
+                className="text-body-secondary text-xs"
+              />
             )}
           </div>
           <div
@@ -173,15 +185,11 @@ const AssetRow: FC<{
           </div>
         </div>
       </button>
-      {/* {showStakingButton && (
+      {showStakingButton && (
         <div className="absolute right-4 top-0 hidden h-28 flex-col justify-center group-hover:flex">
-          <BondPillButton
-            balances={balances}
-            isPortfolio
-            className="[>svg]:text-[2rem] text-base"
-          />
+          <BondPillButton balances={balances} isPortfolio className="[>svg]:text-[2rem] text-sm" />
         </div>
-      )} */}
+      )}
     </div>
   )
 }

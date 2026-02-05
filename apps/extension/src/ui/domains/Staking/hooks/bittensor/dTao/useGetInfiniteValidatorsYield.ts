@@ -9,7 +9,7 @@ export function useGetInfiniteValidatorsYield({ netuid }: { netuid: number }) {
     queryKey: ["infiniteValidatorsYield", netuid],
     queryFn: ({ pageParam = 1, signal }) =>
       fetchTaostats<ValidatorsYieldApiResponse>({
-        path: "/api/dtao/validator/yield/latest/v1",
+        path: "/validator-yield-latest",
         params: { page: pageParam, limit: 100, netuid },
         signal,
       }),

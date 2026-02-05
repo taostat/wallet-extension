@@ -6,7 +6,7 @@ import {
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo } from "react"
 
-import { getTalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { getTaostatsLedgerError } from "@ui/hooks/ledger/errors"
 import { useLedgerPolkadot } from "@ui/hooks/ledger/useLedgerPolkadot"
 import { useLedgerSubstrateAppByName } from "@ui/hooks/ledger/useLedgerSubstrateApp"
 import { useAccountByAddress } from "@ui/state"
@@ -54,7 +54,7 @@ export const SignLedgerSubstrateGeneric: FC<SignHardwareSubstrateProps> = ({
       // await to keep loader spinning until popup closes
       await onSigned({ signature })
     } catch (err) {
-      const error = getTalismanLedgerError(err)
+      const error = getTaostatsLedgerError(err)
       log.error("signLedger", { error })
       setError(error)
     } finally {

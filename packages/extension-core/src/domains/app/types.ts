@@ -1,4 +1,4 @@
-import { DotNetworkId, EthNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
+import { DotNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
 
 import { ValidRequests } from "../../libs/requests/types"
 import { Address } from "../../types/base"
@@ -13,8 +13,6 @@ export type RemoteConfigStoreData = {
   }
   swaps: {
     questApi?: string
-    lifiTalismanTokens?: string[]
-    lifiCustomFeeTokens?: Record<string, number>
     simpleswapApiKey?: string
     simpleswapApiKeyDiscounted?: string
     simpleswapDiscountedCurrencies?: string[]
@@ -31,27 +29,12 @@ export type RemoteConfigStoreData = {
     apiUrl: string
   }
   nominationPools: Record<DotNetworkId, number[]>
-  stakingPools: Record<DotNetworkId | EthNetworkId, (number | string)[]>
+  stakingPools: Record<DotNetworkId, (number | string)[]>
   postHogUrl: string
   documentation: {
     unifiedAddressDocsUrl: string
   }
   recommendedNetworks?: string[] // sorted ids of most famous networks, sort others alphabetically
-  seek: {
-    tokenId: string
-    stakingUrl: string
-    docsUrl: string
-    tradeUrl: string
-    stakingContractNetworkId: string
-    stakingContractAddress: `0x${string}`
-    stakingEarlyRewardBoost: string
-    webAppStakingPath: string
-    discountTiers: Array<{
-      tier: number
-      min: string
-      discount: number
-    }>
-  }
   bittensor: {
     fee: {
       buy: Record<number, number>
@@ -95,9 +78,6 @@ export type FeatureFlags = Partial<{
   QUEST_LINK: boolean
   UNIFIED_ADDRESS_BANNER: boolean
   NFTS_V2: boolean
-  SEEK_BENEFITS: boolean
-  SEEK_TAO_DISCOUNT: boolean
-  SEEK_PRESALE: boolean
   ASSET_HUB_MIGRATION_BANNER: boolean
 }>
 export type FeatureFlag = keyof FeatureFlags

@@ -1,6 +1,5 @@
 import { ExternalLinkIcon, GlobeIcon, ToolbarSortIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { SearchInput } from "@taostats/components/SearchInput"
 import { t } from "i18next"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -15,6 +14,7 @@ import {
   useOpenClose,
 } from "taostats-ui"
 
+import { SearchInput } from "@taostats/components/SearchInput"
 import {
   NetworkOption,
   setPortfolioNetworkFilter,

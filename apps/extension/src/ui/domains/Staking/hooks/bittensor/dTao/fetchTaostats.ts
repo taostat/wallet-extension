@@ -1,4 +1,4 @@
-import { TAOSTATS_BASE_PATH } from "extension-shared"
+import { TAOSTATS_API_URL, TAOSTATS_BASE_PATH } from "extension-shared"
 
 const JSON_HEADERS = {
   "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const fetchTaostats = async <T>({
   includeAuthHeader = false,
   headers,
 }: FetchTaostatsArgs): Promise<T> => {
-  const url = new URL(`${TAOSTATS_BASE_PATH}${path}`)
+  const url = new URL(`${TAOSTATS_API_URL}${path}`)
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {

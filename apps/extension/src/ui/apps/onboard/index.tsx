@@ -1,7 +1,7 @@
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Suspense, useRef } from "react"
 import { useSearchParams } from "react-router-dom"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useTokens } from "@ui/state"
 
 import { OnboardBackground } from "./components/OnboardBackground"

@@ -1,7 +1,8 @@
 import { bind } from "@react-rxjs/core"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { useCallback } from "react"
 import { BehaviorSubject } from "rxjs"
+
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 
 type ExplorerNetworkPickerModalInputs = { address: string }
 

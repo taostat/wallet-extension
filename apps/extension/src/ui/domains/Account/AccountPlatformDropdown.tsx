@@ -1,10 +1,11 @@
 import { AccountPlatform } from "@taostats-wallet/crypto"
 import { isNotNil } from "@taostats-wallet/util"
-import { EthereumCircleLogo, PolkadotCircleLogo, SolanaLogo } from "@taostats/theme/logos"
 import { keyBy } from "lodash-es"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Dropdown } from "taostats-ui"
+
+import { EthereumCircleLogo, PolkadotCircleLogo, SolanaLogo } from "@taostats/theme/logos"
 
 type AccountPlatformOption = {
   value: AccountPlatform

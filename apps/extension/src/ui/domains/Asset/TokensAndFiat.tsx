@@ -80,6 +80,7 @@ const TokensAndFiatInner: FC<TokensAndFiatProps> = ({
             isBalance={isBalance}
             noCountUp={noCountUp}
             className={fiatClassName}
+            currencyDisplay={currency === "tao" ? "code" : undefined}
           />
           )
         </>

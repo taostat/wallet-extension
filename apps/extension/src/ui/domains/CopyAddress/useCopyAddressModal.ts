@@ -1,9 +1,9 @@
 import { bind } from "@react-rxjs/core"
-import { detectAddressEncoding, encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
+import { detectAddressEncoding, encodeAnyAddress } from "@taostats-wallet/crypto"
 import { useCallback } from "react"
 import { BehaviorSubject } from "rxjs"
 
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { useNetworksMapById } from "@ui/state"
 import { copyAddress } from "@ui/util/copyAddress"
 
@@ -43,11 +43,8 @@ export const useCopyAddressModal = () => {
             }
             break
           }
-          case "ethereum":
-          case "base58solana": {
-            copyAddress(normalizeAddress(opts.address), onQrClick)
-            return
-          }
+          default:
+            throw new Error("Unsupported address encoding in useCopyAddressModal")
         }
       }
 

@@ -1,12 +1,12 @@
 import { PHISHING_PAGE_REDIRECT } from "@polkadot/extension-base/defaults"
-import { FullScreenLocked } from "@taostats/components/FullScreenLocked"
-import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { DEBUG } from "extension-shared"
 import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Navigate, Route, Routes, useMatch } from "react-router-dom"
 
+import { FullScreenLocked } from "@taostats/components/FullScreenLocked"
+import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { DatabaseErrorAlert } from "@ui/domains/Settings/DatabaseErrorAlert"
 import { MigrationProgress } from "@ui/domains/System/MigrationProgress"
@@ -18,7 +18,6 @@ import { AccountAddDerivedPage } from "./routes/AccountAdd/AccountAddDerivedPage
 import { AccountAddJsonPage } from "./routes/AccountAdd/AccountAddJsonPage"
 import { AccountAddLedgerDashboardWizard } from "./routes/AccountAdd/AccountAddLedgerWizard"
 import { AccountAddMnemonicDashboardWizard } from "./routes/AccountAdd/AccountAddMnemonicWizard"
-import { AccountAddPrivateKeyDashboardPage } from "./routes/AccountAdd/AccountAddPrivateKeyPage"
 import { AccountAddQrDashboardWizard } from "./routes/AccountAdd/AccountAddQrWizard"
 import { AccountAddSignetDashboardWizard } from "./routes/AccountAdd/AccountAddSignetWizard"
 import { AccountAddWatchedPage } from "./routes/AccountAdd/AccountAddWatchedPage"
@@ -32,7 +31,7 @@ import { AnalyticsOptInPage } from "./routes/Settings/AnalyticsOptInPage"
 import { AutoLockTimerPage } from "./routes/Settings/AutoLockTimerPage"
 import { ChangePasswordPage } from "./routes/Settings/ChangePasswordPage"
 import { ConnectedSitesPage } from "./routes/Settings/ConnectedSitesPage"
-import { CurrencySettingsPage } from "./routes/Settings/CurrencySettingsPage"
+// import { CurrencySettingsPage } from "./routes/Settings/CurrencySettingsPage"
 import { GeneralPage } from "./routes/Settings/GeneralPage"
 import { LanguagePage } from "./routes/Settings/LanguagePage"
 import { MnemonicsPage } from "./routes/Settings/Mnemonics/MnemonicsPage"
@@ -57,7 +56,6 @@ const DashboardInner = () => {
             <Route path="derived" element={<AccountAddDerivedPage />} />
             <Route path="json" element={<AccountAddJsonPage />} />
             <Route path="mnemonic/*" element={<AccountAddMnemonicDashboardWizard />} />
-            <Route path="pk/*" element={<AccountAddPrivateKeyDashboardPage />} />
             <Route path="ledger/*" element={<AccountAddLedgerDashboardWizard />} />
             <Route path="qr/*" element={<AccountAddQrDashboardWizard />} />
             <Route path="watched" element={<AccountAddWatchedPage />} />
@@ -72,7 +70,7 @@ const DashboardInner = () => {
           <Route path="general">
             <Route path="" element={<GeneralPage />} />
             <Route path="language" element={<LanguagePage />} />
-            <Route path="currency" element={<CurrencySettingsPage />} />
+            {/* <Route path="currency" element={<CurrencySettingsPage />} /> */}
             <Route path="*" element={<Navigate to="" replace />} />
           </Route>
           <Route path="address-book" element={<AddressBookPage />} />

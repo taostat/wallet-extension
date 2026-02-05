@@ -1,6 +1,7 @@
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { log } from "extension-shared"
 import { useCallback } from "react"
+
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 
 import type { BittensorStakingWizardOpenOptions } from "./useBittensorBondWizard"
 import { useResetBittensorBondWizard } from "./useBittensorBondWizard"

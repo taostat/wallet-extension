@@ -1,10 +1,10 @@
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
 import { papiStringify } from "@taostats-wallet/scale"
-import { CodeBlock } from "@taostats/components/CodeBlock"
 import { WalletTransaction } from "extension-core"
 import { FC, ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
+import { CodeBlock } from "@taostats/components/CodeBlock"
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"
 
 import { TxHistoryDetailsAddress } from "./TxHistoryDetailsAddress"

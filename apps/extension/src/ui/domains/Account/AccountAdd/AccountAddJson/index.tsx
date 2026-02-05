@@ -1,5 +1,4 @@
 import { Spacer } from "@taostats/components/Spacer"
-
 import { useBalancesHydrate } from "@ui/state"
 
 import { AccountAddPageProps } from "../types"

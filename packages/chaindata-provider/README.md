@@ -1,1 +1,1 @@
-# @talismn/chaindata-provider
+# @taostats-wallet/chaindata-provider

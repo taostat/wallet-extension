@@ -1,6 +1,4 @@
 import { InfoIcon } from "@taostats-wallet/icons"
-import { AppPill } from "@taostats/components/AppPill"
-import { notify } from "@taostats/components/Notifications"
 import { Account, KnownRequestIdOnly, ProviderType } from "extension-core"
 import capitalize from "lodash-es/capitalize"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -8,9 +6,10 @@ import { Trans, useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
 import { Button, Drawer } from "taostats-ui"
 
+import { AppPill } from "@taostats/components/AppPill"
+import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { ConnectAccountsContainer } from "@ui/domains/Site/ConnectAccountsContainer"
-import { ConnectAccountToggleButtonRow } from "@ui/domains/Site/ConnectAccountToggleButtonRow"
 import { ConnectedAccountsPolkadot } from "@ui/domains/Site/ConnectedAccountsPolkadot"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useInjectableAccounts } from "@ui/hooks/useInjectableAccounts"
@@ -148,10 +147,6 @@ const getConnectComponent = (provider: ProviderType): ConnectComponent => {
   switch (provider) {
     case "polkadot":
       return ConnectPolkadot
-    case "ethereum":
-      return ConnectEth
-    case "solana":
-      return ConnectSolana
     default:
       throw new Error(`Unknown provider type: ${provider}`)
   }
@@ -190,94 +185,6 @@ export const ConnectPolkadot: ConnectComponent = ({
         {!accounts.length && (
           <NoAccountWarning
             type={"polkadot"}
-            onIgnoreClick={onNoAccountClose(false)}
-            onAddAccountClick={onNoAccountClose(true)}
-          />
-        )}
-      </section>
-    </PopupContent>
-  )
-}
-
-export const ConnectEth: ConnectComponent = ({
-  siteUrl,
-  connected,
-  setConnected,
-  onNoAccountClose,
-}) => {
-  const { t } = useTranslation()
-
-  const accounts = useInjectableAccounts(siteUrl, "ethereum")
-
-  return (
-    <PopupContent>
-      <h3 className="text-body-secondary mb-6 mt-0 pt-10 text-sm">
-        {t("Choose the account you'd like to connect")}
-      </h3>
-      <section className="flex flex-col gap-4">
-        <ConnectAccountsContainer
-          status="disabled"
-          connectedAddresses={connected}
-          label={t("Ethereum")}
-          infoText={t(`Accounts will be connected via the Ethereum provider`)}
-          isSingleProvider
-        >
-          {accounts.map((account) => (
-            <ConnectAccountToggleButtonRow
-              key={account.address}
-              account={account}
-              checked={connected.includes(account?.address)}
-              onClick={() => setConnected([account.address])}
-            />
-          ))}
-        </ConnectAccountsContainer>
-        {!accounts.length && (
-          <NoAccountWarning
-            type={"ethereum"}
-            onIgnoreClick={onNoAccountClose(false)}
-            onAddAccountClick={onNoAccountClose(true)}
-          />
-        )}
-      </section>
-    </PopupContent>
-  )
-}
-
-export const ConnectSolana: ConnectComponent = ({
-  siteUrl,
-  connected,
-  setConnected,
-  onNoAccountClose,
-}) => {
-  const { t } = useTranslation()
-
-  const accounts = useInjectableAccounts(siteUrl, "solana")
-
-  return (
-    <PopupContent>
-      <h3 className="text-body-secondary mb-6 mt-0 pt-10 text-sm">
-        {t("Choose the account you'd like to connect")}
-      </h3>
-      <section className="flex flex-col gap-4">
-        <ConnectAccountsContainer
-          status="disabled"
-          connectedAddresses={connected}
-          label={t("Solana")}
-          infoText={t(`Accounts will be connected via the Solana provider`)}
-          isSingleProvider
-        >
-          {accounts.map((account) => (
-            <ConnectAccountToggleButtonRow
-              key={account.address}
-              account={account}
-              checked={connected.includes(account?.address)}
-              onClick={() => setConnected([account.address])}
-            />
-          ))}
-        </ConnectAccountsContainer>
-        {!accounts.length && (
-          <NoAccountWarning
-            type={"solana"}
             onIgnoreClick={onNoAccountClose(false)}
             onAddAccountClick={onNoAccountClose(true)}
           />

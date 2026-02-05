@@ -1,6 +1,8 @@
-import { statusOptions } from "@taostats/hooks/useStatus"
+import { LoaderIcon } from "@taostats-wallet/icons"
 import { useTranslation } from "react-i18next"
-import { Modal, ModalDialog, ProcessAnimation } from "taostats-ui"
+import { Modal, ModalDialog } from "taostats-ui"
+
+import { statusOptions } from "@taostats/hooks/useStatus"
 
 import { BackUpMnemonicDialog } from "./BackUpMnemonicDialog"
 import { MigratePasswordProvider, useMigratePassword } from "./context"
@@ -17,7 +19,7 @@ const MigratePasswordModalContent = () => {
   if (status === statusOptions.PROCESSING)
     return (
       <ModalDialog title={t("Please wait...")}>
-        <ProcessAnimation status="processing" className="my-20 h-[14rem]" />
+        <LoaderIcon className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
       </ModalDialog>
     )
   if (status === statusOptions.SUCCESS) return <MigratePasswordSuccess />

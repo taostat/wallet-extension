@@ -1,11 +1,11 @@
 import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import { InfoIcon } from "@taostats-wallet/icons"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
 
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { useNetworkById, useRemoteConfig } from "@ui/state"
 
 import { NetworkLogo } from "../Networks/NetworkLogo"

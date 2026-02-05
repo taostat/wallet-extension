@@ -75,17 +75,7 @@ const getExplorerUrl = (
   return url.toString()
 }
 
-type ExplorerHost =
-  | "polkadot.js"
-  | "avail.so"
-  | "statescan.io"
-  | "taostats.io"
-  | "subscan.io"
-  | "etherscan.io"
-  | "solscan.io"
-  | "blockscout.com"
-  | "moonscan.io"
-  | (string & {})
+type ExplorerHost = "taostats.io" | (string & {})
 
 const getExplorerHost = (explorerUrl: URL): ExplorerHost => {
   const hostname = explorerUrl.hostname.toLowerCase()
@@ -101,11 +91,6 @@ const getQueryPath = (query: BlockExplorerQuery, host: ExplorerHost): string | n
   switch (query.type) {
     case "transaction":
       switch (host) {
-        case "avail.so":
-        case "polkadot.js":
-          return null
-        case "statescan.io":
-          return `/extrinsics/${query.id}`
         case "taostats.io":
           return `/hash/${query.id}`
         default:
@@ -113,12 +98,6 @@ const getQueryPath = (query: BlockExplorerQuery, host: ExplorerHost): string | n
       }
     case "address":
       switch (host) {
-        case "avail.so":
-        case "polkadot.js":
-          return null
-        case "statescan.io":
-        case "subscan.io":
-          return `/accounts/${query.address}`
         case "taostats.io":
           return `/account/${query.address}`
         default:
@@ -126,11 +105,6 @@ const getQueryPath = (query: BlockExplorerQuery, host: ExplorerHost): string | n
       }
     case "account": {
       switch (host) {
-        case "avail.so":
-        case "polkadot.js":
-          return null
-        case "statescan.io":
-          return `/accounts/${query.address}`
         default:
           return `/account/${query.address}`
       }
@@ -138,11 +112,6 @@ const getQueryPath = (query: BlockExplorerQuery, host: ExplorerHost): string | n
     case "block": {
       const isNumber = typeof query.id !== "string" || /^\d+$/.test(query.id)
       switch (host) {
-        case "avail.so":
-        case "polkadot.js":
-          return isNumber ? null : `/explorer/query/${query.id}` // supports block hash only
-        case "statescan.io":
-          return isNumber ? `/blocks/${query.id}` : null
         case "taostats.io":
           return isNumber ? `/block/${query.id}/extrinsics` : null
         default:
@@ -151,11 +120,6 @@ const getQueryPath = (query: BlockExplorerQuery, host: ExplorerHost): string | n
     }
     case "extrinsic": {
       switch (host) {
-        case "avail.so":
-        case "polkadot.js":
-          return null // unsupported
-        case "statescan.io":
-          return `/extrinsics/${query.blockNumber}-${query.extrinsicIndex}`
         case "taostats.io":
           return `/extrinsic/${query.blockNumber}-${query.extrinsicIndex.toString().padStart(4, "0")}`
         default:
@@ -180,8 +144,6 @@ export const getBlockExplorerLabel = (blockExplorerUrl: string): string => {
   const host = getExplorerHost(url)
 
   switch (host) {
-    case "polkadot.js":
-      return "Polkadot.js"
     default: {
       const parts = url.hostname.split(".")
       return parts.length === 2 ? startCase(parts[0]) : host

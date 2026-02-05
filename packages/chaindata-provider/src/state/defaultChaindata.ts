@@ -3,7 +3,7 @@ import { firstValueFrom, map, Observable, shareReplay, Subject } from "rxjs"
 
 import log from "../log"
 import { ChaindataStorage } from "../provider/ChaindataProvider"
-import { githubChaindata$ } from "./githubChaindata"
+import { chaindata$ } from "./chainDataRetrieval"
 import initChaindata from "./initChaindata.json"
 import { Chaindata, ChaindataFileSchema } from "./schema"
 
@@ -29,7 +29,7 @@ export const getDefaultChaindata$ = (storage$: Subject<ChaindataStorage>) => {
   )
 
   return new Observable<Chaindata>((subscriber) => {
-    const githubToStorageSubscription = githubChaindata$.subscribe({
+    const chainDataToStorageSubscription = chaindata$.subscribe({
       error: async () => {
         const storageData = await firstValueFrom(storageValidated$)
 
@@ -53,12 +53,12 @@ export const getDefaultChaindata$ = (storage$: Subject<ChaindataStorage>) => {
           return
         }
       },
-      next: async (githubData) => {
+      next: async (chainData) => {
         const now = performance.now()
         try {
           const storageData = await firstValueFrom(storageValidated$)
 
-          const shouldUpdate = !isEqual(storageData, githubData)
+          const shouldUpdate = !isEqual(storageData, chainData)
           if (!shouldUpdate)
             return log.debug(
               `[defaultChaindata$] No db updates needed: ${performance.now() - now}ms`,
@@ -66,9 +66,9 @@ export const getDefaultChaindata$ = (storage$: Subject<ChaindataStorage>) => {
 
           // update local chaindata if github chaindata is different
           log.debug(
-            `[defaultChaindata$] Updating chaindata in DB (networks:${githubData.networks.length}, tokens:${githubData.tokens.length}, meta:${githubData.miniMetadatas.length})`,
+            `[defaultChaindata$] Updating chaindata in DB (networks:${chainData.networks.length}, tokens:${chainData.tokens.length}, meta:${chainData.miniMetadatas.length})`,
           )
-          storage$.next(githubData)
+          storage$.next(chainData)
 
           log.info(`[defaultChaindata$] Db synchronized with GitHub :${performance.now() - now}ms`)
         } catch (cause) {
@@ -76,7 +76,7 @@ export const getDefaultChaindata$ = (storage$: Subject<ChaindataStorage>) => {
         }
       },
     })
-    subscriber.add(githubToStorageSubscription)
+    subscriber.add(chainDataToStorageSubscription)
 
     const outputFromStorageSubscription = storageValidated$.subscribe(subscriber)
     subscriber.add(outputFromStorageSubscription)

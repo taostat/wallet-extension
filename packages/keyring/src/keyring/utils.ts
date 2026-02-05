@@ -1,4 +1,4 @@
-// we dont want to reference @talismn/util in the keyring, so we copy this here
+// we dont want to reference util package in the keyring, so we copy this here
 type HexString = `0x${string}`
 
 export const REGEX_HEX_STRING = /^0x[0-9a-fA-F]*$/

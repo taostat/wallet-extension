@@ -1,10 +1,11 @@
+import { HexString } from "@polkadot/util/types"
 import { ChevronDownIcon, GlobeIcon } from "@taostats-wallet/icons"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { getAccountGenesisHash } from "extension-core"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useOpenClose } from "taostats-ui"
 
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AllAccountsIcon } from "@ui/domains/Account/AllAccountsIcon"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
@@ -76,7 +77,7 @@ const NetworkFilterButton = () => {
 
   const handleSelect = useCallback(
     (networkId: string | null) => {
-      setNetworkId(networkId)
+      setNetworkId(networkId as HexString)
       close()
     },
     [close, setNetworkId],

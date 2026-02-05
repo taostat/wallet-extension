@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/connection-meta",
   "version": "0.2.32",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/connection-meta",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-connection-meta.cjs.js",
   "module": "dist/taostats-wallet-connection-meta.esm.js",

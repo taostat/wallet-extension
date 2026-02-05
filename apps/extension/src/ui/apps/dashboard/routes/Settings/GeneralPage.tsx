@@ -6,7 +6,6 @@ import {
   CheckIcon,
   ChevronRightIcon,
   CoinsIcon,
-  DollarSignIcon,
   EyeOffIcon,
   FlagIcon,
   RefreshCwIcon,
@@ -15,14 +14,14 @@ import {
   XIcon,
 } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Setting } from "@taostats/components/Setting"
 import { LedgerTransportType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, CtaButton, Dropdown, Modal, ModalDialog, Toggle } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Setting } from "@taostats/components/Setting"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useRuntimeReload } from "@ui/hooks/useRuntimeReload"
@@ -95,13 +94,6 @@ const Content = () => {
           title={t("Language")}
           subtitle={t("Change the wallet display language")}
           to={`/settings/general/language`}
-        />
-        <CtaButton
-          iconLeft={DollarSignIcon}
-          iconRight={ChevronRightIcon}
-          title={t("Currency")}
-          subtitle={t("Set currencies for viewing your portolio value")}
-          to={`/settings/general/currency`}
         />
         <Setting
           iconLeft={UsbIcon}

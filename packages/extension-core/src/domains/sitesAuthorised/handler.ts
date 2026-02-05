@@ -1,9 +1,8 @@
 import { assert } from "@polkadot/util"
-import { isEthereumAddress } from "@polkadot/util-crypto"
 
 import type { MessageTypes, RequestType, ResponseType } from "../../types"
 import type { Port, RequestIdOnly } from "../../types/base"
-import { talismanAnalytics } from "../../libs/Analytics"
+import { walletAnalytics } from "../../libs/Analytics"
 import { ExtensionHandler } from "../../libs/Handler"
 import { requestStore } from "../../libs/requests/store"
 import { KnownRequestIdOnly } from "../../libs/requests/types"
@@ -37,7 +36,7 @@ export default class SitesAuthorisationHandler extends ExtensionHandler {
     const updateConnectAll: Pick<AuthorizedSite, "connectAllSubstrate"> = {}
     if ("addresses" in authorisedSite) updateConnectAll["connectAllSubstrate"] = undefined
     await this.stores.sites.updateSite(id, { ...authorisedSite, ...updateConnectAll })
-    talismanAnalytics.capture("authorised site update addresses", {
+    walletAnalytics.capture("authorised site update addresses", {
       url: id,
     })
     return true
@@ -47,11 +46,9 @@ export default class SitesAuthorisationHandler extends ExtensionHandler {
     const queued = requestStore.getRequest(id)
     assert(queued, "Unable to find request")
 
-    talismanAnalytics.capture("authorised site approve", {
+    walletAnalytics.capture("authorised site approve", {
       url: queued.idStr,
       authType: queued.request.provider,
-      withEthAccounts:
-        queued.request.provider === "ethereum" ? undefined : addresses.some(isEthereumAddress),
     })
     const { resolve } = queued
     resolve({ addresses })
@@ -64,7 +61,7 @@ export default class SitesAuthorisationHandler extends ExtensionHandler {
     assert(queued, "Unable to find request")
 
     const { reject } = queued
-    talismanAnalytics.capture("authorised site reject", {
+    walletAnalytics.capture("authorised site reject", {
       url: queued.idStr,
       authType: queued.request.provider,
     })

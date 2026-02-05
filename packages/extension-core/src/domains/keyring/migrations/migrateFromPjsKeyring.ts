@@ -105,7 +105,7 @@ const executeMigrationFromPjsKeyring = async (password: string, reset = false) =
           case "SEED_STORED":
           case "DERIVED":
           case "JSON":
-          case LegacyAccountOrigin.Talisman: {
+          case LegacyAccountOrigin.Taostats: {
             const curve = pjsKeypairTypeToCurve(oldPair.type)
             const name = oldPair.meta.name ?? `Keypair ${oldPair.address}`
             const mnemonicId =

@@ -4,15 +4,11 @@ import {
   getGithubTokenLogoUrlByCoingeckoId,
   isNetworkCustom,
   isNetworkDot,
-  isNetworkEth,
   isNetworkKnown,
   Network,
   NetworkBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
-import { CopyIcon, RotateCcwIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify } from "@taostats/components/Notifications"
-import { t } from "i18next"
+import { RotateCcwIcon } from "@taostats-wallet/icons"
 import { FC, useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
@@ -21,7 +17,6 @@ import {
   Checkbox,
   FormFieldContainer,
   FormFieldInputText,
-  IconButton,
   Modal,
   ModalDialog,
   Toggle,
@@ -32,6 +27,8 @@ import {
 } from "taostats-ui"
 import { z } from "zod/v4"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
@@ -88,7 +85,7 @@ const NetworkForm: FC = () => {
 
   const { form, network } = useNetworkForm()
 
-  const { isActive, setActive, isActiveSetByUser, resetToTalismanDefault } =
+  const { isActive, setActive, isActiveSetByUser, resetToTaostatsDefault } =
     useActivableNetwork(network)
 
   return (
@@ -102,7 +99,7 @@ const NetworkForm: FC = () => {
         }}
       >
         <div className="grid grid-cols-3 gap-12">
-          <div className={!isNetworkEth(network) ? "col-span-3" : "col-span-2"}>
+          <div className={"col-span-3"}>
             <form.Field
               name="name"
               children={(field) => (
@@ -122,24 +119,6 @@ const NetworkForm: FC = () => {
               )}
             />
           </div>
-          {isNetworkEth(network) && (
-            <div>
-              <FormFieldContainer label="Chain ID">
-                <FormFieldInputText
-                  disabled
-                  type="text"
-                  value={network.id}
-                  readOnly
-                  spellCheck={false}
-                  data-lpignore
-                  autoComplete="off"
-                  small
-                  containerProps={{ className: "pr-8" }}
-                  after={<CopyChainIdButton chainId={network.id} className="text-[2rem]" />}
-                />
-              </FormFieldContainer>
-            </div>
-          )}
         </div>
 
         {/* <NetworkRpcsField /> */}
@@ -331,23 +310,6 @@ const NetworkForm: FC = () => {
               />
             </div>
           )}
-          {isNetworkEth(network) && (
-            <div>
-              <form.Field
-                name="preserveGasEstimate"
-                children={(field) => (
-                  <Checkbox
-                    checked={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.checked)}
-                  >
-                    <span className="text-body-secondary">
-                      {t("Use exact gas estimates (required for PolkaVM networks)")}
-                    </span>
-                  </Checkbox>
-                )}
-              />
-            </div>
-          )}
         </div>
         <div>
           <div className="mt-8">
@@ -361,7 +323,7 @@ const NetworkForm: FC = () => {
                     <TooltipTrigger
                       className="text-primary text-xs"
                       type="button"
-                      onClick={resetToTalismanDefault}
+                      onClick={resetToTaostatsDefault}
                     >
                       <RotateCcwIcon />
                     </TooltipTrigger>
@@ -409,33 +371,6 @@ const NetworkForm: FC = () => {
   )
 }
 
-const CopyChainIdButton: FC<{ chainId: string; className?: string }> = ({ chainId, className }) => {
-  const handleClick = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(chainId)
-      notify({
-        type: "success",
-        title: t(`Chain ID copied`),
-        subtitle: chainId,
-      })
-    } catch (err) {
-      notify({
-        type: "error",
-        title: "Error",
-        subtitle: (err as Error).message ?? "Failed to chain ID",
-      })
-    }
-  }, [chainId])
-
-  if (!chainId) return null
-
-  return (
-    <IconButton className={className} onClick={handleClick}>
-      <CopyIcon />
-    </IconButton>
-  )
-}
-
 const ConfirmRemove: FC<{
   network: Network
   onClose: () => void
@@ -474,8 +409,8 @@ const ConfirmRemove: FC<{
         <div className="text-base">
           {isNetworkKnown(saved) ? (
             <Trans t={t}>
-              This will reset <span className="text-body">{saved?.name}</span> to its Talisman
-              default state. Are you sure you want to continue ?
+              This will reset <span className="text-body">{saved?.name}</span> to its default state.
+              Are you sure you want to continue ?
             </Trans>
           ) : (
             <Trans t={t}>

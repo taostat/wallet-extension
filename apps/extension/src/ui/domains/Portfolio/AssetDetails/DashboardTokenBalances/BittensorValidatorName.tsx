@@ -1,7 +1,7 @@
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { FC } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { useBittensorValidator } from "@ui/state/bittensor"
 
 export const BittensorValidatorName: FC<{

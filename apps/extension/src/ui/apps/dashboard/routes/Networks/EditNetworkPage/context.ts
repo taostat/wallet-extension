@@ -2,18 +2,17 @@ import { useForm } from "@tanstack/react-form"
 import {
   isNativeToken,
   isNetworkDot,
-  isNetworkEth,
   Network,
   NetworkPlatform,
 } from "@taostats-wallet/chaindata-provider"
-import { notify } from "@taostats/components/Notifications"
-import { provideContext } from "@taostats/util/provideContext"
 import { log } from "extension-shared"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { firstValueFrom } from "rxjs"
 
+import { notify } from "@taostats/components/Notifications"
+import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { getToken$ } from "@ui/state"
 
@@ -51,7 +50,7 @@ const networkToFormData = (network: Network): NetworkEditFormData => ({
   nativeCurrency: network.nativeCurrency,
   accountFormat: isNetworkDot(network) ? network.account : undefined,
   hasCheckMetadataHash: isNetworkDot(network) ? network.hasCheckMetadataHash : undefined,
-  preserveGasEstimate: isNetworkEth(network) ? network.preserveGasEstimate : undefined,
+  preserveGasEstimate: undefined,
 })
 
 const formDataToNetwork = (network: Network, formData: NetworkEditFormData): Network => {
@@ -66,10 +65,6 @@ const formDataToNetwork = (network: Network, formData: NetworkEditFormData): Net
 
   if (isNetworkDot(newNetwork)) {
     newNetwork.hasCheckMetadataHash = formData.hasCheckMetadataHash
-  }
-
-  if (isNetworkEth(newNetwork)) {
-    newNetwork.preserveGasEstimate = formData.preserveGasEstimate
   }
 
   return newNetwork

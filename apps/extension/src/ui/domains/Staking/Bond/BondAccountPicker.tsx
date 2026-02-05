@@ -1,14 +1,13 @@
-import { isEthereumAddress } from "@polkadot/util-crypto"
-import { isTokenEth, Token } from "@taostats-wallet/chaindata-provider"
+import { Token } from "@taostats-wallet/chaindata-provider"
 import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInput } from "@taostats/components/SearchInput"
-import { Account, Address, getAccountGenesisHash, isAccountOfType } from "extension-core"
+import { Account, Address, getAccountGenesisHash } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
 
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { useAccounts, useNetworkById } from "@ui/state"
 
 import { BondAccountsList } from "./BondAccountsList"
@@ -43,15 +42,10 @@ export const BondAccountPicker = ({
     () =>
       allAccounts
         .filter((account) => !search || account.name?.toLowerCase().includes(search))
-        .filter((account) => {
+        .filter(() => {
           if (!token) return false
 
-          if (isEthereumAddress(account.address))
-            return (
-              isTokenEth(token) ||
-              (chain?.account === "secp256k1" && !isAccountOfType(account, "ledger-polkadot"))
-            )
-          else return chain && chain?.account !== "secp256k1"
+          return chain && chain?.account !== "secp256k1"
         })
         .filter((account) => {
           const genesisHash = getAccountGenesisHash(account)

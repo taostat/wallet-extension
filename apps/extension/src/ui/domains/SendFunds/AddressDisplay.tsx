@@ -3,13 +3,12 @@ import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-prov
 import { encodeAddressSs58, encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
 import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { useOnChainId } from "@ui/hooks/useOnChainId"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { useAccountByAddress, useAnyNetwork, useNetworkById } from "@ui/state"
 import { copyAddress } from "@ui/util/copyAddress"
 
@@ -87,8 +86,6 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
     return chain && address ? encodeAnyAddress(address, { ss58Format: chain.prefix }) : address
   }, [address, chain])
 
-  const [onChainId] = useOnChainId(resolvedAddress ?? undefined)
-
   const text = useMemo(
     () => account?.name ?? (address ? shortenAddress(address, 6, 6) : null),
     [account?.name, address],
@@ -106,7 +103,7 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
         <AddressTooltip
           address={account ? resolvedAddress : address} // don't show both formats for talisman accounts
           resolvedAddress={resolvedAddress}
-          onChainId={onChainId ?? undefined}
+          onChainId={undefined}
           chainName={chain?.name}
         />
       </TooltipContent>

@@ -9,7 +9,7 @@ export const useGetInfiniteSubnets = () => {
     queryKey: ["infiniteSubnets"],
     queryFn: ({ pageParam = 1, signal }) =>
       fetchTaostats<SubnetsData>({
-        path: "/api/subnet/latest/v1",
+        path: "/subnet",
         params: { page: pageParam },
         signal,
         includeAuthHeader: true,

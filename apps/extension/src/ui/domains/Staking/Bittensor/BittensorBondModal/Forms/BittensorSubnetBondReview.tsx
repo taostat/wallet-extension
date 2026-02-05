@@ -1,6 +1,6 @@
 import { EditIcon, InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -13,42 +13,25 @@ import {
 } from "taostats-ui"
 
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
-import { useCombinedSubnetData } from "@ui/domains/Staking/hooks/bittensor/dTao/useCombinedSubnetData"
-import { useGetSeekDiscount } from "@ui/domains/Staking/Seek/hooks/useGetSeekDiscount"
-import { SeekGetFeeDiscountsDrawer } from "@ui/domains/Staking/Seek/SeekGetFeeDiscountsDrawer"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
-import { useAppState, useFeatureFlag } from "@ui/state"
 
 import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
 import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
-import { StakingUnbondingPeriod } from "../../../shared/StakingUnbondingPeriod"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
 import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorBondModal } from "../../hooks/useBittensorBondModal"
 import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
-import { useGetSubnetFee } from "../../hooks/useGetSubnetFee"
-import {
-  HIGH_PRICE_IMPACT,
-  TALISMAN_FEE_BITTENSOR,
-  VERY_HIGH_PRICE_IMPACT,
-} from "../../utils/constants"
+import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
-import { BittensorWarningDrawer } from "../Drawers/BittensorWarningDrawer"
-
-const MAX_TOTAL_FEE_DISCOUNT = 1
 
 export const BittensorSubnetBondReview = () => {
   const [isDisabled, setIsDisabled] = useState(true)
-  const [hideWarning] = useAppState("hideBittensorSubnetStakeWarning")
-  const [hasAckWarning, setHasAckWarning] = useState<boolean>(hideWarning || false)
-  const isSeekTaoDiscountEnabled = useFeatureFlag("SEEK_TAO_DISCOUNT")
   const ocMevShieldInfo = useOpenClose()
 
   const {
-    networkId,
     nativeToken,
     dtaoToken,
     account,
@@ -56,15 +39,10 @@ export const BittensorSubnetBondReview = () => {
     amountIn,
     txMetadata,
     hotkey,
-    netuid,
-    feeToken,
     slippageDrawer,
     slippage,
-    warningDrawer,
     isSubnetUnbond,
-    talismanFee,
     swapPrice,
-    errorFeeEstimate,
     amountOut,
     stakeDirection,
     priceImpact,
@@ -75,52 +53,9 @@ export const BittensorSubnetBondReview = () => {
     setStep,
   } = useBittensorBondWizard()
   const { t } = useTranslation()
-  const { tier } = useGetSeekDiscount()
-  const { seekDiscountDrawer } = useBittensorBondWizard()
   const { close } = useBittensorBondModal()
-  const subnetFee = useGetSubnetFee({
-    netuid: netuid ?? 0,
-    direction: stakeDirection === "bond" ? "taoToAlpha" : "alphaToTao",
-  })
-
-  const { discount } = tier
-
-  const subnetFeeDiscount = useMemo(() => {
-    if (subnetFee === TALISMAN_FEE_BITTENSOR) {
-      // No discount
-      return 0
-    } else if (subnetFee === 0) {
-      // 100% discount
-      return MAX_TOTAL_FEE_DISCOUNT
-    } else {
-      // Calculate discount percentage
-      const discountDiff = TALISMAN_FEE_BITTENSOR - subnetFee
-      return discountDiff / TALISMAN_FEE_BITTENSOR
-    }
-  }, [subnetFee])
-
-  const totalFeeDiscount = useMemo(() => {
-    if (subnetFeeDiscount === MAX_TOTAL_FEE_DISCOUNT) {
-      // Discount cannot be greater than 100%
-      return MAX_TOTAL_FEE_DISCOUNT
-    } else if (isSeekTaoDiscountEnabled) {
-      // Calculate total discount, combining subnet fee discount and seek discount
-      return tier.discount + subnetFeeDiscount
-    }
-    // subnet fee discount only
-    return subnetFeeDiscount
-  }, [subnetFeeDiscount, isSeekTaoDiscountEnabled, tier.discount])
-
-  const totalDiscountPercent = useMemo(() => `${totalFeeDiscount * 100}%`, [totalFeeDiscount])
-  const isSeekDrawerEnabled = useMemo(
-    () => isSeekTaoDiscountEnabled && totalFeeDiscount < MAX_TOTAL_FEE_DISCOUNT,
-    [isSeekTaoDiscountEnabled, totalFeeDiscount],
-  )
-
-  const { isLoading } = useCombinedSubnetData(networkId)
 
   const { open } = slippageDrawer
-  const { open: openWarningDrawer } = warningDrawer
 
   useEffect(() => {
     // enable confirm button 0.5 second after the screen is open, to ensure the user doesnt accidentally click it (ex: double click from prev screen)
@@ -145,7 +80,7 @@ export const BittensorSubnetBondReview = () => {
     >
       <div className="space-y-[0.75rem]">
         <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
-          <div className="flex items-center justify-between gap-8 pb-2">
+          <div className="flex items-center justify-between gap-8 pb-2 text-sm">
             <div className="whitespace-nowrap">{t("Amount")} </div>
             <div className="overflow-hidden">
               <TokensAndFiat
@@ -155,12 +90,12 @@ export const BittensorSubnetBondReview = () => {
                 withLogo
                 className="flex items-center"
                 tokensClassName="text-body"
-                logoClassName="size-12"
+                logoClassName="size-8"
                 fiatClassName="text-body-secondary"
               />
             </div>
           </div>
-          <div className="flex items-center justify-between gap-8 pt-2">
+          <div className="flex items-center justify-between gap-8 pt-2 text-sm">
             <div className="whitespace-nowrap">{t("Account")} </div>
             <div className="overflow-hidden">
               <StakingAccountDisplay address={account.address} chainId={nativeToken?.networkId} />
@@ -197,13 +132,6 @@ export const BittensorSubnetBondReview = () => {
               </div>
             </div>
           )}
-          <div className="flex items-center justify-between gap-8 py-2 text-xs">
-            <div className="whitespace-nowrap">{t("Unbonding Period")} </div>
-            <div className="text-body truncate">
-              <StakingUnbondingPeriod chainId={nativeToken?.networkId} />
-            </div>
-          </div>
-
           <div className="flex items-center justify-between gap-8 pt-2 text-xs">
             <div className="whitespace-nowrap">{t("Estimated amount")}</div>
             <div className="overflow-hidden">
@@ -282,79 +210,21 @@ export const BittensorSubnetBondReview = () => {
             <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
             <FeeEstimate />
           </div>
-          <div className="flex items-center justify-between gap-8 pt-2 text-xs">
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <div>{t("Talisman Fee")} </div>
-              <Tooltip>
-                <TooltipTrigger>
-                  <InfoIcon />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                    {subnetFee === 0
-                      ? t("Talisman doesn’t apply any fee to this transaction.")
-                      : t(`Talisman applies a ${TALISMAN_FEE_BITTENSOR}% fee to each transaction.`)}
-                  </span>
-                </TooltipContent>
-              </Tooltip>
-              {(totalFeeDiscount > 0 || isSeekTaoDiscountEnabled) && (
-                <button
-                  type="button"
-                  className={classNames(
-                    "rounded-[43px] bg-[#D5FF5C] bg-opacity-[0.1] px-3 py-1",
-                    !isSeekDrawerEnabled && "cursor-default",
-                  )}
-                  onClick={isSeekDrawerEnabled ? seekDiscountDrawer.open : undefined}
-                >
-                  <div className="text-[1rem] text-[#D5FF5C]">
-                    {totalFeeDiscount > 0 ? (
-                      <>
-                        {totalDiscountPercent} {t("Off Fees")}
-                      </>
-                    ) : (
-                      t("Get Discount")
-                    )}
-                  </div>
-                </button>
-              )}
-            </div>
-            <StakingFeeEstimate
-              plancks={talismanFee}
-              tokenId={feeToken?.id}
-              isLoading={isLoading}
-              error={errorFeeEstimate}
-              tokensClassName={discount > 0 && isSeekTaoDiscountEnabled ? "text-[#D5FF5C]" : ""}
-              noCountUp
-              noFiat
-            />
-          </div>
         </div>
       </div>
       <div className="grow"></div>
-      {payload &&
-        (!hasAckWarning ? (
-          <Button primary onClick={openWarningDrawer}>
-            {t("Confirm")}
-          </Button>
-        ) : (
-          <SapiSendButton
-            containerId="StakingModalDialog"
-            label={stakeDirection === "bond" ? t("Stake") : t("Unstake")}
-            payload={payload}
-            onSubmitted={onSubmitted}
-            txMetadata={txMetadata}
-            disabled={isDisabled}
-            mode={withMevShield ? "bittensor-mev-shield" : "default"}
-          />
-        ))}
+      {payload && (
+        <SapiSendButton
+          containerId="StakingModalDialog"
+          label={stakeDirection === "bond" ? t("Stake") : t("Unstake")}
+          payload={payload}
+          onSubmitted={onSubmitted}
+          txMetadata={txMetadata}
+          disabled={isDisabled}
+          mode={withMevShield ? "bittensor-mev-shield" : "default"}
+        />
+      )}
       <BittensorSlippageDrawer />
-      <BittensorWarningDrawer setHasAckWarning={setHasAckWarning} />
-      <SeekGetFeeDiscountsDrawer
-        isOpen={seekDiscountDrawer.isOpen}
-        onDismiss={seekDiscountDrawer.close}
-        onCloseModal={close}
-        containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
-      />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />
     </BittensorModalLayout>
   )
@@ -416,7 +286,7 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
           </li>
           <li>
             {t(
-              "Rootnet staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Rootnet staking.",
+              "Root staking is not subject to MEV attacks in the same way, so MEV Shield is disabled for Root staking.",
             )}
           </li>
         </ul>

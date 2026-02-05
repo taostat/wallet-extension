@@ -1,8 +1,8 @@
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { FormEvent, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { SendFundsWizardPage, useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 
 import { ForfeitWarningDrawer } from "../Drawers/ForfeitWarningDrawer"

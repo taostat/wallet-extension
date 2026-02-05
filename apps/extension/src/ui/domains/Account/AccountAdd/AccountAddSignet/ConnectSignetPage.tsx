@@ -1,13 +1,13 @@
 import { ArrowRightIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify } from "@taostats/components/Notifications"
-import { Spacer } from "@taostats/components/Spacer"
 import { SIGNET_APP_URL, SIGNET_LANDING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Link, useNavigate } from "react-router-dom"
 import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify } from "@taostats/components/Notifications"
+import { Spacer } from "@taostats/components/Spacer"
 import { signet } from "@ui/util/signet"
 
 import { useSignetConnect } from "./context"
@@ -78,7 +78,7 @@ export const ConnectSignetPage = () => {
         text={
           <>
             {t(
-              "Signet is the Enterprise & Institutional solution from Talisman, once you have set-up a vault in Signet you can connect below. Find out more at ",
+              "Signet is the Enterprise & Institutional solution from Taostats, once you have set-up a vault in Signet you can connect below. Find out more at ",
             )}
             <Link to={SIGNET_LANDING_URL} target="_blank" className="text-primary-500">
               {SIGNET_LANDING_URL}

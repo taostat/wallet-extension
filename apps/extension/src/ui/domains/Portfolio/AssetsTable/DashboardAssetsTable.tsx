@@ -48,34 +48,32 @@ const HeaderRow = () => {
 
   const currency = useSelectedCurrency()
 
-  const {
-    total: portfolio,
-    transferable: available,
-    unavailable: locked,
-  } = useMemo(() => balances.sum.fiat(currency), [balances.sum, currency])
+  const { total } = useMemo(() => balances.sum.fiat(currency), [balances.sum, currency])
 
   if (!balances.count) return null
 
   return (
     <div className="text-body-secondary bg-grey-850 mb-4 grid h-40 grid-cols-[40%_30%_30%] items-center rounded px-8 text-left text-base">
-      <Statistics
+      <div className="h-auto w-auto p-0" />
+      {/* <Statistics
         className="h-auto w-auto p-0"
         title={t("Total Value")}
-        fiat={portfolio}
+        fiat={total}
         showCurrencyToggle
         align="left"
-      />
-      <Statistics
+      /> */}
+      <div className="className=h-auto w-auto items-end p-0 pr-8" />
+      {/* <Statistics
         className="h-auto w-auto items-end p-0 pr-8"
         title={t("Locked")}
         fiat={locked}
         locked
         align="right"
-      />
+      /> */}
       <Statistics
         className="h-auto w-auto items-end p-0"
-        title={t("Available")}
-        fiat={available}
+        title={t("Total")}
+        fiat={total}
         align="right"
       />
     </div>

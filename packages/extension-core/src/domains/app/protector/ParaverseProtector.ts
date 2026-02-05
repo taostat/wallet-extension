@@ -33,9 +33,9 @@ type MetaMaskDetectorConfig = {
   whitelist: string[]
 }
 
-export type ProtectorData = Record<"talisman" | "polkadot", HostList>
+export type ProtectorData = Record<"taostats" | "polkadot", HostList>
 
-export type ProtectorSources = "polkadot" | "metamask" // don't persist Talisman
+export type ProtectorSources = "polkadot" | "metamask" // don't persist taostats
 
 export type ProtectorStorage = {
   source: ProtectorSources
@@ -51,7 +51,7 @@ export default class ParaverseProtector {
     metamask: "",
   }
   lists: ProtectorData = {
-    talisman: { allow: DEFAULT_ALLOW, deny: [] },
+    taostats: { allow: DEFAULT_ALLOW, deny: [] },
     polkadot: { allow: [], deny: [] },
   }
   #refreshTimer?: ReturnType<typeof setInterval>
@@ -202,8 +202,8 @@ export default class ParaverseProtector {
     if (!ok) return false
 
     // first check our lists
-    if (this.lists.talisman.allow.includes(host)) return false
-    if (this.lists.talisman.deny.includes(host)) return true
+    if (this.lists.taostats.allow.includes(host)) return false
+    if (this.lists.taostats.deny.includes(host)) return true
 
     // then check polkadot, phishFort, and metamask lists
     const pdResult = checkHost(this.lists.polkadot.deny, host)
@@ -224,7 +224,7 @@ export default class ParaverseProtector {
     const { val: host, ok } = getHostName(url)
     if (!ok) return false
 
-    this.lists.talisman.allow.push(host)
+    this.lists.taostats.allow.push(host)
     return true
   }
 }

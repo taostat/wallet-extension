@@ -41,7 +41,7 @@ export const PrivacyPage = () => {
       ...ANALYTICS_PAGE,
       name: "GotoExternal",
       action: "Learn more about privacy",
-      site: "Talisman Docs",
+      site: "Taostats Docs",
     })
   }, [])
 

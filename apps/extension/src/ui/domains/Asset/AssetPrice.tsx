@@ -81,7 +81,13 @@ export const AssetPrice: FC<{
         <Container className={classNames("whitespace-nowrap", className)}>
           <span className={priceClassName}>{price.compact} </span>
           {!noChange && price.change24h ? (
-            <span className={classNames(price.changeClassName, changeClassName)}>
+            <span
+              className={classNames(
+                "text-xs", // smaller text for percentage change in asset lists
+                price.changeClassName,
+                changeClassName,
+              )}
+            >
               {price.change24h}
             </span>
           ) : null}

@@ -30,7 +30,7 @@ export const useActivableNetwork = (network: Network | undefined) => {
     [network, activeNetworks],
   )
 
-  const resetToTalismanDefault = useCallback(() => {
+  const resetToTaostatsDefault = useCallback(() => {
     if (!network) throw new Error("Network not found")
     activeNetworksStore.resetActive(network.id)
   }, [network])
@@ -46,6 +46,6 @@ export const useActivableNetwork = (network: Network | undefined) => {
      * If false, active state comes from chaindata default value.
      */
     isActiveSetByUser,
-    resetToTalismanDefault,
+    resetToTaostatsDefault,
   }
 }

@@ -1,6 +1,6 @@
 import type { ProviderInterface, ProviderInterfaceCallback } from "@polkadot/rpc-provider/types"
 import { DotNetworkId, IChaindataNetworkProvider } from "@taostats-wallet/chaindata-provider"
-import { TalismanConnectionMetaDatabase } from "@taostats-wallet/connection-meta"
+import { TaostatsExtensionConnectionMetaDatabase } from "@taostats-wallet/connection-meta"
 import { Deferred, isTruthy, sleep, throwAfter } from "@taostats-wallet/util"
 
 import log from "../log"
@@ -74,13 +74,13 @@ type SocketUserId = number
  * 2. ChainConnector creates only one `WsProvider` per chain and ensures that all downstream requests to a chain share the one socket connection.
  * 3. Subscriptions return a callable `unsubscribe` method instead of an id.
  *
- * Additionally, when run on the clientside of a dapp where `window.talismanSub` is available, instead of spinning up new websocket
+ * Additionally, when run on the clientside of a dapp where `window.walletSub` is available, instead of spinning up new websocket
  * connections this class will forward all requests through to the wallet backend - where another instance of this class will
  * handle the websocket connections.
  */
 export class ChainConnectorDot implements IChainConnectorDot {
   #chaindataChainProvider: IChaindataNetworkProvider
-  #connectionMetaDb?: TalismanConnectionMetaDatabase
+  #connectionMetaDb?: TaostatsExtensionConnectionMetaDatabase
 
   #socketConnections: Record<DotNetworkId, Websocket> = {}
   #socketKeepAliveIntervals: Record<DotNetworkId, ReturnType<typeof setInterval>> = {}
@@ -88,7 +88,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
 
   constructor(
     chaindataChainProvider: IChaindataNetworkProvider,
-    connectionMetaDb?: TalismanConnectionMetaDatabase,
+    connectionMetaDb?: TaostatsExtensionConnectionMetaDatabase,
   ) {
     this.#chaindataChainProvider = chaindataChainProvider
     this.#connectionMetaDb = connectionMetaDb
@@ -170,8 +170,8 @@ export class ChainConnectorDot implements IChainConnectorDot {
       expectErrors?: boolean
     },
   ): Promise<T> {
-    const talismanSub = this.getTalismanSub()
-    if (talismanSub !== undefined) {
+    const walletSub = this.getWalletSub()
+    if (walletSub !== undefined) {
       try {
         const chain = await this.#chaindataChainProvider.getNetworkById(chainId, "polkadot")
         if (!chain) throw new Error(`Chain ${chainId} not found in store`)
@@ -180,7 +180,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
         if (typeof genesisHash !== "string")
           throw new Error(`Chain ${chainId} has no genesisHash in store`)
 
-        return await talismanSub.send(genesisHash, method, params)
+        return await walletSub.send(genesisHash, method, params)
       } catch (error) {
         log.warn(
           `Failed to make wallet-proxied send request for chain ${chainId}. Falling back to plain websocket`,
@@ -256,8 +256,8 @@ export class ChainConnectorDot implements IChainConnectorDot {
     callback: ProviderInterfaceCallback,
     timeout: number | false = 30_000, // 30 seconds in milliseconds
   ): Promise<(unsubscribeMethod: string) => void> {
-    const talismanSub = this.getTalismanSub()
-    if (talismanSub !== undefined) {
+    const walletSub = this.getWalletSub()
+    if (walletSub !== undefined) {
       try {
         const chain = await this.#chaindataChainProvider.getNetworkById(chainId, "polkadot")
         if (!chain) throw new Error(`Chain ${chainId} not found in store`)
@@ -266,7 +266,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
         if (typeof genesisHash !== "string")
           throw new Error(`Chain ${chainId} has no genesisHash in store`)
 
-        const subscriptionId = await talismanSub.subscribe(
+        const subscriptionId = await walletSub.subscribe(
           genesisHash,
           subscribeMethod,
           responseMethod,
@@ -276,7 +276,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
         )
 
         return (unsubscribeMethod: string) =>
-          talismanSub.unsubscribe(subscriptionId, unsubscribeMethod)
+          walletSub.unsubscribe(subscriptionId, unsubscribeMethod)
       } catch (error) {
         log.warn(
           `Failed to create wallet-proxied subscription for chain ${chainId}. Falling back to plain websocket`,
@@ -566,15 +566,14 @@ export class ChainConnectorDot implements IChainConnectorDot {
     return Math.trunc(Math.random() * Math.pow(10, 8))
   }
 
-  private getTalismanSub() {
+  private getWalletSub() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const talismanSub = typeof window !== "undefined" && (window as any).talismanSub
+    const walletSub = typeof window !== "undefined" && (window as any).walletSub
 
     /* eslint-disable @typescript-eslint/no-unsafe-function-type */
-    const rpcByGenesisHashSend: Function | undefined = talismanSub?.rpcByGenesisHashSend
-    const rpcByGenesisHashSubscribe: Function | undefined = talismanSub?.rpcByGenesisHashSubscribe
-    const rpcByGenesisHashUnsubscribe: Function | undefined =
-      talismanSub?.rpcByGenesisHashUnsubscribe
+    const rpcByGenesisHashSend: Function | undefined = walletSub?.rpcByGenesisHashSend
+    const rpcByGenesisHashSubscribe: Function | undefined = walletSub?.rpcByGenesisHashSubscribe
+    const rpcByGenesisHashUnsubscribe: Function | undefined = walletSub?.rpcByGenesisHashUnsubscribe
 
     if (typeof rpcByGenesisHashSend !== "function") return
     if (typeof rpcByGenesisHashSubscribe !== "function") return

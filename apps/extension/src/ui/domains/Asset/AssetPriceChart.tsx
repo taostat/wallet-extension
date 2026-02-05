@@ -23,6 +23,16 @@ export const AssetPriceChart: FC<{
   tokenIds: TokenId[]
   variant: ChartVariant
   className?: string
+}> = () => {
+  // TODO: Return null for now until we implement endpoint to retrieve data in the desired format for the chart
+  return null
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const AssetPriceChartOriginal: FC<{
+  tokenIds: TokenId[]
+  variant: ChartVariant
+  className?: string
 }> = ({ tokenIds, variant, className }) => {
   const { t } = useTranslation()
   const currency = useSelectedCurrency()
@@ -68,9 +78,8 @@ export const AssetPriceChart: FC<{
 
   const netuid = useMemo(() => {
     const token = tokensWithCoingeckoId.find((t) => t.id === selectedTokenId)
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- netuid is not a standard property but may exist sometimes
-    return token && "netuid" in token ? ((token as any).netuid ?? null) : null
+    if (token?.type === "substrate-dtao") return token.netuid ?? null
+    return null
   }, [selectedTokenId, tokensWithCoingeckoId])
 
   const [timespan, setTimespan] = useState<ChartSpan>("D")

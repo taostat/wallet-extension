@@ -15,7 +15,7 @@ import type {
   SendFundsOpenRequest,
 } from "./types"
 import { genericSubscription } from "../../handlers/subscriptions"
-import { talismanAnalytics } from "../../libs/Analytics"
+import { walletAnalytics } from "../../libs/Analytics"
 import { ExtensionHandler } from "../../libs/Handler"
 import { requestStore } from "../../libs/requests/store"
 import { windowManager } from "../../libs/WindowManager"
@@ -40,7 +40,7 @@ export default class AppHandler extends ExtensionHandler {
     const accounts = await keyringStore.getAccounts()
     assert(!accounts.length, "Accounts already exist")
 
-    // Before any accounts are created, we want to add talisman.xyz as an authorised site with connectAllSubstrate
+    // Before any accounts are created, we want to add taostats as an authorised site with connectAllSubstrate
     this.stores.sites.set({
       [TAOSTATS_WEB_APP_DOMAIN]: {
         addresses: [],
@@ -61,7 +61,7 @@ export default class AppHandler extends ExtensionHandler {
 
     this.stores.password.setPassword(transformedPw)
     await this.stores.password.set({ isTrimmed: false, isHashed: true, salt, secret, check })
-    talismanAnalytics.capture("password created")
+    walletAnalytics.capture("password created")
     return true
   }
 
@@ -79,10 +79,10 @@ export default class AppHandler extends ExtensionHandler {
         // we can now set up the auth secret
         this.stores.password.setPassword(transformedPassword)
         await this.stores.password.setupAuthSecret(transformedPassword)
-        talismanAnalytics.capture("authenticate", { method: "legacy" })
+        walletAnalytics.capture("authenticate", { method: "legacy" })
       } else {
         await this.stores.password.authenticate(pass)
-        talismanAnalytics.capture("authenticate", { method: "new" })
+        walletAnalytics.capture("authenticate", { method: "new" })
       }
       // start the autolock timer
       this.stores.settings
@@ -291,7 +291,7 @@ export default class AppHandler extends ExtensionHandler {
 
       case "pri(app.analyticsCapture)": {
         const { eventName, options } = request as AnalyticsCaptureRequest
-        talismanAnalytics.capture(eventName, options)
+        walletAnalytics.capture(eventName, options)
         return true
       }
 

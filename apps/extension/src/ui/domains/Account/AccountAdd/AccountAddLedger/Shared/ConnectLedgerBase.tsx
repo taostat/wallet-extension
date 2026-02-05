@@ -1,13 +1,13 @@
-import { Spacer } from "@taostats/components/Spacer"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { Spacer } from "@taostats/components/Spacer"
 import {
   LedgerConnectionStatus,
   LedgerConnectionStatusProps,
 } from "@ui/domains/Account/LedgerConnectionStatus"
-import { getTalismanLedgerError } from "@ui/hooks/ledger/errors"
+import { getTaostatsLedgerError } from "@ui/hooks/ledger/errors"
 
 type ConnectLedgerBaseProps = {
   appName: string
@@ -51,7 +51,7 @@ export const ConnectLedgerBase: FC<ConnectLedgerBaseProps> = ({
       })
       onReadyChanged?.(true)
     } catch (err) {
-      const error = getTalismanLedgerError(err)
+      const error = getTaostatsLedgerError(err)
       log.error("ConnectLedgerSubstrateGeneric", { error })
       setConnectionStatus({
         status: "error",

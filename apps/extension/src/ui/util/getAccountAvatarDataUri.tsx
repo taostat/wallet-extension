@@ -1,20 +1,12 @@
 import * as Sentry from "@sentry/browser"
-import { TalismanOrb } from "@taostats-wallet/orb"
 import { IdenticonType } from "extension-core"
 import { renderToString } from "react-dom/server"
 
 import { PolkadotAvatar } from "@ui/domains/Account/AccountIcon"
 
-const generateAccountAvatarDataUri = (address: string, iconType: IdenticonType) => {
+const generateAccountAvatarDataUri = (address: string) => {
   try {
-    const component =
-      iconType === "polkadot-identicon" ? (
-        <PolkadotAvatar seed={address} />
-      ) : (
-        <TalismanOrb seed={address} />
-      )
-
-    const html = renderToString(component)
+    const html = renderToString(<PolkadotAvatar seed={address} />)
 
     // blockies are rendered as img elements with base64 data, return as is
     const rawUri = /<img([^>]*?)src="([^"]*?)"/gi.exec(html)
@@ -42,11 +34,10 @@ const cache: Record<string, string | null> = {}
 
 export const getAccountAvatarDataUri = (
   address: string,
-  iconType: IdenticonType = "talisman-orb",
+  iconType: IdenticonType = "polkadot-identicon",
 ) => {
   const cacheKey = `${address}-${iconType}`
-  if (cache[cacheKey] === undefined)
-    cache[cacheKey] = generateAccountAvatarDataUri(address, iconType)
+  if (cache[cacheKey] === undefined) cache[cacheKey] = generateAccountAvatarDataUri(address)
 
   return cache[cacheKey]
 }

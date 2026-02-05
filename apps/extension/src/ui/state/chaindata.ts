@@ -60,7 +60,7 @@ const activeNetworks$ = combineLatest([allNetworks$, activeNetworksState$])
   .pipe(shareReplay(1))
 
 const filterByPlatform =
-  <P extends PlatformFilter, T extends { platform: NetworkPlatform }>(platform: P) =>
+  <P extends PlatformFilter, T extends { platform: string }>(platform: P) =>
   (item: T): boolean =>
     !platform || platform === "all" || item.platform === platform
 const filterIncludeTestnets = (includeTestnets: boolean) => (item: { isTestnet?: boolean }) =>

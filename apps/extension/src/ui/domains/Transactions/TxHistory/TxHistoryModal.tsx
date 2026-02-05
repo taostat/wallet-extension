@@ -11,7 +11,7 @@ import { Button, Modal, ModalDialog } from "taostats-ui"
 import { useNetworkById } from "@ui/state"
 import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
 
-import { ReplacementCallbackArgs, TxProgress } from "../TxProgress"
+import { TxProgress } from "../TxProgress"
 import { TxHistoryDetailsAddress } from "./TxHistoryDetails/TxHistoryDetailsAddress"
 import { TxHistoryDetailsIdentifier } from "./TxHistoryDetails/TxHistoryDetailsIdentifier"
 import { TxHistoryDetailsNetwork } from "./TxHistoryDetails/TxHistoryDetailsNetwork"
@@ -20,7 +20,6 @@ import {
   TxHistoryDetailsPayloadDisplayMode,
 } from "./TxHistoryDetails/TxHistoryDetailsPayload"
 import { TxHistoryDetailsTimestamp } from "./TxHistoryDetails/TxHistoryDetailsTimestamp"
-import { TxHistoryDetailsTokens } from "./TxHistoryDetails/TxHistoryDetailsTokens"
 import { TxHistoryDetailsTxInfo } from "./TxHistoryDetails/TxHistoryDetailsTxInfo"
 import { TxHistoryDetailsUrl } from "./TxHistoryDetails/TxHistoryDetailsUrl"
 
@@ -28,15 +27,9 @@ type TxHistoryModalProps = {
   tx?: WalletTransaction
   isOpen: boolean
   onClose: () => void
-  onReplacementComplete?: (args: ReplacementCallbackArgs) => void
 }
 
-export const TxHistoryModal: FC<TxHistoryModalProps> = ({
-  tx,
-  isOpen,
-  onClose,
-  onReplacementComplete,
-}) => {
+export const TxHistoryModal: FC<TxHistoryModalProps> = ({ tx, isOpen, onClose }) => {
   // cache the tx so we continue displaying it while modal fades out
   const [cachedTx, setCachedTx] = useState(() => tx)
   useEffect(() => {
@@ -52,11 +45,7 @@ export const TxHistoryModal: FC<TxHistoryModalProps> = ({
     <Modal isOpen={isOpen} onDismiss={onClose} containerId="main">
       {!!displayTx && (
         <DialogWrapper tx={displayTx} onClose={onClose}>
-          <ModalContent
-            tx={displayTx}
-            onClose={onClose}
-            onReplacementComplete={onReplacementComplete}
-          />
+          <ModalContent tx={displayTx} onClose={onClose} />
         </DialogWrapper>
       )}
     </Modal>
@@ -83,17 +72,11 @@ const DialogWrapper: FC<{ tx: WalletTransaction; onClose: () => void; children: 
 const ModalContent: FC<{
   tx: WalletTransaction
   onClose: () => void
-  onReplacementComplete?: (args: ReplacementCallbackArgs) => void
-}> = ({ tx, onClose, onReplacementComplete }) => {
+}> = ({ tx, onClose }) => {
   switch (tx.status) {
     case "pending":
       return (
-        <TxProgress
-          hash={getTransactionId(tx)}
-          onClose={onClose}
-          networkIdOrHash={tx.networkId}
-          onReplacementComplete={onReplacementComplete}
-        />
+        <TxProgress hash={getTransactionId(tx)} onClose={onClose} networkIdOrHash={tx.networkId} />
       )
     default:
       return <TxHistoryDetailsContent tx={tx} />
@@ -124,10 +107,8 @@ const TxHistoryActions: FC<TxHistoryActionsProps> = ({ tx }) => {
       return `https://simpleswap.io/exchange?id=${swapInfo.exchangeId}`
     if (swapInfo.type === "swap-stealthex" && swapInfo.exchangeId)
       return `https://stealthex.io/exchange?id=${swapInfo.exchangeId}`
-    if (swapInfo.type === "swap-lifi" && tx.platform === "ethereum")
-      return `https://scan.li.fi/tx/${tx.hash}`
     return undefined
-  }, [swapInfo, tx])
+  }, [swapInfo])
 
   const explorerLinks = useMemo(() => {
     if (!network) return []
@@ -185,8 +166,6 @@ type TxHistoryDetailsProps = {
 }
 
 const TxHistoryDetails: FC<TxHistoryDetailsProps> = ({ tx }) => {
-  const network = useNetworkById(tx.networkId)
-
   return (
     <div className="flex w-full flex-col gap-4 overflow-hidden">
       <TxHistoryDetailsRow title={t("Network")}>
@@ -200,23 +179,13 @@ const TxHistoryDetails: FC<TxHistoryDetailsProps> = ({ tx }) => {
       <TxHistoryDetailsRow title={t("From")}>
         <TxHistoryDetailsAddress networkId={tx.networkId} address={tx.account} />
       </TxHistoryDetailsRow>
-      {tx.platform === "ethereum" && tx.payload.to && (
-        <TxHistoryDetailsRow title={t("To")}>
-          <TxHistoryDetailsAddress networkId={tx.networkId} address={tx.payload.to} />
-        </TxHistoryDetailsRow>
-      )}
-      {tx.platform === "ethereum" && !!tx.payload.value && network?.nativeTokenId && (
-        <TxHistoryDetailsRow title={t("Value")}>
-          <TxHistoryDetailsTokens value={tx.payload.value} tokenId={network.nativeTokenId} />
-        </TxHistoryDetailsRow>
-      )}
-      {(tx.platform === "ethereum" || tx.platform === "polkadot") && (
+      {tx.platform === "polkadot" && (
         <TxHistoryDetailsRow title={t("Nonce")}>{tx.nonce}</TxHistoryDetailsRow>
       )}
       <TxHistoryDetailsRow title={t("Submitted at")}>
         <TxHistoryDetailsTimestamp timestamp={tx.timestamp} />
       </TxHistoryDetailsRow>
-      {(tx.platform === "ethereum" || tx.platform === "polkadot") && (
+      {tx.platform === "polkadot" && (
         <TxHistoryDetailsRow title={t("Block number")}>{tx.blockNumber}</TxHistoryDetailsRow>
       )}
       {!!tx.txInfo && (
@@ -227,9 +196,7 @@ const TxHistoryDetails: FC<TxHistoryDetailsProps> = ({ tx }) => {
       <TxHistoryDetailsRow title={t("Payload")} extra={<TxHistoryDetailsPayloadDisplayMode />}>
         <TxHistoryDetailsPayload tx={tx} />
       </TxHistoryDetailsRow>
-      <TxHistoryDetailsRow
-        title={tx.platform === "solana" ? t("Signature") : t("Transaction hash")}
-      >
+      <TxHistoryDetailsRow title={t("Transaction hash")}>
         <TxHistoryDetailsIdentifier tx={tx} />
       </TxHistoryDetailsRow>
     </div>
@@ -252,5 +219,4 @@ const TxHistoryDetailsRow: FC<{ title: ReactNode; extra?: ReactNode; children: R
   )
 }
 
-const getTransactionId = (tx: WalletTransaction) =>
-  tx.platform === "solana" ? tx.signature : tx.hash
+const getTransactionId = (tx: WalletTransaction) => tx.hash

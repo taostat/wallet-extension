@@ -192,12 +192,6 @@ export class BalancesProvider {
             )
 
             switch (mod.platform) {
-              case "ethereum": {
-                return this.getEthereumNetworkModuleBalances$(networkId, tokensWithAddresses, mod)
-              }
-              case "solana": {
-                return this.getSolanaNetworkModuleBalances$(networkId, tokensWithAddresses, mod)
-              }
               case "polkadot": {
                 return this.getPolkadotNetworkModuleBalances$(networkId, tokensWithAddresses, mod)
               }
@@ -296,150 +290,6 @@ export class BalancesProvider {
           shareReplay({ refCount: true, bufferSize: 1 }),
           keepAlive(0),
         )
-
-        // defer the startWith call to start with up to date balances each time the observable is re-subscribed to
-        return defer(() =>
-          moduleBalances$.pipe(
-            startWith<BalancesResult>({
-              status: "initialising",
-              balances: this.getStoredBalances(moduleAddressesByTokenId),
-              failedBalanceIds: [],
-            }),
-          ),
-        )
-      },
-    )
-  }
-
-  private getEthereumNetworkModuleBalances$(
-    networkId: DotNetworkId,
-    tokensWithAddresses: TokensWithAddresses,
-    mod: Extract<(typeof BALANCE_MODULES)[number], { platform: "ethereum" }>,
-  ): Observable<BalancesResult> {
-    return getSharedObservable(
-      `BalancesProvider.getEthereumNetworkModuleBalances$`,
-      { networkId, mod, tokensWithAddresses },
-      () => {
-        if (!tokensWithAddresses.length)
-          return of<BalancesResult>({ status: "live", balances: [], failedBalanceIds: [] })
-
-        const moduleAddressesByTokenId = fromPairs(
-          tokensWithAddresses.map(([token, addresses]) => [token.id, addresses]),
-        )
-
-        // all balance ids expected in result set
-        const balanceIds = toPairs(moduleAddressesByTokenId).flatMap(([tokenId, addresses]) =>
-          addresses.map((address) => getBalanceId({ tokenId, address })),
-        )
-
-        if (!this.#chainConnectors.evm) {
-          log.warn("[balances] no ethereum connector for module", mod.type)
-          return defer(() =>
-            of<BalancesResult>({
-              status: "initialising",
-              balances: this.getStoredBalances(moduleAddressesByTokenId),
-              failedBalanceIds: [],
-            }),
-          )
-        }
-
-        const moduleBalances$ = mod
-          .subscribeBalances({
-            networkId,
-            tokensWithAddresses,
-            connector: this.#chainConnectors.evm,
-          })
-          .pipe(
-            catchError(() => EMPTY), // don't emit, let provider mark balances stale
-            map(
-              (results): BalancesResult => ({
-                status: "live",
-                // exclude zero balances
-                balances: results.success.filter((b) => new Balance(b).total.planck > 0n),
-                failedBalanceIds: results.errors.map(({ tokenId, address }) =>
-                  getBalanceId({ tokenId, address }),
-                ),
-              }),
-            ),
-            tap((results) => {
-              this.updateStorage$(balanceIds, results)
-            }),
-            // shareReplay + keepAlive(0) keep the subscription alive while root observable is being unsubscribed+resubscribed, in case any input change
-            shareReplay({ refCount: true, bufferSize: 1 }),
-            keepAlive(0),
-          )
-
-        // defer the startWith call to start with up to date balances each time the observable is re-subscribed to
-        return defer(() =>
-          moduleBalances$.pipe(
-            startWith<BalancesResult>({
-              status: "initialising",
-              balances: this.getStoredBalances(moduleAddressesByTokenId),
-              failedBalanceIds: [],
-            }),
-          ),
-        )
-      },
-    )
-  }
-
-  private getSolanaNetworkModuleBalances$(
-    networkId: DotNetworkId,
-    tokensWithAddresses: TokensWithAddresses,
-    mod: Extract<(typeof BALANCE_MODULES)[number], { platform: "solana" }>,
-  ): Observable<BalancesResult> {
-    return getSharedObservable(
-      `BalancesProvider.getSolanaNetworkModuleBalances$`,
-      { networkId, mod, tokensWithAddresses },
-      () => {
-        if (!tokensWithAddresses.length)
-          return of<BalancesResult>({ status: "live", balances: [], failedBalanceIds: [] })
-
-        const moduleAddressesByTokenId = fromPairs(
-          tokensWithAddresses.map(([token, addresses]) => [token.id, addresses]),
-        )
-
-        // all balance ids expected in result set
-        const balanceIds = toPairs(moduleAddressesByTokenId).flatMap(([tokenId, addresses]) =>
-          addresses.map((address) => getBalanceId({ tokenId, address })),
-        )
-
-        if (!this.#chainConnectors.solana) {
-          log.warn("[balances] no solana connector for module", mod.type)
-          return defer(() =>
-            of<BalancesResult>({
-              status: "initialising",
-              balances: this.getStoredBalances(moduleAddressesByTokenId),
-              failedBalanceIds: [],
-            }),
-          )
-        }
-
-        const moduleBalances$ = mod
-          .subscribeBalances({
-            networkId,
-            tokensWithAddresses,
-            connector: this.#chainConnectors.solana,
-          })
-          .pipe(
-            catchError(() => EMPTY), // don't emit, let provider mark balances stale
-            map(
-              (results): BalancesResult => ({
-                status: "live",
-                // exclude zero balances
-                balances: results.success.filter((b) => new Balance(b).total.planck > 0n),
-                failedBalanceIds: results.errors.map(({ tokenId, address }) =>
-                  getBalanceId({ tokenId, address }),
-                ),
-              }),
-            ),
-            tap((results) => {
-              this.updateStorage$(balanceIds, results)
-            }),
-            // shareReplay + keepAlive(0) keep the subscription alive while root observable is being unsubscribed+resubscribed, in case any input change
-            shareReplay({ refCount: true, bufferSize: 1 }),
-            keepAlive(0),
-          )
 
         // defer the startWith call to start with up to date balances each time the observable is re-subscribed to
         return defer(() =>
@@ -641,10 +491,6 @@ export class BalancesProvider {
 
 const isAccountPlatformCompatibleWithNetwork = (network: Network, platform: AccountPlatform) => {
   switch (network.platform) {
-    case "ethereum":
-      return platform === "ethereum"
-    case "solana":
-      return platform === "solana"
     case "polkadot": {
       switch (network.account) {
         case "secp256k1":

@@ -6,13 +6,13 @@ import {
   UnlockIcon,
 } from "@taostats-wallet/icons"
 import { classNames, sleep } from "@taostats-wallet/util"
-import { FadeIn } from "@taostats/components/FadeIn"
-import { notify, notifyUpdate } from "@taostats/components/Notifications"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { FC, useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { FadeIn } from "@taostats/components/FadeIn"
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Fiat } from "@ui/domains/Asset/Fiat"
@@ -199,7 +199,7 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
         <div className="bg-grey-850 text-body-secondary mb-8 flex w-full items-center gap-6 rounded p-8">
           <AlertCircleIcon className="shrink-0 text-lg" />
           <div className="grow">
-            {t("All accounts included in this file already exist in Talisman.")}
+            {t("All accounts included in this file already exist in Taostats.")}
           </div>
         </div>
       )}

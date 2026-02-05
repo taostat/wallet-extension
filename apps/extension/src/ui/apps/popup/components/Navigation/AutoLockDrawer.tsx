@@ -1,11 +1,11 @@
 import { ChevronLeftIcon } from "@taostats-wallet/icons"
-import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
-import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, IconButton } from "taostats-ui"
 
+import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
+import { ScrollContainer } from "@taostats/components/ScrollContainer"
+import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 import { useSetting } from "@ui/state"
 
 export const useAutoLockDrawerOpenClose = () => useGlobalOpenClose("auto-lock-drawer")
@@ -54,7 +54,7 @@ const AutoLockDrawerContent = () => {
       <div className="px-8">
         <p className="text-xs">
           {t(
-            "Set a timer to automatically lock the Talisman wallet extension after the following period of inactivity",
+            "Set a timer to automatically lock the Taostats wallet extension after the following period of inactivity",
           )}
         </p>
       </div>

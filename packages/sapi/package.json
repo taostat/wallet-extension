@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/sapi",
   "version": "0.1.0",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/sapi",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-sapi.cjs.js",
   "module": "dist/taostats-wallet-sapi.esm.js",

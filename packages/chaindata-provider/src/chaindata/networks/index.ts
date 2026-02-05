@@ -1,5 +1,3 @@
 export * from "./NetworkBase"
 export * from "./DotNetwork"
-export * from "./EthNetwork"
-export * from "./SolNetwork"
 export * from "./Network"

@@ -1,12 +1,12 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInput } from "@taostats/components/SearchInput"
 import { FC, useCallback, useDeferredValue, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
 
+import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import { NetworkOption } from "@ui/state"
 import { IS_POPUP } from "@ui/util/constants"
 

@@ -1,7 +1,6 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
 import { InfoIcon, SwapIcon } from "@taostats-wallet/icons"
 import { classNames, tokensToPlanck } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { Account } from "extension-core"
 import {
   ChangeEventHandler,
@@ -18,6 +17,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { Button, PillButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useInputAutoWidth } from "@ui/hooks/useInputAutoWidth"
 import { useBalance, useSelectedCurrency } from "@ui/state"
 
@@ -31,7 +31,6 @@ import { useStakingAPR } from "../hooks/nomPools/useStakingAPR"
 import { NominationPoolName } from "../NominationPools/NominationPoolName"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../shared/ModalContent"
 import { StakingFeeEstimate } from "../shared/StakingFeeEstimate"
-import { StakingUnbondingPeriod } from "../shared/StakingUnbondingPeriod"
 import { BondAccountPicker } from "./BondAccountPicker"
 import { BondAccountPillButton } from "./BondAccountPillButton"
 import { useBondModal } from "./hooks/useBondModal"
@@ -56,6 +55,7 @@ const AssetPill: FC<{ token: Token | null }> = ({ token }) => {
 
 const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, account }) => {
   const balance = useBalance(account.address, token.id)
+  const selectedCurrency = useSelectedCurrency()
 
   if (!balance) return null
 
@@ -67,6 +67,7 @@ const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, accou
       className={classNames(balance.status !== "live" && "animate-pulse")}
       tokensClassName="text-body"
       fiatClassName="text-body-secondary"
+      noFiat={selectedCurrency === "tao"}
     />
   )
 }
@@ -463,12 +464,6 @@ export const BondForm = () => {
           </div>
           <div className={"overflow-hidden font-bold"}>
             <StakeApr />
-          </div>
-        </div>
-        <div className="flex items-center justify-between gap-8">
-          <div className="whitespace-nowrap">{t("Unbonding Period")}</div>
-          <div className="text-body overflow-hidden">
-            <StakingUnbondingPeriod chainId={token?.networkId} />
           </div>
         </div>
         <div className="flex items-center justify-between gap-8">

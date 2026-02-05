@@ -7,7 +7,6 @@ import { SapiSendButton } from "../../Transactions/SapiSendButton"
 import { NominationPoolName } from "../NominationPools/NominationPoolName"
 import { StakingAccountDisplay } from "../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../shared/StakingFeeEstimate"
-import { StakingUnbondingPeriod } from "../shared/StakingUnbondingPeriod"
 import { useUnbondWizard } from "./useUnbondWizard"
 
 export const UnbondReview = () => {
@@ -60,12 +59,6 @@ export const UnbondReview = () => {
           <div className="whitespace-nowrap">{t("Pool")} </div>
           <div className="text-body truncate">
             <NominationPoolName poolId={poolId} chainId={token?.networkId} />
-          </div>
-        </div>
-        <div className="flex items-center justify-between gap-8 py-2 text-xs">
-          <div className="whitespace-nowrap">{t("Unbonding Period")} </div>
-          <div className="text-body truncate">
-            <StakingUnbondingPeriod chainId={token?.networkId} />
           </div>
         </div>
         <div className="flex items-center justify-between gap-8 pt-2 text-xs">

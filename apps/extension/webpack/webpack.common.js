@@ -21,6 +21,15 @@ const {
   getSupportedLanguages,
 } = require("./utils")
 
+const getTaostatsApiUrl = (env) => {
+  const taostatsApiUrl =
+    env.build === "dev"
+      ? process.env.TAOSTATS_API_URL
+      : process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet-extension"
+
+  return taostatsApiUrl
+}
+
 /** @type { import('webpack').Configuration } */
 const config = (env) => ({
   entry: {
@@ -159,10 +168,10 @@ const config = (env) => ({
 
       // NOTE: This EXTENSION_PREFIX must be an empty `""`.
       // The `BaseStore` which the `AccountsStore` in `@polkadot/keyring` extends uses this as a prefix for localstorage keys.
-      // If it's set to something like `talisman`, then the keys which should be at `account:0x...` will instead be located
-      // at `talismanaccounts:accounts:0x...`.
+      // If it's set to something like `taostats`, then the keys which should be at `account:0x...` will instead be located
+      // at `taostatsaccounts:accounts:0x...`.
       "process.env.EXTENSION_PREFIX": JSON.stringify(""),
-      "process.env.PORT_PREFIX": JSON.stringify(process.env.PORT_PREFIX || "talisman"),
+      "process.env.PORT_PREFIX": JSON.stringify(process.env.PORT_PREFIX || "taostats"),
       "process.env.NODE_DEBUG": JSON.stringify(process.env.NODE_DEBUG || ""),
       "process.env.POSTHOG_AUTH_TOKEN": JSON.stringify(process.env.POSTHOG_AUTH_TOKEN || ""),
       "process.env.SENTRY_AUTH_TOKEN": JSON.stringify(process.env.SENTRY_AUTH_TOKEN || ""),
@@ -183,6 +192,7 @@ const config = (env) => ({
       "process.env.TAOSTATS_BASE_PATH": JSON.stringify(
         env.build === "dev" ? process.env.TAOSTATS_BASE_PATH || "" : "",
       ),
+      "process.env.TAOSTATS_API_URL": JSON.stringify(getTaostatsApiUrl(env)),
       "process.env.LOG_SUBSCRIPTION_CALLBACKS": JSON.stringify(
         env.build === "dev" || ["canary", "ci", "qa"].includes(env.build)
           ? process.env.LOG_SUBSCRIPTION_CALLBACKS || ""

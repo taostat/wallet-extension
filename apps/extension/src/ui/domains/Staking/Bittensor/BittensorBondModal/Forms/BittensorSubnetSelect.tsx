@@ -3,8 +3,6 @@ import { ALPHA_PRICE_SCALE } from "@taostats-wallet/balances"
 import { subDTaoTokenId, subNativeTokenId } from "@taostats-wallet/chaindata-provider"
 import { ToolbarSortIcon } from "@taostats-wallet/icons"
 import { classNames, cn } from "@taostats-wallet/util"
-import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInputControlled } from "@taostats/components/SearchInputControlled"
 import {
   FC,
   useCallback,
@@ -23,6 +21,8 @@ import {
   ContextMenuTrigger,
 } from "taostats-ui"
 
+import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInputControlled } from "@taostats/components/SearchInputControlled"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"
 import { type SubnetData } from "@ui/domains/Staking/hooks/bittensor/dTao/types"

@@ -1,7 +1,7 @@
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { Spacer } from "@taostats/components/Spacer"
 import { useTranslation } from "react-i18next"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { Spacer } from "@taostats/components/Spacer"
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountAddJson } from "@ui/domains/Account/AccountAdd/AccountAddJson"
 import { useSelectAccountAndNavigate } from "@ui/hooks/useSelectAccountAndNavigate"
@@ -14,7 +14,7 @@ const Content = () => {
     <>
       <HeaderBlock
         title={t("Import via JSON")}
-        text={t("Please choose the json file you exported from Polkadot.js or Talisman")}
+        text={t("Please choose the json file you exported from Polkadot.js or Taostats")}
       />
       <Spacer />
       <AccountAddJson onSuccess={setAddress} />

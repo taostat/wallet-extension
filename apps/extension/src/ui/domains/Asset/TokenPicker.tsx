@@ -3,14 +3,14 @@ import { Balances } from "@taostats-wallet/balances"
 import { subNativeTokenId, Token, TokenId } from "@taostats-wallet/chaindata-provider"
 import { CheckCircleIcon } from "@taostats-wallet/icons"
 import { classNames, planckToTokens } from "@taostats-wallet/util"
-import { OptionSwitch } from "@taostats/components/OptionSwitch"
-import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
-import { SearchInput } from "@taostats/components/SearchInput"
 import { Address, isAccountCompatibleWithNetwork } from "extension-core"
 import sortBy from "lodash-es/sortBy"
 import { FC, useCallback, useDeferredValue, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { OptionSwitch } from "@taostats/components/OptionSwitch"
+import { ScrollContainer, useScrollContainer } from "@taostats/components/ScrollContainer"
+import { SearchInput } from "@taostats/components/SearchInput"
 import {
   useAccountByAddress,
   useBalances,
@@ -20,15 +20,13 @@ import {
   useTokenRatesMap,
   useTokens,
 } from "@ui/state"
+import { getTokenName } from "@ui/util/getTokenName"
 import { isTransferableToken } from "@ui/util/isTransferableToken"
 
-import { NetworkLogo } from "../Networks/NetworkLogo"
-import { NetworkName } from "../Networks/NetworkName"
 import { BittensorValidatorName } from "../Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 import { Fiat } from "./Fiat"
 import { TokenLogo } from "./TokenLogo"
 import { Tokens } from "./Tokens"
-import { TokenTypePill } from "./TokenTypePill"
 
 type TokenRowProps = {
   token: Token
@@ -176,8 +174,6 @@ const TokenRow: FC<TokenRowProps> = ({
           )}
         >
           <div className="flex grow items-center gap-2 overflow-hidden">
-            <div data-testid="picker-token-name">{token.symbol}</div>
-            <TokenTypePill type={token.type} className="rounded-xs shrink-0 px-1 py-0.5" />
             {!!token.name && token.name !== token.symbol && (
               <div className="text-body-inactive truncate font-normal">{token.name}</div>
             )}
@@ -194,29 +190,30 @@ const TokenRow: FC<TokenRowProps> = ({
             />
           </div>
         </div>
-        <div className="text-body-secondary flex w-full items-center justify-between gap-6 overflow-hidden text-right text-xs font-light">
-          <div className="flex grow items-center overflow-hidden">
-            <div className="truncate" data-testid="picker-token-network">
-              <NetworkLogo networkId={token.networkId} className="mr-2 inline-block text-sm" />
-              <NetworkName networkId={token.networkId} />
-              {token.type === "substrate-dtao" && (
-                <BittensorValidatorName hotkey={token.hotkey} prefix=" | " />
-              )}
+        {token.type === "substrate-dtao" ? (
+          <div className="text-body-secondary flex w-full items-center justify-between gap-6 overflow-hidden text-right text-xs font-light">
+            <div className="flex grow items-center overflow-hidden">
+              <div className="truncate" data-testid="picker-token-network">
+                <BittensorValidatorName hotkey={token.hotkey} />
+              </div>
             </div>
-          </div>
-          <div className={classNames(isLoading && "animate-pulse")}>
-            {hasFiatRate ? (
-              <Fiat
-                amount={balances.sum.fiat(currency).transferable}
-                isBalance
-                noCountUp
-                className="text-nowrap"
-              />
-            ) : (
-              "-"
+            {token.netuid === 0 ? null : (
+              <div className={classNames(isLoading && "animate-pulse")}>
+                {hasFiatRate ? (
+                  <Fiat
+                    amount={balances.sum.fiat(currency).transferable}
+                    isBalance
+                    noCountUp
+                    className="text-nowrap"
+                    currencyDisplay={currency === "tao" ? "code" : undefined}
+                  />
+                ) : (
+                  "-"
+                )}
+              </div>
             )}
           </div>
-        </div>
+        ) : null}
       </div>
     </button>
   )
@@ -330,8 +327,6 @@ const TokensList: FC<TokensListProps> = ({
         // polkadot and kusama should appear first
         if (a.token.id === subNativeTokenId("polkadot")) return -1
         if (b.token.id === subNativeTokenId("polkadot")) return 1
-        if (a.token.id === subNativeTokenId("kusama")) return -1
-        if (b.token.id === subNativeTokenId("kusama")) return 1
 
         // keep alphabetical sort
         return 0
@@ -361,12 +356,24 @@ const TokensList: FC<TokensListProps> = ({
     sortTokens,
   ])
 
+  const tokensWithMappedNames = useMemo(() => {
+    return tokensWithBalances.map((t) => {
+      return {
+        ...t,
+        token: {
+          ...t.token,
+          name: getTokenName(t.token.name),
+        },
+      }
+    })
+  }, [tokensWithBalances])
+
   // apply user search
   const tokens = useMemo(() => {
-    if (!search) return tokensWithBalances
+    if (!search) return tokensWithMappedNames
 
     const ls = search?.toLowerCase()
-    return tokensWithBalances
+    return tokensWithMappedNames
       .filter(
         (t) =>
           !ls ||
@@ -379,7 +386,7 @@ const TokensList: FC<TokensListProps> = ({
         if (s1 !== ls && s2 === ls) return 1
         return 0
       })
-  }, [search, tokensWithBalances])
+  }, [search, tokensWithMappedNames])
 
   const handleTokenClick = useCallback(
     (tokenId: string) => {

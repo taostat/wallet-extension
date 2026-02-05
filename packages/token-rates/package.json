@@ -2,15 +2,9 @@
   "name": "@taostats-wallet/token-rates",
   "version": "3.0.14",
   "author": "Taostats",
-  "homepage": "https://talisman.xyz",
   "license": "GPL-3.0-or-later",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "directory": "packages/token-rates",
-    "type": "git",
-    "url": "https://github.com/talismansociety/talisman.git"
   },
   "main": "dist/taostats-wallet-token-rates.cjs.js",
   "module": "dist/taostats-wallet-token-rates.esm.js",
@@ -26,12 +20,14 @@
     "clean": "rm -rf dist .turbo node_modules"
   },
   "dependencies": {
-    "@taostats-wallet/chaindata-provider": "workspace:*"
+    "@taostats-wallet/chaindata-provider": "workspace:*",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@taostats-wallet/eslint-config": "workspace:*",
     "@taostats-wallet/tsconfig": "workspace:*",
     "@types/jest": "^29.5.14",
+    "@types/lodash-es": "4.17.12",
     "eslint": "^8.57.1",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",

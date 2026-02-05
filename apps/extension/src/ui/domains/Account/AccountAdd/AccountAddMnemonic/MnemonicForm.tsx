@@ -1,13 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { AccountPlatform, isAddressEqual } from "@taostats-wallet/crypto"
 import { classNames, isTruthy } from "@taostats-wallet/util"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { notify, notifyUpdate } from "@taostats/components/Notifications"
-import { Spacer } from "@taostats/components/Spacer"
 import {
   getDefaultCurveForAccountPlatform,
   getDerivationPathForCurve,
-  getEthDerivationPath,
   SUPPORTED_ACCOUNT_PLATFORMS,
 } from "extension-core"
 import { DEBUG } from "extension-shared"
@@ -26,6 +22,9 @@ import {
 } from "taostats-ui"
 import * as yup from "yup"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
+import { notify, notifyUpdate } from "@taostats/components/Notifications"
+import { Spacer } from "@taostats/components/Spacer"
 import { api } from "@ui/api"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { useAccounts } from "@ui/state"
@@ -211,9 +210,7 @@ export const AccountAddMnemonicForm = () => {
       if (mode === "first")
         setValue(
           "derivationPath",
-          platform === "ethereum"
-            ? getEthDerivationPath()
-            : getDerivationPathForCurve(getDefaultCurveForAccountPlatform(platform)),
+          getDerivationPathForCurve(getDefaultCurveForAccountPlatform(platform)),
           {
             shouldValidate: true,
           },

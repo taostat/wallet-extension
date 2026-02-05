@@ -1,17 +1,8 @@
 import { classNames } from "@taostats-wallet/util"
 import { IS_FIREFOX, UNKNOWN_TOKEN_URL } from "extension-shared"
-import { CSSProperties, FC, useId, useMemo } from "react"
+import { CSSProperties, FC, useId } from "react"
 
 import { useGithubImageUrl } from "@ui/hooks/useGithubImageUrl"
-
-const isTalismanLogo = (url?: string | null) => {
-  if (!url) return false
-  return (
-    /^https:\/\/raw.githubusercontent.com\/TalismanSociety\/chaindata\//i.test(url) &&
-    !/assets\/tokens\/coingecko/i.test(url) &&
-    !/assets\/tokens\/vana/i.test(url)
-  )
-}
 
 export const AssetLogo: FC<{
   tokenId?: string
@@ -20,7 +11,7 @@ export const AssetLogo: FC<{
   url?: string | null
 }> = ({ tokenId, className, style, url }) => {
   const rid = useId()
-  const rounded = useMemo(() => !isTalismanLogo(url), [url])
+  const rounded = true
   const { src, onError } = useGithubImageUrl(url, UNKNOWN_TOKEN_URL)
 
   // use url as key to reset dom element in case url changes, otherwise onError can't fire again

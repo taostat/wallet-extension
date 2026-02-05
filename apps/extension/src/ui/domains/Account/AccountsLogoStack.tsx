@@ -1,8 +1,8 @@
 import { classNames } from "@taostats-wallet/util"
-import { WithTooltip } from "@taostats/components/Tooltip"
 import { Account } from "extension-core"
 import { useMemo } from "react"
 
+import { WithTooltip } from "@taostats/components/Tooltip"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { useAccounts } from "@ui/state"
 

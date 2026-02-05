@@ -1,7 +1,6 @@
-import { EvmErc20Token, TokenId } from "@taostats-wallet/chaindata-provider"
+import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { MoreHorizontalIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -12,28 +11,11 @@ import {
   PopoverOptions,
 } from "taostats-ui"
 
+import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { useBondModal } from "@ui/domains/Staking/Bond/hooks/useBondModal"
 import { useNomPoolStakingStatus } from "@ui/domains/Staking/hooks/nomPools/useNomPoolStakingStatus"
-import { useViewOnExplorer } from "@ui/domains/ViewOnExplorer"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
-import { useToken } from "@ui/state"
-
-const ViewOnExplorerMenuItem: FC<{ token: EvmErc20Token }> = ({ token }) => {
-  const { t } = useTranslation()
-  const { genericEvent } = useAnalytics()
-
-  const { open, canOpen } = useViewOnExplorer(token.contractAddress, token.networkId)
-
-  const handleClick = useCallback(() => {
-    open()
-    genericEvent("open view on explorer", { from: "token menu" })
-  }, [genericEvent, open])
-
-  if (!canOpen) return null
-
-  return <ContextMenuItem onClick={handleClick}>{t("View on explorer")}</ContextMenuItem>
-}
 
 const ViewTokenDetailsMenuItem: FC<{ tokenId: TokenId }> = ({ tokenId }) => {
   const { t } = useTranslation()
@@ -88,8 +70,6 @@ export const TokenContextMenu = forwardRef<HTMLElement, Props>(function AccountC
   { tokenId, placement, trigger, className },
   ref,
 ) {
-  const token = useToken(tokenId)
-
   return (
     <ContextMenu placement={placement ?? "bottom-end"}>
       <ContextMenuTrigger
@@ -103,11 +83,6 @@ export const TokenContextMenu = forwardRef<HTMLElement, Props>(function AccountC
         {trigger ? trigger : <MoreHorizontalIcon className="shrink-0" />}
       </ContextMenuTrigger>
       <ContextMenuContent className="border-grey-800 z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg">
-        {token?.type === "evm-erc20" && (
-          <Suspense fallback={<SuspenseTracker name="TokenContextMenu.Explorer" />}>
-            <ViewOnExplorerMenuItem token={token} />
-          </Suspense>
-        )}
         <Suspense fallback={<SuspenseTracker name="TokenContextMenu.Stake" />}>
           <StakeMenuItem tokenId={tokenId} />
         </Suspense>

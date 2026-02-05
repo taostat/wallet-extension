@@ -13,10 +13,7 @@ export const TokenTypePill: FC<{ type: Token["type"]; className?: string }> = ({
     switch (type) {
       case "substrate-native":
       case "evm-native":
-      case "sol-native":
         return t("NATIVE")
-      case "evm-erc20":
-        return "ERC20"
       case "evm-uniswapv2":
         return "UNI V2"
 
@@ -32,9 +29,6 @@ export const TokenTypePill: FC<{ type: Token["type"]; className?: string }> = ({
         return "ORML"
       case "substrate-hydration":
         return "HYDRATION"
-
-      case "sol-spl":
-        return "SPL"
     }
   }, [t, type])
 

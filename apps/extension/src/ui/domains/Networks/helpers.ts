@@ -1,5 +1,4 @@
 import { WsProvider } from "@polkadot/rpc-provider"
-import { Connection } from "@solana/web3.js"
 import { fetchBestMetadata, getScaleApi } from "@taostats-wallet/sapi"
 import {
   decAnyMetadata,
@@ -38,29 +37,6 @@ export const getDotGenesisHashFromRpc = (rpcUrl: string): Promise<`0x${string}` 
       return null
     } finally {
       ws.disconnect()
-      genesisHashCache.delete(rpcUrl)
-    }
-  })()
-
-  genesisHashCache.set(rpcUrl, request)
-
-  return request
-}
-
-export const getSolGenesisHashFromRpc = (rpcUrl: string): Promise<string | null> => {
-  // check if valid url
-  if (!rpcUrl || !httpRegEx.test(rpcUrl)) return Promise.resolve(null)
-
-  const cached = genesisHashCache.get(rpcUrl)
-  if (cached) return cached
-
-  const request = (async () => {
-    const connection = new Connection(rpcUrl, "confirmed")
-    try {
-      return await Promise.race([connection.getGenesisHash(), throwAfter(3000, "timeout")])
-    } catch (error) {
-      return null
-    } finally {
       genesisHashCache.delete(rpcUrl)
     }
   })()
@@ -183,18 +159,4 @@ const getSs58Prefix = (metadata: UnifiedMetadata) => {
     return 42
   }
   return prefix
-}
-
-export const fetchEthChainId = async (rpcUrl: string, signal?: AbortSignal) => {
-  const parsedRpcUrl = z.url({ protocol: /^https?$/ }).safeParse(rpcUrl) // validate URL
-  if (!parsedRpcUrl.success) throw new Error(parsedRpcUrl.error.issues[0].message)
-
-  const provider = http(parsedRpcUrl.data)({})
-  const hexChainId = await provider.request({
-    method: "eth_chainId",
-    params: [],
-    signal,
-  })
-
-  return String(hexToNumber(hexChainId as `0x${string}`)) // validate chain ID
 }

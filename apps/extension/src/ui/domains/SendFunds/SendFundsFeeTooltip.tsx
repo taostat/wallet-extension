@@ -1,13 +1,14 @@
 import { InfoIcon } from "@taostats-wallet/icons"
-import { WithTooltip } from "@taostats/components/Tooltip"
 import { useTranslation } from "react-i18next"
+
+import { WithTooltip } from "@taostats/components/Tooltip"
 
 import { TokensAndFiat } from "../Asset/TokensAndFiat"
 import { useSendFunds } from "./useSendFunds"
 
 export const SendFundsFeeTooltip = () => {
   const { t } = useTranslation()
-  const { feeToken, feeTokenBalance, estimatedFee, transaction } = useSendFunds()
+  const { feeToken, feeTokenBalance, estimatedFee } = useSendFunds()
   if (!feeToken || !feeTokenBalance || !estimatedFee) return null
 
   return (
@@ -19,18 +20,6 @@ export const SendFundsFeeTooltip = () => {
           <div className="text-right">
             <TokensAndFiat planck={estimatedFee.planck} tokenId={feeToken.id} noCountUp />
           </div>
-          {transaction?.platform === "ethereum" && !!transaction.txDetails?.maxFee && (
-            <>
-              <div>{t("Max. fee:")}</div>
-              <div className="text-right">
-                <TokensAndFiat
-                  planck={transaction.txDetails.maxFee}
-                  tokenId={feeToken.id}
-                  noCountUp
-                />
-              </div>
-            </>
-          )}
           <div>{t("Balance:")}</div>
           <div className="text-right">
             <TokensAndFiat

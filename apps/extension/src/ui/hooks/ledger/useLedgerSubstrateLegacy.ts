@@ -21,8 +21,8 @@ import {
   ERROR_LEDGER_NO_APP,
   getCustomNativeLedgerError,
   getOpenLedgerAppError,
-  getTalismanLedgerError,
-  TalismanLedgerError,
+  getTaostatsLedgerError,
+  TaostatsLedgerError,
 } from "./errors"
 import { useLedgerSubstrateAppByChain } from "./useLedgerSubstrateApp"
 import { useLedgerTransport } from "./useLedgerTransport"
@@ -38,14 +38,14 @@ export const useLedgerSubstrateLegacy = (genesis?: `0x${string}` | null) => {
 
   const withLedger = useCallback(
     async <T>(request: LedgerRequest<T>): Promise<T> => {
-      if (refIsBusy.current) throw new TalismanLedgerError("Busy", t("Ledger is busy"))
+      if (refIsBusy.current) throw new TaostatsLedgerError("Busy", t("Ledger is busy"))
 
       refIsBusy.current = true
 
       try {
         if (chain?.account === "secp256k1")
-          throw new TalismanLedgerError("Unknown", ERROR_LEDGER_EVM_CANNOT_SIGN_SUBSTRATE)
-        if (!app?.cla) throw new TalismanLedgerError("Unknown", ERROR_LEDGER_NO_APP)
+          throw new TaostatsLedgerError("Unknown", ERROR_LEDGER_EVM_CANNOT_SIGN_SUBSTRATE)
+        if (!app?.cla) throw new TaostatsLedgerError("Unknown", ERROR_LEDGER_NO_APP)
 
         const transport = await ensureTransport()
         const ledger = new SubstrateApp(transport, app.cla, app.slip0044)
@@ -53,7 +53,7 @@ export const useLedgerSubstrateLegacy = (genesis?: `0x${string}` | null) => {
         return await request(ledger)
       } catch (err) {
         await closeTransport()
-        throw getTalismanLedgerError(err, app?.name ?? "Unknown app")
+        throw getTaostatsLedgerError(err, app?.name ?? "Unknown app")
       } finally {
         refIsBusy.current = false
       }
@@ -74,8 +74,8 @@ export const useLedgerSubstrateLegacy = (genesis?: `0x${string}` | null) => {
       account: AccountLedgerPolkadot,
       registry?: TypeRegistry,
     ) => {
-      if (!app?.cla) throw new TalismanLedgerError("Unknown", ERROR_LEDGER_NO_APP)
-      if (isJsonPayload(payload) && !registry) throw getTalismanLedgerError("Missing registry.")
+      if (!app?.cla) throw new TaostatsLedgerError("Unknown", ERROR_LEDGER_NO_APP)
+      if (isJsonPayload(payload) && !registry) throw getTaostatsLedgerError("Missing registry.")
 
       return withLedger((ledger) =>
         isJsonPayload(payload)
@@ -125,7 +125,7 @@ const signJsonPayload = async (
 ) => {
   // Legacy dapps don't support the CheckMetadataHash signed extension
   if (payload.signedExtensions.includes("CheckMetadataHash"))
-    throw new TalismanLedgerError(
+    throw new TaostatsLedgerError(
       "GenericAppRequired",
       "This network requires the Polkadot Generic app",
     )
@@ -159,7 +159,7 @@ const signRawPayload = async (
 ) => {
   const unsigned = u8aWrapBytes(payload.data)
   if (unsigned.length > 256)
-    throw new TalismanLedgerError(
+    throw new TaostatsLedgerError(
       "InvalidRequest",
       t("The message is too long to be signed with Ledger."),
     )
@@ -169,7 +169,7 @@ const signRawPayload = async (
   const { accountIndex, change, addressOffset } = getAccountSpecs(account)
   const { address } = await ledger.getAddress(accountIndex, change, addressOffset)
   if (!isAddressEqual(address, account.address))
-    throw getTalismanLedgerError(
+    throw getTaostatsLedgerError(
       t(
         "Connected Ledger device does not match the selected account. Please connect the correct device and retry.",
       ),
@@ -212,7 +212,7 @@ const checkAppAndDevice = async (
     throw getCustomNativeLedgerError(error_message, return_code)
 
   if (!isAddressEqual(address, account.address))
-    throw getTalismanLedgerError(
+    throw getTaostatsLedgerError(
       t(
         "Connected Ledger device does not match the selected account. Please connect the correct device and retry.",
       ),

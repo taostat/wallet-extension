@@ -34,7 +34,7 @@ export const getVerifierMnemonic = async () => {
 
   const mnemonicId = await appStore.get("vaultVerifierCertificateMnemonicId")
   assert(mnemonicId !== undefined, "Verifier mnemonic not found")
-  assert(mnemonicId !== null, "Talisman configured to not use verifier mnemonic")
+  assert(mnemonicId !== null, "Wallet configured to not use verifier mnemonic")
 
   return keyringStore.getMnemonicText(mnemonicId, pw)
 }

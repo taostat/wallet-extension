@@ -8,7 +8,7 @@ export function useGetInfiniteSubnetPools() {
     queryKey: ["infiniteSubnetPools"],
     queryFn: ({ pageParam = 1, signal }) =>
       fetchTaostats<SubnetApiResponse>({
-        path: "/api/dtao/pool/v1",
+        path: "/dtao-pool",
         params: { page: pageParam },
         signal,
         includeAuthHeader: true,

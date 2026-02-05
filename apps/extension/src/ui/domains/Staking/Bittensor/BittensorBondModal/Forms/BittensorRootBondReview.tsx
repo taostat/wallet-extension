@@ -10,7 +10,6 @@ import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
 import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
-import { StakingUnbondingPeriod } from "../../../shared/StakingUnbondingPeriod"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
 import { ValidatorApy } from "../../components/ValidatorApy"
@@ -103,12 +102,6 @@ export const BittensorRootBondReview = () => {
             </div>
           </div>
         )}
-        <div className="flex items-center justify-between gap-8 py-2 text-xs">
-          <div className="whitespace-nowrap">{t("Unbonding Period")} </div>
-          <div className="text-body truncate">
-            <StakingUnbondingPeriod chainId={nativeToken?.networkId} />
-          </div>
-        </div>
         <div className="flex items-center justify-between gap-8 pt-2 text-xs">
           <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
           <div>

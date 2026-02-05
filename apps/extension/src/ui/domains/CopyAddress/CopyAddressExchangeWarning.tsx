@@ -20,7 +20,7 @@ export const CopyAddressExchangeWarning: FC<{
           <br />
           <Trans
             t={t}
-            defaults="Talisman recommends you use a <Highlight>network specific address</Highlight>. Always check with your exchange before sending funds."
+            defaults="Taostats recommends you use a <Highlight>network specific address</Highlight>. Always check with your exchange before sending funds."
             components={{
               Highlight: <span className="text-body" />,
             }}

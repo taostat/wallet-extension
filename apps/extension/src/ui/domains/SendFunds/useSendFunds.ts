@@ -7,12 +7,12 @@ import {
   TokenId,
 } from "@taostats-wallet/chaindata-provider"
 import { formatDecimals, isNotNil } from "@taostats-wallet/util"
-import { provideContext } from "@taostats/util/provideContext"
 import { WalletTransactionInfo } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
 import {
@@ -31,8 +31,6 @@ import { isTransferableToken } from "@ui/util/isTransferableToken"
 import { SendFundsTransactionProps } from "./types"
 import { useFeeToken } from "./useFeeToken"
 import { useSendFundsTransactionDot } from "./useSendFundsTransactionDot"
-import { useSendFundsTransactionEth } from "./useSendFundsTransactionEth"
-import { useSendFundsTransactionSol } from "./useSendFundsTransactionSol"
 
 const useSendFundsTransaction = () => {
   const { from, to, tokenId, amount, allowReap, sendMax } = useSendFundsWizard()
@@ -42,22 +40,16 @@ const useSendFundsTransaction = () => {
     return { tokenId, from, to, value: amount, sendMax, allowReap }
   }, [allowReap, amount, from, sendMax, to, tokenId])
 
-  const txEth = useSendFundsTransactionEth(inputs)
   const txDot = useSendFundsTransactionDot(inputs)
-  const txSol = useSendFundsTransactionSol(inputs)
 
   return useMemo(() => {
     switch (token?.platform) {
       case "polkadot":
         return txDot
-      case "ethereum":
-        return txEth
-      case "solana":
-        return txSol
       default:
         return null
     }
-  }, [token?.platform, txDot, txEth, txSol])
+  }, [token?.platform, txDot])
 }
 
 const useRecipientBalance = (token?: Token | null, address?: Address | null) => {
@@ -173,8 +165,7 @@ const useSendFundsProvider = () => {
   const maxCostBreakdown = useMemo(() => {
     try {
       const transferAmount = sendMax ? transaction?.maxAmount : amount
-      const maxFee =
-        transaction?.platform === "ethereum" ? transaction.maxFee : transaction?.estimatedFee
+      const maxFee = transaction?.estimatedFee
 
       if (!token || !feeToken || !transferAmount || !maxFee) return null
       if (transaction?.platform === "polkadot" && transaction.isLoadingTip) return null

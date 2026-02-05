@@ -1,6 +1,6 @@
 import { useRemoteConfig } from "@ui/state/remoteConfig"
 
-import { TALISMAN_FEE_BITTENSOR } from "../utils/constants"
+import { TAOSTATS_FEE_BITTENSOR } from "../utils/constants"
 import { StakeDirection } from "./types"
 
 export const useGetSubnetFee = ({
@@ -17,8 +17,8 @@ export const useGetSubnetFee = ({
   } = remoteConfig
 
   if (direction === "alphaToTao") {
-    return fee.sell[netuid] ?? TALISMAN_FEE_BITTENSOR
+    return fee.sell[netuid] ?? TAOSTATS_FEE_BITTENSOR
   }
 
-  return fee.buy[netuid] ?? TALISMAN_FEE_BITTENSOR
+  return fee.buy[netuid] ?? TAOSTATS_FEE_BITTENSOR
 }

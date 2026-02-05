@@ -1,8 +1,8 @@
 import { ExternalLinkIcon } from "@taostats-wallet/icons"
-import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
 
+import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { ScanQr } from "@ui/domains/Sign/Qr/ScanQr"
 
 import { useAccountAddQr } from "./context"
@@ -43,7 +43,7 @@ export const Scan = () => {
                   {
                     title: t("Approve camera permissions"),
                     body: t(
-                      "It looks like you’ve blocked permissions for Talisman to access your camera",
+                      "It looks like you’ve blocked permissions for Taostats to access your camera",
                     ),
                     extra: (
                       <button
@@ -60,12 +60,12 @@ export const Scan = () => {
                   ? // ENABLED AND NO ERROR
                     {
                       title: t("Approve camera permissions"),
-                      body: t("Allow Talisman to access your camera to scan QR codes"),
+                      body: t("Allow Taostats to access your camera to scan QR codes"),
                     }
                   : // NOT ENABLED
                     {
                       title: t("Approve camera permissions"),
-                      body: t("Allow Talisman to access your camera to scan QR codes"),
+                      body: t("Allow Taostats to access your camera to scan QR codes"),
                       extra: (
                         <button
                           type="button"

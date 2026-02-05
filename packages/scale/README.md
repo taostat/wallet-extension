@@ -1,1 +1,1 @@
-# @talismn/scale
+# @taostats-wallet/scale

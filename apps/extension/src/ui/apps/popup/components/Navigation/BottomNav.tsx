@@ -3,8 +3,8 @@ import {
   ExpandIcon,
   HistoryIcon,
   HomeIcon,
+  Link2Icon,
   MenuIcon,
-  ZapIcon,
 } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
@@ -109,7 +109,12 @@ export const BottomNav = () => {
             onClick={handleHomeClick}
             route="/portfolio/*"
           />
-          <NavButton label={t("Staking")} icon={ZapIcon} onClick={handleStakingClick} />
+          <NavButton
+            label={t("Staking")}
+            icon={Link2Icon}
+            iconClassName="-rotate-45"
+            onClick={handleStakingClick}
+          />
           <NavButton
             label={t("History")}
             icon={HistoryIcon}
@@ -141,11 +146,12 @@ export const BottomNav = () => {
 const NavButton: FC<{
   label: ReactNode
   icon: FC<{ className?: string }>
+  iconClassName?: string
   className?: string
   withBadge?: boolean
   route?: string
   onClick: () => void
-}> = ({ label, icon: Icon, withBadge, route, className, onClick }) => {
+}> = ({ label, icon: Icon, iconClassName, withBadge, route, className, onClick }) => {
   const routeMatch = useMatch(route ?? "")
 
   return (
@@ -156,7 +162,7 @@ const NavButton: FC<{
         "text-body-disabled h-20 w-20",
         "enabled:hover:text-body-secondary",
         "enabled:focus-visible:border",
-        routeMatch && "!text-body",
+        routeMatch && "!text-primary",
         className,
       )}
       onClick={onClick}
@@ -169,11 +175,11 @@ const NavButton: FC<{
       >
         {withBadge ? (
           <div className="relative size-10 shrink-0">
-            <Icon className="size-10" />
+            <Icon className={classNames("size-10", iconClassName)} />
             <div className="bg-primary absolute -right-1 -top-1 size-3 rounded-full"></div>
           </div>
         ) : (
-          <Icon className="size-10 shrink-0" />
+          <Icon className={classNames("size-10 shrink-0", iconClassName)} />
         )}
         <div
           className={classNames(
