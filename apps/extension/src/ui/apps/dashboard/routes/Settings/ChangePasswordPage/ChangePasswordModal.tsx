@@ -1,8 +1,8 @@
-import { AlertTriangleIcon } from "@taostats-wallet/icons"
+import { AlertTriangleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { ChangePasswordStatusUpdateStatus, ChangePasswordStatusUpdateType } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Modal, ModalDialog, ProcessAnimation } from "taostats-ui"
+import { Modal, ModalDialog } from "taostats-ui"
 
 export const ChangePasswordModal = ({
   isOpen,
@@ -32,7 +32,8 @@ export const ChangePasswordModal = ({
   return (
     <Modal isOpen={isOpen}>
       <ModalDialog title={t("Changing password")} centerTitle className="w-[40rem]">
-        <ProcessAnimation status="processing" className="my-8 h-[14rem]" />
+        <LoaderIcon className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
+
         <div className="flex flex-col gap-5">
           <p className="my-8 animate-pulse text-center">{progressDisplay}</p>
           <div className="bg-alert-warn/10 text-alert-warn flex items-center gap-6 rounded p-4 px-6 text-sm">
