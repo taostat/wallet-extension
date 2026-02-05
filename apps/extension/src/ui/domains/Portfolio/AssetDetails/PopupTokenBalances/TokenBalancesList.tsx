@@ -5,8 +5,6 @@ import { ReactNode, Suspense } from "react"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
-import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
-import { NetworkName } from "@ui/domains/Networks/NetworkName"
 import { BondButton } from "@ui/domains/Staking/Bond/BondButton"
 import { useToken } from "@ui/state"
 import { getTokenName } from "@ui/util/getTokenName"
@@ -59,13 +57,10 @@ export const TokenBalancesList = ({
             </div>
           </div>
           <div className="flex w-full items-center gap-2 overflow-hidden">
-            <NetworkLogo networkId={chainOrNetworkId} />
             <span className="truncate">
-              <NetworkName networkId={chainOrNetworkId} />
               {token.type === "substrate-dtao" && (
                 <BittensorValidatorName
                   hotkey={token.hotkey}
-                  prefix=" | "
                   className="text-body-secondary text-sm"
                 />
               )}

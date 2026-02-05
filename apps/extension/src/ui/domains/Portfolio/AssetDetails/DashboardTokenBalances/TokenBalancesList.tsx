@@ -6,11 +6,10 @@ import { useTranslation } from "react-i18next"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
-import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
-import { NetworkName } from "@ui/domains/Networks/NetworkName"
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
 import { BondButton } from "@ui/domains/Staking/Bond/BondButton"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
+import { getTokenName } from "@ui/util/getTokenName"
 
 import { BalanceSummary } from "../../useTokenBalancesSummary"
 import { BittensorUnstakeButton } from "../BittensorUnstakeButton"
@@ -60,7 +59,7 @@ export const TokenBalancesList = ({
           </div>
           <div className="flex grow flex-col justify-center gap-2 overflow-hidden">
             <div className="flex items-center gap-3">
-              <div className="text-body truncate font-bold">{token.name}</div>
+              <div className="text-body truncate font-bold">{getTokenName(token.name)}</div>
               <div className="text-body flex shrink-0 items-center text-base font-bold">
                 <CopyAddressButton networkId={chainOrNetworkId} />
                 <BittensorUnstakeButton balances={balances} />
@@ -77,9 +76,7 @@ export const TokenBalancesList = ({
               </div>
             </div>
             <div className="flex w-full items-center gap-2 overflow-hidden">
-              <NetworkLogo networkId={chainOrNetworkId} />
               <span className="truncate text-sm">
-                <NetworkName networkId={chainOrNetworkId} />
                 {token.type === "substrate-dtao" && (
                   <BittensorValidatorName
                     hotkey={token.hotkey}
