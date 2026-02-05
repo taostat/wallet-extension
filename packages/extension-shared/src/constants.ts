@@ -7,9 +7,6 @@ export const TEST = process.env.NODE_ENV === "test"
 
 export const IS_FIREFOX = process.env.BROWSER === "firefox"
 
-export const IPFS_GATEWAY = "https://talisman.mypinata.cloud/ipfs/"
-
-export const TAOSTATS_BASE_PATH = process.env.TAOSTATS_BASE_PATH
 export const TAOSTATS_API_URL = process.env.TAOSTATS_API_URL
 export const ASSET_DISCOVERY_API_URL = ""
 

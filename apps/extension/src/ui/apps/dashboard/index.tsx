@@ -36,7 +36,6 @@ import { GeneralPage } from "./routes/Settings/GeneralPage"
 import { LanguagePage } from "./routes/Settings/LanguagePage"
 import { MnemonicsPage } from "./routes/Settings/Mnemonics/MnemonicsPage"
 import { NetworksTokensPage } from "./routes/Settings/NetworksTokensPage"
-import { QrMetadataPage } from "./routes/Settings/QrMetadataPage"
 import { SecurityPrivacyPage } from "./routes/Settings/SecurityPrivacyPage"
 import { SupportPage } from "./routes/Settings/SupportPage"
 import { TestPage } from "./routes/TestPage"
@@ -115,16 +114,11 @@ const DashboardInner = () => {
               <Route path="*" element={<Navigate to="" replace />} />
             </Route>
             <Route path="network/:id" element={<EditNetworkPage />} />
-            <Route path="qr-metadata" element={<QrMetadataPage />} />
             <Route path="*" element={<Navigate to="" replace />} />
           </Route>
           <Route path="about" element={<SupportPage />} />
           <Route path="analytics" element={<AnalyticsOptInPage />} />
           {/* Old routes redirects */}
-          <Route
-            path="qr-metadata"
-            element={<Navigate to="networks-tokens/qr-metadata" replace />}
-          />
           <Route
             path="change-password"
             element={<Navigate to="/settings/security-privacy-settings/change-password" replace />}
@@ -141,10 +135,6 @@ const DashboardInner = () => {
           element={<Navigate to="/settings/networks-tokens/networks" replace />}
         />
         <Route path="tokens" element={<Navigate to="/settings/networks-tokens/tokens" replace />} />
-        {/* <Route
-          path="qr-metadata"
-          element={<Navigate to="/settings/networks-tokens/qr-metadata" replace />}
-        /> */}
         {DEBUG && <Route path="test" element={<TestPage />} />}
         <Route path="*" element={<NavigateWithQuery url="/portfolio" replace />} />
       </Routes>

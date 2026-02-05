@@ -28,13 +28,6 @@ const Content = () => {
           subtitle={t("Enable and disable tokens")}
           to={`/settings/networks-tokens/tokens`}
         />
-        {/* <CtaButton
-          iconLeft={PolkadotVaultIcon}
-          iconRight={ChevronRightIcon}
-          title={t("Polkadot Vault metadata")}
-          subtitle={t("Register networks on your Polkadot Vault device, or update their metadata")}
-          to={`/settings/networks-tokens/qr-metadata`}
-        /> */}
       </div>
     </>
   )

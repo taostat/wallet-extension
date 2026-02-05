@@ -1,4 +1,4 @@
-import { TAOSTATS_API_URL, TAOSTATS_BASE_PATH } from "extension-shared"
+import { TAOSTATS_API_URL } from "extension-shared"
 
 const JSON_HEADERS = {
   "Content-Type": "application/json",
@@ -16,7 +16,6 @@ export const fetchTaostats = async <T>({
   path,
   params,
   signal,
-  includeAuthHeader = false,
   headers,
 }: FetchTaostatsArgs): Promise<T> => {
   const url = new URL(`${TAOSTATS_API_URL}${path}`)
@@ -33,7 +32,6 @@ export const fetchTaostats = async <T>({
     signal,
     headers: {
       ...JSON_HEADERS,
-      ...(includeAuthHeader ? { Authorization: TAOSTATS_BASE_PATH } : {}),
       ...headers,
     },
   })
