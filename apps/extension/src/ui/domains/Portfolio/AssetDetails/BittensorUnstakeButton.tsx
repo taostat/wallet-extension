@@ -1,7 +1,7 @@
 import { Balances } from "@taostats-wallet/balances"
 import { SubDTaoToken } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { ZapOffIcon } from "@taostats-wallet/icons"
+import { DatabaseIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -64,7 +64,7 @@ export const BittensorUnstakeButton: FC<{ balances: Balances; className?: string
             className,
           )}
         >
-          <ZapOffIcon />
+          <DatabaseIcon />
         </button>
       </TooltipTrigger>
       <TooltipContent>{t("Unstake")}</TooltipContent>

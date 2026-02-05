@@ -1,6 +1,6 @@
 import { Balances } from "@taostats-wallet/balances"
 import { parseTokenId } from "@taostats-wallet/chaindata-provider"
-import { ZapFastIcon } from "@taostats-wallet/icons"
+import { Link2Icon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -30,14 +30,14 @@ export const BondPillButton: FC<{
   return (
     <button
       className={classNames(
-        "bg-primary/10 hover:bg-primary/20 text-primary h-16 rounded-[28px] px-4 text-sm font-light",
+        "bg-primary/10 hover:bg-primary/20 text-primary rounded-sm p-4 text-xs font-light",
         className,
       )}
       type="button"
       onClick={onClick}
     >
       <div className="flex items-center gap-2">
-        <ZapFastIcon className="shrink-0 text-base" />
+        <Link2Icon className="shrink-0 -rotate-45 text-base" />
         <div>{t("Stake")}</div>
       </div>
     </button>

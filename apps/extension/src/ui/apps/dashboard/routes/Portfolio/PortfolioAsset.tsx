@@ -1,6 +1,6 @@
 import { Balances } from "@taostats-wallet/balances"
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { SendIcon } from "@taostats-wallet/icons"
+import { ArrowUpRightIcon } from "@taostats-wallet/icons"
 import { t } from "i18next"
 import { uniq } from "lodash-es"
 import { FC, useEffect, useMemo } from "react"
@@ -13,8 +13,8 @@ import { NavigateWithQuery } from "@taostats/components/NavigateWithQuery"
 import { AssetPriceChart } from "@ui/domains/Asset/AssetPriceChart"
 import { DashboardAssetDetails } from "@ui/domains/Portfolio/AssetDetails"
 // import { BittensorClaimSettingsToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorClaimSettingsToolbarButton"
-import { BittensorStakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorStakeToolbarButton"
-import { BittensorUnstakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorUnstakeToolbarButton"
+// import { BittensorStakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorStakeToolbarButton"
+// import { BittensorUnstakeToolbarButton } from "@ui/domains/Portfolio/AssetDetails/BittensorUnstakeToolbarButton"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { PortfolioToolbarButton } from "@ui/domains/Portfolio/PortfolioToolbarButton"
 import { Statistics } from "@ui/domains/Portfolio/Statistics"
@@ -97,7 +97,7 @@ const SendFundsButton: FC<{ symbol: string }> = ({ symbol }) => {
     <Tooltip>
       <TooltipTrigger asChild>
         <PortfolioToolbarButton onClick={openSendFundsPopup} disabled={!canSendFunds}>
-          <SendIcon />
+          <ArrowUpRightIcon />
         </PortfolioToolbarButton>
       </TooltipTrigger>
       <TooltipContent>
@@ -111,7 +111,11 @@ const TokenBreadcrumb: FC<{
   name: string
   symbol?: string
   balances: Balances
-}> = ({ name, symbol, balances }) => {
+}> = ({
+  name,
+  symbol,
+  // balances
+}) => {
   const { t } = useTranslation()
 
   const navigate = useNavigateWithQuery()
@@ -136,8 +140,8 @@ const TokenBreadcrumb: FC<{
       </div>
       <div className="flex h-20 items-center gap-2">
         {/* <BittensorClaimSettingsToolbarButton balances={balances} /> */}
-        <BittensorStakeToolbarButton balances={balances} />
-        <BittensorUnstakeToolbarButton balances={balances} />
+        {/* <BittensorStakeToolbarButton balances={balances} />
+        <BittensorUnstakeToolbarButton balances={balances} />*/}
         {symbol && <SendFundsButton symbol={symbol} />}
       </div>
     </div>
@@ -186,13 +190,11 @@ export const PortfolioAsset = () => {
 
   if (!assetId || !balancesToDisplay) return <NavigateWithQuery url="/portfolio" />
 
+  const displayName = token?.name === "Bittensor" ? "TAO" : token?.name || token?.symbol || assetId
+
   return (
     <>
-      <TokenBreadcrumb
-        name={token?.name || token?.symbol || assetId}
-        symbol={token?.symbol}
-        balances={balancesToDisplay}
-      />
+      <TokenBreadcrumb name={displayName} symbol={token?.symbol} balances={balancesToDisplay} />
       <HeaderRow token={token} summary={summary} />
       <DashboardAssetDetails balances={balancesToDisplay} symbol={token?.symbol || assetId} />
     </>

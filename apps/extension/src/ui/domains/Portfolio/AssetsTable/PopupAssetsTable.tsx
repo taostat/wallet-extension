@@ -187,11 +187,7 @@ const AssetRow: FC<{
       </button>
       {showStakingButton && (
         <div className="absolute right-4 top-0 hidden h-28 flex-col justify-center group-hover:flex">
-          <BondPillButton
-            balances={balances}
-            isPortfolio
-            className="[>svg]:text-[2rem] text-base"
-          />
+          <BondPillButton balances={balances} isPortfolio className="[>svg]:text-[2rem] text-sm" />
         </div>
       )}
     </div>

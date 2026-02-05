@@ -95,6 +95,7 @@ export const PortfolioAsset = () => {
   // Derive a representative token from the balances set (e.g. first token).
   const firstToken = balances?.each[0]?.token
   const displaySymbol = firstToken?.symbol ?? assetId ?? ""
+  const displayName = firstToken?.name === "SN0 | Root" ? "TAO" : (firstToken?.name ?? "")
 
   useEffect(() => {
     popupOpenEvent("portfolio asset", {
@@ -106,5 +107,5 @@ export const PortfolioAsset = () => {
 
   if (!assetId || !balances) return <Navigate to="/portfolio" />
 
-  return <PageContent balances={balances} symbol={displaySymbol} name={firstToken?.name ?? ""} />
+  return <PageContent balances={balances} symbol={displaySymbol} name={displayName} />
 }

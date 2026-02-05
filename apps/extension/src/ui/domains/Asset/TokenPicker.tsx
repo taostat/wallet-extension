@@ -20,6 +20,7 @@ import {
   useTokenRatesMap,
   useTokens,
 } from "@ui/state"
+import { getTokenName } from "@ui/util/getTokenName"
 import { isTransferableToken } from "@ui/util/isTransferableToken"
 
 import { BittensorValidatorName } from "../Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
@@ -361,12 +362,7 @@ const TokensList: FC<TokensListProps> = ({
         ...t,
         token: {
           ...t.token,
-          name:
-            t.token.name === "SN0 | Root"
-              ? "Root Stake"
-              : t.token.name === "Bittensor"
-                ? "Unstaked Tao"
-                : t.token.name,
+          name: getTokenName(t.token.name),
         },
       }
     })
