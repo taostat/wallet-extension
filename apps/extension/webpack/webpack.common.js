@@ -25,7 +25,9 @@ const getTaostatsApiUrl = (env) => {
   const taostatsApiUrl =
     env.build === "dev"
       ? process.env.TAOSTATS_API_URL
-      : process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet-extension"
+      : env.build === "production"
+        ? "https://taostats.io/api/wallet-extension"
+        : process.env.TAOSTATS_API_URL || "https://taostats.io/api/wallet-extension"
 
   return taostatsApiUrl
 }
