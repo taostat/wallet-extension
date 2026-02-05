@@ -80,7 +80,6 @@ export const TokenBalancesList = ({
                 {token.type === "substrate-dtao" && (
                   <BittensorValidatorName
                     hotkey={token.hotkey}
-                    prefix=" | "
                     className="text-body-secondary text-sm"
                   />
                 )}
