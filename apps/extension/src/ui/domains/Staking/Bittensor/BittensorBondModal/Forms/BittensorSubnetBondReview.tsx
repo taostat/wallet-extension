@@ -14,7 +14,6 @@ import {
 
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
-import { useAppState } from "@ui/state"
 
 import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
@@ -27,12 +26,9 @@ import { useBittensorBondModal } from "../../hooks/useBittensorBondModal"
 import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
 import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
-import { BittensorWarningDrawer } from "../Drawers/BittensorWarningDrawer"
 
 export const BittensorSubnetBondReview = () => {
   const [isDisabled, setIsDisabled] = useState(true)
-  const [hideWarning] = useAppState("hideBittensorSubnetStakeWarning")
-  const [hasAckWarning, setHasAckWarning] = useState<boolean>(hideWarning || false)
   const ocMevShieldInfo = useOpenClose()
 
   const {
@@ -229,7 +225,6 @@ export const BittensorSubnetBondReview = () => {
         />
       )}
       <BittensorSlippageDrawer />
-      <BittensorWarningDrawer setHasAckWarning={setHasAckWarning} />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />
     </BittensorModalLayout>
   )
