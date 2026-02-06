@@ -42,9 +42,6 @@ const SendFundsButton: FC<{ account?: Account | null }> = ({ account }) => {
     genericEvent("open send funds", { from: "popup portfolio" })
   }, [openSendFundsPopup, genericEvent])
 
-  // TODO: tmp disable send funds button
-  return null
-
   return (
     <Tooltip placement="bottom">
       <TooltipTrigger

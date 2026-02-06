@@ -1,6 +1,5 @@
-import { ArrowDownIcon, EyeIcon, EyeOffIcon, RepeatIcon, SendIcon } from "@taostats-wallet/icons"
+import { ArrowDownIcon, EyeIcon, EyeOffIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
-import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -14,7 +13,6 @@ import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
 import { useAccounts, useSelectedCurrency, useSetting } from "@ui/state"
-import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
 
 type Props = {
   className?: string
@@ -41,7 +39,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
   )
 
   return (
-    <div className={classNames("flex flex-col items-start justify-between", className)}>
+    <div className={classNames("flex flex-col items-start justify-between gap-4", className)}>
       <div className="flex flex-col gap-2">
         <div className="text-body flex gap-4 text-xs">
           <div className="leading-10 tracking-[0.06px]">{t("Total Portfolio")}</div>
@@ -152,9 +150,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 }
 
 const TopActions = ({ disabled }: { disabled?: boolean }) => {
-  // TODO: tmp disable top actions
-  return null
-
   const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
   const ownedAccounts = useAccounts("owned")
@@ -183,18 +178,6 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
           label: t("Receive"),
           icon: ArrowDownIcon,
           onClick: () => openCopyAddressModal(),
-          disabled: disableActions,
-          disabledReason,
-        },
-        {
-          analyticsName: "Goto" as const,
-          analyticsAction: "open swap",
-          label: t("Swap"),
-          icon: RepeatIcon,
-          onClick: () => {
-            window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank")
-            if (IS_EMBEDDED_POPUP) window.close()
-          },
           disabled: disableActions,
           disabledReason,
         },
