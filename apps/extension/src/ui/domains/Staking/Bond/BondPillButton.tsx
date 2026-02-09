@@ -30,7 +30,7 @@ export const BondPillButton: FC<{
   return (
     <button
       className={classNames(
-        "bg-primary/10 hover:bg-primary/20 text-primary rounded-sm p-4 text-xs font-light",
+        "text-primary rounded-sm bg-[#293c37] p-4 text-xs font-light hover:bg-[#214940]",
         className,
       )}
       type="button"

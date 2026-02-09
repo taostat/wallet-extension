@@ -16,6 +16,7 @@ import { useNetworkById } from "@ui/state"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
 import { AssetBalanceCellValue } from "../AssetBalanceCellValue"
+import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
 
 export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
@@ -140,7 +141,18 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
       </button>
       {canBond && (
         <div className="absolute right-8 top-0 hidden h-[6.6rem] flex-col justify-center group-hover:flex">
-          <BondPillButton balances={balances} isPortfolio className="[>svg]:text-[2rem] text-sm" />
+          <div className="flex items-center gap-3">
+            <BondPillButton
+              balances={balances}
+              isPortfolio
+              className="[>svg]:text-[2rem] text-sm"
+            />
+            <BittensorUnstakeButton
+              balances={balances}
+              variant="pill"
+              className="[>svg]:text-[2rem] text-sm"
+            />
+          </div>
         </div>
       )}
     </div>
