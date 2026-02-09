@@ -35,7 +35,7 @@ export const BittensorSelectStakeDrawer = ({ containerId }: BittensorSelectStake
               setStakeType("subnet")
             }}
           >
-            Subnet DTAO
+            Subnet Staking
           </Button>
         </div>
       </div>
