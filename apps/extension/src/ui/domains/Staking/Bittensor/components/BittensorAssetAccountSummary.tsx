@@ -6,7 +6,6 @@ import { Suspense } from "react"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 
 import { BondAccountPillButton } from "../../Bond/BondAccountPillButton"
-import { AssetPill } from "./AssetPill"
 
 type BittensorAssetAccountSummaryProps = {
   token: Token | null | undefined
@@ -19,12 +18,10 @@ type BittensorAssetAccountSummaryProps = {
 }
 
 export const BittensorAssetAccountSummary = ({
-  token,
   accountAddress,
   onAccountClick,
   suspenseName = "AccountPillButton",
   className,
-  assetLabel,
   accountLabel,
 }: BittensorAssetAccountSummaryProps) => {
   return (
@@ -34,10 +31,6 @@ export const BittensorAssetAccountSummary = ({
         className,
       )}
     >
-      <div className="flex h-16 items-center justify-between gap-4">
-        <div className="whitespace-nowrap">{assetLabel}</div>
-        <div className="overflow-hidden">{token && <AssetPill token={token} />}</div>
-      </div>
       <div className="flex h-16 items-center justify-between gap-4">
         <div className="whitespace-nowrap">{accountLabel}</div>
         <div className="overflow-hidden">

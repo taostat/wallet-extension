@@ -26,6 +26,7 @@ import { StaleBalancesIcon } from "../StaleBalancesIcon"
 import { usePortfolioDisplayBalances } from "../useDisplayBalances"
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
+import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
 import { usePortfolioSymbolBalancesByFilter } from "./usePortfolioSymbolBalances"
 
 const AssetRowSkeleton = ({ className }: { className?: string }) => {
@@ -187,7 +188,18 @@ const AssetRow: FC<{
       </button>
       {showStakingButton && (
         <div className="absolute right-4 top-0 hidden h-28 flex-col justify-center group-hover:flex">
-          <BondPillButton balances={balances} isPortfolio className="[>svg]:text-[2rem] text-sm" />
+          <div className="flex items-center gap-3">
+            <BondPillButton
+              balances={balances}
+              isPortfolio
+              className="[>svg]:text-[2rem] text-sm"
+            />
+            <BittensorUnstakeButton
+              balances={balances}
+              variant="pill"
+              className="[>svg]:text-[2rem] text-sm"
+            />
+          </div>
         </div>
       )}
     </div>
