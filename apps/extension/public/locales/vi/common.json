@@ -561,7 +561,6 @@
   "Delegate <Conviction /> <Tokens /> for track <Track /> to <Target />": "Ủy quyền <Conviction /> <Tokens /> cho đường dẫn <Track /> đến <Target />",
   "Delegate <Tokens /><br/> to <Target /><br/> for track <Track /><br/> with <Conviction /> conviction": "Ủy quyền <Tokens /><br/> cho <Target /><br/> cho đường dẫn <Track /><br/> với mức độ tin tưởng <Conviction />",
   "Delegate vote": "Uỷ quyền bỏ phiếu",
-  "Delegated Staking": "Staking ủy quyền",
   "Delegating to": "Ủy quyền cho",
   "Delete": "Xóa",
   "Delete contact": "Xóa liên hệ",
