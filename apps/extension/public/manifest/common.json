@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "author": "Taostats",
-  "name": "Taostats Wallet",
-  "description": "The Taostats wallet for Bittensor",
+  "name": "The Taostats wallet for Bittensor",
+  "description": "Manage, stake, and trade across the Bittensor network — powered by the platform trusted by the ecosystem.",
   "version": "latest",
   "action": {
     "default_title": "Taostats",

@@ -19,7 +19,7 @@ export const SIGNET_LANDING_URL = ""
 export const SIGNET_APP_URL = ""
 
 // Wallet-specific invite link
-export const DISCORD_URL = "https://discord.gg/PVBxmwcyw5"
+export const DISCORD_URL = "https://discord.taostats.io"
 
 // Docs URLs
 export const DOCS_URL_PREFIX = "https://docs.talisman.xyz/talisman"
