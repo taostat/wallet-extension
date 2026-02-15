@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next"
 import {
   Button,
   Drawer,
-  Toggle,
+  Radio,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -48,9 +48,8 @@ export const BittensorSubnetBondReview = () => {
     priceImpact,
     withMevShield,
     isMevShieldDisabled,
-    setIsMevProtectionEnabled,
-    useTaostatsShield,
-    setUseTaostatsShield,
+    mevShieldOption,
+    setMevShieldOption,
     onSubmitted,
     setStep,
   } = useBittensorBondWizard()
@@ -185,35 +184,44 @@ export const BittensorSubnetBondReview = () => {
               </button>
             </div>
           </div>
-          <div className="flex items-center justify-between gap-8 text-xs">
-            <div className="whitespace-nowrap">
-              <button
-                type="button"
-                className="hover:text-body whitespace-nowrap"
-                onClick={ocMevShieldInfo.open}
+          {!isMevShieldDisabled && (
+            <div className="flex flex-col gap-3 pt-2 text-xs">
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  className="hover:text-body whitespace-nowrap"
+                  onClick={ocMevShieldInfo.open}
+                >
+                  <span>
+                    {t("MEV Shield")} <InfoIcon className="inline" />
+                  </span>
+                </button>
+              </div>
+              <div
+                className="text-body flex flex-col gap-2"
+                role="radiogroup"
+                aria-label={t("MEV Shield")}
               >
-                <div>
-                  {t("MEV Shield")} <InfoIcon className="inline" />
-                </div>
-              </button>
-            </div>
-            <div className="text-body flex items-center gap-2 text-xs">
-              <Toggle
-                variant="tiny"
-                checked={withMevShield}
-                disabled={isMevShieldDisabled}
-                onChange={(e) => setIsMevProtectionEnabled(e.target.checked)}
-              />
-            </div>
-          </div>
-          {!isMevShieldDisabled && withMevShield && (
-            <div className="flex items-center justify-between gap-8 text-xs">
-              <div className="whitespace-nowrap">{t("Use Taostats Shield (recommended)")}</div>
-              <div className="text-body flex items-center gap-2 text-xs">
-                <Toggle
-                  variant="tiny"
-                  checked={useTaostatsShield}
-                  onChange={(e) => setUseTaostatsShield(e.target.checked)}
+                <Radio
+                  name="mev-shield-option"
+                  value="off"
+                  label={t("Off")}
+                  checked={mevShieldOption === "off"}
+                  onChange={() => setMevShieldOption("off")}
+                />
+                <Radio
+                  name="mev-shield-option"
+                  value="on-chain"
+                  label={t("On-chain Shield")}
+                  checked={mevShieldOption === "on-chain"}
+                  onChange={() => setMevShieldOption("on-chain")}
+                />
+                <Radio
+                  name="mev-shield-option"
+                  value="taostats"
+                  label={t("Taostats Shield (recommended)")}
+                  checked={mevShieldOption === "taostats"}
+                  onChange={() => setMevShieldOption("taostats")}
                 />
               </div>
             </div>
@@ -236,9 +244,9 @@ export const BittensorSubnetBondReview = () => {
           txMetadata={txMetadata}
           disabled={isDisabled}
           mode={
-            withMevShield && useTaostatsShield
+            mevShieldOption === "taostats"
               ? "bittensor-taostats-shield"
-              : withMevShield
+              : mevShieldOption === "on-chain"
                 ? "bittensor-mev-shield"
                 : "default"
           }
