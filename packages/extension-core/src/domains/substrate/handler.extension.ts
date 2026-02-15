@@ -195,7 +195,6 @@ export class SubHandler extends ExtensionHandler {
 
       const innerPayload: SignerPayloadJSON = {
         ...payload,
-        nonce: toPjsHex(BigInt(payload.nonce) + 1n),
       }
 
       const innerTxSignature = await withPjsKeyringPair(payload.address, async (pair) => {
