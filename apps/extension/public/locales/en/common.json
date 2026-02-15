@@ -1071,6 +1071,7 @@
   "method:": "method:",
   "MEV Shield": "MEV Shield",
   "MEV Shield protects your subnet staking transaction from frontrunning by wrapping it in an encrypted \"shield\" transaction.": "MEV Shield protects your subnet staking transaction from frontrunning by wrapping it in an encrypted \"shield\" transaction.",
+  "Use Taostats Shield (recommended)": "Use Taostats Shield (recommended)",
   "Migrating authentication": "Migrating authentication",
   "Migrating keypairs": "Migrating keypairs",
   "Migrating recovery phrases": "Migrating recovery phrases",

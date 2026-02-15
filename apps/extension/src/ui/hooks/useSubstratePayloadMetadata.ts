@@ -72,6 +72,7 @@ const getSubstratePayloadMetadata = async ({
               send: (...args) => api.subSend(network.id, ...args),
               submit: api.subSubmit,
               submitWithBittensorMevShield: api.subSubmitWithBittensorMevShield,
+              submitWithTaostatsShield: api.subSubmitWithTaostatsShield,
             },
             metadataRpc,
             token,

@@ -131,6 +131,7 @@ const useBittensorBondWizardProvider = () => {
   const nativeTokenId = useMemo(() => (networkId ? subNativeTokenId(networkId) : null), [networkId])
   const dtaoToken = useDtaoToken(networkId ?? "", netuid ?? 0, hotkey ?? undefined)
   const [isMevProtectionEnabled, setIsMevProtectionEnabled] = useState(false)
+  const [useTaostatsShield, setUseTaostatsShield] = useState(true)
 
   const dtaoBalance = useBalance(allBalances, address, dtaoToken?.id)
   const nativeBalance = useBalance(allBalances, address, nativeTokenId)
@@ -524,6 +525,8 @@ const useBittensorBondWizardProvider = () => {
     withMevShield,
     isMevShieldDisabled,
     setIsMevProtectionEnabled,
+    useTaostatsShield,
+    setUseTaostatsShield,
     setAddress,
     setNetuid,
     setHotkey,

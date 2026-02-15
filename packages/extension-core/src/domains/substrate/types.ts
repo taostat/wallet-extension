@@ -37,11 +37,20 @@ type SubstrateRequestSubmitBittensorMevShield = {
   txInfo?: WalletTransactionInfo
 }
 
+type SubstrateRequestSubmitTaostatsShield = {
+  payload: SignerPayloadJSON
+  txInfo?: WalletTransactionInfo
+}
+
 export type SubstrateMessages = {
   "pri(substrate.rpc.send)": [SubstrateRequestSend, unknown]
   "pri(substrate.rpc.submit)": [SubstrateRequestSubmit, SubstrateResponseSubmit]
   "pri(substrate.rpc.submit.withBittensorMevShield)": [
     SubstrateRequestSubmitBittensorMevShield,
+    SubstrateResponseSubmit,
+  ]
+  "pri(substrate.rpc.submit.withTaostatsShield)": [
+    SubstrateRequestSubmitTaostatsShield,
     SubstrateResponseSubmit,
   ]
   "pri(substrate.metadata.get)": [SubstrateRequestChainMetadata, TMetadataDef | undefined]

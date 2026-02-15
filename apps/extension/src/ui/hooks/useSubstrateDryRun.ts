@@ -50,6 +50,7 @@ const getSapiFromSignerPayloadJSON = async (jsonPayload: SignerPayloadJSON | nul
       send: (...args) => api.subSend(chain.id, ...args),
       submit: api.subSubmit,
       submitWithBittensorMevShield: api.subSubmitWithBittensorMevShield,
+      submitWithTaostatsShield: api.subSubmitWithTaostatsShield,
     },
     metadataRpc,
     token,

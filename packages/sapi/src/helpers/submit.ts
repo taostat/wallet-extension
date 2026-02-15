@@ -2,7 +2,10 @@ import { SignerPayloadJSON } from "@polkadot/types/types"
 
 import { Chain } from "./types"
 
-export type ScaleApiSubmitMode = "default" | "bittensor-mev-shield"
+export type ScaleApiSubmitMode =
+  | "default"
+  | "bittensor-mev-shield"
+  | "bittensor-taostats-shield"
 
 export const submit = async (
   chain: Chain,
@@ -16,6 +19,13 @@ export const submit = async (
       if (signature)
         throw new Error("Signature should not be provided when using bittensor-mev-shield mode")
       return chain.connector.submitWithBittensorMevShield(payload, txInfo)
+
+    case "bittensor-taostats-shield":
+      if (signature)
+        throw new Error(
+          "Signature should not be provided when using bittensor-taostats-shield mode",
+        )
+      return chain.connector.submitWithTaostatsShield(payload, txInfo)
 
     default:
       return chain.connector.submit(payload, signature, txInfo)

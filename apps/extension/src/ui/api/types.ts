@@ -199,6 +199,10 @@ export default interface MessageTypes {
     payload: SignerPayloadJSON,
     txInfo?: WalletTransactionInfo,
   ) => Promise<{ hash: HexString }>
+  subSubmitWithTaostatsShield: (
+    payload: SignerPayloadJSON,
+    txInfo?: WalletTransactionInfo,
+  ) => Promise<{ hash: HexString }>
 
   // substrate chain metadata
   subChainMetadata: (

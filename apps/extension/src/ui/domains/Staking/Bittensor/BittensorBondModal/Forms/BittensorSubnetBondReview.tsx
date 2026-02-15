@@ -49,6 +49,8 @@ export const BittensorSubnetBondReview = () => {
     withMevShield,
     isMevShieldDisabled,
     setIsMevProtectionEnabled,
+    useTaostatsShield,
+    setUseTaostatsShield,
     onSubmitted,
     setStep,
   } = useBittensorBondWizard()
@@ -204,6 +206,18 @@ export const BittensorSubnetBondReview = () => {
               />
             </div>
           </div>
+          {!isMevShieldDisabled && withMevShield && (
+            <div className="flex items-center justify-between gap-8 text-xs">
+              <div className="whitespace-nowrap">{t("Use Taostats Shield (recommended)")}</div>
+              <div className="text-body flex items-center gap-2 text-xs">
+                <Toggle
+                  variant="tiny"
+                  checked={useTaostatsShield}
+                  onChange={(e) => setUseTaostatsShield(e.target.checked)}
+                />
+              </div>
+            </div>
+          )}
         </div>
         <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8 py-6">
           <div className="flex items-center justify-between gap-8 pt-2 text-xs">
@@ -221,7 +235,13 @@ export const BittensorSubnetBondReview = () => {
           onSubmitted={onSubmitted}
           txMetadata={txMetadata}
           disabled={isDisabled}
-          mode={withMevShield ? "bittensor-mev-shield" : "default"}
+          mode={
+            withMevShield && useTaostatsShield
+              ? "bittensor-taostats-shield"
+              : withMevShield
+                ? "bittensor-mev-shield"
+                : "default"
+          }
         />
       )}
       <BittensorSlippageDrawer />
