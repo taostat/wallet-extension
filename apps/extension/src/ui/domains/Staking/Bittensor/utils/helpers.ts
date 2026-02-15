@@ -6,6 +6,8 @@ import { Binary } from "polkadot-api"
 import { StakeDirection } from "../hooks/types"
 import { ROOT_NETUID, TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR } from "./constants"
 
+const withFeeTransfer = (taostatsFee: bigint) => taostatsFee > 0n
+
 export type BittensorSwapSimulation = {
   tao_amount: bigint
   alpha_amount: bigint
@@ -70,6 +72,18 @@ export const getBittensorStakingPayload = async ({
   taostatsFee: bigint
 }) => {
   if (netuid === 0) {
+    if (!withFeeTransfer(taostatsFee)) {
+      return sapi.getExtrinsicPayload(
+        "SubtensorModule",
+        "add_stake",
+        {
+          hotkey,
+          netuid: ROOT_NETUID,
+          amount_staked: amount,
+        },
+        { address },
+      )
+    }
     return sapi.getExtrinsicPayload(
       "Utility",
       "batch_all",
@@ -84,6 +98,20 @@ export const getBittensorStakingPayload = async ({
             remark: Binary.fromText("taostats-bittensor"),
           }),
         ],
+      },
+      { address },
+    )
+  }
+  if (!withFeeTransfer(taostatsFee)) {
+    return sapi.getExtrinsicPayload(
+      "SubtensorModule",
+      "add_stake_limit",
+      {
+        hotkey,
+        netuid,
+        amount_staked: amount,
+        limit_price: priceLimit,
+        allow_partial: false,
       },
       { address },
     )
@@ -133,6 +161,18 @@ export const getBittensorUnbondPayload = ({
   taostatsFee,
 }: GetBittensorUnbondPayload) => {
   if (netuid === ROOT_NETUID) {
+    if (!withFeeTransfer(taostatsFee)) {
+      return sapi.getExtrinsicPayload(
+        "SubtensorModule",
+        "remove_stake",
+        {
+          hotkey,
+          netuid: ROOT_NETUID,
+          amount_unstaked: amount,
+        },
+        { address },
+      )
+    }
     return sapi.getExtrinsicPayload(
       "Utility",
       "batch_all",
@@ -147,6 +187,20 @@ export const getBittensorUnbondPayload = ({
             remark: Binary.fromText("taostats-bittensor"),
           }),
         ],
+      },
+      { address },
+    )
+  }
+  if (!withFeeTransfer(taostatsFee)) {
+    return sapi.getExtrinsicPayload(
+      "SubtensorModule",
+      "remove_stake_limit",
+      {
+        hotkey,
+        netuid,
+        amount_unstaked: amount,
+        limit_price: priceLimit,
+        allow_partial: false,
       },
       { address },
     )
