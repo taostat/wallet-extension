@@ -46,7 +46,6 @@ export const BittensorSubnetBondReview = () => {
     amountOut,
     stakeDirection,
     priceImpact,
-    withMevShield,
     isMevShieldDisabled,
     mevShieldOption,
     setMevShieldOption,
