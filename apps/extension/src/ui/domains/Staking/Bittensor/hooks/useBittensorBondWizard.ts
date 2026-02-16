@@ -130,7 +130,9 @@ const useBittensorBondWizardProvider = () => {
   ] = useState(() => wizardOpenState$.getValue())
   const nativeTokenId = useMemo(() => (networkId ? subNativeTokenId(networkId) : null), [networkId])
   const dtaoToken = useDtaoToken(networkId ?? "", netuid ?? 0, hotkey ?? undefined)
-  const [isMevProtectionEnabled, setIsMevProtectionEnabled] = useState(false)
+  const [mevShieldOption, setMevShieldOption] = useState<
+    "off" | "on-chain" | "taostats"
+  >("taostats")
 
   const dtaoBalance = useBalance(allBalances, address, dtaoToken?.id)
   const nativeBalance = useBalance(allBalances, address, nativeTokenId)
@@ -153,8 +155,8 @@ const useBittensorBondWizardProvider = () => {
   }, [netuid, account])
 
   const withMevShield = useMemo(
-    () => !isMevShieldDisabled && isMevProtectionEnabled,
-    [isMevShieldDisabled, isMevProtectionEnabled],
+    () => !isMevShieldDisabled && mevShieldOption !== "off",
+    [isMevShieldDisabled, mevShieldOption],
   )
 
   const {
@@ -523,7 +525,8 @@ const useBittensorBondWizardProvider = () => {
     priceImpact,
     withMevShield,
     isMevShieldDisabled,
-    setIsMevProtectionEnabled,
+    mevShieldOption,
+    setMevShieldOption,
     setAddress,
     setNetuid,
     setHotkey,

@@ -25,7 +25,7 @@ type SapiSendButtonProps = {
   disabled?: boolean
   className?: string
   onSubmitted: (hash: Hex) => void
-  mode?: "default" | "bittensor-mev-shield"
+  mode?: "default" | "bittensor-mev-shield" | "bittensor-taostats-shield"
 }
 
 const HardwareAccountSendButton: FC<SapiSendButtonProps> = ({

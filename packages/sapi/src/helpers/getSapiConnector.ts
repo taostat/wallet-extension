@@ -7,6 +7,7 @@ export const getSapiConnector = ({
   send,
   submit,
   submitWithBittensorMevShield,
+  submitWithTaostatsShield,
 }: SapiConnectorProps): SapiConnector => ({
   chainId,
   send,
@@ -17,5 +18,11 @@ export const getSapiConnector = ({
   submitWithBittensorMevShield: (...args) => {
     if (submitWithBittensorMevShield) return submitWithBittensorMevShield(...args)
     throw new Error("submitWithBittensorMevShield handler not provided")
+  },
+  submitWithTaostatsShield: (...args) => {
+    if (submitWithTaostatsShield) return submitWithTaostatsShield(...args)
+    throw new Error(
+      "submitWithTaostatsShield handler not provided. Pass api.subSubmitWithTaostatsShield when creating ScaleApi.",
+    )
   },
 })

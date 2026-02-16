@@ -3,6 +3,7 @@ import { u8aToHex } from "@polkadot/util"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
 import { blake2b256, encryptKemAead } from "@taostats-wallet/crypto"
 import { Binary, FixedSizeBinary, mergeUint8, parseMetadataRpc } from "@taostats-wallet/scale"
+import { TAOSTATS_API_URL } from "extension-shared"
 
 import { ExtensionHandler } from "../../libs/Handler"
 import { chainConnector } from "../../rpcs/chain-connector"
@@ -180,6 +181,79 @@ export class SubHandler extends ExtensionHandler {
       return { hash: signedOuterHash }
     }
 
+  private submitWithTaostatsShield: MessageHandler<"pri(substrate.rpc.submit.withTaostatsShield)"> =
+    async ({ payload, txInfo }) => {
+      const chain = await chaindataProvider.getNetworkByGenesisHash(payload.genesisHash)
+      if (!chain) throw new Error(`Chain not found for genesis hash ${payload.genesisHash}`)
+
+      const { registry, metadataRpc } = await getTypeRegistry(
+        payload.genesisHash,
+        payload.specVersion,
+        payload.signedExtensions,
+      )
+      if (!metadataRpc) throw new Error("Metadata RPC not found")
+
+      const innerPayload: SignerPayloadJSON = {
+        ...payload,
+      }
+
+      const innerTxSignature = await withPjsKeyringPair(payload.address, async (pair) => {
+        const extrinsicPayload = registry.createType("ExtrinsicPayload", innerPayload)
+        return extrinsicPayload.sign(pair).signature
+      })
+
+      const signatureInner = innerTxSignature.unwrap()
+
+      const innerTx = registry.createType(
+        "Extrinsic",
+        { method: innerPayload.method },
+        { version: innerPayload.version },
+      )
+
+      innerTx.addSignature(payload.address, signatureInner, innerPayload)
+
+      const signedInnerHash = innerTx.hash.toHex()
+
+      const { builder } = parseMetadataRpc(metadataRpc)
+      const storageCodec = builder.buildStorage("MevShield", "NextKey")
+      const stateKey = storageCodec.keys.enc()
+      const hexValue = await chainConnector.send<string | null>(
+        chain.id,
+        "state_getStorage",
+        [stateKey],
+        false,
+      )
+      if (!hexValue) throw new Error("MevShield NextKey not found")
+      const nextKeyBinary = storageCodec.value.dec(hexValue) as Binary
+
+      const ciphertextBytes = await encryptKemAead(nextKeyBinary.asBytes(), innerTx.toU8a())
+      const commitment = blake2b256(innerTx.toU8a())
+
+      if (!TAOSTATS_API_URL) {
+        throw new Error("TAOSTATS_API_URL is not configured")
+      }
+
+      const response = await fetch(`${TAOSTATS_API_URL}/mevshield/submit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          commitmentHex: u8aToHex(commitment),
+          ciphertext: u8aToHex(ciphertextBytes),
+        }),
+      })
+
+      if (!response.ok) {
+        const body = await response.text().catch(() => "")
+        throw new Error(
+          `Taostats Shield submit failed: ${response.status} ${response.statusText}${body ? ` - ${body}` : ""}`,
+        )
+      }
+
+      await watchSubstrateTransaction(chain, registry, innerPayload, signatureInner, { txInfo })
+
+      return { hash: signedInnerHash as `0x${string}` }
+    }
+
   private send: MessageHandler<"pri(substrate.rpc.send)"> = ({
     chainId,
     method,
@@ -216,6 +290,11 @@ export class SubHandler extends ExtensionHandler {
       case "pri(substrate.rpc.submit.withBittensorMevShield)":
         return this.submitWithBittensorMevShield(
           request as RequestTypes["pri(substrate.rpc.submit.withBittensorMevShield)"],
+        )
+
+      case "pri(substrate.rpc.submit.withTaostatsShield)":
+        return this.submitWithTaostatsShield(
+          request as RequestTypes["pri(substrate.rpc.submit.withTaostatsShield)"],
         )
 
       // --------------------------------------------------------------------
