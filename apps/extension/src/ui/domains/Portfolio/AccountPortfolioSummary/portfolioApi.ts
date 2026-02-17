@@ -38,6 +38,36 @@ export type ColdkeyReportResponse = {
   pagination: { total_items: number }
 }
 
+export type StakeBalanceItem = {
+  netuid: number
+  hotkey: { ss58: string; hex?: string }
+  balance_as_tao: string
+  realised_profit_tao: string
+  realised_profit_usd: string
+  unrealised_profit_tao: string
+  unrealised_profit_usd: string
+  [key: string]: unknown
+}
+
+export type ValidatorYieldItem = {
+  netuid: number
+  hotkey: { ss58: string; hex?: string }
+  one_day_apy: string
+  seven_day_apy: string
+  thirty_day_apy: string
+  [key: string]: unknown
+}
+
+export type ValidatorYieldResponse = {
+  data: ValidatorYieldItem[]
+  pagination: { total_items: number }
+}
+
+export type StakeBalanceResponse = {
+  data: StakeBalanceItem[]
+  pagination: { total_items: number }
+}
+
 export const portfolioApi = {
   getAccountLatest: (address: string) =>
     fetchTaostats<AccountLatestResponse>({
@@ -52,5 +82,17 @@ export const portfolioApi = {
   getStatsLatest: () =>
     fetchTaostats<StatsLatestResponse>({
       path: "/stats/latest",
+    }),
+
+  getStakeBalance: (address: string, days: number) =>
+    fetchTaostats<StakeBalanceResponse>({
+      path: `/account/${encodeURIComponent(address)}/stake/balance`,
+      params: { days: days.toString() },
+    }),
+
+  getValidatorYieldLatest: (netuid: number, hotkey: string) =>
+    fetchTaostats<ValidatorYieldResponse>({
+      path: "/validator-yield-latest",
+      params: { netuid, hotkey },
     }),
 }

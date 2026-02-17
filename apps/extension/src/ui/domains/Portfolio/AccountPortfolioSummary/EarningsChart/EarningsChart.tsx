@@ -1,19 +1,12 @@
-import { useCallback, memo } from "react"
+import type { TooltipData } from "@visx/xychart"
 import { AxisRight } from "@visx/axis"
 import { curveMonotoneX } from "@visx/curve"
 import { LinearGradient } from "@visx/gradient"
 import { ParentSize } from "@visx/responsive"
 import { scaleLinear } from "@visx/scale"
 import { defaultStyles as tooltipDefaultStyles } from "@visx/tooltip"
-import {
-  XYChart,
-  Axis,
-  LineSeries,
-  AreaSeries,
-  Grid,
-  Tooltip,
-  type TooltipData,
-} from "@visx/xychart"
+import { AreaSeries, Axis, Grid, LineSeries, Tooltip, XYChart } from "@visx/xychart"
+import { memo, useCallback } from "react"
 
 import { useTokenRatesMap } from "@ui/state"
 
@@ -38,60 +31,41 @@ const dataKeys = {
 } as const
 
 const useTooltipRenderer = () =>
-  useCallback(
-    ({ tooltipData }: { tooltipData?: TooltipData }) => {
-      const date = (
-        tooltipData?.datumByKey[dataKeys.leftValueArea]?.datum as
-          | DualAxisData
-          | undefined
-      )?.date
-      const leftValue = (
-        tooltipData?.datumByKey[dataKeys.leftValueArea]?.datum as
-          | DualAxisData
-          | undefined
-      )?.leftValue
-      const rightValue = (
-        tooltipData?.datumByKey[dataKeys.rightValueArea]?.datum as
-          | DualAxisData
-          | undefined
-      )?.rightValue
+  useCallback(({ tooltipData }: { tooltipData?: TooltipData }) => {
+    const date = (
+      tooltipData?.datumByKey[dataKeys.leftValueArea]?.datum as DualAxisData | undefined
+    )?.date
+    const leftValue = (
+      tooltipData?.datumByKey[dataKeys.leftValueArea]?.datum as DualAxisData | undefined
+    )?.leftValue
+    const rightValue = (
+      tooltipData?.datumByKey[dataKeys.rightValueArea]?.datum as DualAxisData | undefined
+    )?.rightValue
 
-      if (!date || leftValue == null || rightValue == null) return null
+    if (!date || leftValue == null || rightValue == null) return null
 
-      return (
-        <div className="min-w-[15rem] rounded-lg bg-[#1d1d1d] px-5 py-3">
-          <div className="flex flex-col gap-2">
-            <div className="text-body-secondary text-sm">
-              {date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </div>
-            <div className="flex flex-row items-center gap-2">
-              <div
-                className="h-3 w-3 rounded-sm"
-                style={{ backgroundColor: colours.green }}
-              />
-              <span className="text-body-secondary text-sm">
-                {formatNumber2dp(rightValue)} t
-              </span>
-            </div>
-            <div className="flex flex-row items-center gap-2">
-              <div
-                className="h-3 w-3 rounded-sm"
-                style={{ backgroundColor: colours.red }}
-              />
-              <span className="text-body-secondary text-sm">
-                ${formatNumber2dp(leftValue)}
-              </span>
-            </div>
+    return (
+      <div className="min-w-[15rem] rounded-lg bg-[#1d1d1d] px-5 py-3">
+        <div className="flex flex-col gap-2">
+          <div className="text-body-secondary text-sm">
+            {date.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </div>
+          <div className="flex flex-row items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{ backgroundColor: colours.green }} />
+            <span className="text-body-secondary text-sm">{formatNumber2dp(rightValue)} t</span>
+          </div>
+          <div className="flex flex-row items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{ backgroundColor: colours.red }} />
+            <span className="text-body-secondary text-sm">${formatNumber2dp(leftValue)}</span>
           </div>
         </div>
-      )
-    },
-    [],
-  )
+      </div>
+    )
+  }, [])
 
 type EarningsChartProps = {
   coldkeyData: import("../portfolioApi").ColdkeyReportItem[]
@@ -112,13 +86,13 @@ export const EarningsChart = memo(function EarningsChart({
 
   if (isLoading) {
     return (
-      <div className="bg-grey-800 flex min-h-[200px] w-full animate-pulse items-center justify-center rounded-lg" />
+      <div className="bg-grey-850 flex min-h-[200px] w-full animate-pulse items-center justify-center rounded-lg" />
     )
   }
 
   if (isError) {
     return (
-      <div className="bg-grey-800 flex min-h-[200px] w-full flex-col items-center justify-center gap-4 rounded-lg p-8">
+      <div className="bg-grey-850 flex min-h-[200px] w-full flex-col items-center justify-center gap-4 rounded-lg p-8">
         <p className="text-body-secondary text-center text-sm">
           An error occurred while loading the earnings chart.
         </p>
@@ -127,17 +101,19 @@ export const EarningsChart = memo(function EarningsChart({
   }
 
   return (
-    <div className="bg-grey-800 h-full min-h-[200px] w-full overflow-hidden rounded-lg p-0">
+    <div className="bg-grey-850 h-[250px] w-full overflow-hidden rounded-lg p-0 [&_svg]:!h-full [&_svg]:!w-full">
       <ParentSize>
-        {({ width, height }) => (
-          <ChartInner
-            width={width}
-            height={height}
-            coldkeyData={coldkeyData}
-            balanceTotalTao={balanceTotalTao}
-            balanceTotalUsd={balanceTotalUsd}
-          />
-        )}
+        {({ width, height }) =>
+          width > 0 && height > 0 ? (
+            <ChartInner
+              width={width}
+              height={height}
+              coldkeyData={coldkeyData}
+              balanceTotalTao={balanceTotalTao}
+              balanceTotalUsd={balanceTotalUsd}
+            />
+          ) : null
+        }
       </ParentSize>
     </div>
   )
@@ -163,16 +139,6 @@ const ChartInner = memo(function ChartInner({
     height,
   )
   const handleRenderTooltip = useTooltipRenderer()
-
-  if (data.length < 2) {
-    return (
-      <div className="flex h-full items-center justify-center p-8">
-        <p className="text-body-secondary text-center text-sm">
-          Not enough data to display the chart.
-        </p>
-      </div>
-    )
-  }
 
   return (
     <div>
@@ -229,10 +195,7 @@ const ChartInner = memo(function ChartInner({
           left={width - 49}
           top={defaultMargin.top}
           scale={scaleLinear<number>({
-            domain: [
-              chartConfig.rightAxisMinScale,
-              chartConfig.rightAxisMaxScale,
-            ],
+            domain: [chartConfig.rightAxisMinScale, chartConfig.rightAxisMaxScale],
             range: [height - defaultMargin.top - defaultMargin.bottom, 0],
           })}
           tickFormat={(value) =>
@@ -276,7 +239,9 @@ const ChartInner = memo(function ChartInner({
           dataKey={dataKeys.rightValueArea}
           data={data}
           xAccessor={(d) => d.date}
-          yAccessor={(d) => (d as DualAxisData & { rightValueForPosition: number }).rightValueForPosition}
+          yAccessor={(d) =>
+            (d as DualAxisData & { rightValueForPosition: number }).rightValueForPosition
+          }
           fill="url(#earnings-right-area-gradient)"
           curve={curveMonotoneX}
           lineProps={{ strokeWidth: 2, stroke: colours.green }}
@@ -399,16 +364,18 @@ const ChartInner = memo(function ChartInner({
             backgroundColor: "#1d1d1d",
             borderRadius: "8px",
             padding: "10px",
+            zIndex: 9999,
           }}
           showVerticalCrosshair
-          verticalCrosshairStyle={{ strokeDasharray: "5 3" }}
+          verticalCrosshairStyle={{
+            stroke: "rgba(255,255,255,0.75)",
+            strokeWidth: 2,
+            strokeDasharray: "5 3",
+          }}
           renderTooltip={handleRenderTooltip}
           showSeriesGlyphs
           renderGlyph={({ key }) => {
-            if (
-              key === dataKeys.leftValueArea ||
-              key === dataKeys.rightValueArea
-            ) {
+            if (key === dataKeys.leftValueArea || key === dataKeys.rightValueArea) {
               return (
                 <circle
                   r={4}

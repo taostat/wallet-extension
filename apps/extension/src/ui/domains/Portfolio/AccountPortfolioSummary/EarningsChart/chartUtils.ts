@@ -18,8 +18,6 @@ export const colours = {
   red: "#EB5347",
 }
 
-const TAO_DECIMALS = 9
-
 const getBadgePosition = (
   value: number,
   min: number,
@@ -36,9 +34,16 @@ const getBadgePosition = (
   return positionPercentToHeightValue + 25
 }
 
+const TAO_DECIMALS = 9
 const upScale = (val: number, scale = 1.1) => val * scale
 const downScale = (val: number, scale = 0.9) => val * scale
 const SHOW_TICKS = false
+
+/** Convert rao to TAO if value is in chain format (>= 1e12) */
+const toTao = (val: string | number): number => {
+  const n = Number(val)
+  return n > 1e12 ? n / 10 ** TAO_DECIMALS : n
+}
 
 const calculatePositionFactor = (axisVal: number, axisMin: number, axisMax: number) => {
   const amountOnChart = axisVal - axisMin
@@ -56,13 +61,27 @@ export const useChartConfig = (data: DualAxisData[], chartHeight: number) => {
   const chartConfig = useMemo(() => {
     const rightAxisMin = Math.min(...rVals)
     const rightAxisMax = Math.max(...rVals)
-    const rightAxisMaxScale = upScale(rightAxisMax, 1.0001)
-    const rightAxisMinScale = downScale(rightAxisMin, 0.9999)
+    const rightPad = Math.max(0.01, Math.abs(rightAxisMax) * 0.01)
+    const rightAxisMaxScale =
+      rightAxisMax > rightAxisMin
+        ? upScale(rightAxisMax, 1.0001)
+        : rightAxisMax + rightPad
+    const rightAxisMinScale =
+      rightAxisMax > rightAxisMin
+        ? downScale(rightAxisMin, 0.9999)
+        : rightAxisMin - rightPad
 
     const leftAxisMin = Math.min(...lVals)
     const leftAxisMax = Math.max(...lVals)
-    const leftAxisMaxScale = upScale(leftAxisMax, 1.0001)
-    const leftAxisMinScale = downScale(leftAxisMin, 0.9999)
+    const leftPad = Math.max(0.01, Math.abs(leftAxisMax) * 0.01)
+    const leftAxisMaxScale =
+      leftAxisMax > leftAxisMin
+        ? upScale(leftAxisMax, 1.0001)
+        : leftAxisMax + leftPad
+    const leftAxisMinScale =
+      leftAxisMax > leftAxisMin
+        ? downScale(leftAxisMin, 0.9999)
+        : leftAxisMin - leftPad
 
     const getRightValuePositionOnLeftAxis = (rightAxisVal: number) => {
       const rValPositionFactor = calculatePositionFactor(
@@ -151,11 +170,6 @@ export const useChartConfig = (data: DualAxisData[], chartHeight: number) => {
   return { chartConfig, showTicks, defaultMargin }
 }
 
-const toTao = (raoOrTao: string | number): number => {
-  const n = Number(raoOrTao)
-  return n > 1e12 ? n / 10 ** TAO_DECIMALS : n
-}
-
 export const useChartData = (
   coldkeyData: ColdkeyReportItem[],
   balanceTotalTao: number,
@@ -165,14 +179,13 @@ export const useChartData = (
   const initialData = useMemo(() => {
     const reportData =
       coldkeyData
-        ?.filter((report) => report.total_balance != null)
+        ?.filter((report) => report.total_balance !== null)
         .map((report) => {
           const taoBalance = toTao(report.total_balance ?? 0)
           const taoPrice = Number(report.tao_price ?? 0)
-          const usdValue = taoPrice > 0 ? taoBalance * taoPrice : 0
           return {
             date: new Date(report.timestamp ?? report.date ?? 0),
-            leftValue: usdValue,
+            leftValue: taoPrice > 0 ? taoBalance * taoPrice : 0,
             rightValue: taoBalance,
           }
         }) ?? []

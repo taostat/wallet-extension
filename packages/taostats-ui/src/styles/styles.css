@@ -38,6 +38,31 @@
     @apply h-[1em] w-[1em];
   }
 
+  /* visx chart crosshair/glyph SVGs must not be constrained - they use explicit dimensions */
+  .visx-crosshair svg,
+  .visx-tooltip-glyph svg {
+    height: unset !important;
+    width: unset !important;
+  }
+
+  /* visx crosshair vertical line: ensure it renders on top of chart series (z-index fix) */
+  .visx-crosshair {
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+    transform: translateZ(0);
+    isolation: isolate;
+  }
+
+  /* visx tooltip glyphs (circles on data points): ensure they render on top of chart series */
+  .visx-tooltip-glyph {
+    position: relative;
+    z-index: 11;
+    pointer-events: none;
+    transform: translateZ(0);
+    isolation: isolate;
+  }
+
   input::placeholder,
   textarea::placeholder {
     @apply text-body-disabled;

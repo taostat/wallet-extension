@@ -2,7 +2,7 @@ import { isNetworkDot } from "@taostats-wallet/chaindata-provider"
 import { isAccountAddressSs58 } from "extension-core"
 import { FC, PropsWithChildren, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { useMatch, useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
@@ -58,6 +58,8 @@ const PortfolioAccountCheck: FC<PropsWithChildren> = ({ children }) => {
 export const PortfolioLayout: FC<
   PropsWithChildren & { toolbar?: ReactNode; header?: ReactNode }
 > = ({ header, toolbar, children }) => {
+  const isTokenDetailRoute = !!useMatch("/portfolio/tokens/:netuid")
+
   return (
     // "-mx-4 px-4" allows for portfolio staking badges to overflow, while keeping a consistant width limit and keep content centered
     <div className="-mx-4 w-full px-4">
@@ -67,7 +69,7 @@ export const PortfolioLayout: FC<
         >
           {header ?? <DashboardPortfolioHeader />}
           <PortfolioAccountCheck>
-            <AccountPortfolioSummary />
+            {!isTokenDetailRoute && <AccountPortfolioSummary />}
             <div className="flex h-16 w-full items-center justify-between gap-8 overflow-hidden">
               <PortfolioTabs className="text-md my-0 h-14 w-auto font-bold" />
               <div className="shrink-0">
