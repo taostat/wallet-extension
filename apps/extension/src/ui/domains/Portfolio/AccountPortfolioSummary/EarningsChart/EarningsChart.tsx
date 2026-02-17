@@ -11,15 +11,10 @@ import { memo, useCallback } from "react"
 import { useTokenRatesMap } from "@ui/state"
 
 import type { DualAxisData } from "./chartUtils"
+import { formatNumber } from "../utils"
 import { colours, useChartData } from "./chartUtils"
 
 const TAO_TOKEN_ID = "bittensor:substrate-dtao:0"
-
-const formatNumber2dp = (n: number) =>
-  n.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
 
 const dataKeys = {
   leftValueArea: "Left Value Area",
@@ -55,12 +50,12 @@ const useTooltipRenderer = () =>
             })}
           </div>
           <div className="flex flex-row items-center gap-2">
-            <div className="h-3 w-3 rounded-sm" style={{ backgroundColor: colours.green }} />
-            <span className="text-body-secondary text-sm">{formatNumber2dp(rightValue)} t</span>
+            <div className="bg-accent-1 h-3 w-3 rounded-sm" />
+            <span className="text-body-secondary text-sm">{formatNumber(rightValue)} t</span>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <div className="h-3 w-3 rounded-sm" style={{ backgroundColor: colours.red }} />
-            <span className="text-body-secondary text-sm">${formatNumber2dp(leftValue)}</span>
+            <div className="bg-accent-2 h-3 w-3 rounded-sm" />
+            <span className="text-body-secondary text-sm">${formatNumber(leftValue)}</span>
           </div>
         </div>
       </div>

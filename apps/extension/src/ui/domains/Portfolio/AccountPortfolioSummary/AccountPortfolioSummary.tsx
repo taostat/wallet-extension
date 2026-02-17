@@ -12,12 +12,36 @@ import { portfolioDateRangeAtom, useSelectedCurrency, useSetting } from "@ui/sta
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { EarningsChart } from "./EarningsChart/EarningsChart"
 import { useAccountPortfolioData } from "./useAccountPortfolioData"
+import { formatNumber } from "./utils"
 
-const formatNumber = (n: number, decimals = 2) =>
-  n.toLocaleString("en-US", {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  })
+const StatCardContainer: FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="bg-grey-850 flex flex-grow flex-col gap-4 rounded-lg p-6">{children}</div>
+)
+
+const Skeleton: FC<{ className?: string }> = ({ className }) => (
+  <div className={classNames("bg-grey-700 h-10 w-32 animate-pulse rounded", className)} />
+)
+
+const SelectorButton: FC<{
+  isSelected: boolean
+  onClick: () => void
+  children: React.ReactNode
+  className?: string
+}> = ({ isSelected, onClick, children, className = "px-2.5 py-1" }) => (
+  <button
+    type="button"
+    className={classNames(
+      "rounded-lg border text-sm transition-colors",
+      isSelected
+        ? "border-accent-1 bg-accent-1/10 text-white"
+        : "border-[#323232] bg-[#1D1D1D] text-white/60 hover:bg-emerald-500/20 hover:text-white",
+      className,
+    )}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+)
 
 const portfolioDateRanges = [
   { label: "1D", value: "1d" },
@@ -29,27 +53,19 @@ const portfolioDateRanges = [
 const DateRangeSelector: FC<{
   dateRangeSelected: string
   onDateRangeChange: (value: string) => void
-}> = ({ dateRangeSelected, onDateRangeChange }) => {
-  return (
-    <div className="flex gap-2">
-      {portfolioDateRanges.map((range) => (
-        <button
-          type="button"
-          key={range.value}
-          className={classNames(
-            "rounded-lg border px-2.5 py-1 text-sm transition-colors",
-            dateRangeSelected === range.value
-              ? "border-accent-1 bg-accent-1/10 text-white"
-              : "border-[#323232] bg-[#1D1D1D] text-white/60 hover:bg-emerald-500/20 hover:text-white",
-          )}
-          onClick={() => onDateRangeChange(range.value)}
-        >
-          {range.label}
-        </button>
-      ))}
-    </div>
-  )
-}
+}> = ({ dateRangeSelected, onDateRangeChange }) => (
+  <div className="flex gap-2">
+    {portfolioDateRanges.map((range) => (
+      <SelectorButton
+        key={range.value}
+        isSelected={dateRangeSelected === range.value}
+        onClick={() => onDateRangeChange(range.value)}
+      >
+        {range.label}
+      </SelectorButton>
+    ))}
+  </div>
+)
 
 const CurrencySelector: FC = () => {
   const currency = useSelectedCurrency()
@@ -58,19 +74,14 @@ const CurrencySelector: FC = () => {
   return (
     <div className="flex gap-2">
       {(["tao", "usd"] as const).map((opt) => (
-        <button
+        <SelectorButton
           key={opt}
-          type="button"
-          className={classNames(
-            "rounded-lg border px-3 py-1.5 text-sm transition-colors",
-            currency === opt
-              ? "border-accent-1 bg-accent-1/10 text-white"
-              : "border-[#323232] bg-[#1D1D1D] text-white/60 hover:bg-emerald-500/20 hover:text-white",
-          )}
+          isSelected={currency === opt}
           onClick={() => setCurrency(opt)}
+          className="px-3 py-1.5"
         >
           {currencyConfig[opt]?.symbol ?? opt.toUpperCase()}
-        </button>
+        </SelectorButton>
       ))}
     </div>
   )
@@ -85,13 +96,13 @@ type StatCardProps = {
 }
 
 const StatCard: FC<StatCardProps> = ({ title, value, footer, isLoading, skeletonRows = 1 }) => (
-  <div className="bg-grey-850 flex flex-grow flex-col gap-4 rounded-lg p-6">
+  <StatCardContainer>
     <div className="text-body-secondary text-sm">{title}</div>
     <div className="flex flex-1 flex-col justify-between gap-2">
       {isLoading ? (
         <div className="flex flex-col gap-2">
           {Array.from({ length: skeletonRows }).map((_, i) => (
-            <div key={i} className="bg-grey-700 h-10 w-32 animate-pulse rounded" />
+            <Skeleton key={i} />
           ))}
         </div>
       ) : (
@@ -101,11 +112,12 @@ const StatCard: FC<StatCardProps> = ({ title, value, footer, isLoading, skeleton
         </>
       )}
     </div>
-  </div>
+  </StatCardContainer>
 )
 
 type EarningsCardProps = {
   isLoading: boolean
+  isValidatorYieldLoading?: boolean
   totalEarningsTao: number
   totalEarningsUsd: number
   overallYieldPercentage: number | null
@@ -113,13 +125,16 @@ type EarningsCardProps = {
 
 const EarningsCard: FC<EarningsCardProps> = ({
   isLoading,
+  isValidatorYieldLoading = false,
   totalEarningsTao,
   totalEarningsUsd,
   overallYieldPercentage,
 }) => {
   const { t } = useTranslation()
+  const showApyValue = !isValidatorYieldLoading
+
   return (
-    <div className="bg-grey-850 flex flex-grow flex-col gap-4 rounded-lg p-6">
+    <StatCardContainer>
       {/* Header row: Earnings (left) | Staking APY (right) */}
       <div className="flex flex-row justify-between">
         <span className="text-body-secondary text-sm">{t("Earnings")}</span>
@@ -139,8 +154,8 @@ const EarningsCard: FC<EarningsCardProps> = ({
       {/* Content row: left = earnings, right = APY */}
       {isLoading ? (
         <div className="flex flex-row justify-between gap-4">
-          <div className="bg-grey-700 h-10 w-32 animate-pulse rounded" />
-          <div className="bg-grey-700 h-10 w-20 animate-pulse rounded" />
+          <Skeleton />
+          <Skeleton className="!w-20" />
         </div>
       ) : (
         <div className="flex flex-row justify-between">
@@ -152,16 +167,20 @@ const EarningsCard: FC<EarningsCardProps> = ({
               ${formatNumber(totalEarningsUsd)}
             </div>
           </div>
-          <div className="flex flex-col items-start justify-start">
-            <span className="text-body-secondary text-sm font-light text-white/60">
-              {overallYieldPercentage != null
-                ? `${formatNumber(overallYieldPercentage)}% APY`
-                : "—"}
-            </span>
+          <div className="flex min-w-[4rem] flex-col items-start justify-start">
+            {showApyValue ? (
+              <span className="text-body-secondary text-[0.85rem] font-light text-white/60">
+                {overallYieldPercentage != null
+                  ? `${formatNumber(overallYieldPercentage)}% APY`
+                  : "—"}
+              </span>
+            ) : (
+              <Skeleton className="!h-5 !w-16" />
+            )}
           </div>
         </div>
       )}
-    </div>
+    </StatCardContainer>
   )
 }
 
@@ -173,6 +192,7 @@ export const AccountPortfolioSummary: FC = () => {
 
   const {
     isLoading,
+    isValidatorYieldLoading,
     isError,
     totalEarningsTao,
     totalEarningsUsd,
@@ -273,6 +293,7 @@ export const AccountPortfolioSummary: FC = () => {
           <div className="flex flex-col gap-6">
             <EarningsCard
               isLoading={isLoading}
+              isValidatorYieldLoading={isValidatorYieldLoading}
               totalEarningsTao={totalEarningsTao}
               totalEarningsUsd={totalEarningsUsd}
               overallYieldPercentage={overallYieldPercentage}

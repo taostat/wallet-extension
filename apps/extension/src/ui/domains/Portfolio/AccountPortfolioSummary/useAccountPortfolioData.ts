@@ -170,13 +170,15 @@ export const useAccountPortfolioData = (
   const accountsTotal = statsData?.accounts ?? 0
   const rankPercentage = accountsTotal > 0 ? (rank / accountsTotal) * 100 : 0
 
+  const isValidatorYieldLoading = validatorYieldQueries.some((q) => q.isLoading)
+
   return {
     isLoading:
       accountQuery.isLoading ||
       statsQuery.isLoading ||
       coldkeyReportQuery.isLoading ||
-      stakeBalanceQuery.isLoading ||
-      validatorYieldQueries.some((q) => q.isLoading),
+      stakeBalanceQuery.isLoading,
+    isValidatorYieldLoading,
     isError:
       accountQuery.isError ||
       statsQuery.isError ||
