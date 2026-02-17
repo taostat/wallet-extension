@@ -205,7 +205,7 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
               </ContextMenuItem>
               {!!blockExplorerUrl && (
                 <ContextMenuItem onClick={() => window.open(blockExplorerUrl, "_blank")}>
-                  {t("View on block explorer")}
+                  {t("View on Taostats")}
                 </ContextMenuItem>
               )}
             </ContextMenuContent>

@@ -35,7 +35,7 @@ const ViewOnExplorerMenuItem: FC<{ account: Account }> = ({ account }) => {
 
   if (!canOpen) return null
 
-  return <ContextMenuItem onClick={handleClick}>{t("View on explorer")}</ContextMenuItem>
+  return <ContextMenuItem onClick={handleClick}>{t("View on Taostats")}</ContextMenuItem>
 }
 
 type Props = {

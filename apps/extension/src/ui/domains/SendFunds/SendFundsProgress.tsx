@@ -118,7 +118,7 @@ const SendFundsProgressBase: FC<SendFundsProgressBaseProps> = ({
             <Trans t={t}>
               View transaction on{" "}
               <a target="_blank" className="hover:text-body text-grey-200" href={href}>
-                block explorer <ExternalLinkIcon className="inline align-text-top" />
+                Taostats <ExternalLinkIcon className="inline align-text-top" />
               </a>
             </Trans>
           ) : null}

@@ -142,7 +142,7 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
                 onClick={handleViewOnExplorer}
                 className="disabled:!text-body-disabled disabled:!cursor-not-allowed disabled:!bg-transparent"
               >
-                {t("View on explorer")}
+                {t("View on Taostats")}
               </ContextMenuItem>
               <ContextMenuItem onClick={() => handleDelete(contact.address)}>
                 {t("Delete contact")}
