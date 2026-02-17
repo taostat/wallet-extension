@@ -2054,7 +2054,6 @@
   "Earnings": "Earnings",
   "Wallet Rank": "Wallet Rank",
   "Staking APY — weighted average": "Staking APY — weighted average",
-  "Price change in selected period": "Price change in selected period",
   "View NFTs": "View NFTs",
   "View on {{label}}": "View on {{label}}",
   "View on {{marketplace}}": "View on {{marketplace}}",
@@ -2066,7 +2065,8 @@
   "View Report": "View Report",
   "View swap status": "View swap status",
   "View token details": "View token details",
-  "View transaction on <2>block explorer <1></1></2>": "View transaction on <2>block explorer <1></1></2>",
+  "View transaction on <2>block explorer <1></1></2>": "View transaction on <2>Taostats <1></1></2>",
+  "View transaction on <2>Taostats <1></1></2>": "View transaction on <2>Taostats <1></1></2>",
   "Manage networks and tokens": "Manage networks and tokens",
   "Vote <Vote /> on <Referenda /> with <Conviction /> <Tokens />": "Vote <Vote /> on <Referenda /> with <Conviction /> <Tokens />",
   "Vote <Vote /> on referenda <Referenda /> with <Tokens /> and conviction <Conviction />": "Vote <Vote /> on referenda <Referenda /> with <Tokens /> and conviction <Conviction />",
@@ -2240,5 +2240,8 @@
   "2. Choose Ledger App": "2. Choose Ledger App",
   "12-word": "12-word",
   "24-word": "24-word",
+  "24hr Change": "24hr Change",
+  "Realised": "Realised",
+  "Unrealised": "Unrealised",
   "30 days APY": "30 days APY"
 }

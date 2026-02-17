@@ -97,7 +97,7 @@ export const ExplorerNetworkPicker: FC<{ address: string; onClose: () => void }>
     <div id="copy-address-modal" className="flex h-full w-full flex-col overflow-hidden bg-black">
       <div className="flex h-32 w-full shrink-0 items-center px-12">
         <div className="w-12"></div>
-        <div className="text-body-secondary grow text-center">{t("View on explorer")}</div>
+        <div className="text-body-secondary grow text-center">{t("View on Taostats")}</div>
         <IconButton onClick={onClose}>
           <XIcon />
         </IconButton>
