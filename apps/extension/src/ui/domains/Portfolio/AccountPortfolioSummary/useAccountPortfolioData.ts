@@ -112,15 +112,17 @@ export const useAccountPortfolioData = (
   const gainsPercent =
     balance24hAgoTao > 0 ? (gainsTao / balance24hAgoTao) * 100 : 0
 
-  // Earnings from coldkey report (sum of daily_income - values are in rao/planck)
-  const totalEarningsTao = coldkeyData.reduce((sum, item) => {
-    const incomeRao = item.daily_income ? Number(item.daily_income) : 0
-    return sum + incomeRao / 10 ** TAO_DECIMALS
-  }, 0)
-  const totalEarningsUsd = coldkeyData.reduce((sum, item) => {
-    const income = item.daily_income_usd ? Number(item.daily_income_usd) : 0
-    return sum + income
-  }, 0)
+  // Earnings from stake balance (match dashboard: sum total_earned_alpha_as_tao and total_earned_alpha_as_usd per position)
+  const totalEarningsTao = (stakeBalanceData as StakeBalanceItem[]).reduce(
+    (sum, item) =>
+      sum + fromRaoToTao(item.total_earned_alpha_as_tao ?? 0),
+    0,
+  )
+  const totalEarningsUsd = (stakeBalanceData as StakeBalanceItem[]).reduce(
+    (sum, item) =>
+      sum + Number(item.total_earned_alpha_as_usd ?? 0),
+    0,
+  )
 
   const validatorYieldData = validatorYieldQueries.flatMap((q) => q.data?.data ?? [])
 

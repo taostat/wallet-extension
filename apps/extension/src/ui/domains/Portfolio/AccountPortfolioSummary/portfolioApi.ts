@@ -42,6 +42,8 @@ export type StakeBalanceItem = {
   netuid: number
   hotkey: { ss58: string; hex?: string }
   balance_as_tao: string
+  total_earned_alpha_as_tao?: string
+  total_earned_alpha_as_usd?: string
   realised_profit_tao: string
   realised_profit_usd: string
   unrealised_profit_tao: string
