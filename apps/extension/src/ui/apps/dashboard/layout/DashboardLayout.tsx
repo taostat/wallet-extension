@@ -64,12 +64,7 @@ export const DashboardLayout: FC<{
   )
 }
 
-const RESPONSIVE_FLEX_SPACING = classNames(
-  "gap-5 px-5",
-  "md:gap-10 md:px-10",
-  "lg:gap-20 lg:px-20",
-  "xl:gap-32 xl:px-32",
-)
+const RESPONSIVE_FLEX_SPACING = classNames("gap-8 px-5", "md:px-10", "lg:px-20", "xl:px-32")
 
 const NavButton: FC<{
   label: ReactNode
