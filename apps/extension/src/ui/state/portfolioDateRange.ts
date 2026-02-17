@@ -6,7 +6,7 @@ const STORAGE_KEY = "portfolio-date-range"
 
 export const portfolioDateRangeAtom = atomWithStorage<PortfolioDateRange>(
   STORAGE_KEY,
-  "1d",
+  "1m",
   {
     getItem: (key) => {
       try {
@@ -17,7 +17,7 @@ export const portfolioDateRangeAtom = atomWithStorage<PortfolioDateRange>(
       } catch {
         // ignore
       }
-      return "1d"
+      return "1m"
     },
     setItem: (key, value) => {
       try {
