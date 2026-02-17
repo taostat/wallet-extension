@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { AccountPortfolioSummary } from "@ui/domains/Portfolio/AccountPortfolioSummary"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { GetStarted } from "@ui/domains/Portfolio/GetStarted/GetStarted"
 import { PortfolioTabs } from "@ui/domains/Portfolio/PortfolioTabs"
@@ -66,6 +67,7 @@ export const PortfolioLayout: FC<
         >
           {header ?? <DashboardPortfolioHeader />}
           <PortfolioAccountCheck>
+            <AccountPortfolioSummary />
             <div className="flex h-16 w-full items-center justify-between gap-8 overflow-hidden">
               <PortfolioTabs className="text-md my-0 h-14 w-auto font-bold" />
               <div className="shrink-0">
