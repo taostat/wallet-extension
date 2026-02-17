@@ -169,7 +169,7 @@ const EarningsCard: FC<EarningsCardProps> = ({
           </div>
           <div className="flex min-w-[4rem] flex-col items-start justify-start">
             {showApyValue ? (
-              <span className="text-body-secondary text-[0.85rem] font-light text-white/60">
+              <span className="text-body-secondary text-sm font-light text-white/60">
                 {overallYieldPercentage != null
                   ? `${formatNumber(overallYieldPercentage)}% APY`
                   : "—"}
