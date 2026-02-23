@@ -16,7 +16,7 @@ import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
 import { DatabaseErrorAlert } from "@ui/domains/Settings/DatabaseErrorAlert"
-import { BittensorBondModal } from "@ui/domains/Staking/Bittensor/BittensorBondModal"
+import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStakeModal"
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
 import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
@@ -77,7 +77,7 @@ const Popup = () => {
         <AccountRemoveModal />
         <AccountRenameModal />
         <StakeModal />
-        <BittensorBondModal />
+        <BittensorStakeModal />
         <BittensorClaimSettingsModal />
         <CopyAddressModal />
         <ExplorerNetworkPickerModal />

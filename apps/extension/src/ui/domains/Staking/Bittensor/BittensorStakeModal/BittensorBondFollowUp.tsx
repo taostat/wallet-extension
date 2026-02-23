@@ -1,10 +1,10 @@
 import { TxProgress } from "../../../Transactions"
-import { useBittensorBondModal } from "../hooks/useBittensorBondModal"
-import { useBittensorBondWizard } from "../hooks/useBittensorBondWizard"
+import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
+import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 
 export const BittensorBondFollowUp = () => {
-  const { close } = useBittensorBondModal()
-  const { hash, nativeToken } = useBittensorBondWizard()
+  const { close } = useBittensorStakeModal()
+  const { hash, nativeToken } = useBittensorStakeWizard()
 
   if (!hash || !nativeToken?.networkId) return null
 

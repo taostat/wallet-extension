@@ -1,9 +1,9 @@
 import { TokensAndFiat } from "@ui/domains/Asset/TokensAndFiat"
 
-import { useBittensorBondWizard } from "../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 
 export const BittensorAvailableToUnstake = () => {
-  const { dtaoToken, dtaoBalance } = useBittensorBondWizard()
+  const { dtaoToken, dtaoBalance } = useBittensorStakeWizard()
 
   return (
     <div className="text-body-secondary flex items-center gap-2">

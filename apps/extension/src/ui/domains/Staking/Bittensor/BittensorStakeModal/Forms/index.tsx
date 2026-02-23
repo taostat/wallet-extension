@@ -1,4 +1,4 @@
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { BittensorBondFollowUp } from "../BittensorBondFollowUp"
 import { BittensorRootBondForm } from "./BittensorRootBondForm"
 import { BittensorRootBondReview } from "./BittensorRootBondReview"
@@ -8,8 +8,8 @@ import { BittensorSubnetBondReview } from "./BittensorSubnetBondReview"
 import { BittensorSubnetSelect } from "./BittensorSubnetSelect"
 import { BittensorValidatorSelect } from "./BittensorValidatorSelect"
 
-export const BittensorBondModalRouter = () => {
-  const { step, stakeType } = useBittensorBondWizard()
+export const BittensorStakeModalRouter = () => {
+  const { step, stakeType } = useBittensorStakeWizard()
 
   switch (step) {
     case "form":

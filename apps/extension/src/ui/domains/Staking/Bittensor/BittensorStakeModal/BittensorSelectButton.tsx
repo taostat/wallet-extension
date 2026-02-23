@@ -2,7 +2,7 @@ import { SettingsIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
 import { useCallback, useMemo } from "react"
 
-import { useBittensorBondWizard } from "../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 
 type BittensorSelectButtonProps = {
   isLoading?: boolean
@@ -17,7 +17,7 @@ export const BittensorSelectButton = ({
   label,
   nextStep,
 }: BittensorSelectButtonProps) => {
-  const { setStep, step, stakeDirection } = useBittensorBondWizard()
+  const { setStep, step, stakeDirection } = useBittensorStakeWizard()
 
   const isBtnDisabled = useMemo(() => isDisabled || !step.includes("form"), [step, isDisabled])
 

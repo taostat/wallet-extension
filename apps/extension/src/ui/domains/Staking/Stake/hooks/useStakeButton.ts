@@ -8,7 +8,7 @@ import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useAccounts, useBalances, useRemoteConfig } from "@ui/state"
 import { useBittensorNetworkIds } from "@ui/state/bittensor"
 
-import { useBittensorBondModal } from "../../Bittensor/hooks/useBittensorBondModal"
+import { useBittensorStakeModal } from "../../Bittensor/hooks/useBittensorStakeModal"
 import { useStakeModal } from "./useStakeModal"
 
 export const useStakeButton = ({
@@ -24,7 +24,7 @@ export const useStakeButton = ({
 
   const remoteConfig = useRemoteConfig()
   const { open } = useStakeModal()
-  const { open: handleOpenBittensorModal } = useBittensorBondModal()
+  const { open: handleOpenBittensorModal } = useBittensorStakeModal()
   const bittensorNetworkIds = useBittensorNetworkIds()
   const allBalances = useBalances("owned")
 
@@ -59,7 +59,7 @@ export const useStakeButton = ({
         case "bittensor": {
           const { address, networkId, hotkey, netuid } = bestStakeableBalance
           handleOpenBittensorModal({
-            stakeDirection: "bond",
+            stakeDirection: "stake",
             address,
             networkId,
             hotkey,

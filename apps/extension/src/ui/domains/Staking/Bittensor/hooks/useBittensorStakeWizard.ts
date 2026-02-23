@@ -34,7 +34,7 @@ export type WizardStep =
   | "select-subnet"
   | "select-position"
 export type StakeType = "root" | "subnet"
-export type StakeDirection = "bond" | "unbond"
+export type StakeDirection = "stake" | "unstake"
 
 type WizardState = {
   step: WizardStep
@@ -67,12 +67,12 @@ const DEFAULT_STATE: WizardState = {
   displayMode: "token",
   hash: null,
   stakeType: null,
-  stakeDirection: "bond",
+  stakeDirection: "stake",
 }
 
 const wizardOpenState$ = new BehaviorSubject(DEFAULT_STATE)
 
-export const useResetBittensorBondWizard = () => {
+export const useResetBittensorStakeWizard = () => {
   const reset = useCallback((init: BittensorStakingWizardOpenOptions) => {
     const stakeType =
       typeof init.netuid === "number" ? (init.netuid === 0 ? "root" : "subnet") : null
@@ -108,7 +108,7 @@ const useDtaoToken = (networkId: string, netuid: number, hotkey?: string) => {
   return tokenWithHotkey || tokenWithoutHotkey
 }
 
-const useBittensorBondWizardProvider = () => {
+const useBittensorStakeWizardProvider = () => {
   const { t } = useTranslation()
   const { genericEvent } = useAnalytics()
   const { allBalances } = usePortfolioBalances()
@@ -170,9 +170,8 @@ const useBittensorBondWizardProvider = () => {
     errorFeeEstimate,
     isLoadingFeeEstimate,
     currentHotkey,
-    minTaoBond,
-    minAlphaBond,
     minTaoStake,
+    minAlphaStake,
     minAlphaUnstake,
     priceImpact,
     taostatsFee,
@@ -188,8 +187,8 @@ const useBittensorBondWizardProvider = () => {
     stakeDirection,
   })
 
-  const isSubnetUnbond = useMemo(
-    () => stakeDirection === "unbond" && netuid !== ROOT_NETUID,
+  const isSubnetUnstake = useMemo(
+    () => stakeDirection === "unstake" && netuid !== ROOT_NETUID,
     [netuid, stakeDirection],
   )
 
@@ -197,24 +196,24 @@ const useBittensorBondWizardProvider = () => {
     () =>
       typeof amountIn === "bigint"
         ? new BalanceFormatter(
-            isSubnetUnbond ? amountOut : amountIn,
+            isSubnetUnstake ? amountOut : amountIn,
             nativeToken?.decimals,
             tokenRates,
           )
         : null,
-    [amountIn, isSubnetUnbond, amountOut, nativeToken?.decimals, tokenRates],
+    [amountIn, isSubnetUnstake, amountOut, nativeToken?.decimals, tokenRates],
   )
 
   const amountAlpha = useMemo(
     () =>
       typeof amountIn === "bigint"
         ? new BalanceFormatter(
-            isSubnetUnbond ? amountIn : amountOut,
+            isSubnetUnstake ? amountIn : amountOut,
             nativeToken?.decimals,
             tokenRates,
           )
         : null,
-    [amountIn, amountOut, isSubnetUnbond, nativeToken?.decimals, tokenRates],
+    [amountIn, amountOut, isSubnetUnstake, nativeToken?.decimals, tokenRates],
   )
 
   const setAddress = useCallback(
@@ -263,21 +262,21 @@ const useBittensorBondWizardProvider = () => {
       !!hotkey &&
       (stakeType === "root" ? true : !!netuid) &&
       !!amountTao &&
-      typeof minTaoBond === "bigint" &&
+      typeof minTaoStake === "bigint" &&
       amountIn &&
       amountIn > 0n,
-    [account, amountTao, minTaoBond, netuid, amountIn, hotkey, stakeType, nativeToken],
+    [account, amountTao, minTaoStake, netuid, amountIn, hotkey, stakeType, nativeToken],
   )
 
   const isUnstakeFormValid = useMemo(() => amountIn && amountIn > 0n, [amountIn])
 
   const isFormValid = useMemo(
-    () => (stakeDirection === "bond" ? isStakeFormValid : isUnstakeFormValid),
+    () => (stakeDirection === "stake" ? isStakeFormValid : isUnstakeFormValid),
     [isStakeFormValid, isUnstakeFormValid, stakeDirection],
   )
 
   useEffect(() => {
-    if (!!currentHotkey && !hotkey && currentHotkey !== hotkey && stakeDirection === "bond") {
+    if (!!currentHotkey && !hotkey && currentHotkey !== hotkey && stakeDirection === "stake") {
       setWizardState((prev) => ({ ...prev, hotkey: currentHotkey }))
     }
   }, [currentHotkey, hotkey, stakeDirection, step])
@@ -310,7 +309,7 @@ const useBittensorBondWizardProvider = () => {
 
   const onSubmitted = useCallback(
     (hash: Hex) => {
-      genericEvent("Bittensor Bond", { tokenId: nativeTokenId })
+      genericEvent("Bittensor Stake", { tokenId: nativeTokenId })
       if (hash) setWizardState((prev) => ({ ...prev, step: "follow-up", hash }))
     },
     [genericEvent, nativeTokenId],
@@ -322,7 +321,7 @@ const useBittensorBondWizardProvider = () => {
   )
 
   const maxPlancks = useMemo(() => {
-    if (stakeDirection === "unbond") {
+    if (stakeDirection === "unstake") {
       return totalStakedPlancks
     }
     if (!nativeBalance || !existentialDeposit || !feeEstimate) return null
@@ -334,7 +333,7 @@ const useBittensorBondWizardProvider = () => {
   }, [stakeDirection, nativeBalance, existentialDeposit, feeEstimate, totalStakedPlancks])
 
   const newStakeTotal = useMemo(() => {
-    if (stakeDirection === "unbond") {
+    if (stakeDirection === "unstake") {
       return totalStakedPlancks - (amountIn || 0n)
     }
     if (stakeType === "subnet") {
@@ -344,7 +343,7 @@ const useBittensorBondWizardProvider = () => {
   }, [amountOut, amountIn, stakeDirection, stakeType, totalStakedPlancks])
 
   const stakeInputErrorMessage = useMemo(() => {
-    if (!amountTao || typeof minTaoBond !== "bigint") return null
+    if (!amountTao || typeof minTaoStake !== "bigint") return null
 
     if (
       !!nativeBalance &&
@@ -382,16 +381,16 @@ const useBittensorBondWizardProvider = () => {
         "Insufficient balance to cover staking, the existential deposit, and the future unbonding and withdrawal fees",
       )
 
-    // if not staking yet, need minTaoBond or more
-    if (!dtaoBalance?.free.planck && amountTao.planck < minTaoBond)
-      return t("Minimum bond is {{amount}} {{symbol}}", {
-        amount: new BalanceFormatter(minTaoBond, nativeToken?.decimals).tokens,
+    // if not staking yet, need minTaoStake or more
+    if (!dtaoBalance?.free.planck && amountTao.planck < minTaoStake)
+      return t("Minimum stake is {{amount}} {{symbol}}", {
+        amount: new BalanceFormatter(minTaoStake, nativeToken?.decimals).tokens,
         symbol: nativeToken?.symbol,
       })
 
     // no staking operation can be less than minTaoStake
     if (amountTao.planck < minTaoStake)
-      return t("Minimum bond is {{amount}} {{symbol}}", {
+      return t("Minimum stake is {{amount}} {{symbol}}", {
         amount: new BalanceFormatter(minTaoStake, nativeToken?.decimals).tokens,
         symbol: nativeToken?.symbol,
       })
@@ -399,7 +398,7 @@ const useBittensorBondWizardProvider = () => {
     return null
   }, [
     amountTao,
-    minTaoBond,
+    minTaoStake,
     nativeBalance,
     t,
     feeEstimate,
@@ -423,9 +422,9 @@ const useBittensorBondWizardProvider = () => {
       return t("Insufficient balance")
     }
     if (
-      newStakeTotal < (minAlphaBond || 0n) &&
+      newStakeTotal < (minAlphaStake || 0n) &&
       newStakeTotal !== 0n &&
-      !isSubnetUnbond &&
+      !isSubnetUnstake &&
       (amountIn || 0n) > 0n
     ) {
       return t("You must keep 0.1 TAO to continue staking")
@@ -446,8 +445,8 @@ const useBittensorBondWizardProvider = () => {
     amountIn,
     totalStakedPlancks,
     newStakeTotal,
-    minAlphaBond,
-    isSubnetUnbond,
+    minAlphaStake,
+    isSubnetUnstake,
     amountAlpha?.planck,
     minAlphaUnstake,
     t,
@@ -456,7 +455,7 @@ const useBittensorBondWizardProvider = () => {
   ])
 
   const inputErrorMessage = useMemo(
-    () => (stakeDirection === "bond" ? stakeInputErrorMessage : unstakeInputErrorMessage),
+    () => (stakeDirection === "stake" ? stakeInputErrorMessage : unstakeInputErrorMessage),
     [stakeDirection, stakeInputErrorMessage, unstakeInputErrorMessage],
   )
 
@@ -474,12 +473,12 @@ const useBittensorBondWizardProvider = () => {
 
   useEffect(() => {
     // if unstaking and no position selected, open position select step
-    if (stakeDirection === "unbond" && step === "form" && !position) setStep("select-position")
+    if (stakeDirection === "unstake" && step === "form" && !position) setStep("select-position")
   }, [stakeDirection, position, setStep, step])
 
   useEffect(() => {
     // on mount, if stake type is not set, display the stake type select drawer
-    if (!stakeType && stakeDirection === "bond") stakeTypeDrawer.open()
+    if (!stakeType && stakeDirection === "stake") stakeTypeDrawer.open()
   }, [stakeType, stakeDirection, stakeTypeDrawer])
 
   return {
@@ -507,7 +506,7 @@ const useBittensorBondWizardProvider = () => {
     stakeDirection,
     dtaoBalance,
     newStakeTotal,
-    isSubnetUnbond,
+    isSubnetUnstake,
     position,
     slippage,
     payload: !inputErrorMessage && isFormValid ? payload : null,
@@ -539,6 +538,6 @@ const useBittensorBondWizardProvider = () => {
   }
 }
 
-export const [BittensorBondWizardProvider, useBittensorBondWizard] = provideContext(
-  useBittensorBondWizardProvider,
+export const [BittensorStakeWizardProvider, useBittensorStakeWizard] = provideContext(
+  useBittensorStakeWizardProvider,
 )

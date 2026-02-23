@@ -14,7 +14,7 @@ import {
 } from "taostats-ui"
 
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../../shared/ModalContent"
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import {
   SUBNET_SLIPPAGE_SCHEMA,
   useBittensorSubnetSlippage,
@@ -26,7 +26,7 @@ import {
 } from "../../utils/constants"
 
 export const BittensorSlippageDrawer = () => {
-  const { slippageDrawer, netuid } = useBittensorBondWizard()
+  const { slippageDrawer, netuid } = useBittensorStakeWizard()
   const [slippage, setSlippage] = useBittensorSubnetSlippage(netuid)
   const [slippageEdit, setSlippageEdit] = useState<string>(String(slippage))
   const { t } = useTranslation()

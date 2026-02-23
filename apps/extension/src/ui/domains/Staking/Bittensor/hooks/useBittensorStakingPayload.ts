@@ -9,7 +9,7 @@ import { useGetBittensorMinJoinBond } from "../../hooks/bittensor/useGetBittenso
 import { useGetBittensorDefaultMinStake } from "../../hooks/bittensor/useGetBittensorMinStake"
 import {
   getBittensorStakingPayload,
-  getBittensorUnbondPayload,
+  getBittensorUnstakePayload,
   getLimitPrice,
 } from "../utils/helpers"
 import { StakeDirection } from "./types"
@@ -54,18 +54,18 @@ export const useBittensorStakingPayload = ({
     isError: isErrorAlphaPrice,
   } = useBittensorAlphaPrice({ networkId, netuid })
 
-  // an partial unstake operation will fail if the remaining stake is less than the alpha equivalent of minTaoBond
-  const minAlphaBond = useMemo(() => {
+  // a partial unstake operation will fail if the remaining stake is less than the alpha equivalent of minTaoStake
+  const minAlphaStake = useMemo(() => {
     if (typeof minTaoBond !== "bigint" || typeof alphaPrice !== "bigint") return null
     return taoToAlpha(minTaoBond, alphaPrice)
   }, [minTaoBond, alphaPrice])
 
-  const minTaoStake = useGetBittensorDefaultMinStake({ networkId })
+  const defaultMinTaoStake = useGetBittensorDefaultMinStake({ networkId })
 
   const minAlphaUnstake = useMemo(() => {
-    if (typeof minTaoStake !== "bigint" || typeof alphaPrice !== "bigint") return null
-    return taoToAlpha(minTaoStake, alphaPrice)
-  }, [minTaoStake, alphaPrice])
+    if (typeof defaultMinTaoStake !== "bigint" || typeof alphaPrice !== "bigint") return null
+    return taoToAlpha(defaultMinTaoStake, alphaPrice)
+  }, [defaultMinTaoStake, alphaPrice])
 
   // amount to be swapped. in case of taoToAlpha on a subnet, we need to subtract the taostats fee first or it will invalidate the simulation.
   const amount = useMemo(() => {
@@ -192,9 +192,8 @@ export const useBittensorStakingPayload = ({
 
     feeEstimatePayload: feeEstimatePayload?.payload,
 
-    minTaoBond,
-    minAlphaBond,
-    minTaoStake,
+    minTaoStake: minTaoBond,
+    minAlphaStake,
     minAlphaUnstake,
     priceImpact,
     slippage,
@@ -269,7 +268,7 @@ const useBittensorAnyStakingPayload = ({
             taostatsFee,
           })
         case "alphaToTao":
-          return getBittensorUnbondPayload({
+          return getBittensorUnstakePayload({
             sapi,
             address,
             hotkey,

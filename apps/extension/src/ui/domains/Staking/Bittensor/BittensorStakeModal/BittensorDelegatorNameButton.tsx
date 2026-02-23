@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { shortenAddress } from "@taostats/util/shortenAddress"
 
 import { useCombinedBittensorValidatorsData } from "../../hooks/bittensor/useCombinedBittensorValidatorsData"
-import { useBittensorBondWizard } from "../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { BittensorSelectButton } from "./BittensorSelectButton"
 
 type BittensorDelegatorNameButtonProps = {
@@ -17,7 +17,7 @@ export const BittensorDelegatorNameButton = ({
   isDisabled,
 }: BittensorDelegatorNameButtonProps) => {
   const { t } = useTranslation()
-  const { netuid } = useBittensorBondWizard()
+  const { netuid } = useBittensorStakeWizard()
   const { combinedValidatorsData } = useCombinedBittensorValidatorsData(netuid)
 
   const validator = useMemo(

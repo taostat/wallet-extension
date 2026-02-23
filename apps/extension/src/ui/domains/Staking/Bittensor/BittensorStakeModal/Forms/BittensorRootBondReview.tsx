@@ -13,8 +13,8 @@ import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
 import { ValidatorApy } from "../../components/ValidatorApy"
-import { useBittensorBondModal } from "../../hooks/useBittensorBondModal"
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 
 export const BittensorRootBondReview = () => {
   const { t } = useTranslation()
@@ -28,8 +28,8 @@ export const BittensorRootBondReview = () => {
     hotkey,
     stakeDirection,
     setStep,
-  } = useBittensorBondWizard()
-  const { close } = useBittensorBondModal()
+  } = useBittensorStakeWizard()
+  const { close } = useBittensorStakeModal()
 
   const [isDisabled, setIsDisabled] = useState(true)
 
@@ -125,7 +125,7 @@ export const BittensorRootBondReview = () => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorBondWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorStakeWizard()
 
   return (
     <StakingFeeEstimate

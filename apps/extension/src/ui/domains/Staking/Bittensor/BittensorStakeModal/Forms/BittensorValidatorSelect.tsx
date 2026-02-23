@@ -34,8 +34,8 @@ import { BondOption as BondOptionType } from "../../../hooks/bittensor/types"
 import { useCombinedBittensorValidatorsData } from "../../../hooks/bittensor/useCombinedBittensorValidatorsData"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
-import { useBittensorBondModal } from "../../hooks/useBittensorBondModal"
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { BITTENSOR_TOKEN_ID } from "../../utils/constants"
 
 type SortValue = "name" | "totalStaked" | "totalStakers" | "apr"
@@ -60,10 +60,10 @@ const sortBondOptions = (data: BondOptionType[], sortBy: SortValue): BondOptionT
 
 export const BittensorValidatorSelect = () => {
   const { t } = useTranslation()
-  const { hotkey, netuid, setStep, setHotkey } = useBittensorBondWizard()
+  const { hotkey, netuid, setStep, setHotkey } = useBittensorStakeWizard()
   const { combinedValidatorsData, isLoading, isError } = useCombinedBittensorValidatorsData(netuid)
 
-  const { close } = useBittensorBondModal()
+  const { close } = useBittensorStakeModal()
   const [sortMethod, setSortMethod] = useState<SortValue>("totalStaked")
   const [rawSearch, setSearch] = useState<string>("")
   const search = useDeferredValue(rawSearch)

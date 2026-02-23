@@ -141,7 +141,7 @@ export const getBittensorStakingPayload = async ({
   )
 }
 
-type GetBittensorUnbondPayload = {
+type GetBittensorUnstakePayload = {
   sapi: ScaleApi
   address: string
   hotkey: string
@@ -151,7 +151,7 @@ type GetBittensorUnbondPayload = {
   netuid: number
 }
 
-export const getBittensorUnbondPayload = ({
+export const getBittensorUnstakePayload = ({
   sapi,
   address,
   hotkey,
@@ -159,7 +159,7 @@ export const getBittensorUnbondPayload = ({
   netuid,
   priceLimit,
   taostatsFee,
-}: GetBittensorUnbondPayload) => {
+}: GetBittensorUnstakePayload) => {
   if (netuid === ROOT_NETUID) {
     if (!withFeeTransfer(taostatsFee)) {
       return sapi.getExtrinsicPayload(

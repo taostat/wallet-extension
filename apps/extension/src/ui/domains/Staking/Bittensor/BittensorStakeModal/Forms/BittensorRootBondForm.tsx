@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { STAKING_APR_UNAVAILABLE } from "../../../helpers"
 import { useCombinedBittensorValidatorsData } from "../../../hooks/bittensor/useCombinedBittensorValidatorsData"
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { BittensorBondFormBase } from "../BittensorBondFormBase"
 
 const StakeAprBase: FC<{
@@ -35,7 +35,7 @@ const StakeAprBase: FC<{
 }
 
 const BittensorStakeApr = () => {
-  const { hotkey, netuid } = useBittensorBondWizard()
+  const { hotkey, netuid } = useBittensorStakeWizard()
   const { combinedValidatorsData, isLoading, isError } = useCombinedBittensorValidatorsData(netuid)
 
   const apr = useMemo(() => {
@@ -48,7 +48,7 @@ const BittensorStakeApr = () => {
 
 export const BittensorRootBondForm = () => {
   const { t } = useTranslation()
-  const { stakeDirection } = useBittensorBondWizard()
+  const { stakeDirection } = useBittensorStakeWizard()
 
   const RootStakeDetails = () => {
     if (stakeDirection === "unbond") return null

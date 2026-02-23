@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next"
 
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { BittensorBondFormBase } from "../BittensorBondFormBase"
 import { BittensorSelectButton } from "../BittensorSelectButton"
 
 export const BittensorSubnetBondForm = () => {
   const { t } = useTranslation()
 
-  const { dtaoToken } = useBittensorBondWizard()
+  const { dtaoToken } = useBittensorStakeWizard()
 
   const SubnetStakeDetails = () => {
     return (

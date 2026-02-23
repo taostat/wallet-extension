@@ -3,7 +3,7 @@ import { ScaleApi } from "@taostats-wallet/sapi"
 
 import { useBittensorCurrentHotkey } from "../../hooks/bittensor/useGetBittensorStakeHotkeys"
 import { useGetFeeEstimate } from "../../shared/useGetFeeEstimate"
-import { type StakeDirection } from "./useBittensorBondWizard"
+import { type StakeDirection } from "./useBittensorStakeWizard"
 import { useBittensorStakingPayload } from "./useBittensorStakingPayload"
 
 type GetStakeInfo = {
@@ -30,9 +30,8 @@ export const useGetBittensorStakeInfo = ({
     payload,
     feeEstimatePayload,
     txMetadata,
-    minTaoBond,
-    minAlphaBond,
     minTaoStake,
+    minAlphaStake,
     minAlphaUnstake,
     amountOut,
     taostatsFee,
@@ -44,7 +43,7 @@ export const useGetBittensorStakeInfo = ({
   } = useBittensorStakingPayload({
     netuid,
     amountIn,
-    direction: stakeDirection === "bond" ? "taoToAlpha" : "alphaToTao",
+    direction: stakeDirection === "stake" ? "taoToAlpha" : "alphaToTao",
     hotkey,
     address,
     networkId,
@@ -69,9 +68,8 @@ export const useGetBittensorStakeInfo = ({
     isLoadingFeeEstimate,
     errorFeeEstimate,
     currentHotkey,
-    minTaoBond,
-    minAlphaBond,
     minTaoStake,
+    minAlphaStake,
     minAlphaUnstake,
     priceImpact,
     taostatsFee,

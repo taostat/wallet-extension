@@ -5,7 +5,7 @@ import { Button, Checkbox, Drawer } from "taostats-ui"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
 import { useAppState } from "@ui/state"
 
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 
 type BittensorWarningDrawerProps = {
   setHasAckWarning: React.Dispatch<React.SetStateAction<boolean>>
@@ -15,7 +15,7 @@ export const BittensorWarningDrawer = ({ setHasAckWarning }: BittensorWarningDra
   const [dontShowThisAgain, setDontShowThisAgain] = useState<boolean>(false)
   const [_, setHideWarning] = useAppState("hideBittensorSubnetStakeWarning")
 
-  const { warningDrawer } = useBittensorBondWizard()
+  const { warningDrawer } = useBittensorStakeWizard()
   const { isOpen, close } = warningDrawer
   const { t } = useTranslation()
 

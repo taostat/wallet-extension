@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
 
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 
 type BittensorSelectStakeDrawerProps = {
   containerId: string | undefined
@@ -9,7 +9,7 @@ type BittensorSelectStakeDrawerProps = {
 
 export const BittensorSelectStakeDrawer = ({ containerId }: BittensorSelectStakeDrawerProps) => {
   const { t } = useTranslation()
-  const { setStakeType, stakeTypeDrawer } = useBittensorBondWizard()
+  const { setStakeType, stakeTypeDrawer } = useBittensorStakeWizard()
 
   return (
     <Drawer anchor="bottom" isOpen={stakeTypeDrawer.isOpen} containerId={containerId}>

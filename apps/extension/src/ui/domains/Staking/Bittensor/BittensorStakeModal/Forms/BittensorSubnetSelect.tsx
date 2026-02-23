@@ -31,8 +31,8 @@ import { useToken } from "@ui/state"
 
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
-import { useBittensorBondModal } from "../../hooks/useBittensorBondModal"
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { BittensorAlphaPrice } from "../BittensorAlphaPrice"
 
 type SortValue = "netuid" | "price" | "total_tao" | "total_alpha" | "emission"
@@ -62,8 +62,8 @@ const sortSubnetOptions = (data: SubnetData[], sortBy: SortValue): SubnetData[] 
 
 export const BittensorSubnetSelect = () => {
   const { t } = useTranslation()
-  const { setStep, setNetuid, netuid, networkId } = useBittensorBondWizard()
-  const { close } = useBittensorBondModal()
+  const { setStep, setNetuid, netuid, networkId } = useBittensorStakeWizard()
+  const { close } = useBittensorStakeModal()
   const [sortMethod, setSortMethod] = useState<SortValue>("netuid") // netuid doesnt cause flickering
   const [search, setSearch] = useState<string>("")
   const deferredSearch = useDeferredValue(search)

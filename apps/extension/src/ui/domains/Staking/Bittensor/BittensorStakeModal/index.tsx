@@ -6,12 +6,12 @@ import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { IS_POPUP } from "@ui/util/constants"
 
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../shared/ModalContent"
-import { useBittensorBondModal } from "../hooks/useBittensorBondModal"
-import { BittensorBondWizardProvider } from "../hooks/useBittensorBondWizard"
-import { BittensorBondModalRouter } from "./Forms"
+import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
+import { BittensorStakeWizardProvider } from "../hooks/useBittensorStakeWizard"
+import { BittensorStakeModalRouter } from "./Forms"
 
-export const BittensorBondModal = () => {
-  const { isOpen, close } = useBittensorBondModal()
+export const BittensorStakeModal = () => {
+  const { isOpen, close } = useBittensorStakeModal()
 
   return (
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
@@ -22,11 +22,11 @@ export const BittensorBondModal = () => {
           !IS_POPUP && "border-grey-850 rounded border",
         )}
       >
-        <BittensorBondWizardProvider>
-          <Suspense fallback={<SuspenseTracker name="BittensorBondModal" />}>
-            <BittensorBondModalRouter />
+        <BittensorStakeWizardProvider>
+          <Suspense fallback={<SuspenseTracker name="BittensorStakeModal" />}>
+            <BittensorStakeModalRouter />
           </Suspense>
-        </BittensorBondWizardProvider>
+        </BittensorStakeWizardProvider>
       </div>
     </Modal>
   )

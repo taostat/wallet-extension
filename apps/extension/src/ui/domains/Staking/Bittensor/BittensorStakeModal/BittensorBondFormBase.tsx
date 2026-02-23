@@ -28,10 +28,10 @@ import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../shared/ModalContent"
 import { BittensorAssetAccountSummary } from "../components/BittensorAssetAccountSummary"
 import { BittensorStakingModalHeader } from "../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../components/BittensorModalLayout"
-import { useBittensorBondModal } from "../hooks/useBittensorBondModal"
+import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
 import { ROOT_NETUID } from "../utils/constants"
 import { StakingFeeEstimate } from "./../../shared/StakingFeeEstimate"
-import { useBittensorBondWizard } from "./../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { BittensorAvailableToUnstake } from "./BittensorAvailableToUnstake"
 import { BittensorDelegatorNameButton } from "./BittensorDelegatorNameButton"
 import { BittensorSelectStakeDrawer } from "./Drawers/BittensorSelectStakeDrawer"
@@ -61,7 +61,7 @@ const DisplayContainer: FC<PropsWithChildren> = ({ children }) => {
 
 const FiatDisplay = () => {
   const currency = useSelectedCurrency()
-  const { tokenRates, amountTao } = useBittensorBondWizard()
+  const { tokenRates, amountTao } = useBittensorStakeWizard()
 
   if (!tokenRates) return null
 
@@ -73,7 +73,7 @@ const FiatDisplay = () => {
 }
 
 const TokenDisplay = () => {
-  const { nativeToken, stakeDirection, netuid, amountIn } = useBittensorBondWizard()
+  const { nativeToken, stakeDirection, netuid, amountIn } = useBittensorStakeWizard()
 
   const tokenPlancks = useMemo(
     () => planckToTokens(String(amountIn || 0n), nativeToken?.decimals),
@@ -98,7 +98,7 @@ const TokenDisplay = () => {
 
 const TokenInput = () => {
   const { nativeToken, dtaoToken, amountTao, amountAlpha, isSubnetUnbond, setPlancks, netuid } =
-    useBittensorBondWizard()
+    useBittensorStakeWizard()
 
   const symbol = useMemo(() => {
     if (isSubnetUnbond) {
@@ -178,7 +178,7 @@ const TokenInput = () => {
 
 const FiatInput = () => {
   const { nativeToken, tokenRates, amountTao, setPlancks, isSubnetUnbond, swapPrice } =
-    useBittensorBondWizard()
+    useBittensorStakeWizard()
   const currency = useSelectedCurrency()
 
   const formattedValue = useMemo(() => {
@@ -281,7 +281,7 @@ export const AmountEdit = () => {
     inputErrorMessage,
     maxPlancks,
     setPlancks,
-  } = useBittensorBondWizard()
+  } = useBittensorStakeWizard()
 
   const onSetMaxClick = useCallback(() => {
     if (!maxPlancks) return
@@ -330,7 +330,7 @@ export const AmountEdit = () => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorBondWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorStakeWizard()
 
   return (
     <StakingFeeEstimate
@@ -361,8 +361,8 @@ export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBase
     amountOut,
     setStep,
     setAddress,
-  } = useBittensorBondWizard()
-  const { close } = useBittensorBondModal()
+  } = useBittensorStakeWizard()
+  const { close } = useBittensorStakeModal()
 
   const isSubnetUnbond = useMemo(
     () => stakeDirection === "unbond" && netuid !== ROOT_NETUID,

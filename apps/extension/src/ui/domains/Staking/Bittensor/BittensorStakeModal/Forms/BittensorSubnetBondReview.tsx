@@ -22,8 +22,8 @@ import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
 import { ValidatorApy } from "../../components/ValidatorApy"
-import { useBittensorBondModal } from "../../hooks/useBittensorBondModal"
-import { useBittensorBondWizard } from "../../hooks/useBittensorBondWizard"
+import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
+import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
 
@@ -51,9 +51,9 @@ export const BittensorSubnetBondReview = () => {
     setMevShieldOption,
     onSubmitted,
     setStep,
-  } = useBittensorBondWizard()
+  } = useBittensorStakeWizard()
   const { t } = useTranslation()
-  const { close } = useBittensorBondModal()
+  const { close } = useBittensorStakeModal()
 
   const { open } = slippageDrawer
 
@@ -258,7 +258,7 @@ export const BittensorSubnetBondReview = () => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorBondWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorStakeWizard()
 
   return (
     <StakingFeeEstimate

@@ -1080,6 +1080,7 @@
   "Migrating recovery phrases": "Migrating recovery phrases",
   "Migration App": "Migration App",
   "Minimum bond is {{amount}} {{symbol}}": "Minimum stake is {{amount}} {{symbol}}",
+  "Minimum stake is {{amount}} {{symbol}}": "Minimum stake is {{amount}} {{symbol}}",
   "Minimum purchase is {{value}}": "Minimum purchase is {{value}}",
   "Minimum sell is {{value}}": "Minimum sell is {{value}}",
   "Minimum time before exit can be initiated": "Minimum time before exit can be initiated",
