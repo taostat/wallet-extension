@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next"
 
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
-import { BittensorBondFormBase } from "../BittensorBondFormBase"
+import { BittensorStakeFormBase } from "../BittensorStakeFormBase"
 import { BittensorSelectButton } from "../BittensorSelectButton"
 
-export const BittensorSubnetBondForm = () => {
+export const BittensorSubnetStakeForm = () => {
   const { t } = useTranslation()
 
   const { dtaoToken } = useBittensorStakeWizard()
@@ -26,5 +26,5 @@ export const BittensorSubnetBondForm = () => {
       </div>
     )
   }
-  return <BittensorBondFormBase BondTypeDetails={SubnetStakeDetails} />
+  return <BittensorStakeFormBase StakeTypeDetails={SubnetStakeDetails} />
 }

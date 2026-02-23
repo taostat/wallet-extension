@@ -16,7 +16,7 @@ import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 
-export const BittensorRootBondReview = () => {
+export const BittensorRootStakeReview = () => {
   const { t } = useTranslation()
   const {
     nativeToken,
@@ -47,7 +47,7 @@ export const BittensorRootBondReview = () => {
       header={
         <BittensorStakingModalHeader
           onCloseModal={close}
-          title={stakeDirection === "bond" ? t("Confirm Staking") : t("Confirm Unstaking")}
+          title={stakeDirection === "stake" ? t("Confirm Staking") : t("Confirm Unstaking")}
           onBackClick={() => setStep("form")}
           withClose
         />
@@ -84,7 +84,7 @@ export const BittensorRootBondReview = () => {
             <BittensorValidatorName hotkey={hotkey} />
           </div>
         </div>
-        {stakeDirection === "bond" && (
+        {stakeDirection === "stake" && (
           <div className="flex items-center justify-between gap-8 py-2 text-xs">
             <div className="flex items-center gap-1 whitespace-nowrap">
               <Tooltip>
@@ -113,7 +113,7 @@ export const BittensorRootBondReview = () => {
       {payload && (
         <SapiSendButton
           containerId="StakingModalDialog"
-          label={stakeDirection === "bond" ? t("Stake") : t("Unstake")}
+          label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
           payload={payload}
           onSubmitted={onSubmitted}
           txMetadata={txMetadata}

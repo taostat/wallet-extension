@@ -7,10 +7,10 @@ import { useTranslation } from "react-i18next"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 
 import { useNomPoolStakingStatus } from "../hooks/nomPools/useNomPoolStakingStatus"
-import { useUnbondModal } from "./useUnbondModal"
+import { useUnstakeModal } from "./useUnstakeModal"
 
 // TODO: split into 2 components: one for bittensor and one for nompools
-export const NomPoolUnbondButton: FC<{
+export const NomPoolUnstakeButton: FC<{
   tokenId: TokenId
   address: string
   className?: string
@@ -18,7 +18,7 @@ export const NomPoolUnbondButton: FC<{
   poolId: number | undefined
 }> = ({ tokenId, address, className, variant, poolId }) => {
   const { t } = useTranslation()
-  const { open } = useUnbondModal()
+  const { open } = useUnstakeModal()
   const { data: stakingStatus } = useNomPoolStakingStatus(tokenId)
 
   const { genericEvent } = useAnalytics()
@@ -30,7 +30,7 @@ export const NomPoolUnbondButton: FC<{
 
   const handleClick = useCallback(() => {
     open({ tokenId, address, poolId })
-    genericEvent("open inline unbonding modal", { from: "asset details", tokenId })
+    genericEvent("open inline unstaking modal", { from: "asset details", tokenId })
   }, [address, genericEvent, open, poolId, tokenId])
 
   if (!canUnstake) return null // no nompool/tao staking on this network
@@ -54,7 +54,7 @@ export const NomPoolUnbondButton: FC<{
             variant === "large" && "text-base",
           )}
         />
-        <div>{t("Unbond")}</div>
+        <div>{t("Unstake")}</div>
       </div>
     </button>
   )

@@ -27,7 +27,7 @@ import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
 
-export const BittensorSubnetBondReview = () => {
+export const BittensorSubnetStakeReview = () => {
   const [isDisabled, setIsDisabled] = useState(true)
   const ocMevShieldInfo = useOpenClose()
 
@@ -71,7 +71,7 @@ export const BittensorSubnetBondReview = () => {
       header={
         <BittensorStakingModalHeader
           onCloseModal={close}
-          title={stakeDirection === "bond" ? t("Confirm Staking") : t("Confirm Unstaking")}
+          title={stakeDirection === "stake" ? t("Confirm Staking") : t("Confirm Unstaking")}
           onBackClick={() => setStep("form")}
           withClose
         />
@@ -84,7 +84,7 @@ export const BittensorSubnetBondReview = () => {
             <div className="whitespace-nowrap">{t("Amount")} </div>
             <div className="overflow-hidden">
               <TokensAndFiat
-                tokenId={stakeDirection === "bond" ? nativeToken?.id : dtaoToken?.id}
+                tokenId={stakeDirection === "stake" ? nativeToken?.id : dtaoToken?.id}
                 planck={amountIn!}
                 noCountUp
                 withLogo
@@ -114,7 +114,7 @@ export const BittensorSubnetBondReview = () => {
               <BittensorValidatorName hotkey={hotkey} />
             </div>
           </div>
-          {stakeDirection === "bond" && (
+          {stakeDirection === "stake" && (
             <div className="flex items-center justify-between gap-8 py-2 text-xs">
               <div className="flex items-center gap-1 whitespace-nowrap">
                 <Tooltip>
@@ -237,7 +237,7 @@ export const BittensorSubnetBondReview = () => {
       {payload && (
         <SapiSendButton
           containerId="StakingModalDialog"
-          label={stakeDirection === "bond" ? t("Stake") : t("Unstake")}
+          label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
           payload={payload}
           onSubmitted={onSubmitted}
           txMetadata={txMetadata}

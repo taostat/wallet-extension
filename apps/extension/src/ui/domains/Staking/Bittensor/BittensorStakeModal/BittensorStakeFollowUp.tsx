@@ -2,7 +2,7 @@ import { TxProgress } from "../../../Transactions"
 import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 
-export const BittensorBondFollowUp = () => {
+export const BittensorStakeFollowUp = () => {
   const { close } = useBittensorStakeModal()
   const { hash, nativeToken } = useBittensorStakeWizard()
 

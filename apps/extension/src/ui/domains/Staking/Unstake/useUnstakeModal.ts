@@ -4,10 +4,10 @@ import { useCallback } from "react"
 
 import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
 
-import { useResetNomPoolUnbondWizard } from "./useUnbondWizard"
+import { useResetNomPoolUnstakeWizard } from "./useUnstakeWizard"
 
-export const useUnbondModal = () => {
-  const reset = useResetNomPoolUnbondWizard()
+export const useUnstakeModal = () => {
+  const reset = useResetNomPoolUnstakeWizard()
 
   const { isOpen, open: innerOpen, close } = useGlobalOpenClose("UnstakeModal")
 

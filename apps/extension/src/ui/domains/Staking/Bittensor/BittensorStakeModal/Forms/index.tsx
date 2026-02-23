@@ -1,10 +1,10 @@
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
-import { BittensorBondFollowUp } from "../BittensorBondFollowUp"
-import { BittensorRootBondForm } from "./BittensorRootBondForm"
-import { BittensorRootBondReview } from "./BittensorRootBondReview"
+import { BittensorStakeFollowUp } from "../BittensorStakeFollowUp"
+import { BittensorRootStakeForm } from "./BittensorRootStakeForm"
+import { BittensorRootStakeReview } from "./BittensorRootStakeReview"
 import { BittensorStakingPositionSelect } from "./BittensorStakingPositionSelect"
-import { BittensorSubnetBondForm } from "./BittensorSubnetBondForm"
-import { BittensorSubnetBondReview } from "./BittensorSubnetBondReview"
+import { BittensorSubnetStakeForm } from "./BittensorSubnetStakeForm"
+import { BittensorSubnetStakeReview } from "./BittensorSubnetStakeReview"
 import { BittensorSubnetSelect } from "./BittensorSubnetSelect"
 import { BittensorValidatorSelect } from "./BittensorValidatorSelect"
 
@@ -13,7 +13,7 @@ export const BittensorStakeModalRouter = () => {
 
   switch (step) {
     case "form":
-      return stakeType === "subnet" ? <BittensorSubnetBondForm /> : <BittensorRootBondForm />
+      return stakeType === "subnet" ? <BittensorSubnetStakeForm /> : <BittensorRootStakeForm />
     case "select-delegate":
       return <BittensorValidatorSelect />
     case "select-subnet":
@@ -21,8 +21,8 @@ export const BittensorStakeModalRouter = () => {
     case "select-position":
       return <BittensorStakingPositionSelect />
     case "review":
-      return stakeType === "subnet" ? <BittensorSubnetBondReview /> : <BittensorRootBondReview />
+      return stakeType === "subnet" ? <BittensorSubnetStakeReview /> : <BittensorRootStakeReview />
     case "follow-up":
-      return <BittensorBondFollowUp />
+      return <BittensorStakeFollowUp />
   }
 }

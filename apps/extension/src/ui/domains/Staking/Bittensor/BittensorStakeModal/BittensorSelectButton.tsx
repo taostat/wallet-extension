@@ -23,7 +23,7 @@ export const BittensorSelectButton = ({
 
   const handleClick = useCallback(() => {
     if (isBtnDisabled) return
-    if (stakeDirection === "unbond") setStep("select-position")
+    if (stakeDirection === "unstake") setStep("select-position")
     else setStep(nextStep)
   }, [isBtnDisabled, nextStep, setStep, stakeDirection])
 

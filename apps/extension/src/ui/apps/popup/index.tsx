@@ -20,7 +20,7 @@ import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStak
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
 import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
-import { UnbondModal } from "@ui/domains/Staking/Unbond/UnbondModal"
+import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { MigrationProgress } from "@ui/domains/System/MigrationProgress"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 import { useLoginCheck } from "@ui/hooks/useLoginCheck"
@@ -83,7 +83,7 @@ const Popup = () => {
         <ExplorerNetworkPickerModal />
         <LedgerPolkadotUpgradeAlertDrawer />
         <NomPoolWithdrawModal />
-        <UnbondModal />
+        <UnstakeModal />
       </Suspense>
       {/* Render outside of suspense or it will never show in case of migration error */}
       <DatabaseErrorAlert container="popup" />

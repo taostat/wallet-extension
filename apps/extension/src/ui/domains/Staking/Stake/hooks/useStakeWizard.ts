@@ -250,7 +250,7 @@ export const useStakeWizard = () => {
       )
 
     if (!hasJoinedNomPool && formatter.planck < minJoinBond)
-      return t("Minimum bond is {{amount}} {{symbol}}", {
+      return t("Minimum stake is {{amount}} {{symbol}}", {
         amount: new BalanceFormatter(minJoinBond, token?.decimals).tokens,
         symbol: token?.symbol,
       })

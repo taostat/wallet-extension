@@ -12,7 +12,7 @@ export const SignViewStakingStakeLess: FC<{
   const { t } = useTranslation()
   return (
     <div className="flex w-full flex-col items-center gap-4">
-      <div>{t("You are unbonding")}</div>
+      <div>{t("You are unstaking")}</div>
       <div className="text-body flex items-center gap-2">
         <TokenLogo tokenId={tokenId} className="inline h-[1em] w-[1em]" />{" "}
         <TokensAndFiat planck={planck} tokenId={tokenId} noCountUp />

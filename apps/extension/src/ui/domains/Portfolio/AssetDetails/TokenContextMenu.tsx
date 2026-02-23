@@ -39,7 +39,7 @@ const StakeMenuItem: FC<{ tokenId: string }> = ({ tokenId }) => {
   const openArgs = useMemo<Parameters<typeof open>[0] | undefined>(() => {
     if (!stakingStatus) return
     const { accounts, poolId } = stakingStatus
-    const acc = accounts?.find((s) => s.canBondNomPool)
+    const acc = accounts?.find((s) => s.canStakeNomPool)
     if (!acc) return
     return {
       tokenId,

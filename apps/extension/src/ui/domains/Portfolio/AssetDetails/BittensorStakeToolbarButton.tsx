@@ -37,7 +37,7 @@ export const BittensorStakeToolbarButton: FC<{ balances: Balances; className?: s
     return balance && token
       ? {
           networkId: token.networkId,
-          stakeDirection: "bond",
+          stakeDirection: "stake",
         }
       : null
   }, [accounts, balances, bittensorNetworkIds])

@@ -7,13 +7,13 @@ import { SapiSendButton } from "../../Transactions/SapiSendButton"
 import { NominationPoolName } from "../NominationPools/NominationPoolName"
 import { StakingAccountDisplay } from "../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../shared/StakingFeeEstimate"
-import { useUnbondWizard } from "./useUnbondWizard"
+import { useUnstakeWizard } from "./useUnstakeWizard"
 
-export const UnbondReview = () => {
+export const UnstakeReview = () => {
   const { t } = useTranslation()
   const {
     token,
-    amountToUnbond,
+    amountToUnstake,
     account,
     onSubmitted,
     payload,
@@ -24,13 +24,13 @@ export const UnbondReview = () => {
     errorFeeEstimate,
     errorMessage,
     poolId,
-  } = useUnbondWizard()
+  } = useUnstakeWizard()
 
   if (!account) return null
 
   return (
     <div className="flex size-full flex-col">
-      <h2 className="mb-24 mt-8 text-center">{t("You are unbonding")}</h2>
+      <h2 className="mb-24 mt-8 text-center">{t("You are unstaking")}</h2>
       <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
         <div className="flex items-center justify-between gap-8 pb-2">
           <div className="whitespace-nowrap">{t("Amount")} </div>
@@ -39,7 +39,7 @@ export const UnbondReview = () => {
             <TokensAndFiat
               isBalance
               tokenId={token?.id}
-              planck={amountToUnbond?.planck}
+              planck={amountToUnstake?.planck}
               noCountUp
               tokensClassName="text-body"
               fiatClassName="text-body-secondary"
@@ -83,7 +83,7 @@ export const UnbondReview = () => {
       )}
       <SapiSendButton
         containerId="StakingModalDialog"
-        label={t("Unbond")}
+        label={t("Unstake")}
         loading={!payload}
         payload={payload ?? undefined}
         onSubmitted={onSubmitted}

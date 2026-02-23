@@ -11,7 +11,7 @@ import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStak
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
 import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
-import { UnbondModal } from "@ui/domains/Staking/Unbond/UnbondModal"
+import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 
 import DashboardNotifications from "."
@@ -50,7 +50,7 @@ export const DashboardNotificationsAndModals = () => {
       <MigratePasswordModal />
       <NomPoolWithdrawModal />
       <OnboardingToast />
-      <UnbondModal />
+      <UnstakeModal />
     </Suspense>
   )
 }

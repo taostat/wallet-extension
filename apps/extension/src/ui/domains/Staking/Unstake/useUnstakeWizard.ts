@@ -42,7 +42,7 @@ const setWizardState = (state: SetStateAction<WizardState>) => {
 
 const [useWizardState] = bind(wizardState$)
 
-export const useResetNomPoolUnbondWizard = () => {
+export const useResetNomPoolUnstakeWizard = () => {
   return useCallback(
     (init: Pick<WizardState, "address" | "tokenId" | "poolId">) =>
       setWizardState({ ...DEFAULT_STATE, ...init }),
@@ -50,7 +50,7 @@ export const useResetNomPoolUnbondWizard = () => {
   )
 }
 
-export const useUnbondWizard = () => {
+export const useUnstakeWizard = () => {
   const { t } = useTranslation()
   const { genericEvent } = useAnalytics()
 
@@ -67,7 +67,7 @@ export const useUnbondWizard = () => {
   const {
     pool,
     poolId,
-    plancksToUnbond,
+    plancksToUnbond: plancksToUnstake,
     payload,
     txMetadata,
     isLoadingPayload,
@@ -84,24 +84,24 @@ export const useUnbondWizard = () => {
 
   const onSubmitted = useCallback(
     (hash: Hex) => {
-      genericEvent(`${unbondType} Unbond`, { tokenId })
+      genericEvent(`${unbondType} Unstake`, { tokenId })
       if (hash) setWizardState((prev) => ({ ...prev, step: "follow-up", hash }))
     },
     [genericEvent, tokenId, unbondType],
   )
 
-  const amountToUnbond = useMemo(
+  const amountToUnstake = useMemo(
     () =>
-      typeof plancksToUnbond === "bigint"
-        ? new BalanceFormatter(plancksToUnbond, token?.decimals, tokenRates)
+      typeof plancksToUnstake === "bigint"
+        ? new BalanceFormatter(plancksToUnstake, token?.decimals, tokenRates)
         : null,
-    [plancksToUnbond, token?.decimals, tokenRates],
+    [plancksToUnstake, token?.decimals, tokenRates],
   )
 
   const existentialDeposit = useExistentialDeposit(token?.id)
 
   const errorMessage = useMemo(() => {
-    if (!!pool && !pool.points) return t("There is no balance to unbond")
+    if (!!pool && !pool.points) return t("There is no balance to unstake")
 
     if (!!balance && !!feeEstimate && feeEstimate > balance.transferable.planck)
       return t("Insufficient balance to cover fee")
@@ -126,7 +126,7 @@ export const useUnbondWizard = () => {
     tokenRates,
     step,
     hash,
-    amountToUnbond,
+    amountToUnstake,
 
     payload: !errorMessage ? payload : null,
     txMetadata,

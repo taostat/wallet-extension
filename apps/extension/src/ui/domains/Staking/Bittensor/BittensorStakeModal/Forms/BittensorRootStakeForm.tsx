@@ -7,7 +7,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import { STAKING_APR_UNAVAILABLE } from "../../../helpers"
 import { useCombinedBittensorValidatorsData } from "../../../hooks/bittensor/useCombinedBittensorValidatorsData"
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
-import { BittensorBondFormBase } from "../BittensorBondFormBase"
+import { BittensorStakeFormBase } from "../BittensorStakeFormBase"
 
 const StakeAprBase: FC<{
   apr: number
@@ -46,12 +46,12 @@ const BittensorStakeApr = () => {
   return <StakeAprBase apr={apr} isLoading={isLoading} isError={isError} error={null} />
 }
 
-export const BittensorRootBondForm = () => {
+export const BittensorRootStakeForm = () => {
   const { t } = useTranslation()
   const { stakeDirection } = useBittensorStakeWizard()
 
   const RootStakeDetails = () => {
-    if (stakeDirection === "unbond") return null
+    if (stakeDirection === "unstake") return null
 
     return (
       <div className="flex items-center justify-between gap-8">
@@ -73,5 +73,5 @@ export const BittensorRootBondForm = () => {
     )
   }
 
-  return <BittensorBondFormBase BondTypeDetails={RootStakeDetails} />
+  return <BittensorStakeFormBase StakeTypeDetails={RootStakeDetails} />
 }

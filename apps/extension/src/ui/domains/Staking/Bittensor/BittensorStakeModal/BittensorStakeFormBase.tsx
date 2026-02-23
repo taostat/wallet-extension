@@ -81,7 +81,7 @@ const TokenDisplay = () => {
   )
 
   const symbol = useMemo(() => {
-    if (stakeDirection === "unbond" && netuid !== ROOT_NETUID) {
+    if (stakeDirection === "unstake" && netuid !== ROOT_NETUID) {
       return `SN${netuid}`
     }
     return nativeToken?.symbol
@@ -342,11 +342,11 @@ const FeeEstimate = () => {
   )
 }
 
-type BittensorBondFormBaseProps = {
-  BondTypeDetails: React.ComponentType
+type BittensorStakeFormBaseProps = {
+  StakeTypeDetails: React.ComponentType
 }
 
-export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBaseProps) => {
+export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormBaseProps) => {
   const { t } = useTranslation()
   const {
     account,
@@ -365,7 +365,7 @@ export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBase
   const { close } = useBittensorStakeModal()
 
   const isSubnetUnbond = useMemo(
-    () => stakeDirection === "unbond" && netuid !== ROOT_NETUID,
+    () => stakeDirection === "unstake" && netuid !== ROOT_NETUID,
     [netuid, stakeDirection],
   )
 
@@ -381,7 +381,7 @@ export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBase
     <BittensorModalLayout
       header={
         <BittensorStakingModalHeader
-          title={stakeDirection === "bond" ? t("Staking") : t("Unstake")}
+          title={stakeDirection === "stake" ? t("Staking") : t("Unstake")}
           withClose
           onCloseModal={close}
         />
@@ -392,7 +392,7 @@ export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBase
         token={nativeToken}
         accountAddress={account?.address}
         onAccountClick={() => {
-          stakeDirection === "bond" ? accountPicker.open() : setStep("select-position")
+          stakeDirection === "stake" ? accountPicker.open() : setStep("select-position")
         }}
         assetLabel={t("Asset")}
         accountLabel={t("Account")}
@@ -401,9 +401,9 @@ export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBase
       <div className="bg-grey-900 leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
         <div className="flex items-center justify-between">
           <div className="whitespace-nowrap">
-            {stakeDirection === "bond" ? t("Available Balance") : t("Available to unstake")}
+            {stakeDirection === "stake" ? t("Available Balance") : t("Available to unstake")}
           </div>
-          {stakeDirection === "bond" ? (
+          {stakeDirection === "stake" ? (
             <div>
               {!!nativeToken && !!account && (
                 <AvailableBalance token={nativeToken} account={account} />
@@ -416,7 +416,7 @@ export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBase
       </div>
 
       <div className="bg-grey-900 leading-paragraph flex flex-col gap-2 rounded p-4 text-xs">
-        <BondTypeDetails />
+        <StakeTypeDetails />
         <div
           className={classNames(
             "flex gap-8",

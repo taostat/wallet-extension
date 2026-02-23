@@ -7,15 +7,15 @@ import { IconButton, Modal } from "taostats-ui"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { IS_POPUP } from "@ui/util/constants"
 
-import { UnbondFollowUp } from "./UnbondFollowUp"
-import { UnbondReview } from "./UnbondReview"
-import { useUnbondModal } from "./useUnbondModal"
-import { useUnbondWizard } from "./useUnbondWizard"
+import { UnstakeFollowUp } from "./UnstakeFollowUp"
+import { UnstakeReview } from "./UnstakeReview"
+import { useUnstakeModal } from "./useUnstakeModal"
+import { useUnstakeWizard } from "./useUnstakeWizard"
 
 const ModalHeader = () => {
   const { t } = useTranslation()
-  const { step } = useUnbondWizard()
-  const { close } = useUnbondModal()
+  const { step } = useUnstakeWizard()
+  const { close } = useUnstakeModal()
 
   return (
     <div
@@ -24,7 +24,7 @@ const ModalHeader = () => {
         step === "follow-up" ? "invisible" : "visible",
       )}
     >
-      <div>{step === "review" && t("Unbond")}</div>
+      <div>{step === "review" && t("Unstake")}</div>
       <IconButton onClick={close}>
         <XIcon />
       </IconButton>
@@ -33,13 +33,13 @@ const ModalHeader = () => {
 }
 
 const ModalContent = () => {
-  const { step } = useUnbondWizard()
+  const { step } = useUnstakeWizard()
 
   switch (step) {
     case "review":
-      return <UnbondReview />
+      return <UnstakeReview />
     case "follow-up":
-      return <UnbondFollowUp />
+      return <UnstakeFollowUp />
   }
 }
 
@@ -58,12 +58,12 @@ const Content = () => (
   </div>
 )
 
-export const UnbondModal = () => {
-  const { isOpen, close } = useUnbondModal()
+export const UnstakeModal = () => {
+  const { isOpen, close } = useUnstakeModal()
 
   return (
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
-      <Suspense fallback={<SuspenseTracker name="UnbondModal" />}>
+      <Suspense fallback={<SuspenseTracker name="UnstakeModal" />}>
         <Content />
       </Suspense>
     </Modal>
