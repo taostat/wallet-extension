@@ -7,11 +7,11 @@ import { SapiSendButton } from "../../Transactions/SapiSendButton"
 import { NominationPoolName } from "../NominationPools/NominationPoolName"
 import { StakingAccountDisplay } from "../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../shared/StakingFeeEstimate"
-import { useBondWizard } from "./hooks/useBondWizard"
+import { useStakeWizard } from "./hooks/useStakeWizard"
 
-export const BondReview = () => {
+export const StakeReview = () => {
   const { t } = useTranslation()
-  const { token, formatter, account, onSubmitted, payload, txMetadata, poolId } = useBondWizard()
+  const { token, formatter, account, onSubmitted, payload, txMetadata, poolId } = useStakeWizard()
 
   const [isDisabled, setIsDisabled] = useState(true)
 
@@ -79,7 +79,7 @@ export const BondReview = () => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBondWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useStakeWizard()
 
   return (
     <StakingFeeEstimate

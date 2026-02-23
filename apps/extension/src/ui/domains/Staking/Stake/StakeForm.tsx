@@ -31,10 +31,10 @@ import { useStakingAPR } from "../hooks/nomPools/useStakingAPR"
 import { NominationPoolName } from "../NominationPools/NominationPoolName"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../shared/ModalContent"
 import { StakingFeeEstimate } from "../shared/StakingFeeEstimate"
-import { BondAccountPicker } from "./BondAccountPicker"
-import { BondAccountPillButton } from "./BondAccountPillButton"
-import { useBondModal } from "./hooks/useBondModal"
-import { useBondWizard } from "./hooks/useBondWizard"
+import { StakeAccountPicker } from "./StakeAccountPicker"
+import { StakeAccountPillButton } from "./StakeAccountPillButton"
+import { useStakeModal } from "./hooks/useStakeModal"
+import { useStakeWizard } from "./hooks/useStakeWizard"
 
 const AssetPill: FC<{ token: Token | null }> = ({ token }) => {
   const { t } = useTranslation()
@@ -78,7 +78,7 @@ const DisplayContainer: FC<PropsWithChildren> = ({ children }) => {
 
 const FiatDisplay = () => {
   const currency = useSelectedCurrency()
-  const { tokenRates, formatter } = useBondWizard()
+  const { tokenRates, formatter } = useStakeWizard()
 
   if (!tokenRates) return null
 
@@ -90,7 +90,7 @@ const FiatDisplay = () => {
 }
 
 const TokenDisplay = () => {
-  const { token, formatter } = useBondWizard()
+  const { token, formatter } = useStakeWizard()
 
   if (!token) return null
 
@@ -107,7 +107,7 @@ const TokenDisplay = () => {
 }
 
 const TokenInput = () => {
-  const { token, formatter, setPlancks } = useBondWizard()
+  const { token, formatter, setPlancks } = useStakeWizard()
 
   const formattedValue = useMemo(() => formatter?.tokens ?? "", [formatter?.tokens])
 
@@ -177,7 +177,7 @@ const TokenInput = () => {
 }
 
 const FiatInput = () => {
-  const { token, tokenRates, formatter, setPlancks } = useBondWizard()
+  const { token, tokenRates, formatter, setPlancks } = useStakeWizard()
   const currency = useSelectedCurrency()
 
   const formattedValue = useMemo(() => {
@@ -264,7 +264,7 @@ export const AmountEdit = () => {
     inputErrorMessage,
     maxPlancks,
     setPlancks,
-  } = useBondWizard()
+  } = useStakeWizard()
 
   const onSetMaxClick = useCallback(() => {
     if (!maxPlancks) return
@@ -338,7 +338,7 @@ const StakeAprBase: FC<{
 }
 
 const NomPoolStakeApr = () => {
-  const { token } = useBondWizard()
+  const { token } = useStakeWizard()
   const { data, isLoading, isError, error } = useStakingAPR(token?.networkId)
 
   return (
@@ -351,7 +351,7 @@ const AnalogTimechainStakeApr = () => {
 }
 
 const StakeApr = () => {
-  const { token } = useBondWizard()
+  const { token } = useStakeWizard()
 
   switch (token?.networkId) {
     case "analog-timechain":
@@ -367,7 +367,7 @@ const StakeApr = () => {
  */
 const WithAprDocsLink = ({ children }: { children: ReactNode }) => {
   const { t } = useTranslation()
-  const { token } = useBondWizard()
+  const { token } = useStakeWizard()
 
   // return the APR
   if (token?.networkId !== "analog-timechain") return children
@@ -393,7 +393,7 @@ const WithAprDocsLink = ({ children }: { children: ReactNode }) => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBondWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useStakeWizard()
 
   return (
     <StakingFeeEstimate
@@ -405,10 +405,10 @@ const FeeEstimate = () => {
   )
 }
 
-export const BondForm = () => {
+export const StakeForm = () => {
   const { t } = useTranslation()
-  const { account, accountPicker, token, payload, poolId, setStep, setAddress } = useBondWizard()
-  const { close } = useBondModal()
+  const { account, accountPicker, token, payload, poolId, setStep, setAddress } = useStakeWizard()
+  const { close } = useStakeModal()
 
   const handleAddressSelected = useCallback(
     (address: string) => {
@@ -431,7 +431,7 @@ export const BondForm = () => {
           <div className="whitespace-nowrap">{t("Account")}</div>
           <div className="overflow-hidden">
             <Suspense fallback={<SuspenseTracker name="AccountPillButton" />}>
-              <BondAccountPillButton address={account?.address} onClick={accountPicker.open} />
+              <StakeAccountPillButton address={account?.address} onClick={accountPicker.open} />
             </Suspense>
           </div>
         </div>
@@ -478,7 +478,7 @@ export const BondForm = () => {
         {t("Review")}
       </Button>
 
-      <BondAccountPicker
+      <StakeAccountPicker
         containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
         isOpen={accountPicker.isOpen}
         account={account}

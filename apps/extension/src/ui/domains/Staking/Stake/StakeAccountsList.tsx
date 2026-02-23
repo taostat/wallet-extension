@@ -15,7 +15,7 @@ import { Address } from "../../Account/Address"
 import { Fiat } from "../../Asset/Fiat"
 import { Tokens } from "../../Asset/Tokens"
 
-export type NomPoolBondAccount = {
+export type NomPoolStakeAccount = {
   address: string
   type?: AccountType
   name?: string
@@ -24,7 +24,7 @@ export type NomPoolBondAccount = {
 }
 
 type AccountRowProps = {
-  account: NomPoolBondAccount
+  account: NomPoolStakeAccount
   genesisHash?: `0x${string}` | null
   selected: boolean
   showBalances?: boolean
@@ -118,8 +118,8 @@ const AccountRow: FC<AccountRowProps> = ({
   )
 }
 
-type NomPoolBondAccountsListProps = {
-  accounts: NomPoolBondAccount[]
+type NomPoolStakeAccountsListProps = {
+  accounts: NomPoolStakeAccount[]
   genesisHash?: `0x${string}` | null
   noFormat?: boolean
   selected?: string | null
@@ -131,7 +131,7 @@ type NomPoolBondAccountsListProps = {
   tokenId?: string
 }
 
-export const BondAccountsList: FC<NomPoolBondAccountsListProps> = ({
+export const StakeAccountsList: FC<NomPoolStakeAccountsListProps> = ({
   selected,
   accounts,
   noFormat,

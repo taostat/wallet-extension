@@ -7,16 +7,16 @@ import { IconButton, Modal } from "taostats-ui"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 
 import { ModalContent } from "../shared/ModalContent"
-import { BondFollowUp } from "./BondFollowUp"
-import { BondForm } from "./BondForm"
-import { BondReview } from "./BondReview"
-import { useBondModal } from "./hooks/useBondModal"
-import { useBondWizard } from "./hooks/useBondWizard"
+import { StakeFollowUp } from "./StakeFollowUp"
+import { StakeForm } from "./StakeForm"
+import { StakeReview } from "./StakeReview"
+import { useStakeModal } from "./hooks/useStakeModal"
+import { useStakeWizard } from "./hooks/useStakeWizard"
 
 const ModalHeader = () => {
   const { t } = useTranslation()
-  const { step, setStep } = useBondWizard()
-  const { close } = useBondModal()
+  const { step, setStep } = useStakeWizard()
+  const { close } = useStakeModal()
 
   const handleBackClick = useCallback(() => setStep("form"), [setStep])
 
@@ -45,24 +45,24 @@ const ModalHeader = () => {
 }
 
 const ModalBody = () => {
-  const { step } = useBondWizard()
+  const { step } = useStakeWizard()
 
   switch (step) {
     case "form":
-      return <BondForm />
+      return <StakeForm />
     case "review":
-      return <BondReview />
+      return <StakeReview />
     case "follow-up":
-      return <BondFollowUp />
+      return <StakeFollowUp />
   }
 }
 
-export const BondModal = () => {
-  const { isOpen, close } = useBondModal()
+export const StakeModal = () => {
+  const { isOpen, close } = useStakeModal()
 
   return (
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
-      <Suspense fallback={<SuspenseTracker name="NomPoolBondModal" />}>
+      <Suspense fallback={<SuspenseTracker name="NomPoolStakeModal" />}>
         <ModalContent ModalHeader={ModalHeader} ModalBody={ModalBody} />
       </Suspense>
     </Modal>

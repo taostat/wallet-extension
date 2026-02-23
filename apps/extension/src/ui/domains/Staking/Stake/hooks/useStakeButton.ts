@@ -9,9 +9,9 @@ import { useAccounts, useBalances, useRemoteConfig } from "@ui/state"
 import { useBittensorNetworkIds } from "@ui/state/bittensor"
 
 import { useBittensorBondModal } from "../../Bittensor/hooks/useBittensorBondModal"
-import { useBondModal } from "./useBondModal"
+import { useStakeModal } from "./useStakeModal"
 
-export const useBondButton = ({
+export const useStakeButton = ({
   balances,
   ignoreExistingSettings,
 }: {
@@ -23,41 +23,41 @@ export const useBondButton = ({
   const ownedAccounts = useAccounts("owned")
 
   const remoteConfig = useRemoteConfig()
-  const { open } = useBondModal()
+  const { open } = useStakeModal()
   const { open: handleOpenBittensorModal } = useBittensorBondModal()
   const bittensorNetworkIds = useBittensorNetworkIds()
   const allBalances = useBalances("owned")
 
   const ownedAddresses = useMemo(() => ownedAccounts.map(({ address }) => address), [ownedAccounts])
 
-  const [bestBondableBalance, isBonding] = useMemo<[BondableBalance | null, boolean]>(() => {
+  const [bestStakeableBalance, isStaking] = useMemo<[StakeableBalance | null, boolean]>(() => {
     if (!balances?.each) return [null, false]
 
-    const bondableBalances = balances.each
+    const stakeableBalances = balances.each
       .filter((b) => ownedAddresses.includes(b.address))
-      .map((b) => getBondableBalance(b, remoteConfig, bittensorNetworkIds, allBalances))
+      .map((b) => getStakeableBalance(b, remoteConfig, bittensorNetworkIds, allBalances))
       .filter(isNotNil)
       .sort((a, b) => (a.amount === b.amount ? 0 : a.amount > b.amount ? -1 : 1))
 
     return [
-      bondableBalances.length ? bondableBalances[0] : null,
-      bondableBalances.some((b) => b.isBonding),
+      stakeableBalances.length ? stakeableBalances[0] : null,
+      stakeableBalances.some((b) => b.isStaking),
     ]
   }, [allBalances, balances, bittensorNetworkIds, ownedAddresses, remoteConfig])
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
-      if (!bestBondableBalance) return
+      if (!bestStakeableBalance) return
       e.stopPropagation()
 
       genericEvent("open inline staking modal", {
-        tokenId: bestBondableBalance.tokenId,
+        tokenId: bestStakeableBalance.tokenId,
         from: "portfolio",
       })
 
-      switch (bestBondableBalance.type) {
+      switch (bestStakeableBalance.type) {
         case "bittensor": {
-          const { address, networkId, hotkey, netuid } = bestBondableBalance
+          const { address, networkId, hotkey, netuid } = bestStakeableBalance
           handleOpenBittensorModal({
             stakeDirection: "bond",
             address,
@@ -68,23 +68,23 @@ export const useBondButton = ({
           break
         }
         case "nominationPool": {
-          const { address, tokenId, poolId } = bestBondableBalance
+          const { address, tokenId, poolId } = bestStakeableBalance
           open({ address, tokenId, poolId })
           break
         }
       }
     },
-    [bestBondableBalance, genericEvent, handleOpenBittensorModal, ignoreExistingSettings, open],
+    [bestStakeableBalance, genericEvent, handleOpenBittensorModal, ignoreExistingSettings, open],
   )
 
   return {
-    canBond: !!bestBondableBalance,
-    onClick: bestBondableBalance ? handleClick : null,
-    isBonding,
+    canStake: !!bestStakeableBalance,
+    onClick: bestStakeableBalance ? handleClick : null,
+    isStaking,
   }
 }
 
-type BondableBalance =
+type StakeableBalance =
   | {
       type: "bittensor"
       networkId: NetworkId
@@ -93,7 +93,7 @@ type BondableBalance =
       amount: bigint
       hotkey?: string
       netuid?: number
-      isBonding: boolean
+      isStaking: boolean
     }
   | {
       type: "nominationPool"
@@ -101,15 +101,15 @@ type BondableBalance =
       address: Address
       amount: bigint
       poolId: number
-      isBonding: boolean
+      isStaking: boolean
     }
 
-const getBondableBalance = (
+const getStakeableBalance = (
   balance: Balance,
   remoteConfig: RemoteConfigStoreData,
   bittensorNetworkIds: string[],
   allBalances: Balances,
-): BondableBalance | null => {
+): StakeableBalance | null => {
   const token = balance.token
   if (!token) return null
 
@@ -119,7 +119,7 @@ const getBondableBalance = (
   if (token?.type === "substrate-native" && bittensorNetworkIds.includes(token.networkId)) {
     const defaultHotkey = remoteConfig.stakingPools["bittensor"]?.[0] as string | undefined
 
-    const isBonding = allBalances.each.some(
+    const isStaking = allBalances.each.some(
       (b) =>
         b.networkId === token.networkId &&
         b.token?.type === "substrate-dtao" &&
@@ -134,11 +134,11 @@ const getBondableBalance = (
       address: balance.address,
       hotkey: defaultHotkey,
       amount: balance.transferable.planck,
-      isBonding,
+      isStaking,
     }
   }
 
-  // if dTAO, assume we can bond more native TAO
+  // if dTAO, assume we can stake more native TAO
   if (token.type === "substrate-dtao" && bittensorNetworkIds.includes(token.networkId)) {
     const address = balance.address
     return {
@@ -149,7 +149,7 @@ const getBondableBalance = (
       hotkey: token.hotkey,
       netuid: token.netuid,
       amount: balance?.transferable.planck ?? 0n, // used only for sorting
-      isBonding: true,
+      isStaking: true,
     }
   }
 
@@ -179,7 +179,7 @@ const getBondableBalance = (
       address: balance.address,
       poolId: meta?.poolId ?? defaultPoolId,
       amount: balance.transferable.planck,
-      isBonding: !!meta,
+      isStaking: !!meta,
     }
   }
 

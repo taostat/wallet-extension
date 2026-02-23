@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
-import { BondButton } from "@ui/domains/Staking/Bond/BondButton"
+import { StakeButton } from "@ui/domains/Staking/Stake/StakeButton"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { getTokenName } from "@ui/util/getTokenName"
 
@@ -103,7 +103,7 @@ export const TokenBalancesList = ({
         </div>
         <div className="flex items-center justify-end">
           <div>
-            <BondButton balances={balances} />
+            <StakeButton balances={balances} />
           </div>
           <AssetBalanceCellValue
             tokens={summary.availableTokens}

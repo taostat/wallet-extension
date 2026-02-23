@@ -10,9 +10,9 @@ import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { SearchInput } from "@taostats/components/SearchInput"
 import { useAccounts, useNetworkById } from "@ui/state"
 
-import { BondAccountsList } from "./BondAccountsList"
+import { StakeAccountsList } from "./StakeAccountsList"
 
-type BondAccountPickerProps = {
+type StakeAccountPickerProps = {
   account: Account | null
   token: Token | null
   isOpen: boolean
@@ -22,7 +22,7 @@ type BondAccountPickerProps = {
   containerId: string
 }
 
-export const BondAccountPicker = ({
+export const StakeAccountPicker = ({
   account,
   token,
   isOpen,
@@ -30,7 +30,7 @@ export const BondAccountPicker = ({
   onAddressSelected,
   onBackClick,
   onCloseClick,
-}: BondAccountPickerProps) => {
+}: StakeAccountPickerProps) => {
   const { t } = useTranslation()
   const [search, setSearch] = useState("")
 
@@ -86,7 +86,7 @@ export const BondAccountPicker = ({
             </div>
           </div>
           <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
-            <BondAccountsList
+            <StakeAccountsList
               accounts={accounts}
               genesisHash={chain?.genesisHash}
               selected={account?.address}

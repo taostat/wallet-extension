@@ -20,7 +20,7 @@ type AccountPillButtonProps = {
   onClick?: () => void
 }
 
-export const BondAccountPillButton: FC<AccountPillButtonProps> = ({
+export const StakeAccountPillButton: FC<AccountPillButtonProps> = ({
   address,
   genesisHash: tokenGenesisHash,
   className,

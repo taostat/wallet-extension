@@ -23,7 +23,7 @@ import { Fiat } from "../../../Asset/Fiat"
 import { TokenLogo } from "../../../Asset/TokenLogo"
 import { Tokens } from "../../../Asset/Tokens"
 import { TokensAndFiat } from "../../../Asset/TokensAndFiat"
-import { BondAccountPicker } from "../../Bond/BondAccountPicker"
+import { StakeAccountPicker } from "../../Stake/StakeAccountPicker"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../shared/ModalContent"
 import { BittensorAssetAccountSummary } from "../components/BittensorAssetAccountSummary"
 import { BittensorStakingModalHeader } from "../components/BittensorModalHeader"
@@ -468,7 +468,7 @@ export const BittensorBondFormBase = ({ BondTypeDetails }: BittensorBondFormBase
         {t("Review")}
       </Button>
 
-      <BondAccountPicker
+      <StakeAccountPicker
         containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
         isOpen={accountPicker.isOpen}
         account={account}

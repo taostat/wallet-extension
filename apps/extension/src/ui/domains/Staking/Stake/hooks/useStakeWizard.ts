@@ -71,7 +71,7 @@ const useInnerOpenClose = (key: "isAccountPickerOpen") => {
   return { isOpen, setIsOpen, open, close, toggle }
 }
 
-export const useResetNomPoolBondWizard = () => {
+export const useResetNomPoolStakeWizard = () => {
   const reset = useCallback(
     (init: Pick<WizardState, "address" | "tokenId" | "poolId" | "step">) =>
       setWizardState({ ...DEFAULT_STATE, ...init }),
@@ -81,7 +81,7 @@ export const useResetNomPoolBondWizard = () => {
   return reset
 }
 
-export const useBondWizard = () => {
+export const useStakeWizard = () => {
   const { t } = useTranslation()
   const { genericEvent } = useAnalytics()
 
@@ -194,7 +194,7 @@ export const useBondWizard = () => {
 
   const onSubmitted = useCallback(
     (hash: Hex) => {
-      genericEvent(`${bondType} Bond`, { tokenId, isBondExtra: hasJoinedNomPool })
+      genericEvent(`${bondType} Stake`, { tokenId, isBondExtra: hasJoinedNomPool })
       if (hash) setWizardState((prev) => ({ ...prev, step: "follow-up", hash }))
     },
     [genericEvent, hasJoinedNomPool, tokenId, bondType],

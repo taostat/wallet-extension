@@ -5,7 +5,7 @@ import { ReactNode, Suspense } from "react"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
-import { BondButton } from "@ui/domains/Staking/Bond/BondButton"
+import { StakeButton } from "@ui/domains/Staking/Stake/StakeButton"
 import { useToken } from "@ui/state"
 import { getTokenName } from "@ui/util/getTokenName"
 
@@ -69,7 +69,7 @@ export const TokenBalancesList = ({
         </div>
         <div className="size-[3.8rem] shrink-0 empty:hidden">
           <Suspense fallback={<SuspenseTracker name="StakeButton" />}>
-            <BondButton balances={balances} />
+            <StakeButton balances={balances} />
           </Suspense>
         </div>
         {tokenId && (

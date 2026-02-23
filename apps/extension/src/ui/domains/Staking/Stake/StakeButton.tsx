@@ -4,13 +4,13 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { useBondButton } from "./hooks/useBondButton"
+import { useStakeButton } from "./hooks/useStakeButton"
 
-export const BondButton: FC<{
+export const StakeButton: FC<{
   balances: Balances
 }> = ({ balances }) => {
   const { t } = useTranslation()
-  const { onClick, isBonding } = useBondButton({ balances })
+  const { onClick, isStaking } = useStakeButton({ balances })
 
   if (!onClick) return null
 
@@ -22,7 +22,7 @@ export const BondButton: FC<{
           onClick={onClick}
           className="text-primary bg-primary/10 hover:bg-primary/20 flex shrink-0 items-center justify-center rounded-full p-3"
         >
-          {isBonding ? <Link2Icon className="-rotate-45" /> : <DatabaseIcon />}
+          {isStaking ? <Link2Icon className="-rotate-45" /> : <DatabaseIcon />}
         </button>
       </TooltipTrigger>
       <TooltipContent>{t("Stake")}</TooltipContent>

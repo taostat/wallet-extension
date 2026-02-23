@@ -5,9 +5,9 @@ import { classNames } from "@taostats-wallet/util"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
-import { useBondButton } from "./hooks/useBondButton"
+import { useStakeButton } from "./hooks/useStakeButton"
 
-export const BondPillButton: FC<{
+export const StakePillButton: FC<{
   balances: Balances
   isPortfolio?: boolean
   className?: string
@@ -23,7 +23,7 @@ export const BondPillButton: FC<{
     [balances, isPortfolio],
   )
 
-  const { onClick } = useBondButton({ balances, ignoreExistingSettings })
+  const { onClick } = useStakeButton({ balances, ignoreExistingSettings })
 
   if (!onClick) return null
 

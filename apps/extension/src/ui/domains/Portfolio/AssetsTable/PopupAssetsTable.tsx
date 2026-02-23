@@ -13,8 +13,8 @@ import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { Tokens } from "@ui/domains/Asset/Tokens"
-import { BondPillButton } from "@ui/domains/Staking/Bond/BondPillButton"
-import { useBondButton } from "@ui/domains/Staking/Bond/hooks/useBondButton"
+import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
+import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
@@ -106,8 +106,8 @@ const AssetRow: FC<{
   const isUniswapV2LpToken = token?.type === "evm-uniswapv2"
   const tvl = useUniswapV2LpTokenTotalValueLocked(token, rate?.price, balances)
 
-  const { canBond } = useBondButton({ balances })
-  const showStakingButton = canBond && !locked
+  const { canStake } = useStakeButton({ balances })
+  const showStakingButton = canStake && !locked
 
   if (!token || !summary || !network) return null
 
@@ -189,7 +189,7 @@ const AssetRow: FC<{
       {showStakingButton && (
         <div className="absolute right-4 top-0 hidden h-28 flex-col justify-center group-hover:flex">
           <div className="flex items-center gap-3">
-            <BondPillButton
+            <StakePillButton
               balances={balances}
               isPortfolio
               className="[>svg]:text-[2rem] text-sm"
