@@ -23,15 +23,15 @@ import { Fiat } from "../../../Asset/Fiat"
 import { TokenLogo } from "../../../Asset/TokenLogo"
 import { Tokens } from "../../../Asset/Tokens"
 import { TokensAndFiat } from "../../../Asset/TokensAndFiat"
-import { StakeAccountPicker } from "../../Stake/StakeAccountPicker"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../shared/ModalContent"
+import { StakeAccountPicker } from "../../Stake/StakeAccountPicker"
 import { BittensorAssetAccountSummary } from "../components/BittensorAssetAccountSummary"
 import { BittensorStakingModalHeader } from "../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../components/BittensorModalLayout"
 import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
+import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { ROOT_NETUID } from "../utils/constants"
 import { StakingFeeEstimate } from "./../../shared/StakingFeeEstimate"
-import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { BittensorAvailableToUnstake } from "./BittensorAvailableToUnstake"
 import { BittensorDelegatorNameButton } from "./BittensorDelegatorNameButton"
 import { BittensorSelectStakeDrawer } from "./Drawers/BittensorSelectStakeDrawer"
@@ -97,19 +97,19 @@ const TokenDisplay = () => {
 }
 
 const TokenInput = () => {
-  const { nativeToken, dtaoToken, amountTao, amountAlpha, isSubnetUnbond, setPlancks, netuid } =
+  const { nativeToken, dtaoToken, amountTao, amountAlpha, isSubnetUnstake, setPlancks, netuid } =
     useBittensorStakeWizard()
 
   const symbol = useMemo(() => {
-    if (isSubnetUnbond) {
+    if (isSubnetUnstake) {
       return `SN${netuid}`
     }
     return nativeToken?.symbol
-  }, [isSubnetUnbond, netuid, nativeToken?.symbol])
+  }, [isSubnetUnstake, netuid, nativeToken?.symbol])
 
   const formattedValue = useMemo(
-    () => (isSubnetUnbond ? (amountAlpha?.tokens ?? "") : (amountTao?.tokens ?? "")),
-    [amountTao?.tokens, amountAlpha?.tokens, isSubnetUnbond],
+    () => (isSubnetUnstake ? (amountAlpha?.tokens ?? "") : (amountTao?.tokens ?? "")),
+    [amountTao?.tokens, amountAlpha?.tokens, isSubnetUnstake],
   )
 
   const [value, setValue] = useState(formattedValue)
@@ -169,7 +169,10 @@ const TokenInput = () => {
         onChange={handleChange}
       />
       <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
-        <TokenLogo className="text-lg" tokenId={isSubnetUnbond ? dtaoToken?.id : nativeToken?.id} />
+        <TokenLogo
+          className="text-lg"
+          tokenId={isSubnetUnstake ? dtaoToken?.id : nativeToken?.id}
+        />
         <div>{symbol}</div>
       </div>
     </div>
@@ -177,7 +180,7 @@ const TokenInput = () => {
 }
 
 const FiatInput = () => {
-  const { nativeToken, tokenRates, amountTao, setPlancks, isSubnetUnbond, swapPrice } =
+  const { nativeToken, tokenRates, amountTao, setPlancks, isSubnetUnstake, swapPrice } =
     useBittensorStakeWizard()
   const currency = useSelectedCurrency()
 
@@ -215,7 +218,7 @@ const FiatInput = () => {
             Math.ceil(nativeToken.decimals / 3),
           )
 
-          if (isSubnetUnbond) {
+          if (isSubnetUnstake) {
             tokens = String(
               (
                 Number(tokens) * Number(planckToTokens(swapPrice.toString(), nativeToken.decimals))
@@ -232,7 +235,7 @@ const FiatInput = () => {
       return setPlancks(null)
     },
 
-    [nativeToken, tokenRates, currency, swapPrice, setPlancks, isSubnetUnbond],
+    [nativeToken, tokenRates, currency, swapPrice, setPlancks, isSubnetUnstake],
   )
 
   const refFiatInput = useRef<HTMLInputElement>(null)
@@ -330,7 +333,8 @@ export const AmountEdit = () => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorStakeWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } =
+    useBittensorStakeWizard()
 
   return (
     <StakingFeeEstimate
@@ -364,7 +368,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
   } = useBittensorStakeWizard()
   const { close } = useBittensorStakeModal()
 
-  const isSubnetUnbond = useMemo(
+  const isSubnetUnstake = useMemo(
     () => stakeDirection === "unstake" && netuid !== ROOT_NETUID,
     [netuid, stakeDirection],
   )
@@ -439,14 +443,14 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
             {!!amountOut && (
               <TokensAndFiat
                 planck={amountOut}
-                tokenId={isSubnetUnbond ? nativeToken?.id : dtaoToken?.id}
+                tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
                 noCountUp
                 tokensClassName="text-body"
               />
             )}
           </div>
         </div>
-        {!isSubnetUnbond && (
+        {!isSubnetUnstake && (
           <>
             <div className="flex items-center justify-between gap-8">
               <div className="whitespace-nowrap">{t("Estimated Fee")}</div>

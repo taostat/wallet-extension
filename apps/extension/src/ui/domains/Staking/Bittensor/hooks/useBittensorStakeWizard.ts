@@ -130,9 +130,9 @@ const useBittensorStakeWizardProvider = () => {
   ] = useState(() => wizardOpenState$.getValue())
   const nativeTokenId = useMemo(() => (networkId ? subNativeTokenId(networkId) : null), [networkId])
   const dtaoToken = useDtaoToken(networkId ?? "", netuid ?? 0, hotkey ?? undefined)
-  const [mevShieldOption, setMevShieldOption] = useState<
-    "off" | "on-chain" | "taostats"
-  >("taostats")
+  const [mevShieldOption, setMevShieldOption] = useState<"off" | "on-chain" | "taostats">(
+    "taostats",
+  )
 
   const dtaoBalance = useBalance(allBalances, address, dtaoToken?.id)
   const nativeBalance = useBalance(allBalances, address, nativeTokenId)
@@ -170,8 +170,9 @@ const useBittensorStakeWizardProvider = () => {
     errorFeeEstimate,
     isLoadingFeeEstimate,
     currentHotkey,
-    minTaoStake,
+    minJoinTaoStake,
     minAlphaStake,
+    minTaoStake,
     minAlphaUnstake,
     priceImpact,
     taostatsFee,
@@ -185,6 +186,7 @@ const useBittensorStakeWizardProvider = () => {
     amountIn,
     networkId: nativeToken?.networkId,
     stakeDirection,
+    forTaostatsShield: mevShieldOption === "taostats",
   })
 
   const isSubnetUnstake = useMemo(
@@ -262,10 +264,10 @@ const useBittensorStakeWizardProvider = () => {
       !!hotkey &&
       (stakeType === "root" ? true : !!netuid) &&
       !!amountTao &&
-      typeof minTaoStake === "bigint" &&
+      typeof minJoinTaoStake === "bigint" &&
       amountIn &&
       amountIn > 0n,
-    [account, amountTao, minTaoStake, netuid, amountIn, hotkey, stakeType, nativeToken],
+    [account, amountTao, minJoinTaoStake, netuid, amountIn, hotkey, stakeType, nativeToken],
   )
 
   const isUnstakeFormValid = useMemo(() => amountIn && amountIn > 0n, [amountIn])
@@ -343,7 +345,7 @@ const useBittensorStakeWizardProvider = () => {
   }, [amountOut, amountIn, stakeDirection, stakeType, totalStakedPlancks])
 
   const stakeInputErrorMessage = useMemo(() => {
-    if (!amountTao || typeof minTaoStake !== "bigint") return null
+    if (!amountTao || typeof minJoinTaoStake !== "bigint") return null
 
     if (
       !!nativeBalance &&
@@ -375,16 +377,16 @@ const useBittensorStakeWizardProvider = () => {
       !!existentialDeposit?.planck &&
       !!amountTao.planck &&
       existentialDeposit.planck + amountTao.planck + feeEstimate * 10n >
-        nativeBalance.transferable.planck // 10x fee for future unbonding, as max button accounts for 11x with a fake fee estimate
+        nativeBalance.transferable.planck // 10x fee for future unstakeing, as max button accounts for 11x with a fake fee estimate
     )
       return t(
-        "Insufficient balance to cover staking, the existential deposit, and the future unbonding and withdrawal fees",
+        "Insufficient balance to cover staking, the existential deposit, and the future unstakeing and withdrawal fees",
       )
 
     // if not staking yet, need minTaoStake or more
-    if (!dtaoBalance?.free.planck && amountTao.planck < minTaoStake)
+    if (!dtaoBalance?.free.planck && amountTao.planck < minJoinTaoStake)
       return t("Minimum stake is {{amount}} {{symbol}}", {
-        amount: new BalanceFormatter(minTaoStake, nativeToken?.decimals).tokens,
+        amount: new BalanceFormatter(minJoinTaoStake, nativeToken?.decimals).tokens,
         symbol: nativeToken?.symbol,
       })
 
@@ -398,7 +400,7 @@ const useBittensorStakeWizardProvider = () => {
     return null
   }, [
     amountTao,
-    minTaoStake,
+    minJoinTaoStake,
     nativeBalance,
     t,
     feeEstimate,

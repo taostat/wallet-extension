@@ -47,7 +47,7 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
     [accountStatus?.canWithdrawIn, rowMeta.unbonding, locale],
   )
 
-  const canUnbond = useMemo(
+  const canUnstake = useMemo(
     () => (accountStatus?.canUnstake && rowMeta.poolId) || tokenId === BITTENSOR_TOKEN_ID,
     [accountStatus?.canUnstake, rowMeta.poolId, tokenId],
   )
@@ -77,7 +77,7 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
             )}
           </Tooltip>
         )
-      ) : canUnbond ? (
+      ) : canUnstake ? (
         <NomPoolUnstakeButton
           tokenId={tokenId}
           address={rowAddress}

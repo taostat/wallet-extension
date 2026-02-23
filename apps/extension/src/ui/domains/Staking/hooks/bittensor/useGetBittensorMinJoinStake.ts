@@ -3,15 +3,15 @@ import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 
-type GetBittensorMinJoinBond = {
+type GetBittensorMinJoinStake = {
   networkId: DotNetworkId | null | undefined
 }
 
-export const useGetBittensorMinJoinBond = ({ networkId }: GetBittensorMinJoinBond) => {
+export const useGetBittensorMinJoinStake = ({ networkId }: GetBittensorMinJoinStake) => {
   const { data: sapi } = useScaleApi(networkId)
 
   return useQuery({
-    queryKey: ["useGetBittensorMinJoinBond", sapi?.id],
+    queryKey: ["useGetBittensorMinJoinStake", sapi?.id],
     queryFn: async () => {
       if (!sapi) return null
 

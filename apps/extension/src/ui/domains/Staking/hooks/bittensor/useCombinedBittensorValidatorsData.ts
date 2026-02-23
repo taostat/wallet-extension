@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import { useBittensorValidators } from "@ui/state/bittensor"
 
 import { useGetInfiniteValidatorsYieldByNetuid } from "./dTao/useGetInfiniteValidatorsYield"
-import { BondOption } from "./types"
+import { StakeOption } from "./types"
 
 export const useCombinedBittensorValidatorsData = (netuid?: number | null) => {
   const { data: validatorsYieldData, isLoading } = useGetInfiniteValidatorsYieldByNetuid({
@@ -18,7 +18,7 @@ export const useCombinedBittensorValidatorsData = (netuid?: number | null) => {
 
     const validatorYieldMap = keyBy(validatorsYieldData ?? [], (yieldData) => yieldData.hotkey.ss58)
 
-    const combined: BondOption[] =
+    const combined: StakeOption[] =
       validators?.map((validator) => {
         const validatorYield = validatorYieldMap[validator.hotkey.ss58]
 

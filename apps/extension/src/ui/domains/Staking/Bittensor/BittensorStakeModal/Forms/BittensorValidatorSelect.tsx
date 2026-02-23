@@ -30,7 +30,7 @@ import { Address } from "@ui/domains/Account/Address"
 import { Tokens } from "@ui/domains/Asset/Tokens"
 import { useToken } from "@ui/state"
 
-import { BondOption as BondOptionType } from "../../../hooks/bittensor/types"
+import { StakeOption as StakeOptionType } from "../../../hooks/bittensor/types"
 import { useCombinedBittensorValidatorsData } from "../../../hooks/bittensor/useCombinedBittensorValidatorsData"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
@@ -40,7 +40,7 @@ import { BITTENSOR_TOKEN_ID } from "../../utils/constants"
 
 type SortValue = "name" | "totalStaked" | "totalStakers" | "apr"
 
-const sortBondOptions = (data: BondOptionType[], sortBy: SortValue): BondOptionType[] =>
+const sortBondOptions = (data: StakeOptionType[], sortBy: SortValue): StakeOptionType[] =>
   data
     .concat()
     .sort((a, b) => {
@@ -68,7 +68,7 @@ export const BittensorValidatorSelect = () => {
   const [rawSearch, setSearch] = useState<string>("")
   const search = useDeferredValue(rawSearch)
 
-  const [sortedValidators, setSortedValidators] = useState<BondOptionType[] | undefined>(() =>
+  const [sortedValidators, setSortedValidators] = useState<StakeOptionType[] | undefined>(() =>
     combinedValidatorsData.length ? sortBondOptions(combinedValidatorsData, sortMethod) : undefined,
   )
 
@@ -221,7 +221,7 @@ const SortMethodButton: FC<{
 
 const ValidatorRows: FC<{
   taoTokenId: string
-  validators: BondOptionType[]
+  validators: StakeOptionType[]
   selectedHotkey?: string | null
   isLoading?: boolean
   onSelect: (hotkey: string) => void
@@ -303,7 +303,7 @@ const ValidatorRowSkeleton = () => {
 }
 
 const ValidatorRow: FC<{
-  option: BondOptionType
+  option: StakeOptionType
   taoTokenId: TokenId
   isSelected: boolean
   isLoading?: boolean

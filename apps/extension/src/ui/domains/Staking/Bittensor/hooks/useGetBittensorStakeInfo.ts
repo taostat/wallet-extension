@@ -14,6 +14,8 @@ type GetStakeInfo = {
   amountIn: bigint | null
   networkId: DotNetworkId | undefined
   stakeDirection: StakeDirection
+  /** When true, payload includes MevShield server fee transfer (Taostats Shield). */
+  forTaostatsShield?: boolean
 }
 
 export const useGetBittensorStakeInfo = ({
@@ -24,14 +26,16 @@ export const useGetBittensorStakeInfo = ({
   amountIn,
   networkId,
   stakeDirection,
+  forTaostatsShield,
 }: GetStakeInfo) => {
   const {
     alphaPrice,
     payload,
     feeEstimatePayload,
     txMetadata,
-    minTaoStake,
+    minJoinTaoStake,
     minAlphaStake,
+    minTaoStake,
     minAlphaUnstake,
     amountOut,
     taostatsFee,
@@ -47,6 +51,7 @@ export const useGetBittensorStakeInfo = ({
     hotkey,
     address,
     networkId,
+    forTaostatsShield,
   })
 
   const currentHotkey = useBittensorCurrentHotkey({ address, networkId, netuid })
@@ -68,8 +73,9 @@ export const useGetBittensorStakeInfo = ({
     isLoadingFeeEstimate,
     errorFeeEstimate,
     currentHotkey,
-    minTaoStake,
+    minJoinTaoStake,
     minAlphaStake,
+    minTaoStake,
     minAlphaUnstake,
     priceImpact,
     taostatsFee,

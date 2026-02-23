@@ -41,7 +41,7 @@ export const BittensorSubnetStakeReview = () => {
     hotkey,
     slippageDrawer,
     slippage,
-    isSubnetUnbond,
+    isSubnetUnstake,
     swapPrice,
     amountOut,
     stakeDirection,
@@ -137,7 +137,7 @@ export const BittensorSubnetStakeReview = () => {
             <div className="overflow-hidden">
               <TokensAndFiat
                 planck={amountOut}
-                tokenId={isSubnetUnbond ? nativeToken?.id : dtaoToken?.id}
+                tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
                 noCountUp
                 tokensClassName="text-body"
               />
@@ -258,7 +258,8 @@ export const BittensorSubnetStakeReview = () => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorStakeWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } =
+    useBittensorStakeWizard()
 
   return (
     <StakingFeeEstimate

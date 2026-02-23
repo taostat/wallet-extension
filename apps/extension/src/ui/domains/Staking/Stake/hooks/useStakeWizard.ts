@@ -246,7 +246,7 @@ export const useStakeWizard = () => {
       existentialDeposit.planck + formatter.planck + feeEstimate * 10n > balance.transferable.planck // 10x fee for future unbonding, as max button accounts for 11x with a fake fee estimate
     )
       return t(
-        "Insufficient balance to cover staking, the existential deposit, and the future unbonding and withdrawal fees",
+        "Insufficient balance to cover staking, the existential deposit, and the future unstaking and withdrawal fees",
       )
 
     if (!hasJoinedNomPool && formatter.planck < minJoinBond)
