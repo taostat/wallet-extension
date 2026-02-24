@@ -1,7 +1,6 @@
 import { Enum } from "@polkadot-api/substrate-bindings"
 import { TAO_DECIMALS } from "@taostats-wallet/balances"
 import { ScaleApi } from "@taostats-wallet/sapi"
-import { Binary } from "polkadot-api"
 
 import { StakeDirection } from "../hooks/types"
 import {
@@ -13,6 +12,18 @@ import {
 const withFeeTransfer = (taostatsFee: bigint) => taostatsFee > 0n
 const withServerFeeTransfer = (serverFeeForShieldRao: bigint | undefined) =>
   serverFeeForShieldRao !== undefined && serverFeeForShieldRao > 0n
+
+const taostatsFeeTransferCall = (sapi: ScaleApi, taostatsFee: bigint) =>
+  sapi.getDecodedCall("Balances", "transfer_keep_alive", {
+    dest: Enum("Id", TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR),
+    value: taostatsFee,
+  })
+
+const serverFeeTransferCall = (sapi: ScaleApi, serverFeeForShieldRao: bigint) =>
+  sapi.getDecodedCall("Balances", "transfer_keep_alive", {
+    dest: Enum("Id", MEVSHIELD_SERVER_FEE_WALLET_ADDRESS),
+    value: serverFeeForShieldRao,
+  })
 
 export type BittensorSwapSimulation = {
   tao_amount: bigint
@@ -60,14 +71,108 @@ export const getLimitPrice = (
   return limitPrice
 }
 
-const serverFeeTransferCall = (
-  sapi: ScaleApi,
-  serverFeeForShieldRao: bigint,
-) =>
-  sapi.getDecodedCall("Balances", "transfer_keep_alive", {
-    dest: Enum("Id", MEVSHIELD_SERVER_FEE_WALLET_ADDRESS),
-    value: serverFeeForShieldRao,
-  })
+type StakeAction = "stake" | "unstake"
+
+type SubtensorCallConfig = {
+  method: "add_stake" | "add_stake_limit" | "remove_stake" | "remove_stake_limit"
+  args: Record<string, unknown>
+}
+
+const SUBTENSOR_METHODS: Record<
+  StakeAction,
+  { root: SubtensorCallConfig["method"]; limit: SubtensorCallConfig["method"] }
+> = {
+  stake: {
+    root: "add_stake",
+    limit: "add_stake_limit",
+  },
+  unstake: {
+    root: "remove_stake",
+    limit: "remove_stake_limit",
+  },
+}
+
+const AMOUNT_FIELD: Record<StakeAction, "amount_staked" | "amount_unstaked"> = {
+  stake: "amount_staked",
+  unstake: "amount_unstaked",
+}
+
+const getSubtensorCallConfig = (
+  action: StakeAction,
+  isRootSubnet: boolean,
+  {
+    hotkey,
+    netuid,
+    amount,
+    priceLimit,
+  }: {
+    hotkey: string
+    netuid: number
+    amount: bigint
+    priceLimit: bigint
+  },
+): SubtensorCallConfig => {
+  const mode = isRootSubnet ? "root" : "limit"
+  const method = SUBTENSOR_METHODS[action][mode]
+  const amountField = AMOUNT_FIELD[action]
+
+  const args: Record<string, unknown> = {
+    hotkey,
+    netuid: isRootSubnet ? ROOT_NETUID : netuid,
+    [amountField]: amount,
+  }
+
+  if (!isRootSubnet) {
+    Object.assign(args, {
+      limit_price: priceLimit,
+      allow_partial: false,
+    })
+  }
+
+  return { method, args }
+}
+
+const buildBittensorPayload = ({
+  sapi,
+  address,
+  taostatsFee,
+  serverFeeForShieldRao,
+  isRootSubnet,
+  callConfig,
+}: {
+  sapi: ScaleApi
+  address: string
+  taostatsFee: bigint
+  serverFeeForShieldRao?: bigint
+  isRootSubnet: boolean
+  callConfig: SubtensorCallConfig
+}) => {
+  const hasTaostatsFee = withFeeTransfer(taostatsFee)
+  const shouldAddTaostatsShieldFee = withServerFeeTransfer(serverFeeForShieldRao)
+  const taostatsShieldFeeRao = serverFeeForShieldRao ?? 0n
+
+  const getMainDecodedCall = () =>
+    sapi.getDecodedCall("SubtensorModule", callConfig.method, callConfig.args)
+
+  if (!hasTaostatsFee) {
+    if (!shouldAddTaostatsShieldFee) {
+      return sapi.getExtrinsicPayload("SubtensorModule", callConfig.method, callConfig.args, {
+        address,
+      })
+    }
+
+    const calls = [getMainDecodedCall(), serverFeeTransferCall(sapi, taostatsShieldFeeRao)]
+    return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
+  }
+
+  const calls = [
+    getMainDecodedCall(),
+    ...(isRootSubnet ? [] : [taostatsFeeTransferCall(sapi, taostatsFee)]),
+    ...(shouldAddTaostatsShieldFee ? [serverFeeTransferCall(sapi, taostatsShieldFeeRao)] : []),
+  ]
+
+  return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
+}
 
 export const getBittensorStakingPayload = async ({
   sapi,
@@ -88,103 +193,23 @@ export const getBittensorStakingPayload = async ({
   taostatsFee: bigint
   serverFeeForShieldRao?: bigint
 }) => {
-  const addServerFee = withServerFeeTransfer(serverFeeForShieldRao)
-  const serverFeeRao = serverFeeForShieldRao ?? 0n
+  const isRootSubnet = netuid === 0
 
-  if (netuid === 0) {
-    if (!withFeeTransfer(taostatsFee)) {
-      if (!addServerFee) {
-        return sapi.getExtrinsicPayload(
-          "SubtensorModule",
-          "add_stake",
-          {
-            hotkey,
-            netuid: ROOT_NETUID,
-            amount_staked: amount,
-          },
-          { address },
-        )
-      }
-      return sapi.getExtrinsicPayload(
-        "Utility",
-        "batch_all",
-        {
-          calls: [
-            sapi.getDecodedCall("SubtensorModule", "add_stake", {
-              hotkey,
-              netuid: ROOT_NETUID,
-              amount_staked: amount,
-            }),
-            serverFeeTransferCall(sapi, serverFeeRao),
-          ],
-        },
-        { address },
-      )
-    }
-    const calls = [
-      sapi.getDecodedCall("SubtensorModule", "add_stake", {
-        hotkey,
-        netuid: ROOT_NETUID,
-        amount_staked: amount,
-      }),
-      ...(addServerFee ? [serverFeeTransferCall(sapi, serverFeeRao)] : []),
-      sapi.getDecodedCall("System", "remark_with_event", {
-        remark: Binary.fromText("taostats-bittensor"),
-      }),
-    ]
-    return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
-  }
-  if (!withFeeTransfer(taostatsFee)) {
-    if (!addServerFee) {
-      return sapi.getExtrinsicPayload(
-        "SubtensorModule",
-        "add_stake_limit",
-        {
-          hotkey,
-          netuid,
-          amount_staked: amount,
-          limit_price: priceLimit,
-          allow_partial: false,
-        },
-        { address },
-      )
-    }
-    return sapi.getExtrinsicPayload(
-      "Utility",
-      "batch_all",
-      {
-        calls: [
-          sapi.getDecodedCall("SubtensorModule", "add_stake_limit", {
-            hotkey,
-            netuid,
-            amount_staked: amount,
-            limit_price: priceLimit,
-            allow_partial: false,
-          }),
-          serverFeeTransferCall(sapi, serverFeeRao),
-        ],
-      },
-      { address },
-    )
-  }
-  const calls = [
-    sapi.getDecodedCall("SubtensorModule", "add_stake_limit", {
-      hotkey,
-      netuid,
-      amount_staked: amount,
-      limit_price: priceLimit,
-      allow_partial: false,
-    }),
-    sapi.getDecodedCall("Balances", "transfer_keep_alive", {
-      dest: Enum("Id", TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR),
-      value: taostatsFee,
-    }),
-    ...(addServerFee ? [serverFeeTransferCall(sapi, serverFeeRao)] : []),
-    sapi.getDecodedCall("System", "remark_with_event", {
-      remark: Binary.fromText("taostats-bittensor"),
-    }),
-  ]
-  return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
+  const callConfig = getSubtensorCallConfig("stake", isRootSubnet, {
+    hotkey,
+    netuid,
+    amount,
+    priceLimit,
+  })
+
+  return buildBittensorPayload({
+    sapi,
+    address,
+    taostatsFee,
+    serverFeeForShieldRao,
+    isRootSubnet,
+    callConfig,
+  })
 }
 
 type GetBittensorUnstakePayload = {
@@ -208,101 +233,21 @@ export const getBittensorUnstakePayload = ({
   taostatsFee,
   serverFeeForShieldRao,
 }: GetBittensorUnstakePayload) => {
-  const addServerFee = withServerFeeTransfer(serverFeeForShieldRao)
-  const serverFeeRao = serverFeeForShieldRao ?? 0n
+  const isRootSubnet = netuid === ROOT_NETUID
 
-  if (netuid === ROOT_NETUID) {
-    if (!withFeeTransfer(taostatsFee)) {
-      if (!addServerFee) {
-        return sapi.getExtrinsicPayload(
-          "SubtensorModule",
-          "remove_stake",
-          {
-            hotkey,
-            netuid: ROOT_NETUID,
-            amount_unstaked: amount,
-          },
-          { address },
-        )
-      }
-      return sapi.getExtrinsicPayload(
-        "Utility",
-        "batch_all",
-        {
-          calls: [
-            sapi.getDecodedCall("SubtensorModule", "remove_stake", {
-              hotkey,
-              netuid: ROOT_NETUID,
-              amount_unstaked: amount,
-            }),
-            serverFeeTransferCall(sapi, serverFeeRao),
-          ],
-        },
-        { address },
-      )
-    }
-    const calls = [
-      sapi.getDecodedCall("SubtensorModule", "remove_stake", {
-        hotkey,
-        netuid: ROOT_NETUID,
-        amount_unstaked: amount,
-      }),
-      ...(addServerFee ? [serverFeeTransferCall(sapi, serverFeeRao)] : []),
-      sapi.getDecodedCall("System", "remark_with_event", {
-        remark: Binary.fromText("taostats-bittensor"),
-      }),
-    ]
-    return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
-  }
-  if (!withFeeTransfer(taostatsFee)) {
-    if (!addServerFee) {
-      return sapi.getExtrinsicPayload(
-        "SubtensorModule",
-        "remove_stake_limit",
-        {
-          hotkey,
-          netuid,
-          amount_unstaked: amount,
-          limit_price: priceLimit,
-          allow_partial: false,
-        },
-        { address },
-      )
-    }
-    return sapi.getExtrinsicPayload(
-      "Utility",
-      "batch_all",
-      {
-        calls: [
-          sapi.getDecodedCall("SubtensorModule", "remove_stake_limit", {
-            hotkey,
-            netuid,
-            amount_unstaked: amount,
-            limit_price: priceLimit,
-            allow_partial: false,
-          }),
-          serverFeeTransferCall(sapi, serverFeeRao),
-        ],
-      },
-      { address },
-    )
-  }
-  const calls = [
-    sapi.getDecodedCall("SubtensorModule", "remove_stake_limit", {
-      hotkey,
-      netuid,
-      amount_unstaked: amount,
-      limit_price: priceLimit,
-      allow_partial: false,
-    }),
-    sapi.getDecodedCall("Balances", "transfer_keep_alive", {
-      dest: Enum("Id", TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR),
-      value: taostatsFee,
-    }),
-    ...(addServerFee ? [serverFeeTransferCall(sapi, serverFeeRao)] : []),
-    sapi.getDecodedCall("System", "remark_with_event", {
-      remark: Binary.fromText("taostats-bittensor"),
-    }),
-  ]
-  return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
+  const callConfig = getSubtensorCallConfig("unstake", isRootSubnet, {
+    hotkey,
+    netuid,
+    amount,
+    priceLimit,
+  })
+
+  return buildBittensorPayload({
+    sapi,
+    address,
+    taostatsFee,
+    serverFeeForShieldRao,
+    isRootSubnet,
+    callConfig,
+  })
 }
