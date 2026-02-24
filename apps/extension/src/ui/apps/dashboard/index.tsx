@@ -25,6 +25,7 @@ import { EditNetworkPage } from "./routes/Networks/EditNetworkPage"
 import { NetworksPage } from "./routes/Networks/NetworksPage"
 import { PhishingPage } from "./routes/PhishingPage"
 import { PortfolioRoutes } from "./routes/Portfolio"
+import { AboutPage } from "./routes/Settings/AboutPage"
 import { AccountsPage } from "./routes/Settings/Accounts"
 import { AddressBookPage } from "./routes/Settings/AddressBookPage"
 import { AnalyticsOptInPage } from "./routes/Settings/AnalyticsOptInPage"
@@ -37,7 +38,6 @@ import { LanguagePage } from "./routes/Settings/LanguagePage"
 import { MnemonicsPage } from "./routes/Settings/Mnemonics/MnemonicsPage"
 import { NetworksTokensPage } from "./routes/Settings/NetworksTokensPage"
 import { SecurityPrivacyPage } from "./routes/Settings/SecurityPrivacyPage"
-import { SupportPage } from "./routes/Settings/SupportPage"
 import { TestPage } from "./routes/TestPage"
 import { EditTokenPage } from "./routes/Tokens/EditTokenPage"
 import { TokensPage } from "./routes/Tokens/TokensPage"
@@ -116,7 +116,7 @@ const DashboardInner = () => {
             <Route path="network/:id" element={<EditNetworkPage />} />
             <Route path="*" element={<Navigate to="" replace />} />
           </Route>
-          <Route path="about" element={<SupportPage />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="analytics" element={<AnalyticsOptInPage />} />
           {/* Old routes redirects */}
           <Route

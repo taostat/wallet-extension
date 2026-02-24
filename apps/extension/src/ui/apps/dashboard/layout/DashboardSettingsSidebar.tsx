@@ -87,7 +87,7 @@ export const DashboardSettingsSidebar = () => {
           to="/settings/networks-tokens"
           icon={<GlobeIcon />}
         />
-        <SidebarNavItem label={t("Support")} to="/settings/about" icon={<InfoIcon />} />
+        <SidebarNavItem label={t("About")} to="/settings/about" icon={<InfoIcon />} />
       </div>
     </div>
   )
