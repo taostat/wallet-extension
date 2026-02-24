@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next"
 
 import { useCombinedBittensorValidatorsData } from "@ui/domains/Staking/hooks/bittensor/useCombinedBittensorValidatorsData"
 
-import { useBittensorBondWizard } from "../hooks/useBittensorBondWizard"
+import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 
 export const ValidatorApy = () => {
   const { t } = useTranslation()
-  const { hotkey, netuid } = useBittensorBondWizard()
+  const { hotkey, netuid } = useBittensorStakeWizard()
   const { combinedValidatorsData, isLoading, isError } = useCombinedBittensorValidatorsData(netuid)
 
   const apy = useMemo(() => {

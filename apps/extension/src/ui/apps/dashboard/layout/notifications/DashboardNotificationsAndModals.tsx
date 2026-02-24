@@ -7,11 +7,11 @@ import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
 import { GetStartedModals } from "@ui/domains/Portfolio/GetStarted/GetStartedModals"
 import { MigratePasswordModal } from "@ui/domains/Settings/MigratePassword/MigratePasswordModal"
-import { BittensorBondModal } from "@ui/domains/Staking/Bittensor/BittensorBondModal"
+import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStakeModal"
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
-import { BondModal } from "@ui/domains/Staking/Bond/BondModal"
+import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
-import { UnbondModal } from "@ui/domains/Staking/Unbond/UnbondModal"
+import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 
 import DashboardNotifications from "."
@@ -41,8 +41,8 @@ export const DashboardNotificationsAndModals = () => {
       <AccountExportModal />
       <AccountRemoveModal />
       <AccountRenameModal />
-      <BondModal />
-      <BittensorBondModal />
+      <StakeModal />
+      <BittensorStakeModal />
       <BittensorClaimSettingsModal />
       <CopyAddressModal />
       <ExplorerNetworkPickerModal />
@@ -50,7 +50,7 @@ export const DashboardNotificationsAndModals = () => {
       <MigratePasswordModal />
       <NomPoolWithdrawModal />
       <OnboardingToast />
-      <UnbondModal />
+      <UnstakeModal />
     </Suspense>
   )
 }

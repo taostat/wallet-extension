@@ -46,7 +46,7 @@ export type ValidatorsData = {
   data: ValidatorData[]
 }
 
-export type BondOption = {
+export type StakeOption = {
   hotkey: string
   name: string
   totalStaked: number

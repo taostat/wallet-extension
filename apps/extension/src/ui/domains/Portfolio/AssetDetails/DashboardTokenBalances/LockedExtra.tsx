@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 
 import { useNomPoolStakingStatus } from "@ui/domains/Staking/hooks/nomPools/useNomPoolStakingStatus"
 import { NomPoolWithdrawButton } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawButton"
-import { NomPoolUnbondButton } from "@ui/domains/Staking/Unbond/NomPoolUnbondButton"
+import { NomPoolUnstakeButton } from "@ui/domains/Staking/Unstake/NomPoolUnstakeButton"
 import { useDateFnsLocale } from "@ui/hooks/useDateFnsLocale"
 
 import { usePortfolioNavigation } from "../../usePortfolioNavigation"
@@ -62,7 +62,7 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
             <div className={classNames(isLoading && "animate-pulse transition-opacity")}>
               <div className="flex items-center gap-2">
                 <ZapOffIcon className="shrink-0 text-sm" />
-                <div>{t("Unbonding")}</div>
+                <div>{t("Unstaking")}</div>
               </div>
             </div>
             {!!withdrawIn && (
@@ -73,7 +73,7 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
           </>
         )
       ) : canUnbond ? (
-        <NomPoolUnbondButton
+        <NomPoolUnstakeButton
           tokenId={tokenId}
           address={rowAddress}
           variant="large"

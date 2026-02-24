@@ -7,8 +7,8 @@ import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { useBittensorBondModal } from "@ui/domains/Staking/Bittensor/hooks/useBittensorBondModal"
-import { BittensorStakingWizardOpenOptions } from "@ui/domains/Staking/Bittensor/hooks/useBittensorBondWizard"
+import { useBittensorStakeModal } from "@ui/domains/Staking/Bittensor/hooks/useBittensorStakeModal"
+import { BittensorStakingWizardOpenOptions } from "@ui/domains/Staking/Bittensor/hooks/useBittensorStakeWizard"
 import { useAccounts } from "@ui/state"
 import { useBittensorNetworkIds } from "@ui/state/bittensor"
 
@@ -21,7 +21,7 @@ export const BittensorUnstakeButton: FC<{
   variant?: "icon" | "pill"
 }> = ({ balances, className, variant = "icon" }) => {
   const { t } = useTranslation()
-  const { open } = useBittensorBondModal()
+  const { open } = useBittensorStakeModal()
   const bittensorNetworkIds = useBittensorNetworkIds()
   const accounts = useAccounts("owned")
 
@@ -45,7 +45,7 @@ export const BittensorUnstakeButton: FC<{
           address: balance.address,
           netuid: token.netuid,
           hotkey: token.hotkey,
-          stakeDirection: "unbond",
+          stakeDirection: "unstake",
         }
       : null
   }, [accounts, balances, bittensorNetworkIds])

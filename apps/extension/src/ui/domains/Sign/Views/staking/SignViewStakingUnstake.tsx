@@ -14,7 +14,7 @@ export const SignViewStakingUnstake: FC<{
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <div>
-        {t("You are unbonding all")}{" "}
+        {t("You are unstaking all")}{" "}
         <span className="text-body inline-flex gap-2">
           <TokenLogo tokenId={tokenId} className="inline" />
           <span>{token?.symbol}</span>

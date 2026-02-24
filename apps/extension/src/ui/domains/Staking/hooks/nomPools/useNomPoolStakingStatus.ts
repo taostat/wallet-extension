@@ -97,7 +97,7 @@ export const useNomPoolStakingStatus = (tokenId: TokenId) => {
             poolId: nomPoolStakingByAddress[address]?.pool_id,
             isSoloStaking: !!soloStakingByAddress[address],
             isNomPoolsStaking: !!nomPoolStakingByAddress[address],
-            canBondNomPool: !soloStakingByAddress[address] && !!transferableByAddress[address],
+            canStakeNomPool: !soloStakingByAddress[address] && !!transferableByAddress[address],
             canUnstake: nomPoolStakingByAddress[address]?.points,
             canWithdraw: maxUnbondingEra <= currentEra,
             canWithdrawIn: getWithdrawWaitDuration(stakingSapi, babeSapi, erasToUnbonding),

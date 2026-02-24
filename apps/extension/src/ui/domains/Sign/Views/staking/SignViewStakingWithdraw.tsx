@@ -14,7 +14,7 @@ export const SignViewStakingWithdraw: FC<{
   return (
     <div>
       <div className="leading-paragraph">
-        <span className="align-middle">{t("You are withdrawing your unbonded")} </span>
+        <span className="align-middle">{t("You are withdrawing your unstaked")} </span>
         <span className="text-body inline-flex items-center gap-2 align-bottom">
           <TokenLogo tokenId={tokenId} className="inline shrink-0" />
           <span>{token?.symbol}</span>

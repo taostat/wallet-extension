@@ -1,0 +1,68 @@
+import { UserIcon } from "@taostats-wallet/icons"
+import { classNames } from "@taostats-wallet/util"
+import { getAccountGenesisHash } from "extension-core"
+import { FC, useMemo } from "react"
+import { useTranslation } from "react-i18next"
+import { PillButton } from "taostats-ui"
+
+import { WithTooltip } from "@taostats/components/Tooltip"
+import { useFormattedAddress } from "@ui/hooks/useFormattedAddress"
+import { useAccountByAddress } from "@ui/state"
+
+import { AccountIcon } from "../../Account/AccountIcon"
+import { AccountTypeIcon } from "../../Account/AccountTypeIcon"
+import { Address } from "../../Account/Address"
+
+type AccountPillButtonProps = {
+  address?: string | null
+  genesisHash?: `0x${string}` | null
+  className?: string
+  onClick?: () => void
+}
+
+export const StakeAccountPillButton: FC<AccountPillButtonProps> = ({
+  address,
+  genesisHash: tokenGenesisHash,
+  className,
+  onClick,
+}) => {
+  const { t } = useTranslation()
+  const account = useAccountByAddress(address as string)
+
+  const [name, accountGenesisHash] = useMemo(() => {
+    return [account?.name, getAccountGenesisHash(account)]
+  }, [account])
+
+  const formattedAddress = useFormattedAddress(
+    address ?? undefined,
+    tokenGenesisHash ?? accountGenesisHash,
+  )
+  const displayAddress = useMemo(
+    () => (account ? formattedAddress : address) ?? undefined,
+    [account, address, formattedAddress],
+  )
+
+  return (
+    <PillButton className={classNames("h-16 max-w-full rounded px-4", className)} onClick={onClick}>
+      <div className="text-body flex h-16 max-w-full flex-nowrap items-center gap-4 overflow-x-hidden text-base">
+        {address ? (
+          <AccountIcon className="!text-lg" address={address} genesisHash={accountGenesisHash} />
+        ) : (
+          <UserIcon />
+        )}
+        {account ? (
+          <div className="leading-base grow truncate">
+            {name ? (
+              <WithTooltip tooltip={displayAddress}>{name}</WithTooltip>
+            ) : (
+              <Address address={displayAddress} startCharCount={6} endCharCount={6} />
+            )}
+          </div>
+        ) : (
+          t("Select account")
+        )}
+        <AccountTypeIcon type={account?.type} className="text-primary-500" />
+      </div>
+    </PillButton>
+  )
+}

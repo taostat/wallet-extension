@@ -13,7 +13,7 @@ import {
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
-import { useBondModal } from "@ui/domains/Staking/Bond/hooks/useBondModal"
+import { useStakeModal } from "@ui/domains/Staking/Stake/hooks/useStakeModal"
 import { useNomPoolStakingStatus } from "@ui/domains/Staking/hooks/nomPools/useNomPoolStakingStatus"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 
@@ -33,13 +33,13 @@ const StakeMenuItem: FC<{ tokenId: string }> = ({ tokenId }) => {
   const { t } = useTranslation()
   const { genericEvent } = useAnalytics()
 
-  const { open } = useBondModal()
+  const { open } = useStakeModal()
   const { data: stakingStatus } = useNomPoolStakingStatus(tokenId)
 
   const openArgs = useMemo<Parameters<typeof open>[0] | undefined>(() => {
     if (!stakingStatus) return
     const { accounts, poolId } = stakingStatus
-    const acc = accounts?.find((s) => s.canBondNomPool)
+    const acc = accounts?.find((s) => s.canStakeNomPool)
     if (!acc) return
     return {
       tokenId,

@@ -16,11 +16,11 @@ import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
 import { DatabaseErrorAlert } from "@ui/domains/Settings/DatabaseErrorAlert"
-import { BittensorBondModal } from "@ui/domains/Staking/Bittensor/BittensorBondModal"
+import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStakeModal"
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
-import { BondModal } from "@ui/domains/Staking/Bond/BondModal"
+import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
-import { UnbondModal } from "@ui/domains/Staking/Unbond/UnbondModal"
+import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { MigrationProgress } from "@ui/domains/System/MigrationProgress"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 import { useLoginCheck } from "@ui/hooks/useLoginCheck"
@@ -76,14 +76,14 @@ const Popup = () => {
         <AccountExportModal />
         <AccountRemoveModal />
         <AccountRenameModal />
-        <BondModal />
-        <BittensorBondModal />
+        <StakeModal />
+        <BittensorStakeModal />
         <BittensorClaimSettingsModal />
         <CopyAddressModal />
         <ExplorerNetworkPickerModal />
         <LedgerPolkadotUpgradeAlertDrawer />
         <NomPoolWithdrawModal />
-        <UnbondModal />
+        <UnstakeModal />
       </Suspense>
       {/* Render outside of suspense or it will never show in case of migration error */}
       <DatabaseErrorAlert container="popup" />

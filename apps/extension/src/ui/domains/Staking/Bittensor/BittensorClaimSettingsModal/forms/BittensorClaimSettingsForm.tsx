@@ -5,7 +5,7 @@ import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import type { RootClaimType } from "../../../hooks/bittensor/dTao/types"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
-import { BondAccountPicker } from "../../../Bond/BondAccountPicker"
+import { StakeAccountPicker } from "../../../Stake/StakeAccountPicker"
 import { useGetBittensorClaimType } from "../../../hooks/bittensor/dTao/useGetBittensorClaimType"
 import { useGetBittensorClaimTypePayload } from "../../../hooks/bittensor/dTao/useGetBittensorClaimTypePayload"
 import { BittensorAssetAccountSummary } from "../../components/BittensorAssetAccountSummary"
@@ -169,7 +169,7 @@ export const BittensorClaimSettingsForm = () => {
         )}
       </div>
 
-      <BondAccountPicker
+      <StakeAccountPicker
         containerId={BITTENSOR_CLAIM_SETTINGS_MODAL_CONTENT_CONTAINER_ID}
         isOpen={accountPicker.isOpen}
         account={account}

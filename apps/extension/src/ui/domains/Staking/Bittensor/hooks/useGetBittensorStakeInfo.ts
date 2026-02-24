@@ -3,7 +3,7 @@ import { ScaleApi } from "@taostats-wallet/sapi"
 
 import { useBittensorCurrentHotkey } from "../../hooks/bittensor/useGetBittensorStakeHotkeys"
 import { useGetFeeEstimate } from "../../shared/useGetFeeEstimate"
-import { type StakeDirection } from "./useBittensorBondWizard"
+import { type StakeDirection } from "./useBittensorStakeWizard"
 import { useBittensorStakingPayload } from "./useBittensorStakingPayload"
 
 type GetStakeInfo = {
@@ -14,6 +14,8 @@ type GetStakeInfo = {
   amountIn: bigint | null
   networkId: DotNetworkId | undefined
   stakeDirection: StakeDirection
+  /** When true, payload includes MevShield server fee transfer (Taostats Shield). */
+  forTaostatsShield?: boolean
 }
 
 export const useGetBittensorStakeInfo = ({
@@ -24,14 +26,15 @@ export const useGetBittensorStakeInfo = ({
   amountIn,
   networkId,
   stakeDirection,
+  forTaostatsShield,
 }: GetStakeInfo) => {
   const {
     alphaPrice,
     payload,
     feeEstimatePayload,
     txMetadata,
-    minTaoBond,
-    minAlphaBond,
+    minJoinTaoStake,
+    minAlphaStake,
     minTaoStake,
     minAlphaUnstake,
     amountOut,
@@ -44,10 +47,11 @@ export const useGetBittensorStakeInfo = ({
   } = useBittensorStakingPayload({
     netuid,
     amountIn,
-    direction: stakeDirection === "bond" ? "taoToAlpha" : "alphaToTao",
+    direction: stakeDirection === "stake" ? "taoToAlpha" : "alphaToTao",
     hotkey,
     address,
     networkId,
+    forTaostatsShield,
   })
 
   const currentHotkey = useBittensorCurrentHotkey({ address, networkId, netuid })
@@ -69,8 +73,8 @@ export const useGetBittensorStakeInfo = ({
     isLoadingFeeEstimate,
     errorFeeEstimate,
     currentHotkey,
-    minTaoBond,
-    minAlphaBond,
+    minJoinTaoStake,
+    minAlphaStake,
     minTaoStake,
     minAlphaUnstake,
     priceImpact,

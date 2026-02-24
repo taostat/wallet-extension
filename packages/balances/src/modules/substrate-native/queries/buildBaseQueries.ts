@@ -332,7 +332,7 @@ const decodeStakingLedgerResult = (
           {
             type: "locked",
             source: "substrate-native-unbonding",
-            label: "Unbonding",
+            label: "Unstaking",
             amount: totalUnlocking.toString(),
           },
         ]

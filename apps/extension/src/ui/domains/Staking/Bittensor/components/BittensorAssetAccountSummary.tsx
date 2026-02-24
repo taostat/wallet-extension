@@ -5,7 +5,7 @@ import { Suspense } from "react"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 
-import { BondAccountPillButton } from "../../Bond/BondAccountPillButton"
+import { StakeAccountPillButton } from "../../Stake/StakeAccountPillButton"
 
 type BittensorAssetAccountSummaryProps = {
   token: Token | null | undefined
@@ -35,7 +35,7 @@ export const BittensorAssetAccountSummary = ({
         <div className="whitespace-nowrap">{accountLabel}</div>
         <div className="overflow-hidden">
           <Suspense fallback={<SuspenseTracker name={suspenseName} />}>
-            <BondAccountPillButton address={accountAddress} onClick={onAccountClick} />
+            <StakeAccountPillButton address={accountAddress} onClick={onAccountClick} />
           </Suspense>
         </div>
       </div>
