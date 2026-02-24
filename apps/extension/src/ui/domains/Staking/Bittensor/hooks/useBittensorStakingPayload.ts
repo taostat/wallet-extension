@@ -8,12 +8,12 @@ import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 import { useGetBittensorMinJoinStake } from "../../hooks/bittensor/useGetBittensorMinJoinStake"
 import { useGetBittensorDefaultMinStake } from "../../hooks/bittensor/useGetBittensorMinStake"
 import { useGetFeeEstimate } from "../../shared/useGetFeeEstimate"
+import { MEVSHIELD_SERVER_FEE_RAO } from "../utils/constants"
 import {
   getBittensorStakingPayload,
   getBittensorUnstakePayload,
   getLimitPrice,
 } from "../utils/helpers"
-import { MEVSHIELD_SERVER_FEE_RAO } from "../utils/constants"
 import { StakeDirection } from "./types"
 import { useBittensorAlphaPrice } from "./useBittensorAlphaPrice"
 import { useBittensorSimulateSwap } from "./useBittensorSimulateSwap"
@@ -142,36 +142,29 @@ export const useBittensorStakingPayload = ({
   }, [direction, simulation, taostatsFee])
 
   // When Taostats Shield: get fee of payload without server transfer, then server fee = that + 5%
-  const {
-    data: basePayloadForServerFee,
-    isLoading: isLoadingBasePayloadForServerFee,
-  } = useBittensorAnyStakingPayload({
-    sapi,
-    direction,
-    address,
-    netuid,
-    hotkey: hotkey ?? MOCKED_HOTKEY,
-    amount: amount ?? minJoinTaoStake,
-    priceLimit: priceLimit ?? 1_000n,
-    taostatsFee: taostatsFee ?? 1_000n,
-    serverFeeForShieldRao: undefined,
-    enabled: !!forTaostatsShield && !!sapi && !!address && !!hotkey && typeof netuid === "number",
-  })
+  const { data: basePayloadForServerFee, isLoading: isLoadingBasePayloadForServerFee } =
+    useBittensorAnyStakingPayload({
+      sapi,
+      direction,
+      address,
+      netuid,
+      hotkey: hotkey ?? MOCKED_HOTKEY,
+      amount: amount ?? minJoinTaoStake,
+      priceLimit: priceLimit ?? 1_000n,
+      taostatsFee: taostatsFee ?? 1_000n,
+      serverFeeForShieldRao: undefined,
+      enabled: !!forTaostatsShield && !!sapi && !!address && !!hotkey && typeof netuid === "number",
+    })
 
-  const {
-    data: baseFeeEstimateRao,
-    isLoading: isLoadingBaseFeeEstimate,
-  } = useGetFeeEstimate({
+  const { isLoading: isLoadingBaseFeeEstimate } = useGetFeeEstimate({
     sapi,
     payload: forTaostatsShield ? basePayloadForServerFee?.payload : undefined,
   })
 
   const serverFeeForShieldRao = useMemo(() => {
     if (!forTaostatsShield) return undefined
-    if (baseFeeEstimateRao != null)
-      return baseFeeEstimateRao + (baseFeeEstimateRao * 5n) / 100n
     return MEVSHIELD_SERVER_FEE_RAO
-  }, [forTaostatsShield, baseFeeEstimateRao])
+  }, [forTaostatsShield])
 
   const {
     data: swapPayload,
