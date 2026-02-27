@@ -38,7 +38,7 @@ const Content = () => {
               Both projects are licensed under the GNU General Public License v3.0 (GPLv3). Source
               code is available at:
               <div className="mt-4 flex flex-row justify-start gap-4">
-                <LinkToGithub href="https://github.com/taostats/wallet-extension">
+                <LinkToGithub href="https://github.com/taostat/wallet-extension">
                   Taostats
                 </LinkToGithub>
                 <LinkToGithub href="https://github.com/TalismanSociety/talisman">

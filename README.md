@@ -8,7 +8,7 @@ If you would like to build Taostats from source, please continue reading:
 
 ## Attribution
 
-This wallet comprises code derived from the [Talisman wallet source code](https://github.com/TalismanSociety/talisman), which is available at [talisman.xyz](https://talisman.xyz), licensed under GNU GPLv3. This is a modified version maintained by Taostats. The complete corresponding source code for this release, including all modifications, is available at [https://github.com/taostats/wallet-extension](https://github.com/taostats/wallet-extension).
+This wallet comprises code derived from the [Talisman wallet source code](https://github.com/TalismanSociety/talisman), which is available at [talisman.xyz](https://talisman.xyz), licensed under GNU GPLv3. This is a modified version maintained by Taostats. The complete corresponding source code for this release, including all modifications, is available at [https://github.com/taostat/wallet-extension](https://github.com/taostat/wallet-extension).
 
 ## System requirements
 
