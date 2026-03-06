@@ -168,7 +168,7 @@ const AccountAddDerivedFormInner: FC<AccountAddPageProps> = ({ onSuccess }) => {
     resolver: yupResolver(schema),
     defaultValues: {
       platform: defaultPlatform,
-      mnemonicId: mnemonics[0]?.id ?? null,
+      mnemonicId: null,
       derivationPath: "",
     },
   })
