@@ -5,6 +5,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 
+import { Fiat } from "../../../../Asset/Fiat"
 import { TokenLogo } from "../../../../Asset/TokenLogo"
 import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
@@ -21,6 +22,7 @@ export const BittensorRootStakeReview = () => {
   const {
     nativeToken,
     amountIn,
+    amountTao,
     account,
     onSubmitted,
     payload,
@@ -56,7 +58,7 @@ export const BittensorRootStakeReview = () => {
     >
       <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
         <div className="flex items-center justify-between gap-8 pb-2">
-          <div className="whitespace-nowrap">{t("Amount")} </div>
+          <div className="whitespace-nowrap">{t("Tao")} </div>
           <div className="flex items-center gap-4 overflow-hidden">
             <TokenLogo tokenId={nativeToken?.id} className="shrink-0 text-lg" />
             <TokensAndFiat
@@ -64,9 +66,15 @@ export const BittensorRootStakeReview = () => {
               tokenId={nativeToken?.id}
               planck={amountIn ?? 0n}
               noCountUp
+              noFiat
               tokensClassName="text-body"
-              fiatClassName="text-body-secondary"
             />
+          </div>
+        </div>
+        <div className="flex items-center justify-between gap-8 py-2">
+          <div className="whitespace-nowrap">{t("USD")} </div>
+          <div className="text-body overflow-hidden">
+            <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
           </div>
         </div>
         <div className="flex items-center justify-between gap-8 pt-2">
