@@ -1,5 +1,4 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
-import { SwapIcon } from "@taostats-wallet/icons"
 import { classNames, planckToTokens, tokensToPlanck } from "@taostats-wallet/util"
 import { Account } from "extension-core"
 import {
@@ -18,16 +17,9 @@ import { Button, PillButton } from "taostats-ui"
 import { useInputAutoWidth } from "@ui/hooks/useInputAutoWidth"
 import { useBalance, useSelectedCurrency } from "@ui/state"
 
-const limitDecimals = (value: string, dp = 6) => {
-  const [whole, fraction] = value.split(".")
-  if (fraction === undefined) return value
-  return `${whole}.${fraction.slice(0, dp)}`
-}
-
 import { currencyConfig } from "../../../Asset/currencyConfig"
 import { Fiat } from "../../../Asset/Fiat"
 import { TokenLogo } from "../../../Asset/TokenLogo"
-import { Tokens } from "../../../Asset/Tokens"
 import { TokensAndFiat } from "../../../Asset/TokensAndFiat"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../../shared/ModalContent"
 import { StakeAccountPicker } from "../../Stake/StakeAccountPicker"
@@ -41,6 +33,12 @@ import { StakingFeeEstimate } from "./../../shared/StakingFeeEstimate"
 import { BittensorAvailableToUnstake } from "./BittensorAvailableToUnstake"
 import { BittensorDelegatorNameButton } from "./BittensorDelegatorNameButton"
 import { BittensorSelectStakeDrawer } from "./Drawers/BittensorSelectStakeDrawer"
+
+const limitDecimals = (value: string, dp = 6) => {
+  const [whole, fraction] = value.split(".")
+  if (fraction === undefined) return value
+  return `${whole}.${fraction.slice(0, dp)}`
+}
 
 const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, account }) => {
   const balance = useBalance(account.address, token.id)
@@ -73,30 +71,6 @@ const FiatDisplay = () => {
   return (
     <DisplayContainer>
       <Fiat amount={amountTao?.fiat("usd") ?? 0} forceCurrency="usd" noCountUp />
-    </DisplayContainer>
-  )
-}
-
-const TokenDisplay = () => {
-  const { nativeToken, stakeDirection, netuid, amountIn } = useBittensorStakeWizard()
-
-  const tokenPlancks = useMemo(
-    () => planckToTokens(String(amountIn || 0n), nativeToken?.decimals),
-    [amountIn, nativeToken?.decimals],
-  )
-
-  const symbol = useMemo(() => {
-    if (stakeDirection === "unstake" && netuid !== ROOT_NETUID) {
-      return `SN${netuid}`
-    }
-    return nativeToken?.symbol
-  }, [netuid, stakeDirection, nativeToken?.symbol])
-
-  if (!nativeToken) return null
-
-  return (
-    <DisplayContainer>
-      <Tokens amount={tokenPlancks} decimals={nativeToken.decimals} symbol={symbol} noCountUp />
     </DisplayContainer>
   )
 }
@@ -164,7 +138,10 @@ const TokenInput = ({ onEdit }: { onEdit: () => void }) => {
   return (
     <div className="flex w-full flex-nowrap items-center justify-between gap-4">
       <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
-        <TokenLogo className="text-lg" tokenId={isSubnetUnstake ? dtaoToken?.id : nativeToken?.id} />
+        <TokenLogo
+          className="text-lg"
+          tokenId={isSubnetUnstake ? dtaoToken?.id : nativeToken?.id}
+        />
         <div>{symbol}</div>
       </div>
       <input
@@ -188,11 +165,7 @@ const TokenInput = ({ onEdit }: { onEdit: () => void }) => {
  * Unstaking subnet: primary=Alpha → secondary=TAO.  Typing TAO  runs taoToAlpha reverse sim → setPlancks(Alpha).
  * Hidden for root stake/unstake (netuid === 0).
  */
-const AlphaInput = ({
-  lastEditedInput,
-}: {
-  lastEditedInput: { current: "primary" | "alpha" }
-}) => {
+const AlphaInput = ({ lastEditedInput }: { lastEditedInput: { current: "primary" | "alpha" } }) => {
   const { nativeToken, dtaoToken, amountOut, setPlancks, netuid, isSubnetUnstake, alphaPrice } =
     useBittensorStakeWizard()
 
