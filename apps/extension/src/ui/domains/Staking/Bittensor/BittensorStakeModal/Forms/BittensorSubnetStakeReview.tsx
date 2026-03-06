@@ -15,6 +15,8 @@ import {
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
 
+import { Fiat } from "../../../../Asset/Fiat"
+import { TokenLogo } from "../../../../Asset/TokenLogo"
 import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
 import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
@@ -37,8 +39,10 @@ export const BittensorSubnetStakeReview = () => {
     account,
     payload,
     amountIn,
+    amountTao,
     txMetadata,
     hotkey,
+    netuid,
     slippageDrawer,
     slippage,
     isSubnetUnstake,
@@ -81,18 +85,39 @@ export const BittensorSubnetStakeReview = () => {
       <div className="space-y-[0.75rem]">
         <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
           <div className="flex items-center justify-between gap-8 pb-2 text-sm">
-            <div className="whitespace-nowrap">{t("Amount")} </div>
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span>{t("Tao")}</span>
+              <TokenLogo tokenId={nativeToken?.id} className="size-8" />
+            </div>
             <div className="overflow-hidden">
               <TokensAndFiat
-                tokenId={stakeDirection === "stake" ? nativeToken?.id : dtaoToken?.id}
-                planck={amountIn!}
+                tokenId={nativeToken?.id}
+                planck={isSubnetUnstake ? amountOut : amountIn!}
                 noCountUp
-                withLogo
-                className="flex items-center"
+                noFiat
                 tokensClassName="text-body"
-                logoClassName="size-8"
-                fiatClassName="text-body-secondary"
               />
+            </div>
+          </div>
+          <div className="flex items-center justify-between gap-8 py-2 text-sm">
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span>{`SN${netuid}`}</span>
+              <TokenLogo tokenId={dtaoToken?.id} className="size-8" />
+            </div>
+            <div className="overflow-hidden">
+              <TokensAndFiat
+                tokenId={dtaoToken?.id}
+                planck={isSubnetUnstake ? amountIn! : amountOut}
+                noCountUp
+                noFiat
+                tokensClassName="text-body"
+              />
+            </div>
+          </div>
+          <div className="flex items-center justify-between gap-8 py-2 text-sm">
+            <div className="whitespace-nowrap">{t("USD")} </div>
+            <div className="text-body overflow-hidden">
+              <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
             </div>
           </div>
           <div className="flex items-center justify-between gap-8 pt-2 text-sm">
