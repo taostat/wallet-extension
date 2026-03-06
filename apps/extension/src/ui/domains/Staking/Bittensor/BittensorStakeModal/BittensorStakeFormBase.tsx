@@ -18,6 +18,14 @@ import { Button, PillButton } from "taostats-ui"
 import { useInputAutoWidth } from "@ui/hooks/useInputAutoWidth"
 import { useBalance, useSelectedCurrency } from "@ui/state"
 
+import { useBittensorSimulateSwap } from "../hooks/useBittensorSimulateSwap"
+
+const limitDecimals = (value: string, dp = 6) => {
+  const [whole, fraction] = value.split(".")
+  if (fraction === undefined) return value
+  return `${whole}.${fraction.slice(0, dp)}`
+}
+
 import { currencyConfig } from "../../../Asset/currencyConfig"
 import { Fiat } from "../../../Asset/Fiat"
 import { TokenLogo } from "../../../Asset/TokenLogo"
@@ -107,10 +115,10 @@ const TokenInput = () => {
     return nativeToken?.symbol
   }, [isSubnetUnstake, netuid, nativeToken?.symbol])
 
-  const formattedValue = useMemo(
-    () => (isSubnetUnstake ? (amountAlpha?.tokens ?? "") : (amountTao?.tokens ?? "")),
-    [amountTao?.tokens, amountAlpha?.tokens, isSubnetUnstake],
-  )
+  const formattedValue = useMemo(() => {
+    const raw = isSubnetUnstake ? (amountAlpha?.tokens ?? "") : (amountTao?.tokens ?? "")
+    return limitDecimals(raw)
+  }, [amountTao?.tokens, amountAlpha?.tokens, isSubnetUnstake])
 
   const [value, setValue] = useState(formattedValue)
   const refSkipSync = useRef(false)
@@ -165,7 +173,7 @@ const TokenInput = () => {
         placeholder="0"
         step="any"
         value={value}
-        className={"text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-xl"}
+        className={"text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"}
         onChange={handleChange}
       />
       <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
@@ -174,6 +182,111 @@ const TokenInput = () => {
           tokenId={isSubnetUnstake ? dtaoToken?.id : nativeToken?.id}
         />
         <div>{symbol}</div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Secondary input showing the alpha (or TAO) equivalent of the primary amount.
+ * Staking:  primary=TAO  → secondary=Alpha. Typing alpha runs alphaToTao reverse sim → setPlancks(TAO).
+ * Unstaking subnet: primary=Alpha → secondary=TAO.  Typing TAO  runs taoToAlpha reverse sim → setPlancks(Alpha).
+ * Hidden for root stake/unstake (netuid === 0).
+ */
+const AlphaInput = () => {
+  const { nativeToken, dtaoToken, amountOut, setPlancks, netuid, networkId, isSubnetUnstake } =
+    useBittensorStakeWizard()
+
+  // secondary token: alpha when staking, TAO when unstaking subnet
+  const secondaryToken = isSubnetUnstake ? nativeToken : dtaoToken
+  const secondarySymbol = isSubnetUnstake ? nativeToken?.symbol : `SN${netuid}`
+  const secondaryTokenId = isSubnetUnstake ? nativeToken?.id : dtaoToken?.id
+
+  // opposite direction to derive the primary amount from user's secondary input
+  const reverseDirection = isSubnetUnstake ? "taoToAlpha" : "alphaToTao"
+
+  const [reverseAmountIn, setReverseAmountIn] = useState<bigint | null>(null)
+  const isFocused = useRef(false)
+
+  const { data: reverseSimulation } = useBittensorSimulateSwap({
+    networkId,
+    direction: reverseDirection,
+    netuid,
+    amountIn: reverseAmountIn ?? undefined,
+  })
+
+  // When reverse simulation resolves and this field is focused, update the primary amount
+  useEffect(() => {
+    if (!reverseSimulation || !isFocused.current || reverseAmountIn === null) return
+    // alphaToTao → tao_amount becomes the new TAO primary input
+    // taoToAlpha → alpha_amount becomes the new Alpha primary input
+    const newPrimaryPlanks = isSubnetUnstake
+      ? reverseSimulation.alpha_amount
+      : reverseSimulation.tao_amount
+    setPlancks(newPrimaryPlanks)
+  }, [reverseSimulation, isSubnetUnstake, setPlancks, reverseAmountIn])
+
+  const formattedAmountOut = useMemo(() => {
+    const raw = amountOut ? (planckToTokens(String(amountOut), secondaryToken?.decimals) ?? "") : ""
+    return limitDecimals(raw)
+  }, [amountOut, secondaryToken?.decimals])
+
+  const [value, setValue] = useState(formattedAmountOut)
+
+  // Sync display value from forward simulation when not focused
+  useEffect(() => {
+    if (isFocused.current) return
+    setValue(formattedAmountOut)
+  }, [formattedAmountOut])
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      const nextValue = e.target.value
+      setValue(nextValue)
+
+      if (!secondaryToken || !nextValue.trim()) {
+        setReverseAmountIn(null)
+        setPlancks(null)
+        return
+      }
+
+      try {
+        const plancks = tokensToPlanck(nextValue, secondaryToken.decimals)
+        setReverseAmountIn(BigInt(plancks))
+      } catch {
+        setReverseAmountIn(null)
+      }
+    },
+    [secondaryToken, setPlancks],
+  )
+
+  const refInput = useRef<HTMLInputElement>(null)
+  useInputAutoWidth(refInput)
+
+  if (!secondaryToken || typeof netuid !== "number" || netuid === 0) return null
+
+  return (
+    <div className="flex w-full max-w-[400px] flex-nowrap items-center justify-center gap-4">
+      <input
+        ref={refInput}
+        type="text"
+        inputMode="decimal"
+        placeholder="0"
+        value={value}
+        className="text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"
+        onChange={handleChange}
+        onFocus={() => {
+          isFocused.current = true
+        }}
+        onBlur={() => {
+          isFocused.current = false
+          setReverseAmountIn(null)
+          setValue(formattedAmountOut)
+        }}
+      />
+      <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
+        <TokenLogo className="text-lg" tokenId={secondaryTokenId} />
+        <div>{secondarySymbol}</div>
       </div>
     </div>
   )
@@ -265,7 +378,7 @@ const FiatInput = () => {
         inputMode="decimal"
         value={value}
         placeholder={"0.00"}
-        className="text-body peer inline-block min-w-0 bg-transparent text-xl"
+        className="text-body peer inline-block min-w-0 bg-transparent text-lg"
         onChange={handleChange}
       />
       {/* {isEstimatingMaxAmount && <div className="bg-grey-800 h-16 w-48 rounded"></div>} */}
@@ -284,7 +397,11 @@ export const AmountEdit = () => {
     inputErrorMessage,
     maxPlancks,
     setPlancks,
+    stakeType,
+    isSubnetUnstake,
   } = useBittensorStakeWizard()
+
+  const isSubnetOperation = isSubnetUnstake || stakeType === "subnet"
 
   const onSetMaxClick = useCallback(() => {
     if (!maxPlancks) return
@@ -296,8 +413,15 @@ export const AmountEdit = () => {
       {!!nativeToken && (
         <>
           <div className="h-16">{/* mirrors the height of error message reserved space */}</div>
-          <div className="flex flex-col text-xl font-bold">
-            {displayMode === "token" ? <TokenInput /> : <FiatInput />}
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex w-full flex-col text-lg">
+              {displayMode === "token" ? <TokenInput /> : <FiatInput />}
+            </div>
+            {displayMode === "token" && isSubnetOperation && (
+              <div className="border-grey-800 w-full border-t pt-2">
+                <AlphaInput />
+              </div>
+            )}
           </div>
           <div className={classNames("flex max-w-full items-center justify-center gap-4")}>
             {tokenRates && (
