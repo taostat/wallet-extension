@@ -49,9 +49,3 @@ export const encryptKemAeadV2 = async (publicKey: Uint8Array, plaintext: Uint8Ar
 
   return concatBytes(keyHash, kemLen, kemCt, nonce, aeadCt)
 }
-
-/**
- * Backwards-compatible alias that preserves the original behaviour (v1 wire format).
- * Callers that need chain-version awareness should use encryptKemAeadV1/encryptKemAeadV2 explicitly.
- */
-export const encryptKemAead = encryptKemAeadV1
