@@ -1,7 +1,7 @@
 import { sign as signExtrinsic } from "@polkadot/types/extrinsic/util"
 import { u8aToHex } from "@polkadot/util"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
-import { blake2b256, encryptKemAead } from "@taostats-wallet/crypto"
+import { blake2b256, encryptKemAeadV1, encryptKemAeadV2 } from "@taostats-wallet/crypto"
 import { Binary, FixedSizeBinary, mergeUint8, parseMetadataRpc } from "@taostats-wallet/scale"
 import { TAOSTATS_API_URL } from "extension-shared"
 
@@ -16,6 +16,12 @@ import { withPjsKeyringPair } from "../keyring/withPjsKeyringPair"
 import { dismissTransaction, watchSubstrateTransaction } from "../transactions"
 
 export class SubHandler extends ExtensionHandler {
+  private getMevShieldMode(specVersion: number): "v1" | "disabled" | "v2" {
+    if (specVersion <= 384) return "v1"
+    if (specVersion === 385) return "disabled"
+    return "v2"
+  }
+
   private submit: MessageHandler<"pri(substrate.rpc.submit)"> = async ({
     payload,
     signature,
@@ -88,6 +94,11 @@ export class SubHandler extends ExtensionHandler {
       )
       if (!metadataRpc) throw new Error("Metadata RPC not found")
 
+      const mevShieldMode = this.getMevShieldMode(Number(payload.specVersion))
+      if (mevShieldMode === "disabled") {
+        throw new Error("MEV shield is disabled on this chain version")
+      }
+
       // increment nonce of the inner payload as it will be executed after the wrapper transaction
       const innerPayload: SignerPayloadJSON = {
         ...payload,
@@ -125,18 +136,28 @@ export class SubHandler extends ExtensionHandler {
       if (!hexValue) throw new Error("MevShield NextKey not found")
       const nextKeyBinary = storageCodec.value.dec(hexValue) as Binary
 
-      // encrypt the inner tx with next mev shield key
-      const ciphertextBytes = await encryptKemAead(nextKeyBinary.asBytes(), innerTx.toU8a())
+      const innerBytes = innerTx.toU8a()
 
-      // the hash of the inner tx must also be supplied in the outer encrypted call
-      const commitment = blake2b256(innerTx.toU8a())
+      let ciphertextBytes: Uint8Array
+      let commitment: Uint8Array | undefined
 
-      // craft the encrypted call
-      const { codec, location } = builder.buildCall("MevShield", "submit_encrypted")
-      const args = {
-        commitment: new FixedSizeBinary(commitment),
-        ciphertext: new Binary(ciphertextBytes),
+      if (mevShieldMode === "v1") {
+        ciphertextBytes = await encryptKemAeadV1(nextKeyBinary.asBytes(), innerBytes)
+        commitment = blake2b256(innerBytes)
+      } else {
+        ciphertextBytes = await encryptKemAeadV2(nextKeyBinary.asBytes(), innerBytes)
       }
+
+      const { codec, location } = builder.buildCall("MevShield", "submit_encrypted")
+      const args =
+        mevShieldMode === "v1"
+          ? {
+              commitment: new FixedSizeBinary(commitment as Uint8Array),
+              ciphertext: new Binary(ciphertextBytes),
+            }
+          : {
+              ciphertext: new Binary(ciphertextBytes),
+            }
       const method = Binary.fromBytes(mergeUint8([new Uint8Array(location), codec.enc(args)]))
 
       const outerPayload: SignerPayloadJSON = {
@@ -193,6 +214,11 @@ export class SubHandler extends ExtensionHandler {
       )
       if (!metadataRpc) throw new Error("Metadata RPC not found")
 
+      const mevShieldMode = this.getMevShieldMode(Number(payload.specVersion))
+      if (mevShieldMode === "disabled") {
+        throw new Error("MEV shield is disabled on this chain version")
+      }
+
       const innerPayload: SignerPayloadJSON = {
         ...payload,
       }
@@ -226,20 +252,38 @@ export class SubHandler extends ExtensionHandler {
       if (!hexValue) throw new Error("MevShield NextKey not found")
       const nextKeyBinary = storageCodec.value.dec(hexValue) as Binary
 
-      const ciphertextBytes = await encryptKemAead(nextKeyBinary.asBytes(), innerTx.toU8a())
-      const commitment = blake2b256(innerTx.toU8a())
+      const innerBytes = innerTx.toU8a()
+
+      let ciphertextBytes: Uint8Array
+      let commitment: Uint8Array | undefined
+
+      if (mevShieldMode === "v1") {
+        ciphertextBytes = await encryptKemAeadV1(nextKeyBinary.asBytes(), innerBytes)
+        commitment = blake2b256(innerBytes)
+      } else {
+        ciphertextBytes = await encryptKemAeadV2(nextKeyBinary.asBytes(), innerBytes)
+      }
 
       if (!TAOSTATS_API_URL) {
         throw new Error("TAOSTATS_API_URL is not configured")
       }
 
+      const mevshieldBody =
+        mevShieldMode === "v1"
+          ? {
+              ciphertext: u8aToHex(ciphertextBytes),
+              commitmentHex: u8aToHex(commitment as Uint8Array),
+              mevShieldMode,
+            }
+          : {
+              ciphertext: u8aToHex(ciphertextBytes),
+              mevShieldMode,
+            }
+
       const response = await fetch(`${TAOSTATS_API_URL}/mevshield/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          commitmentHex: u8aToHex(commitment),
-          ciphertext: u8aToHex(ciphertextBytes),
-        }),
+        body: JSON.stringify(mevshieldBody),
       })
 
       if (!response.ok) {
