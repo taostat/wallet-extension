@@ -8,7 +8,18 @@ If you would like to build Taostats from source, please continue reading:
 
 ## Attribution
 
-This wallet comprises code derived from the [Talisman wallet source code](https://github.com/TalismanSociety/talisman), which is available at [talisman.xyz](https://talisman.xyz), licensed under GNU GPLv3. This is a modified version maintained by Taostats. The complete corresponding source code for this release, including all modifications, is available at [https://github.com/taostat/wallet-extension](https://github.com/taostat/wallet-extension).
+This project is a modified fork of the Talisman Wallet (GPLv3). Original source:
+
+- [Talisman wallet source code](https://github.com/TalismanSociety/talisman)
+- [Talisman](https://talisman.xyz)
+
+Copyright © Talisman Wallet Contributors
+
+This version has been modified and extended by Taostats / T34 Corporation FZCO for the Bittensor ecosystem.
+
+Forked from Talisman Wallet commit: 87f53edb4183924c76cad974af28492efd004792
+
+All modifications are distributed under the GNU General Public License v3.0 (GPLv3).
 
 ## System requirements
 

@@ -17,34 +17,27 @@ const Content = () => {
           <div className={"flex grow flex-col items-start gap-4"}>
             <div className={"text-body text-base"}>Open Source Attribution</div>
             <div className={"text-body-secondary text-left text-sm"}>
-              We believe{" "}
-              <a
-                href="https://talisman.xyz/features/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary"
-              >
-                Talisman
-              </a>{" "}
-              is among the best and most secure self-custody wallets available. We're grateful to
-              the Talisman contributors for building such a strong open-source foundation. <br />
+              Taostats Wallet is a modified fork of the Talisman Wallet. <br />
               <br />
-              This wallet is built on the open-source Talisman Wallet and has been adapted for the
-              Bittensor ecosystem with additional Taostats-specific features.
-            </div>
-            <div
-              className={"text-body-secondary bg-grey-800 w-full rounded-sm p-4 text-left text-sm"}
-            >
-              Both projects are licensed under the GNU General Public License v3.0 (GPLv3). Source
-              code is available at:
-              <div className="mt-4 flex flex-row justify-start gap-4">
-                <LinkToGithub href="https://github.com/taostat/wallet-extension">
-                  Taostats
-                </LinkToGithub>
-                <LinkToGithub href="https://github.com/TalismanSociety/talisman">
-                  Talisman
-                </LinkToGithub>
+              Copyright © Talisman Wallet Contributors <br />
+              <br />
+              Source code: <br />
+              <div className="mt-2 flex flex-row justify-start gap-4">
+                <LinkToGithub href="https://github.com/taostat/wallet-extension">Taostats</LinkToGithub>
+                <LinkToGithub href="https://github.com/TalismanSociety/talisman">Talisman</LinkToGithub>
               </div>
+              <br />
+              Website:{" "}
+              <a href="https://talisman.xyz" target="_blank" rel="noreferrer" className="text-primary">
+                Talisman
+              </a>
+              <br />
+              <br />
+              License: <br />
+              GNU General Public License v3.0 (GPLv3)
+              <br />
+              <br />
+              This version has been modified and extended by Taostats / T34 Corporation FZCO.
             </div>
           </div>
         </div>
