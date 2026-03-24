@@ -22,12 +22,12 @@ export const MEVSHIELD_SERVER_FEE_WALLET_ADDRESS =
   "5DceuTr7XPqw67PNHW9ewzzo2cZ7Cm8HgfjwUqEpd8Mh8QNg"
 
 /**
- * Fixed amount in rao (15_000) transferred to the server fee wallet when using Taostats Shield.
+ * Fixed amount in rao (191_022) transferred to the server fee wallet when using Taostats Shield.
  * Covers the submitEncrypted extrinsic cost only (see above). Not a staking fee — Taostats
  * does not charge a staking fee in any of its apps.
  * Inner tx is batch([userCall, transfer(feeWallet, this)]).
  */
-export const MEVSHIELD_SERVER_FEE_RAO = 15_000n
+export const MEVSHIELD_SERVER_FEE_RAO = 191_022n
 
 // Taostats does not charge a staking fee in any of its apps.
 export const TAOSTATS_FEE_BITTENSOR = 0
