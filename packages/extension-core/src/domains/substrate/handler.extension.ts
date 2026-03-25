@@ -240,45 +240,17 @@ export class SubHandler extends ExtensionHandler {
 
       const signedInnerHash = innerTx.hash.toHex()
 
-      const { builder } = parseMetadataRpc(metadataRpc)
-      const storageCodec = builder.buildStorage("MevShield", "NextKey")
-      const stateKey = storageCodec.keys.enc()
-      const hexValue = await chainConnector.send<string | null>(
-        chain.id,
-        "state_getStorage",
-        [stateKey],
-        false,
-      )
-      if (!hexValue) throw new Error("MevShield NextKey not found")
-      const nextKeyBinary = storageCodec.value.dec(hexValue) as Binary
-
-      const innerBytes = innerTx.toU8a()
-
-      let ciphertextBytes: Uint8Array
-      let commitment: Uint8Array | undefined
-
-      if (mevShieldMode === "v1") {
-        ciphertextBytes = await encryptKemAeadV1(nextKeyBinary.asBytes(), innerBytes)
-        commitment = blake2b256(innerBytes)
-      } else {
-        ciphertextBytes = await encryptKemAeadV2(nextKeyBinary.asBytes(), innerBytes)
-      }
-
       if (!TAOSTATS_API_URL) {
         throw new Error("TAOSTATS_API_URL is not configured")
       }
 
-      const mevshieldBody =
-        mevShieldMode === "v1"
-          ? {
-              ciphertext: u8aToHex(ciphertextBytes),
-              commitmentHex: u8aToHex(commitment as Uint8Array),
-              mevShieldMode,
-            }
-          : {
-              ciphertext: u8aToHex(ciphertextBytes),
-              mevShieldMode,
-            }
+      // Taostats Shield now seals server-side from the signed inner extrinsic.
+      const signedInnerTxHex = innerTx.toHex()
+
+      const mevshieldBody = {
+        signedInnerTxHex,
+        mevShieldMode,
+      }
 
       const response = await fetch(`${TAOSTATS_API_URL}/mevshield/submit`, {
         method: "POST",
