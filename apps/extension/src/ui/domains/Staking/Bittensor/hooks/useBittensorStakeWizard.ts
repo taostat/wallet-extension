@@ -6,7 +6,7 @@ import {
   TokenId,
 } from "@taostats-wallet/chaindata-provider"
 import { Address, isAccountOfType } from "extension-core"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
 import { useOpenClose } from "taostats-ui"
@@ -133,6 +133,7 @@ const useBittensorStakeWizardProvider = () => {
   const [mevShieldOption, setMevShieldOption] = useState<"off" | "on-chain" | "taostats">(
     "taostats",
   )
+  const [isSubmittingStakeTx, setIsSubmittingStakeTx] = useState(false)
 
   const dtaoBalance = useBalance(allBalances, address, dtaoToken?.id)
   const nativeBalance = useBalance(allBalances, address, nativeTokenId)
@@ -312,6 +313,7 @@ const useBittensorStakeWizardProvider = () => {
   const onSubmitted = useCallback(
     (hash: Hex) => {
       genericEvent("Bittensor Stake", { tokenId: nativeTokenId })
+      setIsSubmittingStakeTx(false)
       if (hash) setWizardState((prev) => ({ ...prev, step: "follow-up", hash }))
     },
     [genericEvent, nativeTokenId],
@@ -461,6 +463,30 @@ const useBittensorStakeWizardProvider = () => {
     [stakeDirection, stakeInputErrorMessage, unstakeInputErrorMessage],
   )
 
+  const computedPayload = useMemo(
+    () => (!inputErrorMessage && isFormValid && payload ? payload : null),
+    [inputErrorMessage, isFormValid, payload],
+  )
+
+  // While the user submits the stake/unstake tx, other async effects (fee estimate loading)
+  // may temporarily make `computedPayload` null, which would unmount the submit button.
+  // Freeze the last known-good payload until the submission flow completes.
+  const lastValidPayloadRef = useRef<typeof payload | null>(null)
+  useEffect(() => {
+    if (!isSubmittingStakeTx && computedPayload) {
+      lastValidPayloadRef.current = computedPayload
+    }
+  }, [computedPayload, isSubmittingStakeTx])
+
+  const frozenPayload = isSubmittingStakeTx ? lastValidPayloadRef.current : computedPayload
+
+  const startSubmittingStakeTx = useCallback(() => {
+    if (computedPayload) lastValidPayloadRef.current = computedPayload
+    setIsSubmittingStakeTx(true)
+  }, [computedPayload])
+
+  const endSubmittingStakeTx = useCallback(() => setIsSubmittingStakeTx(false), [])
+
   // positions are used only when unstaking
   const positions = useBittensorStakingPositions(networkId)
   const position = useMemo(() => {
@@ -511,7 +537,7 @@ const useBittensorStakeWizardProvider = () => {
     isSubnetUnstake,
     position,
     slippage,
-    payload: !inputErrorMessage && isFormValid ? payload : null,
+    payload: frozenPayload,
     txMetadata,
     isLoadingPayload: isLoadingPayload,
     errorPayload,
@@ -537,6 +563,9 @@ const useBittensorStakeWizardProvider = () => {
     setPosition,
     toggleDisplayMode,
     onSubmitted,
+    isSubmittingStakeTx,
+    startSubmittingStakeTx,
+    endSubmittingStakeTx,
   }
 }
 
