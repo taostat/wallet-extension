@@ -25,6 +25,8 @@ export const BittensorRootStakeReview = () => {
     amountTao,
     account,
     onSubmitted,
+    startSubmittingStakeTx,
+    endSubmittingStakeTx,
     payload,
     txMetadata,
     hotkey,
@@ -124,6 +126,8 @@ export const BittensorRootStakeReview = () => {
           label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
           payload={payload}
           onSubmitted={onSubmitted}
+          onSubmitStart={startSubmittingStakeTx}
+          onSubmitEnd={endSubmittingStakeTx}
           txMetadata={txMetadata}
           disabled={isDisabled}
         />
