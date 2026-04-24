@@ -12,6 +12,7 @@ export interface SettingsStoreData {
   useAnalyticsTracking?: boolean // undefined during onboarding
   hideBalances: boolean
   hideDust: boolean
+  leaveDustOnMaxSendTao: boolean
   allowNotifications: boolean
   selectedAccount?: string // undefined = show all accounts
   collapsedFolders?: string[] // persists the collapsed folders in the dashboard account picker
@@ -37,6 +38,7 @@ export const DEFAULT_SETTINGS: SettingsStoreData = {
   useAnalyticsTracking: undefined, // undefined for onboarding
   hideBalances: false,
   hideDust: false,
+  leaveDustOnMaxSendTao: true,
   allowNotifications: true,
   autoLockMinutes: 15,
   selectableCurrencies: ["usd", "tao"],

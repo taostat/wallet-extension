@@ -45,6 +45,7 @@ const Content = () => {
   const { t } = useTranslation()
   const [hideBalances, setHideBalances] = useSetting("hideBalances")
   const [hideDust, setHideDust] = useSetting("hideDust")
+  const [leaveDustOnMaxSendTao, setLeaveDustOnMaxSendTao] = useSetting("leaveDustOnMaxSendTao")
   const [allowNotifications, setAllowNotifications] = useSetting("allowNotifications")
   const [hasRuntimeReloadFn, runtimeReload] = useRuntimeReload(ANALYTICS_PAGE)
   const [developerMode, setDeveloperMode] = useSetting("developerMode")
@@ -87,6 +88,16 @@ const Content = () => {
           subtitle={t("Hide tokens with a balance below US$1")}
         >
           <Toggle checked={hideDust} onChange={(e) => setHideDust(e.target.checked)} />
+        </Setting>
+        <Setting
+          iconLeft={CoinsIcon}
+          title={t("Leave dust")}
+          subtitle={t("When pressing the Max button when sending Tao, leave 0.01 Tao behind")}
+        >
+          <Toggle
+            checked={leaveDustOnMaxSendTao}
+            onChange={(e) => setLeaveDustOnMaxSendTao(e.target.checked)}
+          />
         </Setting>
         <CtaButton
           iconLeft={FlagIcon}
