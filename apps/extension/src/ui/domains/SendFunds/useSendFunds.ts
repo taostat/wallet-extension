@@ -6,12 +6,13 @@ import {
   Token,
   TokenId,
 } from "@taostats-wallet/chaindata-provider"
-import { formatDecimals, isNotNil } from "@taostats-wallet/util"
+import { formatDecimals, isNotNil, tokensToPlanck } from "@taostats-wallet/util"
 import { WalletTransactionInfo } from "extension-core"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { notify } from "@taostats/components/Notifications"
 import { provideContext } from "@taostats/util/provideContext"
 import { api } from "@ui/api"
 import { useSendFundsWizard } from "@ui/apps/popup/pages/SendFunds/context"
@@ -21,6 +22,7 @@ import {
   useBalancesByAddress,
   useBalancesHydrate,
   useNetworkById,
+  useSettingValue,
   useToken,
   useTokenRates,
   useTokenRatesMap,
@@ -31,6 +33,8 @@ import { isTransferableToken } from "@ui/util/isTransferableToken"
 import { SendFundsTransactionProps } from "./types"
 import { useFeeToken } from "./useFeeToken"
 import { useSendFundsTransactionDot } from "./useSendFundsTransactionDot"
+
+const TAO_MAX_DUST_TOKENS = "0.01"
 
 const useSendFundsTransaction = () => {
   const { from, to, tokenId, amount, allowReap, sendMax } = useSendFundsWizard()
@@ -107,6 +111,7 @@ const useSendFundsProvider = () => {
   const { from, to, tokenId, amount, allowReap, sendMax, set, gotoProgress } = useSendFundsWizard()
   const [isLocked, setIsLocked] = useState(false)
   const [recipientWarning, setRecipientWarning] = useState<ToWarning>()
+  const leaveDustOnMaxSendTao = useSettingValue("leaveDustOnMaxSendTao")
 
   const fromAccount = useAccountByAddress(from)
   const tokensMap = useTokensMap()
@@ -371,10 +376,53 @@ const useSendFundsProvider = () => {
     if (!token || !transaction?.maxAmount) return
 
     if (isTokenDot(token)) {
-      set("amount", transaction.maxAmount) // amount is necessary for pallets that dont have a transfer_all method
-      set("sendMax", true)
-    } else set("amount", transaction.maxAmount)
-  }, [transaction?.maxAmount, set, token])
+      let amount = transaction.maxAmount
+      let shouldUseSendMax = true
+
+      // Keep a small amount of TAO behind when using Max.
+      if (leaveDustOnMaxSendTao && token.symbol?.toUpperCase() === "TAO") {
+        const maxAmountPlanck = BigInt(transaction.maxAmount)
+        const dustPlanck = BigInt(tokensToPlanck(TAO_MAX_DUST_TOKENS, token.decimals))
+
+        if (maxAmountPlanck <= dustPlanck) {
+          notify(
+            {
+              type: "error",
+              title: t("Balance too low to leave dust"),
+              subtitle: t(
+                "Your max amount is too low to leave {{amount}} tao behind. Enter an amount manually or disable Leave dust.",
+                { amount: TAO_MAX_DUST_TOKENS },
+              ),
+            },
+            {
+              toastId: "leave-dust-error",
+            },
+          )
+          return
+        }
+
+        amount = (maxAmountPlanck - dustPlanck).toString()
+        shouldUseSendMax = false
+        notify(
+          {
+            type: "success",
+            title: t("Leave dust enabled"),
+            subtitle: t("We've left {{amount}} tao per the configuration", {
+              amount: TAO_MAX_DUST_TOKENS,
+            }),
+          },
+          {
+            toastId: "leave-dust-success",
+          },
+        )
+      }
+
+      set("amount", amount) // amount is necessary for pallets that dont have a transfer_all method
+      set("sendMax", shouldUseSendMax)
+    } else {
+      set("amount", transaction.maxAmount)
+    }
+  }, [transaction?.maxAmount, set, token, leaveDustOnMaxSendTao, t])
 
   const onSubmitted = useCallback(
     (args: { networkId: string; txId: string }) => {
