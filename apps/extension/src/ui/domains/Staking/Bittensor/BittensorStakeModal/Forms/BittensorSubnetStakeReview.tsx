@@ -51,6 +51,7 @@ export const BittensorSubnetStakeReview = () => {
     stakeDirection,
     priceImpact,
     isMevShieldDisabled,
+    isHardwareWallet,
     mevShieldOption,
     setMevShieldOption,
     onSubmitted,
@@ -235,13 +236,15 @@ export const BittensorSubnetStakeReview = () => {
                   checked={mevShieldOption === "off"}
                   onChange={() => setMevShieldOption("off")}
                 />
-                <Radio
-                  name="mev-shield-option"
-                  value="on-chain"
-                  label={t("On-chain Shield")}
-                  checked={mevShieldOption === "on-chain"}
-                  onChange={() => setMevShieldOption("on-chain")}
-                />
+                {!isHardwareWallet ? (
+                  <Radio
+                    name="mev-shield-option"
+                    value="on-chain"
+                    label={t("On-chain Shield")}
+                    checked={mevShieldOption === "on-chain"}
+                    onChange={() => setMevShieldOption("on-chain")}
+                  />
+                ) : null}
                 <Radio
                   name="mev-shield-option"
                   value="taostats"
@@ -250,6 +253,13 @@ export const BittensorSubnetStakeReview = () => {
                   onChange={() => setMevShieldOption("taostats")}
                 />
               </div>
+              {isHardwareWallet ? (
+                <p className="text-body-secondary text-xs">
+                  {t(
+                    "On-chain Shield is not available for Ledger wallets. Use Taostats Shield or turn protection off.",
+                  )}
+                </p>
+              ) : null}
             </div>
           )}
         </div>
@@ -338,7 +348,7 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
           </li>
           <li>
             {t(
-              "The validator's public key for the next block is embedded in the encrypted payload, so the transaction is only valid for that single block. This makes it too time-sensitive for hardware wallets, so MEV Shield is disabled when using one.",
+              "On-chain Shield requires submitting the outer encrypted transaction in the same block as the key fetch, which is too time-sensitive for hardware wallets. Ledger accounts can use Taostats Shield or turn protection off.",
             )}
           </li>
           <li>

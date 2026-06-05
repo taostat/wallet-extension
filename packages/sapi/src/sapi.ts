@@ -91,7 +91,8 @@ export const getScaleApi = (
       signature?: `0x${string}`,
       txInfo?: unknown,
       mode?: ScaleApiSubmitMode,
-    ) => submit(chain, payload, signature, txInfo, mode),
+      signedInnerTxHex?: `0x${string}`,
+    ) => submit(chain, payload, signature, txInfo, mode, signedInnerTxHex),
 
     getCallDocs: (pallet: string, method: string) => getCallDocs(chain, pallet, method),
 

@@ -13,6 +13,7 @@ export const submit = async (
   signature?: `0x${string}`,
   txInfo?: unknown,
   mode?: ScaleApiSubmitMode,
+  signedInnerTxHex?: `0x${string}`,
 ) => {
   switch (mode) {
     case "bittensor-mev-shield":
@@ -21,10 +22,14 @@ export const submit = async (
       return chain.connector.submitWithBittensorMevShield(payload, txInfo)
 
     case "bittensor-taostats-shield":
-      if (signature)
+      if (signedInnerTxHex) {
+        return chain.connector.submitWithTaostatsShield(payload, txInfo, signedInnerTxHex)
+      }
+      if (signature) {
         throw new Error(
-          "Signature should not be provided when using bittensor-taostats-shield mode",
+          "Signed inner extrinsic hex is required when using bittensor-taostats-shield mode with a hardware wallet",
         )
+      }
       return chain.connector.submitWithTaostatsShield(payload, txInfo)
 
     default:

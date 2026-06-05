@@ -1,6 +1,7 @@
 import { AlertCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { toHex } from "@taostats-wallet/scale"
 import { classNames } from "@taostats-wallet/util"
+import { TypeRegistry } from "@polkadot/types"
 import { AccountPolkadotVault, SignerPayloadJSON, WalletTransactionInfo } from "extension-core"
 import { log } from "extension-shared"
 import { FC, Suspense, useCallback, useMemo, useState } from "react"
@@ -28,6 +29,49 @@ type SapiSendButtonProps = {
   onSubmitStart?: () => void
   onSubmitEnd?: () => void
   mode?: "default" | "bittensor-mev-shield" | "bittensor-taostats-shield"
+}
+
+const buildSignedInnerTxHex = (
+  registry: TypeRegistry,
+  payload: SignerPayloadJSON,
+  signature: Hex,
+): `0x${string}` => {
+  const innerTx = registry.createType(
+    "Extrinsic",
+    { method: payload.method },
+    { version: payload.version },
+  )
+  innerTx.addSignature(payload.address, signature, payload)
+  return innerTx.toHex()
+}
+
+const submitSignedPayload = async ({
+  sapi,
+  payload,
+  signature,
+  txInfo,
+  mode,
+  registry,
+}: {
+  sapi: NonNullable<ReturnType<typeof useScaleApi>["data"]>
+  payload: SignerPayloadJSON
+  signature?: Hex
+  txInfo?: WalletTransactionInfo
+  mode?: SapiSendButtonProps["mode"]
+  registry?: TypeRegistry
+}) => {
+  if (mode === "bittensor-taostats-shield") {
+    if (!registry || !signature) {
+      throw new Error("Signed inner extrinsic is required for Taostats Shield")
+    }
+    return sapi.submit(payload, undefined, txInfo, mode, buildSignedInnerTxHex(registry, payload, signature))
+  }
+
+  if (!signature) {
+    throw new Error("Signature is required to submit this transaction")
+  }
+
+  return sapi.submit(payload, signature, txInfo, mode)
 }
 
 const HardwareAccountSendButton: FC<SapiSendButtonProps> = ({
@@ -58,7 +102,14 @@ const HardwareAccountSendButton: FC<SapiSendButtonProps> = ({
       setError(undefined)
       try {
         onSubmitStart?.()
-        const { hash } = await sapi.submit(payload, signature, txInfo, mode)
+        const { hash } = await submitSignedPayload({
+          sapi,
+          payload,
+          signature,
+          txInfo,
+          mode,
+          registry,
+        })
         onSubmitted(hash)
       } catch (err) {
         log.error("Failed to submit", { payload, err })
@@ -68,7 +119,7 @@ const HardwareAccountSendButton: FC<SapiSendButtonProps> = ({
         onSubmitEnd?.()
       }
     },
-    [mode, onSubmitted, onSubmitEnd, onSubmitStart, payload, sapi, txInfo],
+    [mode, onSubmitted, onSubmitEnd, onSubmitStart, payload, registry, sapi, txInfo],
   )
 
   return (
@@ -101,6 +152,10 @@ const QrAccountSendButton: FC<SapiSendButtonProps> = ({
   const [error, setError] = useState<string>()
   const { data: sapi } = useScaleApi(payload?.genesisHash)
   const shortMetadata = useMemo(() => getHexShortMetadata(txMetadata), [txMetadata])
+  const registry = useMemo(() => {
+    if (!sapi || !payload) return undefined
+    return sapi.getTypeRegistry(payload)
+  }, [payload, sapi])
 
   const handleSigned = useCallback(
     async ({ signature }: { signature: Hex }) => {
@@ -109,7 +164,14 @@ const QrAccountSendButton: FC<SapiSendButtonProps> = ({
       setError(undefined)
       try {
         onSubmitStart?.()
-        const { hash } = await sapi.submit(payload, signature, txInfo, mode)
+        const { hash } = await submitSignedPayload({
+          sapi,
+          payload,
+          signature,
+          txInfo,
+          mode,
+          registry,
+        })
         onSubmitted(hash)
       } catch (err) {
         log.error("Failed to submit", { payload, err })
@@ -119,7 +181,7 @@ const QrAccountSendButton: FC<SapiSendButtonProps> = ({
         onSubmitEnd?.()
       }
     },
-    [mode, onSubmitted, onSubmitEnd, onSubmitStart, payload, sapi, txInfo],
+    [mode, onSubmitted, onSubmitEnd, onSubmitStart, payload, registry, sapi, txInfo],
   )
 
   if (!account) return null

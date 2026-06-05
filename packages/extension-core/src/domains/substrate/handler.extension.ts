@@ -1,5 +1,5 @@
 import { sign as signExtrinsic } from "@polkadot/types/extrinsic/util"
-import { u8aToHex } from "@polkadot/util"
+import { u8aToHex, hexToU8a } from "@polkadot/util"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
 import { blake2b256, encryptKemAeadV1, encryptKemAeadV2 } from "@taostats-wallet/crypto"
 import { Binary, FixedSizeBinary, mergeUint8, parseMetadataRpc } from "@taostats-wallet/scale"
@@ -203,7 +203,7 @@ export class SubHandler extends ExtensionHandler {
     }
 
   private submitWithTaostatsShield: MessageHandler<"pri(substrate.rpc.submit.withTaostatsShield)"> =
-    async ({ payload, txInfo }) => {
+    async ({ payload, txInfo, signedInnerTxHex }) => {
       const chain = await chaindataProvider.getNetworkByGenesisHash(payload.genesisHash)
       if (!chain) throw new Error(`Chain not found for genesis hash ${payload.genesisHash}`)
 
@@ -223,32 +223,41 @@ export class SubHandler extends ExtensionHandler {
         ...payload,
       }
 
-      const innerTxSignature = await withPjsKeyringPair(payload.address, async (pair) => {
-        const extrinsicPayload = registry.createType("ExtrinsicPayload", innerPayload)
-        return extrinsicPayload.sign(pair).signature
-      })
+      let signatureInner: `0x${string}`
+      let signedInnerHash: `0x${string}`
+      let signedInnerTxHexToSubmit: `0x${string}`
 
-      const signatureInner = innerTxSignature.unwrap()
+      if (signedInnerTxHex) {
+        const innerTx = registry.createType("Extrinsic", hexToU8a(signedInnerTxHex))
+        signatureInner = innerTx.signature.toHex()
+        signedInnerHash = innerTx.hash.toHex()
+        signedInnerTxHexToSubmit = signedInnerTxHex
+      } else {
+        const innerTxSignature = await withPjsKeyringPair(payload.address, async (pair) => {
+          const extrinsicPayload = registry.createType("ExtrinsicPayload", innerPayload)
+          return extrinsicPayload.sign(pair).signature
+        })
 
-      const innerTx = registry.createType(
-        "Extrinsic",
-        { method: innerPayload.method },
-        { version: innerPayload.version },
-      )
+        signatureInner = innerTxSignature.unwrap()
 
-      innerTx.addSignature(payload.address, signatureInner, innerPayload)
+        const innerTx = registry.createType(
+          "Extrinsic",
+          { method: innerPayload.method },
+          { version: innerPayload.version },
+        )
 
-      const signedInnerHash = innerTx.hash.toHex()
+        innerTx.addSignature(payload.address, signatureInner, innerPayload)
+
+        signedInnerHash = innerTx.hash.toHex()
+        signedInnerTxHexToSubmit = innerTx.toHex()
+      }
 
       if (!TAOSTATS_API_URL) {
         throw new Error("TAOSTATS_API_URL is not configured")
       }
 
-      // Taostats Shield now seals server-side from the signed inner extrinsic.
-      const signedInnerTxHex = innerTx.toHex()
-
       const mevshieldBody = {
-        signedInnerTxHex,
+        signedInnerTxHex: signedInnerTxHexToSubmit,
         mevShieldMode,
       }
 
@@ -267,7 +276,7 @@ export class SubHandler extends ExtensionHandler {
 
       await watchSubstrateTransaction(chain, registry, innerPayload, signatureInner, { txInfo })
 
-      return { hash: signedInnerHash as `0x${string}` }
+      return { hash: signedInnerHash }
     }
 
   private send: MessageHandler<"pri(substrate.rpc.send)"> = ({

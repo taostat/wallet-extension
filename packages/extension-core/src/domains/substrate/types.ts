@@ -40,6 +40,7 @@ type SubstrateRequestSubmitBittensorMevShield = {
 type SubstrateRequestSubmitTaostatsShield = {
   payload: SignerPayloadJSON
   txInfo?: WalletTransactionInfo
+  signedInnerTxHex?: `0x${string}`
 }
 
 export type SubstrateMessages = {
