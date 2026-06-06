@@ -29,5 +29,6 @@ export type SapiConnectorProps = {
   submitWithTaostatsShield?: (
     payload: SignerPayloadJSON,
     txInfo?: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+    signedInnerTxHex?: `0x${string}`,
   ) => Promise<{ hash: `0x${string}` }>
 }

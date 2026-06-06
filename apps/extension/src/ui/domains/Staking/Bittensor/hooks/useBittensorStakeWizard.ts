@@ -149,11 +149,21 @@ const useBittensorStakeWizardProvider = () => {
 
   const { data: sapi } = useScaleApi(nativeToken?.networkId)
 
+  const isHardwareWallet = useMemo(
+    () => isAccountOfType(account, "ledger-polkadot"),
+    [account],
+  )
+
   const isMevShieldDisabled = useMemo(() => {
-    // no need for root staking
-    // supported only for hot wallets
-    return !netuid || !isAccountOfType(account, "keypair")
-  }, [netuid, account])
+    // Root staking is not subject to the same MEV attacks as subnet swaps.
+    return netuid === null || netuid === ROOT_NETUID
+  }, [netuid])
+
+  useEffect(() => {
+    if (isHardwareWallet && mevShieldOption === "on-chain") {
+      setMevShieldOption("taostats")
+    }
+  }, [isHardwareWallet, mevShieldOption])
 
   const withMevShield = useMemo(
     () => !isMevShieldDisabled && mevShieldOption !== "off",
@@ -552,6 +562,7 @@ const useBittensorStakeWizardProvider = () => {
     priceImpact,
     withMevShield,
     isMevShieldDisabled,
+    isHardwareWallet,
     mevShieldOption,
     setMevShieldOption,
     setAddress,

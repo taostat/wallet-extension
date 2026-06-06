@@ -51,6 +51,7 @@ export const BittensorSubnetStakeReview = () => {
     stakeDirection,
     priceImpact,
     isMevShieldDisabled,
+    isHardwareWallet,
     mevShieldOption,
     setMevShieldOption,
     onSubmitted,
@@ -82,9 +83,10 @@ export const BittensorSubnetStakeReview = () => {
           withClose
         />
       }
-      contentClassName="p-12 pt-0 flex flex-col w-full"
+      contentClassName="flex min-h-0 w-full flex-col p-12 pt-0"
     >
-      <div className="space-y-[0.75rem]">
+      <div className="scrollable scrollable-800 min-h-0 flex-1 overflow-y-auto">
+        <div className="space-y-[0.75rem]">
         <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
           <div className="flex items-center justify-between gap-8 pb-2 text-sm">
             <div className="flex items-center gap-2 whitespace-nowrap">
@@ -235,13 +237,15 @@ export const BittensorSubnetStakeReview = () => {
                   checked={mevShieldOption === "off"}
                   onChange={() => setMevShieldOption("off")}
                 />
-                <Radio
-                  name="mev-shield-option"
-                  value="on-chain"
-                  label={t("On-chain Shield")}
-                  checked={mevShieldOption === "on-chain"}
-                  onChange={() => setMevShieldOption("on-chain")}
-                />
+                {!isHardwareWallet ? (
+                  <Radio
+                    name="mev-shield-option"
+                    value="on-chain"
+                    label={t("On-chain Shield")}
+                    checked={mevShieldOption === "on-chain"}
+                    onChange={() => setMevShieldOption("on-chain")}
+                  />
+                ) : null}
                 <Radio
                   name="mev-shield-option"
                   value="taostats"
@@ -250,6 +254,13 @@ export const BittensorSubnetStakeReview = () => {
                   onChange={() => setMevShieldOption("taostats")}
                 />
               </div>
+              {isHardwareWallet ? (
+                <p className="text-body-secondary text-xs">
+                  {t(
+                    "On-chain Shield is not available for Ledger wallets. Use Taostats Shield or turn protection off.",
+                  )}
+                </p>
+              ) : null}
             </div>
           )}
         </div>
@@ -259,26 +270,28 @@ export const BittensorSubnetStakeReview = () => {
             <FeeEstimate />
           </div>
         </div>
+        </div>
       </div>
-      <div className="grow"></div>
       {payload && (
-        <SapiSendButton
-          containerId="StakingModalDialog"
-          label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
-          payload={payload}
-          onSubmitted={onSubmitted}
-          onSubmitStart={startSubmittingStakeTx}
-          onSubmitEnd={endSubmittingStakeTx}
-          txMetadata={txMetadata}
-          disabled={isDisabled}
-          mode={
-            mevShieldOption === "taostats"
-              ? "bittensor-taostats-shield"
-              : mevShieldOption === "on-chain"
-                ? "bittensor-mev-shield"
-                : "default"
-          }
-        />
+        <div className="shrink-0 pt-8">
+          <SapiSendButton
+            containerId="StakingModalDialog"
+            label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
+            payload={payload}
+            onSubmitted={onSubmitted}
+            onSubmitStart={startSubmittingStakeTx}
+            onSubmitEnd={endSubmittingStakeTx}
+            txMetadata={txMetadata}
+            disabled={isDisabled}
+            mode={
+              mevShieldOption === "taostats"
+                ? "bittensor-taostats-shield"
+                : mevShieldOption === "on-chain"
+                  ? "bittensor-mev-shield"
+                  : "default"
+            }
+          />
+        </div>
       )}
       <BittensorSlippageDrawer />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />
@@ -338,7 +351,7 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
           </li>
           <li>
             {t(
-              "The validator's public key for the next block is embedded in the encrypted payload, so the transaction is only valid for that single block. This makes it too time-sensitive for hardware wallets, so MEV Shield is disabled when using one.",
+              "On-chain Shield requires submitting the outer encrypted transaction in the same block as the key fetch, which is too time-sensitive for hardware wallets. Ledger accounts can use Taostats Shield or turn protection off.",
             )}
           </li>
           <li>

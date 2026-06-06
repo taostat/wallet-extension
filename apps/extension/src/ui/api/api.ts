@@ -196,10 +196,15 @@ export const api: MessageTypes = {
       payload,
       txInfo,
     }),
-  subSubmitWithTaostatsShield: (payload: SignerPayloadJSON, txInfo?: WalletTransactionInfo) =>
+  subSubmitWithTaostatsShield: (
+    payload: SignerPayloadJSON,
+    txInfo?: WalletTransactionInfo,
+    signedInnerTxHex?: `0x${string}`,
+  ) =>
     messageService.sendMessage("pri(substrate.rpc.submit.withTaostatsShield)", {
       payload,
       txInfo,
+      signedInnerTxHex,
     }),
   subChainMetadata: (genesisHash, specVersion) =>
     messageService.sendMessage("pri(substrate.metadata.get)", {
