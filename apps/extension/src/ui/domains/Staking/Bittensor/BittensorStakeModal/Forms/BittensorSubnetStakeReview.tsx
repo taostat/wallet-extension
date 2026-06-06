@@ -83,9 +83,10 @@ export const BittensorSubnetStakeReview = () => {
           withClose
         />
       }
-      contentClassName="p-12 pt-0 flex flex-col w-full"
+      contentClassName="flex min-h-0 w-full flex-col p-12 pt-0"
     >
-      <div className="space-y-[0.75rem]">
+      <div className="scrollable scrollable-800 min-h-0 flex-1 overflow-y-auto">
+        <div className="space-y-[0.75rem]">
         <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
           <div className="flex items-center justify-between gap-8 pb-2 text-sm">
             <div className="flex items-center gap-2 whitespace-nowrap">
@@ -269,26 +270,28 @@ export const BittensorSubnetStakeReview = () => {
             <FeeEstimate />
           </div>
         </div>
+        </div>
       </div>
-      <div className="grow"></div>
       {payload && (
-        <SapiSendButton
-          containerId="StakingModalDialog"
-          label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
-          payload={payload}
-          onSubmitted={onSubmitted}
-          onSubmitStart={startSubmittingStakeTx}
-          onSubmitEnd={endSubmittingStakeTx}
-          txMetadata={txMetadata}
-          disabled={isDisabled}
-          mode={
-            mevShieldOption === "taostats"
-              ? "bittensor-taostats-shield"
-              : mevShieldOption === "on-chain"
-                ? "bittensor-mev-shield"
-                : "default"
-          }
-        />
+        <div className="shrink-0 pt-8">
+          <SapiSendButton
+            containerId="StakingModalDialog"
+            label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
+            payload={payload}
+            onSubmitted={onSubmitted}
+            onSubmitStart={startSubmittingStakeTx}
+            onSubmitEnd={endSubmittingStakeTx}
+            txMetadata={txMetadata}
+            disabled={isDisabled}
+            mode={
+              mevShieldOption === "taostats"
+                ? "bittensor-taostats-shield"
+                : mevShieldOption === "on-chain"
+                  ? "bittensor-mev-shield"
+                  : "default"
+            }
+          />
+        </div>
       )}
       <BittensorSlippageDrawer />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />

@@ -7,7 +7,7 @@ export const BittensorModalLayout: FC<
   return (
     <div className={cn("flex size-full flex-col overflow-hidden", className)}>
       {header}
-      <div className={cn("grow overflow-hidden", contentClassName)}>{children}</div>
+      <div className={cn("min-h-0 grow overflow-hidden", contentClassName)}>{children}</div>
     </div>
   )
 }
