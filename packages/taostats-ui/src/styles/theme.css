@@ -4,6 +4,9 @@
    Dark theme (default)
    ======================================================================== */
 :root {
+  --font-everett: "Everett";
+  --font-ibm-plex-mono: "IBM Plex Mono";
+
   /* App backgrounds */
   --app-bg: 14 15 17; /* #0E0F11 */
   --background: 14 15 17; /* #0E0F11 */
