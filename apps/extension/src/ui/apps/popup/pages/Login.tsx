@@ -194,7 +194,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
             </Button>
             <button
               type="button"
-              className="text-fg-disabled mt-2 cursor-pointer text-sm transition-colors hover:text-white"
+              className="text-fg-disabled hover:text-fg-primary mt-2 cursor-pointer text-sm transition-colors"
               onClick={setShowResetWallet}
             >
               {t("Forgot Password?")}

@@ -54,7 +54,7 @@ const NetworkOptionsList: FC<{
 
   if (!options.length)
     return (
-      <div className="text-fg-primary-inactive flex h-24 w-full items-center px-12">
+      <div className="text-fg-tertiary flex h-24 w-full items-center px-12">
         {t("No networks found")}
       </div>
     )
@@ -148,7 +148,7 @@ const NetworkOptionsModalContent: FC<{
         {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
         <SearchInput onChange={setSearch} placeholder={t("Search by network name")} autoFocus />
       </div>
-      <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
+      <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
         <NetworkOptionsList
           options={filteredNetworks}
           selected={selected}

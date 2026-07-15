@@ -164,7 +164,7 @@ const Scanner = ({
       {showInputMenu ? (
         <div
           ref={inputMenu}
-          className="bg-black-tertiary absolute left-1/2 top-24 max-h-80 w-96 -translate-x-1/2 space-y-4 overflow-y-scroll rounded p-4"
+          className="bg-tertiary absolute left-1/2 top-24 max-h-80 w-96 -translate-x-1/2 space-y-4 overflow-y-scroll rounded p-4"
         >
           {inputDevices.map((device) => (
             <button

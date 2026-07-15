@@ -90,7 +90,7 @@ export const Scan = () => {
                     !
                   </div>
                 ) : (
-                  <div className="bg-black-tertiary text-fg-secondary absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full text-xs lining-nums">
+                  <div className="bg-tertiary text-fg-secondary absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full text-xs lining-nums">
                     {index + 1}
                   </div>
                 )}

@@ -93,7 +93,7 @@ export const BittensorStakingPositionSelect = () => {
           />
         </div>
 
-        <ScrollContainer className="grow" innerClassName="bg-black-secondary">
+        <ScrollContainer className="grow" innerClassName="bg-secondary">
           <div className="flex size-full flex-col">
             {filteredPositions.map((position) => (
               <Position
@@ -132,8 +132,8 @@ const Position: FC<{
       type="button"
       onClick={onClick}
       className={cn(
-        "hover:bg-black-tertiary flex h-28 w-full shrink-0 items-center gap-4 overflow-hidden px-10",
-        isSelected && "bg-black-tertiary",
+        "hover:bg-tertiary flex h-28 w-full shrink-0 items-center gap-4 overflow-hidden px-10",
+        isSelected && "bg-tertiary",
       )}
     >
       <TokenLogo tokenId={position.token.id} className="shrink-0 text-2xl" />

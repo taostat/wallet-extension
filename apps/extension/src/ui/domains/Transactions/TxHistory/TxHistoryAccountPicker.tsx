@@ -53,7 +53,7 @@ export const TxHistoryAccountPicker: FC<{
           <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
             <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
           </div>
-          <ScrollContainer className="bg-black-secondary border-primary scrollable grow border-t">
+          <ScrollContainer className="bg-secondary border-primary scrollable grow border-t">
             <AccountsList
               accounts={accounts}
               selectedAddress={selectedAddress}

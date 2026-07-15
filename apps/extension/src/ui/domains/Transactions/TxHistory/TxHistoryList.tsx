@@ -344,7 +344,7 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
                 noTooltip
                 isBalance
               />
-              <ArrowRight className="text-fg-primary-inactive" />
+              <ArrowRight className="text-fg-tertiary" />
             </div>
             <Tokens
               className="pointer-events-none"

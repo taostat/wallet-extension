@@ -42,8 +42,8 @@ const AppVersionButton: FC<{
         "bg-secondary text-fg-secondary group flex min-h-60 flex-col gap-5 rounded border p-8 text-left",
         "disabled:cursor-not-allowed disabled:opacity-50",
         selected
-          ? "border-body bg-secondary"
-          : "border-body-disabled enabled:hover:border-body-secondary enabled:hover:bg-secondary",
+          ? "border-primary bg-secondary"
+          : "border-primary enabled:hover:border-primary enabled:hover:bg-secondary",
       )}
       disabled={disabled}
     >
@@ -203,7 +203,7 @@ export const AddLedgerSelectNetwork = () => {
         <AccountPlatformSelector defaultValue={platform} onChange={handlePlatformChange} />
         {platform === "polkadot" && (
           <>
-            <div className="bg-black-secondary mt-12 rounded p-12">
+            <div className="bg-secondary mt-12 rounded p-12">
               <h2 className="text-fg-secondary leading-paragraph text-base">
                 {t("1. Choose Network")}
               </h2>
@@ -212,7 +212,7 @@ export const AddLedgerSelectNetwork = () => {
               </div>
             </div>
             {!!chain && (
-              <div className="bg-black-secondary mt-12 rounded p-12">
+              <div className="bg-secondary mt-12 rounded p-12">
                 <div className="flex justify-between">
                   <h2 className="text-fg-secondary leading-paragraph text-base">
                     {t("2. Choose Ledger App")}

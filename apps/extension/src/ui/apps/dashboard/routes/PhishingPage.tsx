@@ -27,7 +27,7 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
   }, [url])
 
   return (
-    <div className="bg-black-tertiary max-h-screen">
+    <div className="bg-tertiary max-h-screen">
       <div className="flex h-screen flex-col items-center justify-center">
         <TaostatsLogo className="my-16 h-16 w-4/12" />
         <div className="flex flex-grow items-center">

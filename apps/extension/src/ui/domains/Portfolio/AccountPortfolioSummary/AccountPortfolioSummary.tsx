@@ -34,7 +34,7 @@ const SelectorButton: FC<{
       "rounded-lg border text-sm transition-colors",
       isSelected
         ? "border-accent-1 bg-accent-1/10 text-white"
-        : "border-[#323232] bg-[#1D1D1D] text-white/60 hover:bg-emerald-500/20 hover:text-white",
+        : "hover:text-fg-primary border-[#323232] bg-[#1D1D1D] text-white/60 hover:bg-emerald-500/20",
       className,
     )}
     onClick={onClick}

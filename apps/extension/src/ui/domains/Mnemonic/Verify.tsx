@@ -18,12 +18,12 @@ const WordSlot = ({
 }) => (
   <span
     className={classNames(
-      "bg-black-tertiary whitespace-nowrap rounded-xl px-6 py-3",
+      "bg-tertiary whitespace-nowrap rounded-xl px-6 py-3",
       error
         ? "text-brand-orange border-brand-orange border border-dashed"
         : active || word
-          ? "text-fg-primary border-body border border-solid"
-          : "text-fg-secondary border-body-secondary border border-dashed",
+          ? "text-fg-primary border-primary border border-solid"
+          : "text-fg-secondary border-primary border border-dashed",
     )}
   >
     <span className="select-none">{number}. </span>
@@ -44,7 +44,7 @@ const WordOption = ({
     onClick={onClick}
     disabled={selected}
     className={classNames(
-      "bg-black-tertiary text-fg-primary enabled:hover:bg-tertiary rounded-xl px-8 py-3 disabled:text-opacity-20",
+      "bg-tertiary text-fg-primary enabled:hover:bg-tertiary rounded-xl px-8 py-3 disabled:text-opacity-20",
     )}
   >
     <span className="notranslate">{word}</span>
@@ -113,7 +113,7 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
           <span className="text-fg-secondary text-xs">
             {t("Confirm your recovery phrase by selecting the words below.")}
           </span>
-          <div className="bg-black-secondary group relative overflow-hidden rounded p-2">
+          <div className="bg-secondary group relative overflow-hidden rounded p-2">
             <div
               className={`grid min-h-[12.6rem] grid-cols-4 ${
                 mnemonicWords!.length > 12 && "lg:grid-cols-6"

@@ -100,7 +100,7 @@ const SidebarNavItem: FC<{
       to={to}
       className={classNames(
         "flex w-full items-center gap-6 overflow-hidden rounded",
-        "text-fg-primary-inactive [&.active]:text-fg-primary",
+        "text-fg-tertiary [&.active]:text-fg-primary",
         "hover:bg-tertiary [&.active]:bg-secondary",
         "h-28 px-6",
         forceActive && "active",

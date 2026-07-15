@@ -33,7 +33,7 @@ const AssetRowSkeleton = ({ className }: { className?: string }) => {
   return (
     <div
       className={classNames(
-        "bg-black-secondary mt-4 flex h-28 items-center gap-6 rounded-sm px-6",
+        "bg-secondary mt-4 flex h-28 items-center gap-6 rounded-sm px-6",
         className,
       )}
     >
@@ -261,7 +261,7 @@ export const PopupAssetsTable = () => {
   if (!available.length && !lockedSymbolBalances.length && !isInitialising)
     return (
       <FadeIn>
-        <div className="text-fg-secondary bg-black-secondary rounded-sm py-10 text-center text-xs">
+        <div className="text-fg-secondary bg-secondary rounded-sm py-10 text-center text-xs">
           {account ? t("No assets to display for this account.") : t("No assets to display.")}
         </div>
       </FadeIn>
@@ -285,7 +285,7 @@ export const PopupAssetsTable = () => {
           <VirtualizedRows rows={available} />
           {isInitialising && <AssetRowSkeleton />}
           {!isInitialising && !available.length && (
-            <div className="text-fg-secondary bg-black-secondary rounded-sm py-10 text-center text-xs">
+            <div className="text-fg-secondary bg-secondary rounded-sm py-10 text-center text-xs">
               {account
                 ? t("There are no available balances for this account.")
                 : t("There are no available balances.")}

@@ -97,7 +97,7 @@ export const ResetWallet = ({ closeResetWallet }: { closeResetWallet: () => void
     <PopupLayout>
       <div className="text-fg-secondary flex h-32 items-center justify-center px-12 pr-[16px]">
         <ChevronLeft
-          className="flex-shrink cursor-pointer text-lg hover:text-white"
+          className="hover:text-fg-primary flex-shrink cursor-pointer text-lg"
           onClick={closeResetWallet}
         />
         <span className="flex-grow pr-[24px] text-center">{t("Reset Wallet")}</span>

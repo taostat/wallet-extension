@@ -160,7 +160,7 @@ export const LayoutBreadcrumb: FC<{
   return (
     <div
       className={classNames(
-        "text-fg-primary-inactive mb-6 flex max-w-full items-center gap-1 overflow-hidden text-xs",
+        "text-fg-tertiary mb-6 flex max-w-full items-center gap-1 overflow-hidden text-xs",
         className,
       )}
     >

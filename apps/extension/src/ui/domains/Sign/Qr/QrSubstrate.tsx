@@ -117,7 +117,7 @@ export const QrSubstrate = ({
         <header className="text-fg-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
           <button
             type="button"
-            className="flex h-16 w-16 cursor-pointer items-center p-2 text-lg hover:text-white"
+            className="hover:text-fg-primary flex h-16 w-16 cursor-pointer items-center p-2 text-lg"
             onClick={() => {
               setScanState((scanState) => {
                 // if back is clicked and we're on the first page, reject the signing attempt
@@ -344,7 +344,7 @@ const SendPage = ({
             <button
               type="button"
               className={classNames(
-                "text-fg-tertiary mt-4 text-xs font-light hover:text-white",
+                "text-fg-tertiary hover:text-fg-primary mt-4 text-xs font-light",
                 signWithProof && "invisible",
               )}
               onClick={() => setScanState({ page: "SEND", showUpdateMetadataDrawer: true })}
@@ -363,7 +363,7 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={reject}
       >
-        <div className="bg-black-tertiary flex flex-col items-center rounded-t p-12">
+        <div className="bg-tertiary flex flex-col items-center rounded-t p-12">
           <div className="mb-16 font-bold">{t("Unable to sign")}</div>
           <div className="text-fg-secondary mb-16 max-w-md text-center text-sm leading-10">
             {t(
@@ -394,7 +394,7 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={() => setScanState({ page: "SEND" })}
       >
-        <div className="bg-black-tertiary flex flex-col items-center rounded-t p-12">
+        <div className="bg-tertiary flex flex-col items-center rounded-t p-12">
           <div className="mb-16 font-bold">{t("Add network")}</div>
           <>
             <div className="relative flex aspect-square w-full max-w-[16rem] items-center justify-center rounded bg-white p-7">
@@ -444,7 +444,7 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={() => setScanState({ page: "SEND" })}
       >
-        <div className="bg-black-tertiary flex max-h-full w-full flex-col items-center rounded-t p-12">
+        <div className="bg-tertiary flex max-h-full w-full flex-col items-center rounded-t p-12">
           <div className="mb-12 font-bold">{t("Enable network")}</div>
           <video width="160" controls autoPlay>
             <source src="/videos/add-network-vault.mp4" type="video/mp4" />
@@ -487,7 +487,7 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={() => setScanState({ page: "SEND" })}
       >
-        <div className="bg-black-tertiary flex flex-col items-center rounded-t p-12">
+        <div className="bg-tertiary flex flex-col items-center rounded-t p-12">
           <PolkadotVaultIcon className="mb-10 h-auto w-16" />
           <div className="mb-5 font-bold">{t("You may need to update metadata")}</div>
           <div className="text-fg-secondary max-w-md text-center text-sm leading-10">
@@ -499,7 +499,7 @@ const SendPage = ({
             <a
               href={POLKADOT_VAULT_DOCS_URL}
               target="_blank"
-              className="text-fg-tertiary mt-8 text-xs font-light hover:text-white"
+              className="text-fg-tertiary hover:text-fg-primary mt-8 text-xs font-light"
             >
               {t("Still seeing an error?")}
             </a>

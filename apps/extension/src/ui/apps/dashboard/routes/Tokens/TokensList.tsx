@@ -172,7 +172,7 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
               <TokenTypePill type={token.type} />
               {isTokenCustom(token) && <CustomPill />}
             </div>
-            <div className="text-fg-primary-inactive truncate text-xs">{token.name}</div>
+            <div className="text-fg-tertiary truncate text-xs">{token.name}</div>
           </div>
         </div>
 
@@ -184,7 +184,7 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
             />
             <div>{network.name}</div>
           </div>
-          <div className="text-fg-primary-inactive truncate text-xs">
+          <div className="text-fg-tertiary truncate text-xs">
             <NetworkType networkId={network.id} />
           </div>
         </div>

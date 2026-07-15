@@ -62,7 +62,7 @@ export const BittensorSlippageDrawer = () => {
       onDismiss={close}
       containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
     >
-      <div className="bg-black-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
+      <div className="bg-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
         <div className="text-fg-primary pb-8 font-bold">{t("Slippage Tolerance")}</div>
         <p className="text-fg-secondary text-sm">
           {t(

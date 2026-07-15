@@ -108,7 +108,7 @@ export const ExplorerNetworkPicker: FC<{ address: string; onClose: () => void }>
           {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
           <SearchInput onChange={setSearch} placeholder={t("Search by network name")} autoFocus />
         </div>
-        <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
+        <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
           {networks.map((network) => (
             <NetworkRow key={network.id} network={network} onClick={handleNetworkClick(network)} />
           ))}

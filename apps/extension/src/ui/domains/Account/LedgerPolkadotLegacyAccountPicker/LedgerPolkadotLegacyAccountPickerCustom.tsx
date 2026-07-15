@@ -154,7 +154,7 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
 
         <div className="col-span-2">
           <FormFieldContainer label={t("Preview")}>
-            <div className="bg-black-tertiary flex h-32 w-full items-center gap-8 rounded-sm px-8 py-4">
+            <div className="bg-tertiary flex h-32 w-full items-center gap-8 rounded-sm px-8 py-4">
               {accountDef ? (
                 <>
                   <AccountIcon address={accountDef.address} className="text-xl" />

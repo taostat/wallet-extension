@@ -327,7 +327,7 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
       onDismiss={onDismiss}
       containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
     >
-      <div className="bg-black-tertiary flex w-full flex-col gap-8 overflow-hidden rounded-t p-8 pt-12">
+      <div className="bg-tertiary flex w-full flex-col gap-8 overflow-hidden rounded-t p-8 pt-12">
         <div className="text-md text-center font-bold">{t("MEV Shield")}</div>
         <p className="text-sm">
           {t(

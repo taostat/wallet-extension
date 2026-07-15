@@ -63,7 +63,7 @@ export const LedgerConnectionStatus = ({
         <button
           type="button"
           onClick={onRetryClick}
-          className="bg-secondary hover:bg-tertiary text-fg-primary border-body-disabled hover:border-body-inactive h-20 rounded border px-8"
+          className="bg-secondary hover:bg-tertiary text-fg-primary border-primary hover:border-primary h-20 rounded border px-8"
         >
           {t("Retry")}
         </button>

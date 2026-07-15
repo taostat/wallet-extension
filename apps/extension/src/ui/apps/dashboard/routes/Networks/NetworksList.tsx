@@ -222,7 +222,7 @@ const NetworkRow: FC<{
           <div className="truncate">
             <NetworkName networkId={network.id} />
           </div>
-          <div className="text-fg-primary-inactive truncate text-xs">
+          <div className="text-fg-tertiary truncate text-xs">
             <NetworkType networkId={network.id} />
           </div>
         </div>

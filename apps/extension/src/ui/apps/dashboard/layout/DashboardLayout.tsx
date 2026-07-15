@@ -85,7 +85,7 @@ const NavButton: FC<{
     <button
       type="button"
       className={classNames(
-        "text-fg-primary-inactive hover:text-fg-secondary flex items-center gap-4",
+        "text-fg-tertiary hover:text-fg-secondary flex items-center gap-4",
         routeMatch && "!text-fg-brand",
         className,
       )}

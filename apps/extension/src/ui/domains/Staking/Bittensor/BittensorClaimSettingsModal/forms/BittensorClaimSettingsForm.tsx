@@ -108,7 +108,7 @@ export const BittensorClaimSettingsForm = () => {
                 disabled={isClaimTypeLoading}
                 className={classNames(
                   "border-light-gray relative w-full rounded-sm border px-6 py-5 text-left transition-colors",
-                  "bg-black-tertiary text-sm",
+                  "bg-tertiary text-sm",
                   isSelected
                     ? "text-fg-primary"
                     : "text-fg-secondary hover:border-primary hover:text-fg-primary border-transparent",

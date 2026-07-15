@@ -97,7 +97,7 @@ const FolderButton: FC<{ option: FolderAccountOption }> = ({ option }) => {
       type="button"
       tabIndex={0}
       className={classNames(
-        "text-fg-secondary bg-black-secondary hover:bg-secondary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
+        "text-fg-secondary bg-secondary hover:bg-secondary hover:text-fg-primary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6",
       )}
       onClick={handleClick}
     >
@@ -133,14 +133,14 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
     <div
       className={classNames(
         "group",
-        "bg-black-secondary hover:bg-secondary relative h-[5.9rem] w-full rounded-sm",
+        "bg-secondary hover:bg-secondary relative h-[5.9rem] w-full rounded-sm",
       )}
     >
       <button
         type="button"
         tabIndex={0}
         className={classNames(
-          "text-fg-secondary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
+          "text-fg-secondary hover:text-fg-primary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6",
         )}
         onClick={handleClick}
       >

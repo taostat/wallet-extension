@@ -115,7 +115,7 @@ export const TryPageContent: FC<{
               <input
                 type="text"
                 className={classNames(
-                  "bg-black-secondary text-fg-primary placeholder:text-fg-disabled w-full rounded px-8 py-6",
+                  "bg-secondary text-fg-primary placeholder:text-fg-disabled w-full rounded px-8 py-6",
                 )}
                 placeholder={t("Enter any wallet address")}
                 value={searchAddress}
@@ -125,7 +125,7 @@ export const TryPageContent: FC<{
 
             <button
               className={classNames(
-                "text-fg-disabled border-body-disabled rounded border px-8 py-6",
+                "text-fg-disabled border-primary rounded border px-8 py-6",
                 address.length && "bg-fg-brand border-primary hover:bg-fg-brand/95 text-black",
               )}
               disabled={!address.length}

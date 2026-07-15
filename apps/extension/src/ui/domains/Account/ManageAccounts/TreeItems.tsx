@@ -216,7 +216,7 @@ const EmptyFolderDropZone: FC<{
     <TreeDroppable
       className="bg-secondary text-fg-disabled h-32 w-full shrink-0 rounded-b-sm border border-dashed border-transparent"
       hasOverClassName=""
-      isOverClassName="bg-fg-primary/20 border-body text-fg-primary"
+      isOverClassName="bg-fg-primary/20 border-primary text-fg-primary"
       parentId={folderId}
       index={0}
       disabled={disabled}

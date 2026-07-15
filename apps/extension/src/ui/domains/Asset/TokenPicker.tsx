@@ -175,7 +175,7 @@ const TokenRow: FC<TokenRowProps> = ({
         >
           <div className="flex grow items-center gap-2 overflow-hidden">
             {!!token.name && token.name !== token.symbol && (
-              <div className="text-fg-primary-inactive truncate font-normal">{token.name}</div>
+              <div className="text-fg-tertiary truncate font-normal">{token.name}</div>
             )}
             {selected && <CheckCircle className="inline shrink-0 align-text-top" />}
           </div>
@@ -495,7 +495,7 @@ export const TokenPicker: FC<TokenPickerProps> = ({
           </div>
         )}
       </div>
-      <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
+      <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
         <TokensList
           address={address}
           selected={selected}

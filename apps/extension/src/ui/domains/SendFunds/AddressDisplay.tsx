@@ -126,14 +126,18 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
           signetUrl={getAccountSignetUrl(account)}
         />
         {blockExplorerUrl ? (
-          <a href={blockExplorerUrl} target="_blank" className="text-fg-tertiary hover:text-white">
+          <a
+            href={blockExplorerUrl}
+            target="_blank"
+            className="text-fg-tertiary hover:text-fg-primary"
+          >
             <LinkExternal01 />
           </a>
         ) : (
           <button
             onClick={handleCopyAddress}
             type="button"
-            className="text-md text-fg-tertiary hover:text-white"
+            className="text-md text-fg-tertiary hover:text-fg-primary"
           >
             <Copy01 />
           </button>

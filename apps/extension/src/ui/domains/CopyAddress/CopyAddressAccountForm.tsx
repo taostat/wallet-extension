@@ -193,7 +193,7 @@ export const CopyAddressAccountForm = () => {
             <SearchInput onChange={setSearch} placeholder={t("Search by account name")} />
           </div>
         </div>
-        <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
+        <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
           <AccountsList accounts={accounts} selected={address} onSelect={setAddress} />
         </ScrollContainer>
       </div>

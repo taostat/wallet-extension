@@ -44,7 +44,7 @@ export const GetStarted = () => {
   if (hasAccounts && isHidden) return null
 
   return (
-    <div className="@container bg-black-secondary relative flex w-full flex-col gap-8 rounded-sm p-8">
+    <div className="@container bg-secondary relative flex w-full flex-col gap-8 rounded-sm p-8">
       {hasAccounts && (
         <IconButton
           className="text-fg-disabled enabled:hover:text-fg-secondary enabled:focus-visible:text-fg-secondary absolute right-6 top-6"

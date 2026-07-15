@@ -26,7 +26,7 @@ export const BackupReminderBanner = () => {
       className={classNames(
         "relative z-0 overflow-hidden",
         "select-none rounded-sm p-6 py-4 text-xs",
-        "border-body-secondary border",
+        "border-primary border",
       )}
     >
       <div className="relative z-10">
@@ -51,7 +51,7 @@ export const BackupReminderBanner = () => {
           <Button
             small
             onClick={onSnoozeClick}
-            className="border-body-secondary text-fg-secondary h-16 rounded-full text-xs"
+            className="border-primary text-fg-secondary h-16 rounded-full text-xs"
           >
             {t("Remind me later")}
           </Button>

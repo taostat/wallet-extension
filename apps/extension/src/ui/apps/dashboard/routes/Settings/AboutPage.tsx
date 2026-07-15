@@ -71,7 +71,7 @@ const LinkToGithub = ({ href, children }: { href: string; children: React.ReactN
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="text-fg-secondary border-body-secondary hover:text-fg-primary hover:bg-secondary group flex items-center justify-between gap-2 rounded-sm border p-4 transition-all duration-300"
+      className="text-fg-secondary border-primary hover:text-fg-primary hover:bg-secondary group flex items-center justify-between gap-2 rounded-sm border p-4 transition-all duration-300"
     >
       {children}
       <LinkExternal01 className="text-fg-secondary group-hover:text-fg-primary shrink-0 transition-all duration-300" />

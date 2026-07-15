@@ -30,7 +30,7 @@ export const TokenBalancesDetailRow = ({
   return (
     <div
       className={classNames(
-        "bg-black-secondary flex w-full items-center gap-8 px-7 py-6",
+        "bg-secondary flex w-full items-center gap-8 px-7 py-6",
         isLastRow && "rounded-b-sm",
       )}
     >

@@ -105,7 +105,7 @@ const getPriceChangeClassName = (change24h: string | undefined) => {
     case "-":
       return "text-price-down"
     case "0": // 0.0%
-      return "text-fg-primary-inactive"
+      return "text-fg-tertiary"
     default:
       return null
   }

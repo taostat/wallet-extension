@@ -144,7 +144,7 @@ export const SendFundsRecipientPicker = () => {
           />
         </div>
       </div>
-      <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
+      <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
         {isNetworkDot(network) && newAddress?.ss58FormatError ? (
           <AddressFormatError chain={network ?? undefined} />
         ) : (

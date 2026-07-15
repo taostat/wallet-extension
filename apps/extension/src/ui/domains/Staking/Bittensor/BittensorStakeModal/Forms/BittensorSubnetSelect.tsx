@@ -144,7 +144,7 @@ export const BittensorSubnetSelect = () => {
           <ScrollContainer
             ref={scrollContainerRef}
             className="w-full grow"
-            innerClassName="flex flex-col w-full bg-black-secondary"
+            innerClassName="flex flex-col w-full bg-secondary"
           >
             <SubnetRows
               networkId={networkId}

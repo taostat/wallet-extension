@@ -136,7 +136,7 @@ const ViewDetailsContent: FC<{
             <ViewDetailsField label={t("Data")}>
               {data && (
                 <div className="mt-2 pr-2">
-                  <pre className="text-fg-secondary scrollable scrollable-700 bg-black-secondary rounded-xs w-full overflow-x-auto p-4">
+                  <pre className="text-fg-secondary scrollable scrollable-700 bg-secondary rounded-xs w-full overflow-x-auto p-4">
                     {data}
                   </pre>
                 </div>

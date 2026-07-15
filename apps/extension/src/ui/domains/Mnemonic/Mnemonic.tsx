@@ -66,12 +66,12 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
 
   return (
     <div className="min-w-[58rem]">
-      <div className="bg-black-secondary group relative overflow-hidden rounded p-2">
+      <div className="bg-secondary group relative overflow-hidden rounded p-2">
         <div className={`grid min-h-[12.6rem] grid-cols-4 gap-4 p-2`}>
           {!!mnemonic &&
             mnemonic.split(" ").map((word, i) => (
               <span
-                className="bg-black-tertiary text-fg-primary whitespace-nowrap rounded px-8 py-4"
+                className="bg-tertiary text-fg-primary whitespace-nowrap rounded px-8 py-4"
                 key={`mnemonic-${i}`}
               >
                 <span className="text-fg-disabled select-none">{i + 1}. </span>

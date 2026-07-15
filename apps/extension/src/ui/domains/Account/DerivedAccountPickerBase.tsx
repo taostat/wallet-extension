@@ -107,7 +107,7 @@ const AccountButton: FC<AccountButtonProps> = ({
         {connected ? (
           <CheckCircle className="text-fg-brand text-lg" />
         ) : (
-          <Checkbox checked={selected} readOnly className="[&>input]:!border-body-disabled" />
+          <Checkbox checked={selected} readOnly className="[&>input]:!border-primary" />
         )}
       </div>
     </button>

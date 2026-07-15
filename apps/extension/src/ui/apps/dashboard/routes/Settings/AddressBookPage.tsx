@@ -104,7 +104,7 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
   }, [contact])
 
   return (
-    <div className="bg-black-secondary group flex h-32 w-full items-center justify-between gap-4 rounded px-8">
+    <div className="bg-secondary group flex h-32 w-full items-center justify-between gap-4 rounded px-8">
       <AccountIcon
         className="text-xl"
         address={contact.address}
@@ -200,7 +200,7 @@ const Content = () => {
           />
         ))}
         {contactsToDisplay.length === 0 && (
-          <div className="bg-black-secondary text-fg-secondary flex h-[16rem] w-full flex-col items-center justify-center gap-12 rounded px-16 py-8">
+          <div className="bg-secondary text-fg-secondary flex h-[16rem] w-full flex-col items-center justify-center gap-12 rounded px-16 py-8">
             <span>{t("You have no saved contacts yet.")}</span>
             <Button primary onClick={open} iconLeft={Plus}>
               {t("Add a contact")}

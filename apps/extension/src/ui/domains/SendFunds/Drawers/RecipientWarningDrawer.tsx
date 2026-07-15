@@ -26,7 +26,7 @@ export const RecipientWarningDrawer = ({
 
   return (
     <Drawer anchor="bottom" isOpen={isOpen} onDismiss={close} containerId="main">
-      <div className="bg-black-tertiary rounded-t-xl p-12 text-center">
+      <div className="bg-tertiary rounded-t-xl p-12 text-center">
         <div>
           <InfoCircle className="text-fg-brand inline-block text-3xl" />
         </div>

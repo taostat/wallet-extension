@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@taostats-wallet/icons": "workspace:*",
+    "@untitledui/icons": "0.0.22",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

@@ -144,7 +144,7 @@ const FormatRow: FC<{
       <div className="flex grow flex-col gap-2 overflow-hidden">
         <div className="flex items-center gap-4 overflow-hidden">
           <div className="text-fg-primary truncate text-sm">{chainName}</div>
-          <div className="text-fg-primary-inactive text-tiny rounded-xs border-body-inactive shrink-0 border px-2 py-1">
+          <div className="text-fg-tertiary text-tiny rounded-xs border-primary shrink-0 border px-2 py-1">
             {label}
           </div>
         </div>

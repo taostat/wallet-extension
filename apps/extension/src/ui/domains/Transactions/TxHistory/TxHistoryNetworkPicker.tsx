@@ -52,7 +52,7 @@ export const TxHistoryNetworkPicker: FC<{
           <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
             <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
           </div>
-          <ScrollContainer className="bg-black-secondary border-primary scrollable grow border-t">
+          <ScrollContainer className="bg-secondary border-primary scrollable grow border-t">
             <NetworksList
               networks={networks}
               selectedNetworkId={selectedNetworkId}
@@ -119,7 +119,7 @@ const NetworkRow: FC<{
       <div className="text-fg-primary flex grow flex-col gap-1 truncate text-left">
         <div>{network ? network.name : t("All Networks")}</div>
         {!!network && (
-          <div className="text-fg-primary-inactive text-xs">
+          <div className="text-fg-tertiary text-xs">
             <NetworkType networkId={network.id} />
           </div>
         )}

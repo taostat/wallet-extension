@@ -183,7 +183,7 @@ const AssetPriceChartOriginal: FC<{
       {!isValid && (
         <div
           className={classNames(
-            "text-fg-primary-inactive absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center",
+            "text-fg-tertiary absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center",
             variant === "small" && "text-base",
             variant === "large" && "text-lg",
           )}

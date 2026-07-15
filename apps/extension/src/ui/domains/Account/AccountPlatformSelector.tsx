@@ -58,7 +58,7 @@ export const AccountPlatformSelector = ({
     <div className={classNames("grid w-full grid-cols-2 gap-10", className)}>
       <AccountTypeButton
         className={classNames(
-          platform === "polkadot" ? "border-body" : "border-body-secondary border-opacity-20",
+          platform === "polkadot" ? "border-primary" : "border-primary border-opacity-20",
           "border",
         )}
         icon={<PolkadotCircleLogo />}
