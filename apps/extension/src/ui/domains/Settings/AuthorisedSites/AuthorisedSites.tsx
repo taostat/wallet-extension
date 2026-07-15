@@ -50,7 +50,7 @@ export const AuthorisedSites = () => {
           <AuthorizedSite key={`${providerType}-${id}`} id={id} provider={providerType} />
         ))}
         {providerType === "polkadot" && !hasPolkadotSites && (
-          <div className="bg-grey-850 text-body-secondary w-full rounded p-8">
+          <div className="bg-secondary text-fg-secondary w-full rounded p-8">
             {t("You haven't connected to any sites yet.")}
           </div>
         )}

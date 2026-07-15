@@ -13,7 +13,7 @@ export const MigratePasswordError = () => {
 
   return (
     <ModalDialog title={t("There was a problem")}>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         <span className="block">
           {t("There was an error in updating your password.")}{" "}
           {useErrorTracking && (
@@ -38,7 +38,7 @@ export const MigratePasswordError = () => {
           )}
         </span>
       </p>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {!useErrorTracking && (
           <span className="mb-4 block">
             <Checkbox onChange={() => setUseErrorTracking((prev) => !prev)}>
@@ -46,11 +46,11 @@ export const MigratePasswordError = () => {
             </Checkbox>
           </span>
         )}
-        <span className="text-body bg-body-secondary my-2 flex justify-center rounded-sm bg-opacity-50 p-4 font-mono">
+        <span className="text-fg-primary bg-tertiary my-2 flex justify-center rounded-sm bg-opacity-50 p-4 font-mono">
           {statusMessage}
         </span>
       </p>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {t(
           "The update was not completed, but you may continue to use Taostats. You will be asked to update again next time the extension is restarted.",
         )}

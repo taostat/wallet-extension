@@ -29,8 +29,8 @@ export const BatchActionButton: FC<{
         {children}
       </button>
       <Modal isOpen={isOpen} onDismiss={close}>
-        <ModalDialog onClose={close} title={confirmTitle} className="border-grey-800 border">
-          <p className="text-body-secondary">{confirmDescription}</p>
+        <ModalDialog onClose={close} title={confirmTitle} className="border-primary border">
+          <p className="text-fg-secondary">{confirmDescription}</p>
           <div className="mt-8 grid grid-cols-2 gap-8">
             <Button onClick={close}>{t("Cancel")}</Button>
             <Button primary onClick={handlerConfirm}>
@@ -67,37 +67,37 @@ export const AuthorisedSitesBatchActions: FC<{ providerType: ProviderType }> = (
   }, [providerType, t])
 
   return (
-    <div className="text-grey-500 flex gap-[0.5rem] text-xs">
+    <div className="text-fg-disabled flex gap-[0.5rem] text-xs">
       <BatchActionButton
         confirmTitle={t("Forget All Sites")}
         confirmDescription={
           <Trans
             t={t}
-            components={{ Highlight: <span className="text-body"></span> }}
+            components={{ Highlight: <span className="text-fg-primary"></span> }}
             defaults="Are you sure you want to forget all <Highlight>{{providerType}}</Highlight> sites?"
             values={{ providerType: capitalize(providerType) }}
           />
         }
         confirmBtnText={t("Continue")}
         handler={handleForgetAll}
-        className="hover:text-body"
+        className="hover:text-fg-primary"
       >
         {t("Forget All Sites")}
       </BatchActionButton>
-      <div className="bg-grey-700 w-0.5 py-1"></div>
+      <div className="bg-tertiary w-0.5 py-1"></div>
       <BatchActionButton
         confirmTitle={t("Disconnect All Sites")}
         confirmDescription={
           <Trans
             t={t}
-            components={{ Highlight: <span className="text-body"></span> }}
+            components={{ Highlight: <span className="text-fg-primary"></span> }}
             defaults="Are you sure you want to disconnect from all <Highlight>{{providerType}}</Highlight> sites?"
             values={{ providerType: capitalize(providerType) }}
           />
         }
         confirmBtnText={t("Continue")}
         handler={handleDisconnectAll}
-        className="hover:text-body"
+        className="hover:text-fg-primary"
       >
         {t("Disconnect All Sites")}
       </BatchActionButton>

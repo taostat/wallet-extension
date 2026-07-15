@@ -22,7 +22,7 @@ export const BraveWarningCard = ({ className, onLearnMoreClick }: Props) => {
         </div>
       }
       description={
-        <span className="text-body-secondary text-sm">
+        <span className="text-fg-secondary text-sm">
           {t("By default, Brave prevents Taostats Wallet from loading all your balances.")}
         </span>
       }

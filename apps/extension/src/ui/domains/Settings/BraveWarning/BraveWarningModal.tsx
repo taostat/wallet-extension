@@ -28,8 +28,8 @@ export const BraveWarningModal: FC<BraveWarningModalProps> = () => {
   }, [])
 
   return (
-    <div className="text-body-secondary flex w-full flex-col gap-8">
-      <p className="text-body-secondary [&>strong]:text-body px-8 text-xs">
+    <div className="text-fg-secondary flex w-full flex-col gap-8">
+      <p className="text-fg-secondary [&>strong]:text-fg-primary px-8 text-xs">
         <Trans t={t}>
           Brave limits the amount of networks extensions can connect to. In order to view all your
           balances please disable the <strong>Restrict WebSockets Pool</strong> flag and restart
@@ -50,7 +50,7 @@ export const BraveWarningModal: FC<BraveWarningModalProps> = () => {
       >
         {t("Open Brave flags")}
       </Button>
-      <div className="text-body-secondary flex w-full items-center justify-center gap-4 text-sm">
+      <div className="text-fg-secondary flex w-full items-center justify-center gap-4 text-sm">
         <div>{t("Don't ask again")}</div>
         <Toggle
           checked={hideBraveWarning}

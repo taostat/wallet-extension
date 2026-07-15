@@ -49,7 +49,7 @@ export const ContactNetworkPickerButton: FC<{
         type="button"
         className={classNames(
           "flex h-[5.6rem] w-full items-center gap-6 overflow-hidden rounded-sm px-8",
-          "bg-grey-850 enabled:hover:bg-grey-800 text-body-secondary enabled:hover:text-body",
+          "bg-secondary enabled:hover:bg-secondary text-fg-secondary enabled:hover:text-fg-primary",
           className,
         )}
         onClick={open}
@@ -57,7 +57,9 @@ export const ContactNetworkPickerButton: FC<{
         <div>
           <NetworkLogo networkId={option?.id} className="text-[2.4rem]" />
         </div>
-        <div className="text-body grow truncate text-left">{option?.name ?? t("All Networks")}</div>
+        <div className="text-fg-primary grow truncate text-left">
+          {option?.name ?? t("All Networks")}
+        </div>
         <ChevronRight className="size-12" />
       </button>
       <NetworkOptionsModal

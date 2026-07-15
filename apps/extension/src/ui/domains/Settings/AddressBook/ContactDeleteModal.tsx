@@ -36,7 +36,7 @@ export const ContactDeleteModal = ({ contact, isOpen, close }: ContactModalProps
   return (
     <Modal isOpen={isOpen} onDismiss={close}>
       <ModalDialog title={t("Delete contact")}>
-        <div className="text-body-secondary my-12">
+        <div className="text-fg-secondary my-12">
           <Trans t={t}>
             You are deleting contact '<span className="font-bold text-white">{contactName}</span>'
             from your address book.

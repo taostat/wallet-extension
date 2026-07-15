@@ -16,11 +16,11 @@ const ShowMnemonic = () => {
 
   return (
     <ModalDialog title="Secret recovery phrase">
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {t("Your secret phrase protects your account. If you share it you may lose your funds.")}
       </p>
 
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {t(
           "We strongly encourage you to back up your recovery phrase by writing it down and storing it in a secure location.",
         )}
@@ -50,13 +50,13 @@ export const BackUpMnemonicDialog = () => {
   if (showMnemonic) return <ShowMnemonic />
   return (
     <ModalDialog title="Don't lose access to your wallet">
-      <p className="text-body-secondary text-sm">{t("Have you backed up your recovery phrase?")}</p>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">{t("Have you backed up your recovery phrase?")}</p>
+      <p className="text-fg-secondary text-sm">
         {t(
           "Your recovery phrase is used to restore your Taostats accounts if you forget your password or lose access to your device.",
         )}
       </p>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {t(
           "We strongly encourage you to back up your recovery phrase by writing it down and storing it in a secure location.",
         )}

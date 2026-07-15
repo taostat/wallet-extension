@@ -5,7 +5,7 @@ import { PRIVACY_POLICY_URL } from "extension-shared"
 import { FC, ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
-const TickYes = () => <CheckCircle className="text-md text-primary mr-6" />
+const TickYes = () => <CheckCircle className="text-md text-fg-brand mr-6" />
 
 const TickNo = () => <X className="text-md text-brand-orange mr-6" />
 
@@ -18,14 +18,14 @@ export const AnalyticsOptInInfo: FC<{
   return (
     <div className={classNames("flex flex-col gap-12", className)}>
       <h1 className="mb-4">{t("Help us improve Taostats")}</h1>
-      <p className="text-body-secondary">
+      <p className="text-fg-secondary">
         {t(
           "We want to build simple tools that empower our users and allow them navigate web3 applications with ease. To help improve our product and features we'd like to collect anonymous usage information. This is optional, and you can opt-out at any time.",
         )}
       </p>
       <div>
         <h3 className="mb-4">{t("What we track")}</h3>
-        <ul className="text-body-secondary m-0 list-none pl-0 [&>li]:flex [&>li]:items-center">
+        <ul className="text-fg-secondary m-0 list-none pl-0 [&>li]:flex [&>li]:items-center">
           <li>
             <TickYes />
             {t("Anonymous user data")}
@@ -38,7 +38,7 @@ export const AnalyticsOptInInfo: FC<{
       </div>
       <div>
         <h3 className="mb-4">{t("What we don't track")}</h3>
-        <ul className="text-body-secondary m-0 list-none pl-0 [&>li]:flex [&>li]:items-center">
+        <ul className="text-fg-secondary m-0 list-none pl-0 [&>li]:flex [&>li]:items-center">
           <li>
             <TickNo />
             {t("Identifying personal data such as IP addresses")}
@@ -54,14 +54,14 @@ export const AnalyticsOptInInfo: FC<{
         </ul>
       </div>
       {children}
-      <div className="text-body-secondary text-sm">
+      <div className="text-fg-secondary text-sm">
         <Trans t={t}>
           For more information please read our{" "}
           <a
             href={PRIVACY_POLICY_URL}
             target="_blank"
             rel="noreferrer noopener"
-            className="hover:text-grey-300 active:text-grey-300 underline"
+            className="hover:text-fg-tertiary active:text-fg-tertiary underline"
           >
             Privacy Policy
           </a>

@@ -49,14 +49,14 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
   return (
     <div className="absolute bottom-0 right-0 m-8 max-w-full">
       <Card
-        className="text-body-secondary text-center"
+        className="text-fg-secondary text-center"
         title={
           <div className="flex flex-col items-center">
             <div className="relative">
               <Database01 className="icon text-3xl text-white" />
-              <AlertCircle className="icon bg-alert-error text-md absolute right-0 top-0 rounded text-white" />
+              <AlertCircle className="icon bg-error-secondary text-md absolute right-0 top-0 rounded text-white" />
             </div>
-            <div className="text-body mt-4">{t("Database Unavailable")}</div>
+            <div className="text-fg-primary mt-4">{t("Database Unavailable")}</div>
           </div>
         }
         description={
@@ -74,7 +74,7 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
               <Trans t={t}>
                 If this problem continues, please contact our support team on{" "}
                 <a
-                  className="text-body underline"
+                  className="text-fg-primary underline"
                   href={DISCORD_URL}
                   target="_blank"
                   rel="noreferrer noopener"
@@ -94,7 +94,7 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
               </Button>
             ) : null}
             <button
-              className="hover:text-body focus:text-body self-center p-4 text-xs"
+              className="hover:text-fg-primary focus:text-fg-primary self-center p-4 text-xs"
               onClick={dismiss}
             >
               Dismiss

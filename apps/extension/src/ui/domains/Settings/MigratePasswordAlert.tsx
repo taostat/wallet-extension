@@ -19,11 +19,11 @@ export const AlertCard = ({ className, onAccept }: Props) => {
   const { t } = useTranslation()
   return (
     <Card
-      className={classNames("text-body-secondary !rounded-b-none text-center", className)}
+      className={classNames("text-fg-secondary !rounded-b-none text-center", className)}
       title={
         <div className="flex flex-col items-center p-2">
-          <Lock01 className="icon text-primary inline-block p-1 text-3xl" />
-          <div className="text-body mt-4">{t("Security Upgrade")}</div>
+          <Lock01 className="icon text-fg-brand inline-block p-1 text-3xl" />
+          <div className="text-fg-primary mt-4">{t("Security Upgrade")}</div>
         </div>
       }
       description={

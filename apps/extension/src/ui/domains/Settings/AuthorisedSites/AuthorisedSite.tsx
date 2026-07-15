@@ -24,12 +24,12 @@ const ConfirmForgetDialog: FC<{
   const { t } = useTranslation()
 
   return (
-    <div className="text-body-secondary text-sm">
+    <div className="text-fg-secondary text-sm">
       <p className="text-sm">
         <Trans
           t={t}
           defaults="Confirm to forget <Highlight>{{siteLabel}}</Highlight>."
-          components={{ Highlight: <span className="text-body" /> }}
+          components={{ Highlight: <span className="text-fg-primary" /> }}
           values={{ siteLabel }}
         />
       </p>
@@ -70,14 +70,14 @@ export const AuthorizedSite: FC<{
     <div>
       <button
         type="button"
-        className="text-body-secondary hover:text-body bg-grey-850 hover:bg-grey-800 flex h-24 w-full items-center gap-3 rounded-sm px-8 text-left"
+        className="text-fg-secondary hover:text-fg-primary bg-secondary hover:bg-secondary flex h-24 w-full items-center gap-3 rounded-sm px-8 text-left"
         onClick={toggle}
       >
-        <div className="text-body">
+        <div className="text-fg-primary">
           <Title name={origin} domain={id} />
         </div>
-        <div className="text-body-secondary grow">{origin === "" ? "" : id}</div>
-        <div className="text-primary mr-3 shrink-0 text-right">
+        <div className="text-fg-secondary grow">{origin === "" ? "" : id}</div>
+        <div className="text-fg-brand mr-3 shrink-0 text-right">
           {t("{{connectedCount}} of {{totalCount}}", {
             connectedCount: connected?.length ?? 0,
             totalCount: availableAddresses?.length ?? 0,
@@ -89,17 +89,17 @@ export const AuthorizedSite: FC<{
       </button>
       <Accordion isOpen={isOpen}>
         <div className="mt-4 flex w-full flex-col gap-2 px-8">
-          <div className="text-grey-500 text-right text-xs">
-            <button className="hover:text-body" onClick={() => setShowForget(true)}>
+          <div className="text-fg-disabled text-right text-xs">
+            <button className="hover:text-fg-primary" onClick={() => setShowForget(true)}>
               {t("Forget Site")}
             </button>
             <Rule />
-            <button className="hover:text-body" onClick={() => toggleAll(false)}>
+            <button className="hover:text-fg-primary" onClick={() => toggleAll(false)}>
               {t("Disconnect All")}
             </button>
 
             <Rule />
-            <button className="hover:text-body" onClick={() => toggleAll(true)}>
+            <button className="hover:text-fg-primary" onClick={() => toggleAll(true)}>
               {t("Connect All")}
             </button>
           </div>
