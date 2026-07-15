@@ -450,6 +450,9 @@ importers:
       i18next-http-backend:
         specifier: ^3.0.2
         version: 3.0.2
+      jotai:
+        specifier: ~2
+        version: 2.10.1(@types/react@18.3.12)(react@18.3.1)
       js-yaml:
         specifier: '>=4.1.1'
         version: 4.1.1
@@ -745,9 +748,15 @@ importers:
       swaps-port:
         specifier: ./src/ui/domains/Swap/swaps-port
         version: link:src/ui/domains/Swap/swaps-port
+      tailwind-scrollbar:
+        specifier: ^3.1.0
+        version: 3.1.0(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3))
+      tailwindcss-animate:
+        specifier: ^1.0.6
+        version: 1.0.7(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
       terser-webpack-plugin:
         specifier: 5.3.10
         version: 5.3.10(@swc/core@1.7.39(@swc/helpers@0.5.13))(webpack@5.95.0)
@@ -1190,6 +1199,9 @@ importers:
       '@noble/hashes':
         specifier: 1.8.0
         version: 1.8.0
+      '@polkadot/util-crypto':
+        specifier: 13.5.3
+        version: 13.5.3(@polkadot/util@13.5.3)
       '@scure/base':
         specifier: 1.2.6
         version: 1.2.6
@@ -1704,9 +1716,15 @@ importers:
       react-use:
         specifier: 17.5.1
         version: 17.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tailwind-scrollbar:
+        specifier: ^3.1.0
+        version: 3.1.0(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3))
+      tailwindcss-animate:
+        specifier: ^1.0.6
+        version: 1.0.7(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)))
       typescript:
         specifier: ^5.6.3
         version: 5.8.3
@@ -1750,6 +1768,9 @@ importers:
       bignumber.js:
         specifier: ^9.1.2
         version: 9.1.2
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       lodash-es:
         specifier: 4.17.21
         version: 4.17.21
@@ -3383,6 +3404,7 @@ packages:
 
   '@metamask/sdk@0.34.0':
     resolution: {integrity: sha512-8dkJUShZ5zFqYjNmhJaqKgDzZVne+F2rNjMQJ3pxs89n3oOUNuJ8dsTo08Grf9vlQ6Ldpdt2RTwqbrxKWyyqlw==}
+    deprecated: No longer maintained, superseded by https://docs.metamask.io/metamask-connect
 
   '@metamask/superstruct@3.2.1':
     resolution: {integrity: sha512-fLgJnDOXFmuVlB38rUN5SmU7hAFQcCjrg3Vrxz67KTY7YHFnSNEKvX4avmEBdOI0yTCxZjwMCFEqsC8k2+Wd3g==}
@@ -3546,7 +3568,7 @@ packages:
 
   '@paulmillr/qr@0.2.1':
     resolution: {integrity: sha512-IHnV6A+zxU7XwmKFinmYjUcwlyK9+xkG3/s9KcQhI9BjQKycrJ1JRO+FbNYPwZiPKW3je/DR0k7w8/gLa5eaxQ==}
-    deprecated: 'The package is now available as "qr": npm install qr'
+    deprecated: 'Switch to "qr" (new package name) for security updates: npm install qr'
 
   '@peaqnetwork/type-definitions@0.0.4':
     resolution: {integrity: sha512-bMja9T9PHQrEy4Uhh0ZTWvKGpgiDd51tZg4ZOpgC1KtVBF6Wx+bNtt+Zyg0DKwRh2Eg+xI5OEBPycsFOpdIWIA==}
@@ -4162,6 +4184,7 @@ packages:
   '@safe-global/safe-gateway-typescript-sdk@3.23.1':
     resolution: {integrity: sha512-6ORQfwtEJYpalCeVO21L4XXGSdbEMfyp2hEv6cP82afKXSwvse6d3sdelgaPWUxHIsFRkWvHDdzh8IyyKHZKxw==}
     engines: {node: '>=16'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@scure/base@1.1.9':
     resolution: {integrity: sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==}
@@ -10925,6 +10948,17 @@ packages:
 
   tailwind-merge@2.5.4:
     resolution: {integrity: sha512-0q8cfZHMu9nuYP/b5Shb7Y7Sh1B7Nnl5GqNr1U+n2p6+mybvRtayrQ+0042Z5byvTA8ihjlP8Odo8/VnHbZu4Q==}
+
+  tailwind-scrollbar@3.1.0:
+    resolution: {integrity: sha512-pmrtDIZeHyu2idTejfV59SbaJyvp1VRjYxAjZBH0jnyrPRo6HL1kD5Glz8VPagasqr6oAx6M05+Tuw429Z8jxg==}
+    engines: {node: '>=12.13.0'}
+    peerDependencies:
+      tailwindcss: 3.x
+
+  tailwindcss-animate@1.0.7:
+    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
 
   tailwindcss@3.4.14:
     resolution: {integrity: sha512-IcSvOcTRcUtQQ7ILQL5quRDg7Xs93PdJEk1ZLbhhvJc7uj/OAhYOnruEiwnGgBvUtaUAJ8/mhSw1o8L2jCiENA==}
@@ -24305,6 +24339,14 @@ snapshots:
   tabbable@6.2.0: {}
 
   tailwind-merge@2.5.4: {}
+
+  tailwind-scrollbar@3.1.0(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3))):
+    dependencies:
+      tailwindcss: 3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3))
+
+  tailwindcss-animate@1.0.7(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3))):
+    dependencies:
+      tailwindcss: 3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3))
 
   tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.39(@swc/helpers@0.5.13))(@types/node@24.5.1)(typescript@5.8.3)):
     dependencies:

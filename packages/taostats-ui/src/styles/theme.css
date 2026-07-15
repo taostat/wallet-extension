@@ -1,0 +1,194 @@
+/* Design system theme CSS custom properties. Dark theme only. */
+
+/* ========================================================================
+   Dark theme (default)
+   ======================================================================== */
+:root {
+  /* App backgrounds */
+  --app-bg: 14 15 17; /* #0E0F11 */
+  --background: 14 15 17; /* #0E0F11 */
+
+  /* Primary */
+  --primary: 14 15 17; /* #0E0F11 */
+
+  /* Surface / card backgrounds */
+  --bg-card: 39 39 39; /* #272727 */
+  --bg-hero-primary: 29 29 29; /* #1D1D1D */
+  --bg-input-primary: 46 46 46; /* #2E2E2E */
+  --card: 9 9 28; /* hsl(222.2 84% 4.9%) ≈ #020617 → approx */
+  --card-foreground: 248 250 252; /* hsl(210 40% 98%) ≈ #F8FAFC */
+
+  /* Primary */
+  --primary-hover: 29 29 29; /* #1D1D1D */
+  --primary-foreground: 255 255 255; /* #FFFFFF */
+  --primary-button-border: 50 50 50; /* #323232 */
+
+  /* Accent */
+  --accent: 29 29 29; /* #1D1D1D */
+  --accent-foreground: 255 255 255; /* #FFFFFF */
+  --accent-1: 0 219 188; /* #00DBBC */
+  --accent-2: 255 61 87; /* #FF3D57 */
+  --accent-3: 202 138 3; /* #CA8A03 */
+
+  /* CTA */
+  --cta1: 0 219 188; /* #00DBBC */
+
+  /* Semantic */
+  --fire: 247 124 54; /* #F77C36 */
+  --ocean: 0 219 188; /* #00DBBC */
+  --positive-trend: 0 219 188; /* #00DBBC */
+  --negative-trend: 255 61 87; /* #FF3D57 */
+
+  /* Labels */
+  --label-primary: 255 255 255; /* #FFFFFF */
+  --label-secondary: 144 144 144; /* #909090 */
+
+  /* Navigation */
+  --navitem-selected: 36 36 36; /* #242424 */
+  --gray-highlight: 36 36 36; /* #242424 */
+  --grayish: 144 144 144; /* #909090 */
+
+  /* Borders & inputs */
+  --border: 30 41 59; /* #1E293B */
+  --input: 255 255 243; /* #FFFFF3 — corrected from legacy "#fffff33" typo */
+  --input-border-primary: 38 38 38; /* #262626 */
+  --ring: 30 41 59; /* #1E293B */
+
+  /* Popover */
+  --popover: 20 20 20; /* #141414 */
+  --popover-foreground: 248 250 252; /* #F8FAFC */
+
+  /* Foreground */
+  --foreground: 248 250 252; /* #F8FAFC */
+
+  /* Secondary */
+  --secondary: 217 217 217; /* hsl(0, 0%, 85%) ≈ #D9D9D9 */
+  --secondary-foreground: 248 250 252; /* hsl(210 40% 98%) ≈ #F8FAFC */
+
+  /* Muted */
+  --muted: 39 39 42; /* #27272a */
+
+  /* Destructive */
+  --destructive: 127 29 29; /* hsl(0 62.8% 30.6%) ≈ #7F1D1D */
+  --destructive-foreground: 248 250 252; /* #F8FAFC */
+
+  /* Greens */
+  --green: 199 255 127; /* #C7FF7F */
+  --lime-green: 149 238 95; /* #95EE5F */
+
+  /* Grays */
+  --dark-gray: 54 54 54; /* #363636 */
+  --charcoal: 31 31 31; /* #1F1F1F */
+  --jet: 37 37 37; /* #252525 */
+  --darkgrey: 15 15 15; /* #0f0f0f */
+
+  /* Wind */
+  --wind: 135 255 238; /* #87FFEE */
+
+  /* Table */
+  --table-header: 99 99 99; /* #636363 */
+  --table-cell: 202 202 202; /* #CACACA */
+
+  /* Text */
+  --slippage-warning: 235 164 71; /* #EBA447 */
+
+  /* Figma export: Text tokens */
+  --text-primary: 255 255 255;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-tertiary: rgba(243, 248, 255, 0.4);
+  --text-brand: 0 219 188;
+  --text-placeholder: rgba(243, 248, 255, 0.3);
+  --text-disabled: rgba(243, 248, 255, 0.2);
+  --text-success: 0 219 188;
+  --text-error: 255 61 87;
+  --text-primary-alt: 14 15 17;
+  --text-contrast: 14 15 17;
+  --text-yellow: 250 204 21;
+  --text-orange: 247 124 54;
+  --text-blue: 71 198 235;
+  --text-dark-blue: 36 156 255;
+  --text-lime: 149 238 95;
+
+  /* Figma export: Foreground tokens (fg- prefix in Tailwind colors) */
+  --fg-primary: 255 255 255;
+  --fg-secondary: rgba(255, 255, 255, 0.6);
+  --fg-tertiary: rgba(243, 248, 255, 0.4);
+  --fg-disabled: rgba(243, 248, 255, 0.2);
+  --fg-brand: 0 219 188;
+  --fg-success: 0 219 188;
+  --fg-error: 255 61 87;
+  --fg-primary-alt: 14 15 17;
+  --fg-contrast: 14 15 17;
+  --fg-yellow: 250 204 21;
+  --fg-orange: 247 124 54;
+  --fg-blue: 71 198 235;
+  --fg-dark-blue: 36 156 255;
+  --fg-lime: 149 238 95;
+
+  /* Figma export: Background tokens */
+  --bg-primary: 14 15 17;
+  --bg-primary-alt: 245 246 246;
+  --bg-secondary: rgba(255, 255, 255, 0.04);
+  --bg-secondary-solid: 23 24 26;
+  --bg-tertiary: rgba(255, 255, 255, 0.05);
+  --bg-quaternarry: rgba(255, 255, 255, 0.02);
+  --bg-brand-secondary: rgba(0, 219, 188, 0.12);
+  --bg-disabled: rgba(255, 255, 255, 0.05);
+  --bg-error-secondary: rgba(255, 61, 87, 0.11);
+  --bg-tab-bg: rgba(255, 255, 255, 0.06);
+  --bg-tabs: rgba(0, 0, 0, 0.3);
+  --bg-yellow-secondary: rgba(250, 204, 21, 0.12);
+  --bg-orange-secondary: rgba(255, 153, 0, 0.12);
+  --bg-blue-secondary: rgba(71, 198, 235, 0.12);
+  --bg-dark-blue-secondary: rgba(36, 156, 255, 0.12);
+  --bg-lime-secondary: rgba(149, 238, 95, 0.12);
+  --bg-tooltip-bg: rgba(37, 38, 42, 0.85);
+  --bg-chart-tooltip-bg: rgba(37, 38, 42, 0.72);
+  --bg-chart-crosshair: rgba(255, 255, 255, 0.07);
+  --bg-menu-bg: rgba(25, 25, 26, 0.8);
+  --bg-secondary-btn-bg: rgba(255, 255, 255, 0.05);
+  --bg-secondary-btn-bg-hover: rgba(255, 255, 255, 0.15);
+
+  --card-surface: 24 25 27;
+  --dark-surface-gradient: linear-gradient(0deg, rgba(27, 28, 31, 0.3), rgba(27, 28, 31, 0.3)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0) 34.52%, var(--bg-quaternarry) 100%);
+
+  /* Figma export: Border tokens */
+  --border-primary: rgba(243, 248, 255, 0.06);
+  --border-brand: 0 219 188;
+  --border-secondary: rgba(243, 248, 255, 0.08);
+}
+
+/* ========================================================================
+   Component utility classes
+   ======================================================================== */
+
+/* CardV2 — flat surface colour from --card-surface (see :root / .light) */
+.bg-card-surface {
+  background-color: rgb(var(--card-surface));
+}
+
+/* Tab active state — layered gradient (Figma: Background / TAB-BG) */
+.bg-tab-active {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0) 34.52%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+/* Data card background — layered gradient (Figma: Background / BG-SECONDARY) */
+.bg-data-card {
+  background: linear-gradient(0deg, var(--bg-secondary), var(--bg-secondary)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0) 34.52%, var(--bg-quaternarry) 100%);
+}
+
+/* Chart card background — layered gradient - no Figma token */
+.bg-chart-card {
+  background: var(--dark-surface-gradient);
+  /* Was supposed to be 155.2px but causing dropped frames */
+  backdrop-filter: blur(64px);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.48);
+}
+
+/* Footer background — aliases the shared dark surface gradient */
+.bg-footer {
+  background: var(--dark-surface-gradient);
+}
