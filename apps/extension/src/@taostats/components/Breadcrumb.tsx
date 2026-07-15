@@ -13,7 +13,7 @@ export const Breadcrumb: FC<{
   className?: string
 }> = ({ items, className }) => {
   return (
-    <div className={classNames("text-body-secondary flex items-center gap-1 text-base", className)}>
+    <div className={classNames("text-fg-secondary gap-xxs flex items-center text-base", className)}>
       {items.map(({ label, onClick, className }, index) => {
         return (
           <Fragment key={index}>
@@ -21,7 +21,7 @@ export const Breadcrumb: FC<{
               <button
                 onClick={onClick}
                 className={classNames(
-                  "bg-grey-900 hover:bg-grey-800 hover:text-grey-300 h-[3.2rem] truncate rounded-sm px-4",
+                  "bg-tertiary hover:bg-secondary hover:text-fg-primary px-xs h-8 truncate rounded-sm",
                   className,
                 )}
               >

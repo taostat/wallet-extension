@@ -14,15 +14,12 @@ type Props = {
 export const FullScreenLocked = ({ className, title, subtitle }: Props) => (
   <FadeIn className="flex h-screen w-screen flex-col items-center justify-center">
     <section
-      className={classNames(
-        "text-body-secondary flex select-none flex-col items-center",
-        className,
-      )}
+      className={classNames("text-fg-secondary flex select-none flex-col items-center", className)}
     >
       <div className="relative">
-        <TaostatsLogo className={classNames("mb-8 block text-[12rem] text-white")} />
+        <TaostatsLogo className={classNames("text-fg-primary mb-md block text-[12rem]")} />
       </div>
-      {title && <h1 className="text-md text-grey-300 mb-2 font-bold">{title}</h1>}
+      {title && <h1 className="text-md text-fg-tertiary mb-xxs font-bold">{title}</h1>}
       {subtitle && <h2 className="text-xs">{subtitle}</h2>}
     </section>
   </FadeIn>

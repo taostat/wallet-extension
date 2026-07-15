@@ -12,7 +12,7 @@ export const CapsLockWarningMessage: FC<{ className?: string }> = ({ className }
   if (!isCapsLockOn) return null
 
   return (
-    <span className={classNames("text-alert-warn inline-flex items-center gap-[0.5em]", className)}>
+    <span className={classNames("text-fg-orange inline-flex items-center gap-[0.5em]", className)}>
       <AlertTriangle className="text-[1.2em]" />
       <span>{t("Caps Lock is enabled")}</span>
     </span>

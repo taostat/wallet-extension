@@ -22,12 +22,12 @@ export const CopyToClipboardLinkButton: FC<{ data: string; className?: string }>
     <button
       type="button"
       onClick={handleCopy}
-      className={cn("text-body-secondary hover:text-body inline-flex items-center", className)}
+      className={cn("text-fg-secondary hover:text-fg-primary inline-flex items-center", className)}
     >
       {isCopied ? (
         <>
-          <Check className="text-primary mr-2 inline" />
-          <span className="text-primary">{t("Copied successfully")}</span>
+          <Check className="text-fg-brand mr-xxs inline" />
+          <span className="text-fg-brand">{t("Copied successfully")}</span>
         </>
       ) : (
         <>

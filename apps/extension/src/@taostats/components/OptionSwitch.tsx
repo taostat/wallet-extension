@@ -40,7 +40,7 @@ const OptionButton = <O extends string>({
       disabled={selected}
       className={classNames(
         "z-10 h-full whitespace-pre px-7 py-2 transition-colors duration-150",
-        selected && "text-body-black",
+        selected && "text-fg-primary-alt",
         className,
       )}
       onClick={() => onClick(option, buttonRef)}
@@ -83,7 +83,7 @@ export const OptionSwitch = <O extends string>({
   return (
     <div
       className={classNames(
-        "text-body-secondary inline-block h-14 rounded-full p-[0.25em]",
+        "text-fg-secondary inline-block h-14 rounded-full p-[0.25em]",
         className,
       )}
     >
@@ -102,7 +102,7 @@ export const OptionSwitch = <O extends string>({
         {selectionOverlay && (
           <FadeIn>
             <div
-              className="bg-primary absolute top-0 h-full rounded-full transition-all duration-150 ease-in-out"
+              className="bg-fg-brand absolute top-0 h-full rounded-full transition-all duration-150 ease-in-out"
               style={selectionOverlay}
             />
           </FadeIn>

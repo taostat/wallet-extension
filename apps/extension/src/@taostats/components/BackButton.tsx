@@ -36,7 +36,7 @@ export const BackButton: FC<BackButtonProps> = ({ analytics, children, to, ...pr
       {...props}
       onClick={handleBackClick}
       className={classNames(
-        "allow-focus bg-grey-850 hover:bg-grey-800 text-grey-400 hover:text-grey-300 inline-flex items-center gap-2 rounded-sm py-3 pl-2 pr-4 text-sm",
+        "allow-focus bg-secondary hover:bg-tertiary text-fg-tertiary hover:text-fg-secondary gap-xxs py-xs pl-xxs pr-xs inline-flex items-center rounded-sm text-sm",
         props.className,
       )}
     >

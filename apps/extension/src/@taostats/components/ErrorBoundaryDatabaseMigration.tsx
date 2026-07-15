@@ -15,7 +15,7 @@ const ErrorMessage = () => (
         balance support
       </div>
     </div>
-    <div className="balances-warning text-body-secondary bg-grey-900 rounded p-8 font-normal">
+    <div className="balances-warning text-fg-secondary bg-tertiary p-lg rounded-md font-normal">
       Please note your balances may take a few seconds to refresh after the upgrade
     </div>
   </div>

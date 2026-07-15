@@ -102,7 +102,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         ref={internalRef}
         className={classNames("text-base", className)}
         containerProps={containerProps}
-        before={<SearchMd className="text-body-disabled shrink-0" />}
+        before={<SearchMd className="text-fg-disabled shrink-0" />}
         after={
           after ?? (
             <IconButton

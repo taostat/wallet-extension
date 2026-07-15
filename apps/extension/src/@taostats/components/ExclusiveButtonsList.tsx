@@ -21,7 +21,7 @@ export const ExclusiveButtonsList = <T extends string | number>({
   className,
 }: ExclusiveButtonsListProps<T>) => {
   return (
-    <div className={classNames("flex flex-col gap-4", className)}>
+    <div className={classNames("gap-xs flex flex-col", className)}>
       {options.map((option) => (
         <Button
           key={option.value}
@@ -43,15 +43,15 @@ const Button: FC<{
     <button
       type="button"
       className={classNames(
-        "text-body-secondary flex h-28 w-full items-center justify-between gap-4 rounded-sm px-6 sm:px-8",
-        "border-grey-800 border",
-        selected && "bg-grey-900 text-body",
-        "hover:border-grey-700 hover:bg-grey-800 stroke-primary",
+        "text-fg-secondary gap-xs px-sm sm:px-lg flex h-10 w-full items-center justify-between rounded-sm",
+        "border-primary border",
+        selected && "bg-brand-secondary text-fg-brand border-brand",
+        "hover:border-primary hover:bg-tertiary stroke-fg-brand",
       )}
       onClick={onClick}
     >
       <div>{displayName}</div>
-      {!!selected && <Check className="text-primary text-base sm:text-lg" />}
+      {!!selected && <Check className="text-fg-brand text-base sm:text-lg" />}
     </button>
   )
 }

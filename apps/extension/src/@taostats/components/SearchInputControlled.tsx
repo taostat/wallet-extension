@@ -44,7 +44,7 @@ export const SearchInputControlled = ({
       ref={ref}
       className={classNames("text-base", className)}
       containerProps={{ className: containerClassName }}
-      before={<SearchMd className="text-body-disabled shrink-0" />}
+      before={<SearchMd className="text-fg-disabled shrink-0" />}
       after={
         <IconButton onClick={handleClear} className={classNames(value ? "visible" : "invisible")}>
           <X />

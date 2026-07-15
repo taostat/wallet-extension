@@ -44,8 +44,8 @@ export const NavItem: FC<NavItemProps> = ({
 
   const isNavLink = to !== undefined
   const navClassName = classNames(
-    "hover:bg-grey-800 text-body-secondary hover:text-body flex w-full items-center justify-start gap-4 rounded-sm p-4 h-28 text-left shrink-1",
-    isNavLink && "[&.active]:text-body",
+    "hover:bg-tertiary text-fg-secondary hover:text-fg-primary flex h-10 w-full shrink-1 items-center justify-start gap-xs rounded-sm p-xs text-left",
+    isNavLink && "[&.active]:text-fg-brand",
     className,
   )
 

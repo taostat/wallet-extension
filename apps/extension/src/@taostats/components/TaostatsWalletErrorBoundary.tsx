@@ -26,16 +26,16 @@ function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) 
   }, [])
 
   return (
-    <section className="max-w-screen text-body-secondary mx-auto flex h-[60rem] max-h-screen w-[40rem] flex-col overflow-hidden p-10 text-center">
-      <div className="flex w-full flex-grow flex-col items-center justify-center gap-16">
-        <h1 className="m-0 text-3xl font-bold text-white">Oops!</h1>
+    <section className="text-fg-secondary max-w-screen p-xl mx-auto flex h-[60rem] max-h-screen w-[40rem] flex-col overflow-hidden text-center">
+      <div className="gap-2xl flex w-full flex-grow flex-col items-center justify-center">
+        <h1 className="text-fg-primary m-0 text-3xl font-bold">Oops!</h1>
         <TaostatsLogo className="text-[16rem]" />
-        <div className="flex flex-col gap-2">
+        <div className="gap-xxs flex flex-col">
           <div>{errorMessage}</div>
           {!canClearDatabases && (
             <>
               <a
-                className="text-primary/80 hover:text-primary focus:text-primary"
+                className="text-fg-brand/80 hover:text-fg-brand focus:text-fg-brand"
                 href={DISCORD_URL}
                 target="_blank"
                 rel="noreferrer noopener"
@@ -43,7 +43,7 @@ function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) 
                 Contact us on Discord for support
               </a>
               {eventId ? (
-                <div className="text-tiny mt-8 text-white/40">Error ID:&nbsp;{eventId}</div>
+                <div className="text-tiny text-fg-tertiary mt-md">Error ID:&nbsp;{eventId}</div>
               ) : null}
             </>
           )}
