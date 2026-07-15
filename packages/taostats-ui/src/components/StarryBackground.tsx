@@ -8,7 +8,7 @@ const CY = 2
 const RINGS = [
   { id: "outer", radius: 57.5, strokeOpacity: 0.05 },
   { id: "middle", radius: 52.5, strokeOpacity: 0.05 },
-  { id: "inner", radius: 42.5, strokeOpacity: 0.05 },
+  { id: "inner", radius: 44, strokeOpacity: 0.05 },
 ] as const
 
 const COMET_RING_INDICES = [0, 1] as const
@@ -44,7 +44,7 @@ const createComet = (): Comet => {
     // Comets always travel anti-clockwise around the rings.
     direction: -1,
     duration: randomBetween(1.2, 2.0),
-    // Travel at least half the circumference so comets never just flash in and out.
+    // Travel at least 3/4 of the circumference so comets never just flash in and out.
     travel: c * randomBetween(0.75, 1),
     tailArc: c * randomBetween(0.08, 0.13),
   }
@@ -133,7 +133,7 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
     let timeoutId = 0
 
     const schedule = () => {
-      const delay = randomBetween(1800, 5500)
+      const delay = randomBetween(3000, 6000)
       timeoutId = window.setTimeout(() => {
         if (cancelled) return
 

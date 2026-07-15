@@ -183,7 +183,10 @@ export const PasswordPage = () => {
               fullWidth
               primary
               type="submit"
-              className={classNames(!isValid && "opacity-70")}
+              className={classNames(
+                "bg-fg-brand text-fg-primary-alt hover:bg-fg-brand/90 shadow-none",
+                !isValid && "opacity-70",
+              )}
               disabled={!isValid}
               processing={isSubmitting}
               data-testid="onboarding-password-confirm-button"
