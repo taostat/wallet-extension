@@ -136,10 +136,10 @@ const AssetPriceChartOriginal: FC<{
           {isValid && (
             <div
               className={classNames(
-                "text-body-secondary font-bold",
+                "text-fg-secondary font-bold",
                 variant === "small" && "text-base",
                 variant === "large" && "text-[2rem]",
-                formattedHoveredValue && "text-body",
+                formattedHoveredValue && "text-fg-primary",
               )}
             >
               {formattedHoveredValue ?? (
@@ -176,7 +176,7 @@ const AssetPriceChartOriginal: FC<{
       {!isValid && (
         <div
           className={classNames(
-            "text-body-inactive absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center",
+            "text-fg-primary-inactive absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center",
             variant === "small" && "text-base",
             variant === "large" && "text-lg",
           )}
@@ -471,7 +471,7 @@ const TimespanSelect: FC<{
   return (
     <div
       className={classNames(
-        "text-body-secondary flex w-full shrink-0 items-center justify-center gap-2 font-bold",
+        "text-fg-secondary flex w-full shrink-0 items-center justify-center gap-2 font-bold",
         variant === "small" && "h-16",
         variant === "large" && "h-20",
         className,
@@ -531,7 +531,7 @@ const TokenSelect: FC<{
         <button
           type="button"
           className={classNames(
-            "bg-grey-850 hover:bg-grey-800 group rounded",
+            "bg-secondary hover:bg-secondary group rounded",
             "flex items-center gap-2 p-2 font-bold",
             variant === "small" && "text-base",
             variant === "large" && "text-[2rem]",
@@ -543,11 +543,11 @@ const TokenSelect: FC<{
           <span>
             <TokenDisplaySymbol tokenId={token.id} />
           </span>
-          <ChevronDown className="text-body-secondary group-hover:text-body" />
+          <ChevronDown className="text-fg-secondary group-hover:text-fg-primary" />
         </button>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="bg-grey-900 flex w-full flex-col gap-2 rounded p-4">
+        <div className="bg-app-bg flex w-full flex-col gap-2 rounded p-4">
           {tokens.map((t) => (
             <TokenSelectOption
               key={t.id}
@@ -580,7 +580,7 @@ const TokenSelectOption: FC<{ token: Token; selected: boolean; onClick: () => vo
       type="button"
       onClick={handleClick}
       className={classNames(
-        "enabled:hover:bg-grey-800 focus-visible:bg-grey-800 disabled:text-body-disabled rounded-xs h-20 p-6 px-3 text-left",
+        "enabled:hover:bg-secondary focus-visible:bg-secondary disabled:text-fg-disabled rounded-xs h-20 p-6 px-3 text-left",
         "flex w-full items-center justify-between gap-16",
       )}
     >
@@ -588,15 +588,15 @@ const TokenSelectOption: FC<{ token: Token; selected: boolean; onClick: () => vo
         <TokenLogo tokenId={token.id} className="inline-block text-[2.8rem]" />
         <div className="flex grow flex-col gap-1">
           <span className="text-sm font-bold">{token.symbol}</span>
-          <span className="text-body-secondary text-[1rem]">
+          <span className="text-fg-secondary text-[1rem]">
             {t("Mkt Cap:")} <MarketCap tokenId={token.id} />
           </span>
         </div>
       </div>
-      <div className="text-body flex gap-4 font-bold">
+      <div className="text-fg-primary flex gap-4 font-bold">
         <AssetPrice tokenId={token.id} balances={null} noTooltip noChange className="text-sm" />
         <Check
-          className={classNames("text-primary text-base", selected ? "visible" : "invisible")}
+          className={classNames("text-fg-brand text-base", selected ? "visible" : "invisible")}
         />
       </div>
     </button>

@@ -301,7 +301,7 @@ export const SapiSendButton: FC<SapiSendButtonProps> = (props) => {
 
 const SubmitErrorDisplay: FC<{ error: string | null | undefined }> = ({ error }) =>
   error ? (
-    <div className="text-alert-warn bg-grey-900 flex w-full items-center gap-5 rounded-sm px-5 py-6 pr-0 text-xs">
+    <div className="text-fg-orange bg-app-bg flex w-full items-center gap-5 rounded-sm px-5 py-6 pr-0 text-xs">
       <AlertCircle className="shrink-0 text-lg" />
       <div className="scrollable scrollable-800 max-h-40 overflow-y-auto pr-5">{error}</div>
     </div>

@@ -33,21 +33,21 @@ export const MigrationProgress = () => {
         <div className="flex h-[26.8rem] max-h-[26.8rem] w-full flex-col items-center justify-center gap-12">
           {migration.errors?.length ? (
             <div className="leading-paragraph flex h-full w-full flex-col gap-8">
-              <div className="text-body-secondary">
+              <div className="text-fg-secondary">
                 <Trans
                   t={t}
                   defaults="If you need assistance, contact us on Discord at <Link />"
                   values={migration}
                   components={{
                     Link: (
-                      <a className="text-body underline" href={DISCORD_URL}>
+                      <a className="text-fg-primary underline" href={DISCORD_URL}>
                         {DISCORD_URL}
                       </a>
                     ),
                   }}
                 ></Trans>
               </div>
-              <ul className="text-alert-warn grow overflow-scroll pl-8">
+              <ul className="text-fg-orange grow overflow-scroll pl-8">
                 {migration.errors.map((err, idx) => (
                   <li key={idx} className="list-disc">
                     {migration.name}: {String(err)}
@@ -65,7 +65,7 @@ export const MigrationProgress = () => {
             </div>
           ) : migration.acknowledgeRequest ? (
             <div className="flex grow flex-col">
-              <p className="text-body-secondary mt-4 grow text-center text-base">
+              <p className="text-fg-secondary mt-4 grow text-center text-base">
                 {migration.acknowledgeRequest}
               </p>
               <Button
@@ -78,7 +78,7 @@ export const MigrationProgress = () => {
               </Button>
             </div>
           ) : (
-            <p className="text-body-secondary mt-4 text-center text-base">
+            <p className="text-fg-secondary mt-4 text-center text-base">
               <span>{t("Progress:")}</span>{" "}
               <span className="tabular-nums">{(100 * (migration.progress ?? 0)).toFixed(0)}%</span>
             </p>

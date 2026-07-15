@@ -42,7 +42,7 @@ const AccountFilterButton = () => {
       <button
         type="button"
         onClick={open}
-        className="bg-grey-850 hover:bg-grey-800 text-body-secondary hover:text-body overflow-hidden rounded-sm text-left text-xs"
+        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary overflow-hidden rounded-sm text-left text-xs"
       >
         <div className="flex size-full items-center gap-4 overflow-hidden px-4">
           {account ? (
@@ -89,7 +89,7 @@ const NetworkFilterButton = () => {
       <button
         type="button"
         onClick={open}
-        className="bg-grey-850 hover:bg-grey-800 text-body-secondary hover:text-body overflow-hidden rounded-sm text-left text-xs"
+        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary overflow-hidden rounded-sm text-left text-xs"
       >
         <div className="flex size-full items-center gap-4 overflow-hidden px-4">
           {network ? (

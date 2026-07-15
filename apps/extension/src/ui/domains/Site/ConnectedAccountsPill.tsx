@@ -41,7 +41,7 @@ export const ConnectedAccountsPill: FC = () => {
     return { count, label }
   }, [accounts, site, t])
 
-  const containerColors = useMemo(() => (count ? "bg-primary" : "bg-accent-2"), [count])
+  const containerColors = useMemo(() => (count ? "bg-fg-brand" : "bg-accent-2"), [count])
 
   const host = useMemo(() => {
     try {
@@ -62,16 +62,16 @@ export const ConnectedAccountsPill: FC = () => {
         className={classNames(
           "group h-[3.6rem] w-full overflow-hidden rounded-full p-0.5",
           containerColors,
-          "text-body-secondary hover:text-grey-300",
+          "text-fg-secondary hover:text-fg-tertiary",
         )}
         onClick={() => setShowConnectedAccounts(true)}
       >
-        <div className="bg-grey-850 group-hover:bg-grey-800 flex h-full items-center gap-3 overflow-hidden rounded-full px-4">
+        <div className="bg-secondary group-hover:bg-secondary flex h-full items-center gap-3 overflow-hidden rounded-full px-4">
           <ConnectedSiteIndicator status={count ? "connected" : "disconnected"} />
           <div className="flex grow items-center gap-3 truncate">
-            <div className="text-body max-w-[50%] shrink-0 truncate text-sm">{label}</div>
-            <div className="bg-grey-700 h-6 w-0.5 shrink-0"></div>
-            <div className="text-body-secondary grow text-left text-xs">{host}</div>
+            <div className="text-fg-primary max-w-[50%] shrink-0 truncate text-sm">{label}</div>
+            <div className="bg-tertiary h-6 w-0.5 shrink-0"></div>
+            <div className="text-fg-secondary grow text-left text-xs">{host}</div>
           </div>
           <ChevronDown className="shrink-0" />
         </div>

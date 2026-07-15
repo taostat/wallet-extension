@@ -83,7 +83,7 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
   )
 
   return (
-    <div className="text-body-secondary hover:text-body hover:bg-grey-800 flex h-32 w-full items-center gap-6 px-12">
+    <div className="text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-32 w-full items-center gap-6 px-12">
       {format.chainId ? (
         <NetworkLogo className="shrink-0 text-xl" networkId={format.chainId} />
       ) : (
@@ -94,8 +94,8 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
         />
       )}
       <div className="flex grow flex-col gap-2 overflow-hidden text-left">
-        <div className="text-body truncate">{format.name}</div>
-        <div className="text-body-secondary truncate text-xs">
+        <div className="text-fg-primary truncate">{format.name}</div>
+        <div className="text-fg-secondary truncate text-xs">
           <Tooltip>
             <TooltipTrigger asChild>
               <div>{shortenAddress(format.address, 10, 10)}</div>
@@ -216,7 +216,7 @@ export const CopyAddressChainForm = () => {
           {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
           <SearchInput onChange={setSearch} placeholder={t("Search by network name")} autoFocus />
         </div>
-        <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+        <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
           <UnifiedAddressMigrationBanner formats={filteredFormats} />
           <ChainFormatsList formats={filteredFormats} />
         </ScrollContainer>
@@ -253,13 +253,13 @@ export const UnifiedAddressMigrationBanner: FC<{ formats: ChainFormat[] }> = ({ 
     <button
       type="button"
       onClick={handleClick}
-      className="text-body flex w-full items-center gap-4 bg-gradient-to-r from-[#9F7998] to-[#EB5D93] px-12 py-4 text-left text-sm"
+      className="text-fg-primary flex w-full items-center gap-4 bg-gradient-to-r from-[#9F7998] to-[#EB5D93] px-12 py-4 text-left text-sm"
     >
       <div className="grow">
         <PolkadotIcon className="mr-2 inline-block shrink-0 align-text-top" />
         {t("Polkadot introduces new address formatting")}
       </div>
-      <ArrowUpRight className="text-body shrink-0 text-[2rem]" />
+      <ArrowUpRight className="text-fg-primary shrink-0 text-[2rem]" />
     </button>
   )
 }

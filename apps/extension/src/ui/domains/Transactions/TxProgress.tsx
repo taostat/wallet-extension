@@ -78,8 +78,8 @@ const TxProgressBase: FC<TxProgressBaseProps> = ({ tx, blockNumber, href, onClos
 
   return (
     <div className="flex h-full w-full flex-col items-center">
-      <div className="text-body mt-8 text-lg font-bold">{title}</div>
-      <div className="text-body-secondary mt-12 text-center text-base font-light">{subtitle}</div>
+      <div className="text-fg-primary mt-8 text-lg font-bold">{title}</div>
+      <div className="text-fg-secondary mt-12 text-center text-base font-light">{subtitle}</div>
 
       {tx?.status === "pending" && (
         <div className="my-12 flex w-full justify-center">
@@ -89,34 +89,36 @@ const TxProgressBase: FC<TxProgressBaseProps> = ({ tx, blockNumber, href, onClos
 
       {tx?.status === "success" && (
         <div className="my-12 flex w-full justify-center">
-          <CheckCircle className="text-alert-success h-12 w-12" />
+          <CheckCircle className="text-fg-success h-12 w-12" />
         </div>
       )}
 
       {tx?.status === "error" && (
         <div className="my-12 flex w-full justify-center">
-          <XCircle className="text-alert-error h-12 w-12" />
+          <XCircle className="text-fg-error h-12 w-12" />
         </div>
       )}
 
-      <div className="text-body-secondary flex w-full grow flex-col justify-center gap-10 px-10 text-center">
+      <div className="text-fg-secondary flex w-full grow flex-col justify-center gap-10 px-10 text-center">
         <div>
           {blockNumber ? (
             <>
               {tx?.confirmed ? t("Confirmed in") : t("Included in")}{" "}
               {href ? (
-                <a target="_blank" className="hover:text-body text-grey-200" href={href}>
+                <a target="_blank" className="hover:text-fg-primary text-fg-tertiary" href={href}>
                   {t("block #{{blockNumber}}", { blockNumber })}{" "}
                   <LinkExternal01 className="inline align-text-top" />
                 </a>
               ) : (
-                <span className="text-body">{t("block #{{blockNumber}}", { blockNumber })}</span>
+                <span className="text-fg-primary">
+                  {t("block #{{blockNumber}}", { blockNumber })}
+                </span>
               )}
             </>
           ) : href ? (
             <Trans t={t}>
               View transaction on{" "}
-              <a target="_blank" className="hover:text-body text-grey-200" href={href}>
+              <a target="_blank" className="hover:text-fg-primary text-fg-tertiary" href={href}>
                 Taostats <LinkExternal01 className="inline align-text-top" />
               </a>
             </Trans>

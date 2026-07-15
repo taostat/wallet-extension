@@ -15,7 +15,7 @@ export const VerificationComplete = ({ onComplete }: { onComplete: () => void })
               {t("Verification Successful")}
             </span>
           </div>
-          <span className="text-body font-400 text-center leading-10">
+          <span className="text-fg-primary font-400 text-center leading-10">
             {t("Your recovery phrase has been verified.")}
           </span>
         </div>

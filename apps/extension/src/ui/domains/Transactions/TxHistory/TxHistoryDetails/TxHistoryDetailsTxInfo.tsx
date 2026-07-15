@@ -32,7 +32,7 @@ export const TxHistoryDetailsTxInfo: FC<{
 }
 
 const TxInfoCard: FC<{ children: ReactNode }> = ({ children }) => (
-  <div className="bg-grey-800 scrollable scrollable-700 text-body-secondary leading-paragraph overflow-x-auto rounded-sm p-8 py-4">
+  <div className="bg-secondary scrollable scrollable-700 text-fg-secondary leading-paragraph overflow-x-auto rounded-sm p-8 py-4">
     {children}
   </div>
 )
@@ -50,7 +50,13 @@ const TransferTxInfo: FC<{
         defaults="Send <Tokens /> to <Address />"
         components={{
           Tokens: (
-            <TokensAndFiat planck={value} tokenId={tokenId} withLogo noFiat className="text-body" />
+            <TokensAndFiat
+              planck={value}
+              tokenId={tokenId}
+              withLogo
+              noFiat
+              className="text-fg-primary"
+            />
           ),
           Address: <TxHistoryDetailsAddress address={to} networkId={networkId} />,
         }}
@@ -77,7 +83,7 @@ const ApproveErc20TxInfo: FC<{
               tokenId={tokenId}
               withLogo
               noFiat
-              className="text-body"
+              className="text-fg-primary"
             />
           ),
           Address: <TxHistoryDetailsAddress address={contractAddress} networkId={networkId} />,
@@ -114,7 +120,7 @@ const SwapTxInfoCard: FC<{
                   tokenId={txInfo.fromTokenId}
                   withLogo
                   noFiat
-                  className="text-body"
+                  className="text-fg-primary"
                 />
               ),
               ToTokens: (
@@ -123,7 +129,7 @@ const SwapTxInfoCard: FC<{
                   tokenId={txInfo.toTokenId}
                   withLogo
                   noFiat
-                  className="text-body"
+                  className="text-fg-primary"
                 />
               ),
             }}
@@ -139,12 +145,12 @@ const SwapTxInfoCard: FC<{
           ) : null}
         </div>
         {label ? (
-          <div className="text-body-secondary">
+          <div className="text-fg-secondary">
             <Trans
               t={t}
               defaults="Protocol: <Protocol />"
               components={{
-                Protocol: <span className="text-body">{label}</span>,
+                Protocol: <span className="text-fg-primary">{label}</span>,
               }}
             />
           </div>

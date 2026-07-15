@@ -26,7 +26,7 @@ export const NetworkCombo: FC<{
   className?: string
   bgClassName?: string
   onChange: (networkId: NetworkId | null) => void
-}> = ({ networks, value, placeholder, onChange, className, bgClassName = "bg-field" }) => {
+}> = ({ networks, value, placeholder, onChange, className, bgClassName = "bg-secondary" }) => {
   const { t } = useTranslation()
   const networkNameById = useNetworkDisplayNamesMapById()
 
@@ -56,7 +56,7 @@ export const NetworkCombo: FC<{
             className={classNames(
               "flex h-24 items-center gap-4 px-8",
               "w-full",
-              "focus-within:border-grey-600 rounded-sm border border-transparent",
+              "focus-within:border-primary rounded-sm border border-transparent",
               open && "rounded-b-none border-b-transparent",
               className,
               bgClassName,
@@ -70,24 +70,24 @@ export const NetworkCombo: FC<{
               placeholder={placeholder ?? t("Select network")}
               displayValue={(n: Network) => networkNameById[n?.id ?? ""] ?? ""}
               className={classNames(
-                "placeholder:text-body-disabled text-grey-300 focus:text-body h-full grow bg-transparent",
+                "placeholder:text-fg-disabled text-fg-tertiary focus:text-fg-primary h-full grow bg-transparent",
               )}
               onChange={(e) => setSearch(e.target.value)}
             />
             {!open && (!!search || selected) ? (
               <button type="button" className="group" onClick={() => onChange(null)}>
-                <X className="group-hover:text-body text-body-secondary size-12" />
+                <X className="group-hover:text-fg-primary text-fg-secondary size-12" />
               </button>
             ) : (
               <ComboboxButton className="group">
-                <ChevronDown className="group-hover:text-body text-body-secondary size-12" />
+                <ChevronDown className="group-hover:text-fg-primary text-fg-secondary size-12" />
               </ComboboxButton>
             )}
           </div>
           <ComboboxOptions
             className={classNames(
               "overflow-x-none absolute top-24 z-10 max-h-[28rem] min-h-10 w-full overflow-y-scroll rounded-b pb-0 empty:invisible",
-              "border-grey-600 border",
+              "border-primary border",
               bgClassName,
             )}
           >
@@ -96,7 +96,7 @@ export const NetworkCombo: FC<{
                 key={option.id}
                 value={option}
                 className={classNames(
-                  `text-body-secondary [&[data-selected]]:text-body [&[data-selected]]:bg-grey-700 [&[data-focus]]:bg-grey-750 hover:bg-grey-750 relative flex h-24 w-full items-center gap-4 px-8`,
+                  `text-fg-secondary [&[data-selected]]:text-fg-primary [&[data-selected]]:bg-tertiary [&[data-focus]]:bg-tertiary hover:bg-tertiary relative flex h-24 w-full items-center gap-4 px-8`,
                 )}
               >
                 <NetworkLogo networkId={option.id} className="size-12" />

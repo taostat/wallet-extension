@@ -52,7 +52,7 @@ export const TxHistoryNetworkPicker: FC<{
           <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
             <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
           </div>
-          <ScrollContainer className="bg-black-secondary border-grey-700 scrollable grow border-t">
+          <ScrollContainer className="bg-black-secondary border-primary scrollable grow border-t">
             <NetworksList
               networks={networks}
               selectedNetworkId={selectedNetworkId}
@@ -88,7 +88,7 @@ const NetworksList: FC<{
         />
       ))}
       {networks.length === 0 && (
-        <div className="text-body-secondary p-16 text-center">{t("No networks found")}</div>
+        <div className="text-fg-secondary p-16 text-center">{t("No networks found")}</div>
       )}
     </div>
   )
@@ -106,9 +106,9 @@ const NetworkRow: FC<{
       type="button"
       onClick={onClick}
       className={classNames(
-        "text-body-secondary hover:text-body hover:bg-grey-800 flex h-28 w-full items-center gap-6 overflow-hidden px-12",
-        "focus-visible:bg-grey-800",
-        selected && "!bg-grey-700",
+        "text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-28 w-full items-center gap-6 overflow-hidden px-12",
+        "focus-visible:bg-secondary",
+        selected && "!bg-tertiary",
       )}
     >
       {network ? (
@@ -116,16 +116,20 @@ const NetworkRow: FC<{
       ) : (
         <Globe01 className="shrink-0 text-xl" />
       )}
-      <div className="text-body flex grow flex-col gap-1 truncate text-left">
+      <div className="text-fg-primary flex grow flex-col gap-1 truncate text-left">
         <div>{network ? network.name : t("All Networks")}</div>
         {!!network && (
-          <div className="text-body-inactive text-xs">
+          <div className="text-fg-primary-inactive text-xs">
             <NetworkType networkId={network.id} />
           </div>
         )}
       </div>
       <div className="shrinkk-0 flex size-12 items-center justify-center">
-        {selected ? <CheckCircle className="text-body" /> : <ChevronRight className="text-md" />}
+        {selected ? (
+          <CheckCircle className="text-fg-primary" />
+        ) : (
+          <ChevronRight className="text-md" />
+        )}
       </div>
     </button>
   )

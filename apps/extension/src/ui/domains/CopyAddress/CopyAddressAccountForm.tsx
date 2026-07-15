@@ -37,9 +37,9 @@ const AccountRowContainer: FC<
   const className = useMemo(
     () =>
       classNames(
-        "hover:bg-grey-750 focus:bg-grey-700 flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
-        isSelected && "bg-grey-800 ",
-        "text-body-secondary hover:text-body",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
+        isSelected && "bg-secondary ",
+        "text-fg-secondary hover:text-fg-primary",
       ),
 
     [isSelected],
@@ -84,16 +84,16 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
         className="text-xl"
       />
       <div className="mr-2 flex grow flex-col items-start gap-2 overflow-hidden">
-        <div className="text-body flex w-full items-center gap-3 overflow-hidden">
-          <div className="text-body truncate">
+        <div className="text-fg-primary flex w-full items-center gap-3 overflow-hidden">
+          <div className="text-fg-primary truncate">
             {account.name ?? shortenAddress(formatted, 6, 6)}
           </div>
-          <AccountTypeIcon className="text-primary inline-block" type={account.type} />
+          <AccountTypeIcon className="text-fg-brand inline-block" type={account.type} />
           {selected && <CheckCircle />}
         </div>
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="text-body-secondary text-left text-xs">
+            <div className="text-fg-secondary text-left text-xs">
               {shortenAddress(formatted, 10, 10)}
             </div>
           </TooltipTrigger>
@@ -146,7 +146,7 @@ export const AccountsList: FC<AccountsListProps> = ({ selected, accounts, onSele
 
   return (
     <div>
-      {!!header && <div className="text-body-secondary mb-4 mt-8 px-12 font-bold">{header}</div>}
+      {!!header && <div className="text-fg-secondary mb-4 mt-8 px-12 font-bold">{header}</div>}
       {accounts?.map((account) => (
         <AccountRow
           selected={account.address === selected}
@@ -156,7 +156,7 @@ export const AccountsList: FC<AccountsListProps> = ({ selected, accounts, onSele
         />
       ))}
       {!accounts?.length && (
-        <div className="text-body-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
+        <div className="text-fg-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
           {t("No account matches your search")}
         </div>
       )}
@@ -193,7 +193,7 @@ export const CopyAddressAccountForm = () => {
             <SearchInput onChange={setSearch} placeholder={t("Search by account name")} />
           </div>
         </div>
-        <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+        <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
           <AccountsList accounts={accounts} selected={address} onSelect={setAddress} />
         </ScrollContainer>
       </div>

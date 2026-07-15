@@ -59,12 +59,12 @@ const AddressPillButton: FC<AddressPillButtonProps> = ({
 
   return (
     <PillButton className={classNames("h-16 max-w-[240px] !px-4", className)} onClick={onClick}>
-      <div className="text-body flex h-16 max-w-full flex-nowrap items-center gap-4 overflow-x-hidden text-base">
+      <div className="text-fg-primary flex h-16 max-w-full flex-nowrap items-center gap-4 overflow-x-hidden text-base">
         <AccountIcon className="!text-lg" address={address} genesisHash={accountGenesisHash} />
         <div className="leading-base grow truncate">
           {name ?? <Address address={formattedAddress} startCharCount={6} endCharCount={6} />}
         </div>
-        <AccountTypeIcon type={account?.type} className="text-primary" />
+        <AccountTypeIcon type={account?.type} className="text-fg-brand" />
       </div>
     </PillButton>
   )
@@ -90,7 +90,7 @@ const NetworkPillButton: FC<NetworkPillButtonProps> = ({
   if (chainId === null)
     return (
       <PillButton className={classNames("h-16 !px-4 !py-2", className)} onClick={onClick}>
-        <div className="text-body flex flex-nowrap items-center gap-4 text-base">
+        <div className="text-fg-primary flex flex-nowrap items-center gap-4 text-base">
           <div className="flex shrink-0 flex-col justify-center">
             <AccountIcon type="polkadot-identicon" className="!text-lg" address={address} />
           </div>
@@ -103,7 +103,7 @@ const NetworkPillButton: FC<NetworkPillButtonProps> = ({
 
   return (
     <PillButton className={classNames("h-16 !px-4 !py-2", className)} onClick={onClick}>
-      <div className="text-body flex flex-nowrap items-center gap-4 text-base">
+      <div className="text-fg-primary flex flex-nowrap items-center gap-4 text-base">
         <div className="shrink-0">
           <NetworkLogo className="!text-lg" networkId={chain.id} />
         </div>
@@ -127,7 +127,7 @@ const ExternalAddressWarning = () => {
   if (!showWarning) return null
 
   return (
-    <div className="text-alert-warn mb-6 flex items-center justify-center gap-4 text-xs">
+    <div className="text-fg-orange mb-6 flex items-center justify-center gap-4 text-xs">
       <AlertCircle />
       <div>{t("This address is an external account")}</div>
     </div>
@@ -195,8 +195,8 @@ export const CopyAddressCopyForm = () => {
   return (
     <CopyAddressLayout title={t("Copy address")}>
       <div className="flex h-full w-full flex-col items-center px-12 pb-12">
-        <div className="bg-grey-900 flex w-full flex-col gap-4 rounded px-8 py-4">
-          <div className="text-body-secondary flex h-16 w-full items-center justify-between">
+        <div className="bg-app-bg flex w-full flex-col gap-4 rounded px-8 py-4">
+          <div className="text-fg-secondary flex h-16 w-full items-center justify-between">
             <div>{t("Account")}</div>
             <div>
               <AddressPillButton
@@ -207,7 +207,7 @@ export const CopyAddressCopyForm = () => {
             </div>
           </div>
           {networkId !== undefined && (
-            <div className="text-body-secondary flex h-16 w-full items-center justify-between">
+            <div className="text-fg-secondary flex h-16 w-full items-center justify-between">
               <div>{t("Network")}</div>
               <div>
                 <NetworkPillButton
@@ -219,7 +219,7 @@ export const CopyAddressCopyForm = () => {
             </div>
           )}
           {isMigratedChain && (
-            <div className="text-body-secondary flex h-16 w-full items-center justify-between">
+            <div className="text-fg-secondary flex h-16 w-full items-center justify-between">
               <div>{t("Format")}</div>
               <div>
                 <FormatIndicator legacyFormat={legacyFormat} />
@@ -236,18 +236,18 @@ export const CopyAddressCopyForm = () => {
             )}
           </div>
           {platform === "polkadot" && (
-            <div className="text-body-secondary leading-paragraph flex flex-col items-center gap-1 text-center">
+            <div className="text-fg-secondary leading-paragraph flex flex-col items-center gap-1 text-center">
               <div>
                 <Trans
                   t={t}
                   defaults="Your <Highlight>{{name}} <Tooltip /></Highlight> address"
                   values={{ name: network ? network.name : `Substrate (${t("Generic")})` }}
                   components={{
-                    Highlight: <span className="text-body" />,
+                    Highlight: <span className="text-fg-primary" />,
                     Tooltip: (
                       <Tooltip>
                         <TooltipTrigger>
-                          <InfoCircle className="hover:text-body inline align-middle text-xs" />
+                          <InfoCircle className="hover:text-fg-primary inline align-middle text-xs" />
                         </TooltipTrigger>
                         <TooltipContent>
                           {network
@@ -284,7 +284,7 @@ export const CopyAddressCopyForm = () => {
             </div>
           )}
           {platform === "ethereum" && (
-            <div className="text-body-secondary leading-paragraph flex flex-col items-center gap-1 text-center">
+            <div className="text-fg-secondary leading-paragraph flex flex-col items-center gap-1 text-center">
               <div>
                 <Trans
                   t={t}
@@ -293,7 +293,7 @@ export const CopyAddressCopyForm = () => {
                     Tooltip: (
                       <Tooltip>
                         <TooltipTrigger>
-                          <InfoCircle className="hover:text-body inline align-middle text-xs" />
+                          <InfoCircle className="hover:text-fg-primary inline align-middle text-xs" />
                         </TooltipTrigger>
                         <TooltipContent>
                           {t(
@@ -317,7 +317,7 @@ export const CopyAddressCopyForm = () => {
             </div>
           )}
           {platform === "solana" && (
-            <div className="text-body-secondary leading-paragraph flex flex-col items-center gap-1 text-center">
+            <div className="text-fg-secondary leading-paragraph flex flex-col items-center gap-1 text-center">
               <div>
                 <Trans
                   t={t}
@@ -326,7 +326,7 @@ export const CopyAddressCopyForm = () => {
                     Tooltip: (
                       <Tooltip>
                         <TooltipTrigger>
-                          <InfoCircle className="hover:text-body inline align-middle text-xs" />
+                          <InfoCircle className="hover:text-fg-primary inline align-middle text-xs" />
                         </TooltipTrigger>
                         <TooltipContent>
                           {t(
@@ -363,7 +363,7 @@ const FormatIndicator: FC<{ legacyFormat?: boolean }> = ({ legacyFormat }) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className="text-body flex items-center gap-2">
+        <div className="text-fg-primary flex items-center gap-2">
           <span>{legacyFormat ? t("Legacy format") : t("New format")}</span>
           <InfoCircle />
         </div>

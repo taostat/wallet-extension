@@ -80,7 +80,7 @@ export const TxHistoryList = () => {
       />
 
       {!isLoading && !transactions.length && (
-        <div className="text-body-disabled bg-grey-900 flex h-40 w-full flex-col items-center justify-center rounded-sm text-sm">
+        <div className="text-fg-disabled bg-app-bg flex h-40 w-full flex-col items-center justify-center rounded-sm text-sm">
           {t("No transactions found")}
         </div>
       )}
@@ -188,12 +188,12 @@ const TxIconContainer = ({
         {!!networkId && (
           <NetworkLogo
             networkId={networkId}
-            className="border-grey-800 !absolute right-[-4px] top-[-4px] h-8 w-8 rounded-full border"
+            className="border-primary !absolute right-[-4px] top-[-4px] h-8 w-8 rounded-full border"
           />
         )}
       </div>
     </TooltipTrigger>
-    <TooltipContent className="bg-grey-700 rounded-xs z-20 p-3 text-xs shadow">
+    <TooltipContent className="bg-tertiary rounded-xs z-20 p-3 text-xs shadow">
       {tooltip}
     </TooltipContent>
   </Tooltip>
@@ -208,7 +208,7 @@ const TransactionStatusLabel: FC<{ status: TransactionStatus }> = ({ status }) =
       return (
         <>
           <span>{t("Submitting")} </span>
-          <Loading01 className="animate-spin-slow text-body-disabled" />
+          <Loading01 className="animate-spin-slow text-fg-disabled" />
         </>
       )
     case "success":
@@ -239,7 +239,7 @@ const TransactionRowBase: FC<{
       onClick={onClick}
       disabled={!onClick}
       className={classNames(
-        "bg-grey-850 hover:bg-grey-800 relative z-0 flex w-full grow items-center rounded-sm text-left",
+        "bg-secondary hover:bg-secondary relative z-0 flex w-full grow items-center rounded-sm text-left",
         IS_POPUP ? "h-[5.2rem] gap-6 px-6" : "h-[5.8rem] gap-8 px-8",
       )}
     >
@@ -248,21 +248,21 @@ const TransactionRowBase: FC<{
         <div className="flex flex-col items-start justify-center">
           <div
             className={classNames(
-              "text-body flex h-10 items-center gap-2 font-bold",
+              "text-fg-primary flex h-10 items-center gap-2 font-bold",
               IS_POPUP ? "text-sm" : "text-base",
             )}
           >
             {status}
           </div>
-          <div className={classNames("text-body-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
+          <div className={classNames("text-fg-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
             {wen}
           </div>
         </div>
         <div className="flex flex-col items-end justify-center text-right">
-          <div className={classNames("text-body", IS_POPUP ? "text-sm" : "text-base")}>
+          <div className={classNames("text-fg-primary", IS_POPUP ? "text-sm" : "text-base")}>
             {tokens}
           </div>
-          <div className={classNames("text-body-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
+          <div className={classNames("text-fg-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
             {fiat}
           </div>
         </div>
@@ -344,7 +344,7 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
                 noTooltip
                 isBalance
               />
-              <ArrowRight className="text-body-inactive" />
+              <ArrowRight className="text-fg-primary-inactive" />
             </div>
             <Tokens
               className="pointer-events-none"
@@ -393,14 +393,14 @@ const TransactionRow: FC<TransactionRowProps> = ({ tx, ...props }) => {
 const TransactionRowShimmer = () => {
   return (
     <TransactionRowBase
-      logo={<div className="bg-grey-800 h-16 w-16 shrink-0 animate-pulse rounded-full" />}
+      logo={<div className="bg-secondary h-16 w-16 shrink-0 animate-pulse rounded-full" />}
       status={
-        <div className="bg-grey-800 text-grey-800 rounded-xs mb-1 animate-pulse text-sm">
+        <div className="bg-secondary text-fg-disabled rounded-xs mb-1 animate-pulse text-sm">
           Dunno yet
         </div>
       }
       wen={
-        <div className="bg-grey-800 text-grey-800 rounded-xs mt-1 animate-pulse text-xs">
+        <div className="bg-secondary text-fg-disabled rounded-xs mt-1 animate-pulse text-xs">
           Very long time ago
         </div>
       }

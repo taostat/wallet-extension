@@ -21,7 +21,7 @@ const Button = forwardRef<
     disabled={selected}
     className={classNames(
       "z-10 px-[0.5em] transition-colors duration-150",
-      selected && "text-body-black",
+      selected && "text-fg-primary-alt",
     )}
     onClick={onClick}
   >
@@ -75,7 +75,7 @@ export const MnemonicWordCountSwitch: FC<{
   return (
     <div
       className={classNames(
-        "bg-grey-800 text-body-secondary leading-paragraph inline-block rounded-full p-[0.2em] text-xs",
+        "bg-secondary text-fg-secondary leading-paragraph inline-block rounded-full p-[0.2em] text-xs",
         className,
       )}
     >
@@ -88,7 +88,7 @@ export const MnemonicWordCountSwitch: FC<{
         </Button>
         <div
           className={classNames(
-            "bg-primary absolute top-0 h-full rounded-full transition-all ease-in-out",
+            "bg-fg-brand absolute top-0 h-full rounded-full transition-all ease-in-out",
           )}
           style={selectionOverlay}
         />

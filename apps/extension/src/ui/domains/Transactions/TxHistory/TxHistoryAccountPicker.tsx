@@ -53,7 +53,7 @@ export const TxHistoryAccountPicker: FC<{
           <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
             <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
           </div>
-          <ScrollContainer className="bg-black-secondary border-grey-700 scrollable grow border-t">
+          <ScrollContainer className="bg-black-secondary border-primary scrollable grow border-t">
             <AccountsList
               accounts={accounts}
               selectedAddress={selectedAddress}
@@ -89,7 +89,7 @@ const AccountsList: FC<{
         />
       ))}
       {accounts.length === 0 && (
-        <div className="text-body-secondary p-16 text-center">{t("No accounts found")}</div>
+        <div className="text-fg-secondary p-16 text-center">{t("No accounts found")}</div>
       )}
     </div>
   )
@@ -112,8 +112,8 @@ const AccountRow: FC<{
       onClick={onClick}
       tabIndex={0}
       className={classNames(
-        "hover:bg-grey-750 focus:bg-grey-700 text-body-secondary hover:text-body flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
-        selected && "bg-grey-800",
+        "hover:bg-tertiary focus:bg-tertiary text-fg-secondary hover:text-fg-primary flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
+        selected && "bg-secondary",
         "disabled:cursor-not-allowed disabled:opacity-50",
       )}
     >
@@ -129,7 +129,7 @@ const AccountRow: FC<{
       <div className="flex grow items-center overflow-hidden">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center gap-2">
-            <div className="text-body truncate">
+            <div className="text-fg-primary truncate">
               {account
                 ? (account.name ?? (
                     <Address
@@ -141,15 +141,17 @@ const AccountRow: FC<{
                   ))
                 : t("All Accounts")}
             </div>
-            {account && <AccountTypeIcon type={account.type} className="text-primary" />}
+            {account && <AccountTypeIcon type={account.type} className="text-fg-brand" />}
           </div>
-          {account && (
-            <Address className="text-body-secondary text-xs" address={formattedAddress} />
-          )}
+          {account && <Address className="text-fg-secondary text-xs" address={formattedAddress} />}
         </div>
       </div>
       <div className="shrinkk-0 flex size-12 items-center justify-center">
-        {selected ? <CheckCircle className="text-body" /> : <ChevronRight className="text-md" />}
+        {selected ? (
+          <CheckCircle className="text-fg-primary" />
+        ) : (
+          <ChevronRight className="text-md" />
+        )}
       </div>
     </button>
   )

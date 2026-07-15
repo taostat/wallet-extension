@@ -210,11 +210,11 @@ const TxHistoryDetailsRow: FC<{ title: ReactNode; extra?: ReactNode; children: R
 }) => {
   return (
     <div className="flex shrink-0 flex-col gap-2">
-      <div className="text-body-secondary flex w-full justify-between">
+      <div className="text-fg-secondary flex w-full justify-between">
         <div>{title}</div>
         <div>{extra}</div>
       </div>
-      <div className="text-body">{children}</div>
+      <div className="text-fg-primary">{children}</div>
     </div>
   )
 }

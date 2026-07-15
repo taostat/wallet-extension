@@ -51,7 +51,7 @@ export const TxHistoryDetailsAddress: FC<{
           type="button"
           onClick={handleClick}
           className={cn(
-            "text-body inline-flex max-w-full items-center gap-2 overflow-hidden align-sub",
+            "text-fg-primary inline-flex max-w-full items-center gap-2 overflow-hidden align-sub",
             className,
           )}
         >

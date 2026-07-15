@@ -71,10 +71,10 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
           {!!mnemonic &&
             mnemonic.split(" ").map((word, i) => (
               <span
-                className="bg-black-tertiary text-body whitespace-nowrap rounded px-8 py-4"
+                className="bg-black-tertiary text-fg-primary whitespace-nowrap rounded px-8 py-4"
                 key={`mnemonic-${i}`}
               >
-                <span className="text-grey-500 select-none">{i + 1}. </span>
+                <span className="text-fg-disabled select-none">{i + 1}. </span>
                 <span className="notranslate">{word}</span>
               </span>
             ))}
@@ -86,7 +86,7 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
               setIconType(isRevealed ? "open" : null)
             }}
             className={classNames(
-              "text-body absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-sm transition",
+              "text-fg-primary absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-sm transition",
               !isRevealed && "backdrop-blur-md",
               blurOnHover && isRevealed && "hover:backdrop-blur-md",
             )}
@@ -108,12 +108,12 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
         <button
           type="button"
           onClick={handleCopy}
-          className={"text-body-secondary hover:text-body flex items-center"}
+          className={"text-fg-secondary hover:text-fg-primary flex items-center"}
         >
           {isCopied ? (
             <>
-              <Check className="text-primary mr-2 inline" />
-              <span className="text-primary">{t("Copied")}</span>
+              <Check className="text-fg-brand mr-2 inline" />
+              <span className="text-fg-brand">{t("Copied")}</span>
             </>
           ) : (
             <>

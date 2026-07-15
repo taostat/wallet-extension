@@ -22,8 +22,8 @@ const WordSlot = ({
       error
         ? "text-brand-orange border-brand-orange border border-dashed"
         : active || word
-          ? "text-body border-body border border-solid"
-          : "text-body-secondary border-body-secondary border border-dashed",
+          ? "text-fg-primary border-body border border-solid"
+          : "text-fg-secondary border-body-secondary border border-dashed",
     )}
   >
     <span className="select-none">{number}. </span>
@@ -44,7 +44,7 @@ const WordOption = ({
     onClick={onClick}
     disabled={selected}
     className={classNames(
-      "bg-black-tertiary text-body enabled:hover:bg-grey-700 rounded-xl px-8 py-3 disabled:text-opacity-20",
+      "bg-black-tertiary text-fg-primary enabled:hover:bg-tertiary rounded-xl px-8 py-3 disabled:text-opacity-20",
     )}
   >
     <span className="notranslate">{word}</span>
@@ -110,7 +110,7 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
     <div>
       <div className="flex flex-col gap-12">
         <div className="flex flex-col gap-8">
-          <span className="text-body-secondary text-xs">
+          <span className="text-fg-secondary text-xs">
             {t("Confirm your recovery phrase by selecting the words below.")}
           </span>
           <div className="bg-black-secondary group relative overflow-hidden rounded p-2">
@@ -161,7 +161,7 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
           <div className="flex w-full items-center justify-between gap-2">
             <div className="w-48">
               <button
-                className="text-body-secondary hover:text-grey-300 flex cursor-pointer items-center gap-2"
+                className="text-fg-secondary hover:text-fg-tertiary flex cursor-pointer items-center gap-2"
                 onClick={onBack}
                 type="button"
               >
@@ -171,7 +171,7 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
             </div>
             <div className="flex h-11 grow justify-center">
               <button
-                className="text-grey-300 hover:text-body cursor-pointer gap-5 self-center font-bold"
+                className="text-fg-tertiary hover:text-fg-primary cursor-pointer gap-5 self-center font-bold"
                 onClick={onSkip}
                 type="button"
               >
