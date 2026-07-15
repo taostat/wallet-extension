@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import * as yup from "yup"
 
+import { BackButton } from "@taostats/components/BackButton"
 import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMessage"
 import { PasswordStrength } from "@taostats/components/PasswordStrength"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
@@ -21,7 +22,7 @@ type FormData = {
   passwordConfirm: string
 }
 
-const INPUT_CONTAINER_PROPS_PASSWORD = { className: "h-28 opacity-70" }
+const INPUT_CONTAINER_PROPS_PASSWORD = { className: "opacity-70" }
 
 const schema = yup
   .object({
@@ -108,8 +109,13 @@ export const PasswordPage = () => {
   )
 
   return (
-    <OnboardLayout withBack analytics={ANALYTICS_PAGE} className="min-h-[60rem] min-w-[60rem]">
-      {passwordExists && (
+    <OnboardLayout analytics={ANALYTICS_PAGE} className="min-w-[60rem] items-start pt-32">
+      <div className="flex w-[40rem] flex-col gap-4">
+        <BackButton
+          analytics={ANALYTICS_PAGE}
+          className="text-fg-secondary hover:text-fg-primary self-start bg-transparent pl-0 hover:bg-transparent"
+        />
+        {passwordExists && (
         <OnboardDialog title={t("You've already set your password")}>
           <div className="text-fg-secondary flex flex-col gap-8">
             <p>
@@ -136,8 +142,8 @@ export const PasswordPage = () => {
             )}
           </p>
           <form onSubmit={handleSubmit(submit)} autoComplete="off">
-            <div className="flex flex-col pb-12">
-              <div className="mb-4 mt-12 flex h-[1.2em] items-center justify-between text-sm">
+            <div className="flex flex-col pb-2">
+              <div className="mb-2 mt-4 flex h-[1.2em] items-center justify-between text-sm">
                 <div
                   className={classNames(password ? "text-fg-secondary" : "text-fg-secondary/50")}
                 >
@@ -186,7 +192,8 @@ export const PasswordPage = () => {
             </Button>
           </form>
         </OnboardDialog>
-      )}
+        )}
+      </div>
     </OnboardLayout>
   )
 }
