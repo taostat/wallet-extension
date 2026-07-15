@@ -1,6 +1,6 @@
 import { decodeAddress } from "@polkadot/util-crypto"
-import { ChevronDownIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
 import { BrowserQRCodeReader } from "@zxing/browser"
 import { ChecksumException, FormatException, NotFoundException } from "@zxing/library"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -155,7 +155,7 @@ const Scanner = ({
       />
       {inputDevices.length > 1 ? (
         <div className="absolute left-1/2 top-10 -translate-x-1/2">
-          <ChevronDownIcon
+          <ChevronDown
             className="cursor-pointer text-lg"
             onClick={() => setShowInputMenu((shown) => !shown)}
           />

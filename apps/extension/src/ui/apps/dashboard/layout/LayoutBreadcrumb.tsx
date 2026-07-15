@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { FC, Fragment, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, To, useLocation } from "react-router-dom"
@@ -168,7 +168,7 @@ export const LayoutBreadcrumb: FC<{
         return (
           <Fragment key={index}>
             <BreadcrumbItem label={label} to={to} selected={index === items.length - 1} />
-            {index < items.length - 1 && <ChevronRightIcon />}
+            {index < items.length - 1 && <ChevronRight />}
           </Fragment>
         )
       })}

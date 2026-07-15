@@ -1,4 +1,6 @@
-import { AlertTriangleIcon, ChevronLeftIcon, LockIcon } from "@taostats-wallet/icons"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import { ChangeEventHandler, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer, FormFieldInputText } from "taostats-ui"
@@ -44,7 +46,7 @@ const ConfirmDrawer = ({
       <div className="bg-grey-800 items-center rounded-t-xl p-12 pt-12">
         <div className="flex flex-col items-center gap-12 px-12 text-center">
           <div className="text-3xl">
-            <AlertTriangleIcon className="text-brand-orange text-[4.8rem]" />
+            <AlertTriangle className="text-brand-orange text-[4.8rem]" />
           </div>
           <div className="max-w-[30rem] font-bold leading-[2.2rem] text-white">
             {t("Are you sure you want to reset your Taostats wallet?")}
@@ -94,7 +96,7 @@ export const ResetWallet = ({ closeResetWallet }: { closeResetWallet: () => void
   return (
     <PopupLayout>
       <div className="text-body-secondary flex h-32 items-center justify-center px-12 pr-[16px]">
-        <ChevronLeftIcon
+        <ChevronLeft
           className="flex-shrink cursor-pointer text-lg hover:text-white"
           onClick={closeResetWallet}
         />
@@ -102,7 +104,7 @@ export const ResetWallet = ({ closeResetWallet }: { closeResetWallet: () => void
       </div>
       <PopupContent>
         <div className="flex h-full flex-col items-center justify-end gap-16 pb-8">
-          <LockIcon className="text-primary-500 text-[4.8rem]" />
+          <Lock01 className="text-primary-500 text-[4.8rem]" />
           <div className="text-lg font-bold">{t("Forgot your password?")}</div>
           <div className="text-body-secondary space-y-12">
             <p className="text-center">

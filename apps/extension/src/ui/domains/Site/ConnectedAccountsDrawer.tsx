@@ -1,4 +1,4 @@
-import { XIcon } from "@taostats-wallet/icons"
+import { X } from "@untitledui/icons/X"
 import { FC } from "react"
 import { Drawer, IconButton } from "taostats-ui"
 
@@ -23,7 +23,7 @@ const ConnectedAccountsDrawer: FC<Props> = ({ open, onClose }) => {
         <header className="px-12 py-10 text-center">
           <AppPill url={url} />
           <IconButton className="absolute right-10 top-10" onClick={onClose}>
-            <XIcon />
+            <X />
           </IconButton>
         </header>
         <ScrollContainer innerClassName="px-12">

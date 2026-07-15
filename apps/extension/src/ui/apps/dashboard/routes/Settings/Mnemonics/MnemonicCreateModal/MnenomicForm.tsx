@@ -1,4 +1,5 @@
-import { ArrowRightIcon, InfoIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -31,7 +32,7 @@ const MnemonicFormInner = () => {
           <MnemonicWordCountSwitch value={wordsCount} onChange={setWordsCount} />{" "}
           <Tooltip placement="bottom-end">
             <TooltipTrigger className="hover:text-body">
-              <InfoIcon className="text-body-secondary inline" />
+              <InfoCircle className="text-body-secondary inline" />
             </TooltipTrigger>
             <TooltipContent>
               {t(
@@ -57,7 +58,7 @@ const MnemonicFormInner = () => {
             fullWidth
             disabled={!canConfirm}
             onClick={handleContinueClick}
-            icon={ArrowRightIcon}
+            icon={ArrowRight}
           >
             {t("Verify recovery phrase")}
           </Button>

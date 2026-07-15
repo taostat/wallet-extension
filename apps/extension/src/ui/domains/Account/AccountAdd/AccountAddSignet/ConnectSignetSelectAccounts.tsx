@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -124,7 +124,7 @@ export const ConnectSignetSelectAccounts = () => {
       <Button
         className="mt-8"
         primary
-        icon={ArrowRightIcon}
+        icon={ArrowRight}
         processing={importing}
         disabled={selectedAccountsList.length === 0}
         onClick={handleImport}

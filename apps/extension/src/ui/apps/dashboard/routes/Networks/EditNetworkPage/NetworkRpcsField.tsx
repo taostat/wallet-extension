@@ -11,7 +11,10 @@ import {
 import { SortableContext, sortableKeyboardCoordinates, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { DotNetworkSchema, isNetworkDot } from "@taostats-wallet/chaindata-provider"
-import { DragIcon, LoaderIcon, PlusIcon, TrashIcon } from "@taostats-wallet/icons"
+import { DragIcon } from "@taostats-wallet/icons"
+import { Loading01 } from "@untitledui/icons/Loading01"
+import { Plus } from "@untitledui/icons/Plus"
+import { Trash01 } from "@untitledui/icons/Trash01"
 import { TFunction } from "i18next"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
@@ -75,7 +78,7 @@ export const NetworkRpcsField = ({
             disabled={fieldRpcs.state.value.length >= 10}
             onClick={() => fieldRpcs.pushValue({ id: crypto.randomUUID(), url: "" })} // append({ url: "" }) TODO}
           >
-            <PlusIcon className="transition-none" />{" "}
+            <Plus className="transition-none" />{" "}
             {fieldRpcs.state.value.length >= 10
               ? t("Maximum 10 RPCs allowed")
               : t("Add another RPC")}
@@ -137,7 +140,7 @@ export const SortableRpcField: FC<SortableRpcItemProps> = ({
               after={
                 field.state.meta.isValidating ? (
                   <div className="mr-[-1.2rem] shrink-0 px-2">
-                    <LoaderIcon className="animate-spin-slow transition-none" />
+                    <Loading01 className="animate-spin-slow transition-none" />
                   </div>
                 ) : canDelete ? (
                   <button
@@ -145,7 +148,7 @@ export const SortableRpcField: FC<SortableRpcItemProps> = ({
                     className="allow-focus text-md mr-[-1.2rem] shrink-0 px-2 opacity-80 outline-none hover:opacity-100 focus:opacity-100 disabled:opacity-50"
                     onClick={onDelete}
                   >
-                    <TrashIcon className="transition-none" />
+                    <Trash01 className="transition-none" />
                   </button>
                 ) : null
               }

@@ -1,4 +1,4 @@
-import { SaveIcon } from "@taostats-wallet/icons"
+import { Save01 } from "@untitledui/icons/Save01"
 import { FC, useCallback } from "react"
 import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
@@ -49,7 +49,7 @@ const BackupModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
         </div>
         <div className="grid grid-cols-2 gap-10">
           <Button onClick={onClose}>Cancel</Button>
-          <Button primary icon={SaveIcon} onClick={handleSave}>
+          <Button primary icon={Save01} onClick={handleSave}>
             Save
           </Button>
         </div>

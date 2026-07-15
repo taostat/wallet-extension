@@ -1,5 +1,6 @@
-import { EyeIcon, HomeIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Eye } from "@untitledui/icons/Eye"
+import { Home01 } from "@untitledui/icons/Home01"
 import { Account } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -39,7 +40,7 @@ export const ManageAccountsLists: FC<{ className?: string }> = ({ className }) =
 
   return (
     <div className={classNames("@container", className)}>
-      {!!watchedUiTree.length && <Separator icon={HomeIcon} label={t("My portfolio")} />}
+      {!!watchedUiTree.length && <Separator icon={Home01} label={t("My portfolio")} />}
       <ManageAccountsList
         accounts={accounts}
         balanceTotalPerAccount={balanceTotals}
@@ -49,7 +50,7 @@ export const ManageAccountsLists: FC<{ className?: string }> = ({ className }) =
       {!!watchedUiTree.length && (
         <>
           {!!portfolioUiTree.length && <div className="h-8 shrink-0"></div>}
-          <Separator icon={EyeIcon} label={t("Followed only")} />
+          <Separator icon={Eye} label={t("Followed only")} />
           <ManageAccountsList
             accounts={accounts}
             balanceTotalPerAccount={balanceTotals}

@@ -1,4 +1,4 @@
-import { AlertCircleIcon } from "@taostats-wallet/icons"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
 import { useTranslation } from "react-i18next"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
@@ -77,7 +77,7 @@ export const UnstakeReview = () => {
       <div className="grow"></div>
       {!!errorMessage && (
         <div className="text-alert-warn bg-grey-900 my-8 flex w-full items-center justify-center gap-5 rounded-sm px-5 py-6 text-xs">
-          <AlertCircleIcon className="inline-block" />
+          <AlertCircle className="inline-block" />
           <div>{errorMessage}</div>
         </div>
       )}

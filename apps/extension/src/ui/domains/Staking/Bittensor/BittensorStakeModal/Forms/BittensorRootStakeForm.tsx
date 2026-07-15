@@ -1,5 +1,5 @@
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -60,7 +60,7 @@ export const BittensorRootStakeForm = () => {
             <TooltipTrigger asChild>
               <div className="flex items-center gap-1 whitespace-nowrap leading-none">
                 {t("APY")}
-                <InfoIcon />
+                <InfoCircle />
               </div>
             </TooltipTrigger>
             <TooltipContent>{t("Estimated Annual Percentage Yield (APY)")}</TooltipContent>

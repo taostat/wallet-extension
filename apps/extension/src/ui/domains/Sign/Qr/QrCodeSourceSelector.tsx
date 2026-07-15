@@ -1,6 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { ChevronDownIcon } from "@taostats-wallet/icons"
 import { classNames, isHexString } from "@taostats-wallet/util"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
 import { startCase } from "lodash-es"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -126,7 +126,7 @@ export const QrCodeSourceSelector = ({
             onClick={togglePopover}
           >
             {startCase(qrCodeSource)}
-            <ChevronDownIcon />
+            <ChevronDown />
           </button>
         </div>
       </PopoverTrigger>

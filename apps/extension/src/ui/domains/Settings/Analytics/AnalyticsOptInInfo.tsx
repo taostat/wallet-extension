@@ -1,12 +1,13 @@
-import { CheckCircleIcon, XIcon } from "@taostats-wallet/icons/"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { X } from "@untitledui/icons/X"
 import { PRIVACY_POLICY_URL } from "extension-shared"
 import { FC, ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
-const TickYes = () => <CheckCircleIcon className="text-md text-primary mr-6" />
+const TickYes = () => <CheckCircle className="text-md text-primary mr-6" />
 
-const TickNo = () => <XIcon className="text-md text-brand-orange mr-6" />
+const TickNo = () => <X className="text-md text-brand-orange mr-6" />
 
 export const AnalyticsOptInInfo: FC<{
   className?: string

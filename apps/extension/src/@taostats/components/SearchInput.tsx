@@ -1,5 +1,6 @@
-import { SearchIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { SearchMd } from "@untitledui/icons/SearchMd"
+import { X } from "@untitledui/icons/X"
 import {
   ChangeEventHandler,
   forwardRef,
@@ -101,14 +102,14 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         ref={internalRef}
         className={classNames("text-base", className)}
         containerProps={containerProps}
-        before={<SearchIcon className="text-body-disabled shrink-0" />}
+        before={<SearchMd className="text-body-disabled shrink-0" />}
         after={
           after ?? (
             <IconButton
               onClick={handleClear}
               className={classNames(search ? "visible" : "invisible")}
             >
-              <XIcon />
+              <X />
             </IconButton>
           )
         }

@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
 import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import {
   SubmitHandler,
@@ -64,14 +65,14 @@ const HideBalancesToggle = () => {
               "peer-checked:bg-primary transition peer-checked:translate-x-14",
             )}
           >
-            <EyeIcon
+            <Eye
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
                 "text-body-black transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
-            <EyeOffIcon
+            <EyeOff
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
                 "text-body transition-opacity",

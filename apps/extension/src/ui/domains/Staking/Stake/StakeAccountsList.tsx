@@ -1,7 +1,7 @@
 import { Balance } from "@taostats-wallet/balances"
 import { Token } from "@taostats-wallet/chaindata-provider"
-import { CheckCircleIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
 import { AccountType } from "extension-core"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -111,7 +111,7 @@ const AccountRow: FC<AccountRowProps> = ({
           </div>
           <Address className="text-body-secondary text-xs" address={displayAddress} />
         </div>
-        {selected && <CheckCircleIcon className="ml-3 inline shrink-0" />}
+        {selected && <CheckCircle className="ml-3 inline shrink-0" />}
       </div>
       {showBalances && <AccountTokenBalance token={token} balance={account.balance} />}
     </button>

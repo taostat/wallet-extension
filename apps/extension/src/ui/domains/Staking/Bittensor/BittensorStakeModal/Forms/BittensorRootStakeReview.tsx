@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -101,7 +101,7 @@ export const BittensorRootStakeReview = () => {
                 <TooltipTrigger asChild>
                   <div className="flex items-center gap-1">
                     {t("APY")}
-                    <InfoIcon />
+                    <InfoCircle />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>{t("Estimated Annual Percentage Yield (APY)")}</TooltipContent>
@@ -137,7 +137,8 @@ export const BittensorRootStakeReview = () => {
 }
 
 const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } = useBittensorStakeWizard()
+  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } =
+    useBittensorStakeWizard()
 
   return (
     <StakingFeeEstimate

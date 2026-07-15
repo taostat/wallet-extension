@@ -1,8 +1,8 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Balances } from "@taostats-wallet/balances"
 import { subNativeTokenId, Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { CheckCircleIcon } from "@taostats-wallet/icons"
 import { classNames, planckToTokens } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
 import { Address, isAccountCompatibleWithNetwork } from "extension-core"
 import sortBy from "lodash-es/sortBy"
 import { FC, useCallback, useDeferredValue, useMemo, useRef, useState } from "react"
@@ -177,7 +177,7 @@ const TokenRow: FC<TokenRowProps> = ({
             {!!token.name && token.name !== token.symbol && (
               <div className="text-body-inactive truncate font-normal">{token.name}</div>
             )}
-            {selected && <CheckCircleIcon className="inline shrink-0 align-text-top" />}
+            {selected && <CheckCircle className="inline shrink-0 align-text-top" />}
           </div>
           <div className={classNames(isLoading && "animate-pulse")}>
             <Tokens

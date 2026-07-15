@@ -1,6 +1,6 @@
 import { Placement } from "@floating-ui/react"
-import { CopyIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -44,7 +44,7 @@ export const AccountIconCopyAddressButton: FC<
             "bg-[radial-gradient(rgba(90,90,90,0.6),rgba(90,90,90,0.6),rgba(90,90,90,0.1))]",
           )}
         >
-          <CopyIcon className="text-[0.5em]" />
+          <Copy01 className="text-[0.5em]" />
         </div>
       </TooltipTrigger>
       <TooltipContent>{t("Copy address")}</TooltipContent>

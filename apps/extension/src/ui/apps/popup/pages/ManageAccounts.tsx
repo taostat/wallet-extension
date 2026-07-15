@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@taostats-wallet/icons"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <header className="my-8 flex h-[3.6rem] w-full shrink-0 items-center gap-3 px-8">
       <IconButton onClick={goToPortfolio}>
-        <ChevronLeftIcon />
+        <ChevronLeft />
       </IconButton>
       <div className="font-bold">{t("Manage Accounts")}</div>
     </header>

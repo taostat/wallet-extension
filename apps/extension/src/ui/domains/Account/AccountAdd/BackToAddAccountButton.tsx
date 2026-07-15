@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "@taostats-wallet/icons"
+import { ArrowLeft } from "@untitledui/icons/ArrowLeft"
 import { useTranslation } from "react-i18next"
 import { NavLink } from "react-router-dom"
 import { Button } from "taostats-ui"
@@ -10,7 +10,7 @@ export const BackToAddAccountButton = ({ methodType }: { methodType?: MethodType
 
   return (
     <NavLink to={`/accounts/add${methodType ? `?methodType=${methodType}` : ""}`}>
-      <Button iconLeft={ArrowLeftIcon}>{t("Back")}</Button>
+      <Button iconLeft={ArrowLeft}>{t("Back")}</Button>
     </NavLink>
   )
 }

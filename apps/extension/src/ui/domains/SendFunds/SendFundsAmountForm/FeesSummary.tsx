@@ -1,5 +1,5 @@
-import { LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { useTranslation } from "react-i18next"
 
 import { useSelectedCurrency } from "@ui/state"
@@ -49,7 +49,7 @@ export const FeesSummary = () => {
           {isLoading && !estimatedFee && (
             <div className="text-body-disabled flex items-center gap-2">
               <span>{t("Validating Transaction")}</span>
-              <LoaderIcon className="animate-spin-slow" />
+              <Loading01 className="animate-spin-slow" />
             </div>
           )}
           {estimatedFee && feeToken && (

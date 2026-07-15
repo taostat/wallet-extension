@@ -1,5 +1,6 @@
-import { InfoIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { FC, PropsWithChildren } from "react"
 
 type IconSize = "xl" | "lg" | "md" | "base" | "sm"
@@ -47,9 +48,9 @@ export const SignAlertMessage: FC<SignAlertMessageProps> = ({
         )}
       >
         {processing ? (
-          <LoaderIcon className="animate-spin-slow transition-none" />
+          <Loading01 className="animate-spin-slow transition-none" />
         ) : (
-          <InfoIcon className="transition-none" />
+          <InfoCircle className="transition-none" />
         )}
       </div>
       <div

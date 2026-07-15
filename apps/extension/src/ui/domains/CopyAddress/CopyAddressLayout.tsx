@@ -1,4 +1,4 @@
-import { XIcon } from "@taostats-wallet/icons"
+import { X } from "@untitledui/icons/X"
 import { FC, PropsWithChildren } from "react"
 import { IconButton } from "taostats-ui"
 
@@ -20,7 +20,7 @@ export const CopyAddressLayout: FC<CopyAddressLayoutProps> = ({ title, children 
         <div className="w-12"></div>
         <div className="text-body-secondary grow text-center">{title}</div>
         <IconButton onClick={close}>
-          <XIcon />
+          <X />
         </IconButton>
       </div>
       <div className="grow overflow-hidden">{children}</div>

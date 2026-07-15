@@ -1,5 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { ArrowUpRightIcon, SendIcon } from "@taostats-wallet/icons"
+import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
+import { Send01 } from "@untitledui/icons/Send01"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -37,7 +38,7 @@ export const SendFundsTokenButton = ({
     return (
       <Tooltip>
         <TooltipTrigger className="text-body-secondary focus:text-body hover:bg-grey-700 rounded-xs inline-flex h-9 w-9 cursor-default items-center justify-center text-xs opacity-50">
-          <SendIcon />
+          <Send01 />
         </TooltipTrigger>
         <TooltipContent>{cannotSendFundsReason}</TooltipContent>
       </Tooltip>
@@ -51,7 +52,7 @@ export const SendFundsTokenButton = ({
           onClick={handleClick}
           className="text-body-secondary hover:text-body focus:text-body focus:bg-grey-700 hover:bg-grey-700 rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs"
         >
-          <ArrowUpRightIcon />
+          <ArrowUpRight />
         </button>
       </TooltipTrigger>
       <TooltipContent>{t("Send")}</TooltipContent>

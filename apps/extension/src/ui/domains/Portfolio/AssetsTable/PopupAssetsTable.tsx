@@ -1,7 +1,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Balances } from "@taostats-wallet/balances"
-import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -13,8 +13,8 @@ import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { Tokens } from "@ui/domains/Asset/Tokens"
-import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
+import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
@@ -22,11 +22,11 @@ import { useUniswapV2LpTokenTotalValueLocked } from "@ui/hooks/useUniswapV2LpTok
 import { useNetworkById, usePortfolioGlobalData, useSelectedCurrency } from "@ui/state"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
+import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
 import { StaleBalancesIcon } from "../StaleBalancesIcon"
 import { usePortfolioDisplayBalances } from "../useDisplayBalances"
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
-import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
 import { usePortfolioSymbolBalancesByFilter } from "./usePortfolioSymbolBalances"
 
 const AssetRowSkeleton = ({ className }: { className?: string }) => {
@@ -169,7 +169,7 @@ const AssetRow: FC<{
                 noCountUp={noCountUp}
                 isBalance
               />
-              {locked ? <LockIcon className="lock ml-2 inline align-baseline text-xs" /> : null}
+              {locked ? <Lock01 className="lock ml-2 inline align-baseline text-xs" /> : null}
               <StaleBalancesIcon
                 className="alert ml-2 inline align-baseline text-sm"
                 staleChains={status.status === "stale" ? status.staleChains : []}
@@ -299,7 +299,7 @@ export const PopupAssetsTable = () => {
               <div className="flex items-center gap-2">
                 <div>{t("Locked")}</div>
                 <div>
-                  <LockIcon className="text-sm" />
+                  <Lock01 className="text-sm" />
                 </div>
               </div>
             }

@@ -1,6 +1,6 @@
 import { Balances } from "@taostats-wallet/balances"
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { ArrowUpRightIcon } from "@taostats-wallet/icons"
+import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
 import { t } from "i18next"
 import { uniq } from "lodash-es"
 import { FC, useEffect, useMemo } from "react"
@@ -97,7 +97,7 @@ const SendFundsButton: FC<{ symbol: string }> = ({ symbol }) => {
     <Tooltip>
       <TooltipTrigger asChild>
         <PortfolioToolbarButton onClick={openSendFundsPopup} disabled={!canSendFunds}>
-          <ArrowUpRightIcon />
+          <ArrowUpRight />
         </PortfolioToolbarButton>
       </TooltipTrigger>
       <TooltipContent>

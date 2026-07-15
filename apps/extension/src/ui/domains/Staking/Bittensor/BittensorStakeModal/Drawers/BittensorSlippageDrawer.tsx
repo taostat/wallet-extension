@@ -1,5 +1,7 @@
-import { AlertTriangleIcon, InfoIcon, SaveIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Save01 } from "@untitledui/icons/Save01"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -74,7 +76,7 @@ export const BittensorSlippageDrawer = () => {
           <div className="">{t("Max Slippage")}</div>
           <Tooltip>
             <TooltipTrigger>
-              <InfoIcon />
+              <InfoCircle />
             </TooltipTrigger>
             <TooltipContent>
               <span className="overflow-hidden text-ellipsis whitespace-nowrap">
@@ -107,7 +109,7 @@ export const BittensorSlippageDrawer = () => {
             Number(slippageEdit) >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
           )}
         >
-          <AlertTriangleIcon />
+          <AlertTriangle />
           <div>
             {Number(slippageEdit) >= VERY_HIGH_PRICE_IMPACT
               ? t("Very high slippage")
@@ -117,7 +119,7 @@ export const BittensorSlippageDrawer = () => {
         <div className="flex w-full items-center">
           <Button
             className="w-full"
-            icon={SaveIcon}
+            icon={Save01}
             primary
             disabled={!isValid}
             onClick={handleSubmit}

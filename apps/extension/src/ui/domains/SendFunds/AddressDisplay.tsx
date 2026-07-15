@@ -1,8 +1,9 @@
 import { Address as TAddress } from "@taostats-wallet/balances"
 import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-provider"
 import { encodeAddressSs58, encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
-import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -126,7 +127,7 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
         />
         {blockExplorerUrl ? (
           <a href={blockExplorerUrl} target="_blank" className="text-grey-300 hover:text-white">
-            <ExternalLinkIcon />
+            <LinkExternal01 />
           </a>
         ) : (
           <button
@@ -134,7 +135,7 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
             type="button"
             className="text-md text-grey-300 hover:text-white"
           >
-            <CopyIcon />
+            <Copy01 />
           </button>
         )}
       </TooltipTrigger>

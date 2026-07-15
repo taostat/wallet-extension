@@ -1,5 +1,5 @@
-import { XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { X } from "@untitledui/icons/X"
 import { appStore } from "extension-core"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -34,7 +34,7 @@ export const BackupReminderBanner = () => {
           <div className="grow text-sm font-bold">{t("Protect your funds")}</div>
           <div>
             <IconButton className="text-md text-body select-auto" onClick={onDismissClick}>
-              <XIcon />
+              <X />
             </IconButton>
           </div>
         </div>

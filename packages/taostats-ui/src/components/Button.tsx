@@ -1,5 +1,5 @@
-import { LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { FC, SVGProps, useMemo } from "react"
 
 type ButtonColor = "default" | "primary" | "red" | "orange"
@@ -91,7 +91,7 @@ export const Button: FC<ButtonProps> = ({
             "absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center",
           )}
         >
-          <LoaderIcon className="animate-spin-slow text-lg" />
+          <Loading01 className="animate-spin-slow text-lg" />
         </div>
       )}
     </button>

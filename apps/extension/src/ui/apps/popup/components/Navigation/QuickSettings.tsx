@@ -1,5 +1,5 @@
 import { Transition, TransitionChild } from "@headlessui/react"
-import { ArrowUpRightIcon } from "@taostats-wallet/icons"
+import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Toggle } from "taostats-ui"
@@ -215,7 +215,7 @@ const AllSettingsButton = () => {
       onClick={handleClick}
     >
       <div>{t("All settings")}</div>
-      <ArrowUpRightIcon className="size-6" />
+      <ArrowUpRight className="size-6" />
     </button>
   )
 }

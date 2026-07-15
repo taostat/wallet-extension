@@ -1,5 +1,8 @@
-import { CheckIcon, CopyIcon, EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -96,8 +99,8 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
             onMouseOver={() => isRevealed && setIconType("closed")}
             onFocus={() => isRevealed && setIconType("closed")}
           >
-            {iconType === "open" && <EyeIcon className="text-xl" />}
-            {iconType === "closed" && <EyeOffIcon className="text-xl" />}
+            {iconType === "open" && <Eye className="text-xl" />}
+            {iconType === "closed" && <EyeOff className="text-xl" />}
           </button>
         </div>
       </div>
@@ -109,12 +112,12 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
         >
           {isCopied ? (
             <>
-              <CheckIcon className="text-primary mr-2 inline" />
+              <Check className="text-primary mr-2 inline" />
               <span className="text-primary">{t("Copied")}</span>
             </>
           ) : (
             <>
-              <CopyIcon className="mr-2 inline" />
+              <Copy01 className="mr-2 inline" />
               <span>{t("Copy to clipboard")}</span>
             </>
           )}

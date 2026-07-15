@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useQuery } from "@tanstack/react-query"
 import { AccountPlatform, isValidDerivationPath, KeypairCurve } from "@taostats-wallet/crypto"
-import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import {
   getDefaultCurveForAccountPlatform,
   getDerivationPathForCurve,
@@ -335,7 +335,7 @@ const AccountAddDerivedFormInner: FC<AccountAddPageProps> = ({ onSuccess }) => {
         <div className="flex w-full items-center justify-between">
           <BackToAddAccountButton />
           <Button
-            icon={ArrowRightIcon}
+            icon={ArrowRight}
             type="submit"
             primary
             disabled={!isValid}

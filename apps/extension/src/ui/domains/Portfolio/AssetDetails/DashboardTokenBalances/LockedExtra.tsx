@@ -1,6 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { ZapOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ZapOff } from "@untitledui/icons/ZapOff"
 import { formatDuration, intervalToDuration } from "date-fns"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -61,7 +61,7 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
           <>
             <div className={classNames(isLoading && "animate-pulse transition-opacity")}>
               <div className="flex items-center gap-2">
-                <ZapOffIcon className="shrink-0 text-sm" />
+                <ZapOff className="shrink-0 text-sm" />
                 <div>{t("Unstaking")}</div>
               </div>
             </div>

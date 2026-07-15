@@ -1,6 +1,9 @@
 import { encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
-import { CheckCircleIcon, ChevronRightIcon, CopyIcon, QrIcon } from "@taostats-wallet/icons"
+import { QrIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import {
   Account,
   getAccountGenesisHash,
@@ -86,7 +89,7 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
             {account.name ?? shortenAddress(formatted, 6, 6)}
           </div>
           <AccountTypeIcon className="text-primary inline-block" type={account.type} />
-          {selected && <CheckCircleIcon />}
+          {selected && <CheckCircle />}
         </div>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -111,14 +114,14 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <IconButton className="text-md mr-2" onClick={handleCopyClick}>
-                  <CopyIcon />
+                  <Copy01 />
                 </IconButton>
               </TooltipTrigger>
               <TooltipContent>{t("Copy to clipboard")}</TooltipContent>
             </Tooltip>
           </>
         ) : (
-          <ChevronRightIcon className="text-lg" />
+          <ChevronRight className="text-lg" />
         )}
       </div>
     </AccountRowContainer>

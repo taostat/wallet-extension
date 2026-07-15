@@ -11,7 +11,8 @@ import {
   Token,
   TokenBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
-import { ExternalLinkIcon, RotateCcwIcon } from "@taostats-wallet/icons"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { RefreshCcw01 } from "@untitledui/icons/RefreshCcw01"
 import { log } from "extension-shared"
 import { dump as convertToYaml } from "js-yaml"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -328,7 +329,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                     type="button"
                     onClick={resetToTaostatsDefault}
                   >
-                    <RotateCcwIcon />
+                    <RefreshCcw01 />
                   </TooltipTrigger>
                   <TooltipContent>
                     <div>{t("Reset to default")}</div>
@@ -448,7 +449,7 @@ const LinkToExplorerIconButton: FC<{
 
   return (
     <IconButton className={className} onClick={handleClick}>
-      <ExternalLinkIcon />
+      <LinkExternal01 />
     </IconButton>
   )
 }

@@ -1,5 +1,6 @@
-import { EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
 import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Route, Routes, useLocation } from "react-router-dom"
@@ -50,14 +51,14 @@ const HideBalancesToggle = () => {
               "peer-checked:bg-primary transition peer-checked:translate-x-14",
             )}
           >
-            <EyeIcon
+            <Eye
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
                 "text-body-black transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
-            <EyeOffIcon
+            <EyeOff
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
                 "text-body transition-opacity",

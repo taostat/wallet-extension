@@ -1,6 +1,7 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
-import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { X } from "@untitledui/icons/X"
 import { Account, Address, getAccountGenesisHash } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -72,11 +73,11 @@ export const StakeAccountPicker = ({
       <div className="flex size-full flex-grow flex-col bg-black">
         <header className="flex items-center justify-between p-10">
           <IconButton onClick={onBackClick} className={cn(!onBackClick && "invisible")}>
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </IconButton>
           <div>{t("Select account")}</div>
           <IconButton onClick={onCloseClick} className={cn(!onCloseClick && "invisible")}>
-            <XIcon />
+            <X />
           </IconButton>
         </header>
         <div className="flex grow flex-col">

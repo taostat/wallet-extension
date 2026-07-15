@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { KeyIcon } from "@taostats-wallet/icons"
+import { Key01 } from "@untitledui/icons/Key01"
 import { ReactNode, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
@@ -102,7 +102,7 @@ const BasePasswordUnlock = ({ className, children, buttonText, title }: Password
           <div className="text-md mb-6">{title || t("Enter your password")}</div>
           <FormFieldContainer error={errors.password?.message}>
             <FormFieldInputText
-              before={<KeyIcon className="opacity-50" />}
+              before={<Key01 className="opacity-50" />}
               {...register("password")}
               type="password"
               placeholder={t("Enter password")}

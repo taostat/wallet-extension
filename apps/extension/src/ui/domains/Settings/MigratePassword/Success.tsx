@@ -1,4 +1,4 @@
-import { CheckCircleIcon } from "@taostats-wallet/icons"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
 import { useTranslation } from "react-i18next"
 import { Button, ModalDialog } from "taostats-ui"
 
@@ -9,7 +9,7 @@ export const MigratePasswordSuccess = () => {
   const { onComplete } = useMigratePassword()
   return (
     <ModalDialog title={t("Security Upgrade Complete")}>
-      <CheckCircleIcon className="text-primary h-12 w-12" />
+      <CheckCircle className="text-primary h-12 w-12" />
 
       <Button onClick={onComplete} fullWidth>
         {t("Close")}

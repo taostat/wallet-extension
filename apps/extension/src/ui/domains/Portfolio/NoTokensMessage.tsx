@@ -1,4 +1,4 @@
-import { CopyIcon } from "@taostats-wallet/icons"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "taostats-ui"
@@ -33,7 +33,7 @@ export const NoTokensMessage = ({ symbol }: NoTokensMessageProps) => {
             : t("You don't have any {{symbol}} in Taostats", { symbol })}
       </div>
       <div className="mt-12 flex justify-center gap-4">
-        <PillButton size="sm" icon={CopyIcon} onClick={handleCopy}>
+        <PillButton size="sm" icon={Copy01} onClick={handleCopy}>
           {t("Copy Address")}
         </PillButton>
       </div>

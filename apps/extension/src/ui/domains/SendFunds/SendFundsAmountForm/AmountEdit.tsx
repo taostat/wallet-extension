@@ -1,5 +1,6 @@
-import { AlertCircleIcon, SwapIcon } from "@taostats-wallet/icons"
+import { SwapIcon } from "@taostats-wallet/icons"
 import { classNames, tokensToPlanck } from "@taostats-wallet/util"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
 import BigNumber from "bignumber.js"
 import { log } from "extension-shared"
 import {
@@ -242,7 +243,7 @@ const ErrorMessage = () => {
 
   return error ? (
     <WithTooltip tooltip={errorDetails}>
-      <AlertCircleIcon className="inline-block align-text-top text-sm" /> {error}
+      <AlertCircle className="inline-block align-text-top text-sm" /> {error}
     </WithTooltip>
   ) : null
 }

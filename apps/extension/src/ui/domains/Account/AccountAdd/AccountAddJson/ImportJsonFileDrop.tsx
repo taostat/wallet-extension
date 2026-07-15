@@ -1,5 +1,7 @@
-import { FileCheckIcon, FilePlusIcon, FileXIcon, XIcon } from "@taostats-wallet/icons"
+import { FileCheckIcon, FileXIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { FilePlus01 } from "@untitledui/icons/FilePlus01"
+import { X } from "@untitledui/icons/X"
 import { FC, MouseEventHandler, useCallback, useMemo, useState } from "react"
 import { DropzoneOptions, useDropzone } from "react-dropzone"
 import { Trans, useTranslation } from "react-i18next"
@@ -22,7 +24,7 @@ const FileIcon: FC<{ state: "ok" | "nok" | "unknown" }> = ({ state }) => {
     )
   return (
     <div className="bg-body/10 rounded-full p-5 text-lg">
-      <FilePlusIcon />
+      <FilePlus01 />
     </div>
   )
 }
@@ -90,7 +92,7 @@ const JsonFileDrop: FC<{ onChange?: (file?: File) => void; isInvalid: boolean }>
               type="button"
               onClick={handleForgetFileClick}
             >
-              <XIcon />
+              <X />
             </button>
           </div>
         ) : (

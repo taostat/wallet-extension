@@ -1,13 +1,11 @@
-import {
-  AlertCircleIcon,
-  GlobeIcon,
-  KeyIcon,
-  LockIcon,
-  PlusIcon,
-  SettingsIcon,
-  UsersIcon,
-  XIcon,
-} from "@taostats-wallet/icons"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { Key01 } from "@untitledui/icons/Key01"
+import { Lock01 } from "@untitledui/icons/Lock01"
+import { Plus } from "@untitledui/icons/Plus"
+import { Settings01 } from "@untitledui/icons/Settings01"
+import { Users01 } from "@untitledui/icons/Users01"
+import { X } from "@untitledui/icons/X"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, IconButton } from "taostats-ui"
@@ -100,29 +98,29 @@ export const NavigationDrawer: FC = () => {
           <BuildVersionPill className="bg-primary/20 text-primary hover:bg-primary/30" />
           <div className="grow"></div>
           <IconButton onClick={close} aria-label={t("Close menu")}>
-            <XIcon />
+            <X />
           </IconButton>
         </header>
         <div className="w-full grow overflow-hidden">
           {/* buttons must shrink height if necessary */}
           <Nav className="flex size-full flex-col overflow-hidden p-4">
-            <NavItem icon={<PlusIcon />} onClick={handleAddAccountClick}>
+            <NavItem icon={<Plus />} onClick={handleAddAccountClick}>
               {t("Add Account")}
             </NavItem>
-            <NavItem icon={<UsersIcon />} onClick={handleAddressBookClick}>
+            <NavItem icon={<Users01 />} onClick={handleAddressBookClick}>
               {t("Address Book")}
             </NavItem>
-            <NavItem icon={<GlobeIcon />} onClick={handleManageNetworksClick}>
+            <NavItem icon={<Globe01 />} onClick={handleManageNetworksClick}>
               {t("Manage Networks")}
             </NavItem>
 
-            <NavItem icon={<KeyIcon />} onClick={handleBackupClick}>
+            <NavItem icon={<Key01 />} onClick={handleBackupClick}>
               <span className="flex items-center">
                 {t("Backup Wallet")}
-                {!allBackedUp && <AlertCircleIcon className="text-primary ml-2 inline text-sm" />}
+                {!allBackedUp && <AlertCircle className="text-primary ml-2 inline text-sm" />}
               </span>
             </NavItem>
-            <NavItem icon={<SettingsIcon />} onClick={handleSettingsClick}>
+            <NavItem icon={<Settings01 />} onClick={handleSettingsClick}>
               {t("All Settings")}
             </NavItem>
           </Nav>
@@ -135,7 +133,7 @@ export const NavigationDrawer: FC = () => {
           >
             <div className="border-1 border-grey-800 h-0 w-11/12 border-t" />
             <div className="flex w-full items-center justify-center gap-4 p-10">
-              <LockIcon className="text-md" />
+              <Lock01 className="text-md" />
               <span>{t("Lock Wallet")}</span>
             </div>
           </button>

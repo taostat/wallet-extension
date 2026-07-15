@@ -1,5 +1,8 @@
-import { ArrowDownIcon, EyeIcon, EyeOffIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
+import { ArrowDown } from "@untitledui/icons/ArrowDown"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
+import { Send01 } from "@untitledui/icons/Send01"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -50,7 +53,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
             )}
             onClick={toggleHideBalance}
           >
-            {hideBalances ? <EyeIcon /> : <EyeOffIcon />}
+            {hideBalances ? <Eye /> : <EyeOff />}
           </button>
         </div>
         <div className="flex w-full max-w-full items-center gap-2">
@@ -167,7 +170,7 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
           analyticsName: "Goto" as const,
           analyticsAction: "Send Funds button",
           label: t("Send"),
-          icon: SendIcon,
+          icon: Send01,
           onClick: () => api.sendFundsOpen().then(() => window.close()),
           disabled: disableActions,
           disabledReason,
@@ -176,7 +179,7 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
           analyticsName: "Goto" as const,
           analyticsAction: "open receive",
           label: t("Receive"),
-          icon: ArrowDownIcon,
+          icon: ArrowDown,
           onClick: () => openCopyAddressModal(),
           disabled: disableActions,
           disabledReason,

@@ -1,5 +1,6 @@
-import { SearchIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { SearchMd } from "@untitledui/icons/SearchMd"
+import { X } from "@untitledui/icons/X"
 import { useCallback, useRef } from "react"
 import { useEffectOnce } from "react-use"
 import { FormFieldInputText, IconButton } from "taostats-ui"
@@ -43,10 +44,10 @@ export const SearchInputControlled = ({
       ref={ref}
       className={classNames("text-base", className)}
       containerProps={{ className: containerClassName }}
-      before={<SearchIcon className="text-body-disabled shrink-0" />}
+      before={<SearchMd className="text-body-disabled shrink-0" />}
       after={
         <IconButton onClick={handleClear} className={classNames(value ? "visible" : "invisible")}>
-          <XIcon />
+          <X />
         </IconButton>
       }
       placeholder={placeholder}

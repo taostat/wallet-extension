@@ -1,5 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { ChevronDownIcon, GlobeIcon } from "@taostats-wallet/icons"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
+import { Globe01 } from "@untitledui/icons/Globe01"
 import { getAccountGenesisHash } from "extension-core"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
@@ -56,7 +57,7 @@ const AccountFilterButton = () => {
           <div className="grow truncate">
             {account ? (account?.name ?? shortenAddress(account.address)) : t("All Accounts")}
           </div>
-          <ChevronDownIcon className="shrink-0 text-base" />
+          <ChevronDown className="shrink-0 text-base" />
         </div>
       </button>
       <TxHistoryAccountPicker
@@ -94,12 +95,12 @@ const NetworkFilterButton = () => {
           {network ? (
             <NetworkLogo networkId={network.id} className="text-md shrink-0" />
           ) : (
-            <GlobeIcon className="text-md shrink-0" />
+            <Globe01 className="text-md shrink-0" />
           )}
           <div className="grow truncate">
             {network ? (network?.name ?? t("Unknown Network")) : t("All Networks")}
           </div>
-          <ChevronDownIcon className="shrink-0 text-base" />
+          <ChevronDown className="shrink-0 text-base" />
         </div>
       </button>
       <TxHistoryNetworkPicker

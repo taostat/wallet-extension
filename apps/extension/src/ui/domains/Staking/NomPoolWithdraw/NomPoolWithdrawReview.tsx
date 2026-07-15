@@ -1,4 +1,4 @@
-import { AlertCircleIcon } from "@taostats-wallet/icons"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
 import { useTranslation } from "react-i18next"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
@@ -77,7 +77,7 @@ export const NomPoolWithdrawReview = () => {
       <div className="grow"></div>
       {!!errorMessage && (
         <div className="text-alert-warn bg-grey-900 my-8 flex w-full items-center gap-5 rounded-sm px-5 py-6 text-xs">
-          <AlertCircleIcon className="shrink-0 text-lg" />
+          <AlertCircle className="shrink-0 text-lg" />
           <div>{errorMessage}</div>
         </div>
       )}

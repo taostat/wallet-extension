@@ -1,4 +1,6 @@
-import { ChevronRightIcon, GlobeIcon, ListIcon } from "@taostats-wallet/icons"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { List } from "@untitledui/icons/List"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
 
@@ -15,15 +17,15 @@ const Content = () => {
       <Spacer large />
       <div className="flex flex-col gap-4">
         <CtaButton
-          iconLeft={GlobeIcon}
-          iconRight={ChevronRightIcon}
+          iconLeft={Globe01}
+          iconRight={ChevronRight}
           title={t("Manage networks")}
           subtitle={t("Enable and disable networks")}
           to={`/settings/networks-tokens/networks`}
         />
         <CtaButton
-          iconLeft={ListIcon}
-          iconRight={ChevronRightIcon}
+          iconLeft={List}
+          iconRight={ChevronRight}
           title={t("Manage tokens")}
           subtitle={t("Enable and disable tokens")}
           to={`/settings/networks-tokens/tokens`}

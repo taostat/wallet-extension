@@ -1,4 +1,4 @@
-import { LoaderIcon } from "@taostats-wallet/icons"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { useTranslation } from "react-i18next"
 import { Modal, ModalDialog } from "taostats-ui"
 
@@ -19,7 +19,7 @@ const MigratePasswordModalContent = () => {
   if (status === statusOptions.PROCESSING)
     return (
       <ModalDialog title={t("Please wait...")}>
-        <LoaderIcon className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
+        <Loading01 className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
       </ModalDialog>
     )
   if (status === statusOptions.SUCCESS) return <MigratePasswordSuccess />

@@ -1,4 +1,4 @@
-import { AlertTriangleIcon } from "@taostats-wallet/icons"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
@@ -79,7 +79,7 @@ export const MnemonicDeleteModal = () => {
       <ModalDialog
         title={
           <div className="flex items-center gap-4">
-            <AlertTriangleIcon className="text-brand-orange inline text-lg" />
+            <AlertTriangle className="text-brand-orange inline text-lg" />
             <span>{t("Delete Recovery Phrase")}</span>
           </div>
         }

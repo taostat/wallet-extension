@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@taostats-wallet/icons"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { FC, ReactNode, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -42,7 +42,7 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
             className="text-body-secondary flex cursor-pointer items-center text-lg hover:text-white"
             onClick={handleBackClick}
           >
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </button>
         ) : (
           <div className="w-12">&nbsp;</div>

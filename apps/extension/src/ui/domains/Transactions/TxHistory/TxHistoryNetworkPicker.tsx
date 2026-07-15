@@ -1,12 +1,10 @@
 import { Network } from "@taostats-wallet/chaindata-provider"
-import {
-  CheckCircleIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  GlobeIcon,
-  XIcon,
-} from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { X } from "@untitledui/icons/X"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
@@ -43,11 +41,11 @@ export const TxHistoryNetworkPicker: FC<{
       <div className="flex size-full flex-grow flex-col bg-black">
         <header className="flex items-center justify-between p-10">
           <IconButton onClick={onDismiss} className={IS_POPUP ? "visible" : "invisible"}>
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </IconButton>
           <div>{t("Select network")}</div>
           <IconButton onClick={onDismiss} className={IS_POPUP ? "invisible" : "visible"}>
-            <XIcon />
+            <X />
           </IconButton>
         </header>
         <div className="flex grow flex-col overflow-hidden">
@@ -116,7 +114,7 @@ const NetworkRow: FC<{
       {network ? (
         <NetworkLogo networkId={network.id} className="shrink-0 text-xl" />
       ) : (
-        <GlobeIcon className="shrink-0 text-xl" />
+        <Globe01 className="shrink-0 text-xl" />
       )}
       <div className="text-body flex grow flex-col gap-1 truncate text-left">
         <div>{network ? network.name : t("All Networks")}</div>
@@ -127,11 +125,7 @@ const NetworkRow: FC<{
         )}
       </div>
       <div className="shrinkk-0 flex size-12 items-center justify-center">
-        {selected ? (
-          <CheckCircleIcon className="text-body" />
-        ) : (
-          <ChevronRightIcon className="text-md" />
-        )}
+        {selected ? <CheckCircle className="text-body" /> : <ChevronRight className="text-md" />}
       </div>
     </button>
   )

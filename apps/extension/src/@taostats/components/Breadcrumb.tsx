@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { FC, Fragment, ReactNode } from "react"
 
 type BreadcrumbItem = {
@@ -30,7 +30,7 @@ export const Breadcrumb: FC<{
             ) : (
               <span className={classNames("truncate", className)}>{label}</span>
             )}
-            {index < items.length - 1 && <ChevronRightIcon />}
+            {index < items.length - 1 && <ChevronRight />}
           </Fragment>
         )
       })}

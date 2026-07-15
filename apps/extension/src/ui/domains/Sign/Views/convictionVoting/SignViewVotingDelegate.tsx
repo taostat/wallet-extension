@@ -1,5 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -61,9 +62,9 @@ export const SignViewVotingDelegate: FC<{
             onClick={handleClick}
           >
             {url ? (
-              <ExternalLinkIcon className="transition-none" />
+              <LinkExternal01 className="transition-none" />
             ) : (
-              <CopyIcon className="transition-none" />
+              <Copy01 className="transition-none" />
             )}
           </button>
         </div>

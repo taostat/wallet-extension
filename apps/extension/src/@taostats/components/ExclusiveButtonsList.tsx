@@ -1,5 +1,5 @@
-import { CheckIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
 import { FC } from "react"
 
 type ExclusiveButtonsListProps<T> = {
@@ -51,7 +51,7 @@ const Button: FC<{
       onClick={onClick}
     >
       <div>{displayName}</div>
-      {!!selected && <CheckIcon className="text-primary text-base sm:text-lg" />}
+      {!!selected && <Check className="text-primary text-base sm:text-lg" />}
     </button>
   )
 }

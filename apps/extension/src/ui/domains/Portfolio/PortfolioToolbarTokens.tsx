@@ -1,5 +1,7 @@
-import { ExternalLinkIcon, GlobeIcon, ToolbarSortIcon } from "@taostats-wallet/icons"
+import { ToolbarSortIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { t } from "i18next"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -64,7 +66,7 @@ const NetworkFilterButton = () => {
             {networkFilter ? (
               <NetworkLogo className="text-lg" networkId={networkFilter.networkIds[0]} />
             ) : (
-              <GlobeIcon />
+              <Globe01 />
             )}
           </PortfolioToolbarButton>
         </TooltipTrigger>
@@ -160,7 +162,7 @@ const OpenInTaostatsButton = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <PortfolioToolbarButton onClick={handleOpenCurrentAccountInTaostats}>
-            <ExternalLinkIcon />
+            <LinkExternal01 />
           </PortfolioToolbarButton>
         </TooltipTrigger>
         <TooltipContent>Open in Taostats Portfolio Tracker</TooltipContent>

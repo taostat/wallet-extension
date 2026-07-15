@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { useOpenClose } from "taostats-ui"
 
 import { DecodedCallComponent, SummaryButtonDisplayMode } from "../types"
@@ -35,7 +35,7 @@ export const SubSignDecodedButtonBase: DecodedCallComponent<
           mode={mode}
         />
       </div>
-      <ChevronRightIcon className="text-body-secondary group-hover:text-body shrink-0 text-base" />
+      <ChevronRight className="text-body-secondary group-hover:text-body shrink-0 text-base" />
     </button>
   )
 }

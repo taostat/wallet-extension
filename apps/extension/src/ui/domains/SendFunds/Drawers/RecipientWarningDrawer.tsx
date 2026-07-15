@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
 
@@ -28,7 +28,7 @@ export const RecipientWarningDrawer = ({
     <Drawer anchor="bottom" isOpen={isOpen} onDismiss={close} containerId="main">
       <div className="bg-black-tertiary rounded-t-xl p-12 text-center">
         <div>
-          <InfoIcon className="text-primary-500 inline-block text-3xl" />
+          <InfoCircle className="text-primary-500 inline-block text-3xl" />
         </div>
         <div className="mt-10 font-bold">{t("Recipient Address Converted")}</div>
         <div className="text-body-secondary mt-5 text-sm">

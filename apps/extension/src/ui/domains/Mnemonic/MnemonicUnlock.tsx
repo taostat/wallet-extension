@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { KeyIcon } from "@taostats-wallet/icons"
+import { Key01 } from "@untitledui/icons/Key01"
 import { FC, ReactNode, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
@@ -101,7 +101,7 @@ const BaseMnemonicUnlock: FC<MnemonicUnlockProps> = ({ children, buttonText, tit
     <form onSubmit={handleSubmit(submit)} className="flex w-[58rem] flex-col justify-between gap-8">
       <FormFieldContainer label={title} error={errors.password?.message}>
         <FormFieldInputText
-          before={<KeyIcon className="h-10 w-10 opacity-50" />}
+          before={<Key01 className="h-10 w-10 opacity-50" />}
           {...register("password")}
           type="password"
           placeholder={t("Enter password")}

@@ -1,4 +1,5 @@
-import { PlusIcon, SecretIcon } from "@taostats-wallet/icons"
+import { SecretIcon } from "@taostats-wallet/icons"
+import { Plus } from "@untitledui/icons/Plus"
 import { Account, isAccountOfType } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -78,7 +79,7 @@ export const AccountAddMnemonicDropdown: FC<{
           data-testid="account-add-mnemonic-dropdown"
         >
           <div className="bg-body/10 text-md rounded-full p-4">
-            {o.value === "new" ? <PlusIcon /> : <SecretIcon />}
+            {o.value === "new" ? <Plus /> : <SecretIcon />}
           </div>
           <div className="grow truncate text-sm">{o.label}</div>
           {o.value !== "new" && (

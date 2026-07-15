@@ -1,5 +1,5 @@
-import { CheckIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
 import {
   ButtonHTMLAttributes,
   FC,
@@ -79,6 +79,6 @@ export const ContextMenuOptionItem: FC<{
     onClick={onClick}
   >
     <div>{label}</div>
-    <CheckIcon className={classNames(selected ? "visible" : "invisible")} />
+    <Check className={classNames(selected ? "visible" : "invisible")} />
   </ContextMenuItem>
 )

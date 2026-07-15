@@ -1,8 +1,8 @@
 import { Balances } from "@taostats-wallet/balances"
 import { SubDTaoToken } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { DatabaseIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Database01 } from "@untitledui/icons/Database01"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -69,7 +69,7 @@ export const BittensorUnstakeButton: FC<{
         className={classNames(pillButtonClass, className)}
       >
         <div className="flex items-center gap-2">
-          <DatabaseIcon className="shrink-0 text-base" />
+          <Database01 className="shrink-0 text-base" />
           <div>{t("Unstake")}</div>
         </div>
       </button>
@@ -87,7 +87,7 @@ export const BittensorUnstakeButton: FC<{
             className,
           )}
         >
-          <DatabaseIcon />
+          <Database01 />
         </button>
       </TooltipTrigger>
       <TooltipContent>{t("Unstake")}</TooltipContent>

@@ -1,14 +1,12 @@
 import { isEthereumAddress } from "@polkadot/util-crypto"
 import { bind } from "@react-rxjs/core"
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  EyeIcon,
-  PencilIcon,
-  PlusIcon,
-  SettingsIcon,
-} from "@taostats-wallet/icons"
+import { PencilIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Eye } from "@untitledui/icons/Eye"
+import { Plus } from "@untitledui/icons/Plus"
+import { Settings01 } from "@untitledui/icons/Settings01"
 import {
   Account,
   AccountsCatalogTree,
@@ -172,7 +170,7 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
         </div>
 
         <div className="text-lg">
-          <ChevronRightIcon />
+          <ChevronRight />
         </div>
       </button>
       {/* Absolute positioning based on parent, to prevent a "button inside a button" situation */}
@@ -234,7 +232,7 @@ const AccountsToolbar = () => {
       <Tooltip placement="bottom">
         <TooltipTrigger asChild>
           <PortfolioToolbarButton onClick={handleAddAccountClick}>
-            <PlusIcon />
+            <Plus />
           </PortfolioToolbarButton>
         </TooltipTrigger>
         <TooltipContent>{t("Add account")}</TooltipContent>
@@ -250,7 +248,7 @@ const AccountsToolbar = () => {
       <Tooltip placement="bottom-end">
         <TooltipTrigger asChild>
           <PortfolioToolbarButton onClick={openSettings}>
-            <SettingsIcon />
+            <Settings01 />
           </PortfolioToolbarButton>
         </TooltipTrigger>
         <TooltipContent>{t("Settings")}</TooltipContent>
@@ -309,7 +307,7 @@ const Accounts = ({
 
       {hasWatchedOptions && (
         <div className={classNames("text-body-secondary flex items-center gap-2 font-bold")}>
-          <EyeIcon />
+          <Eye />
           <div>{t("Followed only")}</div>
         </div>
       )}
@@ -330,7 +328,7 @@ const FolderHeader = ({ folder, folderTotal }: { folder: TreeFolder; folderTotal
   return (
     <div className={"mb-6 flex w-full items-center gap-4 overflow-hidden"}>
       <IconButton onClick={() => navigate(-1)}>
-        <ChevronLeftIcon />
+        <ChevronLeft />
       </IconButton>
       <div className="flex flex-col justify-center">
         <CurrentAccountAvatar className="!text-2xl" />

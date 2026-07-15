@@ -1,6 +1,7 @@
-import { ChevronLeftIcon, StarIcon } from "@taostats-wallet/icons"
 import { TokenRateCurrency } from "@taostats-wallet/token-rates"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { Star01 } from "@untitledui/icons/Star01"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, IconButton } from "taostats-ui"
@@ -37,9 +38,9 @@ const CurrencyButton: FC<{
         </div>
       </div>
       {selected ? (
-        <StarIcon className="stroke-primary fill-primary size-8" />
+        <Star01 className="stroke-primary fill-primary size-8" />
       ) : (
-        <StarIcon className="size-8" />
+        <Star01 className="size-8" />
       )}
     </button>
   )
@@ -94,7 +95,7 @@ const CurrenciesDrawerContent = () => {
     <div className="text-body-secondary flex h-[60rem] w-[40rem] flex-col gap-10 bg-black pt-10">
       <div className="flex items-center gap-3 px-8 text-base font-bold text-white">
         <IconButton onClick={close}>
-          <ChevronLeftIcon />
+          <ChevronLeft />
         </IconButton>
         <div>{t("Currency")}</div>
       </div>

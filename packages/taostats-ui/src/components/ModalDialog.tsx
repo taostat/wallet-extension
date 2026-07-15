@@ -1,5 +1,5 @@
-import { XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { X } from "@untitledui/icons/X"
 import { FC, ReactNode } from "react"
 
 import { IconButton } from "./IconButton"
@@ -34,7 +34,7 @@ export const ModalDialog: FC<ModalDialogProps> = ({
         {!!centerTitle && !!onClose && (
           // placeholder to keep the title centered
           <IconButton className="invisible">
-            <XIcon />
+            <X />
           </IconButton>
         )}
         <h1
@@ -47,7 +47,7 @@ export const ModalDialog: FC<ModalDialogProps> = ({
         </h1>
         {!!onClose && (
           <IconButton onClick={onClose}>
-            <XIcon />
+            <X />
           </IconButton>
         )}
       </header>

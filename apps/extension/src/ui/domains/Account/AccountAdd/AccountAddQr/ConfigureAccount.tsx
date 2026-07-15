@@ -1,4 +1,6 @@
-import { ArrowRightIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats-wallet/icons"
+import { PolkadotVaultIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { isTokenActive } from "extension-core"
 import { ReactNode, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -133,7 +135,7 @@ export const ConfigureAccount = () => {
           <div className="grow" />
           <div className="flex items-center justify-end gap-2">
             <div className="flex flex-col justify-center pb-1 leading-none">
-              {isBalanceLoading && <LoaderIcon className="animate-spin-slow inline text-white" />}
+              {isBalanceLoading && <Loading01 className="animate-spin-slow inline text-white" />}
             </div>
             <Tooltip placement="bottom-end">
               <TooltipTrigger asChild>
@@ -175,7 +177,7 @@ export const ConfigureAccount = () => {
         )}
 
         <div className="flex justify-end py-8">
-          <Button icon={ArrowRightIcon} type="submit" primary processing={state.submitting}>
+          <Button icon={ArrowRight} type="submit" primary processing={state.submitting}>
             {t("Import")}
           </Button>
         </div>

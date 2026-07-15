@@ -1,6 +1,6 @@
 import { isTokenNeedExistentialDeposit } from "@taostats-wallet/chaindata-provider"
-import { InfoIcon } from "@taostats-wallet/icons"
 import { planckToTokens } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { log } from "extension-shared"
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -63,7 +63,7 @@ export const ForfeitWarningDrawer = ({
     <Drawer anchor="bottom" isOpen={isOpen} onDismiss={close} containerId="main">
       <div className="bg-black-tertiary rounded-t-xl p-12 text-center">
         <div>
-          <InfoIcon className="text-primary-500 inline-block text-3xl" />
+          <InfoCircle className="text-primary-500 inline-block text-3xl" />
         </div>
         <div className="mt-10 font-bold">{t("Confirm forfeit")}</div>
         <div className="text-body-secondary mt-5 text-sm">

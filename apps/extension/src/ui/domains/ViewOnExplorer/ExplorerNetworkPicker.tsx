@@ -1,5 +1,6 @@
 import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
-import { ExternalLinkIcon, XIcon } from "@taostats-wallet/icons"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { X } from "@untitledui/icons/X"
 import { isAccountCompatibleWithNetwork, isAddressCompatibleWithNetwork } from "extension-core"
 import { FC, useCallback, useDeferredValue, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -68,7 +69,7 @@ const NetworkRow: FC<{ network: Network; onClick: () => void }> = ({ network, on
         <div className="text-body-secondary truncate text-xs">{network.blockExplorerUrls[0]}</div>
       </div>
       <div className="flex gap-6">
-        <ExternalLinkIcon className="text-md" />
+        <LinkExternal01 className="text-md" />
       </div>
     </button>
   )
@@ -99,7 +100,7 @@ export const ExplorerNetworkPicker: FC<{ address: string; onClose: () => void }>
         <div className="w-12"></div>
         <div className="text-body-secondary grow text-center">{t("View on Taostats")}</div>
         <IconButton onClick={onClose}>
-          <XIcon />
+          <X />
         </IconButton>
       </div>
       <div className="flex grow flex-col overflow-hidden">

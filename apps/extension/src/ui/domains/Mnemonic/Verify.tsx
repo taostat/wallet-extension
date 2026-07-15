@@ -1,6 +1,6 @@
 import { wordlist } from "@scure/bip39/wordlists/english"
-import { ChevronLeftIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { FC, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
@@ -165,7 +165,7 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
                 onClick={onBack}
                 type="button"
               >
-                <ChevronLeftIcon />
+                <ChevronLeft />
                 <span>{t("Back")}</span>
               </button>
             </div>

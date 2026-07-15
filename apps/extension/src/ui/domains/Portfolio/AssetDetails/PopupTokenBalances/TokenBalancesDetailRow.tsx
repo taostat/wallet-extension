@@ -1,6 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"
@@ -78,7 +78,7 @@ export const TokenBalancesDetailRow = ({
           )}
         >
           <Tokens amount={row.tokens} symbol={symbol} isBalance />
-          {row.locked ? <LockIcon className="lock shrink-0" /> : null}
+          {row.locked ? <Lock01 className="lock shrink-0" /> : null}
           {status.status === "stale" ? (
             <StaleBalancesIcon className="shrink-0" staleChains={status.staleChains} />
           ) : null}

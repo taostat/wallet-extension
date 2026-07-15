@@ -1,4 +1,4 @@
-import { StarIcon } from "@taostats-wallet/icons"
+import { Star01 } from "@untitledui/icons/Star01"
 import { useTranslation } from "react-i18next"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
@@ -56,9 +56,9 @@ const Content = () => {
               </div>
             </div>
             {favorites.includes(currency) ? (
-              <StarIcon className="stroke-primary fill-primary" />
+              <Star01 className="stroke-primary fill-primary" />
             ) : (
-              <StarIcon />
+              <Star01 />
             )}
           </button>
         ))}

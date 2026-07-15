@@ -1,4 +1,4 @@
-import { LoaderIcon } from "@taostats-wallet/icons"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { MIGRATION_ERROR_MSG } from "extension-core"
 import { Component, ErrorInfo, ReactNode } from "react"
 
@@ -7,7 +7,7 @@ const ErrorMessage = () => (
     <div className="flex grow flex-col justify-center font-bold">
       <div className="text-xl">Updating</div>
       <div className="my-[4.4rem]">
-        <LoaderIcon className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
+        <Loading01 className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
       </div>
       <div className="text-md">
         Adding new and improved

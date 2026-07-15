@@ -1,7 +1,10 @@
 import { HexString } from "@polkadot/util/types"
 import { DotNetwork } from "@taostats-wallet/chaindata-provider"
-import { ChevronLeftIcon, InfoIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats-wallet/icons"
+import { PolkadotVaultIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import {
   AccountPolkadotVault,
   isJsonPayload,
@@ -129,7 +132,7 @@ export const QrSubstrate = ({
               })
             }}
           >
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </button>
           <span className="grow text-center">{t("Scan QR code")}</span>
           <span className="h-16 w-16">&nbsp;</span>
@@ -168,7 +171,7 @@ export const QrSubstrate = ({
           <div className="flex h-full w-full flex-col items-center justify-between">
             <div className="relative flex aspect-square w-full items-center justify-center bg-white p-12">
               <div className="text-body-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
-                <LoaderIcon className="animate-spin-slow text-3xl" />
+                <Loading01 className="animate-spin-slow text-3xl" />
               </div>
               {qrCodeSource && payload && isJsonPayload(payload) && (
                 <MetadataQrCode
@@ -292,7 +295,7 @@ const SendPage = ({
       <div className="flex h-full flex-col items-center justify-end gap-6">
         <div className="relative flex aspect-square w-full max-w-md items-center justify-center rounded-xl bg-white p-12">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <LoaderIcon className="animate-spin-slow text-body-secondary !text-3xl" />
+            <Loading01 className="animate-spin-slow text-body-secondary !text-3xl" />
           </div>
           {payload && (
             <SignPayloadQrCode account={account} payload={payload} shortMetadata={shortMetadata} />
@@ -397,7 +400,7 @@ const SendPage = ({
             <div className="relative flex aspect-square w-full max-w-[16rem] items-center justify-center rounded bg-white p-7">
               <>
                 <div className="text-body-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
-                  <LoaderIcon className="animate-spin-slow text-xl" />
+                  <Loading01 className="animate-spin-slow text-xl" />
                 </div>
                 {!!genesisHash && qrCodeSource && (
                   <NetworkSpecsQrCode genesisHash={genesisHash} qrCodeSource={qrCodeSource} />
@@ -450,12 +453,12 @@ const SendPage = ({
             <Trans
               t={t}
               defaults="You will need to create a derived key in your Polkadot Vault to enable this network.
-              This new key must use the same derivation path <InfoIcon /> as your existing account."
+              This new key must use the same derivation path <InfoCircle /> as your existing account."
               components={{
-                InfoIcon: (
+                InfoCircle: (
                   <Tooltip placement="bottom-end">
                     <TooltipTrigger className="hover:text-body">
-                      <InfoIcon className="inline" />
+                      <InfoCircle className="inline" />
                     </TooltipTrigger>
                     <TooltipContent>
                       {t("In most cases, this derivation path should be blank")}

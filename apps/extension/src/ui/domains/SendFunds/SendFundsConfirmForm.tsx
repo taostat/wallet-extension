@@ -1,5 +1,6 @@
-import { AlertCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { FC, Suspense, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Checkbox } from "taostats-ui"
@@ -104,7 +105,7 @@ const TotalAmountRow = () => {
         {totalValue ? (
           <Fiat amount={totalValue} currencyDisplay={currency === "tao" ? "code" : undefined} />
         ) : (
-          <LoaderIcon className="animate-spin-slow mr-2 inline align-text-top" />
+          <Loading01 className="animate-spin-slow mr-2 inline align-text-top" />
         )}
       </div>
     </div>
@@ -140,7 +141,7 @@ export const ExternalRecipientWarning = () => {
 
   return (
     <div className="text-alert-warn bg-alert-warn/10 flex w-full items-center gap-4 rounded-sm p-4 text-xs">
-      <AlertCircleIcon className="shrink-0 text-[2rem]" />
+      <AlertCircle className="shrink-0 text-[2rem]" />
       {warningType === "network" && network && token && (
         <div>
           <div>
@@ -288,7 +289,7 @@ const DefaultFeeSummary = () => {
             )}
           >
             <>
-              {isLoading && <LoaderIcon className="animate-spin-slow mr-2 inline align-text-top" />}
+              {isLoading && <Loading01 className="animate-spin-slow mr-2 inline align-text-top" />}
               {estimatedFee && feeToken && (
                 <TokensAndFiat
                   planck={estimatedFee}

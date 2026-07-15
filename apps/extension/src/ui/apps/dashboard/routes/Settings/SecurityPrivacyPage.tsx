@@ -1,4 +1,6 @@
-import { ChevronRightIcon, ClockIcon, LockIcon } from "@taostats-wallet/icons"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Clock } from "@untitledui/icons/Clock"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
 
@@ -21,8 +23,8 @@ const Content = () => {
       <Spacer large />
       <div className="flex flex-col gap-4">
         <CtaButton
-          iconLeft={LockIcon}
-          iconRight={ChevronRightIcon}
+          iconLeft={Lock01}
+          iconRight={ChevronRight}
           title={t("Change password")}
           subtitle={
             allBackedUp
@@ -33,8 +35,8 @@ const Content = () => {
           disabled={!allBackedUp}
         />
         <CtaButton
-          iconLeft={ClockIcon}
-          iconRight={ChevronRightIcon}
+          iconLeft={Clock}
+          iconRight={ChevronRight}
           title={t("Auto-lock timer")}
           subtitle={t("Set a timer to automatically lock your Taostats wallet")}
           to={`/settings/security-privacy-settings/autolock`}

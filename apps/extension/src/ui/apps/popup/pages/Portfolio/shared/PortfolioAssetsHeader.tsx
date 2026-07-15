@@ -1,6 +1,9 @@
 import { Balance, Balances } from "@taostats-wallet/balances"
-import { ChevronLeftIcon, CopyIcon, MoreHorizontalIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Send01 } from "@untitledui/icons/Send01"
 import { Account, getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -51,7 +54,7 @@ const SendFundsButton: FC<{ account?: Account | null }> = ({ account }) => {
           canSendFunds ? "hover:bg-grey-800 hover:text-body" : "cursor-default opacity-50",
         )}
       >
-        <SendIcon />
+        <Send01 />
       </TooltipTrigger>
       <TooltipContent>{canSendFunds ? t("Send") : cannotSendFundsReason}</TooltipContent>
     </Tooltip>
@@ -81,7 +84,7 @@ const CopyAddressButton: FC<{ account?: Account | null }> = ({ account }) => {
         onClick={copyAddress}
         className="hover:bg-grey-800 text-body-secondary hover:text-body text-md flex h-16 w-16 flex-col items-center justify-center rounded-full"
       >
-        <CopyIcon />
+        <Copy01 />
       </TooltipTrigger>
       <TooltipContent>{t("Copy address")}</TooltipContent>
     </Tooltip>
@@ -138,7 +141,7 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
       <div className="mt-4 flex h-[4.4rem] w-full items-center gap-8">
         <div className="flex h-full grow items-center gap-4 overflow-hidden">
           <IconButton onClick={handleBackBtnClick}>
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </IconButton>
           <div className="flex flex-col justify-center">
             <CurrentAccountAvatar className="!text-[3.6rem]" />
@@ -180,7 +183,7 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
                     hideManageAccounts
                     trigger={
                       <ContextMenuTrigger className="hover:bg-grey-800 text-body-secondary hover:text-body text-md flex h-16 w-16 flex-col items-center justify-center rounded-full">
-                        <MoreHorizontalIcon />
+                        <DotsHorizontal />
                       </ContextMenuTrigger>
                     }
                   />

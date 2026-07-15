@@ -1,5 +1,5 @@
 import { Balances } from "@taostats-wallet/balances"
-import { ArrowDownIcon } from "@taostats-wallet/icons"
+import { ArrowDown } from "@untitledui/icons/ArrowDown"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "taostats-ui"
@@ -38,7 +38,7 @@ const NoTokens = ({ symbol }: { symbol: string }) => {
               : t("You don't have any {{symbol}}", { symbol })}
         </div>
         <div className="mt-6 flex justify-center gap-4">
-          <PillButton icon={ArrowDownIcon} onClick={handleCopy}>
+          <PillButton icon={ArrowDown} onClick={handleCopy}>
             {t("Copy address")}
           </PillButton>
         </div>

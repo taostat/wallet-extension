@@ -1,5 +1,7 @@
 import { encodeAnyAddress, isEthereumAddress, normalizeAddress } from "@taostats-wallet/crypto"
-import { ArrowUpRightIcon, CopyIcon, PolkadotIcon, QrIcon } from "@taostats-wallet/icons"
+import { PolkadotIcon, QrIcon } from "@taostats-wallet/icons"
+import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { getAccountGenesisHash, isAccountLedgerPolkadotGeneric } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo, useState } from "react"
@@ -114,7 +116,7 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
         <Tooltip>
           <TooltipTrigger asChild>
             <IconButton className="text-md" onClick={handleCopyClick}>
-              <CopyIcon />
+              <Copy01 />
             </IconButton>
           </TooltipTrigger>
           <TooltipContent>{t("Copy to clipboard")}</TooltipContent>
@@ -257,7 +259,7 @@ export const UnifiedAddressMigrationBanner: FC<{ formats: ChainFormat[] }> = ({ 
         <PolkadotIcon className="mr-2 inline-block shrink-0 align-text-top" />
         {t("Polkadot introduces new address formatting")}
       </div>
-      <ArrowUpRightIcon className="text-body shrink-0 text-[2rem]" />
+      <ArrowUpRight className="text-body shrink-0 text-[2rem]" />
     </button>
   )
 }

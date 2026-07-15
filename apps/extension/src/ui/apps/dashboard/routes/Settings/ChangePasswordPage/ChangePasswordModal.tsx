@@ -1,4 +1,5 @@
-import { AlertTriangleIcon, LoaderIcon } from "@taostats-wallet/icons"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { ChangePasswordStatusUpdateStatus, ChangePasswordStatusUpdateType } from "extension-core"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -32,12 +33,12 @@ export const ChangePasswordModal = ({
   return (
     <Modal isOpen={isOpen}>
       <ModalDialog title={t("Changing password")} centerTitle className="w-[40rem]">
-        <LoaderIcon className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
+        <Loading01 className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
 
         <div className="flex flex-col gap-5">
           <p className="my-8 animate-pulse text-center">{progressDisplay}</p>
           <div className="bg-alert-warn/10 text-alert-warn flex items-center gap-6 rounded p-4 px-6 text-sm">
-            <AlertTriangleIcon className="text-alert-warn shrink-0 text-lg" />
+            <AlertTriangle className="text-alert-warn shrink-0 text-lg" />
             <div>
               {t(
                 "Please wait while we change your password. This can take some time. Do not close the browser window.",

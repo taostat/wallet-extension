@@ -1,5 +1,7 @@
-import { CheckCircleIcon, LoaderIcon, XCircleIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
+import { XCircle } from "@untitledui/icons/XCircle"
 import { useTranslation } from "react-i18next"
 
 import { LedgerStatus } from "@ui/hooks/ledger/common"
@@ -47,16 +49,16 @@ export const LedgerConnectionStatus = ({
       )}
     >
       {status === "ready" && (
-        <CheckCircleIcon className="text-alert-success min-w-[1em] shrink-0 text-[2rem]" />
+        <CheckCircle className="text-alert-success min-w-[1em] shrink-0 text-[2rem]" />
       )}
       {status === "warning" && (
-        <XCircleIcon className="text-alert-warn min-w-[1em] shrink-0 text-[2rem]" />
+        <XCircle className="text-alert-warn min-w-[1em] shrink-0 text-[2rem]" />
       )}
       {status === "error" && (
-        <XCircleIcon className="text-alert-error min-w-[1em] shrink-0 text-[2rem]" />
+        <XCircle className="text-alert-error min-w-[1em] shrink-0 text-[2rem]" />
       )}
       {status === "connecting" && (
-        <LoaderIcon className="animate-spin-slow min-w-[1em] shrink-0 text-[2rem] text-white" />
+        <Loading01 className="animate-spin-slow min-w-[1em] shrink-0 text-[2rem] text-white" />
       )}
       <div className="grow text-left leading-[2rem]">{wrapStrong(message)}</div>
       {!!onRetryClick && (

@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, ModalDialog } from "taostats-ui"
@@ -33,7 +33,7 @@ const ShowMnemonic = () => {
           primary={hasHovered}
           onClick={setMnemonicBackupConfirmed}
           disabled={!hasHovered}
-          icon={ArrowRightIcon}
+          icon={ArrowRight}
         >
           {t("I've backed it up")}
         </Button>

@@ -1,16 +1,13 @@
-import {
-  AlertCircleIcon,
-  GlobeIcon,
-  InfoIcon,
-  LinkIcon,
-  PencilIcon,
-  PlusIcon,
-  SecretIcon,
-  ShieldIcon,
-  SlidersIcon,
-  UsersIcon,
-} from "@taostats-wallet/icons"
+import { PencilIcon, SecretIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Link01 } from "@untitledui/icons/Link01"
+import { Plus } from "@untitledui/icons/Plus"
+import { Shield01 } from "@untitledui/icons/Shield01"
+import { Sliders01 } from "@untitledui/icons/Sliders01"
+import { Users01 } from "@untitledui/icons/Users01"
 import { FC, ReactNode, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, To, useMatch, useNavigate } from "react-router-dom"
@@ -40,7 +37,7 @@ export const DashboardSettingsSidebar = () => {
               onClick={handleAddAccountClick}
               className="bg-primary/10 enabled:hover:bg-primary/20 enabled:hover:text-primary text-primary/90 rounded-full p-3"
             >
-              <PlusIcon className="size-10" />
+              <Plus className="size-10" />
             </IconButton>
           </TooltipTrigger>
           <TooltipContent>{t("Add Account")}</TooltipContent>
@@ -48,7 +45,7 @@ export const DashboardSettingsSidebar = () => {
       </div>
       <div className="bg-grey-800 h-0.5"></div>
       <div className="flex w-full flex-col gap-2">
-        <SidebarNavItem to="/settings/general" label={t("General")} icon={<SlidersIcon />} />
+        <SidebarNavItem to="/settings/general" label={t("General")} icon={<Sliders01 />} />
         <SidebarNavItem
           label={t("Manage Accounts")}
           to="/settings/accounts"
@@ -67,27 +64,23 @@ export const DashboardSettingsSidebar = () => {
           to="/settings/mnemonics"
           icon={<SecretIcon />}
         />
-        <SidebarNavItem
-          to="/settings/address-book"
-          label={t("Address Book")}
-          icon={<UsersIcon />}
-        />
+        <SidebarNavItem to="/settings/address-book" label={t("Address Book")} icon={<Users01 />} />
         <SidebarNavItem
           label={t("Connected Sites")}
           to="/settings/connected-sites"
-          icon={<LinkIcon />}
+          icon={<Link01 />}
         />
         <SidebarNavItem
           label={t("Security & Privacy")}
           to="/settings/security-privacy-settings"
-          icon={<ShieldIcon />}
+          icon={<Shield01 />}
         />
         <SidebarNavItem
           label={t("Networks & Tokens")}
           to="/settings/networks-tokens"
-          icon={<GlobeIcon />}
+          icon={<Globe01 />}
         />
-        <SidebarNavItem label={t("About")} to="/settings/about" icon={<InfoIcon />} />
+        <SidebarNavItem label={t("About")} to="/settings/about" icon={<InfoCircle />} />
       </div>
     </div>
   )
@@ -123,5 +116,5 @@ const SidebarNavItem: FC<{
 const MnemonicNotification = () => {
   const allBackedUp = useMnemonicsAllBackedUp()
 
-  return !allBackedUp ? <AlertCircleIcon className="text-alert-warn" /> : null
+  return !allBackedUp ? <AlertCircle className="text-alert-warn" /> : null
 }

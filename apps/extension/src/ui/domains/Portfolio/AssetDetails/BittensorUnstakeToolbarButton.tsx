@@ -1,7 +1,7 @@
 import { Balances } from "@taostats-wallet/balances"
 import { SubDTaoToken } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { DatabaseIcon } from "@taostats-wallet/icons"
+import { Database01 } from "@untitledui/icons/Database01"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -53,7 +53,7 @@ export const BittensorUnstakeToolbarButton: FC<{ balances: Balances; className?:
     <Tooltip>
       <TooltipTrigger asChild>
         <PortfolioToolbarButton onClick={handleClick} className={className}>
-          <DatabaseIcon />
+          <Database01 />
         </PortfolioToolbarButton>
       </TooltipTrigger>
       <TooltipContent>{t("Unstake")}</TooltipContent>

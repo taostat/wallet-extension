@@ -1,5 +1,5 @@
-import { SettingsIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Settings01 } from "@untitledui/icons/Settings01"
 import { useCallback, useMemo } from "react"
 
 import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
@@ -44,7 +44,7 @@ export const BittensorSelectButton = ({
         isBtnDisabled && "cursor-not-allowed opacity-50",
       )}
     >
-      <SettingsIcon className="text-body-secondary" />
+      <Settings01 className="text-body-secondary" />
       <div>{label}</div>
     </button>
   )

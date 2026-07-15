@@ -1,12 +1,8 @@
-import {
-  CloseIcon,
-  ExpandIcon,
-  HistoryIcon,
-  HomeIcon,
-  Link2Icon,
-  MenuIcon,
-} from "@taostats-wallet/icons"
+import { CloseIcon, ExpandIcon, HistoryIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Home01 } from "@untitledui/icons/Home01"
+import { Link02 } from "@untitledui/icons/Link02"
+import { Menu01 } from "@untitledui/icons/Menu01"
 import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
@@ -105,13 +101,13 @@ export const BottomNav = () => {
         >
           <NavButton
             label={t("Home")}
-            icon={HomeIcon}
+            icon={Home01}
             onClick={handleHomeClick}
             route="/portfolio/*"
           />
           <NavButton
             label={t("Staking")}
-            icon={Link2Icon}
+            icon={Link02}
             iconClassName="-rotate-45"
             onClick={handleStakingClick}
           />
@@ -132,7 +128,7 @@ export const BottomNav = () => {
           ) : (
             <NavButton
               label={t("More")}
-              icon={MenuIcon}
+              icon={Menu01}
               onClick={handleMoreClick}
               withBadge={!allBackedUp}
             />

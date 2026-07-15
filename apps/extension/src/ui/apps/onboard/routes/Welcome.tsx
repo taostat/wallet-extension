@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from "extension-shared"
 import { useCallback, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -65,7 +65,7 @@ export const WelcomePage = () => {
         <div className="welcome-button flex w-[44rem] flex-col gap-8">
           <Button
             primary
-            icon={ArrowRightIcon}
+            icon={ArrowRight}
             onClick={handleNextClick()}
             data-testid="onboarding-get-started-button"
           >

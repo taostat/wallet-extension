@@ -1,5 +1,5 @@
 import { NetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { Address } from "extension-core"
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -64,7 +64,7 @@ export const SummaryCrossChainTransfer: FC<SummaryCrossChainTransferProps> = ({
           <SummaryAddressDisplay address={fromAddress} networkId={fromNetwork} mode={mode} />
         </div>
         <div>
-          <ArrowRightIcon className="text-lg" />
+          <ArrowRight className="text-lg" />
         </div>
         <div className="flex flex-col items-center gap-2 overflow-hidden">
           <SummaryNetworkDisplay networkId={toNetwork} />

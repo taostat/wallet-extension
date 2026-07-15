@@ -1,4 +1,5 @@
-import { AlertCircleIcon, DatabaseIcon } from "@taostats-wallet/icons"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { Database01 } from "@untitledui/icons/Database01"
 import { errorsStore } from "extension-core"
 import { DISCORD_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"
@@ -52,8 +53,8 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
         title={
           <div className="flex flex-col items-center">
             <div className="relative">
-              <DatabaseIcon className="icon text-3xl text-white" />
-              <AlertCircleIcon className="icon bg-alert-error text-md absolute right-0 top-0 rounded text-white" />
+              <Database01 className="icon text-3xl text-white" />
+              <AlertCircle className="icon bg-alert-error text-md absolute right-0 top-0 rounded text-white" />
             </div>
             <div className="text-body mt-4">{t("Database Unavailable")}</div>
           </div>

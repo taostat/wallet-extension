@@ -1,5 +1,5 @@
-import { MoreHorizontalIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
 import { Account, AccountsCatalogTree } from "extension-core"
 import { FC, Fragment, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -168,7 +168,7 @@ export const TreeItemFolder: FC<{
         <div data-no-dnd="true">
           <ContextMenu placement="bottom-end">
             <ContextMenuTrigger className="enabled:hover:bg-grey-750 text-body-secondary enabled:hover:text-body disabled:text-body-disabled rounded p-6 disabled:cursor-[inherit]">
-              <MoreHorizontalIcon className="shrink-0" />
+              <DotsHorizontal className="shrink-0" />
             </ContextMenuTrigger>
             <ContextMenuContent
               data-no-dnd="true"

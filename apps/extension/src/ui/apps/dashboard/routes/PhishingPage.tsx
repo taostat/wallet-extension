@@ -1,4 +1,4 @@
-import { AlertTriangleIcon } from "@taostats-wallet/icons"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
 import { TAOSTATS_WEB_APP_URL } from "extension-shared"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -33,7 +33,7 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
         <div className="flex flex-grow items-center">
           <div className="scrollable scrollable-700 flex flex-col overflow-auto">
             <div className="bg-black-primary text-body-secondary flex max-w-3xl flex-col items-center gap-16 self-center rounded-lg p-20 text-center">
-              <AlertTriangleIcon className="text-alert-warn inline-block text-[7.7rem]" />
+              <AlertTriangle className="text-alert-warn inline-block text-[7.7rem]" />
               <h1 className="text-bold text-alert-warn m-0 text-xl">{t("Warning")}</h1>
               <div className="text-lg font-light text-white">
                 <Trans t={t}>

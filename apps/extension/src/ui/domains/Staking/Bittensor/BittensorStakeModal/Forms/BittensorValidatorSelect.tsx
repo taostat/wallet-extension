@@ -1,7 +1,10 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { GlobeIcon, LockIcon, ToolbarSortIcon, UserIcon } from "@taostats-wallet/icons"
+import { ToolbarSortIcon } from "@taostats-wallet/icons"
 import { classNames, cn, planckToTokens } from "@taostats-wallet/util"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { Lock01 } from "@untitledui/icons/Lock01"
+import { User01 } from "@untitledui/icons/User01"
 import {
   FC,
   useCallback,
@@ -354,7 +357,7 @@ const ValidatorRow: FC<{
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="flex items-center gap-2">
-                  <LockIcon />
+                  <Lock01 />
                   <Tokens
                     amount={planckToTokens(option.totalStaked.toString(), tao?.decimals ?? 9)}
                     symbol={tao?.symbol}
@@ -377,7 +380,7 @@ const ValidatorRow: FC<{
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="flex items-center gap-2">
-                  <UserIcon />
+                  <User01 />
                   {option.totalStakers}
                 </div>
               </TooltipTrigger>
@@ -389,7 +392,7 @@ const ValidatorRow: FC<{
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="flex items-center gap-2">
-                  <GlobeIcon />
+                  <Globe01 />
                   {option.subnets}
                 </div>
               </TooltipTrigger>

@@ -1,7 +1,7 @@
 import { encodeAddressSs58 } from "@taostats-wallet/crypto"
-import { LoaderIcon } from "@taostats-wallet/icons"
 import { DecodedCall, ScaleApi } from "@taostats-wallet/sapi"
 import { classNames, isAscii } from "@taostats-wallet/util"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import DOMPurify from "dompurify"
 import { SignerPayloadJSON } from "extension-core"
 import { log } from "extension-shared"
@@ -115,7 +115,7 @@ const LoadingShimmer = () => {
 
   return (
     <div className="text-body-secondary animate-fade-in flex flex-col items-center gap-2 pt-40 leading-[140%]">
-      <LoaderIcon className="animate-spin-slow h-14 w-14" />
+      <Loading01 className="animate-spin-slow h-14 w-14" />
       <div className="mt-4 text-sm font-bold text-white opacity-70">{t("Analysing request")}</div>
     </div>
   )

@@ -1,5 +1,5 @@
-import { XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { X } from "@untitledui/icons/X"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
@@ -26,7 +26,7 @@ const ModalHeader = () => {
     >
       <div>{step === "review" && t("Withdraw")}</div>
       <IconButton onClick={close}>
-        <XIcon />
+        <X />
       </IconButton>
     </div>
   )

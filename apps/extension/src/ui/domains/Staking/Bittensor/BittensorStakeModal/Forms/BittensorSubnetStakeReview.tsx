@@ -1,5 +1,6 @@
-import { EditIcon, InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Edit01 } from "@untitledui/icons/Edit01"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -87,189 +88,189 @@ export const BittensorSubnetStakeReview = () => {
     >
       <div className="scrollable scrollable-800 min-h-0 flex-1 overflow-y-auto">
         <div className="space-y-[0.75rem]">
-        <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
-          <div className="flex items-center justify-between gap-8 pb-2 text-sm">
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <span>{t("Tao")}</span>
-              <TokenLogo tokenId={nativeToken?.id} className="size-8" />
-            </div>
-            <div className="overflow-hidden">
-              <TokensAndFiat
-                tokenId={nativeToken?.id}
-                planck={isSubnetUnstake ? amountOut : amountIn!}
-                noCountUp
-                noFiat
-                tokensClassName="text-body"
-              />
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-8 py-2 text-sm">
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <span>{`SN${netuid}`}</span>
-              <TokenLogo tokenId={dtaoToken?.id} className="size-8" />
-            </div>
-            <div className="overflow-hidden">
-              <TokensAndFiat
-                tokenId={dtaoToken?.id}
-                planck={isSubnetUnstake ? amountIn! : amountOut}
-                noCountUp
-                noFiat
-                tokensClassName="text-body"
-              />
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-8 py-2 text-sm">
-            <div className="whitespace-nowrap">{t("USD")} </div>
-            <div className="text-body overflow-hidden">
-              <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-8 pt-2 text-sm">
-            <div className="whitespace-nowrap">{t("Account")} </div>
-            <div className="overflow-hidden">
-              <StakingAccountDisplay address={account.address} chainId={nativeToken?.networkId} />
-            </div>
-          </div>
-          <div className="py-8">
-            <hr className="text-grey-800" />
-          </div>
-          <div className="flex items-center justify-between gap-8 pb-2 text-xs">
-            <div className="whitespace-nowrap">{t("Subnet")} </div>
-            <div className="text-body truncate">{dtaoToken?.name}</div>
-          </div>
-          <div className="flex items-center justify-between gap-8 py-2 text-xs">
-            <div className="whitespace-nowrap">{t("Validator")} </div>
-            <div className="text-body truncate">
-              <BittensorValidatorName hotkey={hotkey} />
-            </div>
-          </div>
-          {stakeDirection === "stake" && (
-            <div className="flex items-center justify-between gap-8 py-2 text-xs">
-              <div className="flex items-center gap-1 whitespace-nowrap">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="flex items-center gap-1">
-                      {t("APY")}
-                      <InfoIcon />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>{t("Estimated Annual Percentage Yield (APY)")}</TooltipContent>
-                </Tooltip>
+          <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
+            <div className="flex items-center justify-between gap-8 pb-2 text-sm">
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <span>{t("Tao")}</span>
+                <TokenLogo tokenId={nativeToken?.id} className="size-8" />
               </div>
+              <div className="overflow-hidden">
+                <TokensAndFiat
+                  tokenId={nativeToken?.id}
+                  planck={isSubnetUnstake ? amountOut : amountIn!}
+                  noCountUp
+                  noFiat
+                  tokensClassName="text-body"
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-between gap-8 py-2 text-sm">
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <span>{`SN${netuid}`}</span>
+                <TokenLogo tokenId={dtaoToken?.id} className="size-8" />
+              </div>
+              <div className="overflow-hidden">
+                <TokensAndFiat
+                  tokenId={dtaoToken?.id}
+                  planck={isSubnetUnstake ? amountIn! : amountOut}
+                  noCountUp
+                  noFiat
+                  tokensClassName="text-body"
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-between gap-8 py-2 text-sm">
+              <div className="whitespace-nowrap">{t("USD")} </div>
               <div className="text-body overflow-hidden">
-                <ValidatorApy />
+                <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
               </div>
             </div>
-          )}
-          <div className="flex items-center justify-between gap-8 pt-2 text-xs">
-            <div className="whitespace-nowrap">{t("Estimated amount")}</div>
-            <div className="overflow-hidden">
-              <TokensAndFiat
-                planck={amountOut}
-                tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
-                noCountUp
-                tokensClassName="text-body"
-              />
+            <div className="flex items-center justify-between gap-8 pt-2 text-sm">
+              <div className="whitespace-nowrap">{t("Account")} </div>
+              <div className="overflow-hidden">
+                <StakingAccountDisplay address={account.address} chainId={nativeToken?.networkId} />
+              </div>
+            </div>
+            <div className="py-8">
+              <hr className="text-grey-800" />
+            </div>
+            <div className="flex items-center justify-between gap-8 pb-2 text-xs">
+              <div className="whitespace-nowrap">{t("Subnet")} </div>
+              <div className="text-body truncate">{dtaoToken?.name}</div>
+            </div>
+            <div className="flex items-center justify-between gap-8 py-2 text-xs">
+              <div className="whitespace-nowrap">{t("Validator")} </div>
+              <div className="text-body truncate">
+                <BittensorValidatorName hotkey={hotkey} />
+              </div>
+            </div>
+            {stakeDirection === "stake" && (
+              <div className="flex items-center justify-between gap-8 py-2 text-xs">
+                <div className="flex items-center gap-1 whitespace-nowrap">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center gap-1">
+                        {t("APY")}
+                        <InfoCircle />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>{t("Estimated Annual Percentage Yield (APY)")}</TooltipContent>
+                  </Tooltip>
+                </div>
+                <div className="text-body overflow-hidden">
+                  <ValidatorApy />
+                </div>
+              </div>
+            )}
+            <div className="flex items-center justify-between gap-8 pt-2 text-xs">
+              <div className="whitespace-nowrap">{t("Estimated amount")}</div>
+              <div className="overflow-hidden">
+                <TokensAndFiat
+                  planck={amountOut}
+                  tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
+                  noCountUp
+                  tokensClassName="text-body"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="bg-grey-900 text-body-secondary flex w-full flex-col gap-2 rounded p-8 py-6">
-          <div className="flex items-center justify-between gap-8 text-xs">
-            <div className="whitespace-nowrap">{t("Alpha Price")} </div>
-            <div className="text-body-secondary flex items-center gap-2">
-              <TokensAndFiat
-                planck={swapPrice!}
-                tokenId={nativeToken?.id}
-                tokensClassName="text-body"
-                noCountUp
-              />
+          <div className="bg-grey-900 text-body-secondary flex w-full flex-col gap-2 rounded p-8 py-6">
+            <div className="flex items-center justify-between gap-8 text-xs">
+              <div className="whitespace-nowrap">{t("Alpha Price")} </div>
+              <div className="text-body-secondary flex items-center gap-2">
+                <TokensAndFiat
+                  planck={swapPrice!}
+                  tokenId={nativeToken?.id}
+                  tokensClassName="text-body"
+                  noCountUp
+                />
+              </div>
             </div>
-          </div>
-          <div className="flex items-center justify-between gap-8 text-xs">
-            <div className="whitespace-nowrap">{t("Price Impact")}</div>
-            <div
-              className={classNames(
-                "text-body",
-                !!priceImpact && priceImpact >= HIGH_PRICE_IMPACT && "text-orange-500",
-                !!priceImpact && priceImpact >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
-              )}
-            >
-              {priceImpact?.toFixed(2)}%
-            </div>
-          </div>
-          <div className="flex items-center justify-between gap-8 text-xs">
-            <div className="whitespace-nowrap">{t("Slippage Tolerance")} </div>
-            <div className="text-body flex items-center gap-2">
-              <button
-                type="button"
-                onClick={open}
-                className={
-                  "flex cursor-pointer items-center gap-2 rounded-xl pl-2 text-xs font-light"
-                }
+            <div className="flex items-center justify-between gap-8 text-xs">
+              <div className="whitespace-nowrap">{t("Price Impact")}</div>
+              <div
+                className={classNames(
+                  "text-body",
+                  !!priceImpact && priceImpact >= HIGH_PRICE_IMPACT && "text-orange-500",
+                  !!priceImpact && priceImpact >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
+                )}
               >
-                <EditIcon />
-                <div>{slippage.toFixed(2)}%</div>
-              </button>
+                {priceImpact?.toFixed(2)}%
+              </div>
             </div>
-          </div>
-          {!isMevShieldDisabled && (
-            <div className="flex flex-col gap-3 pt-2 text-xs">
-              <div className="flex items-center gap-1">
+            <div className="flex items-center justify-between gap-8 text-xs">
+              <div className="whitespace-nowrap">{t("Slippage Tolerance")} </div>
+              <div className="text-body flex items-center gap-2">
                 <button
                   type="button"
-                  className="hover:text-body whitespace-nowrap"
-                  onClick={ocMevShieldInfo.open}
+                  onClick={open}
+                  className={
+                    "flex cursor-pointer items-center gap-2 rounded-xl pl-2 text-xs font-light"
+                  }
                 >
-                  <span>
-                    {t("MEV Shield")} <InfoIcon className="inline" />
-                  </span>
+                  <Edit01 />
+                  <div>{slippage.toFixed(2)}%</div>
                 </button>
               </div>
-              <div
-                className="text-body flex flex-col gap-2"
-                role="radiogroup"
-                aria-label={t("MEV Shield")}
-              >
-                <Radio
-                  name="mev-shield-option"
-                  value="off"
-                  label={t("Off")}
-                  checked={mevShieldOption === "off"}
-                  onChange={() => setMevShieldOption("off")}
-                />
-                {!isHardwareWallet ? (
+            </div>
+            {!isMevShieldDisabled && (
+              <div className="flex flex-col gap-3 pt-2 text-xs">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    className="hover:text-body whitespace-nowrap"
+                    onClick={ocMevShieldInfo.open}
+                  >
+                    <span>
+                      {t("MEV Shield")} <InfoCircle className="inline" />
+                    </span>
+                  </button>
+                </div>
+                <div
+                  className="text-body flex flex-col gap-2"
+                  role="radiogroup"
+                  aria-label={t("MEV Shield")}
+                >
                   <Radio
                     name="mev-shield-option"
-                    value="on-chain"
-                    label={t("On-chain Shield")}
-                    checked={mevShieldOption === "on-chain"}
-                    onChange={() => setMevShieldOption("on-chain")}
+                    value="off"
+                    label={t("Off")}
+                    checked={mevShieldOption === "off"}
+                    onChange={() => setMevShieldOption("off")}
                   />
+                  {!isHardwareWallet ? (
+                    <Radio
+                      name="mev-shield-option"
+                      value="on-chain"
+                      label={t("On-chain Shield")}
+                      checked={mevShieldOption === "on-chain"}
+                      onChange={() => setMevShieldOption("on-chain")}
+                    />
+                  ) : null}
+                  <Radio
+                    name="mev-shield-option"
+                    value="taostats"
+                    label={t("Taostats Shield (recommended)")}
+                    checked={mevShieldOption === "taostats"}
+                    onChange={() => setMevShieldOption("taostats")}
+                  />
+                </div>
+                {isHardwareWallet ? (
+                  <p className="text-body-secondary text-xs">
+                    {t(
+                      "On-chain Shield is not available for Ledger wallets. Use Taostats Shield or turn protection off.",
+                    )}
+                  </p>
                 ) : null}
-                <Radio
-                  name="mev-shield-option"
-                  value="taostats"
-                  label={t("Taostats Shield (recommended)")}
-                  checked={mevShieldOption === "taostats"}
-                  onChange={() => setMevShieldOption("taostats")}
-                />
               </div>
-              {isHardwareWallet ? (
-                <p className="text-body-secondary text-xs">
-                  {t(
-                    "On-chain Shield is not available for Ledger wallets. Use Taostats Shield or turn protection off.",
-                  )}
-                </p>
-              ) : null}
-            </div>
-          )}
-        </div>
-        <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8 py-6">
-          <div className="flex items-center justify-between gap-8 pt-2 text-xs">
-            <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
-            <FeeEstimate />
+            )}
           </div>
-        </div>
+          <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8 py-6">
+            <div className="flex items-center justify-between gap-8 pt-2 text-xs">
+              <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
+              <FeeEstimate />
+            </div>
+          </div>
         </div>
       </div>
       {payload && (

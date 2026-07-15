@@ -1,8 +1,10 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { BalanceFormatter } from "@taostats-wallet/balances"
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
-import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@taostats-wallet/icons"
 import { classNames, planckToTokens } from "@taostats-wallet/util"
+import { AlertOctagon } from "@untitledui/icons/AlertOctagon"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import {
   isTxInfoSwap,
   isTxInfoTransfer,
@@ -206,7 +208,7 @@ const TransactionStatusLabel: FC<{ status: TransactionStatus }> = ({ status }) =
       return (
         <>
           <span>{t("Submitting")} </span>
-          <LoaderIcon className="animate-spin-slow text-body-disabled" />
+          <Loading01 className="animate-spin-slow text-body-disabled" />
         </>
       )
     case "success":
@@ -215,7 +217,7 @@ const TransactionStatusLabel: FC<{ status: TransactionStatus }> = ({ status }) =
       return (
         <>
           <span>{t("Cancelled")}</span>
-          <XOctagonIcon className="text-brand-orange" />
+          <AlertOctagon className="text-brand-orange" />
         </>
       )
     case "unknown":
@@ -342,7 +344,7 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
                 noTooltip
                 isBalance
               />
-              <ArrowRightIcon className="text-body-inactive" />
+              <ArrowRight className="text-body-inactive" />
             </div>
             <Tokens
               className="pointer-events-none"

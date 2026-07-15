@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { AccountPlatform } from "@taostats-wallet/crypto"
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { t } from "i18next"
 import { FC, ReactNode, useCallback, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -222,7 +222,7 @@ export const AddLedgerSelectNetwork = () => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <div className="text-body-secondary flex items-center gap-2 align-middle text-xs">
-                          <InfoIcon />
+                          <InfoCircle />
                           <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                             Which one should I choose?
                           </span>

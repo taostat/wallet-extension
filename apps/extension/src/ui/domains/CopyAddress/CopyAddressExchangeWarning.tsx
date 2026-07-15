@@ -1,4 +1,4 @@
-import { AlertCircleIcon } from "@taostats-wallet/icons"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
 import { FC } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
@@ -13,7 +13,7 @@ export const CopyAddressExchangeWarning: FC<{
   return (
     <Drawer containerId="copy-address-modal" isOpen={isOpen} anchor="bottom" onDismiss={onDismiss}>
       <div className="bg-grey-800 flex w-full flex-col items-center rounded-t-xl p-12">
-        <AlertCircleIcon className="text-primary-500 text-3xl" />
+        <AlertCircle className="text-primary-500 text-3xl" />
         <div className="text-md mt-12 font-bold">{t("Receiving from an exchange?")}</div>
         <p className="text-body-secondary mt-8 text-center">
           {t("Generic substrate addresses are often incompatible with exchanges.")}

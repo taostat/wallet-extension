@@ -1,4 +1,4 @@
-import { ExternalLinkIcon } from "@taostats-wallet/icons"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { POLKADOT_VAULT_DOCS_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
 
@@ -32,7 +32,7 @@ export const Scan = () => {
                         <span className="underline underline-offset-2">
                           {t("Instructions for setting up Polkadot Vault on a new device")}
                         </span>{" "}
-                        <ExternalLinkIcon className="inline" />
+                        <LinkExternal01 className="inline" />
                       </a>
                     </div>
                   </>

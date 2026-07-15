@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
@@ -30,7 +30,7 @@ export const SuccessPage = () => {
           {t("Your Taostats wallet is ready to use")} 🎉
         </div>
         <Button
-          icon={ArrowRightIcon}
+          icon={ArrowRight}
           primary
           onClick={completeOnboarding}
           data-testid="onboarding-enter-taostats-button"

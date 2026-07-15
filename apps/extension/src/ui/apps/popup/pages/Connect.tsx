@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { Account, KnownRequestIdOnly, ProviderType } from "extension-core"
 import capitalize from "lodash-es/capitalize"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -31,7 +31,7 @@ const NoAccountWarning = ({
     <Drawer isOpen anchor="bottom" containerId="main">
       <div className="bg-grey-800 flex flex-col gap-8 rounded-t-xl p-12">
         <div className="w-full text-center">
-          <InfoIcon className="text-primary-500 inline-block text-[4rem]" />
+          <InfoCircle className="text-primary-500 inline-block text-[4rem]" />
         </div>
         <p className="text-body-secondary text-center">
           <Trans

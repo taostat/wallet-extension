@@ -1,5 +1,5 @@
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { isAccountPlatformCompatibleWithNetwork } from "extension-core"
 import { ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -101,7 +101,7 @@ function SelectAccountTypeButtonHeader({ title, tooltip }: { title: string; tool
       <Tooltip placement="bottom">
         <TooltipTrigger asChild>
           <div>
-            <InfoIcon className="text-sm" />
+            <InfoCircle className="text-sm" />
           </div>
         </TooltipTrigger>
         {!!tooltip && (

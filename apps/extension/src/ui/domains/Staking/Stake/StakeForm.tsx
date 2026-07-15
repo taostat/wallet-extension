@@ -1,6 +1,7 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
-import { InfoIcon, SwapIcon } from "@taostats-wallet/icons"
+import { SwapIcon } from "@taostats-wallet/icons"
 import { classNames, tokensToPlanck } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { Account } from "extension-core"
 import {
   ChangeEventHandler,
@@ -31,10 +32,10 @@ import { useStakingAPR } from "../hooks/nomPools/useStakingAPR"
 import { NominationPoolName } from "../NominationPools/NominationPoolName"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "../shared/ModalContent"
 import { StakingFeeEstimate } from "../shared/StakingFeeEstimate"
-import { StakeAccountPicker } from "./StakeAccountPicker"
-import { StakeAccountPillButton } from "./StakeAccountPillButton"
 import { useStakeModal } from "./hooks/useStakeModal"
 import { useStakeWizard } from "./hooks/useStakeWizard"
+import { StakeAccountPicker } from "./StakeAccountPicker"
+import { StakeAccountPillButton } from "./StakeAccountPillButton"
 
 const AssetPill: FC<{ token: Token | null }> = ({ token }) => {
   const { t } = useTranslation()
@@ -383,7 +384,7 @@ const WithAprDocsLink = ({ children }: { children: ReactNode }) => {
             target="_blank"
             rel="noreferrer noopener"
           >
-            <InfoIcon />
+            <InfoCircle />
           </a>
         </TooltipTrigger>
         <TooltipContent>{t("Learn more about Analog Timechain staking rewards")}</TooltipContent>
@@ -456,7 +457,7 @@ export const StakeForm = () => {
               <TooltipTrigger asChild>
                 <div className="flex items-center gap-1 whitespace-nowrap leading-none">
                   {t("APR")}
-                  <InfoIcon />
+                  <InfoCircle />
                 </div>
               </TooltipTrigger>
               <TooltipContent>{t("Estimated Annual Percentage Rate (APR)")}</TooltipContent>

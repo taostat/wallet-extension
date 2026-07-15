@@ -1,11 +1,9 @@
-import {
-  AlertCircleIcon,
-  ArrowRightIcon,
-  CheckCircleIcon,
-  LockIcon,
-  UnlockIcon,
-} from "@taostats-wallet/icons"
 import { classNames, sleep } from "@taostats-wallet/util"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { Lock01 } from "@untitledui/icons/Lock01"
+import { LockUnlocked01 } from "@untitledui/icons/LockUnlocked01"
 import { FC, useCallback, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, Checkbox, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -75,7 +73,7 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div className="text-alert-warn shrink-0">
-                    <LockIcon />
+                    <Lock01 />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -86,7 +84,7 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div className="text-primary shrink-0">
-                    <UnlockIcon />
+                    <LockUnlocked01 />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>{t("Account is unlocked and can be imported")}</TooltipContent>
@@ -95,11 +93,11 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
 
             {account.isExisting ? (
               <div className="w-[1.92rem] shrink-0 text-center">
-                <CheckCircleIcon className="text-primary-500" />
+                <CheckCircle className="text-primary-500" />
               </div>
             ) : !account.isPrivateKeyAvailable ? (
               <div className="w-[1.92rem] shrink-0 text-center">
-                <AlertCircleIcon className="text-alert-warn" />
+                <AlertCircle className="text-alert-warn" />
               </div>
             ) : (
               <Checkbox
@@ -197,7 +195,7 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
     <FadeIn>
       {alreadyImported && (
         <div className="bg-grey-850 text-body-secondary mb-8 flex w-full items-center gap-6 rounded p-8">
-          <AlertCircleIcon className="shrink-0 text-lg" />
+          <AlertCircle className="shrink-0 text-lg" />
           <div className="grow">
             {t("All accounts included in this file already exist in Taostats.")}
           </div>
@@ -242,7 +240,7 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
         <div className="flex justify-end gap-8">
           <UnlockJsonAccountsButton />
           <Button
-            icon={ArrowRightIcon}
+            icon={ArrowRight}
             type="button"
             primary
             disabled={!canImport}

@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { useTranslation } from "react-i18next"
 
 import { WithTooltip } from "@taostats/components/Tooltip"
@@ -31,7 +31,7 @@ export const SendFundsFeeTooltip = () => {
         </div>
       }
     >
-      <InfoIcon className="inline align-text-top text-sm" />
+      <InfoCircle className="inline align-text-top text-sm" />
     </WithTooltip>
   )
 }

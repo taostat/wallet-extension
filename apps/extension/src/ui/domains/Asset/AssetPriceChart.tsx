@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { CheckIcon, ChevronDownIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { TokenRateCurrency } from "@taostats-wallet/token-rates"
 import { classNames, formatPrice, isNotNil, isTruthy } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import ChartJs, { ActiveElement, ChartComponentLike, ChartEvent } from "chart.js/auto"
 import { fetchFromCoingecko } from "extension-core"
 import { log } from "extension-shared"
@@ -147,7 +149,7 @@ const AssetPriceChartOriginal: FC<{
           )}
           {netuid !== null ? (
             <IconButton onClick={handleOpenClick} className="text-base">
-              <ExternalLinkIcon />
+              <LinkExternal01 />
             </IconButton>
           ) : null}
         </div>
@@ -541,7 +543,7 @@ const TokenSelect: FC<{
           <span>
             <TokenDisplaySymbol tokenId={token.id} />
           </span>
-          <ChevronDownIcon className="text-body-secondary group-hover:text-body" />
+          <ChevronDown className="text-body-secondary group-hover:text-body" />
         </button>
       </PopoverTrigger>
       <PopoverContent>
@@ -593,7 +595,7 @@ const TokenSelectOption: FC<{ token: Token; selected: boolean; onClick: () => vo
       </div>
       <div className="text-body flex gap-4 font-bold">
         <AssetPrice tokenId={token.id} balances={null} noTooltip noChange className="text-sm" />
-        <CheckIcon
+        <Check
           className={classNames("text-primary text-base", selected ? "visible" : "invisible")}
         />
       </div>

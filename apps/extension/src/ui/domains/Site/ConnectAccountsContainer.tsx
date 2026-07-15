@@ -1,5 +1,5 @@
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { Account } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -91,7 +91,7 @@ const ConnectAccountsExpandedContainer: FC<{
             </div>
           </div>
           <span className="text-grey-600 flex items-center gap-1 pt-3 text-xs">
-            <InfoIcon />
+            <InfoCircle />
             <span>{infoText}</span>
           </span>
         </div>
@@ -132,7 +132,7 @@ const ConnectAccountsAccordionContainer: FC<{
             </div>
           </div>
           <span className="text-grey-600 flex items-center gap-1 pt-3 text-xs">
-            <InfoIcon />
+            <InfoCircle />
             <span>{infoText}</span>
           </span>
         </div>

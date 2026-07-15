@@ -1,8 +1,10 @@
 import { Address as TAddress } from "@taostats-wallet/balances"
 import { getNetworkGenesisHash } from "@taostats-wallet/chaindata-provider"
 import { getAccountPlatformFromAddress, isAddressEqual } from "@taostats-wallet/crypto"
-import { AlertCircleIcon, CopyIcon, InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { getAccountGenesisHash } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -126,7 +128,7 @@ const ExternalAddressWarning = () => {
 
   return (
     <div className="text-alert-warn mb-6 flex items-center justify-center gap-4 text-xs">
-      <AlertCircleIcon />
+      <AlertCircle />
       <div>{t("This address is an external account")}</div>
     </div>
   )
@@ -152,7 +154,7 @@ const CopyButton = () => {
   return (
     <>
       <ExternalAddressWarning />
-      <Button fullWidth primary icon={CopyIcon} onClick={handleCopyClick}>
+      <Button fullWidth primary icon={Copy01} onClick={handleCopyClick}>
         {t("Copy Address")}
       </Button>
       <CopyAddressExchangeWarning
@@ -245,7 +247,7 @@ export const CopyAddressCopyForm = () => {
                     Tooltip: (
                       <Tooltip>
                         <TooltipTrigger>
-                          <InfoIcon className="hover:text-body inline align-middle text-xs" />
+                          <InfoCircle className="hover:text-body inline align-middle text-xs" />
                         </TooltipTrigger>
                         <TooltipContent>
                           {network
@@ -291,7 +293,7 @@ export const CopyAddressCopyForm = () => {
                     Tooltip: (
                       <Tooltip>
                         <TooltipTrigger>
-                          <InfoIcon className="hover:text-body inline align-middle text-xs" />
+                          <InfoCircle className="hover:text-body inline align-middle text-xs" />
                         </TooltipTrigger>
                         <TooltipContent>
                           {t(
@@ -324,7 +326,7 @@ export const CopyAddressCopyForm = () => {
                     Tooltip: (
                       <Tooltip>
                         <TooltipTrigger>
-                          <InfoIcon className="hover:text-body inline align-middle text-xs" />
+                          <InfoCircle className="hover:text-body inline align-middle text-xs" />
                         </TooltipTrigger>
                         <TooltipContent>
                           {t(
@@ -363,7 +365,7 @@ const FormatIndicator: FC<{ legacyFormat?: boolean }> = ({ legacyFormat }) => {
       <TooltipTrigger asChild>
         <div className="text-body flex items-center gap-2">
           <span>{legacyFormat ? t("Legacy format") : t("New format")}</span>
-          <InfoIcon />
+          <InfoCircle />
         </div>
       </TooltipTrigger>
       <TooltipContent>

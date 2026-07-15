@@ -8,7 +8,7 @@ import {
   Network,
   NetworkBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
-import { RotateCcwIcon } from "@taostats-wallet/icons"
+import { RefreshCcw01 } from "@untitledui/icons/RefreshCcw01"
 import { FC, useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
@@ -325,7 +325,7 @@ const NetworkForm: FC = () => {
                       type="button"
                       onClick={resetToTaostatsDefault}
                     >
-                      <RotateCcwIcon />
+                      <RefreshCcw01 />
                     </TooltipTrigger>
                     <TooltipContent>
                       <div>{t("Reset to default")}</div>

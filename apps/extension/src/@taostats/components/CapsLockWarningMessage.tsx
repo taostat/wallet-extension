@@ -1,5 +1,5 @@
-import { AlertTriangleIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -13,7 +13,7 @@ export const CapsLockWarningMessage: FC<{ className?: string }> = ({ className }
 
   return (
     <span className={classNames("text-alert-warn inline-flex items-center gap-[0.5em]", className)}>
-      <AlertTriangleIcon className="text-[1.2em]" />
+      <AlertTriangle className="text-[1.2em]" />
       <span>{t("Caps Lock is enabled")}</span>
     </span>
   )

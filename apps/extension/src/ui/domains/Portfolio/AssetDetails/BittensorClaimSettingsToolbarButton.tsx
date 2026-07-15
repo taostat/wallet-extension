@@ -1,7 +1,7 @@
 import { Balances } from "@taostats-wallet/balances"
 import { SubDTaoToken } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { SettingsIcon } from "@taostats-wallet/icons"
+import { Settings01 } from "@untitledui/icons/Settings01"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -60,7 +60,7 @@ export const BittensorClaimSettingsToolbarButton: FC<{
     <Tooltip>
       <TooltipTrigger asChild>
         <PortfolioToolbarButton onClick={handleClick}>
-          <SettingsIcon />
+          <Settings01 />
         </PortfolioToolbarButton>
       </TooltipTrigger>
       <TooltipContent>{t("Root stake claim settings")}</TooltipContent>

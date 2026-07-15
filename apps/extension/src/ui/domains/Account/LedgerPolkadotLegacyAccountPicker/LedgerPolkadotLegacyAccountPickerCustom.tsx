@@ -1,7 +1,7 @@
 import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { encodeAnyAddress, isAddressEqual } from "@taostats-wallet/crypto"
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { SubstrateAppParams } from "@zondax/ledger-substrate/dist/common"
 import { Account, isAccountLedgerPolkadotLegacy, LedgerPolkadotCurve } from "extension-core"
 import { log } from "extension-shared"
@@ -111,7 +111,7 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
       <div className="mb-8 flex flex-col gap-4">
         <div className="text-alert-warn bg-alert-warn/5 flex items-center gap-6 rounded-sm p-8 text-sm">
           <div className="bg-alert-warn/10 rounded-full p-4">
-            <InfoIcon className="shrink-0 text-lg" />
+            <InfoCircle className="shrink-0 text-lg" />
           </div>
           <div className="leading-paragraph">
             {t(

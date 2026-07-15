@@ -1,6 +1,8 @@
 import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
-import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ArrowUpLeft } from "@untitledui/icons/ArrowUpLeft"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import {
   ChangeEventHandler,
   FC,
@@ -128,7 +130,7 @@ export const TryPageContent: FC<{
               )}
               disabled={!address.length}
             >
-              {pending ? <LoaderIcon className="animate-spin-slow" /> : t("Add")}
+              {pending ? <Loading01 className="animate-spin-slow" /> : t("Add")}
             </button>
           </div>
           {error && <div className="text-alert-error text-tiny text-center">{error}</div>}
@@ -167,7 +169,7 @@ export const TryPageContent: FC<{
               : t("{{number}} Accounts Added", { number: allAccounts.length })}
           </div>
           <div className="text-primary flex items-center gap-2 text-base font-bold">
-            <ArrowUpLeftIcon className="text-lg" /> {t("View in Portfolio")}
+            <ArrowUpLeft className="text-lg" /> {t("View in Portfolio")}
           </div>
         </button>
       )}
@@ -228,7 +230,7 @@ const FollowAccountButton = ({
       <div className="bg-grey-900 pointer-events-none relative flex items-center gap-4 rounded border border-[#131313] p-8 text-start">
         {content}
         <div className="text-primary absolute left-0 top-0 flex h-full w-full items-center justify-center gap-6 rounded bg-[#131313] p-8 text-xs">
-          <CheckCircleIcon className="text-sm" /> {t("Account Added")}
+          <CheckCircle className="text-sm" /> {t("Account Added")}
         </div>
       </div>
     )

@@ -1,4 +1,6 @@
-import { ExternalLinkIcon, HelpCircleIcon, InfoIcon } from "@taostats-wallet/icons"
+import { HelpCircle } from "@untitledui/icons/HelpCircle"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { DISCORD_URL } from "extension-shared"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
@@ -13,7 +15,7 @@ const Content = () => {
       <HeaderBlock title={t("About")} />
       <div className="mt-6 flex flex-col gap-4">
         <div className="bg-grey-850 text-body-disabled flex w-full items-start gap-8 rounded-sm p-8">
-          <InfoIcon className={"text-body shrink-0 text-lg"} />
+          <InfoCircle className={"text-body shrink-0 text-lg"} />
           <div className={"flex grow flex-col items-start gap-4"}>
             <div className={"text-body text-base"}>Open Source Attribution</div>
             <div className={"text-body-secondary text-left text-sm"}>
@@ -23,12 +25,21 @@ const Content = () => {
               <br />
               Source code: <br />
               <div className="mt-2 flex flex-row justify-start gap-4">
-                <LinkToGithub href="https://github.com/taostat/wallet-extension">Taostats</LinkToGithub>
-                <LinkToGithub href="https://github.com/TalismanSociety/talisman">Talisman</LinkToGithub>
+                <LinkToGithub href="https://github.com/taostat/wallet-extension">
+                  Taostats
+                </LinkToGithub>
+                <LinkToGithub href="https://github.com/TalismanSociety/talisman">
+                  Talisman
+                </LinkToGithub>
               </div>
               <br />
               Website:{" "}
-              <a href="https://talisman.xyz" target="_blank" rel="noreferrer" className="text-primary">
+              <a
+                href="https://talisman.xyz"
+                target="_blank"
+                rel="noreferrer"
+                className="text-primary"
+              >
                 Talisman
               </a>
               <br />
@@ -46,8 +57,8 @@ const Content = () => {
           title={t("Help and Support")}
           subtitle={t("For help and support please visit our Discord")}
           to={DISCORD_URL}
-          iconLeft={HelpCircleIcon}
-          iconRight={ExternalLinkIcon}
+          iconLeft={HelpCircle}
+          iconRight={LinkExternal01}
         />
       </div>
     </>
@@ -63,7 +74,7 @@ const LinkToGithub = ({ href, children }: { href: string; children: React.ReactN
       className="text-body-secondary border-body-secondary hover:text-body hover:bg-grey-850 group flex items-center justify-between gap-2 rounded-sm border p-4 transition-all duration-300"
     >
       {children}
-      <ExternalLinkIcon className="text-body-secondary group-hover:text-body shrink-0 transition-all duration-300" />
+      <LinkExternal01 className="text-body-secondary group-hover:text-body shrink-0 transition-all duration-300" />
     </a>
   )
 }

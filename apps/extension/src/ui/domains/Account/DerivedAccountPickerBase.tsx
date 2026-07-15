@@ -1,7 +1,7 @@
 import { Balances } from "@taostats-wallet/balances"
 import { encodeAnyAddress } from "@taostats-wallet/crypto"
-import { CheckCircleIcon } from "@taostats-wallet/icons"
 import { classNames, HexString } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { Checkbox, Tooltip, TooltipTrigger } from "taostats-ui"
 
@@ -105,7 +105,7 @@ const AccountButton: FC<AccountButtonProps> = ({
       </div>
       <div className="flex w-12 shrink-0 flex-col items-center justify-center">
         {connected ? (
-          <CheckCircleIcon className="text-primary text-lg" />
+          <CheckCircle className="text-primary text-lg" />
         ) : (
           <Checkbox checked={selected} readOnly className="[&>input]:!border-body-disabled" />
         )}

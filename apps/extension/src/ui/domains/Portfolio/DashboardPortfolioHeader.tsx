@@ -1,5 +1,8 @@
-import { ArrowDownIcon, FolderIcon, MoreHorizontalIcon, SendIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
+import { ArrowDown } from "@untitledui/icons/ArrowDown"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Folder } from "@untitledui/icons/Folder"
+import { Send01 } from "@untitledui/icons/Send01"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -53,7 +56,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
             placement="bottom-end"
             trigger={
               <IconButton className="bg-grey-800/50 hover:bg-grey-800/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
-                <MoreHorizontalIcon className="text-base" />
+                <DotsHorizontal className="text-base" />
               </IconButton>
             }
           />
@@ -66,7 +69,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
       <div className="flex h-14 w-full items-center gap-6 text-base">
         <div className="flex grow items-center gap-3 overflow-hidden text-base">
           <div className="bg-grey-800 rounded-xs flex size-10 shrink-0 items-center justify-center">
-            <FolderIcon className="text-primary shrink-0 text-xs" />
+            <Folder className="text-primary shrink-0 text-xs" />
           </div>
           <div className="truncate">{folder.name}</div>
         </div>
@@ -76,7 +79,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
             placement="bottom-end"
             trigger={
               <ContextMenuTrigger className="bg-grey-800/50 hover:bg-grey-800/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
-                <MoreHorizontalIcon className="text-base" />
+                <DotsHorizontal className="text-base" />
               </ContextMenuTrigger>
             }
           />
@@ -235,7 +238,7 @@ const TopActions: FC = () => {
           analyticsName: "Goto" as const,
           analyticsAction: "Send Funds button",
           label: t("Send"),
-          icon: SendIcon,
+          icon: Send01,
           onClick: () =>
             api.sendFundsOpen({
               from: selectedAddress,
@@ -248,7 +251,7 @@ const TopActions: FC = () => {
           analyticsName: "Goto" as const,
           analyticsAction: "open receive",
           label: !!selectedAccount && !isAccountOwned(selectedAccount) ? t("Copy") : t("Receive"),
-          icon: ArrowDownIcon,
+          icon: ArrowDown,
           onClick: () =>
             openCopyAddressModal({
               address: selectedAddress,

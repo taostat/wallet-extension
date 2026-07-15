@@ -1,7 +1,7 @@
 import { Balances } from "@taostats-wallet/balances"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { ChevronLeftIcon } from "@taostats-wallet/icons"
 import { isTruthy } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { uniq } from "lodash-es"
 import { useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -47,7 +47,7 @@ const PageContent = ({
     <>
       <div className="text-body flex h-[3.6rem] w-full items-center gap-4 text-base font-bold">
         <IconButton onClick={handleBackBtnClick}>
-          <ChevronLeftIcon />
+          <ChevronLeft />
         </IconButton>
         <div className="shrink-0">{name}</div>
         <div className="flex grow items-center justify-end gap-3">

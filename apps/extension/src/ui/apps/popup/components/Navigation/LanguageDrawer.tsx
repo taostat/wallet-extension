@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@taostats-wallet/icons"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer, IconButton } from "taostats-ui"
@@ -40,7 +40,7 @@ const LanguageDrawerContent = () => {
     <div className="text-body-secondary flex h-[60rem] w-[40rem] flex-col gap-10 bg-black pt-10">
       <div className="flex items-center gap-3 px-8 text-base font-bold text-white">
         <IconButton onClick={close}>
-          <ChevronLeftIcon />
+          <ChevronLeft />
         </IconButton>
         <div>{t("Language")}</div>
       </div>

@@ -1,6 +1,7 @@
 import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
 import { encodeAnyAddress } from "@taostats-wallet/crypto"
-import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { FC, useCallback, useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
@@ -59,9 +60,9 @@ export const ViewDetailsAddress: FC<
               <Address noTooltip address={formatted} startCharCount={8} endCharCount={8} />
             )}
             {blockExplorerUrl ? (
-              <ExternalLinkIcon className="shrink-0 text-base" />
+              <LinkExternal01 className="shrink-0 text-base" />
             ) : (
-              <CopyIcon className="shrink-0 text-base" />
+              <Copy01 className="shrink-0 text-base" />
             )}
           </button>
         </TooltipTrigger>

@@ -1,5 +1,5 @@
-import { UserIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { User01 } from "@untitledui/icons/User01"
 import { getAccountGenesisHash } from "extension-core"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -48,7 +48,7 @@ export const StakeAccountPillButton: FC<AccountPillButtonProps> = ({
         {address ? (
           <AccountIcon className="!text-lg" address={address} genesisHash={accountGenesisHash} />
         ) : (
-          <UserIcon />
+          <User01 />
         )}
         {account ? (
           <div className="leading-base grow truncate">

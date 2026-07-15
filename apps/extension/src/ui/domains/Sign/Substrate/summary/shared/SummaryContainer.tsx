@@ -1,5 +1,5 @@
-import { AlertCircleIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
 import { FC, PropsWithChildren } from "react"
 
 export const SummaryContainer: FC<PropsWithChildren & { className?: string }> = ({
@@ -29,7 +29,7 @@ export const SummaryAlert: FC<PropsWithChildren & { className?: string }> = ({
 }) => (
   <div className={classNames("flex w-full items-stretch gap-3 px-8 py-4 text-xs", className)}>
     <div>
-      <AlertCircleIcon className="text-primary inline-block shrink-0 align-text-top text-sm" />
+      <AlertCircle className="text-primary inline-block shrink-0 align-text-top text-sm" />
     </div>
     <div className="grow">{children}</div>
   </div>

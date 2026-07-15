@@ -1,6 +1,9 @@
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
-import { CopyIcon, MoreHorizontalIcon, PlusIcon, UserPlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Plus } from "@untitledui/icons/Plus"
+import { UserPlus01 } from "@untitledui/icons/UserPlus01"
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
@@ -123,12 +126,12 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
       </div>
       <div className={`text-body-disabled flex shrink-0 gap-2`}>
         <SquareButton onClick={handleCopyClick}>
-          <CopyIcon />
+          <Copy01 />
         </SquareButton>
         <ContextMenu placement="bottom-end">
           <ContextMenuTrigger asChild>
             <SquareButton>
-              <MoreHorizontalIcon />
+              <DotsHorizontal />
             </SquareButton>
           </ContextMenuTrigger>
           <ContextMenuContent>
@@ -181,7 +184,7 @@ const Content = () => {
       <Spacer large />
       <div className="flex justify-end align-middle">
         {contactsToDisplay.length > 0 && (
-          <PillButton onClick={open} icon={UserPlusIcon}>
+          <PillButton onClick={open} icon={UserPlus01}>
             {t("Add new contact")}
           </PillButton>
         )}
@@ -199,7 +202,7 @@ const Content = () => {
         {contactsToDisplay.length === 0 && (
           <div className="bg-black-secondary text-body-secondary flex h-[16rem] w-full flex-col items-center justify-center gap-12 rounded px-16 py-8">
             <span>{t("You have no saved contacts yet.")}</span>
-            <Button primary onClick={open} iconLeft={PlusIcon}>
+            <Button primary onClick={open} iconLeft={Plus}>
               {t("Add a contact")}
             </Button>
           </div>

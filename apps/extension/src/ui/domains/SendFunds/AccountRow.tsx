@@ -1,7 +1,8 @@
 import { Balance } from "@taostats-wallet/balances"
 import { Token } from "@taostats-wallet/chaindata-provider"
-import { CheckCircleIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { X } from "@untitledui/icons/X"
 import { AccountType } from "extension-core"
 import { useMemo } from "react"
 
@@ -87,10 +88,10 @@ export const AccountRow = ({
           </div>
           <Address className="text-body-secondary text-xs" address={displayAddress} />
         </div>
-        {selected && <CheckCircleIcon className="ml-3 inline shrink-0" />}
+        {selected && <CheckCircle className="ml-3 inline shrink-0" />}
         {onClear && (
           <div onClick={onClear} role="button" tabIndex={0} onKeyDown={() => null}>
-            <XIcon className="shrink-0 text-[1.2em]" />
+            <X className="shrink-0 text-[1.2em]" />
           </div>
         )}
       </div>

@@ -1,5 +1,7 @@
-import { HistoryIcon, HomeIcon, SettingsIcon } from "@taostats-wallet/icons"
+import { HistoryIcon } from "@taostats-wallet/icons"
 import { classNames, isTruthy } from "@taostats-wallet/util"
+import { Home01 } from "@untitledui/icons/Home01"
+import { Settings01 } from "@untitledui/icons/Settings01"
 import { FC, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { matchPath, useLocation, useNavigate, useSearchParams } from "react-router-dom"
@@ -139,7 +141,7 @@ const HorizontalNav = () => {
       <NavButton
         label={t("Home")}
         onClick={handlePortfolioClick}
-        icon={HomeIcon}
+        icon={Home01}
         route="/portfolio/*"
       />
       <NavButton
@@ -151,7 +153,7 @@ const HorizontalNav = () => {
       <NavButton
         label={t("Settings")}
         onClick={handleSettingsClick}
-        icon={SettingsIcon}
+        icon={Settings01}
         route={["/settings/*", "/accounts/*"]}
       />
     </div>

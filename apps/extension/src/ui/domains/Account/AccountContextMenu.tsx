@@ -1,4 +1,4 @@
-import { MoreHorizontalIcon } from "@taostats-wallet/icons"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
 import { Account, getAccountGenesisHash } from "extension-core"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -121,7 +121,7 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
         asChild={!!trigger}
         disabled={disabled}
       >
-        {trigger ? trigger : <MoreHorizontalIcon className="shrink-0" />}
+        {trigger ? trigger : <DotsHorizontal className="shrink-0" />}
       </ContextMenuTrigger>
       <ContextMenuContent className="border-grey-800 z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg">
         <Suspense fallback={<SuspenseTracker name="AccountContextMenu" />}>

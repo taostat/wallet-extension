@@ -1,5 +1,5 @@
-import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, Drawer } from "taostats-ui"
@@ -22,7 +22,7 @@ export const AlertCard = ({ className, onAccept }: Props) => {
       className={classNames("text-body-secondary !rounded-b-none text-center", className)}
       title={
         <div className="flex flex-col items-center p-2">
-          <LockIcon className="icon text-primary inline-block p-1 text-3xl" />
+          <Lock01 className="icon text-primary inline-block p-1 text-3xl" />
           <div className="text-body mt-4">{t("Security Upgrade")}</div>
         </div>
       }

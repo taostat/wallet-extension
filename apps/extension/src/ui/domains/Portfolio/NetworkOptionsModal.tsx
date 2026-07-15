@@ -1,6 +1,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { X } from "@untitledui/icons/X"
 import { FC, useCallback, useDeferredValue, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
@@ -131,14 +132,14 @@ const NetworkOptionsModalContent: FC<{
           className={classNames("size-12 shrink-0", !IS_POPUP && "invisible")}
           onClick={onClose}
         >
-          <ChevronLeftIcon />
+          <ChevronLeft />
         </IconButton>
         <div className="text-secondary grow text-center">{t("Network Filter")}</div>
         <IconButton
           className={classNames("size-12 shrink-0", IS_POPUP && "invisible")}
           onClick={onClose}
         >
-          <XIcon />
+          <X />
         </IconButton>
       </div>
       <div className="flex w-full shrink-0 items-center gap-8 px-12 py-8">

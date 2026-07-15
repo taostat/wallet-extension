@@ -1,5 +1,5 @@
 import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -121,7 +121,7 @@ const LearnMore = () => {
       className="text-body bg-grey-750 hover:bg-grey-700 inline-flex h-10 items-center gap-2 rounded-full px-3 text-xs"
       onClick={handleClick}
     >
-      <InfoIcon />
+      <InfoCircle />
       <span>{t("Learn more")}</span>
     </button>
   )

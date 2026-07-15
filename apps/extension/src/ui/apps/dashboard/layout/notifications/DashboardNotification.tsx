@@ -1,4 +1,4 @@
-import { XIcon } from "@taostats-wallet/icons"
+import { X } from "@untitledui/icons/X"
 import { ReactNode } from "react"
 import { IconButton } from "taostats-ui"
 
@@ -39,7 +39,7 @@ export const DashboardNotification = ({
       )}
       {onClose && (
         <IconButton onClick={onClose}>
-          <XIcon />
+          <X />
         </IconButton>
       )}
     </div>

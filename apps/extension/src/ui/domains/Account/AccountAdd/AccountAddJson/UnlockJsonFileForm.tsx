@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { KeyIcon } from "@taostats-wallet/icons"
+import { Key01 } from "@untitledui/icons/Key01"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
@@ -78,7 +78,7 @@ export const UnlockJsonFileForm: FC = () => {
         </div>
         <FormFieldContainer error={errors.password?.message}>
           <FormFieldInputText
-            before={<KeyIcon className="opacity-50" />}
+            before={<Key01 className="opacity-50" />}
             {...register("password")}
             type="password"
             placeholder={t("Enter password")}

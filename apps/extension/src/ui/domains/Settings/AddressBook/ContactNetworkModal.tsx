@@ -1,6 +1,6 @@
 import { Network, NetworkId } from "@taostats-wallet/chaindata-provider"
-import { ChevronRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useOpenClose } from "taostats-ui"
@@ -58,7 +58,7 @@ export const ContactNetworkPickerButton: FC<{
           <NetworkLogo networkId={option?.id} className="text-[2.4rem]" />
         </div>
         <div className="text-body grow truncate text-left">{option?.name ?? t("All Networks")}</div>
-        <ChevronRightIcon className="size-12" />
+        <ChevronRight className="size-12" />
       </button>
       <NetworkOptionsModal
         isOpen={isOpen}

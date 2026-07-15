@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { SIGNET_APP_URL, SIGNET_LANDING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -104,7 +104,7 @@ export const ConnectSignetPage = () => {
           <Button
             className="mt-8"
             primary
-            icon={ArrowRightIcon}
+            icon={ArrowRight}
             onClick={handleContinue}
             processing={isConnecting}
             disabled={signetUrlOrigin === ""}

@@ -1,5 +1,8 @@
-import { CheckIcon, EyeIcon, PencilIcon, PlusIcon } from "@taostats-wallet/icons"
+import { PencilIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
+import { Eye } from "@untitledui/icons/Eye"
+import { Plus } from "@untitledui/icons/Plus"
 import {
   AccountsCatalogTree,
   AccountType,
@@ -122,7 +125,7 @@ const Accounts = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <IconButton onClick={handleAddAccountClick} className="p-3">
-              <PlusIcon className="size-10" />
+              <Plus className="size-10" />
             </IconButton>
           </TooltipTrigger>
           <TooltipContent>{t("Add Account")}</TooltipContent>
@@ -134,7 +137,7 @@ const Accounts = () => {
         <>
           {!!allPortfolioOptions.length && <div className="bg-grey-800 h-0.5"></div>}
           <div className="flex items-center gap-4">
-            <EyeIcon />
+            <Eye />
             <div className="text-sm">{t("Followed only")}</div>
           </div>
           <TreeAccounts options={allWatchedOptions} />
@@ -321,7 +324,7 @@ const SidebarButtonBase: FC<{
       <div>
         {isSelected ? (
           <div className="bg-primary flex size-10 items-center justify-center rounded-full text-xs text-black">
-            <CheckIcon />
+            <Check />
           </div>
         ) : (
           right

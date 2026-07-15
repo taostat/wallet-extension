@@ -1,5 +1,6 @@
-import { ArrowRightIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
+import { X } from "@untitledui/icons/X"
 import { isAccountAddressSs58 } from "extension-core"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -36,7 +37,7 @@ export const UnifiedAddressInfoBanner = () => {
               className="text-md text-body select-auto"
               onClick={() => setHideBanner(true)}
             >
-              <XIcon />
+              <X />
             </IconButton>
           </div>
         </div>
@@ -50,7 +51,7 @@ export const UnifiedAddressInfoBanner = () => {
           <div className="flex h-12 flex-col justify-center rounded-lg bg-white/10 px-6">
             5EoJmkBANK...os4rNjjoTt
           </div>
-          <ArrowRightIcon className="shrink-0 text-sm" />
+          <ArrowRight className="shrink-0 text-sm" />
           <div className="flex h-12 flex-col justify-center rounded-lg bg-white/10 px-6">
             13jbv5SEE6...oDcwQFvFg2
           </div>

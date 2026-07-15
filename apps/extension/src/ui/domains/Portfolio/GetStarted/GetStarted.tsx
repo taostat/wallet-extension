@@ -1,5 +1,7 @@
-import { EyePlusIcon, PlusCircleIcon, XIcon } from "@taostats-wallet/icons"
+import { EyePlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { PlusCircle } from "@untitledui/icons/PlusCircle"
+import { X } from "@untitledui/icons/X"
 import { Account } from "extension-core"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
@@ -48,7 +50,7 @@ export const GetStarted = () => {
           className="text-body-disabled enabled:hover:text-body-secondary enabled:focus-visible:text-body-secondary absolute right-6 top-6"
           onClick={onDismissClick}
         >
-          <XIcon />
+          <X />
         </IconButton>
       )}
 
@@ -83,7 +85,7 @@ export const GetStarted = () => {
           <GetStartedActionButton
             label={t("Add account")}
             description={t("Create a new account or import an existing one")}
-            iconTop={<PlusCircleIcon className="text-primary size-12" />}
+            iconTop={<PlusCircle className="text-primary size-12" />}
             onClick={onAddAccountClick}
           />
           <GetStartedActionButton

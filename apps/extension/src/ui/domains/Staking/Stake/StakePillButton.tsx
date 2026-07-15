@@ -1,7 +1,7 @@
 import { Balances } from "@taostats-wallet/balances"
 import { parseTokenId } from "@taostats-wallet/chaindata-provider"
-import { Link2Icon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Link02 } from "@untitledui/icons/Link02"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -37,7 +37,7 @@ export const StakePillButton: FC<{
       onClick={onClick}
     >
       <div className="flex items-center gap-2">
-        <Link2Icon className="shrink-0 -rotate-45 text-base" />
+        <Link02 className="shrink-0 -rotate-45 text-base" />
         <div>{t("Stake")}</div>
       </div>
     </button>

@@ -1,5 +1,6 @@
-import { ChevronRightIcon, PopoutIcon } from "@taostats-wallet/icons"
+import { PopoutIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { Account } from "extension-core"
 import { FC, useCallback, useMemo, useRef } from "react"
 import { useNavigate } from "react-router-dom"
@@ -29,7 +30,7 @@ export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => 
         onClick={!disabled ? handleClick : undefined}
         disabled={disabled}
       >
-        {!disabled && <ChevronRightIcon className="z-10" />}
+        {!disabled && <ChevronRight className="z-10" />}
       </button>
       <TotalFiatBalance
         className="pointer-events-none absolute left-0 top-0 size-full p-6"

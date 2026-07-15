@@ -9,7 +9,10 @@ import {
   isAddressValid,
   isSs58Address,
 } from "@taostats-wallet/crypto"
-import { EyeIcon, HomeIcon, UserIcon, XOctagonIcon } from "@taostats-wallet/icons"
+import { AlertOctagon } from "@untitledui/icons/AlertOctagon"
+import { Eye } from "@untitledui/icons/Eye"
+import { Home01 } from "@untitledui/icons/Home01"
+import { User01 } from "@untitledui/icons/User01"
 import {
   isAccountCompatibleWithNetwork,
   isAccountOwned,
@@ -31,7 +34,7 @@ const AddressFormatError = ({ chain }: { chain?: DotNetwork }) => {
   const { t } = useTranslation()
   return (
     <div className="h-min-h-full align-center flex w-full flex-col items-center gap-4 px-12 py-7">
-      <XOctagonIcon className="text-brand-orange text-lg" />
+      <AlertOctagon className="text-brand-orange text-lg" />
       <span className="text-body">{t("Address Format Mismatch")}</span>
       <p className="text-body-secondary mt-4 text-center">
         <Trans
@@ -163,7 +166,7 @@ export const SendFundsRecipientPicker = () => {
               onSelect={handleSelect}
               header={
                 <>
-                  <UserIcon className="mr-2 inline align-text-top" />
+                  <User01 className="mr-2 inline align-text-top" />
                   <span>{t("Contacts")}</span>
                 </>
               }
@@ -176,7 +179,7 @@ export const SendFundsRecipientPicker = () => {
               onSelect={handleSelect}
               header={
                 <>
-                  <HomeIcon className="mr-2 inline-block align-text-top" />
+                  <Home01 className="mr-2 inline-block align-text-top" />
                   {t("My Accounts")}
                 </>
               }
@@ -191,7 +194,7 @@ export const SendFundsRecipientPicker = () => {
               onSelect={handleSelect}
               header={
                 <>
-                  <EyeIcon className="mr-2 inline-block align-text-top" />
+                  <Eye className="mr-2 inline-block align-text-top" />
                   {t("Followed only")}
                 </>
               }

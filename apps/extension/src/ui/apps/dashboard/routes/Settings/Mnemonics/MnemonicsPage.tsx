@@ -1,12 +1,9 @@
-import {
-  AlertCircleIcon,
-  CornerDownRightIcon,
-  InfoIcon,
-  MoreHorizontalIcon,
-  PolkadotVaultIcon,
-  SecretIcon,
-} from "@taostats-wallet/icons"
+import { PolkadotVaultIcon, SecretIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { CornerDownRight } from "@untitledui/icons/CornerDownRight"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { AccountOfType, getAccountGenesisHash, isAccountOfType, Mnemonic } from "extension-core"
 import { FC, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -50,7 +47,7 @@ const NoMnemonicMessage = () => {
 
   return (
     <div className="text-body-secondary bg-grey-800 flex items-center gap-6 rounded p-6 text-base">
-      <InfoIcon className="shrink-0 text-lg" />
+      <InfoCircle className="shrink-0 text-lg" />
       <div>
         <Trans
           t={t}
@@ -177,12 +174,12 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
               className="bg-alert-warn/5 hover:bg-alert-warn/10 text-alert-warn flex h-[3rem] items-center gap-[0.5em] rounded-[2rem] border px-6 text-sm"
             >
               <span>{t("Backup")}</span>
-              <AlertCircleIcon className="inline-block text-base" />
+              <AlertCircle className="inline-block text-base" />
             </button>
           )}
           <ContextMenu placement="bottom-end">
             <ContextMenuTrigger className="hover:bg-grey-800 active:hover:bg-grey-800 hover:text-body text-body-secondary rounded p-2">
-              <MoreHorizontalIcon className="text-lg" />
+              <DotsHorizontal className="text-lg" />
             </ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuItem onClick={handleRenameClick}>{t("Rename")}</ContextMenuItem>
@@ -190,7 +187,7 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
                 <div className="flex items-center gap-[0.8rem]">
                   <span>{t("Backup")}</span>
                   {!mnemonic.confirmed && (
-                    <AlertCircleIcon className="text-alert-warn inline-block text-base" />
+                    <AlertCircle className="text-alert-warn inline-block text-base" />
                   )}
                 </div>
               </ContextMenuItem>
@@ -205,14 +202,14 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
         <div className="relative pl-[6rem]">
           {!accounts.length && (
             <div className="text-body-secondary bg-grey-900 mt-4 flex h-[4.8rem] items-center gap-6 rounded-sm px-8 text-sm">
-              <InfoIcon className="text-md" />{" "}
+              <InfoCircle className="text-md" />{" "}
               {t("There are no accounts derived from this recovery phrase")}
             </div>
           )}
           {accounts.map((account) => (
             <AccountRow key={account.address} account={account} />
           ))}
-          <CornerDownRightIcon className="text-body-disabled absolute left-12 top-6 text-lg" />
+          <CornerDownRight className="text-body-disabled absolute left-12 top-6 text-lg" />
         </div>
       </Accordion>
     </div>
@@ -237,7 +234,7 @@ const BackupReminder: FC = () => {
       )}
     >
       <div className="bg-primary/10 rounded-full p-3">
-        <AlertCircleIcon className="text-primary-500 text-sm" />
+        <AlertCircle className="text-primary-500 text-sm" />
       </div>
       <div className="grow text-sm">
         {t("{{count}} recovery phrase(s) have not been backed up yet.", { count })}

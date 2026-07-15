@@ -1,5 +1,7 @@
-import { FolderPlusIcon, MoreHorizontalIcon, PlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { FolderPlus } from "@untitledui/icons/FolderPlus"
+import { Plus } from "@untitledui/icons/Plus"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -61,8 +63,8 @@ export const ManageAccountsToolbar: FC<{
           initialValue={search}
         />
       </div>
-      <ToolbarButton icon={FolderPlusIcon} onClick={openNewFolderModal} label={t("Add Folder")} />
-      <ToolbarButton icon={PlusIcon} onClick={addNewAccountClick} label={t("Add Account")} />
+      <ToolbarButton icon={FolderPlus} onClick={openNewFolderModal} label={t("Add Folder")} />
+      <ToolbarButton icon={Plus} onClick={addNewAccountClick} label={t("Add Account")} />
       <AccountsContextMenu />
     </div>
   )
@@ -108,7 +110,7 @@ const AccountsContextMenu = () => {
             "@2xl:size-[4.4rem] size-[3.6rem]",
           )}
         >
-          <MoreHorizontalIcon />
+          <DotsHorizontal />
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem onClick={openExportAll}>{t("Export all as JSON")}</ContextMenuItem>

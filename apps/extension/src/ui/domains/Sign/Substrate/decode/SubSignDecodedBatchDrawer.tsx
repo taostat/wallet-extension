@@ -1,5 +1,6 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@taostats-wallet/icons"
 import { ScaleApi } from "@taostats-wallet/sapi"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { SignerPayloadJSON } from "extension-core"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
@@ -48,7 +49,7 @@ export const SubSignDecodedBatchDrawer: FC<{ sapi: ScaleApi; payload: SignerPayl
           onClick={goPrev}
           className="bg-grey-800 enabled:hover:bg-grey-700 rounded-xs p-2 px-4 disabled:opacity-50"
         >
-          <ChevronLeftIcon />
+          <ChevronLeft />
         </button>
         <button
           type="button"
@@ -56,7 +57,7 @@ export const SubSignDecodedBatchDrawer: FC<{ sapi: ScaleApi; payload: SignerPayl
           onClick={goNext}
           className="bg-grey-800 enabled:hover:bg-grey-700 rounded-xs p-2 px-4 disabled:opacity-50"
         >
-          <ChevronRightIcon />
+          <ChevronRight />
         </button>
       </div>
       <ScrollContainer className="grow px-12">

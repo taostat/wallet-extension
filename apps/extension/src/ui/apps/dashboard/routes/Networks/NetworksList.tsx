@@ -1,7 +1,9 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { isNetworkCustom, Network } from "@taostats-wallet/chaindata-provider"
-import { ChevronRightIcon, InfoIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { ActiveNetworks, activeNetworksStore, isNetworkActive } from "extension-core"
 import { startCase } from "lodash-es"
 import { ChangeEventHandler, FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -227,7 +229,7 @@ const NetworkRow: FC<{
         {network.isTestnet && <TestnetPill />}
         {isNetworkCustom(network) && <CustomPill />}
         <div className="min-w-[4.4rem] shrink-0 grow"></div>
-        <ChevronRightIcon className="transition-noneshrink-0 text-lg" />
+        <ChevronRight className="transition-noneshrink-0 text-lg" />
       </ListButton>
       <Toggle
         className="absolute right-20 top-4 p-4"
@@ -335,14 +337,14 @@ const DeactivateNetworksModalContent: FC<{
       <div className="bg-grey-800 text-body-secondary flex h-28 w-full items-center gap-6 rounded-sm px-8 text-sm">
         {isBalancesInitializing ? (
           <>
-            <LoaderIcon className="text-md shrink-0 animate-spin" />
+            <Loading01 className="text-md shrink-0 animate-spin" />
             <div className="grow">
               {t("Scanning networks - found {{count}} unused", { count: unusedNetworkIds.length })}
             </div>
           </>
         ) : (
           <>
-            <InfoIcon className="text-md shrink-0" />
+            <InfoCircle className="text-md shrink-0" />
             <div className="text-body-secondary grow">
               {t("Found {{count}} network(s) without token balances", {
                 count: unusedNetworkIds.length,

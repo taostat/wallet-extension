@@ -1,5 +1,5 @@
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { useAtom } from "jotai"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -143,7 +143,7 @@ const EarningsCard: FC<EarningsCardProps> = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <span className="cursor-help">
-                <InfoIcon className="text-body-secondary ml-1 inline text-white/60" />
+                <InfoCircle className="text-body-secondary ml-1 inline text-white/60" />
               </span>
             </TooltipTrigger>
             <TooltipContent>{t("The weighted APY of your staking positions.")}</TooltipContent>

@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { AccountPlatform, getAccountPlatformFromAddress } from "@taostats-wallet/crypto"
-import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { SUPPORTED_ACCOUNT_PLATFORMS } from "extension-core"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
@@ -192,7 +192,7 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
         <div className="flex w-full items-center justify-between">
           <BackToAddAccountButton methodType="new" />
           <Button
-            icon={ArrowRightIcon}
+            icon={ArrowRight}
             type="submit"
             primary
             disabled={!isValid}

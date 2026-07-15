@@ -1,6 +1,6 @@
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { ChevronDownIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
 import { Account } from "extension-core"
 import { uniq } from "lodash-es"
 import { FC, useMemo, useState } from "react"
@@ -73,7 +73,7 @@ export const ConnectedAccountsPill: FC = () => {
             <div className="bg-grey-700 h-6 w-0.5 shrink-0"></div>
             <div className="text-body-secondary grow text-left text-xs">{host}</div>
           </div>
-          <ChevronDownIcon className="shrink-0" />
+          <ChevronDown className="shrink-0" />
         </div>
       </button>
       <ConnectedAccountsDrawer

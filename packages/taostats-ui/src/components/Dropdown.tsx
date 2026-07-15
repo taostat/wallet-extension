@@ -1,6 +1,6 @@
 import { Listbox } from "@headlessui/react"
-import { ChevronDownIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
 import { ReactNode } from "react"
 
 export type DropdownOption = Record<string, unknown>
@@ -58,7 +58,7 @@ export const Dropdown = <T extends Record<string, unknown>>({
             <div className="flex flex-grow flex-col justify-center overflow-hidden">
               {value ? renderItem(value, propertyLabel) : placeholder}
             </div>
-            {!disabled && <ChevronDownIcon className="shrink-0 text-[1.2em]" />}
+            {!disabled && <ChevronDown className="shrink-0 text-[1.2em]" />}
           </Listbox.Button>
           <div className="relative w-full">
             <div className="bg-grey-800 scrollable scrollable-700 absolute left-0 top-0 z-10 max-h-[30rem] w-full overflow-y-auto overflow-x-hidden rounded-b-sm">

@@ -1,19 +1,16 @@
 import Transport from "@ledgerhq/hw-transport"
 import TransportWebHID from "@ledgerhq/hw-transport-webhid"
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
-import {
-  BellIcon,
-  CheckIcon,
-  ChevronRightIcon,
-  CoinsIcon,
-  EyeOffIcon,
-  FlagIcon,
-  RefreshCwIcon,
-  ToolIcon,
-  UsbIcon,
-  XIcon,
-} from "@taostats-wallet/icons"
+import { CoinsIcon, UsbIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
+import { Bell01 } from "@untitledui/icons/Bell01"
+import { Check } from "@untitledui/icons/Check"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { EyeOff } from "@untitledui/icons/EyeOff"
+import { Flag01 } from "@untitledui/icons/Flag01"
+import { RefreshCw01 } from "@untitledui/icons/RefreshCw01"
+import { Tool01 } from "@untitledui/icons/Tool01"
+import { X } from "@untitledui/icons/X"
 import { LedgerTransportType } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -56,7 +53,7 @@ const Content = () => {
       <div className="mt-16 flex flex-col gap-4">
         {hasRuntimeReloadFn ? (
           <Setting
-            iconLeft={RefreshCwIcon}
+            iconLeft={RefreshCw01}
             title={t("Reload Taostats Wallet")}
             subtitle={t("Close and restart the wallet, this sometimes helps fix errors")}
           >
@@ -66,7 +63,7 @@ const Content = () => {
           </Setting>
         ) : null}
         <Setting
-          iconLeft={BellIcon}
+          iconLeft={Bell01}
           title={t("Allow notifications")}
           subtitle={t("Allow notifications about transaction progress")}
         >
@@ -76,7 +73,7 @@ const Content = () => {
           />
         </Setting>
         <Setting
-          iconLeft={EyeOffIcon}
+          iconLeft={EyeOff}
           title={t("Blur balances")}
           subtitle={t("Conceal your portfolio and account balances")}
         >
@@ -100,8 +97,8 @@ const Content = () => {
           />
         </Setting>
         <CtaButton
-          iconLeft={FlagIcon}
-          iconRight={ChevronRightIcon}
+          iconLeft={Flag01}
+          iconRight={ChevronRight}
           title={t("Language")}
           subtitle={t("Change the wallet display language")}
           to={`/settings/general/language`}
@@ -114,7 +111,7 @@ const Content = () => {
           <LedgerTransportTypeSelect />
         </Setting>
         <Setting
-          iconLeft={ToolIcon}
+          iconLeft={Tool01}
           title={t("Developer mode")}
           subtitle={t("Allow connecting to dapps with watch-only accounts")}
         >
@@ -231,7 +228,7 @@ const LedgerTransportCheckModalDialog: FC<{
             s.ok ? "text-alert-success bg-alert-success/10" : "text-alert-warn bg-alert-warn/10",
           )}
         >
-          {s.ok ? <CheckIcon className="size-12" /> : <XIcon className="size-12" />}
+          {s.ok ? <Check className="size-12" /> : <X className="size-12" />}
         </div>
         <div className="grow">
           <p className="text-body">

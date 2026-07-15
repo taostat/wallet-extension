@@ -1,4 +1,4 @@
-import { UploadIcon } from "@taostats-wallet/icons"
+import { Upload01 } from "@untitledui/icons/Upload01"
 import { ChangeEventHandler, FC, useCallback, useState } from "react"
 import { Button, Modal, ModalDialog, useOpenClose } from "taostats-ui"
 
@@ -73,7 +73,7 @@ const RestoreModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
 
         <div className="grid grid-cols-2 gap-10">
           <Button onClick={onClose}>Cancel</Button>
-          <Button disabled={!state.backup} primary icon={UploadIcon} onClick={handleRestoreClick}>
+          <Button disabled={!state.backup} primary icon={Upload01} onClick={handleRestoreClick}>
             Restore
           </Button>
         </div>

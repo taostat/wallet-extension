@@ -6,8 +6,9 @@ import {
   ComboboxOptions,
 } from "@headlessui/react"
 import { Network, NetworkId } from "@taostats-wallet/chaindata-provider"
-import { ChevronDownIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
+import { X } from "@untitledui/icons/X"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -75,11 +76,11 @@ export const NetworkCombo: FC<{
             />
             {!open && (!!search || selected) ? (
               <button type="button" className="group" onClick={() => onChange(null)}>
-                <XIcon className="group-hover:text-body text-body-secondary size-12" />
+                <X className="group-hover:text-body text-body-secondary size-12" />
               </button>
             ) : (
               <ComboboxButton className="group">
-                <ChevronDownIcon className="group-hover:text-body text-body-secondary size-12" />
+                <ChevronDown className="group-hover:text-body text-body-secondary size-12" />
               </ComboboxButton>
             )}
           </div>

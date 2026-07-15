@@ -1,5 +1,5 @@
-import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import BigNumber from "bignumber.js"
 import { ReactNode } from "react"
 
@@ -53,7 +53,7 @@ export const AssetBalanceCellValue = ({
           </div>
           {locked ? (
             <div className="pb-1">
-              <LockIcon className="lock" />
+              <Lock01 className="lock" />
             </div>
           ) : null}
           {balancesStatus?.status === "stale" ? (

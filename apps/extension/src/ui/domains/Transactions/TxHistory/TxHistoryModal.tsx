@@ -1,6 +1,6 @@
 import { getBlockExplorerLabel, getBlockExplorerUrls } from "@taostats-wallet/chaindata-provider"
-import { ExternalLinkIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { isTxInfoSwap, WalletTransaction } from "extension-core"
 import { log } from "extension-shared"
 import { t } from "i18next"
@@ -137,7 +137,7 @@ const TxHistoryActions: FC<TxHistoryActionsProps> = ({ tx }) => {
       {swapHref && tx.status === "success" && (
         <Button
           primary
-          iconLeft={ExternalLinkIcon}
+          iconLeft={LinkExternal01}
           small
           className="h-28 text-sm"
           onClick={() => handleExternal(swapHref)}
@@ -151,7 +151,7 @@ const TxHistoryActions: FC<TxHistoryActionsProps> = ({ tx }) => {
           key={url}
           className={cn("h-28", buttonsCount > 1 && "text-sm")}
           small={buttonsCount > 1}
-          iconLeft={ExternalLinkIcon}
+          iconLeft={LinkExternal01}
           onClick={() => handleExternal(url)}
         >
           {t("View on {{label}}", { label: getBlockExplorerLabel(url) })}

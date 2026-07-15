@@ -1,6 +1,6 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
-import { LockIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import BigNumber from "bignumber.js"
 import { ReactNode } from "react"
 
@@ -86,7 +86,7 @@ export const Statistics = ({
       )}
     >
       <div className="text-body-secondary flex items-center gap-2 text-sm">
-        {locked && <LockIcon />}
+        {locked && <Lock01 />}
         {title}
       </div>
       <div className="flex items-center gap-2">

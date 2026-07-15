@@ -7,7 +7,7 @@ import {
   Token,
 } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { MoreHorizontalIcon } from "@taostats-wallet/icons"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
 import { activeTokensStore, isTokenActive } from "extension-core"
 import { sortBy } from "lodash-es"
 import { FC, useEffect, useMemo, useState } from "react"
@@ -197,7 +197,7 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
           />
           <ContextMenu placement="bottom-end">
             <ContextMenuTrigger className="hover:text-body bg-grey-800 hover:bg-grey-700 rounded-sm p-3">
-              <MoreHorizontalIcon />
+              <DotsHorizontal />
             </ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuItem onClick={() => navigate(`./${token.id}`)}>

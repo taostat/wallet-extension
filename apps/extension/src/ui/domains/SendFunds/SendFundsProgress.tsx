@@ -1,5 +1,8 @@
 import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
-import { CheckCircleIcon, ExternalLinkIcon, LoaderIcon, XCircleIcon } from "@taostats-wallet/icons"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { Loading01 } from "@untitledui/icons/Loading01"
+import { XCircle } from "@untitledui/icons/XCircle"
 import { WalletTransaction, WalletTransactionDot } from "extension-core"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -84,19 +87,19 @@ const SendFundsProgressBase: FC<SendFundsProgressBaseProps> = ({
 
       {tx?.status === "pending" && (
         <div className="my-12 flex w-full justify-center">
-          <LoaderIcon className="animate-spin-slow text-secondary h-12 w-12" />
+          <Loading01 className="animate-spin-slow text-secondary h-12 w-12" />
         </div>
       )}
 
       {tx?.status === "success" && (
         <div className="my-12 flex w-full justify-center">
-          <CheckCircleIcon className="text-alert-success h-12 w-12" />
+          <CheckCircle className="text-alert-success h-12 w-12" />
         </div>
       )}
 
       {tx?.status === "error" && (
         <div className="my-12 flex w-full justify-center">
-          <XCircleIcon className="text-alert-error h-12 w-12" />
+          <XCircle className="text-alert-error h-12 w-12" />
         </div>
       )}
 
@@ -108,7 +111,7 @@ const SendFundsProgressBase: FC<SendFundsProgressBaseProps> = ({
               {href ? (
                 <a target="_blank" className="hover:text-body text-grey-200" href={href}>
                   {t("block #{{blockNumber}}", { blockNumber })}{" "}
-                  <ExternalLinkIcon className="inline align-text-top" />
+                  <LinkExternal01 className="inline align-text-top" />
                 </a>
               ) : (
                 <span className="text-body">{t("block #{{blockNumber}}", { blockNumber })}</span>
@@ -118,7 +121,7 @@ const SendFundsProgressBase: FC<SendFundsProgressBaseProps> = ({
             <Trans t={t}>
               View transaction on{" "}
               <a target="_blank" className="hover:text-body text-grey-200" href={href}>
-                Taostats <ExternalLinkIcon className="inline align-text-top" />
+                Taostats <LinkExternal01 className="inline align-text-top" />
               </a>
             </Trans>
           ) : null}

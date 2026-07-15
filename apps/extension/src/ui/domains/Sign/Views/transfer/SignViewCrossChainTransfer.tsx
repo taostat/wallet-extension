@@ -1,8 +1,8 @@
 import { Address, BalanceFormatter } from "@taostats-wallet/balances"
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
-import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { TokenRates } from "@taostats-wallet/token-rates"
 import { classNames } from "@taostats-wallet/util"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -115,7 +115,7 @@ export const SignViewXTokensTransfer: FC<{
           address={fromAddress}
         />
         <div className="shrink-0">
-          <ArrowRightIcon className="text-[28px]" />
+          <ArrowRight className="text-[28px]" />
         </div>
         <NetworkAndAccount
           networkId={toNetwork as string}

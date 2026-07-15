@@ -1,5 +1,8 @@
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { X } from "@untitledui/icons/X"
 import { Account, getAccountGenesisHash } from "extension-core"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -39,11 +42,11 @@ export const TxHistoryAccountPicker: FC<{
       <div className="flex size-full flex-grow flex-col bg-black">
         <header className="flex items-center justify-between p-10">
           <IconButton onClick={onDismiss}>
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </IconButton>
           <div>{t("Select account")}</div>
           <IconButton onClick={onDismiss} className="invisible">
-            <XIcon />
+            <X />
           </IconButton>
         </header>
         <div className="flex grow flex-col overflow-hidden">
@@ -146,11 +149,7 @@ const AccountRow: FC<{
         </div>
       </div>
       <div className="shrinkk-0 flex size-12 items-center justify-center">
-        {selected ? (
-          <CheckCircleIcon className="text-body" />
-        ) : (
-          <ChevronRightIcon className="text-md" />
-        )}
+        {selected ? <CheckCircle className="text-body" /> : <ChevronRight className="text-md" />}
       </div>
     </button>
   )

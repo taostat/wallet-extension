@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { ChangePasswordStatusUpdateStatus, ChangePasswordStatusUpdateType } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -152,7 +152,7 @@ const Content = () => {
       {!allBackedUp && (
         <div className="mnemonic-warning flex flex-col gap-0.5 rounded-sm border border-white p-8">
           <div className="flex items-center justify-between">
-            <InfoIcon className="text-primary mr-10 text-3xl" />
+            <InfoCircle className="text-primary mr-10 text-3xl" />
             {t(
               "You'll need to confirm your recovery phrase is backed up before you change your password.",
             )}

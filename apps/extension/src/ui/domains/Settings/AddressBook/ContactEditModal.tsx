@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { encodeAddressSs58 } from "@taostats-wallet/crypto"
-import { CopyIcon } from "@taostats-wallet/icons"
 import { HexString } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { isAccountAddressSs58, isAddressCompatibleWithNetwork } from "extension-core"
 import { keyBy } from "lodash-es"
 import { FC, useCallback, useMemo } from "react"
@@ -197,7 +197,7 @@ const CopyAddressIconButton: FC<{ address: string; className?: string }> = ({
 
   return (
     <IconButton className={className} onClick={handleClick} disabled={!address}>
-      <CopyIcon />
+      <Copy01 />
     </IconButton>
   )
 }
