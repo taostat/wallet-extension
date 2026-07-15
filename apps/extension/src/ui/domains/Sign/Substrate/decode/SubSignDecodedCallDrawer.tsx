@@ -24,10 +24,10 @@ export const SubSignDecodedCallDrawer: FC<{
       isOpen={isOpen && !!decodedCall}
       containerId="main"
       onDismiss={onClose}
-      className="bg-black-primary text-body-secondary flex h-full w-full flex-col"
+      className="bg-black-primary text-fg-secondary flex h-full w-full flex-col"
     >
       <div className="flex w-full items-center gap-4 px-12 py-8">
-        <div className="text-body grow truncate tabular-nums">{t("Request content")}</div>
+        <div className="text-fg-primary grow truncate tabular-nums">{t("Request content")}</div>
         <IconButton onClick={onClose}>
           <X />
         </IconButton>

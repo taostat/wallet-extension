@@ -32,9 +32,9 @@ export const ViewDetailsButton: FC<ViewDetailsButtonProps> = ({
       type="button"
       onClick={handleClick}
       className={classNames(
-        "text-body-inactive hover:text-body-secondary flex items-center gap-2",
+        "text-fg-primary-inactive hover:text-fg-secondary flex items-center gap-2",
         className,
-        hasError && "text-alert-warn",
+        hasError && "text-fg-orange",
         hide && "invisible",
       )}
     >

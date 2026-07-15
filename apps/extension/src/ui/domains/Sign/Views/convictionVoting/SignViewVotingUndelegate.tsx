@@ -9,7 +9,7 @@ export const SignViewVotingUndelegate: FC<{
     <div className="flex w-full flex-col items-center gap-4">
       <div className="flex w-full items-center justify-between">
         <div>{t("Track")}</div>
-        <div className="text-body">#{trackId}</div>
+        <div className="text-fg-primary">#{trackId}</div>
       </div>
     </div>
   )

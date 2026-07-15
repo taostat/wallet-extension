@@ -14,14 +14,14 @@ export const SignViewStakingStake: FC<{
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <div>{t("You are staking")}</div>
-      <div className="text-body flex items-center gap-2">
+      <div className="text-fg-primary flex items-center gap-2">
         <TokenLogo tokenId={tokenId} className="inline h-[1em] w-[1em]" />{" "}
         <TokensAndFiat planck={planck} tokenId={tokenId} noCountUp />
       </div>
       {!!autoCompound && (
         <Trans t={t}>
           <div>
-            with <span className="text-body">{autoCompound}%</span> of rewards
+            with <span className="text-fg-primary">{autoCompound}%</span> of rewards
           </div>
           <div>auto-compounding</div>
         </Trans>

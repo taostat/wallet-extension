@@ -114,7 +114,7 @@ export const QrSubstrate = ({
     >
       {/* don't show header on UPDATE_METADATA view */}
       {scanState.page !== "UPDATE_METADATA" && (
-        <header className="text-body-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
+        <header className="text-fg-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
           <button
             type="button"
             className="flex h-16 w-16 cursor-pointer items-center p-2 text-lg hover:text-white"
@@ -170,7 +170,7 @@ export const QrSubstrate = ({
         {scanState.page === "UPDATE_METADATA" && (
           <div className="flex h-full w-full flex-col items-center justify-between">
             <div className="relative flex aspect-square w-full items-center justify-center bg-white p-12">
-              <div className="text-body-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
+              <div className="text-fg-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
                 <Loading01 className="animate-spin-slow text-3xl" />
               </div>
               {qrCodeSource && payload && isJsonPayload(payload) && (
@@ -183,7 +183,7 @@ export const QrSubstrate = ({
               {!qrCodeSource && <>{t("The selected source is unavailable.")}</>}
             </div>
             <QrCodeSourceSelector className="mt-4 text-base" {...qrCodeSourceSelectorState} />
-            <div className="text-body-secondary mt-10 max-w-md text-center leading-10">
+            <div className="text-fg-secondary mt-10 max-w-md text-center leading-10">
               {t(
                 "Scan the QR video with the Polkadot Vault app on your phone to update your metadata.",
               )}
@@ -198,7 +198,7 @@ export const QrSubstrate = ({
         {scanState.page === "RECEIVE" && onSignature && (
           <div className="flex h-full flex-col items-center justify-between">
             <ScanQr type="signature" onScan={onSignature} size={280} />
-            <div className="text-body-secondary mt-10 max-w-md text-center leading-10">
+            <div className="text-fg-secondary mt-10 max-w-md text-center leading-10">
               {t("Scan the Polkadot Vault QR code.")}
               <br />
               {t("The image is blurred for security, but this does not affect the reading.")}
@@ -295,7 +295,7 @@ const SendPage = ({
       <div className="flex h-full flex-col items-center justify-end gap-6">
         <div className="relative flex aspect-square w-full max-w-md items-center justify-center rounded-xl bg-white p-12">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Loading01 className="animate-spin-slow text-body-secondary !text-3xl" />
+            <Loading01 className="animate-spin-slow text-fg-secondary !text-3xl" />
           </div>
           {payload && (
             <SignPayloadQrCode account={account} payload={payload} shortMetadata={shortMetadata} />
@@ -306,7 +306,7 @@ const SendPage = ({
             onChange={(e) => setEmbedProof(e.target.checked)}
             checked={!!embedProof}
             className={classNames(
-              "text-body-secondary hover:text-body gap-8! text-sm",
+              "text-fg-secondary hover:text-fg-primary gap-8! text-sm",
               !canSignWithProof && "invisible",
             )}
           >
@@ -314,7 +314,7 @@ const SendPage = ({
           </Checkbox>
         </div>
 
-        <div className="text-body-secondary max-w-md text-center text-sm leading-10">
+        <div className="text-fg-secondary max-w-md text-center text-sm leading-10">
           <Trans t={t}>
             Scan the QR code with the
             <br />
@@ -327,7 +327,7 @@ const SendPage = ({
             <div className="flex items-center gap-4">
               <button
                 type="button"
-                className="text-grey-400 bg-grey-800 hover:bg-grey-750 inline-block rounded-full px-6 py-4 text-sm font-light"
+                className="text-fg-tertiary bg-secondary hover:bg-tertiary inline-block rounded-full px-6 py-4 text-sm font-light"
                 onClick={() => setScanState({ page: "SEND", showChainspecDrawer: true })}
               >
                 {t("Add Network")}
@@ -335,7 +335,7 @@ const SendPage = ({
               <button
                 type="button"
                 disabled={signWithProof}
-                className="bg-primary/10 text-primary enabled:hover:bg-primary/20 inline-block rounded-full px-6 py-4 text-sm font-light disabled:opacity-50"
+                className="bg-fg-brand/10 text-fg-brand enabled:hover:bg-fg-brand/20 inline-block rounded-full px-6 py-4 text-sm font-light disabled:opacity-50"
                 onClick={() => setScanState({ page: "UPDATE_METADATA" })}
               >
                 {t("Update Metadata")}
@@ -344,7 +344,7 @@ const SendPage = ({
             <button
               type="button"
               className={classNames(
-                "text-grey-200 mt-4 text-xs font-light hover:text-white",
+                "text-fg-tertiary mt-4 text-xs font-light hover:text-white",
                 signWithProof && "invisible",
               )}
               onClick={() => setScanState({ page: "SEND", showUpdateMetadataDrawer: true })}
@@ -365,7 +365,7 @@ const SendPage = ({
       >
         <div className="bg-black-tertiary flex flex-col items-center rounded-t p-12">
           <div className="mb-16 font-bold">{t("Unable to sign")}</div>
-          <div className="text-body-secondary mb-16 max-w-md text-center text-sm leading-10">
+          <div className="text-fg-secondary mb-16 max-w-md text-center text-sm leading-10">
             {t(
               "Your Polkadot Vault app needs data about this network to sign this transaction, but no secure source of network data is available. You will be unable to sign this transaction.",
             )}
@@ -373,7 +373,7 @@ const SendPage = ({
               <a
                 href={POLKADOT_VAULT_DOCS_URL}
                 target="_blank"
-                className="hover:text-body text-grey-200"
+                className="hover:text-fg-primary text-fg-tertiary"
               >
                 {t("Learn more")}
               </a>
@@ -399,7 +399,7 @@ const SendPage = ({
           <>
             <div className="relative flex aspect-square w-full max-w-[16rem] items-center justify-center rounded bg-white p-7">
               <>
-                <div className="text-body-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
+                <div className="text-fg-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
                   <Loading01 className="animate-spin-slow text-xl" />
                 </div>
                 {!!genesisHash && qrCodeSource && (
@@ -409,12 +409,12 @@ const SendPage = ({
             </div>
 
             <QrCodeSourceSelector className="mt-4" {...qrCodeSourceSelectorState} />
-            <div className="text-body-secondary mb-16 mt-10 max-w-md text-center text-sm leading-10">
+            <div className="text-fg-secondary mb-16 mt-10 max-w-md text-center text-sm leading-10">
               <Trans
                 t={t}
                 defaults="Scan the QR code with the Polkadot Vault app on your phone to add the <Chain><ChainLogo />{{chainName}}</Chain> network."
                 components={{
-                  Chain: <div className="text-body inline-flex items-baseline gap-1" />,
+                  Chain: <div className="text-fg-primary inline-flex items-baseline gap-1" />,
                   ChainLogo: <NetworkLogo className="self-center" networkId={chain?.id} />,
                 }}
                 values={{ chainName: chain?.name ?? t("Unknown") }}
@@ -449,7 +449,7 @@ const SendPage = ({
           <video width="160" controls autoPlay>
             <source src="/videos/add-network-vault.mp4" type="video/mp4" />
           </video>
-          <div className="text-body-secondary mb-16 mt-10 w-full px-10 text-center text-sm leading-10">
+          <div className="text-fg-secondary mb-16 mt-10 w-full px-10 text-center text-sm leading-10">
             <Trans
               t={t}
               defaults="You will need to create a derived key in your Polkadot Vault to enable this network.
@@ -457,7 +457,7 @@ const SendPage = ({
               components={{
                 InfoCircle: (
                   <Tooltip placement="bottom-end">
-                    <TooltipTrigger className="hover:text-body">
+                    <TooltipTrigger className="hover:text-fg-primary">
                       <InfoCircle className="inline" />
                     </TooltipTrigger>
                     <TooltipContent>
@@ -470,7 +470,7 @@ const SendPage = ({
             <a
               href={POLKADOT_VAULT_DOCS_URL}
               target="_blank"
-              className="hover:text-body text-grey-200"
+              className="hover:text-fg-primary text-fg-tertiary"
             >
               {t("Learn more")}
             </a>
@@ -490,7 +490,7 @@ const SendPage = ({
         <div className="bg-black-tertiary flex flex-col items-center rounded-t p-12">
           <PolkadotVaultIcon className="mb-10 h-auto w-16" />
           <div className="mb-5 font-bold">{t("You may need to update metadata")}</div>
-          <div className="text-body-secondary max-w-md text-center text-sm leading-10">
+          <div className="text-fg-secondary max-w-md text-center text-sm leading-10">
             {t(
               "If you’re receiving an error on your Polkadot Vault when trying to scan the QR code, it likely means your metadata is out of date.",
             )}
@@ -499,7 +499,7 @@ const SendPage = ({
             <a
               href={POLKADOT_VAULT_DOCS_URL}
               target="_blank"
-              className="text-grey-200 mt-8 text-xs font-light hover:text-white"
+              className="text-fg-tertiary mt-8 text-xs font-light hover:text-white"
             >
               {t("Still seeing an error?")}
             </a>

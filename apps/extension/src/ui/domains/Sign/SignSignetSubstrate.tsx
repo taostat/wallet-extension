@@ -15,9 +15,9 @@ type Props = {
 const SignetSignetError: React.FC<{ call: boolean; network: boolean }> = ({ call, network }) => {
   if (!call && !network) return null
   return (
-    <div className="bg-grey-800 flex w-full items-center justify-center gap-4 rounded-sm p-6">
-      <XCircle className="text-alert-error min-w-[1em] shrink-0 text-[2rem]" />
-      <p className="text-grey-300 text-left">
+    <div className="bg-secondary flex w-full items-center justify-center gap-4 rounded-sm p-6">
+      <XCircle className="text-fg-error min-w-[1em] shrink-0 text-[2rem]" />
+      <p className="text-fg-tertiary text-left">
         {call
           ? "This request is not supported on Signet."
           : network

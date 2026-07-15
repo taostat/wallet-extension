@@ -28,13 +28,13 @@ export const ErrorMessageDrawer: FC<{
       containerId={containerId}
       onDismiss={onDismiss}
     >
-      <div className="bg-grey-800 flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
-        <XCircle className={"text-alert-error text-[3rem]"} />
-        <p className="text-body-secondary mt-4">
+      <div className="bg-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
+        <XCircle className={"text-fg-error text-[3rem]"} />
+        <p className="text-fg-secondary mt-4">
           {name === "GenericAppRequired" ? <LedgerGenericRequired /> : wrapStrong(content)}
         </p>
         {name === "Unauthorized" && (
-          <p className="text-body-secondary mt-4">
+          <p className="text-fg-secondary mt-4">
             <Trans
               t={t}
               defaults="Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>"
@@ -49,7 +49,7 @@ export const ErrorMessageDrawer: FC<{
                         window.close()
                       })
                     }
-                    className="text-body cursor-pointer"
+                    className="text-fg-primary cursor-pointer"
                   ></button>
                 ),
               }}
@@ -76,7 +76,7 @@ const LedgerGenericRequired = () => {
           <a
             href={CONNECT_LEDGER_DOCS_URL}
             target="_blank"
-            className="text-body cursor-pointer"
+            className="text-fg-primary cursor-pointer"
             rel="noreferrer noopener"
           ></a>
         ),
@@ -94,7 +94,7 @@ const wrapStrong = (text?: string) => {
   return text.split(splitter).map((str, i) => {
     const match = extractor.exec(str)
     return match ? (
-      <strong key={i} className="text-body p-0 font-bold capitalize">
+      <strong key={i} className="text-fg-primary p-0 font-bold capitalize">
         {match[1]}
       </strong>
     ) : (

@@ -18,7 +18,7 @@ export const SubSignBody: FC = () => {
 
   return (
     <div className="animate-fade-in flex grow flex-col">
-      <h1 className="text-md text-body my-12 font-bold">
+      <h1 className="text-md text-fg-primary my-12 font-bold">
         {isBatch ? t("Approve Batch Request") : t("Approve Request")}
       </h1>
       <h2 className="text-base leading-[3.2rem]">
@@ -58,7 +58,7 @@ const ChainLabel = ({ chain }: { chain: DotNetwork | null }) => {
 
 const ChainName = ({ chain }: { chain: DotNetwork }) => {
   return (
-    <span className="text-body inline-flex max-w-full items-baseline gap-[0.3em]">
+    <span className="text-fg-primary inline-flex max-w-full items-baseline gap-[0.3em]">
       <span>
         <NetworkLogo
           networkId={chain.id}

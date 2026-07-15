@@ -122,7 +122,7 @@ const QrCodeInner = ({ data, image, imageOptions }: Props) => {
 }
 
 export const QrCodeError = ({ error }: { error?: string | null }) => (
-  <div className="text-alert-error relative flex h-full w-full items-center justify-center whitespace-pre-wrap bg-white text-center text-xs">
+  <div className="text-fg-error relative flex h-full w-full items-center justify-center whitespace-pre-wrap bg-white text-center text-xs">
     {error}
   </div>
 )

@@ -21,7 +21,7 @@ const Remark: DecodedCallSummaryComponent<PolkadotCalls["System"]["remark"]> = (
     return (
       <Trans
         t={t}
-        components={{ Remark: <span className="text-body">{remark}</span> }}
+        components={{ Remark: <span className="text-fg-primary">{remark}</span> }}
         defaults="Remark: <Remark />"
         values={{ remark }}
       />
@@ -33,7 +33,7 @@ const Remark: DecodedCallSummaryComponent<PolkadotCalls["System"]["remark"]> = (
         <Trans
           t={t}
           components={{
-            Remark: <span className="text-body">{remark}</span>,
+            Remark: <span className="text-fg-primary">{remark}</span>,
           }}
           defaults="Stores a remark on chain:<br /> <Remark />"
         />
@@ -56,7 +56,7 @@ const RemarkWithEvent: DecodedCallSummaryComponent<
     return (
       <Trans
         t={t}
-        components={{ Remark: <span className="text-body">{remark}</span> }}
+        components={{ Remark: <span className="text-fg-primary">{remark}</span> }}
         defaults="Remark with event: <Remark />"
         values={{ remark }}
       />
@@ -68,7 +68,7 @@ const RemarkWithEvent: DecodedCallSummaryComponent<
         <Trans
           t={t}
           components={{
-            Remark: <span className="text-body">{remark}</span>,
+            Remark: <span className="text-fg-primary">{remark}</span>,
           }}
           defaults="Stores a remark on chain and emits an event:<br /> <Remark />"
         />

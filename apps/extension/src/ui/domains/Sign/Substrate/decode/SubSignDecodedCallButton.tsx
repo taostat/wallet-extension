@@ -14,7 +14,7 @@ export const SubSignDecodedButtonBase: DecodedCallComponent<
     <button
       type="button"
       className={classNames(
-        "bg-grey-850 hover:bg-grey-800 border-grey-700 text-body-secondary",
+        "bg-secondary hover:bg-secondary border-primary text-fg-secondary",
         "left-align group flex w-full items-center gap-4 overflow-x-hidden truncate rounded border pl-8 pr-4 text-left font-normal",
         mode === "multiline" && "leading-paragraph py-4",
         mode === "compact" && "h-[3.6rem]",
@@ -35,7 +35,7 @@ export const SubSignDecodedButtonBase: DecodedCallComponent<
           mode={mode}
         />
       </div>
-      <ChevronRight className="text-body-secondary group-hover:text-body shrink-0 text-base" />
+      <ChevronRight className="text-fg-secondary group-hover:text-fg-primary shrink-0 text-base" />
     </button>
   )
 }

@@ -43,7 +43,7 @@ const NetworkAndAccount: FC<{ networkId: string; networkName: string; address: s
   <div className="flex w-[150px] flex-col items-center gap-5 overflow-hidden">
     <div className="flex w-full items-center justify-center gap-2">
       <NetworkLogo networkId={networkId} className="!h-9 !w-9 shrink-0" />
-      <div className="text-md text-body overflow-hidden text-ellipsis whitespace-nowrap font-bold">
+      <div className="text-md text-fg-primary overflow-hidden text-ellipsis whitespace-nowrap font-bold">
         {networkName}
       </div>
     </div>
@@ -92,7 +92,7 @@ export const SignViewXTokensTransfer: FC<{
         <div>
           <AssetLogo url={tokenLogo} className="h-24 w-24 text-[48px]" />
         </div>
-        <div className="text-body flex-col items-start gap-4">
+        <div className="text-fg-primary flex-col items-start gap-4">
           <div className="text-md text-left font-bold">
             <Tokens
               amount={amount.tokens}
@@ -102,7 +102,7 @@ export const SignViewXTokensTransfer: FC<{
             />
           </div>
           {amount.fiat(currency) && (
-            <div className="text-body-secondary text-left">
+            <div className="text-fg-secondary text-left">
               (<Fiat amount={amount} noCountUp />)
             </div>
           )}

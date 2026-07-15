@@ -13,7 +13,7 @@ export const SignViewStakingStakeMore: FC<{
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <div>{t("You are adding")}</div>
-      <div className="text-body flex items-center gap-2">
+      <div className="text-fg-primary flex items-center gap-2">
         <TokenLogo tokenId={tokenId} className="inline h-[1em] w-[1em]" />{" "}
         <TokensAndFiat planck={planck} tokenId={tokenId} noCountUp />
       </div>

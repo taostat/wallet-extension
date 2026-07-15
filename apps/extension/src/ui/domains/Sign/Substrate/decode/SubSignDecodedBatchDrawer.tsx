@@ -34,10 +34,10 @@ export const SubSignDecodedBatchDrawer: FC<{ sapi: ScaleApi; payload: SignerPayl
       isOpen={isOpen && !!currentCall}
       containerId="main"
       onDismiss={close}
-      className="bg-black-primary text-body-secondary flex h-full w-full flex-col"
+      className="bg-black-primary text-fg-secondary flex h-full w-full flex-col"
     >
       <div className="flex w-full items-center gap-4 p-8 px-12">
-        <div className="text-body grow truncate tabular-nums">
+        <div className="text-fg-primary grow truncate tabular-nums">
           {t("Batch item {{currentIndex}} of {{batchItemsCount}}", {
             currentIndex: currentIndex + 1,
             batchItemsCount,
@@ -47,7 +47,7 @@ export const SubSignDecodedBatchDrawer: FC<{ sapi: ScaleApi; payload: SignerPayl
           type="button"
           disabled={!canGoPrev}
           onClick={goPrev}
-          className="bg-grey-800 enabled:hover:bg-grey-700 rounded-xs p-2 px-4 disabled:opacity-50"
+          className="bg-secondary enabled:hover:bg-tertiary rounded-xs p-2 px-4 disabled:opacity-50"
         >
           <ChevronLeft />
         </button>
@@ -55,7 +55,7 @@ export const SubSignDecodedBatchDrawer: FC<{ sapi: ScaleApi; payload: SignerPayl
           type="button"
           disabled={!canGoNext}
           onClick={goNext}
-          className="bg-grey-800 enabled:hover:bg-grey-700 rounded-xs p-2 px-4 disabled:opacity-50"
+          className="bg-secondary enabled:hover:bg-tertiary rounded-xs p-2 px-4 disabled:opacity-50"
         >
           <ChevronRight />
         </button>

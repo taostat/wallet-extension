@@ -54,11 +54,11 @@ export const SignViewVotingDelegate: FC<{
     <div className="flex w-full flex-col items-center gap-4">
       <div className="flex w-full items-center justify-between gap-8 overflow-hidden">
         <div className="whitespace-nowrap">{t("Delegating to")}</div>
-        <div className="text-body flex grow justify-end gap-2 overflow-hidden text-base">
+        <div className="text-fg-primary flex grow justify-end gap-2 overflow-hidden text-base">
           <FormattedAddress address={representative} />
           <button
             type="button"
-            className="text-body-secondary hover:text-body shrink-0"
+            className="text-fg-secondary hover:text-fg-primary shrink-0"
             onClick={handleClick}
           >
             {url ? (
@@ -71,18 +71,18 @@ export const SignViewVotingDelegate: FC<{
       </div>
       <div className="flex w-full items-center justify-between">
         <div>{t("Amount")}</div>
-        <div className="text-body">
+        <div className="text-fg-primary">
           <TokenLogo tokenId={tokenId} className="inline h-[1em] w-[1em]" />{" "}
           <TokensAndFiat planck={amount} tokenId={tokenId} noCountUp />
         </div>
       </div>
       <div className="flex w-full items-center justify-between">
         <div>{t("Conviction")}</div>
-        <div className="text-body">{conviction === 0 ? "0.1" : conviction}X</div>
+        <div className="text-fg-primary">{conviction === 0 ? "0.1" : conviction}X</div>
       </div>
       <div className="flex w-full items-center justify-between">
         <div>{t("Track")}</div>
-        <div className="text-body">#{trackId}</div>
+        <div className="text-fg-primary">#{trackId}</div>
       </div>
     </div>
   )

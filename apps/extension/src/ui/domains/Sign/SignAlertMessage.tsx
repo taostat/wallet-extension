@@ -37,13 +37,13 @@ export const SignAlertMessage: FC<SignAlertMessageProps> = ({
   return (
     <div
       className={classNames(
-        "bg-alert-warn/10 flex w-full items-center gap-4 rounded-sm p-5",
+        "bg-orange-secondary/10 flex w-full items-center gap-4 rounded-sm p-5",
         className,
       )}
     >
       <div
         className={classNames(
-          type === "error" ? "text-alert-warn" : "text-body-secondary",
+          type === "error" ? "text-fg-orange" : "text-fg-secondary",
           getIconSizeClass(iconSize),
         )}
       >
@@ -56,7 +56,7 @@ export const SignAlertMessage: FC<SignAlertMessageProps> = ({
       <div
         className={classNames(
           "scrollable scrollable-700 grow overflow-y-auto text-left text-xs leading-[140%]",
-          type === "error" ? "text-alert-warn" : "text-body-secondary",
+          type === "error" ? "text-fg-orange" : "text-fg-secondary",
         )}
       >
         {children}

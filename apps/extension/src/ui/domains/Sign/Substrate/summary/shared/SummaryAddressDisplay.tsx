@@ -30,7 +30,7 @@ export const SummaryAddressDisplay: FC<{
 
   if (mode !== "block")
     return (
-      <span className="text-body truncate whitespace-nowrap">
+      <span className="text-fg-primary truncate whitespace-nowrap">
         <AccountIcon
           className={classNames("inline-block align-sub text-[1.2em]")}
           address={address}
@@ -49,7 +49,7 @@ export const SummaryAddressDisplay: FC<{
       <TooltipTrigger asChild>
         <button
           type="button"
-          className="text-body inline-flex max-w-full items-center gap-2 overflow-hidden"
+          className="text-fg-primary inline-flex max-w-full items-center gap-2 overflow-hidden"
           onClick={handleClick}
         >
           <div>

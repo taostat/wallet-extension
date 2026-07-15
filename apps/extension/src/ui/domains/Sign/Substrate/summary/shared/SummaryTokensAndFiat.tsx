@@ -20,7 +20,7 @@ export const SummaryTokensAndFiat: FC<{
       noFiat={!!noFiat || mode === "compact"}
       noTooltip={mode !== "block"}
       className="whitespace-nowrap"
-      tokensClassName="text-body"
+      tokensClassName="text-fg-primary"
     />
   )
 }

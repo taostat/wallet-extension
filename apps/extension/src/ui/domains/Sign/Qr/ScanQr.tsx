@@ -68,7 +68,7 @@ export const ScanQr = <T extends Types>({
   return (
     <div className="flex flex-col items-center gap-2">
       <div
-        className="bg-grey-900 relative overflow-hidden rounded-xl"
+        className="bg-app-bg relative overflow-hidden rounded-xl"
         style={{ width: `${size}px`, height: `${size}px` }}
       >
         {enable ? <Scanner onScan={handleScan} onError={onError} blur={blur} /> : null}
@@ -83,7 +83,7 @@ export const ScanQr = <T extends Types>({
           <Toggle
             checked={blur}
             onChange={({ target }) => setBlur(target.checked)}
-            className="text-grey-300 text-sm"
+            className="text-fg-tertiary text-sm"
           >
             {t("Blur image for privacy")}
           </Toggle>
@@ -176,7 +176,7 @@ const Scanner = ({
               <div
                 className={classNames(
                   "h-4 w-4 shrink-0 rounded-full",
-                  device.deviceId === selectedVideoInput ? "bg-primary" : "bg-grey-700",
+                  device.deviceId === selectedVideoInput ? "bg-fg-brand" : "bg-tertiary",
                 )}
               />
               <span className="truncate">{device.label}</span>
@@ -237,7 +237,7 @@ const CameraMarker = ({
   active: boolean
   error: boolean
 }) => {
-  const bg = error ? "bg-alert-error" : active ? "bg-white" : "bg-grey-800"
+  const bg = error ? "bg-error-secondary" : active ? "bg-white" : "bg-secondary"
   const width = (horizontal: boolean) => (horizontal ? "w-2" : "h-2")
   const length = (horizontal: boolean) => (horizontal ? "h-1/5" : "w-1/5")
   const horizontal = `${width(true)} ${length(true)}`

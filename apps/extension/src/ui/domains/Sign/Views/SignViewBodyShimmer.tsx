@@ -5,7 +5,7 @@ export const SignViewBodyShimmer = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="text-body-secondary flex flex-col items-center gap-2 pt-64 leading-[140%]">
+    <div className="text-fg-secondary flex flex-col items-center gap-2 pt-64 leading-[140%]">
       <Loading01 className="animate-spin-slow h-16 w-16" />
       <div className="mt-4 text-base font-bold text-white opacity-70">
         {t("Analysing transaction")}

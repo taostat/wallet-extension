@@ -31,7 +31,7 @@ export const MetadataStatus = ({ genesisHash, specVersion }: Props) => {
             href={updateUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="text-grey-200 hover:text-white"
+            className="text-fg-tertiary hover:text-white"
           >
             Polkadot.js portal&nbsp;
             <LinkExternal01 className="inline" />
@@ -61,7 +61,7 @@ export const MetadataStatus = ({ genesisHash, specVersion }: Props) => {
             href={`${window.location.origin}/dashboard.html#/settings/networks-tokens/networks/add`}
             target="_blank"
             rel="noreferrer noopener"
-            className="text-grey-200 hover:text-white"
+            className="text-fg-tertiary hover:text-white"
           >
             add this chain to Taostats&nbsp;
             <LinkExternal01 className="inline" />
