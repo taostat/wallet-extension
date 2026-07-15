@@ -1,243 +1,239 @@
 import type { ReactNode } from "react"
-import { cn } from "@taostats-wallet/util"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
-import { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
+import { useCallback, useEffect, useId, useMemo, useState } from "react"
 
-interface Star {
-  id: number
-  x: number
-  y: number
-  size: number
-  layer: number
-  twinkleDelay: number
-  colour: "accent-1" | "accent-2" | "white"
-  shape: "circle" | "square"
-}
+/** ViewBox layout: circles centred well above the frame so only shallow lower arcs are visible. */
+const CX = 50
+const CY = 2
+const RINGS = [
+  { id: "outer", radius: 57.5, strokeOpacity: 0.05 },
+  { id: "middle", radius: 52.5, strokeOpacity: 0.05 },
+  { id: "inner", radius: 44, strokeOpacity: 0.05 },
+] as const
 
-interface ShootingStar {
+const COMET_RING_INDICES = [0, 1] as const
+
+type Comet = {
   id: number
-  startX: number
-  startY: number
-  endX: number
-  endY: number
+  ringIndex: (typeof COMET_RING_INDICES)[number]
+  startOffset: number
+  direction: 1 | -1
   duration: number
-  delay: number
-  colour: "accent-1" | "accent-2" | "white"
-  shape: "circle" | "square"
+  travel: number
+  tailArc: number
 }
 
-export const StarryBackground = ({ children }: { children: ReactNode }) => {
-  const [stars, setStars] = useState<Star[]>([])
-  const [shootingStars, setShootingStars] = useState<ShootingStar[]>([])
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll()
+const BRAND_STROKE = "#00DBBC"
 
-  // Create parallax transforms for different layers
-  const y1 = useTransform(scrollY, [0, 1000], [0, -100])
-  const y2 = useTransform(scrollY, [0, 1000], [0, -200])
-  const y3 = useTransform(scrollY, [0, 1000], [0, -300])
+/** Number of segments used to build the smoothly-fading comet tail. */
+const TAIL_SEGMENTS = 16
 
-  // Add spring physics for smoother motion
-  const springY1 = useSpring(y1, { stiffness: 100, damping: 30 })
-  const springY2 = useSpring(y2, { stiffness: 100, damping: 30 })
-  const springY3 = useSpring(y3, { stiffness: 100, damping: 30 })
+const circumference = (radius: number) => 2 * Math.PI * radius
 
-  useEffect(() => {
-    const generateStars = () => {
-      const newStars: Star[] = []
+const randomBetween = (min: number, max: number) => min + Math.random() * (max - min)
 
-      // Scale star count by viewport area so small popups
-      // get fewer stars and large views get more.
-      const width = window.innerWidth || 800
-      const height = window.innerHeight || 600
-      const area = width * height
+const createComet = (): Comet => {
+  const ringIndex = COMET_RING_INDICES[Math.floor(Math.random() * COMET_RING_INDICES.length)]!
+  const radius = RINGS[ringIndex]!.radius
+  const c = circumference(radius)
 
-      // Tunable density; clamp to avoid extremes.
-      const density = 0.0005
-      const starCount = Math.max(20, Math.min(80, Math.round(area * density)))
-
-      for (let i = 0; i < starCount; i++) {
-        newStars.push({
-          id: i,
-          x: Math.random() * 100,
-          y: Math.random() * 100,
-          size: Math.random() * 6 + 1, // 1-7px
-          layer: Math.floor(Math.random() * 3) + 1, // 1, 2, or 3
-          twinkleDelay: Math.random() * 2, // 0-5 seconds delay
-          colour: Math.random() < 0.33 ? "accent-2" : Math.random() < 0.66 ? "accent-1" : "white",
-          shape: Math.random() < 0.5 ? "circle" : "square",
-        })
-      }
-      setStars(newStars)
-    }
-
-    generateStars()
-
-    const handleResize = () => generateStars()
-    window.addEventListener("resize", handleResize)
-
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
-
-  useEffect(() => {
-    const createShootingStar = () => {
-      const id = Date.now() + Math.random()
-      const startX = Math.random() * 100
-      const startY = Math.random() * 50 // Start from upper portion
-      const endX = startX + (Math.random() * 40 + 20) * (Math.random() > 0.5 ? 1 : -1)
-      const endY = startY + Math.random() * 30 + 20
-      const duration = Math.random() * 1.1 + 1 // 1-3 seconds
-
-      const newShootingStar: ShootingStar = {
-        id,
-        startX,
-        startY,
-        endX,
-        endY,
-        duration,
-        delay: 0,
-        colour: Math.random() < 0.33 ? "accent-2" : Math.random() < 0.66 ? "accent-1" : "white",
-        shape: Math.random() < 0.5 ? "circle" : "square",
-      }
-
-      setShootingStars((prev) => [...prev, newShootingStar])
-
-      // Remove shooting star after animation completes
-      setTimeout(
-        () => {
-          setShootingStars((prev) => prev.filter((star) => star.id !== id))
-        },
-        duration * 1000 + 500,
-      )
-    }
-
-    // Create shooting stars at random intervals
-    const interval = setInterval(() => {
-      if (Math.random() < 0.6) {
-        // 60% chance every interval
-        createShootingStar()
-      }
-    }, 5000) // Check every 5 seconds
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
-
-  const getLayerTransform = (layer: number) => {
-    switch (layer) {
-      case 1:
-        return springY1
-      case 2:
-        return springY2
-      case 3:
-        return springY3
-      default:
-        return springY1
-    }
+  return {
+    id: Date.now() + Math.random(),
+    ringIndex,
+    startOffset: randomBetween(0, c),
+    // Comets always travel anti-clockwise around the rings.
+    direction: -1,
+    duration: randomBetween(1.2, 2.0),
+    // Travel at least 3/4 of the circumference so comets never just flash in and out.
+    travel: c * randomBetween(0.75, 1),
+    tailArc: c * randomBetween(0.08, 0.13),
   }
+}
 
-  const getLayerOpacity = (layer: number) => {
-    switch (layer) {
-      case 1:
-        return 0.6
-      case 2:
-        return 0.8
-      case 3:
-        return 1
-      default:
-        return 0.8
-    }
-  }
+const OrbitComet = ({
+  comet,
+  glowFilterId,
+  onComplete,
+}: {
+  comet: Comet
+  glowFilterId: string
+  onComplete: (id: number) => void
+}) => {
+  const ring = RINGS[comet.ringIndex]!
+  const c = circumference(ring.radius)
+  const endOffset = comet.startOffset - comet.direction * comet.travel
+
+  // Build the tail from overlapping segments. The head segment (i=0) is
+  // brightest/thickest; each trailing segment sits further "behind" the head
+  // (opposite the travel direction) and fades gradually to transparent.
+  const step = comet.tailArc / TAIL_SEGMENTS
+  const segLen = step * 1.8
 
   return (
-    <div className="relative h-full w-full">
-      {/* Stars container */}
-      <div ref={containerRef} className="pointer-events-none fixed inset-0 z-0">
-        {stars.map((star) => (
-          <motion.div
-            key={star.id}
-            className={cn(
-              "absolute",
-              star.shape === "circle" ? "rounded-full" : "rounded-none",
-              star.colour === "white"
-                ? "bg-white"
-                : star.colour === "accent-1"
-                  ? "bg-accent-1"
-                  : "bg-accent-2",
-            )}
-            style={{
-              left: `${star.x}%`,
-              top: `${star.y}%`,
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-              y: getLayerTransform(star.layer),
-              opacity: getLayerOpacity(star.layer),
-              willChange: "transform, opacity",
-            }}
-            animate={{
-              opacity: [
-                getLayerOpacity(star.layer) * 0.3,
-                getLayerOpacity(star.layer),
-                getLayerOpacity(star.layer) * 0.3,
-              ],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 6 + Math.random() * 3, // 6-9 seconds
-              repeat: Number.POSITIVE_INFINITY,
-              delay: star.twinkleDelay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+    <>
+      {Array.from({ length: TAIL_SEGMENTS }).map((_, i) => {
+        const t = i / (TAIL_SEGMENTS - 1) // 0 at head, 1 at tail end
+        const opacity = (1 - t) ** 1.4
+        const strokeWidth = 0.11 * (1 - t * 0.55)
+        const behind = comet.direction * i * step
 
-      {/* Shooting Stars */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        {shootingStars.map((shootingStar) => (
-          <motion.div
-            key={shootingStar.id}
-            className="absolute"
-            style={{
-              left: `${shootingStar.startX}%`,
-              top: `${shootingStar.startY}%`,
-              width: "2px",
-              height: "2px",
-            }}
-            initial={{
-              x: 0,
-              y: 0,
-              opacity: 0,
-            }}
+        return (
+          <motion.circle
+            key={i}
+            cx={CX}
+            cy={CY}
+            r={ring.radius}
+            fill="none"
+            stroke={BRAND_STROKE}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeOpacity={opacity}
+            filter={i === 0 ? `url(#${glowFilterId})` : undefined}
+            strokeDasharray={`${segLen} ${c - segLen}`}
+            initial={{ strokeDashoffset: comet.startOffset + behind, opacity: 0 }}
             animate={{
-              x: `${shootingStar.endX - shootingStar.startX}vw`,
-              y: `${shootingStar.endY - shootingStar.startY}vh`,
+              strokeDashoffset: endOffset + behind,
               opacity: [0, 1, 1, 0],
             }}
             transition={{
-              duration: shootingStar.duration,
-              ease: "easeOut",
-              times: [0, 0.1, 0.9, 1],
+              duration: comet.duration,
+              ease: "linear",
+              opacity: { duration: comet.duration, times: [0, 0.06, 0.86, 1] },
             }}
+            onAnimationComplete={i === 0 ? () => onComplete(comet.id) : undefined}
+          />
+        )
+      })}
+    </>
+  )
+}
+
+export const StarryBackground = ({ children }: { children: ReactNode }) => {
+  const glowFilterId = useId().replace(/:/g, "")
+  const ringFillId = `${glowFilterId}-ring-fill`
+  const [comets, setComets] = useState<Comet[]>([])
+  const [motionEnabled, setMotionEnabled] = useState(true)
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const update = () => setMotionEnabled(!media.matches)
+    update()
+    media.addEventListener("change", update)
+    return () => media.removeEventListener("change", update)
+  }, [])
+
+  const removeComet = useCallback((id: number) => {
+    setComets((prev) => prev.filter((comet) => comet.id !== id))
+  }, [])
+
+  useEffect(() => {
+    if (!motionEnabled) return
+
+    let cancelled = false
+    let timeoutId = 0
+
+    const schedule = () => {
+      const delay = randomBetween(3000, 6000)
+      timeoutId = window.setTimeout(() => {
+        if (cancelled) return
+
+        setComets((prev) => [...prev, createComet()])
+
+        // Occasionally spawn a second comet on the other ring for overlap.
+        if (Math.random() < 0.25) {
+          window.setTimeout(
+            () => {
+              if (!cancelled) setComets((prev) => [...prev, createComet()])
+            },
+            randomBetween(120, 420),
+          )
+        }
+
+        schedule()
+      }, delay)
+    }
+
+    // Kick off with one comet shortly after mount.
+    timeoutId = window.setTimeout(
+      () => {
+        if (cancelled) return
+        setComets((prev) => [...prev, createComet()])
+        schedule()
+      },
+      randomBetween(400, 1200),
+    )
+
+    return () => {
+      cancelled = true
+      window.clearTimeout(timeoutId)
+    }
+  }, [motionEnabled])
+
+  const ringElements = useMemo(
+    () =>
+      RINGS.map((ring) => (
+        <circle
+          key={ring.id}
+          cx={CX}
+          cy={CY}
+          r={ring.radius}
+          fill="none"
+          stroke="white"
+          strokeOpacity={ring.strokeOpacity}
+          strokeWidth={0.06}
+        />
+      )),
+    [],
+  )
+
+  return (
+    <div className="bg-app-bg relative h-full w-full overflow-hidden">
+      <svg
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden
+      >
+        <defs>
+          <filter id={glowFilterId} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="0.35" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <radialGradient
+            id={ringFillId}
+            gradientUnits="userSpaceOnUse"
+            cx={CX}
+            cy={CY}
+            r={RINGS[0]!.radius}
           >
-            {/* Shooting star */}
-            <div
-              className={cn(
-                "h-2 w-2",
-                shootingStar.shape === "circle" ? "rounded-full" : "rounded-none",
-                shootingStar.colour === "white"
-                  ? "bg-white"
-                  : shootingStar.colour === "accent-1"
-                    ? "bg-accent-1"
-                    : "bg-accent-2",
-              )}
+            {/* Darkest at the very centre, lightening toward the ring band. */}
+            <stop offset="0%" stopColor="#0A0B0D" stopOpacity="1" />
+            <stop offset="55%" stopColor="#0C0D10" stopOpacity="1" />
+            <stop offset="74%" stopColor="#141619" stopOpacity="1" />
+            <stop offset="88%" stopColor="#1C1E22" stopOpacity="1" />
+            <stop offset="100%" stopColor="#1C1E22" stopOpacity="0.25" />
+          </radialGradient>
+        </defs>
+
+        {/* Radial fill inside the outermost ring: dark core that lightens into
+            the ring band, then fades into the base app background. */}
+        <circle cx={CX} cy={CY} r={RINGS[0]!.radius} fill={`url(#${ringFillId})`} />
+
+        {ringElements}
+
+        {motionEnabled &&
+          comets.map((comet) => (
+            <OrbitComet
+              key={comet.id}
+              comet={comet}
+              glowFilterId={glowFilterId}
+              onComplete={removeComet}
             />
-          </motion.div>
-        ))}
-      </div>
+          ))}
+      </svg>
 
       <div className="relative z-10">{children}</div>
     </div>

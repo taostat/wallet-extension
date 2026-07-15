@@ -1,3 +1,4 @@
+export * from "./BracketGlowWord"
 export * from "./Button"
 export * from "./Checkbox"
 export * from "./ContextMenu"
