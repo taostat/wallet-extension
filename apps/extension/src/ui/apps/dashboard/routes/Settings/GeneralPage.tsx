@@ -174,7 +174,7 @@ export const LedgerTransportTypeSelect = () => {
   }, [])
 
   if (ledgerTransportTypeItems.length === 0)
-    return <div className="text-body-disabled text-right">{t("Unavailable")}</div>
+    return <div className="text-fg-disabled text-right">{t("Unavailable")}</div>
 
   return (
     <div className="flex items-center gap-4">
@@ -225,13 +225,15 @@ const LedgerTransportCheckModalDialog: FC<{
         <div
           className={classNames(
             "flex size-24 shrink-0 items-center justify-center rounded-full",
-            s.ok ? "text-alert-success bg-alert-success/10" : "text-alert-warn bg-alert-warn/10",
+            s.ok
+              ? "text-fg-success bg-brand-secondary/10"
+              : "text-fg-orange bg-orange-secondary/10",
           )}
         >
           {s.ok ? <Check className="size-12" /> : <X className="size-12" />}
         </div>
         <div className="grow">
-          <p className="text-body">
+          <p className="text-fg-primary">
             {s.ok
               ? t("{{transport}} connection successful", {
                   transport: transport.toUpperCase(),
@@ -244,7 +246,7 @@ const LedgerTransportCheckModalDialog: FC<{
         </div>
       </div>
       {!s.ok && (
-        <p className="text-body-secondary mt-8">
+        <p className="text-fg-secondary mt-8">
           {t(
             "You may need to reload this page before being able to try again, some browsers prevent multiple {{transport}} connection attempts.",
             { transport: transport.toUpperCase() },

@@ -54,21 +54,21 @@ const RestoreModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
   return (
     <ModalDialog title="Restore" className="w-[50rem]" onClose={onClose}>
       <div className="flex flex-col gap-10">
-        <p className="text-body-secondary leading-paragraph">
+        <p className="text-fg-secondary leading-paragraph">
           This will replace all existing Taostats data with the data from your backup file.
         </p>
-        <div className="bg-alert-warn/10 text-alert-warn flex items-center justify-center gap-8 rounded p-5 px-8 text-center text-sm">
+        <div className="bg-orange-secondary/10 text-fg-orange flex items-center justify-center gap-8 rounded p-5 px-8 text-center text-sm">
           <p>Warning: All existing data will be erased and replaced.</p>
         </div>
 
-        <div className="border-grey-700 flex h-[7.4rem] flex-col justify-between rounded border p-5">
+        <div className="border-primary flex h-[7.4rem] flex-col justify-between rounded border p-5">
           <div>
             <input type="file" accept=".json,application/json" onChange={handleChange}></input>
           </div>
           {state.isInvalid && (
-            <div className="text-alert-warn">Selected file is not a Taostats backup file.</div>
+            <div className="text-fg-orange">Selected file is not a Taostats backup file.</div>
           )}
-          {state.backup && <div className="text-body-secondary">Ready to restore</div>}
+          {state.backup && <div className="text-fg-secondary">Ready to restore</div>}
         </div>
 
         <div className="grid grid-cols-2 gap-10">

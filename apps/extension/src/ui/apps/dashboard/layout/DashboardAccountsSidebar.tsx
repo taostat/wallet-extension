@@ -30,7 +30,7 @@ import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
 
 export const DashboardAccountsSidebar: FC = () => {
   return (
-    <div className="bg-grey-900 rounded-lg">
+    <div className="bg-app-bg rounded-lg">
       <Accounts />
     </div>
   )
@@ -131,11 +131,11 @@ const Accounts = () => {
           <TooltipContent>{t("Add Account")}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="bg-grey-800 h-0.5"></div>
+      <div className="bg-secondary h-0.5"></div>
       <TreeAccounts options={allPortfolioOptions} showAllAccounts />
       {!!allWatchedOptions.length && (
         <>
-          {!!allPortfolioOptions.length && <div className="bg-grey-800 h-0.5"></div>}
+          {!!allPortfolioOptions.length && <div className="bg-secondary h-0.5"></div>}
           <div className="flex items-center gap-4">
             <Eye />
             <div className="text-sm">{t("Followed only")}</div>
@@ -203,12 +203,12 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
   }, [option.address, searchParams])
 
   return (
-    <div className="hover:bg-grey-750 group relative w-full rounded-[12px]">
+    <div className="hover:bg-tertiary group relative w-full rounded-[12px]">
       <SidebarButtonBase
         label={
           <div className="flex w-full items-center gap-2">
             <div className="truncate">{option.name ?? shortenAddress(option.address)}</div>
-            <AccountTypeIcon className="text-primary shrink-0" type={option.accountType} />
+            <AccountTypeIcon className="text-fg-brand shrink-0" type={option.accountType} />
           </div>
         }
         logo={<div className="size-20 shrink-0"></div>}
@@ -311,19 +311,19 @@ const SidebarButtonBase: FC<{
     <button
       type="button"
       className={classNames(
-        "hover:bg-grey-750 flex h-28 w-full items-center gap-4 rounded-[12px] px-4 text-left",
-        isSelected && "bg-grey-800",
+        "hover:bg-tertiary flex h-28 w-full items-center gap-4 rounded-[12px] px-4 text-left",
+        isSelected && "bg-secondary",
       )}
       onClick={onClick}
     >
       <div className="size-20 text-[4rem]">{logo}</div>
       <div className="flex grow flex-col justify-center gap-1 overflow-hidden">
-        <div className="text-grey-300 truncate">{label}</div>
-        <div className="text-grey-500 truncate text-xs">{fiat}</div>
+        <div className="text-fg-tertiary truncate">{label}</div>
+        <div className="text-fg-disabled truncate text-xs">{fiat}</div>
       </div>
       <div>
         {isSelected ? (
-          <div className="bg-primary flex size-10 items-center justify-center rounded-full text-xs text-black">
+          <div className="bg-fg-brand flex size-10 items-center justify-center rounded-full text-xs text-black">
             <Check />
           </div>
         ) : (

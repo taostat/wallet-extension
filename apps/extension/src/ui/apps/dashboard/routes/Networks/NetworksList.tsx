@@ -109,7 +109,7 @@ export const NetworksList: FC<{
 
   if (!displayedNetworks.length)
     return (
-      <div className="text-body-secondary bg-grey-850 rounded-sm p-12 text-center">
+      <div className="text-fg-secondary bg-secondary rounded-sm p-12 text-center">
         {t("No networks found")}
       </div>
     )
@@ -120,15 +120,15 @@ export const NetworksList: FC<{
         <button
           type="button"
           onClick={() => ocResetAllModal.open()}
-          className="text-body-disabled hover:text-body-secondary text-xs"
+          className="text-fg-disabled hover:text-fg-secondary text-xs"
         >
           {t("Reset")}
         </button>
-        <div className="bg-body-disabled h-6 w-0.5"></div>
+        <div className="bg-disabled h-6 w-0.5"></div>
         <button
           type="button"
           onClick={() => ocDeactivateAllModal.open()}
-          className="text-body-disabled hover:text-body-secondary text-xs"
+          className="text-fg-disabled hover:text-fg-secondary text-xs"
         >
           {t("Deactivate all")}
         </button>
@@ -218,11 +218,11 @@ const NetworkRow: FC<{
     <div className="relative h-28" data-testid="network-list-row">
       <ListButton key={network.id} role="button" onClick={handleNetworkClick}>
         <NetworkLogo className="rounded-full text-xl" networkId={network.id} />
-        <div className="text-body flex flex-col justify-center gap-1 overflow-hidden">
+        <div className="text-fg-primary flex flex-col justify-center gap-1 overflow-hidden">
           <div className="truncate">
             <NetworkName networkId={network.id} />
           </div>
-          <div className="text-body-inactive truncate text-xs">
+          <div className="text-fg-primary-inactive truncate text-xs">
             <NetworkType networkId={network.id} />
           </div>
         </div>
@@ -265,7 +265,7 @@ const ResetAllNetworksModalContent: FC<{
       }
       onClose={onClose}
     >
-      <p className="text-body-secondary mb-8 text-sm">
+      <p className="text-fg-secondary mb-8 text-sm">
         {platform === "all"
           ? t("This will reset active state of all networks to their defaults.")
           : t("This will reset active state of all {{platform}} networks to their defaults.", {
@@ -331,10 +331,10 @@ const DeactivateNetworksModalContent: FC<{
       }
       onClose={onClose}
     >
-      <p className="text-body-secondary mb-8 text-sm">
+      <p className="text-fg-secondary mb-8 text-sm">
         {t("It is recommended to deactivate unused networks to improve performance.")}
       </p>
-      <div className="bg-grey-800 text-body-secondary flex h-28 w-full items-center gap-6 rounded-sm px-8 text-sm">
+      <div className="bg-secondary text-fg-secondary flex h-28 w-full items-center gap-6 rounded-sm px-8 text-sm">
         {isBalancesInitializing ? (
           <>
             <Loading01 className="text-md shrink-0 animate-spin" />
@@ -345,7 +345,7 @@ const DeactivateNetworksModalContent: FC<{
         ) : (
           <>
             <InfoCircle className="text-md shrink-0" />
-            <div className="text-body-secondary grow">
+            <div className="text-fg-secondary grow">
               {t("Found {{count}} network(s) without token balances", {
                 count: unusedNetworkIds.length,
               })}
@@ -353,7 +353,7 @@ const DeactivateNetworksModalContent: FC<{
           </>
         )}
       </div>
-      <div className="text-body-secondary flex flex-col items-start py-8 text-sm">
+      <div className="text-fg-secondary flex flex-col items-start py-8 text-sm">
         <Radio
           name="deactivateMode"
           label={

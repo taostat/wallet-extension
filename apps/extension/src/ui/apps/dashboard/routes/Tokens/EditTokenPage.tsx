@@ -320,12 +320,12 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
           <FormFieldContainer label={t("Display balances")}>
             <div className="flex gap-3">
               <Toggle checked={isActive} onChange={(e) => setActive(e.target.checked)}>
-                <span className={"text-grey-300"}>{isActive ? t("Yes") : t("No")}</span>
+                <span className={"text-fg-tertiary"}>{isActive ? t("Yes") : t("No")}</span>
               </Toggle>
               {isActiveSetByUser && (
                 <Tooltip>
                   <TooltipTrigger
-                    className="text-primary text-xs"
+                    className="text-fg-brand text-xs"
                     type="button"
                     onClick={resetToTaostatsDefault}
                   >
@@ -488,17 +488,17 @@ const ConfirmRemove: FC<{
       title={isTokenKnown(saved) ? t("Reset Token") : t("Remove Token")}
       onClose={onClose}
     >
-      <div className="text-body-secondary mt-4 space-y-16">
+      <div className="text-fg-secondary mt-4 space-y-16">
         <div className="text-base">
           {isTokenKnown(saved) ? (
             <Trans t={t}>
-              This will reset <span className="text-body">{saved?.symbol}</span> to its default
-              state. Are you sure you want to continue ?
+              This will reset <span className="text-fg-primary">{saved?.symbol}</span> to its
+              default state. Are you sure you want to continue ?
             </Trans>
           ) : (
             <Trans t={t}>
-              Are you sure you want to remove <span className="text-body">{saved?.symbol}</span>{" "}
-              from your token list ?
+              Are you sure you want to remove{" "}
+              <span className="text-fg-primary">{saved?.symbol}</span> from your token list ?
             </Trans>
           )}
         </div>

@@ -37,8 +37,8 @@ export const ChangePasswordModal = ({
 
         <div className="flex flex-col gap-5">
           <p className="my-8 animate-pulse text-center">{progressDisplay}</p>
-          <div className="bg-alert-warn/10 text-alert-warn flex items-center gap-6 rounded p-4 px-6 text-sm">
-            <AlertTriangle className="text-alert-warn shrink-0 text-lg" />
+          <div className="bg-orange-secondary/10 text-fg-orange flex items-center gap-6 rounded p-4 px-6 text-sm">
+            <AlertTriangle className="text-fg-orange shrink-0 text-lg" />
             <div>
               {t(
                 "Please wait while we change your password. This can take some time. Do not close the browser window.",

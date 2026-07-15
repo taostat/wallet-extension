@@ -14,11 +14,11 @@ const Content = () => {
     <>
       <HeaderBlock title={t("About")} />
       <div className="mt-6 flex flex-col gap-4">
-        <div className="bg-grey-850 text-body-disabled flex w-full items-start gap-8 rounded-sm p-8">
-          <InfoCircle className={"text-body shrink-0 text-lg"} />
+        <div className="bg-secondary text-fg-disabled flex w-full items-start gap-8 rounded-sm p-8">
+          <InfoCircle className={"text-fg-primary shrink-0 text-lg"} />
           <div className={"flex grow flex-col items-start gap-4"}>
-            <div className={"text-body text-base"}>Open Source Attribution</div>
-            <div className={"text-body-secondary text-left text-sm"}>
+            <div className={"text-fg-primary text-base"}>Open Source Attribution</div>
+            <div className={"text-fg-secondary text-left text-sm"}>
               Taostats Wallet is a modified fork of the Talisman Wallet. <br />
               <br />
               Copyright © Talisman Wallet Contributors <br />
@@ -38,7 +38,7 @@ const Content = () => {
                 href="https://talisman.xyz"
                 target="_blank"
                 rel="noreferrer"
-                className="text-primary"
+                className="text-fg-brand"
               >
                 Talisman
               </a>
@@ -71,10 +71,10 @@ const LinkToGithub = ({ href, children }: { href: string; children: React.ReactN
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="text-body-secondary border-body-secondary hover:text-body hover:bg-grey-850 group flex items-center justify-between gap-2 rounded-sm border p-4 transition-all duration-300"
+      className="text-fg-secondary border-body-secondary hover:text-fg-primary hover:bg-secondary group flex items-center justify-between gap-2 rounded-sm border p-4 transition-all duration-300"
     >
       {children}
-      <LinkExternal01 className="text-body-secondary group-hover:text-body shrink-0 transition-all duration-300" />
+      <LinkExternal01 className="text-fg-secondary group-hover:text-fg-primary shrink-0 transition-all duration-300" />
     </a>
   )
 }

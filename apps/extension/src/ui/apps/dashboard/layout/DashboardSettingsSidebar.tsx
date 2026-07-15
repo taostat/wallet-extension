@@ -28,14 +28,14 @@ export const DashboardSettingsSidebar = () => {
   }, [genericEvent, navigate])
 
   return (
-    <div className={classNames("bg-grey-900 rounded-lg", "flex w-full flex-col gap-8 p-8")}>
+    <div className={classNames("bg-app-bg rounded-lg", "flex w-full flex-col gap-8 p-8")}>
       <div className="flex h-16 shrink-0 items-center">
         <div className="grow pl-4 text-[2rem] font-bold">{t("Settings")}</div>
         <Tooltip>
           <TooltipTrigger asChild>
             <IconButton
               onClick={handleAddAccountClick}
-              className="bg-primary/10 enabled:hover:bg-primary/20 enabled:hover:text-primary text-primary/90 rounded-full p-3"
+              className="bg-fg-brand/10 enabled:hover:bg-fg-brand/20 enabled:hover:text-fg-brand text-fg-brand/90 rounded-full p-3"
             >
               <Plus className="size-10" />
             </IconButton>
@@ -43,7 +43,7 @@ export const DashboardSettingsSidebar = () => {
           <TooltipContent>{t("Add Account")}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="bg-grey-800 h-0.5"></div>
+      <div className="bg-secondary h-0.5"></div>
       <div className="flex w-full flex-col gap-2">
         <SidebarNavItem to="/settings/general" label={t("General")} icon={<Sliders01 />} />
         <SidebarNavItem
@@ -100,8 +100,8 @@ const SidebarNavItem: FC<{
       to={to}
       className={classNames(
         "flex w-full items-center gap-6 overflow-hidden rounded",
-        "text-body-inactive [&.active]:text-body",
-        "hover:bg-grey-750 [&.active]:bg-grey-800",
+        "text-fg-primary-inactive [&.active]:text-fg-primary",
+        "hover:bg-tertiary [&.active]:bg-secondary",
         "h-28 px-6",
         forceActive && "active",
         className,
@@ -116,5 +116,5 @@ const SidebarNavItem: FC<{
 const MnemonicNotification = () => {
   const allBackedUp = useMnemonicsAllBackedUp()
 
-  return !allBackedUp ? <AlertCircle className="text-alert-warn" /> : null
+  return !allBackedUp ? <AlertCircle className="text-fg-orange" /> : null
 }

@@ -85,16 +85,16 @@ export const MnemonicDeleteModal = () => {
         }
         onClose={close}
       >
-        <p className="text-body-secondary">
+        <p className="text-fg-secondary">
           <Trans
             t={t}
-            components={{ Highlight: <span className="text-body"></span> }}
+            components={{ Highlight: <span className="text-fg-primary"></span> }}
             defaults="Are you sure that you want to delete <Highlight>{{name}}</Highlight>?"
             values={{ name }}
           />
         </p>
         <div>
-          <div className="text-body-disabled mb-4 mt-12">{t("Type Delete to continue")}</div>
+          <div className="text-fg-disabled mb-4 mt-12">{t("Type Delete to continue")}</div>
           <FormFieldInputText
             placeholder={t("Delete")}
             defaultValue=""

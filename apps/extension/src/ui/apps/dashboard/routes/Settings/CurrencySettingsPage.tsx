@@ -27,7 +27,7 @@ const Content = () => {
           <button
             type="button"
             key={currency}
-            className="bg-grey-850 enabled:hover:bg-grey-800 text-body-disabled enabled:hover:text-body-secondary flex h-28 w-full cursor-pointer items-center gap-8 rounded-sm px-8 disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-secondary enabled:hover:bg-secondary text-fg-disabled enabled:hover:text-fg-secondary flex h-28 w-full cursor-pointer items-center gap-8 rounded-sm px-8 disabled:cursor-not-allowed disabled:opacity-50"
             onClick={() =>
               setFavorites((selectable) => {
                 const newSelectable = selectable.includes(currency)
@@ -49,14 +49,14 @@ const Content = () => {
           >
             <img className="w-16 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
             <div className="flex grow flex-col items-start gap-1">
-              <div className="text-body uppercase">{currency}</div>
-              <div className="text-body-secondary text-xs">
+              <div className="text-fg-primary uppercase">{currency}</div>
+              <div className="text-fg-secondary text-xs">
                 {currencyConfig[currency]?.symbol ?? ""}{" "}
                 {currencyConfig[currency]?.name ?? currency}
               </div>
             </div>
             {favorites.includes(currency) ? (
-              <Star01 className="stroke-primary fill-primary" />
+              <Star01 className="stroke-fg-brand fill-fg-brand" />
             ) : (
               <Star01 />
             )}

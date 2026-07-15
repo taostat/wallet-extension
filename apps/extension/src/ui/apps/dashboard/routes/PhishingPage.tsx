@@ -32,13 +32,13 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
         <TaostatsLogo className="my-16 h-16 w-4/12" />
         <div className="flex flex-grow items-center">
           <div className="scrollable scrollable-700 flex flex-col overflow-auto">
-            <div className="bg-black-primary text-body-secondary flex max-w-3xl flex-col items-center gap-16 self-center rounded-lg p-20 text-center">
-              <AlertTriangle className="text-alert-warn inline-block text-[7.7rem]" />
-              <h1 className="text-bold text-alert-warn m-0 text-xl">{t("Warning")}</h1>
+            <div className="bg-black-primary text-fg-secondary flex max-w-3xl flex-col items-center gap-16 self-center rounded-lg p-20 text-center">
+              <AlertTriangle className="text-fg-orange inline-block text-[7.7rem]" />
+              <h1 className="text-bold text-fg-orange m-0 text-xl">{t("Warning")}</h1>
               <div className="text-lg font-light text-white">
                 <Trans t={t}>
                   <span className="block break-all">{displayUrl}</span> has been reported as a{" "}
-                  <span className="text-alert-warn block">malicious site</span>
+                  <span className="text-fg-orange block">malicious site</span>
                 </Trans>
               </div>
               <div className="leading-10">
@@ -55,7 +55,7 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
                 </a>
                 <button
                   type="button"
-                  className="text-grey-600 hover:text-body-secondary cursor-pointer text-sm leading-8"
+                  className="text-fg-disabled hover:text-fg-secondary cursor-pointer text-sm leading-8"
                   onClick={allowSite}
                 >
                   {t("I trust this site")}

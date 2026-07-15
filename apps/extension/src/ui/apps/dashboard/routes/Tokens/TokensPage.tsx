@@ -88,7 +88,7 @@ const Content = () => {
         networks={networkOptions}
         onChange={setNetworkId}
         value={networkId}
-        bgClassName="bg-grey-800"
+        bgClassName="bg-secondary"
       />
       <div className="h-4" />
       <div className="flex gap-4">
@@ -159,7 +159,7 @@ const ResetStatesModalContent: FC<{
 
   return (
     <ModalDialog title={t("Reset tokens")} onClose={onClose}>
-      <div className="text-body-secondary mb-8 text-sm">
+      <div className="text-fg-secondary mb-8 text-sm">
         {t("This will reset active state of all tokens to their defaults.")}
       </div>
 

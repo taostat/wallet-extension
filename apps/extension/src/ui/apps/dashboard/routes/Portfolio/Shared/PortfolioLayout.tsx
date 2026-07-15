@@ -23,7 +23,7 @@ const EnableNetworkMessage: FC<{ type?: "substrate" | "evm" }> = ({ type }) => {
   }, [navigate, type])
 
   return (
-    <div className="text-body-secondary mt-72 flex flex-col items-center justify-center gap-8 text-center">
+    <div className="text-fg-secondary mt-72 flex flex-col items-center justify-center gap-8 text-center">
       <div>{t("Enable some networks to display your assets")}</div>
       <div>
         <Button onClick={handleClick} primary small type="button">

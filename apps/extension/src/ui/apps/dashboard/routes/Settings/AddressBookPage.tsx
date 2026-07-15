@@ -57,7 +57,7 @@ const SquareButton = forwardRef<
     type="button"
     ref={ref}
     className={classNames(
-      "enabled:hover:bg-grey-700 enabled:hover:text-body-secondary flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-sm enabled:cursor-pointer disabled:cursor-not-allowed",
+      "enabled:hover:bg-tertiary enabled:hover:text-fg-secondary flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-sm enabled:cursor-pointer disabled:cursor-not-allowed",
       props.className,
     )}
   ></button>
@@ -114,17 +114,17 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
         <div className="truncate">{contact.name}</div>
         <div>
           {isMultiAddress ? (
-            <div className="text-body-secondary text-xs">{t("Multichain address")}</div>
+            <div className="text-fg-secondary text-xs">{t("Multichain address")}</div>
           ) : (
             <Address
-              className="text-body-secondary text-xs"
+              className="text-fg-secondary text-xs"
               address={contact.address}
               genesisHash={contact.genesisHash}
             />
           )}
         </div>
       </div>
-      <div className={`text-body-disabled flex shrink-0 gap-2`}>
+      <div className={`text-fg-disabled flex shrink-0 gap-2`}>
         <SquareButton onClick={handleCopyClick}>
           <Copy01 />
         </SquareButton>
@@ -143,7 +143,7 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
               <ContextMenuItem
                 disabled={!canViewOnExplorer}
                 onClick={handleViewOnExplorer}
-                className="disabled:!text-body-disabled disabled:!cursor-not-allowed disabled:!bg-transparent"
+                className="disabled:!text-fg-disabled disabled:!cursor-not-allowed disabled:!bg-transparent"
               >
                 {t("View on Taostats")}
               </ContextMenuItem>
@@ -200,7 +200,7 @@ const Content = () => {
           />
         ))}
         {contactsToDisplay.length === 0 && (
-          <div className="bg-black-secondary text-body-secondary flex h-[16rem] w-full flex-col items-center justify-center gap-12 rounded px-16 py-8">
+          <div className="bg-black-secondary text-fg-secondary flex h-[16rem] w-full flex-col items-center justify-center gap-12 rounded px-16 py-8">
             <span>{t("You have no saved contacts yet.")}</span>
             <Button primary onClick={open} iconLeft={Plus}>
               {t("Add a contact")}

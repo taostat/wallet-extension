@@ -39,7 +39,7 @@ const HeaderRow: FC<{
   if (summary.totalTokens.isZero()) return null
 
   return (
-    <div className="text-body-secondary bg-grey-850 rounded p-8 text-left text-base">
+    <div className="text-fg-secondary bg-secondary rounded p-8 text-left text-base">
       <div className="grid grid-cols-[40%_30%_30%]">
         <Statistics
           className="h-auto w-auto p-0"
@@ -127,7 +127,7 @@ const TokenBreadcrumb: FC<{
         onClick: () => navigate("/portfolio/tokens"),
       },
       {
-        label: <div className="text-body font-bold">{name}</div>,
+        label: <div className="text-fg-primary font-bold">{name}</div>,
         onClick: undefined,
       },
     ]

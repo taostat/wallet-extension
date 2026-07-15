@@ -144,7 +144,7 @@ const Content = () => {
   return (
     <>
       <HeaderBlock title={t("Change your password")} />
-      <p className="text-body-secondary my-10">
+      <p className="text-fg-secondary my-10">
         {t(
           "Your password is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols, and numbers.",
         )}
@@ -152,7 +152,7 @@ const Content = () => {
       {!allBackedUp && (
         <div className="mnemonic-warning flex flex-col gap-0.5 rounded-sm border border-white p-8">
           <div className="flex items-center justify-between">
-            <InfoCircle className="text-primary mr-10 text-3xl" />
+            <InfoCircle className="text-fg-brand mr-10 text-3xl" />
             {t(
               "You'll need to confirm your recovery phrase is backed up before you change your password.",
             )}

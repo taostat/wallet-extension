@@ -97,15 +97,15 @@ export const TokensList: FC<{
 
   if (!displayedTokens.length)
     return (
-      <div className="bg-grey-850 text-body-secondary my-12 rounded py-24 text-center">
+      <div className="bg-secondary text-fg-secondary my-12 rounded py-24 text-center">
         <div>{t("No token found")}</div>
         <div>{t("Consider adding it manually as a custom token")}</div>
       </div>
     )
 
   return (
-    <div className="text-body flex w-full min-w-[45rem] flex-col gap-4 text-left text-base">
-      <div className="text-body-disabled grid grid-cols-[40%_40%_20%] px-8 text-sm font-normal">
+    <div className="text-fg-primary flex w-full min-w-[45rem] flex-col gap-4 text-left text-base">
+      <div className="text-fg-disabled grid grid-cols-[40%_40%_20%] px-8 text-sm font-normal">
         <div>{t("Asset")}</div>
         <div>{t("Network")}</div>
         <div className="pr-20 text-right">{t("Active")}</div>
@@ -161,8 +161,8 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
 
   return (
     <div className="relative h-28 w-full">
-      <div className="bg-grey-850 text-body-secondary grid h-28 w-full grid-cols-[40%_40%_20%] items-center truncate rounded-sm px-8 pr-6 font-normal">
-        <div className="text-body flex items-center gap-4 overflow-hidden">
+      <div className="bg-secondary text-fg-secondary grid h-28 w-full grid-cols-[40%_40%_20%] items-center truncate rounded-sm px-8 pr-6 font-normal">
+        <div className="text-fg-primary flex items-center gap-4 overflow-hidden">
           <TokenLogo tokenId={token.id} className="shrink-0 text-xl" />
           <div className="flex flex-col justify-center gap-2 overflow-hidden">
             <div className="flex items-center gap-3 overflow-hidden">
@@ -172,16 +172,19 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
               <TokenTypePill type={token.type} />
               {isTokenCustom(token) && <CustomPill />}
             </div>
-            <div className="text-body-inactive truncate text-xs">{token.name}</div>
+            <div className="text-fg-primary-inactive truncate text-xs">{token.name}</div>
           </div>
         </div>
 
         <div className="flex flex-col justify-center gap-2 overflow-hidden">
-          <div className="text-body flex items-center gap-3 overflow-hidden">
-            <NetworkLogo networkId={network.id} className="text-body shrink-0 truncate text-base" />
+          <div className="text-fg-primary flex items-center gap-3 overflow-hidden">
+            <NetworkLogo
+              networkId={network.id}
+              className="text-fg-primary shrink-0 truncate text-base"
+            />
             <div>{network.name}</div>
           </div>
-          <div className="text-body-inactive truncate text-xs">
+          <div className="text-fg-primary-inactive truncate text-xs">
             <NetworkType networkId={network.id} />
           </div>
         </div>
@@ -196,7 +199,7 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
             }}
           />
           <ContextMenu placement="bottom-end">
-            <ContextMenuTrigger className="hover:text-body bg-grey-800 hover:bg-grey-700 rounded-sm p-3">
+            <ContextMenuTrigger className="hover:text-fg-primary bg-secondary hover:bg-tertiary rounded-sm p-3">
               <DotsHorizontal />
             </ContextMenuTrigger>
             <ContextMenuContent>
@@ -220,7 +223,7 @@ const CustomPill = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="bg-primary/10 text-primary inline-block rounded p-4 py-2 text-xs font-light">
+    <div className="bg-fg-brand/10 text-fg-brand inline-block rounded p-4 py-2 text-xs font-light">
       {t("Custom")}
     </div>
   )

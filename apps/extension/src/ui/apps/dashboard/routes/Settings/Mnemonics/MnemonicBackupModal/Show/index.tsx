@@ -36,7 +36,7 @@ export const ShowMnemonic = () => {
           mnemonicId={mnemonic.id}
           buttonText={t("View Recovery Phrase")}
           title={
-            <div className="text-body-secondary">
+            <div className="text-fg-secondary">
               {t("Enter your password to show your recovery phrase.")}
             </div>
           }

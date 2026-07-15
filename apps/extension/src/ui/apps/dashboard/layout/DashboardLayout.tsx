@@ -29,7 +29,7 @@ export const DashboardLayout: FC<{
           <div className="w-[29.6rem] shrink-0 pb-20">
             <div className="hidden h-48 w-[29.6rem] shrink-0 items-center gap-4 sm:flex">
               <TaostatsLogo className="h-[3rem] w-[14.7172rem]" />
-              <PillButton className="bg-primary/5 text-primary hover:bg-primary/20 rounded-3xl">
+              <PillButton className="bg-fg-brand/5 text-fg-brand hover:bg-fg-brand/20 rounded-3xl">
                 <div className="flex items-center gap-2">
                   <span>Wallet</span>
                 </div>
@@ -85,8 +85,8 @@ const NavButton: FC<{
     <button
       type="button"
       className={classNames(
-        "text-body-inactive hover:text-body-secondary flex items-center gap-4",
-        routeMatch && "!text-primary",
+        "text-fg-primary-inactive hover:text-fg-secondary flex items-center gap-4",
+        routeMatch && "!text-fg-brand",
         className,
       )}
       onClick={onClick}
@@ -137,7 +137,7 @@ const HorizontalNav = () => {
   }, [navigate])
 
   return (
-    <div className="border-grey-700 flex h-24 gap-16 rounded-lg border px-8">
+    <div className="border-primary flex h-24 gap-16 rounded-lg border px-8">
       <NavButton
         label={t("Home")}
         onClick={handlePortfolioClick}

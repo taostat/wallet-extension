@@ -31,7 +31,7 @@ const NetworkFilterButton = () => {
       <button
         type="button"
         onClick={open}
-        className="bg-grey-850 hover:bg-grey-800 text-body-secondary hover:text-body h-16 overflow-hidden rounded-sm text-left text-xs"
+        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary h-16 overflow-hidden rounded-sm text-left text-xs"
       >
         <div className="flex size-full items-center gap-4 overflow-hidden px-4">
           {network ? (
@@ -62,8 +62,8 @@ const Header = () => {
   return (
     <div className="flex w-full items-end justify-between gap-8">
       <div className="flex flex-col gap-2">
-        <div className="text-body text-bold text-lg">{t("Recent Activity")}</div>
-        <div className="text-body-secondary text-sm">{t("Review your latest transactions.")}</div>
+        <div className="text-fg-primary text-bold text-lg">{t("Recent Activity")}</div>
+        <div className="text-fg-secondary text-sm">{t("Review your latest transactions.")}</div>
       </div>
       <div>
         <NetworkFilterButton />
