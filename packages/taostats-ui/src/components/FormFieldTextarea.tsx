@@ -12,7 +12,7 @@ export const FormFieldTextarea = forwardRef<HTMLTextAreaElement, FormFieldTextar
       <textarea
         ref={ref}
         className={classNames(
-          "focus:text-body placeholder:text-body-disabled focus-within:border-grey-600 text-grey-300 bg-field text-md disabled:text-body-disabled w-full resize-none rounded border border-transparent px-12 py-8 font-light",
+          "border-primary bg-secondary text-fg-primary placeholder:text-fg-tertiary focus-within:border-brand text-md disabled:text-fg-disabled px-lg py-md w-full resize-none rounded-md border font-normal focus-visible:outline-none",
           props.className,
         )}
         {...props}

@@ -8,7 +8,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     <button
       ref={ref}
       className={classNames(
-        "text-body-secondary enabled:hover:text-body inline-block shrink-0 p-0 text-lg disabled:opacity-50",
+        "text-fg-tertiary enabled:hover:text-fg-primary inline-block shrink-0 p-0 text-lg disabled:opacity-50",
         className,
       )}
       type={type}

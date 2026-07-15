@@ -12,9 +12,9 @@ export const Radio: FC<{
   return (
     <label
       className={classNames(
-        "cursor-pointer p-0.5",
-        "hover:text-grey-300",
-        "has-[:checked]:text-body has-[:checked]:cursor-default",
+        "text-fg-secondary cursor-pointer p-0.5",
+        "hover:text-fg-primary",
+        "has-[:checked]:text-fg-primary has-[:checked]:cursor-default",
         className,
       )}
     >
@@ -25,12 +25,12 @@ export const Radio: FC<{
         checked={checked}
         onChange={onChange}
         className={classNames(
-          "bg-body-disabled h-[0.8em] w-[0.8em] appearance-none rounded-full",
-          "checked:bg-primary checked:border-body-disabled checked:border-[0.15em]",
-          "ring-body focus-visible:ring-1",
+          "bg-fg-disabled h-[0.8em] w-[0.8em] appearance-none rounded-full",
+          "checked:bg-fg-brand checked:border-fg-disabled checked:border-[0.15em]",
+          "ring-fg-primary focus-visible:ring-1",
         )}
       />
-      {!!label && <span className="ml-3">{label}</span>}
+      {!!label && <span className="ml-xs">{label}</span>}
     </label>
   )
 }

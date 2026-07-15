@@ -35,15 +35,15 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
         <input id={id} ref={ref} type="checkbox" className="peer sr-only" {...props} />
         <div
           className={classNames(
-            "bg-grey-600 peer box-content shrink-0 rounded-full border-2 border-transparent",
-            "peer-focus-visible:border-body peer-focus:outline-none",
-            "peer-checked:after:bg-primary peer-checked:after:translate-x-full",
-            "after:bg-grey-800 relative after:absolute after:left-1 after:top-1 after:rounded-full after:transition-all after:content-['']",
+            "bg-tertiary peer box-content shrink-0 rounded-full border-2 border-transparent",
+            "peer-focus-visible:border-fg-primary peer-focus:outline-none",
+            "peer-checked:after:bg-fg-brand peer-checked:after:translate-x-full",
+            "after:bg-secondary relative after:absolute after:left-1 after:top-1 after:rounded-full after:transition-all after:content-['']",
             VARIANTS[variant],
           )}
           data-testid="component-toggle-button"
         ></div>
-        {children && <span className="ml-3">{children}</span>}
+        {children && <span className="text-fg-primary ml-xs">{children}</span>}
       </label>
     )
   },

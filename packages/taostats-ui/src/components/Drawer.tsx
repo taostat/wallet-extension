@@ -103,7 +103,7 @@ export const Drawer: FC<DrawerProps> = ({
       <TransitionChild
         as="div"
         className={classNames(
-          "bg-grey-900 left-0 top-0 z-10 h-full w-full bg-opacity-80",
+          "bg-secondary-solid/80 left-0 top-0 z-10 h-full w-full backdrop-blur-xl",
           onDismiss ? "cursor-pointer" : "cursor-not-allowed",
           position,
         )}

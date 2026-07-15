@@ -29,16 +29,16 @@ export const getContainerClassName = (size: CtaButtonSize) => {
     case "large":
       return {
         iconLeftClassName: "text-lg",
-        containerClassName: "h-40",
-        contentClassName: "gap-4",
-        titleClassName: "text-base",
+        containerClassName: "h-16 py-md",
+        contentClassName: "gap-xs",
+        titleClassName: "text-md",
         subtitleClassName: "text-sm",
       }
     case "small":
       return {
-        iconLeftClassName: "text-[20px]",
-        containerClassName: "h-32",
-        contentClassName: "gap-2",
+        iconLeftClassName: "text-xl",
+        containerClassName: "h-12 py-sm",
+        contentClassName: "gap-xxs",
         titleClassName: "text-sm",
         subtitleClassName: "text-xs",
       }
@@ -79,20 +79,22 @@ export const CtaButton: FC<CtaButton> = ({
       type="button"
       {...props}
       className={classNames(
-        "bg-grey-850 enabled:hover:bg-grey-800 text-body-disabled enabled:hover:text-body flex w-full cursor-pointer items-center gap-8 rounded-sm px-8 disabled:cursor-not-allowed disabled:opacity-50",
+        "bg-secondary-btn-bg border-primary text-fg-disabled enabled:hover:bg-secondary-btn-bg-hover enabled:hover:text-fg-primary gap-md px-lg shadow-btn-secondary flex w-full cursor-pointer items-center rounded-md border disabled:cursor-not-allowed disabled:opacity-50",
         containerClassName,
         className,
       )}
       onClick={handleClick}
     >
-      {IconLeft && <IconLeft className={classNames("text-body shrink-0", iconLeftClassName)} />}
+      {IconLeft && (
+        <IconLeft className={classNames("text-fg-primary shrink-0", iconLeftClassName)} />
+      )}
       <div className={classNames("flex grow flex-col items-start", contentClassName)}>
-        <div className={classNames("text-body", titleClassName)}>{title}</div>
-        <div className={classNames("text-body-secondary text-left", subtitleClassName)}>
+        <div className={classNames("text-fg-primary font-medium", titleClassName)}>{title}</div>
+        <div className={classNames("text-fg-secondary text-left", subtitleClassName)}>
           {subtitle}
         </div>
       </div>
-      {IconRight && <IconRight className="shrink-0 text-lg" />}
+      {IconRight && <IconRight className="text-fg-tertiary shrink-0 text-lg" />}
     </button>
   )
 }

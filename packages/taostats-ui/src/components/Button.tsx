@@ -33,24 +33,20 @@ export const Button: FC<ButtonProps> = ({
     // color prop takes precedence over primary flag
     const effectiveColor: ButtonColor = color ?? (primary ? "primary" : "default")
 
-    if (disabled)
-      return classNames(
-        "bg-black-tertiary text-body-disabled ",
-        effectiveColor === "default" ? " border" : "",
-      )
+    if (disabled) return "bg-disabled text-fg-disabled border border-primary"
 
     switch (effectiveColor) {
       case "default":
-        return "bg-transparent text-white border focus:border-2 border-white enabled:hover:bg-white enabled:hover:text-black focus:outline-none focus:border-white enabled:hover:active:bg-black enabled:hover:active:text-white"
+        return "border border-white text-fg-primary hover:bg-fg-primary hover:text-fg-primary-alt focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 
       case "primary":
-        return "bg-primary-500 text-black border-2 border-transparent focus:outline-none enabled:hover:bg-primary-300 focus:border-white enabled:hover:active:bg-primary"
+        return "bg-fg-primary text-fg-primary-alt shadow-btn-primary hover:bg-fg-brand focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 
       case "orange":
-        return "bg-orange-500 text-black border-2 border-transparent focus:outline-none enabled:hover:bg-orange/90 focus:border-white enabled:hover:active:bg-orange"
+        return "bg-fg-orange text-fg-primary-alt shadow-btn-primary hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 
       case "red":
-        return "bg-brand-orange text-black border-2 border-transparent focus:outline-none enabled:hover:bg-brand-orange/90 focus:border-white  enabled:hover:active:bg-brand-orange"
+        return "bg-fg-error text-fg-primary-alt shadow-btn-primary hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
     }
   }, [color, disabled, primary])
 
@@ -59,27 +55,26 @@ export const Button: FC<ButtonProps> = ({
       type="button"
       disabled={disabled || processing}
       className={classNames(
-        "bg relative inline-flex items-center justify-center rounded",
-        small ? "h-20 px-8 text-sm" : "text-md h-28 px-12",
+        "relative inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors duration-200 ease-linear disabled:pointer-events-none",
+        small ? "px-lg py-md gap-xs rounded-sm text-sm" : "gap-xs rounded-md px-3.5 py-2.5 text-sm",
         fullWidth ? "w-full" : "",
         colors,
-        "transition-all hover:scale-105",
         className,
       )}
       {...props}
     >
       {
         <div
-          className={classNames("flex items-center gap-5", !disabled && processing && "invisible")}
+          className={classNames("gap-xs flex items-center", !disabled && processing && "invisible")}
         >
           {IconLeft && (
-            <div className={small ? "text-md" : "text-lg"}>
+            <div className={small ? "text-sm" : "text-md"}>
               <IconLeft />
             </div>
           )}
           <div>{props.children}</div>
           {Icon && (
-            <div className={small ? "text-md" : "text-lg"}>
+            <div className={small ? "text-sm" : "text-md"}>
               <Icon />
             </div>
           )}
@@ -91,7 +86,7 @@ export const Button: FC<ButtonProps> = ({
             "absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center",
           )}
         >
-          <Loading01 className="animate-spin-slow text-lg" />
+          <Loading01 className="animate-spin-slow text-md" />
         </div>
       )}
     </button>

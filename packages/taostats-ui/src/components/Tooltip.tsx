@@ -154,7 +154,7 @@ export const TooltipTrigger = forwardRef<
 export const TooltipContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
   function TooltipContent(
     {
-      className = "rounded-xs text-body-secondary border-grey-700 z-20 border-[0.5px] bg-black p-3 text-xs shadow",
+      className = "rounded-md text-fg-secondary border-primary bg-tooltip-bg z-20 border p-xs text-xs shadow-menu-dropdown",
       ...props
     },
     propRef,

@@ -40,7 +40,7 @@ export const Modal: FC<ModalProps> = ({
       <TransitionChild
         as="div"
         className={classNames(
-          "bg-grey-900/50 left-0 top-0 z-20 h-full w-full backdrop-blur-sm",
+          "bg-secondary-solid/50 left-0 top-0 z-20 h-full w-full backdrop-blur-xl",
           containerId ? "absolute" : "fixed",
           onDismiss && "cursor-pointer",
         )}
