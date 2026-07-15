@@ -110,7 +110,7 @@ const AddToAddressBookDrawerForm: FC<{
 
   return (
     <form
-      className="bg-grey-800 flex h-[26.8rem] flex-col justify-end rounded-t-xl p-12"
+      className="bg-secondary flex h-[26.8rem] flex-col justify-end rounded-t-xl p-12"
       onSubmit={submitWithoutBubbleUp}
     >
       <header className="flex flex-col items-center justify-center gap-6">
@@ -140,7 +140,7 @@ const AddToAddressBookDrawerForm: FC<{
               t={t}
               defaults="Limit to <Chain><ChainLogo />{{chainName}}</Chain>"
               components={{
-                Chain: <div className="text-body inline-flex items-baseline gap-1" />,
+                Chain: <div className="text-fg-primary inline-flex items-baseline gap-1" />,
                 ChainLogo: <NetworkLogo className="self-center" networkId={chain?.id} />,
               }}
               values={{ chainName: chain?.name }}
@@ -154,7 +154,7 @@ const AddToAddressBookDrawerForm: FC<{
           {t("Cancel")}
         </Button>
         <Button
-          className="disabled:bg-grey-750"
+          className="disabled:bg-tertiary"
           type="submit"
           fullWidth
           primary

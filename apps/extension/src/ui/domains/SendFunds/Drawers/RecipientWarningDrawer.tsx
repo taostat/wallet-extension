@@ -28,16 +28,16 @@ export const RecipientWarningDrawer = ({
     <Drawer anchor="bottom" isOpen={isOpen} onDismiss={close} containerId="main">
       <div className="bg-black-tertiary rounded-t-xl p-12 text-center">
         <div>
-          <InfoCircle className="text-primary-500 inline-block text-3xl" />
+          <InfoCircle className="text-fg-brand inline-block text-3xl" />
         </div>
         <div className="mt-10 font-bold">{t("Recipient Address Converted")}</div>
-        <div className="text-body-secondary mt-5 text-sm">
+        <div className="text-fg-secondary mt-5 text-sm">
           {recipientWarning === "AZERO_ID" && (
             <Trans
               t={t}
               defaults="The Azero ID which you entered has been converted to a <Chain><ChainLogo />{{chainName}}</Chain> address. Make sure this is the chain you intend to transfer on."
               components={{
-                Chain: <div className="text-body inline-flex items-baseline gap-1" />,
+                Chain: <div className="text-fg-primary inline-flex items-baseline gap-1" />,
                 ChainLogo: <NetworkLogo className="self-center" networkId={chain?.id} />,
               }}
               values={{ chainName: chain?.name ?? t("Unknown") }}

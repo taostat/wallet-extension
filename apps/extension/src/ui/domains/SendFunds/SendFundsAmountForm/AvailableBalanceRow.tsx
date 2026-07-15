@@ -22,7 +22,7 @@ export const AvailableBalanceRow = () => {
             )}
           >
             <Tokens
-              className="text-body"
+              className="text-fg-primary"
               amount={balance.transferable.tokens}
               decimals={token?.decimals}
               symbol={token?.symbol}

@@ -45,7 +45,7 @@ export const SendFundsAccountPicker = () => {
           <SearchInput onChange={setSearch} placeholder={t("Search by account name")} />
         </div>
       </div>
-      <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+      <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
         <SendFundsAccountsList
           accounts={accounts}
           genesisHash={getNetworkGenesisHash(network)}

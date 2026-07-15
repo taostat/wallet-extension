@@ -29,7 +29,7 @@ const AmountDisplay = () => {
   const { sendMax, maxAmount, transfer, token } = useSendFunds()
   const amount = sendMax ? maxAmount : transfer
 
-  if (!amount || !token) return <div className="bg-grey-750 h-12 w-64 animate-pulse rounded-sm" />
+  if (!amount || !token) return <div className="bg-tertiary h-12 w-64 animate-pulse rounded-sm" />
 
   return (
     <div className="flex w-full items-center justify-end gap-4 text-right">
@@ -55,7 +55,7 @@ const NetworkDisplay = () => {
   if (!network) return null
 
   return (
-    <div className="text-body flex items-center gap-4">
+    <div className="text-fg-primary flex items-center gap-4">
       <NetworkLogo networkId={network.id} className="text-md" />
       {network.name}
     </div>
@@ -100,8 +100,8 @@ const TotalAmountRow = () => {
 
   return (
     <div className="mt-4 flex h-[1.7rem] justify-between text-xs">
-      <div className="text-body-secondary">{t("Total Amount")}</div>
-      <div className="text-body">
+      <div className="text-fg-secondary">{t("Total Amount")}</div>
+      <div className="text-fg-primary">
         {totalValue ? (
           <Fiat amount={totalValue} currencyDisplay={currency === "tao" ? "code" : undefined} />
         ) : (
@@ -140,7 +140,7 @@ export const ExternalRecipientWarning = () => {
   if (warningType === "none") return null
 
   return (
-    <div className="text-alert-warn bg-alert-warn/10 flex w-full items-center gap-4 rounded-sm p-4 text-xs">
+    <div className="text-fg-orange bg-orange-secondary/10 flex w-full items-center gap-4 rounded-sm p-4 text-xs">
       <AlertCircle className="shrink-0 text-[2rem]" />
       {warningType === "network" && network && token && (
         <div>
@@ -153,7 +153,7 @@ export const ExternalRecipientWarning = () => {
               i18nKey="Warning: If sending to a centralized exchange, make sure it expects to receive funds on <Network /> network. Sending to the wrong network will result in loss of funds."
             />
           </div>
-          <div className="text-body mt-4 space-y-2">
+          <div className="text-fg-primary mt-4 space-y-2">
             <Checkbox checked={isWarningAcknowledged} onChange={handleCheckChange}>
               {t("Recipient supports {{token}} on {{network}}", {
                 token: token.name,
@@ -175,7 +175,7 @@ export const ExternalRecipientWarning = () => {
               "Warning: Alpha tokens (including root staked tokens) are not supported by most centralized exchanges. Sending to a centralized exchange will result in loss of funds.",
             )}
           </div>
-          <div className="text-body mt-2 space-y-2">
+          <div className="text-fg-primary mt-2 space-y-2">
             <Checkbox checked={isWarningAcknowledged} onChange={handleCheckChange}>
               {t("Recipient is not a centralized exchange")}
             </Checkbox>
@@ -269,8 +269,8 @@ const DefaultFeeSummary = () => {
     <>
       {!!tip && !!tipToken && tip.planck > 0n && (
         <div className="mt-4 flex h-[1.7rem] items-center justify-between gap-8 text-xs">
-          <div className="text-body-secondary">{t("Tip")}</div>
-          <div className="text-body">
+          <div className="text-fg-secondary">{t("Tip")}</div>
+          <div className="text-fg-primary">
             <div className={classNames("inline-flex h-[1.7rem] items-center")}>
               <TokensAndFiat planck={tip.planck} tokenId={tipToken.id} />
             </div>
@@ -278,10 +278,10 @@ const DefaultFeeSummary = () => {
         </div>
       )}
       <div className="mt-4 flex h-[1.7rem] items-center justify-between gap-8 text-xs">
-        <div className="text-body-secondary">
+        <div className="text-fg-secondary">
           {t("Estimated Fee")} <SendFundsFeeTooltip />
         </div>
-        <div className="text-body">
+        <div className="text-fg-primary">
           <div
             className={classNames(
               "inline-flex h-[1.7rem] items-center",
@@ -299,7 +299,7 @@ const DefaultFeeSummary = () => {
               )}
               {error && (
                 <WithTooltip tooltip={(error as Error).message}>
-                  <span className="text-alert-warn">{t("Failed to estimate fee")}</span>
+                  <span className="text-fg-orange">{t("Failed to estimate fee")}</span>
                 </WithTooltip>
               )}
             </>
@@ -326,25 +326,25 @@ export const SendFundsConfirmForm = () => {
           innerClassName="flex flex-col w-full items-center space-between min-h-full"
         >
           <div className="w-full grow">
-            <div className="bg-grey-900 text-body-secondary flex flex-col rounded px-12 py-8 leading-[140%]">
-              <div className="text-body flex h-16 items-center justify-between gap-8">
-                <div className="text-body-secondary whitespace-nowrap text-sm">{t("Amount")}</div>
+            <div className="bg-app-bg text-fg-secondary flex flex-col rounded px-12 py-8 leading-[140%]">
+              <div className="text-fg-primary flex h-16 items-center justify-between gap-8">
+                <div className="text-fg-secondary whitespace-nowrap text-sm">{t("Amount")}</div>
                 <AmountDisplay />
               </div>
               <div className="flex h-16 items-center justify-between gap-8">
-                <div className="text-body-secondary whitespace-nowrap text-sm">{t("From")}</div>
+                <div className="text-fg-secondary whitespace-nowrap text-sm">{t("From")}</div>
                 <AddressDisplay className="h-16 text-sm" address={from} networkId={network?.id} />
               </div>
               <div className="flex h-16 items-center justify-between gap-8">
-                <div className="text-body-secondary whitespace-nowrap text-sm">{t("To")}</div>
+                <div className="text-fg-secondary whitespace-nowrap text-sm">{t("To")}</div>
                 <AddressDisplay className="h-16 text-sm" address={to} networkId={network?.id} />
               </div>
               <div className="py-8">
-                <hr className="text-grey-800" />
+                <hr className="text-fg-disabled" />
               </div>
               <BittensorAlphaTokenRow />
               <div className="mt-4 flex items-center justify-between gap-8 text-xs">
-                <div className="text-body-secondary">{t("Network")}</div>
+                <div className="text-fg-secondary">{t("Network")}</div>
                 <NetworkDisplay />
               </div>
               <FeeSummary />
@@ -368,8 +368,13 @@ const BittensorAlphaTokenRow: FC = () => {
 
   return (
     <div className="mt-4 flex w-full items-center justify-between gap-8 overflow-hidden text-xs">
-      <div className="text-body-secondary">{t("Token")}</div>
-      <div className={classNames("truncate", token.netuid === 0 ? "text-alert-warn" : "text-body")}>
+      <div className="text-fg-secondary">{t("Token")}</div>
+      <div
+        className={classNames(
+          "truncate",
+          token.netuid === 0 ? "text-fg-orange" : "text-fg-primary",
+        )}
+      >
         {token.name}
         <BittensorValidatorName hotkey={token.hotkey} prefix=" | " />
       </div>

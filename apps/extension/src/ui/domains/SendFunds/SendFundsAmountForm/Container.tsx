@@ -7,7 +7,7 @@ export const Container: FC<ContainerProps> = (props) => {
   return (
     <div
       {...props}
-      className={classNames("bg-grey-900 text-body-secondary rounded", props.className)}
+      className={classNames("bg-app-bg text-fg-secondary rounded", props.className)}
     />
   )
 }

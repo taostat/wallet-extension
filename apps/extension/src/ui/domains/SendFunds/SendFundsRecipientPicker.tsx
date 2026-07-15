@@ -35,13 +35,13 @@ const AddressFormatError = ({ chain }: { chain?: DotNetwork }) => {
   return (
     <div className="h-min-h-full align-center flex w-full flex-col items-center gap-4 px-12 py-7">
       <AlertOctagon className="text-brand-orange text-lg" />
-      <span className="text-body">{t("Address Format Mismatch")}</span>
-      <p className="text-body-secondary mt-4 text-center">
+      <span className="text-fg-primary">{t("Address Format Mismatch")}</span>
+      <p className="text-fg-secondary mt-4 text-center">
         <Trans
           t={t}
           defaults="The address you've entered is not compatible with the <Chain><ChainLogo />{{chainName}}</Chain> chain. Please enter a compatible address or select a different chain to send on."
           components={{
-            Chain: <div className="text-body inline-flex items-baseline gap-1" />,
+            Chain: <div className="text-fg-primary inline-flex items-baseline gap-1" />,
             ChainLogo: <NetworkLogo className="self-center" networkId={chain?.id} />,
           }}
           values={{ chainName: chain?.name ?? t("Unknown") }}
@@ -144,7 +144,7 @@ export const SendFundsRecipientPicker = () => {
           />
         </div>
       </div>
-      <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+      <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
         {isNetworkDot(network) && newAddress?.ss58FormatError ? (
           <AddressFormatError chain={network ?? undefined} />
         ) : (

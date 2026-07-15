@@ -64,8 +64,8 @@ export const AccountRow = ({
       onClick={onClick}
       tabIndex={0}
       className={classNames(
-        "hover:bg-grey-750 focus:bg-grey-700 flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
-        selected && "bg-grey-800 text-body-secondary",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
+        selected && "bg-secondary text-fg-secondary",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
@@ -84,9 +84,9 @@ export const AccountRow = ({
                 <Address address={displayAddress} startCharCount={6} endCharCount={6} noTooltip />
               )}
             </div>
-            <AccountTypeIcon type={account.type} className="text-primary" />
+            <AccountTypeIcon type={account.type} className="text-fg-brand" />
           </div>
-          <Address className="text-body-secondary text-xs" address={displayAddress} />
+          <Address className="text-fg-secondary text-xs" address={displayAddress} />
         </div>
         {selected && <CheckCircle className="ml-3 inline shrink-0" />}
         {onClear && (
@@ -145,7 +145,7 @@ const AccountTokenBalance = ({
           noCountUp
         />
       </div>
-      <div className="text-body-secondary text-xs">
+      <div className="text-fg-secondary text-xs">
         <Fiat amount={balance.transferable.fiat(currency)} isBalance noCountUp />
       </div>
     </div>

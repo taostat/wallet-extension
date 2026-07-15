@@ -97,7 +97,7 @@ const TokenInput = ({ onTokenClick }: { onTokenClick: () => void }) => {
         isEstimatingMaxAmount && "animate-pulse",
       )}
     >
-      {isEstimatingMaxAmount && <div className="bg-grey-800 h-16 w-48 rounded"></div>}
+      {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>}
       <input
         key="tokenInput"
         ref={refTokensInput}
@@ -106,7 +106,7 @@ const TokenInput = ({ onTokenClick }: { onTokenClick: () => void }) => {
         value={value}
         placeholder="0"
         className={classNames(
-          "text-body peer inline-block min-w-0 text-ellipsis bg-transparent text-xl",
+          "text-fg-primary peer inline-block min-w-0 text-ellipsis bg-transparent text-xl",
           sendMax && "placeholder:text-white",
           isEstimatingMaxAmount && "hidden", // hide until value is known
         )}
@@ -183,16 +183,16 @@ const FiatInput = () => {
         autoFocus={!sendMax && !transfer}
         placeholder={"0.00"}
         className={classNames(
-          "text-body peer inline-block min-w-0 bg-transparent text-xl",
+          "text-fg-primary peer inline-block min-w-0 bg-transparent text-xl",
           isEstimatingMaxAmount && "hidden", // hide until value is known
         )}
         onChange={handleChange}
       />
-      {isEstimatingMaxAmount && <div className="bg-grey-800 h-16 w-48 rounded"></div>}
+      {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>}
       <div
         className={classNames(
           "block shrink-0",
-          isEstimatingMaxAmount ? "text-grey-800" : "peer-placeholder-shown:text-body-disabled",
+          isEstimatingMaxAmount ? "text-fg-disabled" : "peer-placeholder-shown:text-fg-disabled",
         )}
       >
         {currencyConfig[currency]?.symbol}
@@ -202,7 +202,7 @@ const FiatInput = () => {
 }
 
 const DisplayContainer: FC<PropsWithChildren> = ({ children }) => {
-  return <div className="text-body-secondary max-w-[264px] truncate text-sm">{children}</div>
+  return <div className="text-fg-secondary max-w-[264px] truncate text-sm">{children}</div>
 }
 
 const FiatDisplay = () => {

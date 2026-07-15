@@ -110,7 +110,7 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
       </TooltipContent>
       <TooltipTrigger
         className={classNames(
-          "text-body inline-flex max-w-full flex-nowrap items-center gap-4 overflow-hidden text-base",
+          "text-fg-primary inline-flex max-w-full flex-nowrap items-center gap-4 overflow-hidden text-base",
           className,
         )}
       >
@@ -122,18 +122,18 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
         <div className="leading-base grow truncate">{text}</div>
         <AccountTypeIcon
           type={account?.type}
-          className="text-primary"
+          className="text-fg-brand"
           signetUrl={getAccountSignetUrl(account)}
         />
         {blockExplorerUrl ? (
-          <a href={blockExplorerUrl} target="_blank" className="text-grey-300 hover:text-white">
+          <a href={blockExplorerUrl} target="_blank" className="text-fg-tertiary hover:text-white">
             <LinkExternal01 />
           </a>
         ) : (
           <button
             onClick={handleCopyAddress}
             type="button"
-            className="text-md text-grey-300 hover:text-white"
+            className="text-md text-fg-tertiary hover:text-white"
           >
             <Copy01 />
           </button>

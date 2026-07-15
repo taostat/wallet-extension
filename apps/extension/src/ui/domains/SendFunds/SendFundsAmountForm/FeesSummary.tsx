@@ -47,7 +47,7 @@ export const FeesSummary = () => {
           )}
         >
           {isLoading && !estimatedFee && (
-            <div className="text-body-disabled flex items-center gap-2">
+            <div className="text-fg-disabled flex items-center gap-2">
               <span>{t("Validating Transaction")}</span>
               <Loading01 className="animate-spin-slow" />
             </div>

@@ -44,7 +44,7 @@ export const AddressPillButton: FC<AddressPillButtonProps> = ({
 
   return (
     <PillButton className={classNames("h-16 max-w-full !px-4", className)} onClick={onClick}>
-      <div className="text-body flex h-16 max-w-full flex-nowrap items-center gap-4 overflow-x-hidden text-base">
+      <div className="text-fg-primary flex h-16 max-w-full flex-nowrap items-center gap-4 overflow-x-hidden text-base">
         <AccountIcon className="!text-lg" address={address} genesisHash={accountGenesisHash} />
         <div className="leading-base grow truncate">
           {name ? (
@@ -53,7 +53,7 @@ export const AddressPillButton: FC<AddressPillButtonProps> = ({
             <Address address={displayAddress} startCharCount={6} endCharCount={6} />
           )}
         </div>
-        <AccountTypeIcon type={account?.type} className="text-primary-500" />
+        <AccountTypeIcon type={account?.type} className="text-fg-brand" />
       </div>
     </PillButton>
   )
