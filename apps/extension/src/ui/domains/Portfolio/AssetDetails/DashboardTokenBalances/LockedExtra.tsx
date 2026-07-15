@@ -66,7 +66,7 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
               </div>
             </div>
             {!!withdrawIn && (
-              <div className="text-body-500 text-sm">
+              <div className="text-fg-primary-500 text-sm">
                 {t("{{duration}} left", { duration: withdrawIn })}
               </div>
             )}

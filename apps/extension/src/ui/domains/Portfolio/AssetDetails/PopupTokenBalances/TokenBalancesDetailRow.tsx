@@ -52,13 +52,13 @@ export const TokenBalancesDetailRow = ({
           </div>
         )}
         {!row.address && row.isLoading && !row.description && row.locked && (
-          <div className="bg-grey-800 rounded-xs h-[1.4rem] max-w-48 animate-pulse" />
+          <div className="bg-secondary rounded-xs h-[1.4rem] max-w-48 animate-pulse" />
         )}
         {!row.address && row.description && (
           <div className="text-left text-xs">
             <Tooltip>
               <TooltipTrigger className="max-w-full truncate">{row.description}</TooltipTrigger>
-              <TooltipContent className="rounded-xs text-body-secondary border-grey-700 z-20 border-[0.5px] bg-black p-3 text-[1.1rem] shadow">
+              <TooltipContent className="rounded-xs text-fg-secondary border-primary z-20 border-[0.5px] bg-black p-3 text-[1.1rem] shadow">
                 {row.description}
               </TooltipContent>
             </Tooltip>
@@ -74,7 +74,7 @@ export const TokenBalancesDetailRow = ({
         <div
           className={classNames(
             "flex h-10 items-center gap-2 font-bold",
-            row.locked ? "text-body-secondary" : "text-white",
+            row.locked ? "text-fg-secondary" : "text-white",
           )}
         >
           <Tokens amount={row.tokens} symbol={symbol} isBalance />

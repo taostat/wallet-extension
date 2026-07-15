@@ -34,7 +34,7 @@ const CopyAddressButtonInner: FC<CopyAddressButtonProps> = ({ networkId }) => {
         <button
           type="button"
           onClick={handleClick}
-          className="text-body-secondary hover:text-body focus:text-body focus:bg-grey-700 hover:bg-grey-700 rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs"
+          className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary focus:bg-tertiary hover:bg-tertiary rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs"
         >
           <Copy01 />
         </button>

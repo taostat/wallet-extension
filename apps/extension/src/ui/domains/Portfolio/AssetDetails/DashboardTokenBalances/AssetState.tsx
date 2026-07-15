@@ -33,7 +33,7 @@ export const AssetState = ({
           </Tooltip>
         )}
         {!description && address && isLoading && (
-          <div className="bg-grey-800 rounded-xs h-[1.4rem] w-60 animate-pulse" />
+          <div className="bg-secondary rounded-xs h-[1.4rem] w-60 animate-pulse" />
         )}
       </div>
       {address && (
@@ -43,7 +43,7 @@ export const AssetState = ({
       )}
       {/* show description below title when address is not set */}
       {isLoading && !description && !address && locked && (
-        <div className="bg-grey-800 rounded-xs h-[1.6rem] w-60 animate-pulse" />
+        <div className="bg-secondary rounded-xs h-[1.6rem] w-60 animate-pulse" />
       )}
       {description && !address && (
         <Tooltip>

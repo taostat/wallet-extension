@@ -63,7 +63,7 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
           <Tooltip>
             <TooltipTrigger
               className={classNames(
-                "text-body-secondary bg-body/10 h-10 rounded-sm px-3 text-xs opacity-60",
+                "text-fg-secondary bg-fg-primary/10 h-10 rounded-sm px-3 text-xs opacity-60",
                 isLoading && "animate-pulse",
               )}
             >

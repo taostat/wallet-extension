@@ -47,7 +47,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
             genesisHash={getAccountGenesisHash(account)}
           />
           <div className="truncate">{account.name ?? shortenAddress(account.address)}</div>
-          <AccountTypeIcon type={account.type} className="text-primary" />
+          <AccountTypeIcon type={account.type} className="text-fg-brand" />
         </div>
         <div className="shrink-0">
           <AccountContextMenu
@@ -55,7 +55,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
             analyticsFrom="dashboard portfolio"
             placement="bottom-end"
             trigger={
-              <IconButton className="bg-grey-800/50 hover:bg-grey-800/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
+              <IconButton className="bg-secondary/50 hover:bg-secondary/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
                 <DotsHorizontal className="text-base" />
               </IconButton>
             }
@@ -68,8 +68,8 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
     return (
       <div className="flex h-14 w-full items-center gap-6 text-base">
         <div className="flex grow items-center gap-3 overflow-hidden text-base">
-          <div className="bg-grey-800 rounded-xs flex size-10 shrink-0 items-center justify-center">
-            <Folder className="text-primary shrink-0 text-xs" />
+          <div className="bg-secondary rounded-xs flex size-10 shrink-0 items-center justify-center">
+            <Folder className="text-fg-brand shrink-0 text-xs" />
           </div>
           <div className="truncate">{folder.name}</div>
         </div>
@@ -78,7 +78,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
             folderId={folder.id}
             placement="bottom-end"
             trigger={
-              <ContextMenuTrigger className="bg-grey-800/50 hover:bg-grey-800/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
+              <ContextMenuTrigger className="bg-secondary/50 hover:bg-secondary/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
                 <DotsHorizontal className="text-base" />
               </ContextMenuTrigger>
             }
@@ -109,7 +109,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
   return (
     <div
       className={classNames(
-        "bg-grey-900 relative z-0 flex flex-col items-start justify-between gap-4 rounded-lg p-10",
+        "bg-app-bg relative z-0 flex flex-col items-start justify-between gap-4 rounded-lg p-10",
         className,
       )}
     >
@@ -118,7 +118,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
         <div className="flex w-full max-w-full items-center gap-6">
           <button
             className={classNames(
-              "bg-grey-700/20 text-grey-200 hover:text-body hover:bg-body/10 pointer-events-auto flex size-[4.4rem] shrink-0 items-center justify-center rounded-full text-center text-lg leading-none shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
+              "bg-tertiary/20 text-fg-tertiary hover:text-fg-primary hover:bg-fg-primary/10 pointer-events-auto flex size-[4.4rem] shrink-0 items-center justify-center rounded-full text-center text-lg leading-none shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
               currencyConfig[currency]?.symbol?.length === 2 && "text-md",
               currencyConfig[currency]?.symbol?.length > 2 && "text-base",
             )}
@@ -184,8 +184,8 @@ const Action: FC<ActionProps> = ({
         <button
           type="button"
           className={classNames(
-            "text-body-secondary pointer-events-auto flex h-14 items-center gap-4 rounded-full bg-white/5 px-5 text-base opacity-90 backdrop-blur-sm disabled:opacity-70",
-            "enabled:hover:text-body enabled:hover:bg-white/10",
+            "text-fg-secondary pointer-events-auto flex h-14 items-center gap-4 rounded-full bg-white/5 px-5 text-base opacity-90 backdrop-blur-sm disabled:opacity-70",
+            "enabled:hover:text-fg-primary enabled:hover:bg-white/10",
           )}
           onClick={handleClick}
           disabled={disabled}

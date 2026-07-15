@@ -42,7 +42,7 @@ const useTooltipRenderer = () =>
     return (
       <div className="min-w-[15rem] rounded-lg bg-[#1d1d1d] px-5 py-3">
         <div className="flex flex-col gap-2">
-          <div className="text-body-secondary text-sm">
+          <div className="text-fg-secondary text-sm">
             {date.toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -51,11 +51,11 @@ const useTooltipRenderer = () =>
           </div>
           <div className="flex flex-row items-center gap-2">
             <div className="bg-accent-1 h-3 w-3 rounded-sm" />
-            <span className="text-body-secondary text-sm">{formatNumber(rightValue)} t</span>
+            <span className="text-fg-secondary text-sm">{formatNumber(rightValue)} t</span>
           </div>
           <div className="flex flex-row items-center gap-2">
             <div className="bg-accent-2 h-3 w-3 rounded-sm" />
-            <span className="text-body-secondary text-sm">${formatNumber(leftValue)}</span>
+            <span className="text-fg-secondary text-sm">${formatNumber(leftValue)}</span>
           </div>
         </div>
       </div>
@@ -81,14 +81,14 @@ export const EarningsChart = memo(function EarningsChart({
 
   if (isLoading) {
     return (
-      <div className="bg-grey-850 flex min-h-[200px] w-full animate-pulse items-center justify-center rounded-lg" />
+      <div className="bg-secondary flex min-h-[200px] w-full animate-pulse items-center justify-center rounded-lg" />
     )
   }
 
   if (isError) {
     return (
-      <div className="bg-grey-850 flex min-h-[200px] w-full flex-col items-center justify-center gap-4 rounded-lg p-8">
-        <p className="text-body-secondary text-center text-sm">
+      <div className="bg-secondary flex min-h-[200px] w-full flex-col items-center justify-center gap-4 rounded-lg p-8">
+        <p className="text-fg-secondary text-center text-sm">
           An error occurred while loading the earnings chart.
         </p>
       </div>
@@ -96,7 +96,7 @@ export const EarningsChart = memo(function EarningsChart({
   }
 
   return (
-    <div className="bg-grey-850 h-[250px] w-full overflow-hidden rounded-lg p-0 [&_svg]:!h-full [&_svg]:!w-full">
+    <div className="bg-secondary h-[250px] w-full overflow-hidden rounded-lg p-0 [&_svg]:!h-full [&_svg]:!w-full">
       <ParentSize>
         {({ width, height }) =>
           width > 0 && height > 0 ? (

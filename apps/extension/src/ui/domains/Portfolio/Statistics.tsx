@@ -45,7 +45,7 @@ const TokensAndFiat = ({
         symbol={token?.symbol}
       />
     </div>
-    <div className="text-body-secondary text-sm">
+    <div className="text-fg-secondary text-sm">
       {fiat === null ? "-" : <Fiat amount={fiat} isBalance currencyDisplay={currencyDisplay} />}
     </div>
   </div>
@@ -85,7 +85,7 @@ export const Statistics = ({
         className,
       )}
     >
-      <div className="text-body-secondary flex items-center gap-2 text-sm">
+      <div className="text-fg-secondary flex items-center gap-2 text-sm">
         {locked && <Lock01 />}
         {title}
       </div>
@@ -93,7 +93,7 @@ export const Statistics = ({
         {showCurrencyToggle && (
           <button
             className={classNames(
-              "border-grey-750 bg-grey-800 text-body-secondary hover:bg-grey-700 pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border text-center text-sm transition-colors duration-100 ease-out",
+              "border-primary bg-secondary text-fg-secondary hover:bg-tertiary pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border text-center text-sm transition-colors duration-100 ease-out",
               currencyConfig[currency]?.symbol?.length === 2 && "text-[1rem]",
               currencyConfig[currency]?.symbol?.length > 2 && "text-[0.8rem]",
             )}

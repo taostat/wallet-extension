@@ -13,7 +13,7 @@ import { useAccounts } from "@ui/state"
 import { useBittensorNetworkIds } from "@ui/state/bittensor"
 
 const pillButtonClass =
-  "bg-[#293c37] hover:bg-[#214940] text-primary rounded-sm p-4 text-xs font-light"
+  "bg-[#293c37] hover:bg-[#214940] text-fg-brand rounded-sm p-4 text-xs font-light"
 
 export const BittensorUnstakeButton: FC<{
   balances: Balances
@@ -83,7 +83,7 @@ export const BittensorUnstakeButton: FC<{
           type="button"
           onClick={handleClick}
           className={classNames(
-            "text-body-secondary hover:text-body focus:text-body focus:bg-grey-700 hover:bg-grey-700 rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs",
+            "text-fg-secondary hover:text-fg-primary focus:text-fg-primary focus:bg-tertiary hover:bg-tertiary rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs",
             className,
           )}
         >

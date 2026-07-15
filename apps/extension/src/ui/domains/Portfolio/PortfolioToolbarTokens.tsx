@@ -61,7 +61,7 @@ const NetworkFilterButton = () => {
         <TooltipTrigger asChild>
           <PortfolioToolbarButton
             onClick={open}
-            className={classNames(networkFilter && "text-primary")}
+            className={classNames(networkFilter && "text-fg-brand")}
           >
             {networkFilter ? (
               <NetworkLogo className="text-lg" networkId={networkFilter.networkIds[0]} />
@@ -92,7 +92,7 @@ const PortfolioSearch = () => {
   return (
     <SearchInput
       containerClassName={classNames(
-        "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-16 w-full border border-field text-xs !px-4",
+        "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-16 w-full border border-field text-xs !px-4",
         "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
         "@2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
         IS_POPUP ? "w-full" : "max-w-[37.4rem]",

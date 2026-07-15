@@ -37,15 +37,15 @@ const AssetRowSkeleton = ({ className }: { className?: string }) => {
         className,
       )}
     >
-      <div className="bg-grey-700 h-16 w-16 animate-pulse rounded-full px-6 text-xl"></div>
+      <div className="bg-tertiary h-16 w-16 animate-pulse rounded-full px-6 text-xl"></div>
       <div className="grow space-y-1">
         <div className="flex justify-between gap-1">
-          <div className="bg-grey-700 rounded-xs h-7 w-20 animate-pulse"></div>
-          <div className="bg-grey-700 rounded-xs h-7 w-[10rem] animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-7 w-20 animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-7 w-[10rem] animate-pulse"></div>
         </div>
         <div className="flex justify-between gap-1">
-          <div className="bg-grey-700 rounded-xs h-7 w-10 animate-pulse"></div>
-          <div className="bg-grey-700 rounded-xs h-7 w-[6rem] animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-7 w-10 animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-7 w-[6rem] animate-pulse"></div>
         </div>
       </div>
     </div>
@@ -115,7 +115,7 @@ const AssetRow: FC<{
     <div className="group relative h-28 w-full">
       <button
         type="button"
-        className="bg-grey-850 hover:bg-grey-800 flex size-full items-center overflow-hidden rounded-sm"
+        className="bg-secondary hover:bg-secondary flex size-full items-center overflow-hidden rounded-sm"
         onClick={handleClick}
       >
         <div className="shrink-0 p-6 text-xl">
@@ -124,12 +124,12 @@ const AssetRow: FC<{
         <div className="relative flex grow items-center gap-4 overflow-hidden pr-6">
           <div className="flex grow flex-col gap-2 overflow-hidden text-left">
             <div className="flex w-full items-center gap-3 overflow-hidden">
-              <div className="text-body flex w-full items-center gap-3 overflow-hidden text-sm font-bold">
+              <div className="text-fg-primary flex w-full items-center gap-3 overflow-hidden text-sm font-bold">
                 <div className="truncate">
                   <TokenDisplaySymbol tokenId={token.id} />
                 </div>
                 {!!network.isTestnet && (
-                  <div className="text-tiny bg-alert-warn/10 text-alert-warn shrink-0 rounded px-3 py-1 font-light">
+                  <div className="text-tiny bg-orange-secondary/10 text-fg-orange shrink-0 rounded px-3 py-1 font-light">
                     {t("Testnet")}
                   </div>
                 )}
@@ -137,7 +137,7 @@ const AssetRow: FC<{
             </div>
 
             {isUniswapV2LpToken && typeof tvl === "number" && (
-              <div className="text-body-secondary whitespace-nowrap text-xs">
+              <div className="text-fg-secondary whitespace-nowrap text-xs">
                 <Fiat amount={tvl} noCountUp={noCountUp} />{" "}
                 <span className="text-[0.8rem]">TVL</span>
               </div>
@@ -146,7 +146,7 @@ const AssetRow: FC<{
               <AssetPrice
                 tokenId={token.id}
                 balances={balances}
-                className="text-body-secondary text-xs"
+                className="text-fg-secondary text-xs"
               />
             )}
           </div>
@@ -159,7 +159,7 @@ const AssetRow: FC<{
             <div
               className={classNames(
                 "whitespace-nowrap text-sm font-bold",
-                locked ? "text-body-secondary" : "text-white",
+                locked ? "text-fg-secondary" : "text-white",
                 showStakingButton && "group-hover:hidden",
               )}
             >
@@ -177,7 +177,7 @@ const AssetRow: FC<{
             </div>
             <div
               className={classNames(
-                "text-body-secondary leading-base text-xs",
+                "text-fg-secondary leading-base text-xs",
                 showStakingButton && "group-hover:hidden",
               )}
             >
@@ -223,11 +223,11 @@ const BalancesGroup = ({ label, fiatAmount, className, children }: GroupProps) =
         className={classNames("flex cursor-pointer items-center gap-2 text-sm", className)}
         onClick={toggle}
       >
-        <div className="text-body-secondary grow text-left">{label}</div>
-        <div className="text-body-secondary truncate">
+        <div className="text-fg-secondary grow text-left">{label}</div>
+        <div className="text-fg-secondary truncate">
           <Fiat amount={fiatAmount} isBalance />
         </div>
-        <div className="text-body-secondary text-md flex flex-col justify-center">
+        <div className="text-fg-secondary text-md flex flex-col justify-center">
           <AccordionIcon isOpen={isOpen} />
         </div>
       </button>
@@ -261,7 +261,7 @@ export const PopupAssetsTable = () => {
   if (!available.length && !lockedSymbolBalances.length && !isInitialising)
     return (
       <FadeIn>
-        <div className="text-body-secondary bg-black-secondary rounded-sm py-10 text-center text-xs">
+        <div className="text-fg-secondary bg-black-secondary rounded-sm py-10 text-center text-xs">
           {account ? t("No assets to display for this account.") : t("No assets to display.")}
         </div>
       </FadeIn>
@@ -273,8 +273,8 @@ export const PopupAssetsTable = () => {
         {!!account && (
           <>
             <div className="text-md flex items-center gap-2">
-              <div className="text-body grow text-left">{t("Total")}</div>
-              <div className="text-body-secondary truncate">
+              <div className="text-fg-primary grow text-left">{t("Total")}</div>
+              <div className="text-fg-secondary truncate">
                 <Fiat amount={total} isBalance />
               </div>
             </div>
@@ -285,7 +285,7 @@ export const PopupAssetsTable = () => {
           <VirtualizedRows rows={available} />
           {isInitialising && <AssetRowSkeleton />}
           {!isInitialising && !available.length && (
-            <div className="text-body-secondary bg-black-secondary rounded-sm py-10 text-center text-xs">
+            <div className="text-fg-secondary bg-black-secondary rounded-sm py-10 text-center text-xs">
               {account
                 ? t("There are no available balances for this account.")
                 : t("There are no available balances.")}

@@ -23,13 +23,15 @@ const NetworkOptionRow: FC<{
       type="button"
       onClick={onClick}
       className={classNames(
-        "text-body-secondary hover:text-body hover:bg-grey-800 flex h-24 w-full items-center gap-6 overflow-hidden px-12",
-        "focus-visible:bg-grey-800",
-        isSelected && "!bg-grey-700",
+        "text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-24 w-full items-center gap-6 overflow-hidden px-12",
+        "focus-visible:bg-secondary",
+        isSelected && "!bg-tertiary",
       )}
     >
       <NetworkLogo networkId={option.networkIds[0]} className="shrink-0 text-xl" />
-      <div className="text-body flex grow flex-col gap-2 truncate text-left">{option.name}</div>
+      <div className="text-fg-primary flex grow flex-col gap-2 truncate text-left">
+        {option.name}
+      </div>
     </button>
   )
 }
@@ -52,7 +54,7 @@ const NetworkOptionsList: FC<{
 
   if (!options.length)
     return (
-      <div className="text-body-inactive flex h-24 w-full items-center px-12">
+      <div className="text-fg-primary-inactive flex h-24 w-full items-center px-12">
         {t("No networks found")}
       </div>
     )
@@ -146,7 +148,7 @@ const NetworkOptionsModalContent: FC<{
         {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
         <SearchInput onChange={setSearch} placeholder={t("Search by network name")} autoFocus />
       </div>
-      <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+      <ScrollContainer className="bg-black-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
         <NetworkOptionsList
           options={filteredNetworks}
           selected={selected}
@@ -170,7 +172,7 @@ export const NetworkOptionsModal: FC<{
       isOpen={isOpen}
       onDismiss={onClose}
       className={classNames(
-        "border-grey-800 h-[60rem] w-[40rem] overflow-hidden bg-black",
+        "border-primary h-[60rem] w-[40rem] overflow-hidden bg-black",
         IS_POPUP ? "max-h-full max-w-full" : "rounded-lg border shadow",
       )}
       containerId={containerId ?? (IS_POPUP ? "main" : undefined)}

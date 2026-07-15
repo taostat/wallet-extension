@@ -27,7 +27,7 @@ export const PortfolioAccount = ({
         {account.name ?? t("Unknown")}
       </div>
       <AccountTypeIcon
-        className="text-primary"
+        className="text-fg-brand"
         type={account?.type}
         signetUrl={getAccountSignetUrl(account)}
       />

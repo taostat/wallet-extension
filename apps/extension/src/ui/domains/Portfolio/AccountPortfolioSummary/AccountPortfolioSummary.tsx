@@ -15,11 +15,11 @@ import { useAccountPortfolioData } from "./useAccountPortfolioData"
 import { formatNumber } from "./utils"
 
 const StatCardContainer: FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="bg-grey-850 flex flex-grow flex-col gap-4 rounded-lg p-6">{children}</div>
+  <div className="bg-secondary flex flex-grow flex-col gap-4 rounded-lg p-6">{children}</div>
 )
 
 const Skeleton: FC<{ className?: string }> = ({ className }) => (
-  <div className={classNames("bg-grey-700 h-10 w-32 animate-pulse rounded", className)} />
+  <div className={classNames("bg-tertiary h-10 w-32 animate-pulse rounded", className)} />
 )
 
 const SelectorButton: FC<{
@@ -97,7 +97,7 @@ type StatCardProps = {
 
 const StatCard: FC<StatCardProps> = ({ title, value, footer, isLoading, skeletonRows = 1 }) => (
   <StatCardContainer>
-    <div className="text-body-secondary text-sm">{title}</div>
+    <div className="text-fg-secondary text-sm">{title}</div>
     <div className="flex flex-1 flex-col justify-between gap-2">
       {isLoading ? (
         <div className="flex flex-col gap-2">
@@ -108,7 +108,7 @@ const StatCard: FC<StatCardProps> = ({ title, value, footer, isLoading, skeleton
       ) : (
         <>
           <div className="text-lg font-normal">{value}</div>
-          {footer && <div className="text-body-secondary text-xs">{footer}</div>}
+          {footer && <div className="text-fg-secondary text-xs">{footer}</div>}
         </>
       )}
     </div>
@@ -137,13 +137,13 @@ const EarningsCard: FC<EarningsCardProps> = ({
     <StatCardContainer>
       {/* Header row: Earnings (left) | Staking APY (right) */}
       <div className="flex flex-row justify-between">
-        <span className="text-body-secondary text-sm">{t("Earnings")}</span>
+        <span className="text-fg-secondary text-sm">{t("Earnings")}</span>
         <div className="flex flex-row items-center justify-end gap-1">
-          <span className="text-body-secondary text-sm">{t("Staking APY")}</span>
+          <span className="text-fg-secondary text-sm">{t("Staking APY")}</span>
           <Tooltip>
             <TooltipTrigger asChild>
               <span className="cursor-help">
-                <InfoCircle className="text-body-secondary ml-1 inline text-white/60" />
+                <InfoCircle className="text-fg-secondary ml-1 inline text-white/60" />
               </span>
             </TooltipTrigger>
             <TooltipContent>{t("The weighted APY of your staking positions.")}</TooltipContent>
@@ -163,13 +163,13 @@ const EarningsCard: FC<EarningsCardProps> = ({
             <div className="text-lg font-normal">
               <Tokens amount={totalEarningsTao} symbol="TAO" isBalance />
             </div>
-            <div className="text-body-secondary text-base text-white/60">
+            <div className="text-fg-secondary text-base text-white/60">
               ${formatNumber(totalEarningsUsd)}
             </div>
           </div>
           <div className="flex min-w-[4rem] flex-col items-start justify-start">
             {showApyValue ? (
-              <span className="text-body-secondary text-sm font-light text-white/60">
+              <span className="text-fg-secondary text-sm font-light text-white/60">
                 {overallYieldPercentage != null
                   ? `${formatNumber(overallYieldPercentage)}% APY`
                   : "—"}
@@ -233,7 +233,7 @@ export const AccountPortfolioSummary: FC = () => {
                       colour === "green" ? "bg-accent-1" : "bg-accent-2",
                     )}
                   />
-                  <span className="text-body-secondary text-sm text-white/60">{label}</span>
+                  <span className="text-fg-secondary text-sm text-white/60">{label}</span>
                 </div>
               </td>
               <td className="w-full min-w-0 whitespace-nowrap align-middle">
@@ -269,7 +269,7 @@ export const AccountPortfolioSummary: FC = () => {
     return (
       <>
         {rankStr}
-        <span className="text-body-secondary text-[0.7em]"> / {totalStr}</span>
+        <span className="text-fg-secondary text-[0.7em]"> / {totalStr}</span>
       </>
     )
   }, [isLoading, rank, accountsTotal])

@@ -47,14 +47,14 @@ export const GetStarted = () => {
     <div className="@container bg-black-secondary relative flex w-full flex-col gap-8 rounded-sm p-8">
       {hasAccounts && (
         <IconButton
-          className="text-body-disabled enabled:hover:text-body-secondary enabled:focus-visible:text-body-secondary absolute right-6 top-6"
+          className="text-fg-disabled enabled:hover:text-fg-secondary enabled:focus-visible:text-fg-secondary absolute right-6 top-6"
           onClick={onDismissClick}
         >
           <X />
         </IconButton>
       )}
 
-      <div className="text-body flex flex-col gap-2">
+      <div className="text-fg-primary flex flex-col gap-2">
         <div className="text-md @2xl:text-lg leading-base font-bold">
           {hasAccounts ? t("Fund your account") : t("Get Started")}
         </div>
@@ -85,13 +85,13 @@ export const GetStarted = () => {
           <GetStartedActionButton
             label={t("Add account")}
             description={t("Create a new account or import an existing one")}
-            iconTop={<PlusCircle className="text-primary size-12" />}
+            iconTop={<PlusCircle className="text-fg-brand size-12" />}
             onClick={onAddAccountClick}
           />
           <GetStartedActionButton
             label={t("Try it")}
             description={t("Watch an account without entering the recovery phrase")}
-            iconTop={<EyePlusIcon className="text-primary size-12" />}
+            iconTop={<EyePlusIcon className="text-fg-brand size-12" />}
             onClick={onTryItClick}
           />
         </div>
@@ -167,7 +167,7 @@ const GetStartedActionButton: FC<{
   <button
     type="button"
     className={classNames(
-      "border-disabled bg-grey-800 border-grey-700/40 hover:bg-grey-750 leading-paragraph enabled:focus-visible:bg-grey-750 @2xl:text-md @2xl:px-8 rounded-sm border px-6 py-4 text-left text-base",
+      "border-disabled bg-secondary border-primary/40 hover:bg-tertiary leading-paragraph enabled:focus-visible:bg-tertiary @2xl:text-md @2xl:px-8 rounded-sm border px-6 py-4 text-left text-base",
       "flex w-full items-center gap-8 overflow-hidden",
       className,
     )}
@@ -176,9 +176,9 @@ const GetStartedActionButton: FC<{
     <div className="flex grow flex-row gap-4">
       {iconTop}
       <div className="flex w-full flex-col gap-1">
-        <div className="text-body @2xl:text-base truncate text-sm font-bold">{label}</div>
+        <div className="text-fg-primary @2xl:text-base truncate text-sm font-bold">{label}</div>
         {description && (
-          <div className="text-body-secondary @2xl:text-sm text-[1rem]">{description}</div>
+          <div className="text-fg-secondary @2xl:text-sm text-[1rem]">{description}</div>
         )}
       </div>
     </div>

@@ -35,10 +35,10 @@ export const TokenBalancesList = ({
   if (!token) return null
 
   return (
-    <div className={classNames("text-body-secondary text-sm")}>
+    <div className={classNames("text-fg-secondary text-sm")}>
       <div
         className={classNames(
-          "bg-grey-800 flex w-full items-center gap-4 overflow-hidden border-transparent px-7 py-6",
+          "bg-secondary flex w-full items-center gap-4 overflow-hidden border-transparent px-7 py-6",
           detailRowsLength ? "rounded-t-sm" : "rounded",
         )}
       >
@@ -47,7 +47,7 @@ export const TokenBalancesList = ({
         </div>
         <div className="flex grow flex-col justify-center gap-2 overflow-hidden pr-8">
           <div className="flex grow items-center gap-3">
-            <div className="text-body truncate font-bold">{getTokenName(token.name)}</div>
+            <div className="text-fg-primary truncate font-bold">{getTokenName(token.name)}</div>
             <div className="flex items-center">
               <CopyAddressButton networkId={chainOrNetworkId} />
               <BittensorUnstakeButton balances={balances} />
@@ -61,7 +61,7 @@ export const TokenBalancesList = ({
               {token.type === "substrate-dtao" && (
                 <BittensorValidatorName
                   hotkey={token.hotkey}
-                  className="text-body-secondary text-sm"
+                  className="text-fg-secondary text-sm"
                 />
               )}
             </span>
@@ -76,7 +76,7 @@ export const TokenBalancesList = ({
           <div className="size-[3.8rem] shrink-0">
             <TokenContextMenu
               tokenId={tokenId}
-              className="hover:bg-grey-700 focus-visible:bg-grey-700 rounded-full"
+              className="hover:bg-tertiary focus-visible:bg-tertiary rounded-full"
             />
           </div>
         )}

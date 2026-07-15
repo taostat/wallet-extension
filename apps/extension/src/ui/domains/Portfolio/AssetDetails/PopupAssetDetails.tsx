@@ -29,7 +29,7 @@ const NoTokens = ({ symbol }: { symbol: string }) => {
 
   return (
     <FadeIn>
-      <div className="bg-field text-body-secondary leading-base rounded-sm p-10 text-center text-sm">
+      <div className="bg-secondary text-fg-secondary leading-base rounded-sm p-10 text-center text-sm">
         <div>
           {selectedAccount
             ? t("You don't have any {{symbol}} in this account", { symbol })

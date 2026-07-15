@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next"
 import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
-import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
+import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
@@ -66,7 +66,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
       <button
         type="button"
         className={classNames(
-          "text-body-secondary bg-grey-850 hover:bg-grey-800 grid h-[6.6rem] w-full grid-cols-[40%_30%_30%] overflow-hidden rounded text-left text-base",
+          "text-fg-secondary bg-secondary hover:bg-secondary grid h-[6.6rem] w-full grid-cols-[40%_30%_30%] overflow-hidden rounded text-left text-base",
         )}
         onClick={handleClick}
       >
@@ -76,22 +76,22 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
           </div>
           <div className="flex grow flex-col justify-center gap-2">
             <div className="flex items-center gap-3">
-              <div className="text-body flex items-center gap-4 text-base font-bold">
+              <div className="text-fg-primary flex items-center gap-4 text-base font-bold">
                 <TokenDisplaySymbol tokenId={token.id} />
                 {!!network.isTestnet && (
-                  <span className="text-tiny bg-alert-warn/10 text-alert-warn rounded px-3 py-1 font-light">
+                  <span className="text-tiny bg-orange-secondary/10 text-fg-orange rounded px-3 py-1 font-light">
                     {t("Testnet")}
                   </span>
                 )}
               </div>
             </div>
             {isUniswapV2LpToken && typeof tvl === "number" && (
-              <div className="text-body-secondary whitespace-nowrap">
+              <div className="text-fg-secondary whitespace-nowrap">
                 <Fiat amount={tvl} noCountUp={noCountUp} /> <span className="text-tiny">TVL</span>
               </div>
             )}
             {!isUniswapV2LpToken && !!rate && (
-              <AssetPrice tokenId={token.id} className="text-body-secondary" balances={balances} />
+              <AssetPrice tokenId={token.id} className="text-fg-secondary" balances={balances} />
             )}
           </div>
         </div>

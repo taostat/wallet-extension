@@ -49,7 +49,7 @@ export const TokenBalancesList = ({
     <div className="mb-8">
       <div
         className={classNames(
-          "bg-grey-800 grid grid-cols-[40%_30%_30%]",
+          "bg-secondary grid grid-cols-[40%_30%_30%]",
           detailRowsLength ? "rounded-t" : "rounded",
         )}
       >
@@ -59,8 +59,8 @@ export const TokenBalancesList = ({
           </div>
           <div className="flex grow flex-col justify-center gap-2 overflow-hidden">
             <div className="flex items-center gap-3">
-              <div className="text-body truncate font-bold">{getTokenName(token.name)}</div>
-              <div className="text-body flex shrink-0 items-center text-base font-bold">
+              <div className="text-fg-primary truncate font-bold">{getTokenName(token.name)}</div>
+              <div className="text-fg-primary flex shrink-0 items-center text-base font-bold">
                 <CopyAddressButton networkId={chainOrNetworkId} />
                 <BittensorUnstakeButton balances={balances} />
                 <Suspense fallback={<SuspenseTracker name="ChainTokenBalances.Buttons" />}>
@@ -69,7 +69,7 @@ export const TokenBalancesList = ({
                     <TokenContextMenu
                       tokenId={tokenId}
                       placement="bottom-start"
-                      className="text-body-secondary hover:text-body focus:text-body hover:bg-grey-700 focus-visible:bg-grey-700 rounded-xs inline-flex h-9 w-9 items-center justify-center p-0 text-xs opacity-50"
+                      className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary hover:bg-tertiary focus-visible:bg-tertiary rounded-xs inline-flex h-9 w-9 items-center justify-center p-0 text-xs opacity-50"
                     />
                   )}
                 </Suspense>
@@ -80,7 +80,7 @@ export const TokenBalancesList = ({
                 {token.type === "substrate-dtao" && (
                   <BittensorValidatorName
                     hotkey={token.hotkey}
-                    className="text-body-secondary text-sm"
+                    className="text-fg-secondary text-sm"
                   />
                 )}
               </span>

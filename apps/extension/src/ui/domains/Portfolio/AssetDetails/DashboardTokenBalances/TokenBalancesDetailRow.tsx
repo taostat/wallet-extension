@@ -24,7 +24,7 @@ export const TokenBalancesDetailRow = ({
   return (
     <div
       key={row.key}
-      className={classNames("bg-grey-850 grid grid-cols-[40%_30%_30%]", isLastRow && "rounded-b")}
+      className={classNames("bg-secondary grid grid-cols-[40%_30%_30%]", isLastRow && "rounded-b")}
     >
       <div>
         <AssetState

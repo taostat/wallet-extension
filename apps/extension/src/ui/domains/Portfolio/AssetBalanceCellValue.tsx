@@ -45,7 +45,7 @@ export const AssetBalanceCellValue = ({
         <div
           className={classNames(
             "flex items-center justify-end gap-2",
-            locked ? "text-body-secondary" : "text-body",
+            locked ? "text-fg-secondary" : "text-fg-primary",
           )}
         >
           <div>

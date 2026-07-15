@@ -24,7 +24,7 @@ export const NoTokensMessage = ({ symbol }: NoTokensMessageProps) => {
   }, [selectedAccount?.address, genericEvent, open])
 
   return (
-    <div className="bg-field text-body-secondary flex flex-col items-center justify-center rounded py-36">
+    <div className="bg-secondary text-fg-secondary flex flex-col items-center justify-center rounded py-36">
       <div>
         {selectedAccount
           ? t("You don't have any {{symbol}} in this account", { symbol })
