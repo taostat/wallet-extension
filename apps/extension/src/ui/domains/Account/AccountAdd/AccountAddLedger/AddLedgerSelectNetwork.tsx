@@ -39,18 +39,18 @@ const AppVersionButton: FC<{
       type="button"
       onClick={onClick}
       className={classNames(
-        "bg-field text-body-secondary group flex min-h-60 flex-col gap-5 rounded border p-8 text-left",
+        "bg-secondary text-fg-secondary group flex min-h-60 flex-col gap-5 rounded border p-8 text-left",
         "disabled:cursor-not-allowed disabled:opacity-50",
         selected
-          ? "border-body bg-grey-800"
-          : "border-body-disabled enabled:hover:border-body-secondary enabled:hover:bg-grey-800",
+          ? "border-body bg-secondary"
+          : "border-body-disabled enabled:hover:border-body-secondary enabled:hover:bg-secondary",
       )}
       disabled={disabled}
     >
       <div
         className={classNames(
-          "group-enabled:group-hover:text-body text-base",
-          selected && "text-body",
+          "group-enabled:group-hover:text-fg-primary text-base",
+          selected && "text-fg-primary",
         )}
       >
         {title}
@@ -204,7 +204,7 @@ export const AddLedgerSelectNetwork = () => {
         {platform === "polkadot" && (
           <>
             <div className="bg-black-secondary mt-12 rounded p-12">
-              <h2 className="text-body-secondary leading-paragraph text-base">
+              <h2 className="text-fg-secondary leading-paragraph text-base">
                 {t("1. Choose Network")}
               </h2>
               <div className="mt-6">
@@ -214,21 +214,21 @@ export const AddLedgerSelectNetwork = () => {
             {!!chain && (
               <div className="bg-black-secondary mt-12 rounded p-12">
                 <div className="flex justify-between">
-                  <h2 className="text-body-secondary leading-paragraph text-base">
+                  <h2 className="text-fg-secondary leading-paragraph text-base">
                     {t("2. Choose Ledger App")}
                   </h2>
 
                   {chain.supportedLedgerApps.length > 1 && (
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className="text-body-secondary flex items-center gap-2 align-middle text-xs">
+                        <div className="text-fg-secondary flex items-center gap-2 align-middle text-xs">
                           <InfoCircle />
                           <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                             Which one should I choose?
                           </span>
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent className="rounded-xs text-body-secondary border-grey-700 z-20 max-w-[32rem] border-[0.5px] bg-black p-3 text-xs shadow">
+                      <TooltipContent className="rounded-xs text-fg-secondary border-primary z-20 max-w-[32rem] border-[0.5px] bg-black p-3 text-xs shadow">
                         <Trans
                           t={t}
                           defaults={

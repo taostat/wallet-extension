@@ -75,15 +75,15 @@ export const AccountAddMnemonicDropdown: FC<{
       propertyKey="value"
       renderItem={(o) => (
         <div
-          className="text-body-secondary flex w-full items-center gap-6 overflow-hidden"
+          className="text-fg-secondary flex w-full items-center gap-6 overflow-hidden"
           data-testid="account-add-mnemonic-dropdown"
         >
-          <div className="bg-body/10 text-md rounded-full p-4">
+          <div className="bg-fg-primary/10 text-md rounded-full p-4">
             {o.value === "new" ? <Plus /> : <SecretIcon />}
           </div>
           <div className="grow truncate text-sm">{o.label}</div>
           {o.value !== "new" && (
-            <div className="text-body-disabled flex shrink-0 items-center gap-2 truncate text-xs">
+            <div className="text-fg-disabled flex shrink-0 items-center gap-2 truncate text-xs">
               {t("used by {{count}} accounts", { count: o.accounts?.length ?? 0 })}
             </div>
           )}
@@ -91,8 +91,8 @@ export const AccountAddMnemonicDropdown: FC<{
       )}
       value={selected}
       onChange={handleChange}
-      buttonClassName="py-6 bg-field"
-      optionClassName="py-4 bg-field"
+      buttonClassName="py-6 bg-secondary"
+      optionClassName="py-4 bg-secondary"
     />
   )
 }

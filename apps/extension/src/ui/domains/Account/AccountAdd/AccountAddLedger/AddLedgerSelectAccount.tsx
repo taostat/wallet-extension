@@ -105,7 +105,7 @@ export const AddLedgerSelectAccount = () => {
         <h1 className="m-0">{t("Connect Ledger")}</h1>
         {(data.platform === "ethereum" || data.platform === "solana") && (
           <>
-            <p className="text-body-secondary mb-12 mt-[1em]">
+            <p className="text-fg-secondary mb-12 mt-[1em]">
               {t(
                 "The derivation path will be different based on which application you used to initialise your Ledger account.",
               )}
@@ -113,7 +113,7 @@ export const AddLedgerSelectAccount = () => {
             <div className="h-4" />
           </>
         )}
-        <p className="text-body-secondary mb-12 mt-[1em]">
+        <p className="text-fg-secondary mb-12 mt-[1em]">
           {t("Please select which account(s) you'd like to connect.")}
         </p>
         {data.platform === "polkadot" && (

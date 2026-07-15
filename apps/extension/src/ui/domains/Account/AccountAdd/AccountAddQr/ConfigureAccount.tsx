@@ -36,12 +36,12 @@ const AccountDerivedPicker = ({
         e.preventDefault()
         dispatch({ method: "setLockToNetwork", lockToNetwork })
       }}
-      className="text-body-secondary flex h-10 items-center gap-2 py-1 align-middle"
+      className="text-fg-secondary flex h-10 items-center gap-2 py-1 align-middle"
     >
       {state.accountConfig.lockToNetwork === lockToNetwork ? (
         <SelectedIndicator />
       ) : (
-        <span className="bg-grey-800 h-8 w-8 rounded-full" />
+        <span className="bg-secondary h-8 w-8 rounded-full" />
       )}
       <span>{label}</span>
     </button>
@@ -120,15 +120,15 @@ export const ConfigureAccount = () => {
             className="text-xl"
           />
           <div className="flex flex-col !items-start gap-2 overflow-hidden leading-8">
-            <div className="text-body flex w-full items-center gap-3 text-base leading-none">
+            <div className="text-fg-primary flex w-full items-center gap-3 text-base leading-none">
               <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base leading-8">
                 {accountConfig.name || t("My Polkadot Vault Account")}
               </div>
               <div>
-                <PolkadotVaultIcon className="text-primary" />
+                <PolkadotVaultIcon className="text-fg-brand" />
               </div>
             </div>
-            <div className="text-body-secondary overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-7">
+            <div className="text-fg-secondary overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-7">
               <Address address={accountConfig.address} />
             </div>
           </div>
@@ -158,7 +158,7 @@ export const ConfigureAccount = () => {
                     <Trans t={t}>
                       <span>This is a derived account (restrict account to </span>
                       <NetworkLogo networkId={chain.id} className="inline" />
-                      <span className="text-body">{chain.name}</span>
+                      <span className="text-fg-primary">{chain.name}</span>
                       <span> network)</span>
                     </Trans>
                   }
@@ -168,7 +168,7 @@ export const ConfigureAccount = () => {
                 />
               </div>
             </TooltipTrigger>
-            <TooltipContent className="leading-paragraph rounded-xs text-body-secondary border-grey-700 z-20 w-[50rem] border-[0.5px] bg-black p-3 text-xs shadow">
+            <TooltipContent className="leading-paragraph rounded-xs text-fg-secondary border-primary z-20 w-[50rem] border-[0.5px] bg-black p-3 text-xs shadow">
               By default, derived accounts in Polkadot Vault are restricted to one network, based on
               derivation path. Root accounts can be used on any network. Select 'Derived Account' if
               you are not sure.

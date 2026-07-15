@@ -16,9 +16,9 @@ const AccountTypeButton: FC<{
   <button
     type="button"
     className={classNames(
-      "bg-field allow-focus flex h-32 items-center gap-6 rounded px-6 text-left",
-      disabled && "text-body-secondary opacity-40",
-      !disabled && "hover:bg-grey-800",
+      "bg-secondary allow-focus flex h-32 items-center gap-6 rounded px-6 text-left",
+      disabled && "text-fg-secondary opacity-40",
+      !disabled && "hover:bg-secondary",
       className,
     )}
     disabled={disabled}
@@ -26,8 +26,8 @@ const AccountTypeButton: FC<{
   >
     <div className="text-xl">{icon}</div>
     <div className="flex flex-grow flex-col justify-center gap-2">
-      <div className="text-body text-base">{title}</div>
-      <div className="text-body-secondary text-xs">{subtitle}</div>
+      <div className="text-fg-primary text-base">{title}</div>
+      <div className="text-fg-secondary text-xs">{subtitle}</div>
     </div>
   </button>
 )

@@ -115,7 +115,7 @@ const SeparatorDropZone: FC<{
   return (
     <TreeDroppable
       className="h-4 w-full shrink-0 p-1"
-      isOverClassName="[&>div]:bg-body/80"
+      isOverClassName="[&>div]:bg-fg-primary/80"
       parentId={parentId}
       index={index}
       disabled={disabled}
@@ -145,7 +145,7 @@ export const TreeItemFolder: FC<{
   const { isOpen, toggle } = useOpenClose(true)
 
   return (
-    <div className={classNames("@container bg-grey-850 relative flex flex-col rounded-sm pt-2")}>
+    <div className={classNames("@container bg-secondary relative flex flex-col rounded-sm pt-2")}>
       <div
         className={classNames(
           "flex h-[5.3rem] items-center gap-8 overflow-hidden border-[1px] border-transparent px-8 pb-0",
@@ -167,12 +167,12 @@ export const TreeItemFolder: FC<{
 
         <div data-no-dnd="true">
           <ContextMenu placement="bottom-end">
-            <ContextMenuTrigger className="enabled:hover:bg-grey-750 text-body-secondary enabled:hover:text-body disabled:text-body-disabled rounded p-6 disabled:cursor-[inherit]">
+            <ContextMenuTrigger className="enabled:hover:bg-tertiary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-6 disabled:cursor-[inherit]">
               <DotsHorizontal className="shrink-0" />
             </ContextMenuTrigger>
             <ContextMenuContent
               data-no-dnd="true"
-              className="border-grey-800 z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg"
+              className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg"
             >
               <ContextMenuItem onClick={() => renameFolder(folder.id, folder.name, treeName)}>
                 {t("Rename")}
@@ -214,9 +214,9 @@ const EmptyFolderDropZone: FC<{
 
   return (
     <TreeDroppable
-      className="bg-grey-800 text-body-disabled h-32 w-full shrink-0 rounded-b-sm border border-dashed border-transparent"
+      className="bg-secondary text-fg-disabled h-32 w-full shrink-0 rounded-b-sm border border-dashed border-transparent"
       hasOverClassName=""
-      isOverClassName="bg-body/20 border-body text-body"
+      isOverClassName="bg-fg-primary/20 border-body text-fg-primary"
       parentId={folderId}
       index={0}
       disabled={disabled}

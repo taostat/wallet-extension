@@ -69,12 +69,12 @@ export const AccountRemoveModal = () => {
   return (
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
       <ModalDialog title={t("Remove account")} onClose={close}>
-        <div className="text-body-secondary text-sm">
+        <div className="text-fg-secondary text-sm">
           <p className="text-sm">
             <Trans
               t={t}
               defaults="Confirm to remove account <Highlight>{{accountName}}</Highlight>."
-              components={{ Highlight: <span className="text-body" /> }}
+              components={{ Highlight: <span className="text-fg-primary" /> }}
               values={{ accountName }}
             />
           </p>

@@ -17,10 +17,10 @@ const Step: FC<{ step: ReactNode; title: ReactNode; children: ReactNode }> = ({
   title,
   children,
 }) => (
-  <div className="text-body-secondary leading-paragraph">
+  <div className="text-fg-secondary leading-paragraph">
     <div className="flex w-full">
       <div className="w-20 shrink-0 text-center">{step}</div>
-      <div className="text-body grow">{title}</div>
+      <div className="text-fg-primary grow">{title}</div>
     </div>
     <div className="mt-2 pl-20 text-sm">{children}</div>
   </div>
@@ -80,7 +80,7 @@ export const ConnectSignetPage = () => {
             {t(
               "Signet is the Enterprise & Institutional solution from Taostats, once you have set-up a vault in Signet you can connect below. Find out more at ",
             )}
-            <Link to={SIGNET_LANDING_URL} target="_blank" className="text-primary-500">
+            <Link to={SIGNET_LANDING_URL} target="_blank" className="text-fg-brand">
               {SIGNET_LANDING_URL}
             </Link>
           </>

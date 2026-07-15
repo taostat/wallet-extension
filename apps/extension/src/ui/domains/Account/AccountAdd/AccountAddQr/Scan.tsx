@@ -25,7 +25,7 @@ export const Scan = () => {
                     <div>{t("Select the ‘Key Sets’ tab from the bottom navigation bar")}</div>
                     <div className="mt-4">
                       <a
-                        className="text-body-secondary hover:text-body"
+                        className="text-fg-secondary hover:text-fg-primary"
                         href={POLKADOT_VAULT_DOCS_URL}
                         target="_blank"
                       >
@@ -48,7 +48,7 @@ export const Scan = () => {
                     extra: (
                       <button
                         type="button"
-                        className="bg-primary/10 text-primary hover:bg-primary/20 mt-6 inline-block rounded-full px-6 text-sm font-light leading-[32px]"
+                        className="bg-fg-brand/10 text-fg-brand hover:bg-fg-brand/20 mt-6 inline-block rounded-full px-6 text-sm font-light leading-[32px]"
                         onClick={() => dispatch({ method: "enableScan" })}
                       >
                         {t("Retry")}
@@ -69,7 +69,7 @@ export const Scan = () => {
                       extra: (
                         <button
                           type="button"
-                          className="bg-primary/10 text-primary hover:bg-primary/20 mt-6 inline-block rounded-full px-6 text-sm font-light leading-[32px]"
+                          className="bg-fg-brand/10 text-fg-brand hover:bg-fg-brand/20 mt-6 inline-block rounded-full px-6 text-sm font-light leading-[32px]"
                           onClick={() => dispatch({ method: "enableScan" })}
                         >
                           {t("Turn on Camera")}
@@ -86,16 +86,16 @@ export const Scan = () => {
             ].map(({ title, body, extra, errorIcon }, index) => (
               <li className="relative ml-20" key={index}>
                 {errorIcon ? (
-                  <div className="border-alert-error text-alert-error absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full border-2 text-xs font-bold">
+                  <div className="border-alert-error text-fg-error absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full border-2 text-xs font-bold">
                     !
                   </div>
                 ) : (
-                  <div className="bg-black-tertiary text-body-secondary absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full text-xs lining-nums">
+                  <div className="bg-black-tertiary text-fg-secondary absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full text-xs lining-nums">
                     {index + 1}
                   </div>
                 )}
                 <div className="mb-8">{title}</div>
-                <p className="text-body-secondary">{body}</p>
+                <p className="text-fg-secondary">{body}</p>
                 {extra ?? null}
               </li>
             ))}
@@ -132,7 +132,7 @@ export const Scan = () => {
             }}
           />
           {state.scanError && (
-            <div className="text-alert-error bg-alert-error/10 mt-6 inline-block w-[260px] rounded p-4 text-center text-xs font-light">
+            <div className="text-fg-error bg-error-secondary/10 mt-6 inline-block w-[260px] rounded p-4 text-center text-xs font-light">
               {state.scanError}
             </div>
           )}

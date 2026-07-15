@@ -98,7 +98,7 @@ export const ConnectSignetSelectAccounts = () => {
           <button
             type="button"
             key={vault.address}
-            className="bg-grey-850 text-grey-200 enabled:hover:bg-grey-800 flex h-32 w-full items-center gap-8 rounded-sm px-8 text-left disabled:opacity-50"
+            className="bg-secondary text-fg-tertiary enabled:hover:bg-secondary flex h-32 w-full items-center gap-8 rounded-sm px-8 text-left disabled:opacity-50"
             onClick={() => handleToggle(vault.address)}
           >
             <AccountIcon
@@ -108,7 +108,7 @@ export const ConnectSignetSelectAccounts = () => {
             />
             <div>
               <div className="overflow-hidden text-ellipsis whitespace-nowrap">{vault.name}</div>
-              <div className="text-body-secondary text-sm">
+              <div className="text-fg-secondary text-sm">
                 <Address address={vault.address} startCharCount={6} endCharCount={6} />
               </div>
             </div>

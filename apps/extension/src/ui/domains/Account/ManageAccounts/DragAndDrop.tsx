@@ -39,7 +39,7 @@ export const TreeDraggable: FC<{
       <div
         className={classNames(
           "absolute left-0 top-0 size-full",
-          "bg-grey-850/50 border-grey-800 rounded-sm border border-dashed",
+          "bg-secondary/50 border-primary rounded-sm border border-dashed",
           isDragging ? "visible" : "invisible",
         )}
       ></div>

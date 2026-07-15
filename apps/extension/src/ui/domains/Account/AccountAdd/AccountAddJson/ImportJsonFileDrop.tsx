@@ -12,18 +12,18 @@ import { useJsonAccountImport } from "./context"
 const FileIcon: FC<{ state: "ok" | "nok" | "unknown" }> = ({ state }) => {
   if (state === "nok")
     return (
-      <div className="bg-alert-warn/10 rounded-full p-5 text-lg">
-        <FileXIcon className="text-alert-warn" />
+      <div className="bg-orange-secondary/10 rounded-full p-5 text-lg">
+        <FileXIcon className="text-fg-orange" />
       </div>
     )
   if (state === "ok")
     return (
-      <div className="bg-primary/10 rounded-full p-5 text-lg">
-        <FileCheckIcon className="text-primary" />
+      <div className="bg-fg-brand/10 rounded-full p-5 text-lg">
+        <FileCheckIcon className="text-fg-brand" />
       </div>
     )
   return (
-    <div className="bg-body/10 rounded-full p-5 text-lg">
+    <div className="bg-fg-primary/10 rounded-full p-5 text-lg">
       <FilePlus01 />
     </div>
   )
@@ -68,9 +68,9 @@ const JsonFileDrop: FC<{ onChange?: (file?: File) => void; isInvalid: boolean }>
     <div
       {...getRootProps()}
       className={classNames(
-        "border-grey-700 hover:bg-grey-900 flex h-[16rem] cursor-pointer flex-col items-center gap-8 rounded border border-dashed p-8",
-        isDragAccept && "bg-primary/10",
-        (isInvalid || isDragReject) && "bg-alert-warn/10",
+        "border-primary hover:bg-app-bg flex h-[16rem] cursor-pointer flex-col items-center gap-8 rounded border border-dashed p-8",
+        isDragAccept && "bg-fg-brand/10",
+        (isInvalid || isDragReject) && "bg-orange-secondary/10",
       )}
     >
       <input {...getInputProps()} />
@@ -85,10 +85,10 @@ const JsonFileDrop: FC<{ onChange?: (file?: File) => void; isInvalid: boolean }>
       />
       <div className="flex grow flex-col items-center justify-center gap-6">
         {file ? (
-          <div className="bg-grey-800 flex h-16 w-[24rem] max-w-full items-center rounded-sm pl-6 text-xs">
+          <div className="bg-secondary flex h-16 w-[24rem] max-w-full items-center rounded-sm pl-6 text-xs">
             <div className="grow overflow-hidden text-ellipsis whitespace-nowrap">{file.name}</div>
             <button
-              className="text-body-secondary hover:text-body p-6"
+              className="text-fg-secondary hover:text-fg-primary p-6"
               type="button"
               onClick={handleForgetFileClick}
             >
@@ -98,11 +98,11 @@ const JsonFileDrop: FC<{ onChange?: (file?: File) => void; isInvalid: boolean }>
         ) : (
           <div>
             <Trans t={t}>
-              Drop your JSON file or <span className="text-primary font-bold">Browse</span>
+              Drop your JSON file or <span className="text-fg-brand font-bold">Browse</span>
             </Trans>
           </div>
         )}
-        <div className="text-grey-500 text-xs">
+        <div className="text-fg-disabled text-xs">
           {isInvalid || isDragReject
             ? t("File not supported")
             : file

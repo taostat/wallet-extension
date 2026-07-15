@@ -27,7 +27,7 @@ export const LedgerPolkadotAccountPicker: FC<LedgerPolkadotGenericAccountPickerP
 
   return (
     <div>
-      <div className="text-body-secondary mb-8 flex w-full items-center gap-2">
+      <div className="text-fg-secondary mb-8 flex w-full items-center gap-2">
         <div className="grow">{t("Derivation mode:")}</div>
         <div>
           <DerivationModeButton selected={mode === "default"} onClick={handleModeClick("default")}>
@@ -57,7 +57,7 @@ const DerivationModeButton: FC<{ selected: boolean; onClick: () => void; childre
 }) => (
   <button
     type="button"
-    className={classNames(selected ? "text-body" : "hover:text-grey-300")}
+    className={classNames(selected ? "text-fg-primary" : "hover:text-fg-tertiary")}
     onClick={onClick}
   >
     {children}

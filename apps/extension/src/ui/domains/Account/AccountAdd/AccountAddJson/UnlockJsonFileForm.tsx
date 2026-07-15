@@ -73,7 +73,7 @@ export const UnlockJsonFileForm: FC = () => {
   return (
     <FadeIn>
       <form onSubmit={handleSubmit(submit)} autoComplete="off">
-        <div className="text-body-secondary mb-8">
+        <div className="text-fg-secondary mb-8">
           {t("Enter the password that was used to encrypt this JSON file.")}
         </div>
         <FormFieldContainer error={errors.password?.message}>

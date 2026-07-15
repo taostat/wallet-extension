@@ -56,7 +56,7 @@ export const FormattedAddress: FC<{
             )}
           </span>
           {withSource && account && (
-            <AccountTypeIcon className="text-primary" type={account.type} />
+            <AccountTypeIcon className="text-fg-brand" type={account.type} />
           )}
         </span>
       </TooltipTrigger>

@@ -123,7 +123,7 @@ const ExportAccountForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   return (
     <div>
       <form onSubmit={handleSubmit(submit)}>
-        <p className="text-body-secondary my-8 text-sm">
+        <p className="text-fg-secondary my-8 text-sm">
           <Trans t={t}>
             Set a password for your JSON export. We strongly suggest using a{" "}
             <span className="text-white">different password</span> from your Taostats wallet
@@ -133,7 +133,7 @@ const ExportAccountForm = ({ onSuccess }: { onSuccess?: () => void }) => {
 
         <div className="mt-12">
           <div className="mb-6 flex h-[1.2em] items-center justify-between text-sm">
-            <div className="text-body-disabled">
+            <div className="text-fg-disabled">
               {t("Password strength:")} <PasswordStrength password={newPwWatch} />
             </div>
             <div>
@@ -188,7 +188,7 @@ export const AccountExportModal = () => {
       <ModalDialog title={t("Export account JSON")} className="w-[50.3rem]" onClose={close}>
         <PasswordUnlock
           title={
-            <div className="text-body-secondary mb-8">
+            <div className="text-fg-secondary mb-8">
               {t("Please confirm your password to export your account.")}
             </div>
           }

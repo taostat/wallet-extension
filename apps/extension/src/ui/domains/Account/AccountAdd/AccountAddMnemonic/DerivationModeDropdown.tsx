@@ -47,13 +47,13 @@ export const DerivationModeDropdown: FC<{
       disabled={disabled}
       onChange={handleChange}
       className={classNames("group", className)}
-      buttonClassName="h-28 bg-field px-12 enabled:group-hover:!text-grey-300 disabled:text-body-disabled"
-      optionClassName="h-28 bg-field px-12"
+      buttonClassName="h-28 bg-secondary px-12 enabled:group-hover:!text-fg-tertiary disabled:text-fg-disabled"
+      optionClassName="h-28 bg-secondary px-12"
       value={current}
       renderItem={(o) => (
         <div className="flex h-full items-center gap-6 overflow-hidden">
           <div>{o.label}</div>
-          <div className="text-body-disabled">{o.extra}</div>
+          <div className="text-fg-disabled">{o.extra}</div>
         </div>
       )}
     />

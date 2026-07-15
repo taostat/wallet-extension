@@ -69,7 +69,7 @@ export const MnemonicForm = ({ onSubmit, onCancel }: FormProps) => {
   return (
     <FadeIn>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="text-body-secondary mb-6">
+        <div className="text-fg-secondary mb-6">
           <Trans t={t}>
             Please enter a mnemonic you would like to use as your Verifier Certificate Mnemonic. You
             should not enter your main Polkadot Vault account mnemonic here.
@@ -84,11 +84,9 @@ export const MnemonicForm = ({ onSubmit, onCancel }: FormProps) => {
         />
         <div className="my-8 flex justify-between text-xs">
           {mnemonic && (
-            <div className="text-body-secondary">
-              {t("Word count: {{wordCount}}", { wordCount })}
-            </div>
+            <div className="text-fg-secondary">{t("Word count: {{wordCount}}", { wordCount })}</div>
           )}
-          <div className="text-alert-warn text-right">{errors.mnemonic?.message}</div>
+          <div className="text-fg-orange text-right">{errors.mnemonic?.message}</div>
         </div>
         <div className="flex justify-between gap-8">
           <Button type="button" fullWidth onClick={onCancel}>

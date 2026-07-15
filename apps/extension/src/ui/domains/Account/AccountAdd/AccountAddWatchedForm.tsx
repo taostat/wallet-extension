@@ -147,10 +147,10 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
 
         <div className={classNames("transition-opacity", platform ? "opacity-100" : "opacity-0")}>
           <div>
-            <p className="text-body-secondary">
+            <p className="text-fg-secondary">
               {t("Please enter the name and the wallet address you'll be watching.")}
             </p>
-            <p className="text-body-disabled text-xs">
+            <p className="text-fg-disabled text-xs">
               {t(
                 "Note that the address will be watch-only and will not be able to sign transactions.",
               )}
@@ -175,10 +175,10 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
                 data-lpignore
               />
             </FormFieldContainer>
-            <div className="bg-grey-850 mt-4 flex h-[58px] w-full items-center rounded px-12">
+            <div className="bg-secondary mt-4 flex h-[58px] w-full items-center rounded px-12">
               <div className="grow space-y-4">
-                <div className="text-body leading-none">{t("Include in my portfolio")}</div>
-                <div className="text-body-disabled text-sm leading-none">
+                <div className="text-fg-primary leading-none">{t("Include in my portfolio")}</div>
+                <div className="text-fg-disabled text-sm leading-none">
                   {t(
                     "If toggled on, this account's balances will be included in your Total Portfolio",
                   )}

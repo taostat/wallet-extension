@@ -22,7 +22,7 @@ const wrapStrong = (text: string) => {
   return text.split(splitter).map((str, i) => {
     const match = extractor.exec(str)
     return match ? (
-      <strong key={i} className="text-grey-300 p-0 capitalize">
+      <strong key={i} className="text-fg-tertiary p-0 capitalize">
         {match[1]}
       </strong>
     ) : (
@@ -44,19 +44,17 @@ export const LedgerConnectionStatus = ({
   return (
     <div
       className={classNames(
-        "text-body-secondary bg-grey-850 flex h-28 w-full items-center gap-4 rounded-sm p-8",
+        "text-fg-secondary bg-secondary flex h-28 w-full items-center gap-4 rounded-sm p-8",
         className,
       )}
     >
       {status === "ready" && (
-        <CheckCircle className="text-alert-success min-w-[1em] shrink-0 text-[2rem]" />
+        <CheckCircle className="text-fg-success min-w-[1em] shrink-0 text-[2rem]" />
       )}
       {status === "warning" && (
-        <XCircle className="text-alert-warn min-w-[1em] shrink-0 text-[2rem]" />
+        <XCircle className="text-fg-orange min-w-[1em] shrink-0 text-[2rem]" />
       )}
-      {status === "error" && (
-        <XCircle className="text-alert-error min-w-[1em] shrink-0 text-[2rem]" />
-      )}
+      {status === "error" && <XCircle className="text-fg-error min-w-[1em] shrink-0 text-[2rem]" />}
       {status === "connecting" && (
         <Loading01 className="animate-spin-slow min-w-[1em] shrink-0 text-[2rem] text-white" />
       )}
@@ -65,7 +63,7 @@ export const LedgerConnectionStatus = ({
         <button
           type="button"
           onClick={onRetryClick}
-          className="bg-grey-800 hover:bg-grey-750 text-body border-body-disabled hover:border-body-inactive h-20 rounded border px-8"
+          className="bg-secondary hover:bg-tertiary text-fg-primary border-body-disabled hover:border-body-inactive h-20 rounded border px-8"
         >
           {t("Retry")}
         </button>

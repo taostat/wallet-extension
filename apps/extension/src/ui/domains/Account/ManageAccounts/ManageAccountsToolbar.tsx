@@ -54,7 +54,7 @@ export const ManageAccountsToolbar: FC<{
       <div className="flex grow items-center overflow-hidden">
         <SearchInput
           containerClassName={classNames(
-            "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-[3.6rem] w-full border border-field text-sm !px-4",
+            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.6rem] w-full border border-field text-sm !px-4",
             "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
             "@2xl:h-[4.4rem] @2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
           )}
@@ -105,8 +105,8 @@ const AccountsContextMenu = () => {
       <ContextMenu placement="bottom-end">
         <ContextMenuTrigger
           className={classNames(
-            "bg-grey-900 hover:bg-grey-800 text-body-secondary border-content flex items-center justify-center rounded-sm",
-            "focus-visible:border-grey-700 border border-transparent ring-transparent",
+            "bg-app-bg hover:bg-secondary text-fg-secondary border-content flex items-center justify-center rounded-sm",
+            "focus-visible:border-primary border border-transparent ring-transparent",
             "@2xl:size-[4.4rem] size-[3.6rem]",
           )}
         >

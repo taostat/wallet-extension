@@ -39,7 +39,7 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
           <button
             tabIndex={-1}
             type="button"
-            className="bg-grey-900 text-body enabled:hover:bg-grey-800 flex h-32 w-full shrink-0 cursor-pointer items-center gap-10 rounded-sm px-8 text-left disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-app-bg text-fg-primary enabled:hover:bg-secondary flex h-32 w-full shrink-0 cursor-pointer items-center gap-10 rounded-sm px-8 text-left disabled:cursor-not-allowed disabled:opacity-50"
             onClick={handleClick}
             disabled={!account.isPrivateKeyAvailable || account.isExisting}
           >
@@ -52,10 +52,10 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
               <div className="flex w-full items-center gap-1 overflow-hidden text-base">
                 <div className="truncate">{account.name}</div>
                 <div className="shrink-0">
-                  <AccountTypeIcon className="text-primary inline-block" />
+                  <AccountTypeIcon className="text-fg-brand inline-block" />
                 </div>
               </div>
-              <div className="text-body-secondary text-sm">{shortenAddress(account.address)}</div>
+              <div className="text-fg-secondary text-sm">{shortenAddress(account.address)}</div>
             </div>
             <div className={classNames(account.isLoading && "animate-pulse")}>
               <Tooltip placement="bottom-end">
@@ -72,7 +72,7 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
             ) : account.isLocked ? (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="text-alert-warn shrink-0">
+                  <div className="text-fg-orange shrink-0">
                     <Lock01 />
                   </div>
                 </TooltipTrigger>
@@ -83,7 +83,7 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
             ) : (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="text-primary shrink-0">
+                  <div className="text-fg-brand shrink-0">
                     <LockUnlocked01 />
                   </div>
                 </TooltipTrigger>
@@ -93,11 +93,11 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
 
             {account.isExisting ? (
               <div className="w-[1.92rem] shrink-0 text-center">
-                <CheckCircle className="text-primary-500" />
+                <CheckCircle className="text-fg-brand" />
               </div>
             ) : !account.isPrivateKeyAvailable ? (
               <div className="w-[1.92rem] shrink-0 text-center">
-                <AlertCircle className="text-alert-warn" />
+                <AlertCircle className="text-fg-orange" />
               </div>
             ) : (
               <Checkbox
@@ -194,7 +194,7 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
   return (
     <FadeIn>
       {alreadyImported && (
-        <div className="bg-grey-850 text-body-secondary mb-8 flex w-full items-center gap-6 rounded p-8">
+        <div className="bg-secondary text-fg-secondary mb-8 flex w-full items-center gap-6 rounded p-8">
           <AlertCircle className="shrink-0 text-lg" />
           <div className="grow">
             {t("All accounts included in this file already exist in Taostats.")}
@@ -208,18 +208,18 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
             values={{ selectedCount, totalCount }}
             defaults="Selected accounts <Selected>{{selectedCount}}</Selected><Total>/{{totalCount}}</Total>"
             components={{
-              Selected: <span className="text-primary ml-2" />,
-              Total: <span className="text-grey-500 text-sm" />,
+              Selected: <span className="text-fg-brand ml-2" />,
+              Total: <span className="text-fg-disabled text-sm" />,
             }}
           ></Trans>
         </div>
         {accounts.length > 1 && (
-          <div className="text-grey-500 flex items-center gap-4">
-            <button type="button" className="hover:text-grey-400" onClick={selectNone}>
+          <div className="text-fg-disabled flex items-center gap-4">
+            <button type="button" className="hover:text-fg-tertiary" onClick={selectNone}>
               {t("Clear")}
             </button>
-            <div className="bg-grey-500 h-6 w-0.5"></div>
-            <button type="button" className="hover:text-grey-400" onClick={selectAll}>
+            <div className="bg-disabled h-6 w-0.5"></div>
+            <button type="button" className="hover:text-fg-tertiary" onClick={selectAll}>
               {t("Select all")}
             </button>
           </div>

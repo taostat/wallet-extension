@@ -96,9 +96,9 @@ const Separator: FC<{ label: ReactNode; icon: FC<{ className?: string }> }> = ({
   icon: Icon,
   label,
 }) => (
-  <div className="text-body-disabled @xl:text-sm flex w-full items-center gap-4 text-xs font-bold">
+  <div className="text-fg-disabled @xl:text-sm flex w-full items-center gap-4 text-xs font-bold">
     <Icon className="inline" />
     <div>{label}</div>
-    <div className="bg-grey-800 h-0.5 grow"></div>
+    <div className="bg-secondary h-0.5 grow"></div>
   </div>
 )

@@ -102,8 +102,8 @@ export const LedgerPolkadotAccountPickerCustom: FC<LedgerPolkadotGenericAccountP
   return (
     <div className="mt-8">
       <div className="mb-8 flex flex-col gap-4">
-        <div className="text-alert-warn bg-alert-warn/5 flex items-center gap-6 rounded-sm p-8 text-sm">
-          <div className="bg-alert-warn/10 rounded-full p-4">
+        <div className="text-fg-orange bg-orange-secondary/5 flex items-center gap-6 rounded-sm p-8 text-sm">
+          <div className="bg-orange-secondary/10 rounded-full p-4">
             <InfoCircle className="shrink-0 text-lg" />
           </div>
           <div className="leading-paragraph">
@@ -155,7 +155,7 @@ export const LedgerPolkadotAccountPickerCustom: FC<LedgerPolkadotGenericAccountP
                     <div className="overflow-hidden text-ellipsis whitespace-nowrap">
                       {accountDef.name}
                     </div>
-                    <div className="text-body-secondary text-sm">
+                    <div className="text-fg-secondary text-sm">
                       <Address
                         address={encodeAnyAddress(accountDef.address, {
                           ss58Format: chain?.prefix,
@@ -167,7 +167,7 @@ export const LedgerPolkadotAccountPickerCustom: FC<LedgerPolkadotGenericAccountP
                   </div>
                   <div className="flex items-center justify-end gap-2">
                     {balances.status === "initialising" ? (
-                      <div className="rounded-xs bg-grey-750 h-[1.8rem] w-[6.8rem] animate-pulse"></div>
+                      <div className="rounded-xs bg-tertiary h-[1.8rem] w-[6.8rem] animate-pulse"></div>
                     ) : (
                       <Tooltip placement="bottom-end">
                         <TooltipTrigger asChild>
@@ -188,21 +188,21 @@ export const LedgerPolkadotAccountPickerCustom: FC<LedgerPolkadotGenericAccountP
                 </>
               ) : connectionStatus.status === "connecting" ? (
                 <>
-                  <div className="bg-grey-750 size-[3.2rem] animate-pulse rounded-full" />
+                  <div className="bg-tertiary size-[3.2rem] animate-pulse rounded-full" />
                   <div className="flex flex-grow flex-col gap-2 overflow-hidden">
                     <div className="overflow-hidden text-ellipsis whitespace-nowrap">
-                      <span className="bg-grey-750 text-grey-750 rounded-xs animate-pulse select-none">
+                      <span className="bg-tertiary text-fg-disabled rounded-xs animate-pulse select-none">
                         Account Name
                       </span>
                     </div>
-                    <div className="text-body-secondary text-sm">
-                      <span className="bg-grey-750 text-grey-750 rounded-xs animate-pulse select-none">
+                    <div className="text-fg-secondary text-sm">
+                      <span className="bg-tertiary text-fg-disabled rounded-xs animate-pulse select-none">
                         AAAAAA…AAAAAA
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-end gap-2">
-                    <div className="bg-grey-750 text-grey-750 rounded-xs animate-pulse select-none">
+                    <div className="bg-tertiary text-fg-disabled rounded-xs animate-pulse select-none">
                       00.00$
                     </div>
                   </div>

@@ -33,7 +33,7 @@ export const AccountPill: FC<AccountPillProps> = ({ account, ss58Format, classNa
       type="button"
       onClick={handleClick}
       className={classNames(
-        "bg-grey-850 hover:bg-grey-800 text-body inline-block max-w-full rounded-3xl px-4",
+        "bg-secondary hover:bg-secondary text-fg-primary inline-block max-w-full rounded-3xl px-4",
         className,
       )}
     >

@@ -49,7 +49,7 @@ export const AccountsLogoStackMore = ({ accounts }: { accounts: Account[] }) => 
   return (
     <div className="-ml-[0.25em] inline-block h-[1em] w-[1em] overflow-hidden">
       <WithTooltip tooltip={<MoreAccountsTooltip accounts={accounts} />}>
-        <div className="bg-body-secondary relative flex h-[1em] w-[1em] flex-col justify-center overflow-hidden rounded-full text-center text-black">
+        <div className="bg-tertiary relative flex h-[1em] w-[1em] flex-col justify-center overflow-hidden rounded-full text-center text-black">
           <div className="text-[0.5em] font-bold leading-[1em]">+{accounts.length}</div>
         </div>
       </WithTooltip>

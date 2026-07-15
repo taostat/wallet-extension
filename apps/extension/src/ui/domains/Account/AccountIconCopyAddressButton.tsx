@@ -30,7 +30,7 @@ export const AccountIconCopyAddressButton: FC<
         type="button"
         onClick={handleAvatarClick}
         className={classNames(
-          "text-body size-[1em] shrink-0 rounded-full",
+          "text-fg-primary size-[1em] shrink-0 rounded-full",
           "[&:hover>.copy-overlay]:opacity-100", // show overlay while hovering
           "[&:hover_.orb-type]:hidden", // hide orb type svg while showing overlay
           className,

@@ -23,7 +23,7 @@ export const AccountCreateContainer = ({ className }: { className?: string }) =>
 
   return (
     <div className={classNames("justify-left flex flex-col gap-8", className)}>
-      <div className="border-grey-750 -mt-8 grid grid-cols-2 items-start gap-8 rounded border p-10">
+      <div className="border-primary -mt-8 grid grid-cols-2 items-start gap-8 rounded border p-10">
         <MethodButtonsComponent />
       </div>
     </div>
@@ -180,12 +180,12 @@ function AccountCreateMethodButton({
       onClick={handleClick}
       className={classNames(
         "relative flex flex-col gap-12 rounded bg-[#1e1e1e] p-10",
-        disabled && "text-body-secondary opacity-40",
-        !disabled && "text-body cursor-pointer hover:bg-[#292929] focus:bg-[#292929]",
+        disabled && "text-fg-secondary opacity-40",
+        !disabled && "text-fg-primary cursor-pointer hover:bg-[#292929] focus:bg-[#292929]",
       )}
     >
       <span className="w-full pb-3 text-start">{title}</span>
-      <span className="text-body-secondary flex items-center gap-2 pr-8 text-sm">
+      <span className="text-fg-secondary flex items-center gap-2 pr-8 text-sm">
         <AllNetworksLogoStack className="text-md" ids={supportedChainIds} max={5} />
         <span className="text-xs">{subtitle}</span>
       </span>

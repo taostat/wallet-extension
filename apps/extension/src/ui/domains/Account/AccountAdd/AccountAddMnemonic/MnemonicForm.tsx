@@ -265,9 +265,9 @@ export const AccountAddMnemonicForm = () => {
             spellCheck={false}
           />
           <div className="mt-2 flex w-full items-center justify-between gap-4 overflow-hidden text-xs">
-            <div className="text-grey-600 shrink-0">{t("Word count: {{words}}", { words })}</div>
+            <div className="text-fg-disabled shrink-0">{t("Word count: {{words}}", { words })}</div>
             <DevMnemonicButton setValue={setValue} />
-            <div className="text-alert-warn grow truncate text-right">
+            <div className="text-fg-orange grow truncate text-right">
               {errors.mnemonic?.message}
             </div>
           </div>

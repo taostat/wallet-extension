@@ -123,28 +123,28 @@ export const UnlockJsonAccountsButton: FC = () => {
       </Button>
       <Modal isOpen={isOpen} onDismiss={close}>
         <ModalDialog title={t("Unlock accounts")} onClose={close}>
-          <div className="text-body-secondary w-full text-right">
+          <div className="text-fg-secondary w-full text-right">
             <Trans
               t={t}
               defaults="<Unlocked>{{unlockedCount}}</Unlocked>/<Selected>{{selectedCount}}</Selected> unlocked"
               values={{ unlockedCount, selectedCount }}
               components={{
-                Unlocked: <span className="text-primary"></span>,
+                Unlocked: <span className="text-fg-brand"></span>,
                 Selected: <span></span>,
               }}
             />
           </div>
-          <div className="bg-grey-800 relative my-4 flex h-5 overflow-hidden rounded-lg">
+          <div className="bg-secondary relative my-4 flex h-5 overflow-hidden rounded-lg">
             <div
-              className="bg-grey-700 absolute left-0 top-0 h-5 w-full rounded-lg transition-transform ease-out"
+              className="bg-tertiary absolute left-0 top-0 h-5 w-full rounded-lg transition-transform ease-out"
               style={unlockAttemptProgressStyle}
             ></div>
             <div
-              className="bg-primary-500 absolute left-0 top-0 h-5 w-full rounded-lg transition-transform duration-300 ease-out"
+              className="bg-fg-brand absolute left-0 top-0 h-5 w-full rounded-lg transition-transform duration-300 ease-out"
               style={progressStyle}
             ></div>
           </div>
-          <div className="text-body-secondary my-16">
+          <div className="text-fg-secondary my-16">
             {t(
               "Enter the passwords for each of the selected accounts, until all accounts unlocked.",
             )}

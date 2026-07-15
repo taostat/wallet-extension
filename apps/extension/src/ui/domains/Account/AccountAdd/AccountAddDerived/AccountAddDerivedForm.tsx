@@ -83,7 +83,7 @@ const AdvancedSettings: FC<PropsWithChildren> = ({ children }) => {
       <div className="text-right">
         <button
           type="button"
-          className="text-body-disabled hover:text-body-secondary inline-flex items-center gap-0.5 whitespace-nowrap"
+          className="text-fg-disabled hover:text-fg-secondary inline-flex items-center gap-0.5 whitespace-nowrap"
           onClick={toggle}
         >
           <div>{t("Advanced")}</div>
@@ -309,7 +309,7 @@ const AccountAddDerivedFormInner: FC<AccountAddPageProps> = ({ onSuccess }) => {
           <AdvancedSettings>
             <Checkbox
               {...register("isCustomDerivationPath")}
-              className="text-body-secondary hover:text-body-secondary"
+              className="text-fg-secondary hover:text-fg-secondary"
             >
               {t("Custom derivation path")}
             </Checkbox>

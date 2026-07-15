@@ -98,7 +98,7 @@ function AllNetworksLogoStackMore({ networks }: { networks: PortfolioNetwork[] }
 
   return (
     <div className="ml-[-0.25rem] inline-block h-[1em] w-auto overflow-hidden">
-      <div className="text-body-secondary bg-grey-750 relative flex h-[1em] w-auto flex-col justify-center rounded-full px-2 text-center">
+      <div className="text-fg-secondary bg-tertiary relative flex h-[1em] w-auto flex-col justify-center rounded-full px-2 text-center">
         <div className="text-[0.5em] font-bold leading-[1em]">{networks.length}+</div>
       </div>
     </div>

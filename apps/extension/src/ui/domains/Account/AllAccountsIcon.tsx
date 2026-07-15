@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 
 export const AllAccountsIcon = ({ className }: { className?: string }) => (
   <AccountsIconContainer className={className}>
-    <Users01 className="text-primary w-full" />
+    <Users01 className="text-fg-brand w-full" />
   </AccountsIconContainer>
 )
 
@@ -17,7 +17,7 @@ export const AccountsIconContainer = ({
 }) => (
   <div
     className={classNames(
-      "bg-grey-750 flex h-[1em] w-[1em] items-center justify-center rounded-full p-[0.25em]",
+      "bg-tertiary flex h-[1em] w-[1em] items-center justify-center rounded-full p-[0.25em]",
       className,
     )}
   >

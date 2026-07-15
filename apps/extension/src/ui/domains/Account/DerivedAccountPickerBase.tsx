@@ -21,26 +21,26 @@ const PagerButton: FC<{ disabled?: boolean; children: ReactNode; onClick?: () =>
     type="button"
     disabled={disabled}
     onClick={onClick}
-    className="bg-grey-850 hover:bg-grey-800 text-body-secondary w-20 rounded-sm p-4 font-bold"
+    className="bg-secondary hover:bg-secondary text-fg-secondary w-20 rounded-sm p-4 font-bold"
   >
     {children}
   </button>
 )
 
 const AccountButtonShimmer: FC<{ withBalances: boolean }> = ({ withBalances }) => (
-  <div className={"bg-grey-850 flex h-32 w-full items-center gap-8 rounded px-8"}>
-    <div className="bg-grey-750 inline-block h-16 w-16 animate-pulse rounded-full"></div>
+  <div className={"bg-secondary flex h-32 w-full items-center gap-8 rounded px-8"}>
+    <div className="bg-tertiary inline-block h-16 w-16 animate-pulse rounded-full"></div>
     <div className="flex grow flex-col gap-2">
-      <div className="rounded-xs bg-grey-750 h-[1.6rem] w-[13rem] animate-pulse"></div>
-      <div className="rounded-xs bg-grey-750 h-[1.4rem] w-[6.8rem] animate-pulse"></div>
+      <div className="rounded-xs bg-tertiary h-[1.6rem] w-[13rem] animate-pulse"></div>
+      <div className="rounded-xs bg-tertiary h-[1.4rem] w-[6.8rem] animate-pulse"></div>
     </div>
     <div
       className={classNames(
-        "rounded-xs bg-grey-750 h-[1.8rem] w-[6.8rem] animate-pulse",
+        "rounded-xs bg-tertiary h-[1.8rem] w-[6.8rem] animate-pulse",
         !withBalances && "invisible",
       )}
     ></div>
-    <div className="rounded-xs bg-grey-750 h-[2rem] w-[2rem] animate-pulse"></div>
+    <div className="rounded-xs bg-tertiary h-[2rem] w-[2rem] animate-pulse"></div>
   </div>
 )
 
@@ -76,7 +76,7 @@ const AccountButton: FC<AccountButtonProps> = ({
     <button
       type="button"
       className={classNames(
-        "bg-grey-850 text-grey-200 enabled:hover:bg-grey-800 flex h-32 w-full items-center gap-8 rounded-sm px-8 text-left disabled:opacity-50",
+        "bg-secondary text-fg-tertiary enabled:hover:bg-secondary flex h-32 w-full items-center gap-8 rounded-sm px-8 text-left disabled:opacity-50",
       )}
       disabled={connected}
       onClick={onClick}
@@ -84,14 +84,14 @@ const AccountButton: FC<AccountButtonProps> = ({
       <AccountIcon address={formattedAddress} genesisHash={genesisHash} className="text-xl" />
       <div className="flex flex-grow flex-col gap-2 overflow-hidden">
         <div className="overflow-hidden text-ellipsis whitespace-nowrap">{name}</div>
-        <div className="text-body-secondary text-sm">
+        <div className="text-fg-secondary text-sm">
           <Address address={formattedAddress} startCharCount={6} endCharCount={6} />
         </div>
       </div>
       <div className="flex items-center justify-end gap-2">
         {withBalances &&
           (isInitializing ? (
-            <div className="rounded-xs bg-grey-750 h-[1.8rem] w-[6.8rem] animate-pulse"></div>
+            <div className="rounded-xs bg-tertiary h-[1.8rem] w-[6.8rem] animate-pulse"></div>
           ) : (
             <Tooltip placement="bottom-end">
               <TooltipTrigger asChild>
@@ -105,7 +105,7 @@ const AccountButton: FC<AccountButtonProps> = ({
       </div>
       <div className="flex w-12 shrink-0 flex-col items-center justify-center">
         {connected ? (
-          <CheckCircle className="text-primary text-lg" />
+          <CheckCircle className="text-fg-brand text-lg" />
         ) : (
           <Checkbox checked={selected} readOnly className="[&>input]:!border-body-disabled" />
         )}

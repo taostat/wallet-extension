@@ -31,7 +31,7 @@ export const TreeItemAccount: FC<{
       <div
         className={classNames(
           "flex h-[5.9rem] flex-grow items-center gap-8 overflow-hidden rounded-sm border-[1px] border-transparent px-8",
-          isInFolder ? "bg-grey-800 pr-4" : "bg-grey-850",
+          isInFolder ? "bg-secondary pr-4" : "bg-secondary",
         )}
       >
         <AccountIcon
@@ -43,12 +43,12 @@ export const TreeItemAccount: FC<{
           <div className="flex items-center gap-2">
             <div className="overflow-hidden text-ellipsis whitespace-nowrap">{account.name}</div>
             <AccountTypeIcon
-              className="text-primary"
+              className="text-fg-brand"
               type={account.type}
               signetUrl={account.type === "signet" ? account.url : undefined}
             />
           </div>
-          <div className="text-body-secondary @2xl:text-sm text-xs">
+          <div className="text-fg-secondary @2xl:text-sm text-xs">
             <Address address={formattedAddress} noTooltip={noTooltip} />
           </div>
         </div>

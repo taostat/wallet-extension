@@ -21,7 +21,7 @@ export const AccountsStack: FC<{ accounts: Account[]; className?: string }> = ({
         <AccountIcon
           key={account.address}
           address={account.address}
-          className="border-grey-800 box-content shrink-0 rounded-full border text-base"
+          className="border-primary box-content shrink-0 rounded-full border text-base"
         />
       ))}
     </div>

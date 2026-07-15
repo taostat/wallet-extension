@@ -94,11 +94,11 @@ const DeleteFolder = ({
 
   return (
     <div className={className}>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         <Trans
           t={t}
           defaults="Confirm to delete folder <Highlight>{{name}}</Highlight>."
-          components={{ Highlight: <span className="text-body" /> }}
+          components={{ Highlight: <span className="text-fg-primary" /> }}
           values={{ name }}
         />
       </p>

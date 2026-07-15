@@ -15,7 +15,7 @@ import { useAccountAddQr } from "./context"
 import { MnemonicForm } from "./MnemonicForm"
 
 const VerifierCertificateOption = ({ text, children }: { text: string; children: ReactNode }) => (
-  <div className="text-body-secondary grid grid-cols-2 items-center gap-8 text-sm">
+  <div className="text-fg-secondary grid grid-cols-2 items-center gap-8 text-sm">
     {children}
     <div className="p-2">{text}</div>
   </div>
@@ -69,7 +69,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
         state.verifierCertificateConfig.verifierCertificateType !== "import") && (
         <div className="flex flex-col gap-8">
           <span>{t("Why do I need to do this?")}</span>
-          <div className="text-body-secondary text-sm">
+          <div className="text-fg-secondary text-sm">
             <Trans t={t}>
               Polkadot Vault requires that the specification and the metadata for each chain are
               signed with a 'Verifier Certificate'. Taostats can generate its own Verifier
@@ -79,11 +79,11 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
               sources, simply by selecting "Don't use a Verifier Certificate Mnemonic" below.
             </Trans>
           </div>
-          <span className="text-body-secondary text-sm">
+          <span className="text-fg-secondary text-sm">
             <a
               href={POLKADOT_VAULT_DOCS_URL}
               target="_blank"
-              className="hover:text-primary text-grey-200"
+              className="hover:text-fg-brand text-fg-tertiary"
             >
               {t("Read more about Taostats' Polkadot Vault integration here.")}
             </a>

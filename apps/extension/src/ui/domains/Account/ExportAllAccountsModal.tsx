@@ -35,7 +35,7 @@ export const ExportAllAccountsModal: FC<{ isOpen: boolean; onClose: () => void }
       >
         <PasswordUnlock
           title={
-            <div className="text-body-secondary mb-8">
+            <div className="text-fg-secondary mb-8">
               {t("Please confirm your password to export your accounts.")}
             </div>
           }
@@ -114,21 +114,21 @@ const ExportAllAccountsForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   return (
     <div>
       <form onSubmit={handleSubmit(submit)}>
-        <p className="text-body-secondary my-8 text-sm">
+        <p className="text-fg-secondary my-8 text-sm">
           <Trans t={t}>
             Set a password for your JSON export. We strongly suggest using a{" "}
             <span className="text-white">different password</span> from your Taostats wallet
             password. This avoids exposing your Taostats password to other wallets or applications.
           </Trans>
         </p>
-        <p className="text-body-secondary text-sm">
+        <p className="text-fg-secondary text-sm">
           {t(
             "Please note that only polkadot.js compatible accounts with stored private keys can be exported. Hardware, QR-based, and watch-only accounts will not be exported.",
           )}
         </p>
         <div className="mt-12">
           <div className="mb-6 flex h-[1.2em] items-center justify-between text-sm">
-            <div className="text-body-disabled">
+            <div className="text-fg-disabled">
               {t("Password strength:")} <PasswordStrength password={newPwWatch} />
             </div>
             <div>
