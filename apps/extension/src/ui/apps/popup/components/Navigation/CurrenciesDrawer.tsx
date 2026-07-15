@@ -23,22 +23,22 @@ const CurrencyButton: FC<{
     <button
       type="button"
       className={classNames(
-        "text-body-secondary flex h-28 w-full items-center gap-4 rounded-sm px-6",
-        "border-grey-800 border",
-        selected && "bg-grey-900",
-        "hover:border-grey-700 hover:bg-grey-800 stroke-primary",
+        "text-fg-secondary flex h-28 w-full items-center gap-4 rounded-sm px-6",
+        "border-primary border",
+        selected && "bg-app-bg",
+        "hover:border-primary hover:bg-secondary stroke-fg-brand",
       )}
       onClick={onClick}
     >
       <img className="w-16 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
       <div className="flex grow flex-col items-start gap-1">
-        <div className="text-body text-base uppercase">{currency}</div>
+        <div className="text-fg-primary text-base uppercase">{currency}</div>
         <div className="text-xs">
           {currencyConfig[currency]?.symbol ?? ""} {currencyConfig[currency]?.name ?? currency}
         </div>
       </div>
       {selected ? (
-        <Star01 className="stroke-primary fill-primary size-8" />
+        <Star01 className="stroke-fg-brand fill-fg-brand size-8" />
       ) : (
         <Star01 className="size-8" />
       )}
@@ -92,7 +92,7 @@ const CurrenciesDrawerContent = () => {
   const { close } = useCurrenciesDrawerOpenClose()
 
   return (
-    <div className="text-body-secondary flex h-[60rem] w-[40rem] flex-col gap-10 bg-black pt-10">
+    <div className="text-fg-secondary flex h-[60rem] w-[40rem] flex-col gap-10 bg-black pt-10">
       <div className="flex items-center gap-3 px-8 text-base font-bold text-white">
         <IconButton onClick={close}>
           <ChevronLeft />

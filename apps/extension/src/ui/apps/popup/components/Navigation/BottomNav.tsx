@@ -96,7 +96,7 @@ export const BottomNav = () => {
         <QuickSettingsModal />
         <div
           className={classNames(
-            "border-grey-800 flex h-[5.2rem] w-full items-center justify-between rounded border bg-black/90 px-7 backdrop-blur-[2px]",
+            "border-primary flex h-[5.2rem] w-full items-center justify-between rounded border bg-black/90 px-7 backdrop-blur-[2px]",
           )}
         >
           <NavButton
@@ -155,10 +155,10 @@ const NavButton: FC<{
       type="button"
       className={classNames(
         "group",
-        "text-body-disabled h-20 w-20",
-        "enabled:hover:text-body-secondary",
+        "text-fg-disabled h-20 w-20",
+        "enabled:hover:text-fg-secondary",
         "enabled:focus-visible:border",
-        routeMatch && "!text-primary",
+        routeMatch && "!text-fg-brand",
         className,
       )}
       onClick={onClick}
@@ -172,7 +172,7 @@ const NavButton: FC<{
         {withBadge ? (
           <div className="relative size-10 shrink-0">
             <Icon className={classNames("size-10", iconClassName)} />
-            <div className="bg-primary absolute -right-1 -top-1 size-3 rounded-full"></div>
+            <div className="bg-fg-brand absolute -right-1 -top-1 size-3 rounded-full"></div>
           </div>
         ) : (
           <Icon className={classNames("size-10 shrink-0", iconClassName)} />

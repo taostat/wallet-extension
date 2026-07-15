@@ -33,12 +33,12 @@ export const BackupReminderBanner = () => {
         <div className="flex items-center gap-4 text-base">
           <div className="grow text-sm font-bold">{t("Protect your funds")}</div>
           <div>
-            <IconButton className="text-md text-body select-auto" onClick={onDismissClick}>
+            <IconButton className="text-md text-fg-primary select-auto" onClick={onDismissClick}>
               <X />
             </IconButton>
           </div>
         </div>
-        <p className="text-body-secondary mt-2">
+        <p className="text-fg-secondary mt-2">
           {hasFundsInNotBackedUpMnemonics
             ? t(
                 "You have funds! Taostats is a non custodial wallet so only you have access to your keys, make sure you have backed them up or you may lose access to your funds.",
@@ -51,7 +51,7 @@ export const BackupReminderBanner = () => {
           <Button
             small
             onClick={onSnoozeClick}
-            className="border-body-secondary text-body-secondary h-16 rounded-full text-xs"
+            className="border-body-secondary text-fg-secondary h-16 rounded-full text-xs"
           >
             {t("Remind me later")}
           </Button>

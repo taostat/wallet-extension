@@ -97,7 +97,7 @@ const FolderButton: FC<{ option: FolderAccountOption }> = ({ option }) => {
       type="button"
       tabIndex={0}
       className={classNames(
-        "text-body-secondary bg-black-secondary hover:bg-grey-800 flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
+        "text-fg-secondary bg-black-secondary hover:bg-secondary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
       )}
       onClick={handleClick}
     >
@@ -105,10 +105,10 @@ const FolderButton: FC<{ option: FolderAccountOption }> = ({ option }) => {
         <AccountFolderIcon />
       </div>
       <div className="flex grow flex-col items-start justify-center gap-1 overflow-hidden">
-        <div className="text-body flex w-full items-center gap-3 text-base">
+        <div className="text-fg-primary flex w-full items-center gap-3 text-base">
           <div className="truncate">{option.name}</div>
         </div>
-        <div className="text-body-secondary flex w-full truncate text-left text-sm">
+        <div className="text-fg-secondary flex w-full truncate text-left text-sm">
           <Fiat amount={option.total} isBalance />
         </div>
       </div>
@@ -133,14 +133,14 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
     <div
       className={classNames(
         "group",
-        "bg-black-secondary hover:bg-grey-800 relative h-[5.9rem] w-full rounded-sm",
+        "bg-black-secondary hover:bg-secondary relative h-[5.9rem] w-full rounded-sm",
       )}
     >
       <button
         type="button"
         tabIndex={0}
         className={classNames(
-          "text-body-secondary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
+          "text-fg-secondary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
         )}
         onClick={handleClick}
       >
@@ -148,15 +148,15 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
           <div className="size-[3.2rem]"></div>
         </div>
         <div className="flex grow flex-col items-start justify-center gap-1 overflow-hidden">
-          <div className="text-body flex w-full items-center gap-3 text-base">
+          <div className="text-fg-primary flex w-full items-center gap-3 text-base">
             <div className="truncate">{option.name}</div>
             <AccountTypeIcon
-              className="text-primary"
+              className="text-fg-brand"
               type={option.accountType}
               signetUrl={option.signetUrl}
             />
           </div>
-          <div className="text-body-secondary flex w-full truncate text-left text-sm">
+          <div className="text-fg-secondary flex w-full truncate text-left text-sm">
             <Fiat amount={option.total} isBalance className="group-hover:hidden" />
             <Address
               className="hidden truncate group-hover:block"
@@ -221,7 +221,7 @@ const AccountsToolbar = () => {
       <div className="flex grow items-center overflow-hidden">
         <SearchInput
           containerClassName={classNames(
-            "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-[3.2rem] w-full border border-field text-sm !px-4",
+            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.2rem] w-full border border-field text-sm !px-4",
             "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
           )}
           placeholder={t("Search account or folder")}
@@ -306,7 +306,7 @@ const Accounts = ({
       {hasPortfolioOptions && <AccountsList options={portfolioOptions} />}
 
       {hasWatchedOptions && (
-        <div className={classNames("text-body-secondary flex items-center gap-2 font-bold")}>
+        <div className={classNames("text-fg-secondary flex items-center gap-2 font-bold")}>
           <Eye />
           <div>{t("Followed only")}</div>
         </div>
@@ -314,7 +314,7 @@ const Accounts = ({
       {hasWatchedOptions && <AccountsList options={watchedOptions} />}
 
       {hasAnyAccount && !portfolioOptions.length && !watchedOptions.length && (
-        <div className="bg-grey-900 text-body-disabled flex h-[10rem] items-center justify-center rounded-sm text-xs opacity-50">
+        <div className="bg-app-bg text-fg-disabled flex h-[10rem] items-center justify-center rounded-sm text-xs opacity-50">
           {t("No accounts found")}
         </div>
       )}
@@ -335,7 +335,7 @@ const FolderHeader = ({ folder, folderTotal }: { folder: TreeFolder; folderTotal
       </div>
       <div className="flex grow flex-col gap-1 overflow-hidden pl-2 text-sm">
         <div className="flex items-center gap-3">
-          <div className="text-body-secondary truncate">{folder.name}</div>
+          <div className="text-fg-secondary truncate">{folder.name}</div>
         </div>
         <div className="truncate">
           <Fiat amount={folderTotal} isBalance />

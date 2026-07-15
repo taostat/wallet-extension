@@ -44,7 +44,7 @@ export const PolkadotSignTransactionRequest: FC = () => {
       </PopupHeader>
       <>
         <PopupContent>
-          <div className="scrollable scrollable-800 text-body-secondary h-full overflow-y-auto text-center">
+          <div className="scrollable scrollable-800 text-fg-secondary h-full overflow-y-auto text-center">
             <SubSignBody />
           </div>
         </PopupContent>

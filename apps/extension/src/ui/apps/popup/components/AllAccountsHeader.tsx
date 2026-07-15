@@ -24,8 +24,8 @@ export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => 
         type="button"
         className={classNames(
           "flex size-full items-center justify-end gap-4 overflow-hidden rounded-sm p-6 text-lg",
-          "bg-black-secondary text-body-secondary transition-colors duration-75",
-          !disabled && "hover:text-body",
+          "bg-black-secondary text-fg-secondary transition-colors duration-75",
+          !disabled && "hover:text-fg-primary",
         )}
         onClick={!disabled ? handleClick : undefined}
         disabled={disabled}

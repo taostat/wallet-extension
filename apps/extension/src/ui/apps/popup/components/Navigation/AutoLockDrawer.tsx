@@ -43,7 +43,7 @@ const AutoLockDrawerContent = () => {
   const { close } = useAutoLockDrawerOpenClose()
 
   return (
-    <div className="text-body-secondary flex h-[60rem] w-[40rem] flex-col gap-10 bg-black pt-10">
+    <div className="text-fg-secondary flex h-[60rem] w-[40rem] flex-col gap-10 bg-black pt-10">
       <div className="flex items-center gap-3 px-8 text-base font-bold text-white">
         <IconButton onClick={close}>
           <ChevronLeft />

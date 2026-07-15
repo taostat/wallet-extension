@@ -34,7 +34,7 @@ export const UnifiedAddressInfoBanner = () => {
           <div className="grow font-bold">{t("Unified address format")}</div>
           <div>
             <IconButton
-              className="text-md text-body select-auto"
+              className="text-md text-fg-primary select-auto"
               onClick={() => setHideBanner(true)}
             >
               <X />

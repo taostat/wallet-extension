@@ -54,7 +54,7 @@ export const QuickSettingsModal: FC = () => {
     <Transition show={isOpen} appear>
       <TransitionChild
         as="div"
-        className="border-grey-800 flex w-full flex-col gap-8 rounded border bg-black/90 px-12 py-8"
+        className="border-primary flex w-full flex-col gap-8 rounded border bg-black/90 px-12 py-8"
         enter="ease-out duration-200"
         enterFrom="opacity-0 scale-90"
         enterTo="opacity-100 scale-100"
@@ -63,10 +63,10 @@ export const QuickSettingsModal: FC = () => {
         leaveTo="opacity-0 scale-95"
       >
         <div className="flex w-full items-center justify-between">
-          <div className="text-body text-md font-bold">{t("Settings")}</div>
+          <div className="text-fg-primary text-md font-bold">{t("Settings")}</div>
           <AllSettingsButton />
         </div>
-        <div className="bg-grey-800 h-0.5 w-full"></div>
+        <div className="bg-secondary h-0.5 w-full"></div>
         <div className="flex w-full flex-col">
           <LanguageRow />
           {/* <CurrenciesRow /> */}
@@ -81,7 +81,7 @@ export const QuickSettingsModal: FC = () => {
 
 const SettingRow: FC<{ label: string; children: ReactNode }> = ({ label, children }) => {
   return (
-    <div className="text-body-secondary flex h-16 w-full items-center justify-between gap-1 text-sm">
+    <div className="text-fg-secondary flex h-16 w-full items-center justify-between gap-1 text-sm">
       <div>{label}</div>
       {children}
     </div>
@@ -98,7 +98,7 @@ const LanguageRow = () => {
     <SettingRow label={t("Language")}>
       <button
         type="button"
-        className="text-grey-300 hover:text-body text-sm font-bold"
+        className="text-fg-tertiary hover:text-fg-primary text-sm font-bold"
         onClick={open}
       >
         {current}
@@ -123,7 +123,7 @@ const AutoLockRow = () => {
     <SettingRow label={t("Auto-lock timer")}>
       <button
         type="button"
-        className="text-grey-300 hover:text-body text-sm font-bold"
+        className="text-fg-tertiary hover:text-fg-primary text-sm font-bold"
         onClick={open}
       >
         {display}
@@ -149,13 +149,13 @@ const AutoLockRow = () => {
 //         {favorites.slice(0, 3).map((currency) => (
 //           <img
 //             key={currency}
-//             className="border-0.5 border-grey-800 -ml-2 inline-block size-10 shrink-0 rounded-full border align-middle"
+//             className="border-0.5 border-primary -ml-2 inline-block size-10 shrink-0 rounded-full border align-middle"
 //             alt={currency}
 //             src={currencyConfig[currency]?.icon}
 //           />
 //         ))}
 //         {moreLabel && (
-//           <div className="text-body-secondary border-0.5 border-grey-800 -ml-2 inline-flex size-10 shrink-0 items-center justify-center rounded-full border bg-black align-middle text-[0.9rem]">
+//           <div className="text-fg-secondary border-0.5 border-primary -ml-2 inline-flex size-10 shrink-0 items-center justify-center rounded-full border bg-black align-middle text-[0.9rem]">
 //             {moreLabel}
 //           </div>
 //         )}
@@ -211,7 +211,7 @@ const AllSettingsButton = () => {
   return (
     <button
       type="button"
-      className="text-primary bg-primary/5 hover:bg-primary/10 flex items-center gap-1 rounded-sm p-4 text-xs"
+      className="text-fg-brand bg-fg-brand/5 hover:bg-fg-brand/10 flex items-center gap-1 rounded-sm p-4 text-xs"
       onClick={handleClick}
     >
       <div>{t("All settings")}</div>

@@ -35,11 +35,11 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
 
   return (
     <div id="main" className="relative flex h-full w-full flex-col">
-      <div className="text-body-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
+      <div className="text-fg-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
         {showBackButton ? (
           <button
             type="button"
-            className="text-body-secondary flex cursor-pointer items-center text-lg hover:text-white"
+            className="text-fg-secondary flex cursor-pointer items-center text-lg hover:text-white"
             onClick={handleBackClick}
           >
             <ChevronLeft />

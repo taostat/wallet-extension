@@ -54,28 +54,28 @@ const HideBalancesToggle = () => {
           />
           <div
             className={classNames(
-              "bg-grey-600 peer h-14 w-28 shrink-0 rounded-full",
+              "bg-tertiary peer h-14 w-28 shrink-0 rounded-full",
               "peer-focus-visible:ring-body peer-focus:outline-none peer-focus-visible:ring-2",
             )}
           ></div>
           <div
             className={classNames(
               "absolute left-1 top-1 flex h-12 w-12",
-              "bg-grey-800 rounded-full",
-              "peer-checked:bg-primary transition peer-checked:translate-x-14",
+              "bg-secondary rounded-full",
+              "peer-checked:bg-fg-brand transition peer-checked:translate-x-14",
             )}
           >
             <Eye
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
-                "text-body-black transition-opacity",
+                "text-fg-primary-alt transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
             <EyeOff
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
-                "text-body transition-opacity",
+                "text-fg-primary transition-opacity",
                 !hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
@@ -166,7 +166,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
           </div>
           <h1 className="mt-[34px] text-lg">{t("Unlock Taostats Wallet")}</h1>
           {errors.password?.message && (
-            <div className="text-alert-warn mt-8">{errors.password?.message}</div>
+            <div className="text-fg-orange mt-8">{errors.password?.message}</div>
           )}
         </PopupContent>
         <PopupFooter className="z-10">
@@ -179,7 +179,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
               autoComplete="off"
               data-lpignore
               // containerProps={INPUT_CONTAINER_PROPS}
-              className="placeholder:text-grey-500"
+              className="placeholder:text-fg-disabled"
               after={<CapsLockWarningIcon />}
             />
             <Button
@@ -188,13 +188,13 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
               primary
               disabled={!isValid}
               processing={isSubmitting}
-              className={classNames(!isValid && "bg-field")}
+              className={classNames(!isValid && "bg-secondary")}
             >
               {t("Unlock")}
             </Button>
             <button
               type="button"
-              className="text-body-disabled mt-2 cursor-pointer text-sm transition-colors hover:text-white"
+              className="text-fg-disabled mt-2 cursor-pointer text-sm transition-colors hover:text-white"
               onClick={setShowResetWallet}
             >
               {t("Forgot Password?")}
@@ -265,7 +265,7 @@ const VersionInfo = () => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={handleClick}
-      className="bg-primary/10 text-primary/80 absolute left-10 top-10 z-20 flex h-14 select-none items-center justify-center rounded-full px-4 text-sm"
+      className="bg-fg-brand/10 text-fg-brand/80 absolute left-10 top-10 z-20 flex h-14 select-none items-center justify-center rounded-full px-4 text-sm"
     >
       v{process.env.VERSION}
     </div>

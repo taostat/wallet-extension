@@ -238,7 +238,7 @@ const EstimatedFeesRow: FC = () => {
   )
 
   return (
-    <div className="text-body-secondary mb-8 flex w-full items-center justify-between text-sm">
+    <div className="text-fg-secondary mb-8 flex w-full items-center justify-between text-sm">
       <div className="flex items-center gap-2">
         <Tooltip placement="top-start">
           <TooltipTrigger asChild>

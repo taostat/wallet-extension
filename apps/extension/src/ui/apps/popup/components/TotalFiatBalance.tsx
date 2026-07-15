@@ -44,11 +44,11 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
   return (
     <div className={classNames("flex flex-col items-start justify-between gap-4", className)}>
       <div className="flex flex-col gap-2">
-        <div className="text-body flex gap-4 text-xs">
+        <div className="text-fg-primary flex gap-4 text-xs">
           <div className="leading-10 tracking-[0.06px]">{t("Total Portfolio")}</div>
           <button
             className={classNames(
-              "focus:text-body text-grey-200 hover:text-body pointer-events-auto opacity-0 transition-opacity",
+              "focus:text-fg-primary text-fg-tertiary hover:text-fg-primary pointer-events-auto opacity-0 transition-opacity",
               (hideBalances || mouseOver) && "opacity-100",
             )}
             onClick={toggleHideBalance}
@@ -59,7 +59,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
         <div className="flex w-full max-w-full items-center gap-2">
           <button
             className={classNames(
-              "bg-grey-700/20 text-grey-200 hover:text-body hover:bg-body/10 pointer-events-auto flex size-16 shrink-0 items-center justify-center rounded-full text-center shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
+              "bg-tertiary/20 text-fg-tertiary hover:text-fg-primary hover:bg-fg-primary/10 pointer-events-auto flex size-16 shrink-0 items-center justify-center rounded-full text-center shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
               currencyConfig[currency]?.symbol?.length === 2 && "text-xs",
               currencyConfig[currency]?.symbol?.length > 2 && "text-[1rem]",
             )}
@@ -73,7 +73,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
           <Fiat
             className={classNames(
               "overflow-hidden text-ellipsis whitespace-pre pr-10 text-[2.4rem] font-bold leading-[2.8rem] tracking-[0.016px]",
-              disabled && "text-body-secondary",
+              disabled && "text-fg-secondary",
             )}
             amount={portfolioTotal}
             isBalance
@@ -126,8 +126,8 @@ const Action: FC<ActionProps> = ({
         <button
           type="button"
           className={classNames(
-            "text-body-secondary pointer-events-auto flex h-10 items-center gap-2 rounded-full bg-white/5 px-3 text-[1rem] opacity-90 backdrop-blur-sm",
-            "enabled:hover:text-body enabled:hover:bg-white/10",
+            "text-fg-secondary pointer-events-auto flex h-10 items-center gap-2 rounded-full bg-white/5 px-3 text-[1rem] opacity-90 backdrop-blur-sm",
+            "enabled:hover:text-fg-primary enabled:hover:bg-white/10",
           )}
           onClick={handleClick}
           disabled={disabled}

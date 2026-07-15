@@ -45,13 +45,13 @@ const PageContent = ({
 
   return (
     <>
-      <div className="text-body flex h-[3.6rem] w-full items-center gap-4 text-base font-bold">
+      <div className="text-fg-primary flex h-[3.6rem] w-full items-center gap-4 text-base font-bold">
         <IconButton onClick={handleBackBtnClick}>
           <ChevronLeft />
         </IconButton>
         <div className="shrink-0">{name}</div>
         <div className="flex grow items-center justify-end gap-3">
-          <div className="text-body-secondary text-sm">{t("Total")}</div>
+          <div className="text-fg-secondary text-sm">{t("Total")}</div>
           <Fiat amount={total} isBalance />
         </div>
       </div>

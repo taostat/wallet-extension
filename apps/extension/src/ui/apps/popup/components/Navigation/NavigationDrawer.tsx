@@ -93,9 +93,9 @@ export const NavigationDrawer: FC = () => {
   return (
     <Drawer className="h-full" containerId="main" anchor="bottom" isOpen={isOpen} onDismiss={close}>
       <div className="flex h-full w-full flex-col bg-black">
-        <header className="border-grey-800 box-border flex h-36 w-full items-center justify-between gap-6 border-b px-12">
+        <header className="border-primary box-border flex h-36 w-full items-center justify-between gap-6 border-b px-12">
           <TaostatsLogo className="h-[2.5rem] w-auto" />
-          <BuildVersionPill className="bg-primary/20 text-primary hover:bg-primary/30" />
+          <BuildVersionPill className="bg-fg-brand/20 text-fg-brand hover:bg-fg-brand/30" />
           <div className="grow"></div>
           <IconButton onClick={close} aria-label={t("Close menu")}>
             <X />
@@ -117,7 +117,7 @@ export const NavigationDrawer: FC = () => {
             <NavItem icon={<Key01 />} onClick={handleBackupClick}>
               <span className="flex items-center">
                 {t("Backup Wallet")}
-                {!allBackedUp && <AlertCircle className="text-primary ml-2 inline text-sm" />}
+                {!allBackedUp && <AlertCircle className="text-fg-brand ml-2 inline text-sm" />}
               </span>
             </NavItem>
             <NavItem icon={<Settings01 />} onClick={handleSettingsClick}>
@@ -128,10 +128,10 @@ export const NavigationDrawer: FC = () => {
         <footer>
           <button
             type="button"
-            className="text-body-secondary hover:bg-grey-800 hover:text-body flex w-full flex-col items-center"
+            className="text-fg-secondary hover:bg-secondary hover:text-fg-primary flex w-full flex-col items-center"
             onClick={handleLock}
           >
-            <div className="border-1 border-grey-800 h-0 w-11/12 border-t" />
+            <div className="border-1 border-primary h-0 w-11/12 border-t" />
             <div className="flex w-full items-center justify-center gap-4 p-10">
               <Lock01 className="text-md" />
               <span>{t("Lock Wallet")}</span>

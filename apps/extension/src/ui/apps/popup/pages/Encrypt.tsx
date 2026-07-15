@@ -30,8 +30,8 @@ const SignMessage = ({
   }, [request])
 
   return (
-    <div className="text-body-secondary flex h-full w-full flex-col items-center pt-8">
-      <h1 className="text-body leading-base text-md my-0 font-sans font-bold">
+    <div className="text-fg-secondary flex h-full w-full flex-col items-center pt-8">
+      <h1 className="text-fg-primary leading-base text-md my-0 font-sans font-bold">
         {isDecrypt ? "Decrypt " : "Encrypt "}Request
       </h1>
       <h2 className="mt-8 flex w-full flex-col items-center text-base leading-[3.2rem]">

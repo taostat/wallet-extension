@@ -29,15 +29,15 @@ const NoAccountWarning = ({
   const { t } = useTranslation()
   return (
     <Drawer isOpen anchor="bottom" containerId="main">
-      <div className="bg-grey-800 flex flex-col gap-8 rounded-t-xl p-12">
+      <div className="bg-secondary flex flex-col gap-8 rounded-t-xl p-12">
         <div className="w-full text-center">
-          <InfoCircle className="text-primary-500 inline-block text-[4rem]" />
+          <InfoCircle className="text-fg-brand inline-block text-[4rem]" />
         </div>
-        <p className="text-body-secondary text-center">
+        <p className="text-fg-secondary text-center">
           <Trans
             t={t}
             defaults="This application requires a<br/>Bittensor account to connect.<br/>Would you like to create or import one?"
-            components={{ strong: <strong className="text-body" />, br: <br /> }}
+            components={{ strong: <strong className="text-fg-primary" />, br: <br /> }}
             values={{ type: capitalize(type) }}
           />
         </p>

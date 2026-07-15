@@ -22,10 +22,8 @@ export const SignAccountAvatar: FC<{ account?: Account; ss58Format?: number }> =
         />
       </TooltipTrigger>
       <TooltipContent>
-        <div className="text-body font-semibold">{account.name}</div>
-        <div className="text-body-secondary">
-          {encodeAnyAddress(account.address, { ss58Format })}
-        </div>
+        <div className="text-fg-primary font-semibold">{account.name}</div>
+        <div className="text-fg-secondary">{encodeAnyAddress(account.address, { ss58Format })}</div>
       </TooltipContent>
     </Tooltip>
   )

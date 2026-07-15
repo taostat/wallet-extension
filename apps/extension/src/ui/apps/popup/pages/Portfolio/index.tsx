@@ -40,28 +40,28 @@ const HideBalancesToggle = () => {
           />
           <div
             className={classNames(
-              "bg-grey-600 peer h-14 w-28 shrink-0 rounded-full",
+              "bg-tertiary peer h-14 w-28 shrink-0 rounded-full",
               "peer-focus-visible:ring-body peer-focus:outline-none peer-focus-visible:ring-2",
             )}
           ></div>
           <div
             className={classNames(
               "absolute left-1 top-1 flex h-12 w-12",
-              "bg-grey-800 rounded-full",
-              "peer-checked:bg-primary transition peer-checked:translate-x-14",
+              "bg-secondary rounded-full",
+              "peer-checked:bg-fg-brand transition peer-checked:translate-x-14",
             )}
           >
             <Eye
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
-                "text-body-black transition-opacity",
+                "text-fg-primary-alt transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
             <EyeOff
               className={classNames(
                 "absolute left-2 top-2 h-8 w-8",
-                "text-body transition-opacity",
+                "text-fg-primary transition-opacity",
                 !hideBalances ? "opacity-0" : "opacity-100",
               )}
             />

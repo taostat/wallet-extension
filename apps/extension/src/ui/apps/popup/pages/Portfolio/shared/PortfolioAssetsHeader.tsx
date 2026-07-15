@@ -50,8 +50,8 @@ const SendFundsButton: FC<{ account?: Account | null }> = ({ account }) => {
       <TooltipTrigger
         onClick={canSendFunds ? sendFunds : undefined}
         className={classNames(
-          "text-body-secondary text-md flex h-16 w-16 flex-col items-center justify-center rounded-full",
-          canSendFunds ? "hover:bg-grey-800 hover:text-body" : "cursor-default opacity-50",
+          "text-fg-secondary text-md flex h-16 w-16 flex-col items-center justify-center rounded-full",
+          canSendFunds ? "hover:bg-secondary hover:text-fg-primary" : "cursor-default opacity-50",
         )}
       >
         <Send01 />
@@ -82,7 +82,7 @@ const CopyAddressButton: FC<{ account?: Account | null }> = ({ account }) => {
     <Tooltip placement="bottom">
       <TooltipTrigger
         onClick={copyAddress}
-        className="hover:bg-grey-800 text-body-secondary hover:text-body text-md flex h-16 w-16 flex-col items-center justify-center rounded-full"
+        className="hover:bg-secondary text-fg-secondary hover:text-fg-primary text-md flex h-16 w-16 flex-col items-center justify-center rounded-full"
       >
         <Copy01 />
       </TooltipTrigger>
@@ -148,7 +148,7 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
           </div>
           <div className="flex grow flex-col gap-1 overflow-hidden pl-2 text-sm">
             <div className="flex items-center gap-3">
-              <div className={classNames("truncate", account ? "" : "text-body-secondary")}>
+              <div className={classNames("truncate", account ? "" : "text-fg-secondary")}>
                 {account
                   ? (account.name ?? t("Unnamed Account"))
                   : folder
@@ -156,12 +156,12 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
                     : t("Total Portfolio")}
               </div>
               <AccountTypeIcon
-                className="text-primary"
+                className="text-fg-brand"
                 type={account?.type}
                 signetUrl={getAccountSignetUrl(account)}
               />
             </div>
-            <div className={classNames("truncate", account ? "text-body-secondary" : "")}>
+            <div className={classNames("truncate", account ? "text-fg-secondary" : "")}>
               {account ? (
                 <Address address={formattedAddress} />
               ) : (
@@ -182,7 +182,7 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
                     address={account?.address}
                     hideManageAccounts
                     trigger={
-                      <ContextMenuTrigger className="hover:bg-grey-800 text-body-secondary hover:text-body text-md flex h-16 w-16 flex-col items-center justify-center rounded-full">
+                      <ContextMenuTrigger className="hover:bg-secondary text-fg-secondary hover:text-fg-primary text-md flex h-16 w-16 flex-col items-center justify-center rounded-full">
                         <DotsHorizontal />
                       </ContextMenuTrigger>
                     }

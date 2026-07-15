@@ -59,27 +59,27 @@ export const Metadata: FC<{ className?: string }> = ({ className }) => {
         <div>
           <div className="px-4 text-center">
             <h1 className="my-8 text-lg">{t("Your metadata is out of date")}</h1>
-            <p className="text-body-secondary mt-16">
+            <p className="text-fg-secondary mt-16">
               <Trans t={t}>
                 Approving this update will sync your metadata for the{" "}
-                <span className="text-body">{request.chain}</span> chain
+                <span className="text-fg-primary">{request.chain}</span> chain
               </Trans>
               {displayUrl && (
                 <>
                   {" "}
                   <Trans t={t}>
-                    from <span className="text-body">{displayUrl}</span>
+                    from <span className="text-fg-primary">{displayUrl}</span>
                   </Trans>
                 </>
               )}
             </p>
           </div>
-          <hr className="text-grey-700 my-20" />
+          <hr className="text-fg-disabled my-20" />
           <div className="text-left">
             <div className="ml-16 inline-grid grid-cols-2 gap-x-8 gap-y-2">
-              <div className="text-body-secondary">{t("Symbol:")}</div>
+              <div className="text-fg-secondary">{t("Symbol:")}</div>
               <div>{request.tokenSymbol}</div>
-              <div className="text-body-secondary">{t("Decimals:")}</div>
+              <div className="text-fg-secondary">{t("Decimals:")}</div>
               <div>{request.tokenDecimals}</div>
             </div>
           </div>
