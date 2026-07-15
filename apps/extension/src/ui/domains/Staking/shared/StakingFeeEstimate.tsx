@@ -24,25 +24,22 @@ export const StakingFeeEstimate: FC<{
   return (
     <>
       {error ? (
-        <div className={classNames("text-alert-error truncate", className)}>
+        <div className={classNames("text-fg-error truncate", className)}>
           {t("Failed to estimate fee")}
         </div>
       ) : (plancks || plancks === 0n) && tokenId ? (
         <TokensAndFiat
           tokenId={tokenId}
           planck={plancks}
-          tokensClassName={classNames("text-body", tokensClassName)}
-          fiatClassName="text-body-secondary"
+          tokensClassName={classNames("text-fg-primary", tokensClassName)}
+          fiatClassName="text-fg-secondary"
           noCountUp={noCountUp}
           noFiat={hideFiat}
           className={classNames(isLoading && "animate-pulse", className)}
         />
       ) : isLoading ? (
         <div
-          className={classNames(
-            "text-body-disabled bg-body-disabled rounded-xs animate-pulse",
-            className,
-          )}
+          className={classNames("text-fg-disabled bg-disabled rounded-xs animate-pulse", className)}
         >
           0.0000 TKN ($0.00)
         </div>

@@ -126,7 +126,7 @@ export const BittensorValidatorSelect = () => {
           <div className="grow">
             <SearchInputControlled
               containerClassName={classNames(
-                "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-[3.6rem] grow border border-field text-sm !px-4 shrink-0",
+                "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.6rem] grow border border-field text-sm !px-4 shrink-0",
                 "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
               )}
               placeholder={t("Search validators")}
@@ -140,7 +140,7 @@ export const BittensorValidatorSelect = () => {
           <SortMethodButton method={sortMethod} onChange={(method) => setSortMethod(method)} />
         </div>
         <div className="flex w-full grow flex-col gap-2 overflow-hidden">
-          <div className="text-body-disabled flex justify-between pl-[6rem] pr-12 text-sm">
+          <div className="text-fg-disabled flex justify-between pl-[6rem] pr-12 text-sm">
             <div>{t("Validator")}</div>
             <div>{t("30 days APY")}</div>
           </div>
@@ -165,7 +165,7 @@ export const BittensorValidatorSelect = () => {
               />
             )}
             {isError && (
-              <div className="text-alert-error flex h-full items-center justify-center">
+              <div className="text-fg-error flex h-full items-center justify-center">
                 {t("Unable to fetch validators")}
               </div>
             )}
@@ -202,7 +202,7 @@ const SortMethodButton: FC<{
       <ContextMenuTrigger asChild>
         <button
           type="button"
-          className="bg-field hover:bg-grey-800 text-body-secondary hover:text-grey-300 border-grey-850 flex h-full items-center gap-4 text-nowrap rounded-sm border px-[8px] py-[6px] text-sm"
+          className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-tertiary border-primary flex h-full items-center gap-4 text-nowrap rounded-sm border px-[8px] py-[6px] text-sm"
         >
           <div>{selected?.label}</div>
           <ToolbarSortIcon className="size-10" />
@@ -282,22 +282,22 @@ const ValidatorRows: FC<{
 const ValidatorRowSkeleton = () => {
   return (
     <div className="flex h-[5.8rem] w-full shrink-0 items-center gap-6 px-12 pl-8 text-left">
-      <div className="bg-grey-750 size-16 animate-pulse rounded-full"></div>
+      <div className="bg-tertiary size-16 animate-pulse rounded-full"></div>
       <div className="grow space-y-[5px]">
-        <div className={"text-body flex w-full justify-between text-sm font-bold"}>
+        <div className={"text-fg-primary flex w-full justify-between text-sm font-bold"}>
           <div>
-            <div className="bg-grey-750 rounded-xs inline-block h-7 w-56 animate-pulse"></div>
+            <div className="bg-tertiary rounded-xs inline-block h-7 w-56 animate-pulse"></div>
           </div>
           <div>
-            <div className="bg-grey-750 rounded-xs inline-block h-7 w-20 animate-pulse"></div>
+            <div className="bg-tertiary rounded-xs inline-block h-7 w-20 animate-pulse"></div>
           </div>
         </div>
-        <div className="text-body-secondary flex w-full items-center justify-between gap-2 text-right text-xs font-light">
+        <div className="text-fg-secondary flex w-full items-center justify-between gap-2 text-right text-xs font-light">
           <div>
-            <div className="bg-grey-800 rounded-xs inline-block h-6 w-40 animate-pulse"></div>
+            <div className="bg-secondary rounded-xs inline-block h-6 w-40 animate-pulse"></div>
           </div>
           <div className="grow text-right">
-            <div className="bg-grey-800 rounded-xs inline-block h-6 w-36 animate-pulse"></div>
+            <div className="bg-secondary rounded-xs inline-block h-6 w-36 animate-pulse"></div>
           </div>
         </div>
       </div>
@@ -321,15 +321,15 @@ const ValidatorRow: FC<{
       key={option.hotkey}
       onClick={onClick}
       className={classNames(
-        "hover:bg-grey-750 focus:bg-grey-700 flex h-[5.8rem] w-full shrink-0 items-center gap-6 overflow-hidden px-12 pl-8 text-left",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full shrink-0 items-center gap-6 overflow-hidden px-12 pl-8 text-left",
         "disabled:cursor-not-allowed disabled:opacity-50",
-        isSelected && "bg-grey-800 text-body-secondary",
+        isSelected && "bg-secondary text-fg-secondary",
       )}
     >
       <AccountIcon address={option.hotkey} className="size-16 shrink-0 text-xl" />
       <div className="flex h-full grow flex-col justify-center gap-2 overflow-hidden">
-        <div className="text-body flex w-full justify-between text-sm">
-          <div className={cn(option.isRecommended && "text-primary font-bold")}>
+        <div className="text-fg-primary flex w-full justify-between text-sm">
+          <div className={cn(option.isRecommended && "text-fg-brand font-bold")}>
             {option.name ? (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -349,7 +349,7 @@ const ValidatorRow: FC<{
         </div>
         <div
           className={cn(
-            "text-body-secondary flex w-full justify-between text-xs",
+            "text-fg-secondary flex w-full justify-between text-xs",
             isLoading && "animate-pulse",
           )}
         >
@@ -376,7 +376,7 @@ const ValidatorRow: FC<{
                 </div>
               </TooltipContent>
             </Tooltip>
-            <div className="bg-body-disabled inline-block size-2 rounded-full" />
+            <div className="bg-disabled inline-block size-2 rounded-full" />
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="flex items-center gap-2">
@@ -388,7 +388,7 @@ const ValidatorRow: FC<{
                 {t("{{count}} nominators", { count: option.totalStakers })}
               </TooltipContent>
             </Tooltip>
-            <div className="bg-body-disabled inline-block size-2 rounded-full" />
+            <div className="bg-disabled inline-block size-2 rounded-full" />
             <Tooltip>
               <TooltipTrigger asChild>
                 <div className="flex items-center gap-2">

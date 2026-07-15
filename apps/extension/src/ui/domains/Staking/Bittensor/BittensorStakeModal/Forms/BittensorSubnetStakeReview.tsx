@@ -88,7 +88,7 @@ export const BittensorSubnetStakeReview = () => {
     >
       <div className="scrollable scrollable-800 min-h-0 flex-1 overflow-y-auto">
         <div className="space-y-[0.75rem]">
-          <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
+          <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8">
             <div className="flex items-center justify-between gap-8 pb-2 text-sm">
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <span>{t("Tao")}</span>
@@ -100,7 +100,7 @@ export const BittensorSubnetStakeReview = () => {
                   planck={isSubnetUnstake ? amountOut : amountIn!}
                   noCountUp
                   noFiat
-                  tokensClassName="text-body"
+                  tokensClassName="text-fg-primary"
                 />
               </div>
             </div>
@@ -115,13 +115,13 @@ export const BittensorSubnetStakeReview = () => {
                   planck={isSubnetUnstake ? amountIn! : amountOut}
                   noCountUp
                   noFiat
-                  tokensClassName="text-body"
+                  tokensClassName="text-fg-primary"
                 />
               </div>
             </div>
             <div className="flex items-center justify-between gap-8 py-2 text-sm">
               <div className="whitespace-nowrap">{t("USD")} </div>
-              <div className="text-body overflow-hidden">
+              <div className="text-fg-primary overflow-hidden">
                 <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
               </div>
             </div>
@@ -132,15 +132,15 @@ export const BittensorSubnetStakeReview = () => {
               </div>
             </div>
             <div className="py-8">
-              <hr className="text-grey-800" />
+              <hr className="text-fg-disabled" />
             </div>
             <div className="flex items-center justify-between gap-8 pb-2 text-xs">
               <div className="whitespace-nowrap">{t("Subnet")} </div>
-              <div className="text-body truncate">{dtaoToken?.name}</div>
+              <div className="text-fg-primary truncate">{dtaoToken?.name}</div>
             </div>
             <div className="flex items-center justify-between gap-8 py-2 text-xs">
               <div className="whitespace-nowrap">{t("Validator")} </div>
-              <div className="text-body truncate">
+              <div className="text-fg-primary truncate">
                 <BittensorValidatorName hotkey={hotkey} />
               </div>
             </div>
@@ -157,7 +157,7 @@ export const BittensorSubnetStakeReview = () => {
                     <TooltipContent>{t("Estimated Annual Percentage Yield (APY)")}</TooltipContent>
                   </Tooltip>
                 </div>
-                <div className="text-body overflow-hidden">
+                <div className="text-fg-primary overflow-hidden">
                   <ValidatorApy />
                 </div>
               </div>
@@ -169,19 +169,19 @@ export const BittensorSubnetStakeReview = () => {
                   planck={amountOut}
                   tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
                   noCountUp
-                  tokensClassName="text-body"
+                  tokensClassName="text-fg-primary"
                 />
               </div>
             </div>
           </div>
-          <div className="bg-grey-900 text-body-secondary flex w-full flex-col gap-2 rounded p-8 py-6">
+          <div className="bg-app-bg text-fg-secondary flex w-full flex-col gap-2 rounded p-8 py-6">
             <div className="flex items-center justify-between gap-8 text-xs">
               <div className="whitespace-nowrap">{t("Alpha Price")} </div>
-              <div className="text-body-secondary flex items-center gap-2">
+              <div className="text-fg-secondary flex items-center gap-2">
                 <TokensAndFiat
                   planck={swapPrice!}
                   tokenId={nativeToken?.id}
-                  tokensClassName="text-body"
+                  tokensClassName="text-fg-primary"
                   noCountUp
                 />
               </div>
@@ -190,7 +190,7 @@ export const BittensorSubnetStakeReview = () => {
               <div className="whitespace-nowrap">{t("Price Impact")}</div>
               <div
                 className={classNames(
-                  "text-body",
+                  "text-fg-primary",
                   !!priceImpact && priceImpact >= HIGH_PRICE_IMPACT && "text-orange-500",
                   !!priceImpact && priceImpact >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
                 )}
@@ -200,7 +200,7 @@ export const BittensorSubnetStakeReview = () => {
             </div>
             <div className="flex items-center justify-between gap-8 text-xs">
               <div className="whitespace-nowrap">{t("Slippage Tolerance")} </div>
-              <div className="text-body flex items-center gap-2">
+              <div className="text-fg-primary flex items-center gap-2">
                 <button
                   type="button"
                   onClick={open}
@@ -218,7 +218,7 @@ export const BittensorSubnetStakeReview = () => {
                 <div className="flex items-center gap-1">
                   <button
                     type="button"
-                    className="hover:text-body whitespace-nowrap"
+                    className="hover:text-fg-primary whitespace-nowrap"
                     onClick={ocMevShieldInfo.open}
                   >
                     <span>
@@ -227,7 +227,7 @@ export const BittensorSubnetStakeReview = () => {
                   </button>
                 </div>
                 <div
-                  className="text-body flex flex-col gap-2"
+                  className="text-fg-primary flex flex-col gap-2"
                   role="radiogroup"
                   aria-label={t("MEV Shield")}
                 >
@@ -256,7 +256,7 @@ export const BittensorSubnetStakeReview = () => {
                   />
                 </div>
                 {isHardwareWallet ? (
-                  <p className="text-body-secondary text-xs">
+                  <p className="text-fg-secondary text-xs">
                     {t(
                       "On-chain Shield is not available for Ledger wallets. Use Taostats Shield or turn protection off.",
                     )}
@@ -265,7 +265,7 @@ export const BittensorSubnetStakeReview = () => {
               </div>
             )}
           </div>
-          <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8 py-6">
+          <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8 py-6">
             <div className="flex items-center justify-between gap-8 pt-2 text-xs">
               <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
               <FeeEstimate />
@@ -334,7 +334,7 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
             'MEV Shield protects your subnet staking transaction from frontrunning by wrapping it in an encrypted "shield" transaction.',
           )}
         </p>
-        <ul className="text-body-secondary list-outside list-disc space-y-2 pl-8 text-sm">
+        <ul className="text-fg-secondary list-outside list-disc space-y-2 pl-8 text-sm">
           <li>
             {t(
               "You submit one encrypted wrapper transaction. If it succeeds, your staking transaction is automatically included in the next block.",

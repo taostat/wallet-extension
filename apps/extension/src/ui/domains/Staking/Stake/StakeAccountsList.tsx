@@ -55,7 +55,7 @@ const AccountTokenBalance = ({ token, balance }: { token?: Token | null; balance
           noCountUp
         />
       </div>
-      <div className="text-body-secondary text-xs">
+      <div className="text-fg-secondary text-xs">
         <Fiat amount={balance.transferable.fiat(currency)} isBalance noCountUp />
       </div>
     </div>
@@ -88,8 +88,8 @@ const AccountRow: FC<AccountRowProps> = ({
       onClick={onClick}
       tabIndex={0}
       className={classNames(
-        "hover:bg-grey-750 focus:bg-grey-700 flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
-        selected && "bg-grey-800 text-body-secondary",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
+        selected && "bg-secondary text-fg-secondary",
         "disabled:cursor-not-allowed disabled:opacity-50",
       )}
       disabled={disabled}
@@ -107,9 +107,9 @@ const AccountRow: FC<AccountRowProps> = ({
                 <Address address={displayAddress} startCharCount={6} endCharCount={6} noTooltip />
               )}
             </div>
-            <AccountTypeIcon type={account.type} className="text-primary" />
+            <AccountTypeIcon type={account.type} className="text-fg-brand" />
           </div>
-          <Address className="text-body-secondary text-xs" address={displayAddress} />
+          <Address className="text-fg-secondary text-xs" address={displayAddress} />
         </div>
         {selected && <CheckCircle className="ml-3 inline shrink-0" />}
       </div>
@@ -182,7 +182,7 @@ export const StakeAccountsList: FC<NomPoolStakeAccountsListProps> = ({
 
   return (
     <div>
-      {!!header && <div className="text-body-secondary mb-4 mt-8 px-12 font-bold">{header}</div>}
+      {!!header && <div className="text-fg-secondary mb-4 mt-8 px-12 font-bold">{header}</div>}
       {accountsWithBalance?.map((account) => (
         <AccountRow
           selected={account.address === selected}
@@ -197,7 +197,7 @@ export const StakeAccountsList: FC<NomPoolStakeAccountsListProps> = ({
         />
       ))}
       {!accounts?.length && (
-        <div className="text-body-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
+        <div className="text-fg-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
           {t("No account matches your search")}
         </div>
       )}

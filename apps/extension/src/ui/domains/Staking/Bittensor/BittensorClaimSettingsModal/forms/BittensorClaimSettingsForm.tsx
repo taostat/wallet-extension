@@ -5,9 +5,9 @@ import { Button, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import type { RootClaimType } from "../../../hooks/bittensor/dTao/types"
 import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
-import { StakeAccountPicker } from "../../../Stake/StakeAccountPicker"
 import { useGetBittensorClaimType } from "../../../hooks/bittensor/dTao/useGetBittensorClaimType"
 import { useGetBittensorClaimTypePayload } from "../../../hooks/bittensor/dTao/useGetBittensorClaimTypePayload"
+import { StakeAccountPicker } from "../../../Stake/StakeAccountPicker"
 import { BittensorAssetAccountSummary } from "../../components/BittensorAssetAccountSummary"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
@@ -76,7 +76,7 @@ export const BittensorClaimSettingsForm = () => {
       header={
         <BittensorStakingModalHeader title={t("Claim Settings")} withClose onCloseModal={close} />
       }
-      contentClassName="text-body-secondary flex size-full flex-col gap-4 p-12 pt-0"
+      contentClassName="text-fg-secondary flex size-full flex-col gap-4 p-12 pt-0"
     >
       <BittensorAssetAccountSummary
         token={nativeToken}
@@ -88,8 +88,10 @@ export const BittensorClaimSettingsForm = () => {
 
       <div className="mt-4 flex flex-col gap-2">
         <div className="flex flex-col gap-1">
-          <span className="text-body text-sm font-semibold leading-[1.1]">{t("Reward Type")}</span>
-          <span className="text-body-secondary text-xs leading-[1.4]">
+          <span className="text-fg-primary text-sm font-semibold leading-[1.1]">
+            {t("Reward Type")}
+          </span>
+          <span className="text-fg-secondary text-xs leading-[1.4]">
             {t("Select how this account receives root emission rewards.")}
           </span>
         </div>
@@ -108,28 +110,28 @@ export const BittensorClaimSettingsForm = () => {
                   "border-light-gray relative w-full rounded-sm border px-6 py-5 text-left transition-colors",
                   "bg-black-tertiary text-sm",
                   isSelected
-                    ? "text-body"
-                    : "text-body-secondary hover:border-grey-700 hover:text-body border-transparent",
+                    ? "text-fg-primary"
+                    : "text-fg-secondary hover:border-primary hover:text-fg-primary border-transparent",
                   option.disabled && "cursor-not-allowed opacity-50",
                 )}
               >
                 <div className="flex flex-col gap-1 pr-10">
-                  <span className="text-body text-[14px] font-semibold leading-[1.2]">
+                  <span className="text-fg-primary text-[14px] font-semibold leading-[1.2]">
                     {option.title}
                   </span>
-                  <span className="text-body-secondary text-[12px] leading-[1.4]">
+                  <span className="text-fg-secondary text-[12px] leading-[1.4]">
                     {option.description}
                   </span>
                 </div>
                 <span
                   className={
-                    "bg-grey-700 absolute right-6 top-5 flex h-7 w-7 items-center justify-center rounded-full transition-colors"
+                    "bg-tertiary absolute right-6 top-5 flex h-7 w-7 items-center justify-center rounded-full transition-colors"
                   }
                 >
                   <span
                     className={classNames(
                       "h-3.5 w-3.5 rounded-full transition-colors",
-                      isSelected ? "bg-primary" : "bg-transparent",
+                      isSelected ? "bg-fg-brand" : "bg-transparent",
                     )}
                   />
                 </span>

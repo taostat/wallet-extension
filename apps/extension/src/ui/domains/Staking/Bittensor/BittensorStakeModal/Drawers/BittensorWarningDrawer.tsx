@@ -21,9 +21,9 @@ export const BittensorWarningDrawer = ({ setHasAckWarning }: BittensorWarningDra
 
   return (
     <Drawer anchor="bottom" isOpen={isOpen} containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}>
-      <div className="bg-grey-850 flex w-full flex-col items-center gap-8 rounded-t-xl p-12">
-        <div className="text-body font-bold">{t("Subnet staking warning")}</div>
-        <p className="text-body-secondary text-sm">
+      <div className="bg-secondary flex w-full flex-col items-center gap-8 rounded-t-xl p-12">
+        <div className="text-fg-primary font-bold">{t("Subnet staking warning")}</div>
+        <p className="text-fg-secondary text-sm">
           <Trans
             t={t}
             defaults="DTao subnet staking has variable rewards and alpha tokens have price risk. <Link>Learn more</Link>"
@@ -32,7 +32,7 @@ export const BittensorWarningDrawer = ({ setHasAckWarning }: BittensorWarningDra
             }}
           />
         </p>
-        <div className="text-body-secondary w-full text-sm">
+        <div className="text-fg-secondary w-full text-sm">
           <Checkbox onChange={(e) => setDontShowThisAgain(e.target.checked)}>
             {t("Don't show this again")}
           </Checkbox>

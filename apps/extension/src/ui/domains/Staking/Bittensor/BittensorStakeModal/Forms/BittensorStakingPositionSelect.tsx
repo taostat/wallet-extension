@@ -82,7 +82,7 @@ export const BittensorStakingPositionSelect = () => {
         <div className="p-12 pt-0">
           <SearchInputControlled
             containerClassName={classNames(
-              "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-[3.6rem] w-full border border-field text-sm !px-4",
+              "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.6rem] w-full border border-field text-sm !px-4",
               "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
               "@2xl:h-[4.4rem] @2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
             )}
@@ -104,7 +104,7 @@ export const BittensorStakingPositionSelect = () => {
               />
             ))}
             {!filteredPositions.length && (
-              <div className="text-body-secondary p-10">
+              <div className="text-fg-secondary p-10">
                 {!positions.length
                   ? t("No staking positions available")
                   : t("No staking positions match your search")}
@@ -148,7 +148,7 @@ const Position: FC<{
             <div>{account.name}</div>
             <AccountTypeIcon
               type={account?.type}
-              className="text-primary"
+              className="text-fg-brand"
               signetUrl={getAccountSignetUrl(account)}
             />
           </div>
@@ -160,7 +160,7 @@ const Position: FC<{
             />
           </div>
         </div>
-        <div className="text-body-secondary flex w-full justify-between gap-4 overflow-hidden text-xs">
+        <div className="text-fg-secondary flex w-full justify-between gap-4 overflow-hidden text-xs">
           <div className="truncate">
             {position.token.netuid === 0
               ? t("Root Staking")

@@ -19,18 +19,16 @@ const StakeAprBase: FC<{
   const display = useMemo(() => (apr ? `${(apr * 100).toFixed(2)}%` : "N/A"), [apr])
 
   if (isLoading)
-    return <div className="text-grey-700 bg-grey-700 rounded-xs animate-pulse">15.00%</div>
+    return <div className="text-fg-disabled bg-tertiary rounded-xs animate-pulse">15.00%</div>
 
   if (isError) {
     if (error?.message === STAKING_APR_UNAVAILABLE) return t("APR Unavailable")
 
-    return <div className="text-alert-warn">{t("Unable to fetch APR data")}</div>
+    return <div className="text-fg-orange">{t("Unable to fetch APR data")}</div>
   }
 
   return (
-    <span className={classNames(apr ? "text-alert-success" : "text-body-secondary")}>
-      {display}
-    </span>
+    <span className={classNames(apr ? "text-fg-success" : "text-fg-secondary")}>{display}</span>
   )
 }
 

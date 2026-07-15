@@ -31,7 +31,7 @@ export const NomPoolWithdrawReview = () => {
   return (
     <div className="flex size-full flex-col">
       <h2 className="mb-24 mt-8 text-center">{t("You are withdrawing")}</h2>
-      <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
+      <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8">
         <div className="flex items-center justify-between gap-8 pb-2">
           <div className="whitespace-nowrap">{t("Amount")} </div>
           <div className="flex items-center gap-4 overflow-hidden">
@@ -41,8 +41,8 @@ export const NomPoolWithdrawReview = () => {
               tokenId={token?.id}
               planck={amountToWithdraw?.planck}
               noCountUp
-              tokensClassName="text-body"
-              fiatClassName="text-body-secondary"
+              tokensClassName="text-fg-primary"
+              fiatClassName="text-fg-secondary"
             />
           </div>
         </div>
@@ -53,11 +53,11 @@ export const NomPoolWithdrawReview = () => {
           </div>
         </div>
         <div className="py-8">
-          <hr className="text-grey-800" />
+          <hr className="text-fg-disabled" />
         </div>
         <div className="flex items-center justify-between gap-8 pb-2 text-xs">
           <div className="whitespace-nowrap">{t("Pool")} </div>
-          <div className="text-body truncate">
+          <div className="text-fg-primary truncate">
             <NominationPoolName poolId={poolId} chainId={token?.networkId} />
           </div>
         </div>
@@ -76,7 +76,7 @@ export const NomPoolWithdrawReview = () => {
       </div>
       <div className="grow"></div>
       {!!errorMessage && (
-        <div className="text-alert-warn bg-grey-900 my-8 flex w-full items-center gap-5 rounded-sm px-5 py-6 text-xs">
+        <div className="text-fg-orange bg-app-bg my-8 flex w-full items-center gap-5 rounded-sm px-5 py-6 text-xs">
           <AlertCircle className="shrink-0 text-lg" />
           <div>{errorMessage}</div>
         </div>

@@ -63,16 +63,16 @@ export const BittensorSlippageDrawer = () => {
       containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
     >
       <div className="bg-black-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
-        <div className="text-body pb-8 font-bold">{t("Slippage Tolerance")}</div>
-        <p className="text-body-secondary text-sm">
+        <div className="text-fg-primary pb-8 font-bold">{t("Slippage Tolerance")}</div>
+        <p className="text-fg-secondary text-sm">
           {t(
             "You can customize the slippage percentage to balance transaction success and price accuracy.",
           )}
         </p>
-        <p className="text-body-secondary text-sm">
+        <p className="text-fg-secondary text-sm">
           {t("This setting will apply to all your subnet staking transactions.")}
         </p>
-        <div className="text-body-secondary mt-4 flex items-center gap-2 self-start text-sm">
+        <div className="text-fg-secondary mt-4 flex items-center gap-2 self-start text-sm">
           <div className="">{t("Max Slippage")}</div>
           <Tooltip>
             <TooltipTrigger>
@@ -89,7 +89,7 @@ export const BittensorSlippageDrawer = () => {
         </div>
         <FormFieldInputText
           small
-          containerProps={{ className: "px-6 text-right bg-field" }}
+          containerProps={{ className: "px-6 text-right bg-secondary" }}
           after={
             <div className="flex items-center gap-4">
               <div>%</div>

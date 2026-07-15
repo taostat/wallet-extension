@@ -58,7 +58,7 @@ export const BittensorRootStakeReview = () => {
       }
       contentClassName="p-12 pt-0 flex flex-col w-full"
     >
-      <div className="bg-grey-900 text-body-secondary flex w-full flex-col rounded p-8">
+      <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8">
         <div className="flex items-center justify-between gap-8 pb-2">
           <div className="whitespace-nowrap">{t("Tao")} </div>
           <div className="flex items-center gap-4 overflow-hidden">
@@ -69,13 +69,13 @@ export const BittensorRootStakeReview = () => {
               planck={amountIn ?? 0n}
               noCountUp
               noFiat
-              tokensClassName="text-body"
+              tokensClassName="text-fg-primary"
             />
           </div>
         </div>
         <div className="flex items-center justify-between gap-8 py-2">
           <div className="whitespace-nowrap">{t("USD")} </div>
-          <div className="text-body overflow-hidden">
+          <div className="text-fg-primary overflow-hidden">
             <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
           </div>
         </div>
@@ -86,11 +86,11 @@ export const BittensorRootStakeReview = () => {
           </div>
         </div>
         <div className="py-8">
-          <hr className="text-grey-800" />
+          <hr className="text-fg-disabled" />
         </div>
         <div className="flex items-center justify-between gap-8 pb-2 text-xs">
           <div className="whitespace-nowrap">{t("Validator")} </div>
-          <div className="text-body truncate">
+          <div className="text-fg-primary truncate">
             <BittensorValidatorName hotkey={hotkey} />
           </div>
         </div>
@@ -107,7 +107,7 @@ export const BittensorRootStakeReview = () => {
                 <TooltipContent>{t("Estimated Annual Percentage Yield (APY)")}</TooltipContent>
               </Tooltip>
             </div>
-            <div className="text-body overflow-hidden">
+            <div className="text-fg-primary overflow-hidden">
               <ValidatorApy />
             </div>
           </div>

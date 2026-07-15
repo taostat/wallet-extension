@@ -36,7 +36,7 @@ export const NomPoolWithdrawButton: FC<{
   return (
     <button
       className={classNames(
-        "text-primary/80 hover:text-primary bg-primary/10 hover:bg-primary/20 font-light",
+        "text-fg-brand/80 hover:text-fg-brand bg-fg-brand/10 hover:bg-fg-brand/20 font-light",
         variant === "small" && "h-10 rounded-sm px-3 text-xs",
         variant === "large" && "h-14 rounded px-4 text-sm",
         className,

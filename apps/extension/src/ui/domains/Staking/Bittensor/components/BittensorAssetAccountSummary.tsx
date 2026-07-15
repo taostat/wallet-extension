@@ -27,7 +27,7 @@ export const BittensorAssetAccountSummary = ({
   return (
     <div
       className={classNames(
-        "bg-grey-900 leading-paragraph flex flex-col gap-4 rounded p-4 text-sm",
+        "bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-sm",
         className,
       )}
     >

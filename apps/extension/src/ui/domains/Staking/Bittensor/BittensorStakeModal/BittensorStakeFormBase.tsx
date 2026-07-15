@@ -52,15 +52,15 @@ const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, accou
       tokenId={token?.id}
       planck={balance.transferable.planck}
       className={classNames(balance.status !== "live" && "animate-pulse")}
-      tokensClassName="text-body"
-      fiatClassName="text-body-secondary"
+      tokensClassName="text-fg-primary"
+      fiatClassName="text-fg-secondary"
       noFiat={selectedCurrency === "tao"}
     />
   )
 }
 
 const DisplayContainer: FC<PropsWithChildren> = ({ children }) => {
-  return <div className="text-body-secondary max-w-[264px] truncate text-sm">{children}</div>
+  return <div className="text-fg-secondary max-w-[264px] truncate text-sm">{children}</div>
 }
 
 const FiatDisplay = () => {
@@ -137,7 +137,7 @@ const TokenInput = ({ onEdit }: { onEdit: () => void }) => {
 
   return (
     <div className="flex w-full flex-nowrap items-center justify-between gap-4">
-      <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
+      <div className="text-fg-primary flex shrink-0 items-center gap-2 text-base font-normal">
         <TokenLogo
           className="text-lg"
           tokenId={isSubnetUnstake ? dtaoToken?.id : nativeToken?.id}
@@ -152,7 +152,9 @@ const TokenInput = ({ onEdit }: { onEdit: () => void }) => {
         placeholder="0"
         step="any"
         value={value}
-        className={"text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"}
+        className={
+          "text-fg-primary peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"
+        }
         onChange={handleChange}
       />
     </div>
@@ -226,7 +228,7 @@ const AlphaInput = ({ lastEditedInput }: { lastEditedInput: { current: "primary"
 
   return (
     <div className="flex w-full flex-nowrap items-center justify-between gap-4">
-      <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
+      <div className="text-fg-primary flex shrink-0 items-center gap-2 text-base font-normal">
         <TokenLogo className="text-lg" tokenId={secondaryTokenId} />
         <div>{secondarySymbol}</div>
       </div>
@@ -236,7 +238,7 @@ const AlphaInput = ({ lastEditedInput }: { lastEditedInput: { current: "primary"
         inputMode="decimal"
         placeholder="0"
         value={value}
-        className="text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"
+        className="text-fg-primary peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"
         onChange={handleChange}
         onFocus={() => {
           isFocused.current = true
@@ -335,10 +337,10 @@ const FiatInput = () => {
         inputMode="decimal"
         value={value}
         placeholder={"0.00"}
-        className="text-body peer inline-block min-w-0 bg-transparent text-lg"
+        className="text-fg-primary peer inline-block min-w-0 bg-transparent text-lg"
         onChange={handleChange}
       />
-      {/* {isEstimatingMaxAmount && <div className="bg-grey-800 h-16 w-48 rounded"></div>} */}
+      {/* {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>} */}
       <div className="block shrink-0">{currencyConfig[currency]?.symbol}</div>
     </div>
   )
@@ -379,7 +381,7 @@ export const AmountEdit = () => {
               {displayMode === "token" ? <TokenInput onEdit={onPrimaryEdit} /> : <FiatInput />}
             </div>
             {displayMode === "token" && isSubnetOperation && (
-              <div className="border-grey-800 w-full border-t pt-2">
+              <div className="border-primary w-full border-t pt-2">
                 <AlphaInput lastEditedInput={lastEditedInput} />
               </div>
             )}
@@ -464,7 +466,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
           onCloseModal={close}
         />
       }
-      contentClassName="text-body-secondary flex size-full flex-col gap-4 p-12 pt-0"
+      contentClassName="text-fg-secondary flex size-full flex-col gap-4 p-12 pt-0"
     >
       <BittensorAssetAccountSummary
         token={nativeToken}
@@ -476,7 +478,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
         accountLabel={t("Account")}
       />
       <AmountEdit />
-      <div className="bg-grey-900 leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
         <div className="flex items-center justify-between">
           <div className="whitespace-nowrap">
             {stakeDirection === "stake" ? t("Available Balance") : t("Available to unstake")}
@@ -493,7 +495,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
         </div>
       </div>
 
-      <div className="bg-grey-900 leading-paragraph flex flex-col gap-2 rounded p-4 text-xs">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-4 text-xs">
         <StakeTypeDetails />
         <div
           className={classNames(
@@ -503,7 +505,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
         >
           <div className="flex items-center justify-between gap-6">
             <div className="whitespace-nowrap">{t("Select Validator")}</div>
-            <div className="text-body truncate">
+            <div className="text-fg-primary truncate">
               <BittensorDelegatorNameButton
                 hotkey={hotkey}
                 isDisabled={stakeType === "subnet" && !netuid}
@@ -513,13 +515,13 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
         </div>
         <div className="flex items-center justify-between gap-8 pb-2 text-xs">
           <div className="whitespace-nowrap">{t("Estimated Amount")} </div>
-          <div className="text-body-secondary flex items-center gap-2 truncate">
+          <div className="text-fg-secondary flex items-center gap-2 truncate">
             {!!amountOut && (
               <TokensAndFiat
                 planck={amountOut}
                 tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
                 noCountUp
-                tokensClassName="text-body"
+                tokensClassName="text-fg-primary"
               />
             )}
           </div>

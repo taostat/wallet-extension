@@ -46,9 +46,9 @@ const AssetPill: FC<{ token: Token | null }> = ({ token }) => {
     <div className="flex h-16 items-center gap-4 px-4">
       <TokenLogo tokenId={token.id} className="shrink-0 text-lg" />
       <div className="flex items-center gap-2">
-        <div className="text-body text-base">{token.symbol}</div>
-        <div className="bg-body-disabled inline-block size-2 rounded-full"></div>
-        <div className="text-body-secondary text-sm">{t("Pooled Staking")}</div>
+        <div className="text-fg-primary text-base">{token.symbol}</div>
+        <div className="bg-disabled inline-block size-2 rounded-full"></div>
+        <div className="text-fg-secondary text-sm">{t("Pooled Staking")}</div>
       </div>
     </div>
   )
@@ -66,15 +66,15 @@ const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, accou
       tokenId={token?.id}
       planck={balance.transferable.planck}
       className={classNames(balance.status !== "live" && "animate-pulse")}
-      tokensClassName="text-body"
-      fiatClassName="text-body-secondary"
+      tokensClassName="text-fg-primary"
+      fiatClassName="text-fg-secondary"
       noFiat={selectedCurrency === "tao"}
     />
   )
 }
 
 const DisplayContainer: FC<PropsWithChildren> = ({ children }) => {
-  return <div className="text-body-secondary max-w-[264px] truncate text-sm">{children}</div>
+  return <div className="text-fg-secondary max-w-[264px] truncate text-sm">{children}</div>
 }
 
 const FiatDisplay = () => {
@@ -166,10 +166,12 @@ const TokenInput = () => {
         inputMode="decimal"
         value={value}
         placeholder="0"
-        className={"text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-xl"}
+        className={
+          "text-fg-primary peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-xl"
+        }
         onChange={handleChange}
       />
-      <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
+      <div className="text-fg-primary flex shrink-0 items-center gap-2 text-base font-normal">
         <TokenLogo className="text-lg" tokenId={token?.id} />
         <div>{token?.symbol}</div>
       </div>
@@ -246,10 +248,10 @@ const FiatInput = () => {
         type="text"
         value={value}
         placeholder={"0.00"}
-        className="text-body peer inline-block min-w-0 bg-transparent text-xl"
+        className="text-fg-primary peer inline-block min-w-0 bg-transparent text-xl"
         onChange={handleChange}
       />
-      {/* {isEstimatingMaxAmount && <div className="bg-grey-800 h-16 w-48 rounded"></div>} */}
+      {/* {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>} */}
       <div className="block shrink-0">{currencyConfig[currency]?.symbol}</div>
     </div>
   )
@@ -323,16 +325,16 @@ const StakeAprBase: FC<{
   const display = useMemo(() => (apr ? `${(apr * 100).toFixed(2)}%` : "N/A"), [apr])
 
   if (isLoading)
-    return <div className="text-grey-700 bg-grey-700 rounded-xs animate-pulse">15.00%</div>
+    return <div className="text-fg-disabled bg-tertiary rounded-xs animate-pulse">15.00%</div>
 
   if (isError) {
     if (error?.message === STAKING_APR_UNAVAILABLE) return t("APR Unavailable")
 
-    return <div className="text-alert-warn">{t("Unable to fetch APR data")}</div>
+    return <div className="text-fg-orange">{t("Unable to fetch APR data")}</div>
   }
 
   return (
-    <span className={classNames(apr ? "text-alert-success" : "text-body-secondary")}>
+    <span className={classNames(apr ? "text-fg-success" : "text-fg-secondary")}>
       <WithAprDocsLink>{display}</WithAprDocsLink>
     </span>
   )
@@ -420,8 +422,8 @@ export const StakeForm = () => {
   )
 
   return (
-    <div className="text-body-secondary flex size-full flex-col gap-4">
-      <div className="bg-grey-900 leading-paragraph flex flex-col gap-4 rounded p-4 text-sm">
+    <div className="text-fg-secondary flex size-full flex-col gap-4">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-sm">
         <div className="flex h-16 items-center justify-between gap-4">
           <div className="whitespace-nowrap">{t("Asset")}</div>
           <div className="overflow-hidden">
@@ -438,16 +440,16 @@ export const StakeForm = () => {
         </div>
       </div>
       <AmountEdit />
-      <div className="bg-grey-900 leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
         <div className="flex items-center justify-between">
           <div className="whitespace-nowrap">{t("Available Balance")}</div>
           <div>{!!token && !!account && <AvailableBalance token={token} account={account} />}</div>
         </div>
       </div>
-      <div className="bg-grey-900 leading-paragraph flex flex-col gap-6 rounded p-4 text-xs">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-6 rounded p-4 text-xs">
         <div className="flex items-center justify-between gap-8">
           <div className="whitespace-nowrap">{t("Pool")}</div>
-          <div className="text-body truncate">
+          <div className="text-fg-primary truncate">
             <NominationPoolName poolId={poolId} chainId={token?.networkId} />
           </div>
         </div>

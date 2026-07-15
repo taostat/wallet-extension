@@ -24,7 +24,7 @@ const ModalHeader = () => {
   return (
     <div
       className={classNames(
-        "text-body-secondary flex min-h-32 w-full shrink-0 items-center justify-between px-10",
+        "text-fg-secondary flex min-h-32 w-full shrink-0 items-center justify-between px-10",
         step === "follow-up" ? "invisible" : "visible",
       )}
     >
@@ -35,7 +35,7 @@ const ModalHeader = () => {
         <ChevronLeft />
       </IconButton>
       <div>
-        {step === "form" && <span className="text-body font-bold">{t("Staking")}</span>}
+        {step === "form" && <span className="text-fg-primary font-bold">{t("Staking")}</span>}
         {step === "review" && t("Confirm")}
       </div>
       <IconButton onClick={close}>

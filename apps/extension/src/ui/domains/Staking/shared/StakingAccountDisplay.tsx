@@ -81,7 +81,7 @@ export const StakingAccountDisplay: FC<AddressDisplayProps> = ({ address, chainI
       </TooltipContent>
       <TooltipTrigger
         className={classNames(
-          "text-body inline-flex max-w-full flex-nowrap items-center gap-4 overflow-hidden text-base",
+          "text-fg-primary inline-flex max-w-full flex-nowrap items-center gap-4 overflow-hidden text-base",
           className,
         )}
       >
@@ -93,7 +93,7 @@ export const StakingAccountDisplay: FC<AddressDisplayProps> = ({ address, chainI
         <div className="leading-base grow truncate">{text}</div>
         <AccountTypeIcon
           type={account?.type}
-          className="text-primary"
+          className="text-fg-brand"
           signetUrl={getAccountSignetUrl(account)}
         />
       </TooltipTrigger>

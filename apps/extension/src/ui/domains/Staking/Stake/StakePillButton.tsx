@@ -30,7 +30,7 @@ export const StakePillButton: FC<{
   return (
     <button
       className={classNames(
-        "text-primary rounded-sm bg-[#293c37] p-4 text-xs font-light hover:bg-[#214940]",
+        "text-fg-brand rounded-sm bg-[#293c37] p-4 text-xs font-light hover:bg-[#214940]",
         className,
       )}
       type="button"

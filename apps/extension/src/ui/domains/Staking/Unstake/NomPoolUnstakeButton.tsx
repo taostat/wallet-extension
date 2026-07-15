@@ -38,7 +38,7 @@ export const NomPoolUnstakeButton: FC<{
   return (
     <button
       className={classNames(
-        "bg-body/10 hover:bg-body/20 text-body-secondary hover:text-body font-light",
+        "bg-fg-primary/10 hover:bg-fg-primary/20 text-fg-secondary hover:text-fg-primary font-light",
         variant === "small" && "h-10 rounded-sm px-3 text-xs",
         variant === "large" && "h-14 rounded px-4 text-sm",
         className,

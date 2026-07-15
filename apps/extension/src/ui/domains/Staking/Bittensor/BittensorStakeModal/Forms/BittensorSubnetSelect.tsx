@@ -122,7 +122,7 @@ export const BittensorSubnetSelect = () => {
           <div className="grow">
             <SearchInputControlled
               containerClassName={classNames(
-                "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-[3.6rem] grow border border-field text-sm !px-4 shrink-0",
+                "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.6rem] grow border border-field text-sm !px-4 shrink-0",
                 "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
               )}
               placeholder={t("Search subnets")}
@@ -137,7 +137,7 @@ export const BittensorSubnetSelect = () => {
         </div>
 
         <div className="flex w-full grow flex-col gap-2 overflow-hidden">
-          <div className="text-body-disabled flex justify-between pl-[6rem] pr-12 text-sm">
+          <div className="text-fg-disabled flex justify-between pl-[6rem] pr-12 text-sm">
             <div>{t("Name / Pool")}</div>
             <div>{t("Emissions / Alpha Price")}</div>
           </div>
@@ -186,7 +186,7 @@ const SortMethodButton: FC<{
       <ContextMenuTrigger asChild>
         <button
           type="button"
-          className="bg-field hover:bg-grey-800 text-body-secondary hover:text-grey-300 border-grey-850 flex h-full items-center gap-4 text-nowrap rounded-sm border px-[8px] py-[6px] text-sm"
+          className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-tertiary border-primary flex h-full items-center gap-4 text-nowrap rounded-sm border px-[8px] py-[6px] text-sm"
         >
           <div>{selected?.label}</div>
           <ToolbarSortIcon className="size-10" />
@@ -295,9 +295,9 @@ const SubnetRow: FC<{
       key={option.netuid}
       onClick={onClick}
       className={classNames(
-        "hover:bg-grey-750 focus:bg-grey-700 flex h-[5.8rem] w-full shrink-0 items-center gap-6 overflow-hidden px-12 pl-8 text-left",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full shrink-0 items-center gap-6 overflow-hidden px-12 pl-8 text-left",
         "disabled:cursor-not-allowed disabled:opacity-50",
-        isSelected && "bg-grey-800 text-body-secondary",
+        isSelected && "bg-secondary text-fg-secondary",
       )}
     >
       <TokenLogo tokenId={tokanAlpha.id} className="size-16 shrink-0" />
@@ -312,7 +312,7 @@ const SubnetRow: FC<{
         {!!option.total_tao && (
           <div
             className={cn(
-              "text-body-secondary flex w-full items-center justify-between gap-8 overflow-hidden text-xs",
+              "text-fg-secondary flex w-full items-center justify-between gap-8 overflow-hidden text-xs",
               isLoading && "animate-pulse",
             )}
           >
@@ -324,7 +324,7 @@ const SubnetRow: FC<{
                 noCountUp
                 noTooltip
               />
-              <div className="bg-body-disabled inline-block size-2 rounded-full" />
+              <div className="bg-disabled inline-block size-2 rounded-full" />
               <TokensAndFiat
                 tokenId={tokanAlpha.id}
                 planck={option.total_alpha}

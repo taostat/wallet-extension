@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next"
 
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
-import { BittensorStakeFormBase } from "../BittensorStakeFormBase"
 import { BittensorSelectButton } from "../BittensorSelectButton"
+import { BittensorStakeFormBase } from "../BittensorStakeFormBase"
 
 export const BittensorSubnetStakeForm = () => {
   const { t } = useTranslation()
@@ -13,7 +13,7 @@ export const BittensorSubnetStakeForm = () => {
     return (
       <div className="flex items-center justify-between gap-8">
         <div className="whitespace-nowrap">{t("Select Subnet")}</div>
-        <div className="text-body truncate">
+        <div className="text-fg-primary truncate">
           <BittensorSelectButton
             label={
               dtaoToken?.netuid

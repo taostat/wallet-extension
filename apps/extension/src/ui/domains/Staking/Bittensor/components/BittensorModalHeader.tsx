@@ -13,7 +13,7 @@ export const BittensorStakingModalHeader: FC<{
 }> = ({ title, className, withClose, onBackClick, onCloseModal }) => {
   return (
     <div
-      className={cn("text-body-secondary flex h-32 w-full shrink-0 items-center px-10", className)}
+      className={cn("text-fg-secondary flex h-32 w-full shrink-0 items-center px-10", className)}
     >
       <IconButton onClick={onBackClick} className={cn(!onBackClick && "invisible")}>
         <ChevronLeft />

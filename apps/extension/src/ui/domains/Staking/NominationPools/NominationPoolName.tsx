@@ -13,7 +13,9 @@ export const NominationPoolName = ({ chainId, poolId }: NominationPoolNameProps)
   const defaultPoolName = "Taostats Pool"
 
   if (isLoading)
-    return <div className={"text-grey-700 bg-grey-700 rounded-xs h-[1.6rem] w-40 animate-pulse"} />
+    return (
+      <div className={"text-fg-disabled bg-tertiary rounded-xs h-[1.6rem] w-40 animate-pulse"} />
+    )
 
   if (isError || !poolName) return <>{defaultPoolName}</>
 
