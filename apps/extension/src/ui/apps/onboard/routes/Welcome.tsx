@@ -71,14 +71,14 @@ export const WelcomePage = () => {
           >
             {t("Get Started")}
           </Button>
-          <div className="text-body-secondary text-center text-sm leading-[2rem]">
+          <div className="text-fg-secondary text-center text-sm leading-[2rem]">
             <Trans t={t}>
               By continuing, you agree to the{" "}
               <a
                 href={TERMS_OF_USE_URL}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="text-body"
+                className="text-fg-primary"
                 onClick={handleLinkClick("Terms of Service")}
               >
                 Terms of Service
@@ -88,7 +88,7 @@ export const WelcomePage = () => {
                 href={PRIVACY_POLICY_URL}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="text-body"
+                className="text-fg-primary"
                 onClick={handleLinkClick("Privacy Policy")}
               >
                 Privacy Policy

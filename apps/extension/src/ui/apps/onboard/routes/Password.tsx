@@ -111,7 +111,7 @@ export const PasswordPage = () => {
     <OnboardLayout withBack analytics={ANALYTICS_PAGE} className="min-h-[60rem] min-w-[60rem]">
       {passwordExists && (
         <OnboardDialog title={t("You've already set your password")}>
-          <div className="text-body-secondary flex flex-col gap-8">
+          <div className="text-fg-secondary flex flex-col gap-8">
             <p>
               {t(
                 "You can change your password in the settings at any time after you've onboarded.",
@@ -139,9 +139,7 @@ export const PasswordPage = () => {
             <div className="flex flex-col pb-12">
               <div className="mb-4 mt-12 flex h-[1.2em] items-center justify-between text-sm">
                 <div
-                  className={classNames(
-                    password ? "text-body-secondary" : "text-body-secondary/50",
-                  )}
+                  className={classNames(password ? "text-fg-secondary" : "text-fg-secondary/50")}
                 >
                   {t("Password strength")}: <PasswordStrength password={password} />
                 </div>

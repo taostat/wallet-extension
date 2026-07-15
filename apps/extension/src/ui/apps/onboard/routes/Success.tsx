@@ -26,7 +26,7 @@ export const SuccessPage = () => {
         <div className="whitespace-nowrap text-center text-lg">
           {t("Welcome to Taostats wallet!")}
         </div>
-        <div className="text-body-secondary text-center">
+        <div className="text-fg-secondary text-center">
           {t("Your Taostats wallet is ready to use")} 🎉
         </div>
         <Button
