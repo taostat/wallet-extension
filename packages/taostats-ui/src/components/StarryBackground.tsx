@@ -7,8 +7,8 @@ const CX = 50
 const CY = 8
 const RINGS = [
   { id: "outer", radius: 54, strokeOpacity: 0.07 },
-  { id: "middle", radius: 41, strokeOpacity: 0.09 },
-  { id: "inner", radius: 28, strokeOpacity: 0.11 },
+  { id: "middle", radius: 47, strokeOpacity: 0.09 },
+  { id: "inner", radius: 35.64, strokeOpacity: 0.11 },
 ] as const
 
 const COMET_RING_INDICES = [0, 1] as const
@@ -109,6 +109,7 @@ const OrbitComet = ({
 
 export const StarryBackground = ({ children }: { children: ReactNode }) => {
   const glowFilterId = useId().replace(/:/g, "")
+  const ringFillId = `${glowFilterId}-ring-fill`
   const [comets, setComets] = useState<Comet[]>([])
   const [motionEnabled, setMotionEnabled] = useState(true)
 
@@ -139,9 +140,12 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
 
         // Occasionally spawn a second comet on the other ring for overlap.
         if (Math.random() < 0.25) {
-          window.setTimeout(() => {
-            if (!cancelled) setComets((prev) => [...prev, createComet()])
-          }, randomBetween(120, 420))
+          window.setTimeout(
+            () => {
+              if (!cancelled) setComets((prev) => [...prev, createComet()])
+            },
+            randomBetween(120, 420),
+          )
         }
 
         schedule()
@@ -149,11 +153,14 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
     }
 
     // Kick off with one comet shortly after mount.
-    timeoutId = window.setTimeout(() => {
-      if (cancelled) return
-      setComets((prev) => [...prev, createComet()])
-      schedule()
-    }, randomBetween(400, 1200))
+    timeoutId = window.setTimeout(
+      () => {
+        if (cancelled) return
+        setComets((prev) => [...prev, createComet()])
+        schedule()
+      },
+      randomBetween(400, 1200),
+    )
 
     return () => {
       cancelled = true
@@ -194,7 +201,22 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+          <radialGradient
+            id={ringFillId}
+            gradientUnits="userSpaceOnUse"
+            cx={CX}
+            cy={CY}
+            r={RINGS[0]!.radius}
+          >
+            <stop offset="0%" stopColor="#191B1F" stopOpacity="1" />
+            <stop offset="85%" stopColor="#191B1F" stopOpacity="1" />
+            <stop offset="100%" stopColor="#191B1F" stopOpacity="0" />
+          </radialGradient>
         </defs>
+
+        {/* Lighter fill for the area enclosed by the outermost ring, fading
+            into the base app background near the ring edge. */}
+        <circle cx={CX} cy={CY} r={RINGS[0]!.radius} fill={`url(#${ringFillId})`} />
 
         {ringElements}
 
