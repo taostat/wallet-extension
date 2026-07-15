@@ -1,5 +1,6 @@
 /**
  * Chart color constants for the wallet extension design system.
+ * Hex values are used so Chart.js / visx can consume them outside CSS.
  */
 
 export type ChartColors = {
@@ -15,7 +16,7 @@ export type ChartColors = {
 }
 
 export const CHART_COLORS: ChartColors = {
-  accent1: "rgb(var(--fg-brand))",
+  accent1: "#00DBBC",
   accent2: "#FF3D57",
   accent3: "#FACC15",
   gridLine: "#FFFFFF",

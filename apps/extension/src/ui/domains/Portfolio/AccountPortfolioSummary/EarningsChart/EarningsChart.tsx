@@ -7,6 +7,7 @@ import { scaleLinear } from "@visx/scale"
 import { defaultStyles as tooltipDefaultStyles } from "@visx/tooltip"
 import { AreaSeries, Axis, Grid, LineSeries, Tooltip, XYChart } from "@visx/xychart"
 import { memo, useCallback } from "react"
+import { CHART_COLORS } from "taostats-ui"
 
 import { useTokenRatesMap } from "@ui/state"
 
@@ -40,7 +41,7 @@ const useTooltipRenderer = () =>
     if (!date || leftValue == null || rightValue == null) return null
 
     return (
-      <div className="min-w-[15rem] rounded-lg bg-[#1d1d1d] px-5 py-3">
+      <div className="bg-tooltip-bg min-w-[15rem] rounded-lg px-5 py-3">
         <div className="flex flex-col gap-2">
           <div className="text-fg-secondary text-sm">
             {date.toLocaleDateString("en-US", {
@@ -154,13 +155,13 @@ const ChartInner = memo(function ChartInner({
           lineStyle={{
             strokeOpacity: 0.1,
             strokeWidth: 0.5,
-            stroke: "#FFFFFF",
+            stroke: CHART_COLORS.gridLine,
           }}
         />
         <Axis
           orientation="bottom"
           hideAxisLine={false}
-          axisLineClassName="stroke-[#ffffff]/10"
+          axisLineClassName="stroke-fg-primary/10"
           hideTicks
           numTicks={5}
           tickFormat={(date) =>
@@ -174,7 +175,7 @@ const ChartInner = memo(function ChartInner({
           hideAxisLine
           hideTicks
           orientation="left"
-          tickLabelProps={{ fill: "#888", fontSize: 11 }}
+          tickLabelProps={{ fill: CHART_COLORS.foreground, fontSize: 11, opacity: 0.5 }}
           tickFormat={(value) =>
             showTicks
               ? `$${(value as number).toLocaleString("en-US", {
@@ -203,7 +204,7 @@ const ChartInner = memo(function ChartInner({
               : ""
           }
           hideTicks
-          tickLabelProps={{ fill: "#888", fontSize: 11 }}
+          tickLabelProps={{ fill: CHART_COLORS.foreground, fontSize: 11, opacity: 0.5 }}
         />
 
         <LinearGradient
@@ -356,7 +357,7 @@ const ChartInner = memo(function ChartInner({
             ...tooltipDefaultStyles,
             opacity: 0.8,
             backdropFilter: "blur(23.8px)",
-            backgroundColor: "#1d1d1d",
+            backgroundColor: CHART_COLORS.tooltipBackground,
             borderRadius: "8px",
             padding: "10px",
             zIndex: 9999,
@@ -375,7 +376,7 @@ const ChartInner = memo(function ChartInner({
                 <circle
                   r={4}
                   fill={key === dataKeys.leftValueArea ? colours.red : colours.green}
-                  stroke="white"
+                  stroke={CHART_COLORS.foreground}
                   strokeWidth={2}
                 />
               )

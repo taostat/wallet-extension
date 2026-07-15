@@ -11,7 +11,14 @@ import { log } from "extension-shared"
 import { uniq } from "lodash-es"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton, Popover, PopoverContent, PopoverTrigger, usePopoverContext } from "taostats-ui"
+import {
+  CHART_COLORS,
+  IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  usePopoverContext,
+} from "taostats-ui"
 
 import { useSelectedCurrency, useTokenRates, useTokenRatesMap, useTokensMap } from "@ui/state"
 
@@ -113,7 +120,7 @@ const AssetPriceChartOriginal: FC<{
   return (
     <div
       className={classNames(
-        "bg-black-secondary relative flex w-full shrink-0 flex-col gap-0 overflow-hidden rounded-sm",
+        "bg-secondary border-primary relative flex w-full shrink-0 flex-col gap-0 overflow-hidden rounded-md border",
         variant === "small" && "h-[16.8rem]",
         variant === "large" && "h-[19.2rem]",
         className,
@@ -293,7 +300,7 @@ const verticalLinePlugin: ChartComponentLike = {
       ctx.save()
       ctx.beginPath()
       ctx.setLineDash([5, 5])
-      ctx.strokeStyle = "rgba(213, 255, 92, 0.5)"
+      ctx.strokeStyle = `${CHART_COLORS.accent1}80`
       ctx.lineWidth = 1
       ctx.moveTo(tooltip.caretX, tooltip.y + tooltip.height + 5) // start below the tooltip
       ctx.lineTo(tooltip.caretX, chartArea.bottom)
@@ -355,8 +362,8 @@ const Chart: FC<{
 
     // Create a gradient
     const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height)
-    gradient.addColorStop(0, "rgba(0, 219, 188, 0.2)") // Start color (top)
-    gradient.addColorStop(1, "rgba(213, 255, 92, 0)") // End color (bottom)
+    gradient.addColorStop(0, `${CHART_COLORS.accent1}33`) // Start color (top)
+    gradient.addColorStop(1, `${CHART_COLORS.accent1}00`) // End color (bottom)
 
     const chart = new ChartJs(canvas, {
       type: "line",
@@ -387,8 +394,8 @@ const Chart: FC<{
             mode: "index",
             intersect: false,
             displayColors: false,
-            backgroundColor: "#2E3221",
-            titleColor: "#00dbbc",
+            backgroundColor: CHART_COLORS.tooltipBackground,
+            titleColor: CHART_COLORS.accent1,
             titleFont: {
               size: variant === "large" ? 14 : 12,
               weight: 400,
@@ -441,7 +448,7 @@ const Chart: FC<{
           {
             label: "Price",
             data: allPrices,
-            borderColor: "#00dbbc",
+            borderColor: CHART_COLORS.accent1,
             pointRadius: 0,
             tension: 0.1,
             fill: true,
@@ -482,11 +489,11 @@ const TimespanSelect: FC<{
           key={key}
           type="button"
           className={classNames(
-            "rounded-[0.6rem] px-3 py-1.5 hover:bg-white/5 hover:text-white",
+            "text-fg-secondary hover:bg-fg-primary/5 hover:text-fg-primary rounded-[0.6rem] px-3 py-1.5",
             "pointer-events-auto",
             variant === "small" && "text-[1rem]",
             variant === "large" && "text-sm",
-            value === key && "bg-white/10 text-white",
+            value === key && "bg-fg-primary/10 text-fg-primary",
           )}
           onClick={() => onChange(key as ChartSpan)}
         >

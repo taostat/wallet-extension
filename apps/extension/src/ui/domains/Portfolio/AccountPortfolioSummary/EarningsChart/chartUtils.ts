@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { CHART_COLORS } from "taostats-ui"
 
 import type { ColdkeyReportItem } from "../portfolioApi"
 
@@ -14,8 +15,8 @@ export const getDefaultMargin = (showTicks: boolean) =>
     : { top: 40, right: 0, bottom: 40, left: 0 }
 
 export const colours = {
-  green: "#00DBBC",
-  red: "#EB5347",
+  green: CHART_COLORS.accent1,
+  red: CHART_COLORS.accent2,
 }
 
 const getBadgePosition = (
@@ -63,25 +64,17 @@ export const useChartConfig = (data: DualAxisData[], chartHeight: number) => {
     const rightAxisMax = Math.max(...rVals)
     const rightPad = Math.max(0.01, Math.abs(rightAxisMax) * 0.01)
     const rightAxisMaxScale =
-      rightAxisMax > rightAxisMin
-        ? upScale(rightAxisMax, 1.0001)
-        : rightAxisMax + rightPad
+      rightAxisMax > rightAxisMin ? upScale(rightAxisMax, 1.0001) : rightAxisMax + rightPad
     const rightAxisMinScale =
-      rightAxisMax > rightAxisMin
-        ? downScale(rightAxisMin, 0.9999)
-        : rightAxisMin - rightPad
+      rightAxisMax > rightAxisMin ? downScale(rightAxisMin, 0.9999) : rightAxisMin - rightPad
 
     const leftAxisMin = Math.min(...lVals)
     const leftAxisMax = Math.max(...lVals)
     const leftPad = Math.max(0.01, Math.abs(leftAxisMax) * 0.01)
     const leftAxisMaxScale =
-      leftAxisMax > leftAxisMin
-        ? upScale(leftAxisMax, 1.0001)
-        : leftAxisMax + leftPad
+      leftAxisMax > leftAxisMin ? upScale(leftAxisMax, 1.0001) : leftAxisMax + leftPad
     const leftAxisMinScale =
-      leftAxisMax > leftAxisMin
-        ? downScale(leftAxisMin, 0.9999)
-        : leftAxisMin - leftPad
+      leftAxisMax > leftAxisMin ? downScale(leftAxisMin, 0.9999) : leftAxisMin - leftPad
 
     const getRightValuePositionOnLeftAxis = (rightAxisVal: number) => {
       const rValPositionFactor = calculatePositionFactor(
