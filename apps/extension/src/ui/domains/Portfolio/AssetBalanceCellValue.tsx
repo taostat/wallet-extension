@@ -5,8 +5,6 @@ import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PercentChangePill, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { formatFiat } from "@taostats/util/formatFiat"
-import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useSelectedCurrency } from "@ui/state"
 
@@ -60,7 +58,13 @@ export const AssetBalanceCellValue = ({
       )}
     >
       <div className="flex items-baseline gap-1">
-        <Tokens amount={tokens} symbol={symbol} isBalance noCountUp={noCountUp} />
+        <Tokens
+          amount={tokens}
+          symbol={symbol}
+          isBalance
+          noCountUp={noCountUp}
+          noSpaceBeforeSymbol
+        />
         {fiat !== null && (
           <>
             <span className="text-fg-brand px-0.5">/</span>
@@ -102,42 +106,35 @@ export const AssetBalanceCellValue = ({
       {holdingChange !== null &&
         typeof change24hPct === "number" &&
         (holdingChange !== 0 || change24hPct !== 0) && (
-        <Tooltip placement="bottom-end">
-          <TooltipTrigger asChild>
-            <div
-              className="flex items-center justify-end gap-1.5"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span
-                className={classNames(
-                  "inline-flex items-baseline text-sm",
-                  holdingChange > 0 && "text-fg-brand",
-                  holdingChange < 0 && "text-accent-2",
-                  holdingChange === 0 && "text-fg-tertiary",
-                )}
+          <Tooltip placement="bottom-end">
+            <TooltipTrigger asChild>
+              <div
+                className="flex items-center justify-end gap-1.5"
+                onClick={(e) => e.stopPropagation()}
               >
-                {holdingChange > 0 && <span aria-hidden>+</span>}
-                {holdingChange < 0 && <span aria-hidden>-</span>}
-                {currency === "tao" ? (
-                  <span>
-                    {currencyConfig.tao.symbol}
-                    {formatFiat(Math.abs(holdingChange), undefined, undefined, 2)}
-                  </span>
-                ) : (
+                <span
+                  className={classNames(
+                    "inline-flex items-baseline text-sm",
+                    holdingChange > 0 && "text-fg-brand",
+                    holdingChange < 0 && "text-accent-2",
+                    holdingChange === 0 && "text-fg-tertiary",
+                  )}
+                >
+                  {holdingChange > 0 && <span aria-hidden>+</span>}
+                  {holdingChange < 0 && <span aria-hidden>-</span>}
                   <Fiat
                     amount={Math.abs(holdingChange)}
                     isBalance
                     noCountUp
                     forceCurrency={currency}
                   />
-                )}
-              </span>
-              <PercentChangePill value={change24hPct} />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent>{t("Holding Change 1D")}</TooltipContent>
-        </Tooltip>
-      )}
+                </span>
+                <PercentChangePill value={change24hPct} />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>{t("Holding Change 1D")}</TooltipContent>
+          </Tooltip>
+        )}
     </div>
   )
 }

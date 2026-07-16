@@ -335,17 +335,19 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
         isSelected={isSelected}
         onClick={handleClick}
         right={
-          <AccountContextMenu
-            address={option.address}
-            analyticsFrom="sidebar"
-            placement="bottom-end"
-            hideManageAccounts
-            trigger={
-              <span className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md">
-                <DotsHorizontal className="size-4" />
-              </span>
-            }
-          />
+          !isSelected ? (
+            <AccountContextMenu
+              address={option.address}
+              analyticsFrom="sidebar"
+              placement="bottom-end"
+              hideManageAccounts
+              trigger={
+                <span className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md">
+                  <DotsHorizontal className="size-4" />
+                </span>
+              }
+            />
+          ) : undefined
         }
       />
 
@@ -386,19 +388,18 @@ const FolderOption = ({ option }: { option: FolderAccountOption }) => {
       isSelected={isSelected}
       onClick={handleClick}
       right={
-        <FolderContextMenu
-          folderId={option.id}
-          noManageAccountsLink
-          placement="bottom-end"
-          trigger={
-            <ContextMenuTrigger
-              className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <DotsHorizontal className="size-4" />
-            </ContextMenuTrigger>
-          }
-        />
+        !isSelected ? (
+          <FolderContextMenu
+            folderId={option.id}
+            noManageAccountsLink
+            placement="bottom-end"
+            trigger={
+              <ContextMenuTrigger className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md">
+                <DotsHorizontal className="size-4" />
+              </ContextMenuTrigger>
+            }
+          />
+        ) : undefined
       }
     />
   )
@@ -440,24 +441,28 @@ const SidebarButtonBase: FC<{
   onClick: () => void
 }> = ({ logo, label, fiat, right, isSelected, onClick }) => {
   return (
-    <button
-      type="button"
+    <div
       className={classNames(
-        "flex h-14 w-full items-center gap-2 rounded-lg border px-2 text-left transition-colors",
+        "relative flex h-14 w-full items-center gap-2 rounded-lg border px-2 transition-colors",
         isSelected
           ? "border-fg-brand bg-fg-brand/5"
           : "border-primary/6 hover:bg-tertiary/50 bg-transparent",
       )}
-      onClick={onClick}
     >
-      <div className="flex size-10 shrink-0 items-center justify-center text-[40px]">{logo}</div>
-      <div className="flex grow flex-col justify-center gap-0.5 overflow-hidden">
-        <div className="text-fg-primary truncate text-sm font-medium">{label}</div>
-        <div className="text-fg-tertiary truncate text-xs">{fiat}</div>
-      </div>
-      <div className="flex shrink-0 items-center" onClick={(e) => e.stopPropagation()}>
+      <button
+        type="button"
+        className="flex min-w-0 flex-1 items-center gap-2 py-2 text-left"
+        onClick={onClick}
+      >
+        <div className="flex size-10 shrink-0 items-center justify-center text-[40px]">{logo}</div>
+        <div className="flex grow flex-col justify-center gap-0.5 overflow-hidden">
+          <div className="text-fg-primary truncate text-sm font-medium">{label}</div>
+          <div className="text-fg-tertiary truncate text-xs">{fiat}</div>
+        </div>
+      </button>
+      <div className="flex shrink-0 items-center pr-0.5">
         {isSelected ? <SelectionIndicator /> : right}
       </div>
-    </button>
+    </div>
   )
 }

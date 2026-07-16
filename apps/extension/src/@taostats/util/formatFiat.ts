@@ -12,6 +12,28 @@ export const formatFiat = (
   currencyDisplay?: Intl.NumberFormatOptions["currencyDisplay"],
   minimumDecimalPlaces?: number,
 ) => {
+  const fractionDigits =
+    minimumDecimalPlaces !== undefined
+      ? // NOTE: If minimumFractionDigits is set to an integer greater than `20` then it throws the error:
+        //       `RangeError: minimumFractionDigits value is out of range`
+        minimumDecimalPlaces <= 20
+        ? minimumDecimalPlaces
+        : 20
+      : undefined
+
+  // TAO is not a real ISO currency; Intl renders "TAO". Use τ to match the currency toggle.
+  if (currency?.toLowerCase() === "tao") {
+    const numberOnly = new Intl.NumberFormat(undefined, {
+      ...(fractionDigits !== undefined && {
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits,
+      }),
+    }).format(amount)
+
+    if (currencyDisplay === "code") return `${numberOnly} τ`
+    return `τ${numberOnly}`
+  }
+
   const formatOptions: Intl.NumberFormatOptions = {
     ...(currency !== undefined && {
       style: "currency",
@@ -19,11 +41,9 @@ export const formatFiat = (
       currencyDisplay: currencyDisplay ?? (currency === "usd" ? "narrowSymbol" : "symbol"),
     }),
 
-    ...(minimumDecimalPlaces !== undefined && {
-      // NOTE: If minimumFractionDigits is set to an integer greater than `20` then it throws the error:
-      //       `RangeError: minimumFractionDigits value is out of range`
-      minimumFractionDigits: minimumDecimalPlaces <= 20 ? minimumDecimalPlaces : 20,
-      maximumFractionDigits: minimumDecimalPlaces <= 20 ? minimumDecimalPlaces : 20,
+    ...(fractionDigits !== undefined && {
+      minimumFractionDigits: fractionDigits,
+      maximumFractionDigits: fractionDigits,
     }),
   }
 
