@@ -67,13 +67,13 @@ export const AccountAddMnemonicAccountsForm = () => {
   if (!data.mnemonic || !data.curve) return <Navigate to="/accounts/add/mnemonic" replace />
 
   return (
-    <div className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-4">
       <HeaderBlock
         title={t("Import account(s)")}
         text={t("Please select which account(s) you'd like to import.")}
       />
-      <div className="flex flex-col gap-8">
-        <div className="h-[42rem]">
+      <div className="flex flex-col gap-4">
+        <div className="h-[420px]">
           <DerivedFromMnemonicAccountPicker
             name={name}
             mnemonic={data.mnemonic}
@@ -83,7 +83,7 @@ export const AccountAddMnemonicAccountsForm = () => {
         </div>
         <div className="flex w-full justify-end">
           <Button
-            className="w-[24rem]"
+            className="w-[240px]"
             primary
             disabled={!accountsToImport.length}
             processing={isSubmitting}

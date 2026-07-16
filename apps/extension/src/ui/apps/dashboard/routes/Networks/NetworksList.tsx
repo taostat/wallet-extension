@@ -109,14 +109,14 @@ export const NetworksList: FC<{
 
   if (!displayedNetworks.length)
     return (
-      <div className="text-fg-secondary bg-secondary rounded-sm p-12 text-center">
+      <div className="text-fg-secondary bg-secondary rounded-sm p-6 text-center">
         {t("No networks found")}
       </div>
     )
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className={classNames("flex w-full items-center justify-end gap-4")}>
+    <div className="flex flex-col gap-2">
+      <div className={classNames("flex w-full items-center justify-end gap-2")}>
         <button
           type="button"
           onClick={() => ocResetAllModal.open()}
@@ -124,7 +124,7 @@ export const NetworksList: FC<{
         >
           {t("Reset")}
         </button>
-        <div className="bg-disabled h-6 w-0.5"></div>
+        <div className="bg-disabled h-3 w-px"></div>
         <button
           type="button"
           onClick={() => ocDeactivateAllModal.open()}
@@ -215,10 +215,10 @@ const NetworkRow: FC<{
   )
 
   return (
-    <div className="relative h-28" data-testid="network-list-row">
+    <div className="relative h-14" data-testid="network-list-row">
       <ListButton key={network.id} role="button" onClick={handleNetworkClick}>
         <NetworkLogo className="rounded-full text-xl" networkId={network.id} />
-        <div className="text-fg-primary flex flex-col justify-center gap-1 overflow-hidden">
+        <div className="text-fg-primary flex flex-col justify-center gap-0.5 overflow-hidden">
           <div className="truncate">
             <NetworkName networkId={network.id} />
           </div>
@@ -228,11 +228,11 @@ const NetworkRow: FC<{
         </div>
         {network.isTestnet && <TestnetPill />}
         {isNetworkCustom(network) && <CustomPill />}
-        <div className="min-w-[4.4rem] shrink-0 grow"></div>
+        <div className="min-w-[44px] shrink-0 grow"></div>
         <ChevronRight className="transition-noneshrink-0 text-lg" />
       </ListButton>
       <Toggle
-        className="absolute right-20 top-4 p-4"
+        className="absolute right-10 top-2 p-2"
         checked={!!isActive}
         onChange={handleEnableChanged}
       />
@@ -265,7 +265,7 @@ const ResetAllNetworksModalContent: FC<{
       }
       onClose={onClose}
     >
-      <p className="text-fg-secondary mb-8 text-sm">
+      <p className="text-fg-secondary mb-4 text-sm">
         {platform === "all"
           ? t("This will reset active state of all networks to their defaults.")
           : t("This will reset active state of all {{platform}} networks to their defaults.", {
@@ -273,7 +273,7 @@ const ResetAllNetworksModalContent: FC<{
             })}
       </p>
 
-      <div className="mt-4 flex justify-end gap-8">
+      <div className="mt-2 flex justify-end gap-4">
         <Button onClick={onClose}>{t("Cancel")}</Button>
         <Button primary onClick={handleClick}>
           {t("Reset")}
@@ -331,10 +331,10 @@ const DeactivateNetworksModalContent: FC<{
       }
       onClose={onClose}
     >
-      <p className="text-fg-secondary mb-8 text-sm">
+      <p className="text-fg-secondary mb-4 text-sm">
         {t("It is recommended to deactivate unused networks to improve performance.")}
       </p>
-      <div className="bg-secondary text-fg-secondary flex h-28 w-full items-center gap-6 rounded-sm px-8 text-sm">
+      <div className="bg-secondary text-fg-secondary flex h-14 w-full items-center gap-3 rounded-sm px-4 text-sm">
         {isBalancesInitializing ? (
           <>
             <Loading01 className="text-md shrink-0 animate-spin" />
@@ -353,7 +353,7 @@ const DeactivateNetworksModalContent: FC<{
           </>
         )}
       </div>
-      <div className="text-fg-secondary flex flex-col items-start py-8 text-sm">
+      <div className="text-fg-secondary flex flex-col items-start py-4 text-sm">
         <Radio
           name="deactivateMode"
           label={
@@ -386,7 +386,7 @@ const DeactivateNetworksModalContent: FC<{
         />
       </div>
 
-      <div className="mt-4 flex justify-end gap-8">
+      <div className="mt-2 flex justify-end gap-4">
         <Button onClick={onClose}>{t("Cancel")}</Button>
         <Button primary disabled={disableSubmit} onClick={handleClick}>
           {t("Deactivate")}

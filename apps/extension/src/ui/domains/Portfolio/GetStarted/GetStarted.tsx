@@ -44,17 +44,17 @@ export const GetStarted = () => {
   if (hasAccounts && isHidden) return null
 
   return (
-    <div className="@container bg-secondary relative flex w-full flex-col gap-8 rounded-sm p-8">
+    <div className="@container bg-secondary relative flex w-full flex-col gap-4 rounded-sm p-4">
       {hasAccounts && (
         <IconButton
-          className="text-fg-disabled enabled:hover:text-fg-secondary enabled:focus-visible:text-fg-secondary absolute right-6 top-6"
+          className="text-fg-disabled enabled:hover:text-fg-secondary enabled:focus-visible:text-fg-secondary absolute right-3 top-3"
           onClick={onDismissClick}
         >
           <X />
         </IconButton>
       )}
 
-      <div className="text-fg-primary flex flex-col gap-2">
+      <div className="text-fg-primary flex flex-col gap-1">
         <div className="text-md @2xl:text-lg leading-base font-bold">
           {hasAccounts ? t("Fund your account") : t("Get Started")}
         </div>
@@ -66,32 +66,32 @@ export const GetStarted = () => {
       </div>
 
       {hasAccounts ? (
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-3 gap-4">
           <GetStartedActionButton
             label={t("Receive")}
             className="text-sm"
-            iconTop={<GetStartedReceiveIcon className="-ml-1 size-10" />}
+            iconTop={<GetStartedReceiveIcon className="-ml-0.5 size-5" />}
             onClick={onReceiveClick}
           />
           <GetStartedActionButton
             label={t("Swap")}
             className="text-sm"
-            iconTop={<GetStartedSwapIcon className="size-10" />}
+            iconTop={<GetStartedSwapIcon className="size-5" />}
             onClick={onSwapClick}
           />
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 gap-4">
           <GetStartedActionButton
             label={t("Add account")}
             description={t("Create a new account or import an existing one")}
-            iconTop={<PlusCircle className="text-fg-brand size-12" />}
+            iconTop={<PlusCircle className="text-fg-brand size-6" />}
             onClick={onAddAccountClick}
           />
           <GetStartedActionButton
             label={t("Try it")}
             description={t("Watch an account without entering the recovery phrase")}
-            iconTop={<EyePlusIcon className="text-fg-brand size-12" />}
+            iconTop={<EyePlusIcon className="text-fg-brand size-6" />}
             onClick={onTryItClick}
           />
         </div>
@@ -167,18 +167,18 @@ const GetStartedActionButton: FC<{
   <button
     type="button"
     className={classNames(
-      "border-disabled bg-secondary border-primary/40 hover:bg-tertiary leading-paragraph enabled:focus-visible:bg-tertiary @2xl:text-md @2xl:px-8 rounded-sm border px-6 py-4 text-left text-base",
-      "flex w-full items-center gap-8 overflow-hidden",
+      "border-disabled bg-secondary border-primary/40 hover:bg-tertiary leading-paragraph enabled:focus-visible:bg-tertiary @2xl:text-md @2xl:px-4 rounded-sm border px-3 py-2 text-left text-base",
+      "flex w-full items-center gap-4 overflow-hidden",
       className,
     )}
     onClick={onClick}
   >
-    <div className="flex grow flex-row gap-4">
+    <div className="flex grow flex-row gap-2">
       {iconTop}
-      <div className="flex w-full flex-col gap-1">
+      <div className="flex w-full flex-col gap-0.5">
         <div className="text-fg-primary @2xl:text-base truncate text-sm font-bold">{label}</div>
         {description && (
-          <div className="text-fg-secondary @2xl:text-sm text-[1rem]">{description}</div>
+          <div className="text-fg-secondary @2xl:text-sm text-[10px]">{description}</div>
         )}
       </div>
     </div>

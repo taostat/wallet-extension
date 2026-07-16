@@ -57,7 +57,7 @@ const SquareButton = forwardRef<
     type="button"
     ref={ref}
     className={classNames(
-      "enabled:hover:bg-tertiary enabled:hover:text-fg-secondary flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-sm enabled:cursor-pointer disabled:cursor-not-allowed",
+      "enabled:hover:bg-tertiary enabled:hover:text-fg-secondary flex h-[32px] w-[32px] items-center justify-center rounded-sm enabled:cursor-pointer disabled:cursor-not-allowed",
       props.className,
     )}
   ></button>
@@ -104,7 +104,7 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
   }, [contact])
 
   return (
-    <div className="bg-secondary group flex h-32 w-full items-center justify-between gap-4 rounded px-8">
+    <div className="bg-secondary group flex h-16 w-full items-center justify-between gap-2 rounded px-4">
       <AccountIcon
         className="text-xl"
         address={contact.address}
@@ -124,7 +124,7 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
           )}
         </div>
       </div>
-      <div className={`text-fg-disabled flex shrink-0 gap-2`}>
+      <div className={`text-fg-disabled flex shrink-0 gap-1`}>
         <SquareButton onClick={handleCopyClick}>
           <Copy01 />
         </SquareButton>
@@ -190,7 +190,7 @@ const Content = () => {
         )}
       </div>
       <Spacer small />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-1.5">
         {contactsToDisplay.map((contact) => (
           <AddressBookContactItem
             contact={contact}
@@ -200,7 +200,7 @@ const Content = () => {
           />
         ))}
         {contactsToDisplay.length === 0 && (
-          <div className="bg-secondary text-fg-secondary flex h-[16rem] w-full flex-col items-center justify-center gap-12 rounded px-16 py-8">
+          <div className="bg-secondary text-fg-secondary flex h-[160px] w-full flex-col items-center justify-center gap-6 rounded px-8 py-4">
             <span>{t("You have no saved contacts yet.")}</span>
             <Button primary onClick={open} iconLeft={Plus}>
               {t("Add a contact")}

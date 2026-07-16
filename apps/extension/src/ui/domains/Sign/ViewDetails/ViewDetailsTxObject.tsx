@@ -70,7 +70,7 @@ export const ViewDetailsTxObject: FC<ViewDetailsTxObjectProps> = ({ label, obj }
         />
       }
     >
-      <CodeBlock className="mt-2" code={code} />
+      <CodeBlock className="mt-1" code={code} />
     </ViewDetailsField>
   )
 }

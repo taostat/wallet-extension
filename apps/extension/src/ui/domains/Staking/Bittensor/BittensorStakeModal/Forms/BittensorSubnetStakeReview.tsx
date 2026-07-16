@@ -84,15 +84,15 @@ export const BittensorSubnetStakeReview = () => {
           withClose
         />
       }
-      contentClassName="flex min-h-0 w-full flex-col p-12 pt-0"
+      contentClassName="flex min-h-0 w-full flex-col p-6 pt-0"
     >
       <div className="scrollable scrollable-800 min-h-0 flex-1 overflow-y-auto">
-        <div className="space-y-[0.75rem]">
-          <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8">
-            <div className="flex items-center justify-between gap-8 pb-2 text-sm">
-              <div className="flex items-center gap-2 whitespace-nowrap">
+        <div className="space-y-[7.5px]">
+          <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-4">
+            <div className="flex items-center justify-between gap-4 pb-1 text-sm">
+              <div className="flex items-center gap-1 whitespace-nowrap">
                 <span>{t("Tao")}</span>
-                <TokenLogo tokenId={nativeToken?.id} className="size-8" />
+                <TokenLogo tokenId={nativeToken?.id} className="size-4" />
               </div>
               <div className="overflow-hidden">
                 <TokensAndFiat
@@ -104,10 +104,10 @@ export const BittensorSubnetStakeReview = () => {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between gap-8 py-2 text-sm">
-              <div className="flex items-center gap-2 whitespace-nowrap">
+            <div className="flex items-center justify-between gap-4 py-1 text-sm">
+              <div className="flex items-center gap-1 whitespace-nowrap">
                 <span>{`SN${netuid}`}</span>
-                <TokenLogo tokenId={dtaoToken?.id} className="size-8" />
+                <TokenLogo tokenId={dtaoToken?.id} className="size-4" />
               </div>
               <div className="overflow-hidden">
                 <TokensAndFiat
@@ -119,37 +119,37 @@ export const BittensorSubnetStakeReview = () => {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between gap-8 py-2 text-sm">
+            <div className="flex items-center justify-between gap-4 py-1 text-sm">
               <div className="whitespace-nowrap">{t("USD")} </div>
               <div className="text-fg-primary overflow-hidden">
                 <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
               </div>
             </div>
-            <div className="flex items-center justify-between gap-8 pt-2 text-sm">
+            <div className="flex items-center justify-between gap-4 pt-1 text-sm">
               <div className="whitespace-nowrap">{t("Account")} </div>
               <div className="overflow-hidden">
                 <StakingAccountDisplay address={account.address} chainId={nativeToken?.networkId} />
               </div>
             </div>
-            <div className="py-8">
+            <div className="py-4">
               <hr className="text-fg-disabled" />
             </div>
-            <div className="flex items-center justify-between gap-8 pb-2 text-xs">
+            <div className="flex items-center justify-between gap-4 pb-1 text-xs">
               <div className="whitespace-nowrap">{t("Subnet")} </div>
               <div className="text-fg-primary truncate">{dtaoToken?.name}</div>
             </div>
-            <div className="flex items-center justify-between gap-8 py-2 text-xs">
+            <div className="flex items-center justify-between gap-4 py-1 text-xs">
               <div className="whitespace-nowrap">{t("Validator")} </div>
               <div className="text-fg-primary truncate">
                 <BittensorValidatorName hotkey={hotkey} />
               </div>
             </div>
             {stakeDirection === "stake" && (
-              <div className="flex items-center justify-between gap-8 py-2 text-xs">
-                <div className="flex items-center gap-1 whitespace-nowrap">
+              <div className="flex items-center justify-between gap-4 py-1 text-xs">
+                <div className="flex items-center gap-0.5 whitespace-nowrap">
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-0.5">
                         {t("APY")}
                         <InfoCircle />
                       </div>
@@ -162,7 +162,7 @@ export const BittensorSubnetStakeReview = () => {
                 </div>
               </div>
             )}
-            <div className="flex items-center justify-between gap-8 pt-2 text-xs">
+            <div className="flex items-center justify-between gap-4 pt-1 text-xs">
               <div className="whitespace-nowrap">{t("Estimated amount")}</div>
               <div className="overflow-hidden">
                 <TokensAndFiat
@@ -174,10 +174,10 @@ export const BittensorSubnetStakeReview = () => {
               </div>
             </div>
           </div>
-          <div className="bg-app-bg text-fg-secondary flex w-full flex-col gap-2 rounded p-8 py-6">
-            <div className="flex items-center justify-between gap-8 text-xs">
+          <div className="bg-app-bg text-fg-secondary flex w-full flex-col gap-1 rounded p-4 py-3">
+            <div className="flex items-center justify-between gap-4 text-xs">
               <div className="whitespace-nowrap">{t("Alpha Price")} </div>
-              <div className="text-fg-secondary flex items-center gap-2">
+              <div className="text-fg-secondary flex items-center gap-1">
                 <TokensAndFiat
                   planck={swapPrice!}
                   tokenId={nativeToken?.id}
@@ -186,7 +186,7 @@ export const BittensorSubnetStakeReview = () => {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between gap-8 text-xs">
+            <div className="flex items-center justify-between gap-4 text-xs">
               <div className="whitespace-nowrap">{t("Price Impact")}</div>
               <div
                 className={classNames(
@@ -198,14 +198,14 @@ export const BittensorSubnetStakeReview = () => {
                 {priceImpact?.toFixed(2)}%
               </div>
             </div>
-            <div className="flex items-center justify-between gap-8 text-xs">
+            <div className="flex items-center justify-between gap-4 text-xs">
               <div className="whitespace-nowrap">{t("Slippage Tolerance")} </div>
-              <div className="text-fg-primary flex items-center gap-2">
+              <div className="text-fg-primary flex items-center gap-1">
                 <button
                   type="button"
                   onClick={open}
                   className={
-                    "flex cursor-pointer items-center gap-2 rounded-xl pl-2 text-xs font-light"
+                    "flex cursor-pointer items-center gap-1 rounded-xl pl-1 text-xs font-light"
                   }
                 >
                   <Edit01 />
@@ -214,8 +214,8 @@ export const BittensorSubnetStakeReview = () => {
               </div>
             </div>
             {!isMevShieldDisabled && (
-              <div className="flex flex-col gap-3 pt-2 text-xs">
-                <div className="flex items-center gap-1">
+              <div className="flex flex-col gap-1.5 pt-1 text-xs">
+                <div className="flex items-center gap-0.5">
                   <button
                     type="button"
                     className="hover:text-fg-primary whitespace-nowrap"
@@ -227,7 +227,7 @@ export const BittensorSubnetStakeReview = () => {
                   </button>
                 </div>
                 <div
-                  className="text-fg-primary flex flex-col gap-2"
+                  className="text-fg-primary flex flex-col gap-1"
                   role="radiogroup"
                   aria-label={t("MEV Shield")}
                 >
@@ -265,8 +265,8 @@ export const BittensorSubnetStakeReview = () => {
               </div>
             )}
           </div>
-          <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8 py-6">
-            <div className="flex items-center justify-between gap-8 pt-2 text-xs">
+          <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-4 py-3">
+            <div className="flex items-center justify-between gap-4 pt-1 text-xs">
               <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
               <FeeEstimate />
             </div>
@@ -274,7 +274,7 @@ export const BittensorSubnetStakeReview = () => {
         </div>
       </div>
       {payload && (
-        <div className="shrink-0 pt-8">
+        <div className="shrink-0 pt-4">
           <SapiSendButton
             containerId="StakingModalDialog"
             label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
@@ -327,14 +327,14 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
       onDismiss={onDismiss}
       containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
     >
-      <div className="bg-tertiary flex w-full flex-col gap-8 overflow-hidden rounded-t p-8 pt-12">
+      <div className="bg-tertiary flex w-full flex-col gap-4 overflow-hidden rounded-t p-4 pt-6">
         <div className="text-md text-center font-bold">{t("MEV Shield")}</div>
         <p className="text-sm">
           {t(
             'MEV Shield protects your subnet staking transaction from frontrunning by wrapping it in an encrypted "shield" transaction.',
           )}
         </p>
-        <ul className="text-fg-secondary list-outside list-disc space-y-2 pl-8 text-sm">
+        <ul className="text-fg-secondary list-outside list-disc space-y-1 pl-4 text-sm">
           <li>
             {t(
               "You submit one encrypted wrapper transaction. If it succeeds, your staking transaction is automatically included in the next block.",

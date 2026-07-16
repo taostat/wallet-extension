@@ -31,9 +31,9 @@ const NetworkFilterButton = () => {
       <button
         type="button"
         onClick={open}
-        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary h-16 overflow-hidden rounded-sm text-left text-xs"
+        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary h-8 overflow-hidden rounded-sm text-left text-xs"
       >
-        <div className="flex size-full items-center gap-4 overflow-hidden px-4">
+        <div className="flex size-full items-center gap-2 overflow-hidden px-2">
           {network ? (
             <NetworkLogo networkId={network.id} className="text-md shrink-0" />
           ) : (
@@ -60,8 +60,8 @@ const Header = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex w-full items-end justify-between gap-8">
-      <div className="flex flex-col gap-2">
+    <div className="flex w-full items-end justify-between gap-4">
+      <div className="flex flex-col gap-1">
         <div className="text-fg-primary text-bold text-lg">{t("Recent Activity")}</div>
         <div className="text-fg-secondary text-sm">{t("Review your latest transactions.")}</div>
       </div>
@@ -90,9 +90,9 @@ export const TxHistory = () => {
       <DashboardLayout sidebar="accounts">
         <TxHistoryProvider>
           <TxHistoryAccountFilter />
-          <div className="min-w-[60rem]">
+          <div className="min-w-[600px]">
             <Header />
-            <div className="h-8"></div>
+            <div className="h-4"></div>
             <TxHistoryList />
           </div>
         </TxHistoryProvider>

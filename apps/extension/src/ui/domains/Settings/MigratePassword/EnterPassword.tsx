@@ -61,7 +61,7 @@ export const EnterPasswordForm = () => {
 
   return (
     <ModalDialog title="Security Upgrade">
-      <p className="text-fg-secondary mb-10 text-sm">
+      <p className="text-fg-secondary mb-5 text-sm">
         <Trans t={t}>
           We have upgraded our security measures, including an updated password policy and advanced
           password encryption.
@@ -69,7 +69,7 @@ export const EnterPasswordForm = () => {
       </p>
       <p className="text-fg-secondary text-sm">{t("Enter your current password to continue")}</p>
       <form onSubmit={handleSubmit(submit)}>
-        <FormFieldContainer error={errors.password?.message} className="mb-4">
+        <FormFieldContainer error={errors.password?.message} className="mb-2">
           <FormFieldInputText
             {...register("password")}
             type="password"
@@ -83,7 +83,7 @@ export const EnterPasswordForm = () => {
           />
         </FormFieldContainer>
         <Button
-          className="mt-12"
+          className="mt-6"
           type="submit"
           primary
           fullWidth

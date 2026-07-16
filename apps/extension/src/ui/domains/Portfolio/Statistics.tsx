@@ -36,7 +36,7 @@ const TokensAndFiat = ({
   currencyDisplay?: Intl.NumberFormatOptions["currencyDisplay"]
   className?: string
 }) => (
-  <div className={classNames("flex flex-col gap-2 whitespace-nowrap", className)}>
+  <div className={classNames("flex flex-col gap-1 whitespace-nowrap", className)}>
     <div className="textbase text-white">
       <Tokens
         amount={tokenAmount ?? "0"}
@@ -80,22 +80,22 @@ export const Statistics = ({
   return (
     <div
       className={classNames(
-        "bg-secondary flex h-[10rem] w-[23.6rem] flex-col gap-4 rounded p-8",
+        "bg-secondary flex h-[100px] w-[236px] flex-col gap-2 rounded p-4",
         align === "right" ? "items-end" : "items-start",
         className,
       )}
     >
-      <div className="text-fg-secondary flex items-center gap-2 text-sm">
+      <div className="text-fg-secondary flex items-center gap-1 text-sm">
         {locked && <Lock01 />}
         {title}
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         {showCurrencyToggle && (
           <button
             className={classNames(
-              "border-primary bg-secondary text-fg-secondary hover:bg-tertiary pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border text-center text-sm transition-colors duration-100 ease-out",
-              currencyConfig[currency]?.symbol?.length === 2 && "text-[1rem]",
-              currencyConfig[currency]?.symbol?.length > 2 && "text-[0.8rem]",
+              "border-primary bg-secondary text-fg-secondary hover:bg-tertiary pointer-events-auto flex h-[22px] w-[22px] items-center justify-center rounded-full border text-center text-sm transition-colors duration-100 ease-out",
+              currencyConfig[currency]?.symbol?.length === 2 && "text-[10px]",
+              currencyConfig[currency]?.symbol?.length > 2 && "text-[8px]",
             )}
             onClick={(event) => {
               event.stopPropagation()

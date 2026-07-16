@@ -117,13 +117,13 @@ export const BittensorSubnetSelect = () => {
         />
       }
     >
-      <div className="flex size-full flex-col gap-8 overflow-hidden">
-        <div className="flex items-center gap-4 px-12">
+      <div className="flex size-full flex-col gap-4 overflow-hidden">
+        <div className="flex items-center gap-2 px-6">
           <div className="grow">
             <SearchInputControlled
               containerClassName={classNames(
-                "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.6rem] grow border border-field text-sm !px-4 shrink-0",
-                "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
+                "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[36px] grow border border-field text-sm !px-2 shrink-0",
+                "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
               )}
               placeholder={t("Search subnets")}
               value={search}
@@ -136,8 +136,8 @@ export const BittensorSubnetSelect = () => {
           <SortMethodButton method={sortMethod} onChange={(method) => setSortMethod(method)} />
         </div>
 
-        <div className="flex w-full grow flex-col gap-2 overflow-hidden">
-          <div className="text-fg-disabled flex justify-between pl-[6rem] pr-12 text-sm">
+        <div className="flex w-full grow flex-col gap-1 overflow-hidden">
+          <div className="text-fg-disabled flex justify-between pl-[60px] pr-6 text-sm">
             <div>{t("Name / Pool")}</div>
             <div>{t("Emissions / Alpha Price")}</div>
           </div>
@@ -186,10 +186,10 @@ const SortMethodButton: FC<{
       <ContextMenuTrigger asChild>
         <button
           type="button"
-          className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-tertiary border-primary flex h-full items-center gap-4 text-nowrap rounded-sm border px-[8px] py-[6px] text-sm"
+          className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-tertiary border-primary flex h-full items-center gap-2 text-nowrap rounded-sm border px-[8px] py-[6px] text-sm"
         >
           <div>{selected?.label}</div>
-          <ToolbarSortIcon className="size-10" />
+          <ToolbarSortIcon className="size-5" />
         </button>
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -295,14 +295,14 @@ const SubnetRow: FC<{
       key={option.netuid}
       onClick={onClick}
       className={classNames(
-        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full shrink-0 items-center gap-6 overflow-hidden px-12 pl-8 text-left",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[58px] w-full shrink-0 items-center gap-3 overflow-hidden px-6 pl-4 text-left",
         "disabled:cursor-not-allowed disabled:opacity-50",
         isSelected && "bg-secondary text-fg-secondary",
       )}
     >
-      <TokenLogo tokenId={tokanAlpha.id} className="size-16 shrink-0" />
-      <div className="flex h-full grow flex-col justify-center gap-2 overflow-hidden text-sm">
-        <div className="flex w-full items-center justify-between gap-8 overflow-hidden text-white">
+      <TokenLogo tokenId={tokanAlpha.id} className="size-8 shrink-0" />
+      <div className="flex h-full grow flex-col justify-center gap-1 overflow-hidden text-sm">
+        <div className="flex w-full items-center justify-between gap-4 overflow-hidden text-white">
           <div className="truncate">
             {tokanAlpha.netuid} | {tokanAlpha.subnetName} {tokanAlpha.symbol}
           </div>
@@ -312,11 +312,11 @@ const SubnetRow: FC<{
         {!!option.total_tao && (
           <div
             className={cn(
-              "text-fg-secondary flex w-full items-center justify-between gap-8 overflow-hidden text-xs",
+              "text-fg-secondary flex w-full items-center justify-between gap-4 overflow-hidden text-xs",
               isLoading && "animate-pulse",
             )}
           >
-            <div className="flex grow items-center gap-2 overflow-hidden">
+            <div className="flex grow items-center gap-1 overflow-hidden">
               <TokensAndFiat
                 tokenId={taoTokenId}
                 planck={option.total_tao}
@@ -324,7 +324,7 @@ const SubnetRow: FC<{
                 noCountUp
                 noTooltip
               />
-              <div className="bg-disabled inline-block size-2 rounded-full" />
+              <div className="bg-disabled inline-block size-1 rounded-full" />
               <TokensAndFiat
                 tokenId={tokanAlpha.id}
                 planck={option.total_alpha}

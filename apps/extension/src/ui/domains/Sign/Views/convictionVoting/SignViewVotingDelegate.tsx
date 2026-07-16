@@ -22,7 +22,7 @@ const FormattedAddress = ({ address }: { address: string }) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger className="flex max-w-[200px] items-center gap-2">
+      <TooltipTrigger className="flex max-w-[200px] items-center gap-1">
         <AccountIcon address={address} className="text-[1.2em]" />
         <span className="overflow-hidden text-ellipsis whitespace-nowrap">{label}</span>
       </TooltipTrigger>
@@ -51,10 +51,10 @@ export const SignViewVotingDelegate: FC<{
   }, [representative, url])
 
   return (
-    <div className="flex w-full flex-col items-center gap-4">
-      <div className="flex w-full items-center justify-between gap-8 overflow-hidden">
+    <div className="flex w-full flex-col items-center gap-2">
+      <div className="flex w-full items-center justify-between gap-4 overflow-hidden">
         <div className="whitespace-nowrap">{t("Delegating to")}</div>
-        <div className="text-fg-primary flex grow justify-end gap-2 overflow-hidden text-base">
+        <div className="text-fg-primary flex grow justify-end gap-1 overflow-hidden text-base">
           <FormattedAddress address={representative} />
           <button
             type="button"

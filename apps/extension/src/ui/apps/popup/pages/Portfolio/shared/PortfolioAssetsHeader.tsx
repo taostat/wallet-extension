@@ -50,7 +50,7 @@ const SendFundsButton: FC<{ account?: Account | null }> = ({ account }) => {
       <TooltipTrigger
         onClick={canSendFunds ? sendFunds : undefined}
         className={classNames(
-          "text-fg-secondary text-md flex h-16 w-16 flex-col items-center justify-center rounded-full",
+          "text-fg-secondary text-md flex h-8 w-8 flex-col items-center justify-center rounded-full",
           canSendFunds ? "hover:bg-secondary hover:text-fg-primary" : "cursor-default opacity-50",
         )}
       >
@@ -82,7 +82,7 @@ const CopyAddressButton: FC<{ account?: Account | null }> = ({ account }) => {
     <Tooltip placement="bottom">
       <TooltipTrigger
         onClick={copyAddress}
-        className="hover:bg-secondary text-fg-secondary hover:text-fg-primary text-md flex h-16 w-16 flex-col items-center justify-center rounded-full"
+        className="hover:bg-secondary text-fg-secondary hover:text-fg-primary text-md flex h-8 w-8 flex-col items-center justify-center rounded-full"
       >
         <Copy01 />
       </TooltipTrigger>
@@ -137,17 +137,17 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
 
   return (
     // top margin hack is to prevent account genesis hash icon from being truncated
-    <div className="-mt-4">
-      <div className="mt-4 flex h-[4.4rem] w-full items-center gap-8">
-        <div className="flex h-full grow items-center gap-4 overflow-hidden">
+    <div className="-mt-2">
+      <div className="mt-2 flex h-[44px] w-full items-center gap-4">
+        <div className="flex h-full grow items-center gap-2 overflow-hidden">
           <IconButton onClick={handleBackBtnClick}>
             <ChevronLeft />
           </IconButton>
           <div className="flex flex-col justify-center">
-            <CurrentAccountAvatar className="!text-[3.6rem]" />
+            <CurrentAccountAvatar className="!text-[36px]" />
           </div>
-          <div className="flex grow flex-col gap-1 overflow-hidden pl-2 text-sm">
-            <div className="flex items-center gap-3">
+          <div className="flex grow flex-col gap-0.5 overflow-hidden pl-1 text-sm">
+            <div className="flex items-center gap-1.5">
               <div className={classNames("truncate", account ? "" : "text-fg-secondary")}>
                 {account
                   ? (account.name ?? t("Unnamed Account"))
@@ -182,7 +182,7 @@ export const PortfolioAssetsHeader: FC<{ backBtnTo?: string }> = ({ backBtnTo })
                     address={account?.address}
                     hideManageAccounts
                     trigger={
-                      <ContextMenuTrigger className="hover:bg-secondary text-fg-secondary hover:text-fg-primary text-md flex h-16 w-16 flex-col items-center justify-center rounded-full">
+                      <ContextMenuTrigger className="hover:bg-secondary text-fg-secondary hover:text-fg-primary text-md flex h-8 w-8 flex-col items-center justify-center rounded-full">
                         <DotsHorizontal />
                       </ContextMenuTrigger>
                     }

@@ -26,11 +26,11 @@ export const StakeReview = () => {
 
   return (
     <div className="flex size-full flex-col">
-      <h2 className="mb-24 mt-8 text-center">{t("You are staking")}</h2>
-      <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8">
-        <div className="flex items-center justify-between gap-8 pb-2">
+      <h2 className="mb-12 mt-4 text-center">{t("You are staking")}</h2>
+      <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-4">
+        <div className="flex items-center justify-between gap-4 pb-1">
           <div className="whitespace-nowrap">{t("Amount")} </div>
-          <div className="flex items-center gap-4 overflow-hidden">
+          <div className="flex items-center gap-2 overflow-hidden">
             <TokenLogo tokenId={token?.id} className="shrink-0 text-lg" />
             <TokensAndFiat
               isBalance
@@ -42,22 +42,22 @@ export const StakeReview = () => {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-8 pt-2">
+        <div className="flex items-center justify-between gap-4 pt-1">
           <div className="whitespace-nowrap">{t("Account")} </div>
-          <div className="flex items-center gap-4 overflow-hidden">
+          <div className="flex items-center gap-2 overflow-hidden">
             <StakingAccountDisplay address={account.address} chainId={token?.networkId} />
           </div>
         </div>
-        <div className="py-8">
+        <div className="py-4">
           <hr className="text-fg-disabled" />
         </div>
-        <div className="flex items-center justify-between gap-8 pb-2 text-xs">
+        <div className="flex items-center justify-between gap-4 pb-1 text-xs">
           <div className="whitespace-nowrap">{t("Pool")} </div>
           <div className="text-fg-primary truncate">
             <NominationPoolName poolId={poolId} chainId={token?.networkId} />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-8 pt-2 text-xs">
+        <div className="flex items-center justify-between gap-4 pt-1 text-xs">
           <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
           <div>
             <FeeEstimate />

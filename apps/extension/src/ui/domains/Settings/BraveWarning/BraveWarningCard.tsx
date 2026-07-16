@@ -14,9 +14,9 @@ export const BraveWarningCard = ({ className, onLearnMoreClick }: Props) => {
   const { t } = useTranslation()
   return (
     <Card
-      className={classNames("mt-10", className)}
+      className={classNames("mt-5", className)}
       title={
-        <div className="flex w-full items-center gap-5">
+        <div className="flex w-full items-center gap-2.5">
           <BraveIcon className="inline" />
           <span>{t("Attention Brave users")}</span>
         </div>

@@ -15,7 +15,7 @@ export const TxHistoryDetailsNetwork: FC<{
   if (!network) return t("{{networkId}} (Unknown Network)", { networkId })
 
   return (
-    <div className="flex w-full gap-2 overflow-hidden">
+    <div className="flex w-full gap-1 overflow-hidden">
       <NetworkLogo networkId={networkId} className="shrink-0" />
       <NetworkName networkId={networkId} className="grow" />
     </div>

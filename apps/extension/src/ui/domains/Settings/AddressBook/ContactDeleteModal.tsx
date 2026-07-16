@@ -36,13 +36,13 @@ export const ContactDeleteModal = ({ contact, isOpen, close }: ContactModalProps
   return (
     <Modal isOpen={isOpen} onDismiss={close}>
       <ModalDialog title={t("Delete contact")}>
-        <div className="text-fg-secondary my-12">
+        <div className="text-fg-secondary my-6">
           <Trans t={t}>
             You are deleting contact '<span className="font-bold text-white">{contactName}</span>'
             from your address book.
           </Trans>
         </div>
-        <div className="flex items-stretch gap-4 pt-4">
+        <div className="flex items-stretch gap-2 pt-2">
           <Button fullWidth onClick={close}>
             {t("Cancel")}
           </Button>

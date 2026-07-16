@@ -17,7 +17,7 @@ export const ConnectAccountToggleButtonRow: FC<{
     type="button"
     onClick={onClick}
     className={classNames(
-      "hover:bg-secondary flex h-24 w-full shrink-0 items-center gap-6 px-6",
+      "hover:bg-secondary flex h-12 w-full shrink-0 items-center gap-3 px-3",
       !isConnected && "text-fg-secondary",
     )}
   >
@@ -54,7 +54,7 @@ export const ConnectAccountToggleButtonRow: FC<{
     <div className="grow"></div>
     <div
       className={classNames(
-        "mx-2 h-4 w-4 shrink-0 rounded-full",
+        "mx-1 h-2 w-2 shrink-0 rounded-full",
         isConnected ? "bg-fg-brand" : "bg-tertiary",
       )}
     ></div>

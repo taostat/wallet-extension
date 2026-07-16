@@ -21,7 +21,7 @@ export const StakeButton: FC<{
         <button
           type="button"
           onClick={onClick}
-          className="text-fg-brand bg-fg-brand/10 hover:bg-fg-brand/20 flex shrink-0 items-center justify-center rounded-full p-3"
+          className="text-fg-brand bg-fg-brand/10 hover:bg-fg-brand/20 flex shrink-0 items-center justify-center rounded-full p-1.5"
         >
           {isStaking ? <Link02 className="-rotate-45" /> : <Database01 />}
         </button>

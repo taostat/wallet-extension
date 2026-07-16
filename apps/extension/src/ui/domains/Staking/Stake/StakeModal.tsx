@@ -24,7 +24,7 @@ const ModalHeader = () => {
   return (
     <div
       className={classNames(
-        "text-fg-secondary flex min-h-32 w-full shrink-0 items-center justify-between px-10",
+        "text-fg-secondary flex min-h-16 w-full shrink-0 items-center justify-between px-5",
         step === "follow-up" ? "invisible" : "visible",
       )}
     >

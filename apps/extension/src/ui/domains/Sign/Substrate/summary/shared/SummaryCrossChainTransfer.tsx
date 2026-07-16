@@ -58,15 +58,15 @@ export const SummaryCrossChainTransfer: FC<SummaryCrossChainTransferProps> = ({
         />
       </SummaryContent>
       <SummarySeparator />
-      <SummaryContent className="grid grid-cols-[1fr_2.4rem_1fr] items-center gap-4">
-        <div className="flex flex-col items-center gap-2 overflow-hidden">
+      <SummaryContent className="grid grid-cols-[1fr_2.4rem_1fr] items-center gap-2">
+        <div className="flex flex-col items-center gap-1 overflow-hidden">
           <SummaryNetworkDisplay networkId={fromNetwork} />
           <SummaryAddressDisplay address={fromAddress} networkId={fromNetwork} mode={mode} />
         </div>
         <div>
           <ArrowRight className="text-lg" />
         </div>
-        <div className="flex flex-col items-center gap-2 overflow-hidden">
+        <div className="flex flex-col items-center gap-1 overflow-hidden">
           <SummaryNetworkDisplay networkId={toNetwork} />
           <SummaryAddressDisplay address={toAddress} networkId={toNetwork} mode={mode} />
         </div>

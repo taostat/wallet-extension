@@ -18,7 +18,7 @@ import { FormFieldInputContainerProps, FormFieldInputText, IconButton } from "ta
 
 const INPUT_CONTAINER_PROPS: FormFieldInputContainerProps = {
   small: true,
-  className: "!px-8 h-[4.6rem] my-1",
+  className: "!px-4 h-[46px] my-0.5",
 }
 
 type SearchInputProps = {

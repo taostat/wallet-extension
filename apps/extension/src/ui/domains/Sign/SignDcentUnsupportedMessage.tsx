@@ -25,7 +25,7 @@ export const SignDcentUnsupportedMessage: FC<
   )
 
   return (
-    <div className={classNames("flex w-full flex-col gap-6", className)}>
+    <div className={classNames("flex w-full flex-col gap-3", className)}>
       {onCancel && (
         <Button className="w-full" onClick={onCancel}>
           {t("Close")}

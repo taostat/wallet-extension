@@ -36,10 +36,10 @@ export const TxHistoryNetworkPicker: FC<{
       containerId="main"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      className={classNames("relative z-50", IS_POPUP ? "size-full" : "h-[60rem] w-[40rem]")}
+      className={classNames("relative z-50", IS_POPUP ? "size-full" : "h-[600px] w-[400px]")}
     >
       <div className="flex size-full flex-grow flex-col bg-black">
-        <header className="flex items-center justify-between p-10">
+        <header className="flex items-center justify-between p-5">
           <IconButton onClick={onDismiss} className={IS_POPUP ? "visible" : "invisible"}>
             <ChevronLeft />
           </IconButton>
@@ -49,7 +49,7 @@ export const TxHistoryNetworkPicker: FC<{
           </IconButton>
         </header>
         <div className="flex grow flex-col overflow-hidden">
-          <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+          <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
             <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
           </div>
           <ScrollContainer className="bg-secondary border-primary scrollable grow border-t">
@@ -88,7 +88,7 @@ const NetworksList: FC<{
         />
       ))}
       {networks.length === 0 && (
-        <div className="text-fg-secondary p-16 text-center">{t("No networks found")}</div>
+        <div className="text-fg-secondary p-8 text-center">{t("No networks found")}</div>
       )}
     </div>
   )
@@ -106,7 +106,7 @@ const NetworkRow: FC<{
       type="button"
       onClick={onClick}
       className={classNames(
-        "text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-28 w-full items-center gap-6 overflow-hidden px-12",
+        "text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-14 w-full items-center gap-3 overflow-hidden px-6",
         "focus-visible:bg-secondary",
         selected && "!bg-tertiary",
       )}
@@ -116,7 +116,7 @@ const NetworkRow: FC<{
       ) : (
         <Globe01 className="shrink-0 text-xl" />
       )}
-      <div className="text-fg-primary flex grow flex-col gap-1 truncate text-left">
+      <div className="text-fg-primary flex grow flex-col gap-0.5 truncate text-left">
         <div>{network ? network.name : t("All Networks")}</div>
         {!!network && (
           <div className="text-fg-tertiary text-xs">
@@ -124,7 +124,7 @@ const NetworkRow: FC<{
           </div>
         )}
       </div>
-      <div className="shrinkk-0 flex size-12 items-center justify-center">
+      <div className="shrinkk-0 flex size-6 items-center justify-center">
         {selected ? (
           <CheckCircle className="text-fg-primary" />
         ) : (

@@ -22,9 +22,9 @@ const AddressTooltip: FC<{
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {typeof onChainId === "string" && (
-        <div className="flex gap-1">
+        <div className="flex gap-0.5">
           <div>{t("Domain:")}</div>
           <div>{onChainId}</div>
         </div>
@@ -33,13 +33,13 @@ const AddressTooltip: FC<{
       {address === resolvedAddress && <>{resolvedAddress}</>}
 
       {address !== resolvedAddress && (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <div>{t("Original address:")}</div>
           <div>{address}</div>
         </div>
       )}
       {address !== resolvedAddress && (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <div>{t("{{chainName}} format:", { chainName: chainName || "Generic" })}</div>
           <div>{resolvedAddress}</div>
         </div>
@@ -81,7 +81,7 @@ export const StakingAccountDisplay: FC<AddressDisplayProps> = ({ address, chainI
       </TooltipContent>
       <TooltipTrigger
         className={classNames(
-          "text-fg-primary inline-flex max-w-full flex-nowrap items-center gap-4 overflow-hidden text-base",
+          "text-fg-primary inline-flex max-w-full flex-nowrap items-center gap-2 overflow-hidden text-base",
           className,
         )}
       >

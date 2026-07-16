@@ -24,8 +24,8 @@ export const AuthorisedSiteAccount: FC<{
   if (!account) return null
 
   return (
-    <div className="flex h-20 w-full items-center gap-4">
-      <div className="flex h-20 grow items-center gap-4 overflow-x-hidden">
+    <div className="flex h-10 w-full items-center gap-2">
+      <div className="flex h-10 grow items-center gap-2 overflow-x-hidden">
         <AccountIcon
           className="text-lg"
           address={account.address}

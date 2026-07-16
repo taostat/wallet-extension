@@ -17,7 +17,7 @@ export const PortfolioAccount = ({
   const account = useAccountByAddress(address)
   if (!account) return null
   return (
-    <div className={classNames("flex items-center gap-3", className)}>
+    <div className={classNames("flex items-center gap-1.5", className)}>
       <AccountIcon
         className="!text-[1em]"
         address={address}

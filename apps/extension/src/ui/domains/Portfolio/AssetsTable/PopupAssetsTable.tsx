@@ -33,19 +33,19 @@ const AssetRowSkeleton = ({ className }: { className?: string }) => {
   return (
     <div
       className={classNames(
-        "bg-secondary mt-4 flex h-28 items-center gap-6 rounded-sm px-6",
+        "bg-secondary mt-2 flex h-14 items-center gap-3 rounded-sm px-3",
         className,
       )}
     >
-      <div className="bg-tertiary h-16 w-16 animate-pulse rounded-full px-6 text-xl"></div>
-      <div className="grow space-y-1">
-        <div className="flex justify-between gap-1">
-          <div className="bg-tertiary rounded-xs h-7 w-20 animate-pulse"></div>
-          <div className="bg-tertiary rounded-xs h-7 w-[10rem] animate-pulse"></div>
+      <div className="bg-tertiary h-8 w-8 animate-pulse rounded-full px-3 text-xl"></div>
+      <div className="grow space-y-0.5">
+        <div className="flex justify-between gap-0.5">
+          <div className="bg-tertiary rounded-xs h-3.5 w-10 animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-3.5 w-[100px] animate-pulse"></div>
         </div>
-        <div className="flex justify-between gap-1">
-          <div className="bg-tertiary rounded-xs h-7 w-10 animate-pulse"></div>
-          <div className="bg-tertiary rounded-xs h-7 w-[6rem] animate-pulse"></div>
+        <div className="flex justify-between gap-0.5">
+          <div className="bg-tertiary rounded-xs h-3.5 w-5 animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-3.5 w-[60px] animate-pulse"></div>
         </div>
       </div>
     </div>
@@ -112,24 +112,24 @@ const AssetRow: FC<{
   if (!token || !summary || !network) return null
 
   return (
-    <div className="group relative h-28 w-full">
+    <div className="group relative h-14 w-full">
       <button
         type="button"
         className="bg-secondary hover:bg-secondary flex size-full items-center overflow-hidden rounded-sm"
         onClick={handleClick}
       >
-        <div className="shrink-0 p-6 text-xl">
+        <div className="shrink-0 p-3 text-xl">
           <TokenLogo tokenId={token.id} />
         </div>
-        <div className="relative flex grow items-center gap-4 overflow-hidden pr-6">
-          <div className="flex grow flex-col gap-2 overflow-hidden text-left">
-            <div className="flex w-full items-center gap-3 overflow-hidden">
-              <div className="text-fg-primary flex w-full items-center gap-3 overflow-hidden text-sm font-bold">
+        <div className="relative flex grow items-center gap-2 overflow-hidden pr-3">
+          <div className="flex grow flex-col gap-1 overflow-hidden text-left">
+            <div className="flex w-full items-center gap-1.5 overflow-hidden">
+              <div className="text-fg-primary flex w-full items-center gap-1.5 overflow-hidden text-sm font-bold">
                 <div className="truncate">
                   <TokenDisplaySymbol tokenId={token.id} />
                 </div>
                 {!!network.isTestnet && (
-                  <div className="text-tiny bg-orange-secondary/10 text-fg-orange shrink-0 rounded px-3 py-1 font-light">
+                  <div className="text-tiny bg-orange-secondary/10 text-fg-orange shrink-0 rounded px-1.5 py-0.5 font-light">
                     {t("Testnet")}
                   </div>
                 )}
@@ -139,7 +139,7 @@ const AssetRow: FC<{
             {isUniswapV2LpToken && typeof tvl === "number" && (
               <div className="text-fg-secondary whitespace-nowrap text-xs">
                 <Fiat amount={tvl} noCountUp={noCountUp} />{" "}
-                <span className="text-[0.8rem]">TVL</span>
+                <span className="text-[8px]">TVL</span>
               </div>
             )}
             {!isUniswapV2LpToken && (
@@ -152,7 +152,7 @@ const AssetRow: FC<{
           </div>
           <div
             className={classNames(
-              "flex min-w-[8rem] shrink-0 flex-col items-end gap-2 text-right",
+              "flex min-w-[80px] shrink-0 flex-col items-end gap-1 text-right",
               status.status === "fetching" && "animate-pulse transition-opacity",
             )}
           >
@@ -169,9 +169,9 @@ const AssetRow: FC<{
                 noCountUp={noCountUp}
                 isBalance
               />
-              {locked ? <Lock01 className="lock ml-2 inline align-baseline text-xs" /> : null}
+              {locked ? <Lock01 className="lock ml-1 inline align-baseline text-xs" /> : null}
               <StaleBalancesIcon
-                className="alert ml-2 inline align-baseline text-sm"
+                className="alert ml-1 inline align-baseline text-sm"
                 staleChains={status.status === "stale" ? status.staleChains : []}
               />
             </div>
@@ -187,17 +187,17 @@ const AssetRow: FC<{
         </div>
       </button>
       {showStakingButton && (
-        <div className="absolute right-4 top-0 hidden h-28 flex-col justify-center group-hover:flex">
-          <div className="flex items-center gap-3">
+        <div className="absolute right-2 top-0 hidden h-14 flex-col justify-center group-hover:flex">
+          <div className="flex items-center gap-1.5">
             <StakePillButton
               balances={balances}
               isPortfolio
-              className="[>svg]:text-[2rem] text-sm"
+              className="[>svg]:text-[20px] text-sm"
             />
             <BittensorUnstakeButton
               balances={balances}
               variant="pill"
-              className="[>svg]:text-[2rem] text-sm"
+              className="[>svg]:text-[20px] text-sm"
             />
           </div>
         </div>
@@ -217,10 +217,10 @@ const BalancesGroup = ({ label, fiatAmount, className, children }: GroupProps) =
   const { isOpen, toggle } = useOpenClose(true)
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <button
         type="button"
-        className={classNames("flex cursor-pointer items-center gap-2 text-sm", className)}
+        className={classNames("flex cursor-pointer items-center gap-1 text-sm", className)}
         onClick={toggle}
       >
         <div className="text-fg-secondary grow text-left">{label}</div>
@@ -261,7 +261,7 @@ export const PopupAssetsTable = () => {
   if (!available.length && !lockedSymbolBalances.length && !isInitialising)
     return (
       <FadeIn>
-        <div className="text-fg-secondary bg-secondary rounded-sm py-10 text-center text-xs">
+        <div className="text-fg-secondary bg-secondary rounded-sm py-5 text-center text-xs">
           {account ? t("No assets to display for this account.") : t("No assets to display.")}
         </div>
       </FadeIn>
@@ -272,31 +272,31 @@ export const PopupAssetsTable = () => {
       <div>
         {!!account && (
           <>
-            <div className="text-md flex items-center gap-2">
+            <div className="text-md flex items-center gap-1">
               <div className="text-fg-primary grow text-left">{t("Total")}</div>
               <div className="text-fg-secondary truncate">
                 <Fiat amount={total} isBalance />
               </div>
             </div>
-            <div className="h-4" />
+            <div className="h-2" />
           </>
         )}
         <BalancesGroup label={t("Available")} fiatAmount={totalAvailable}>
           <VirtualizedRows rows={available} />
           {isInitialising && <AssetRowSkeleton />}
           {!isInitialising && !available.length && (
-            <div className="text-fg-secondary bg-secondary rounded-sm py-10 text-center text-xs">
+            <div className="text-fg-secondary bg-secondary rounded-sm py-5 text-center text-xs">
               {account
                 ? t("There are no available balances for this account.")
                 : t("There are no available balances.")}
             </div>
           )}
-          <div className="h-4" />
+          <div className="h-2" />
         </BalancesGroup>
         {lockedSymbolBalances.length > 0 && (
           <BalancesGroup
             label={
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <div>{t("Locked")}</div>
                 <div>
                   <Lock01 className="text-sm" />
@@ -358,7 +358,7 @@ const VirtualizedRows: FC<{ rows: [string, Balances][]; locked?: boolean; oversc
         {virtualizer.getVirtualItems().map((item) => (
           <div
             key={item.key}
-            className="absolute left-0 top-0 h-28 w-full"
+            className="absolute left-0 top-0 h-14 w-full"
             style={{
               transform: `translateY(${item.start}px)`,
             }}

@@ -19,7 +19,7 @@ const MigratePasswordModalContent = () => {
   if (status === statusOptions.PROCESSING)
     return (
       <ModalDialog title={t("Please wait...")}>
-        <Loading01 className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
+        <Loading01 className="text-secondary animate-spin-slow mx-auto h-6 w-6" />
       </ModalDialog>
     )
   if (status === statusOptions.SUCCESS) return <MigratePasswordSuccess />
@@ -38,7 +38,7 @@ export const MigratePasswordModal = () => {
 
   return (
     <Modal isOpen={isOpen} onDismiss={close}>
-      <div className="w-[50.3rem]">
+      <div className="w-[503px]">
         <MigratePasswordProvider onComplete={close}>
           <MigratePasswordModalContent />
         </MigratePasswordProvider>

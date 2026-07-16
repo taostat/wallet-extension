@@ -20,13 +20,13 @@ const ConnectedAccountsDrawer: FC<Props> = ({ open, onClose }) => {
   return (
     <Drawer className="w-full" containerId="main" anchor="right" isOpen={open} onDismiss={onClose}>
       <div className="flex h-full flex-col bg-black">
-        <header className="px-12 py-10 text-center">
+        <header className="px-6 py-5 text-center">
           <AppPill url={url} />
-          <IconButton className="absolute right-10 top-10" onClick={onClose}>
+          <IconButton className="absolute right-5 top-5" onClick={onClose}>
             <X />
           </IconButton>
         </header>
-        <ScrollContainer innerClassName="px-12">
+        <ScrollContainer innerClassName="px-6">
           <ConnectedAccounts />
         </ScrollContainer>
       </div>

@@ -51,7 +51,7 @@ export const Dropdown = <T extends Record<string, unknown>>({
             {label}
           </Listbox.Label>
         )}
-        <div className={"text-fg-secondary inline-block max-h-[20rem] w-full"}>
+        <div className={"text-fg-secondary inline-block max-h-[200px] w-full"}>
           <Listbox.Button
             className={classNames(
               "bg-secondary-btn-bg text-fg-primary enabled:hover:bg-secondary-btn-bg-hover disabled:bg-disabled disabled:text-fg-disabled gap-md px-lg py-md shadow-btn-secondary flex w-full items-center border text-left",
@@ -65,7 +65,7 @@ export const Dropdown = <T extends Record<string, unknown>>({
             {!disabled && <ChevronDown className="text-fg-tertiary shrink-0 text-[1.2em]" />}
           </Listbox.Button>
           <div className="relative w-full">
-            <div className="bg-menu-bg border-primary shadow-menu-dropdown scrollable scrollable-700 absolute left-0 top-0 z-10 max-h-[30rem] w-full overflow-y-auto overflow-x-hidden rounded-b-md border border-t-0 backdrop-blur-md">
+            <div className="bg-menu-bg border-primary shadow-menu-dropdown scrollable scrollable-700 absolute left-0 top-0 z-10 max-h-[300px] w-full overflow-y-auto overflow-x-hidden rounded-b-md border border-t-0 backdrop-blur-md">
               <Listbox.Options>
                 {items.map((item, i, arr) => (
                   <Listbox.Option

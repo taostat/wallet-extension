@@ -35,7 +35,7 @@ export const PlatformSelect: FC<{
       renderItem={(p) => p.label}
       value={OPTIONS.find((opt) => opt.value === selected) || null}
       onChange={handleChange}
-      className={classNames("[&>div>button]:h-[4.6rem]", className)}
+      className={classNames("[&>div>button]:h-[46px]", className)}
     />
   )
 }

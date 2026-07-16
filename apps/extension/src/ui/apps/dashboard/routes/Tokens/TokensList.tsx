@@ -97,18 +97,18 @@ export const TokensList: FC<{
 
   if (!displayedTokens.length)
     return (
-      <div className="bg-secondary text-fg-secondary my-12 rounded py-24 text-center">
+      <div className="bg-secondary text-fg-secondary my-6 rounded py-12 text-center">
         <div>{t("No token found")}</div>
         <div>{t("Consider adding it manually as a custom token")}</div>
       </div>
     )
 
   return (
-    <div className="text-fg-primary flex w-full min-w-[45rem] flex-col gap-4 text-left text-base">
-      <div className="text-fg-disabled grid grid-cols-[40%_40%_20%] px-8 text-sm font-normal">
+    <div className="text-fg-primary flex w-full min-w-[450px] flex-col gap-2 text-left text-base">
+      <div className="text-fg-disabled grid grid-cols-[40%_40%_20%] px-4 text-sm font-normal">
         <div>{t("Asset")}</div>
         <div>{t("Network")}</div>
-        <div className="pr-20 text-right">{t("Active")}</div>
+        <div className="pr-10 text-right">{t("Active")}</div>
       </div>
       <VirtualizedRows tokens={displayedTokens} />
     </div>
@@ -160,12 +160,12 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
   if (!network) return null
 
   return (
-    <div className="relative h-28 w-full">
-      <div className="bg-secondary text-fg-secondary grid h-28 w-full grid-cols-[40%_40%_20%] items-center truncate rounded-sm px-8 pr-6 font-normal">
-        <div className="text-fg-primary flex items-center gap-4 overflow-hidden">
+    <div className="relative h-14 w-full">
+      <div className="bg-secondary text-fg-secondary grid h-14 w-full grid-cols-[40%_40%_20%] items-center truncate rounded-sm px-4 pr-3 font-normal">
+        <div className="text-fg-primary flex items-center gap-2 overflow-hidden">
           <TokenLogo tokenId={token.id} className="shrink-0 text-xl" />
-          <div className="flex flex-col justify-center gap-2 overflow-hidden">
-            <div className="flex items-center gap-3 overflow-hidden">
+          <div className="flex flex-col justify-center gap-1 overflow-hidden">
+            <div className="flex items-center gap-1.5 overflow-hidden">
               <div className="truncate text-base">
                 <TokenDisplaySymbol tokenId={token.id} />
               </div>
@@ -176,8 +176,8 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center gap-2 overflow-hidden">
-          <div className="text-fg-primary flex items-center gap-3 overflow-hidden">
+        <div className="flex flex-col justify-center gap-1 overflow-hidden">
+          <div className="text-fg-primary flex items-center gap-1.5 overflow-hidden">
             <NetworkLogo
               networkId={network.id}
               className="text-fg-primary shrink-0 truncate text-base"
@@ -189,7 +189,7 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
           </div>
         </div>
 
-        <div className="flex w-full items-center justify-end gap-4 text-right">
+        <div className="flex w-full items-center justify-end gap-2 text-right">
           <Toggle
             checked={isTokenActive(token, activeTokens)}
             onChange={(e) => {
@@ -199,7 +199,7 @@ const TokenRow: FC<{ token: Token }> = ({ token }) => {
             }}
           />
           <ContextMenu placement="bottom-end">
-            <ContextMenuTrigger className="hover:text-fg-primary bg-secondary hover:bg-tertiary rounded-sm p-3">
+            <ContextMenuTrigger className="hover:text-fg-primary bg-secondary hover:bg-tertiary rounded-sm p-1.5">
               <DotsHorizontal />
             </ContextMenuTrigger>
             <ContextMenuContent>
@@ -223,7 +223,7 @@ const CustomPill = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="bg-fg-brand/10 text-fg-brand inline-block rounded p-4 py-2 text-xs font-light">
+    <div className="bg-fg-brand/10 text-fg-brand inline-block rounded p-2 py-1 text-xs font-light">
       {t("Custom")}
     </div>
   )

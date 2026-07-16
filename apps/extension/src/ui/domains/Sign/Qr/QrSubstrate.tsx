@@ -92,7 +92,7 @@ export const QrSubstrate = ({
   if (scanState.page === "INIT")
     return (
       <div className={classNames("flex w-full flex-col items-center", className)}>
-        <div className="flex w-full items-center gap-12">
+        <div className="flex w-full items-center gap-6">
           {!!onReject && (
             <Button className="w-full" onClick={onReject}>
               {t("Cancel")}
@@ -114,10 +114,10 @@ export const QrSubstrate = ({
     >
       {/* don't show header on UPDATE_METADATA view */}
       {scanState.page !== "UPDATE_METADATA" && (
-        <header className="text-fg-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
+        <header className="text-fg-secondary flex h-16 min-h-[64px] w-full items-center px-6">
           <button
             type="button"
-            className="hover:text-fg-primary flex h-16 w-16 cursor-pointer items-center p-2 text-lg"
+            className="hover:text-fg-primary flex h-8 w-8 cursor-pointer items-center p-1 text-lg"
             onClick={() => {
               setScanState((scanState) => {
                 // if back is clicked and we're on the first page, reject the signing attempt
@@ -135,14 +135,14 @@ export const QrSubstrate = ({
             <ChevronLeft />
           </button>
           <span className="grow text-center">{t("Scan QR code")}</span>
-          <span className="h-16 w-16">&nbsp;</span>
+          <span className="h-8 w-8">&nbsp;</span>
         </header>
       )}
       <section
         className={classNames(
           "w-full grow",
           // don't pad the UPDATE_METADATA view
-          scanState.page !== "UPDATE_METADATA" && "px-12",
+          scanState.page !== "UPDATE_METADATA" && "px-6",
         )}
       >
         {/*
@@ -169,8 +169,8 @@ export const QrSubstrate = ({
          */}
         {scanState.page === "UPDATE_METADATA" && (
           <div className="flex h-full w-full flex-col items-center justify-between">
-            <div className="relative flex aspect-square w-full items-center justify-center bg-white p-12">
-              <div className="text-fg-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
+            <div className="relative flex aspect-square w-full items-center justify-center bg-white p-6">
+              <div className="text-fg-secondary absolute left-0.5/2 top-0.5/2 inline-flex -translate-x-0.5/2 -translate-y-0.5/2 flex-col items-center gap-4">
                 <Loading01 className="animate-spin-slow text-3xl" />
               </div>
               {qrCodeSource && payload && isJsonPayload(payload) && (
@@ -182,8 +182,8 @@ export const QrSubstrate = ({
               )}
               {!qrCodeSource && <>{t("The selected source is unavailable.")}</>}
             </div>
-            <QrCodeSourceSelector className="mt-4 text-base" {...qrCodeSourceSelectorState} />
-            <div className="text-fg-secondary mt-10 max-w-md text-center leading-10">
+            <QrCodeSourceSelector className="mt-2 text-base" {...qrCodeSourceSelectorState} />
+            <div className="text-fg-secondary mt-5 max-w-md text-center leading-10">
               {t(
                 "Scan the QR video with the Polkadot Vault app on your phone to update your metadata.",
               )}
@@ -198,7 +198,7 @@ export const QrSubstrate = ({
         {scanState.page === "RECEIVE" && onSignature && (
           <div className="flex h-full flex-col items-center justify-between">
             <ScanQr type="signature" onScan={onSignature} size={280} />
-            <div className="text-fg-secondary mt-10 max-w-md text-center leading-10">
+            <div className="text-fg-secondary mt-5 max-w-md text-center leading-10">
               {t("Scan the Polkadot Vault QR code.")}
               <br />
               {t("The image is blurred for security, but this does not affect the reading.")}
@@ -209,12 +209,12 @@ export const QrSubstrate = ({
       </section>
       <footer
         className={classNames(
-          "flex w-full shrink-0 items-center gap-12 px-12",
+          "flex w-full shrink-0 items-center gap-6 px-6",
           // the send funds popup has a narrower margin on the bottom
           // than the sign tx popup does
           // we replicate that here so that the buttons at the bottom don't
           // move around when switching to this component
-          narrowMargin ? "py-8" : "py-10",
+          narrowMargin ? "py-4" : "py-5",
         )}
       >
         {scanState.page === "SEND" && (
@@ -292,9 +292,9 @@ const SendPage = ({
 
   return (
     <>
-      <div className="flex h-full flex-col items-center justify-end gap-6">
-        <div className="relative flex aspect-square w-full max-w-md items-center justify-center rounded-xl bg-white p-12">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="flex h-full flex-col items-center justify-end gap-3">
+        <div className="relative flex aspect-square w-full max-w-md items-center justify-center rounded-xl bg-white p-6">
+          <div className="absolute left-0.5/2 top-0.5/2 -translate-x-0.5/2 -translate-y-0.5/2">
             <Loading01 className="animate-spin-slow text-fg-secondary !text-3xl" />
           </div>
           {payload && (
@@ -306,7 +306,7 @@ const SendPage = ({
             onChange={(e) => setEmbedProof(e.target.checked)}
             checked={!!embedProof}
             className={classNames(
-              "text-fg-secondary hover:text-fg-primary gap-8! text-sm",
+              "text-fg-secondary hover:text-fg-primary gap-4! text-sm",
               !canSignWithProof && "invisible",
             )}
           >
@@ -324,10 +324,10 @@ const SendPage = ({
 
         {payload && isJsonPayload(payload) ? (
           <div className="flex flex-col items-center">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <button
                 type="button"
-                className="text-fg-tertiary bg-secondary hover:bg-tertiary inline-block rounded-full px-6 py-4 text-sm font-light"
+                className="text-fg-tertiary bg-secondary hover:bg-tertiary inline-block rounded-full px-3 py-2 text-sm font-light"
                 onClick={() => setScanState({ page: "SEND", showChainspecDrawer: true })}
               >
                 {t("Add Network")}
@@ -335,7 +335,7 @@ const SendPage = ({
               <button
                 type="button"
                 disabled={signWithProof}
-                className="bg-fg-brand/10 text-fg-brand enabled:hover:bg-fg-brand/20 inline-block rounded-full px-6 py-4 text-sm font-light disabled:opacity-50"
+                className="bg-fg-brand/10 text-fg-brand enabled:hover:bg-fg-brand/20 inline-block rounded-full px-3 py-2 text-sm font-light disabled:opacity-50"
                 onClick={() => setScanState({ page: "UPDATE_METADATA" })}
               >
                 {t("Update Metadata")}
@@ -344,7 +344,7 @@ const SendPage = ({
             <button
               type="button"
               className={classNames(
-                "text-fg-tertiary hover:text-fg-primary mt-4 text-xs font-light",
+                "text-fg-tertiary hover:text-fg-primary mt-2 text-xs font-light",
                 signWithProof && "invisible",
               )}
               onClick={() => setScanState({ page: "SEND", showUpdateMetadataDrawer: true })}
@@ -363,13 +363,13 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={reject}
       >
-        <div className="bg-tertiary flex flex-col items-center rounded-t p-12">
-          <div className="mb-16 font-bold">{t("Unable to sign")}</div>
-          <div className="text-fg-secondary mb-16 max-w-md text-center text-sm leading-10">
+        <div className="bg-tertiary flex flex-col items-center rounded-t p-6">
+          <div className="mb-8 font-bold">{t("Unable to sign")}</div>
+          <div className="text-fg-secondary mb-8 max-w-md text-center text-sm leading-10">
             {t(
               "Your Polkadot Vault app needs data about this network to sign this transaction, but no secure source of network data is available. You will be unable to sign this transaction.",
             )}
-            <p className="mt-6">
+            <p className="mt-3">
               <a
                 href={POLKADOT_VAULT_DOCS_URL}
                 target="_blank"
@@ -380,7 +380,7 @@ const SendPage = ({
               .
             </p>
           </div>
-          <div className="flex w-full flex-col gap-4">
+          <div className="flex w-full flex-col gap-2">
             <Button className="w-full" small onClick={reject}>
               {t("Close")}
             </Button>
@@ -394,12 +394,12 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={() => setScanState({ page: "SEND" })}
       >
-        <div className="bg-tertiary flex flex-col items-center rounded-t p-12">
-          <div className="mb-16 font-bold">{t("Add network")}</div>
+        <div className="bg-tertiary flex flex-col items-center rounded-t p-6">
+          <div className="mb-8 font-bold">{t("Add network")}</div>
           <>
-            <div className="relative flex aspect-square w-full max-w-[16rem] items-center justify-center rounded bg-white p-7">
+            <div className="relative flex aspect-square w-full max-w-[160px] items-center justify-center rounded bg-white p-3.5">
               <>
-                <div className="text-fg-secondary absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8">
+                <div className="text-fg-secondary absolute left-0.5/2 top-0.5/2 inline-flex -translate-x-0.5/2 -translate-y-0.5/2 flex-col items-center gap-4">
                   <Loading01 className="animate-spin-slow text-xl" />
                 </div>
                 {!!genesisHash && qrCodeSource && (
@@ -408,13 +408,13 @@ const SendPage = ({
               </>
             </div>
 
-            <QrCodeSourceSelector className="mt-4" {...qrCodeSourceSelectorState} />
-            <div className="text-fg-secondary mb-16 mt-10 max-w-md text-center text-sm leading-10">
+            <QrCodeSourceSelector className="mt-2" {...qrCodeSourceSelectorState} />
+            <div className="text-fg-secondary mb-8 mt-5 max-w-md text-center text-sm leading-10">
               <Trans
                 t={t}
                 defaults="Scan the QR code with the Polkadot Vault app on your phone to add the <Chain><ChainLogo />{{chainName}}</Chain> network."
                 components={{
-                  Chain: <div className="text-fg-primary inline-flex items-baseline gap-1" />,
+                  Chain: <div className="text-fg-primary inline-flex items-baseline gap-0.5" />,
                   ChainLogo: <NetworkLogo className="self-center" networkId={chain?.id} />,
                 }}
                 values={{ chainName: chain?.name ?? t("Unknown") }}
@@ -422,7 +422,7 @@ const SendPage = ({
             </div>
           </>
 
-          <div className="flex w-full flex-col gap-4">
+          <div className="flex w-full flex-col gap-2">
             <Button
               className="w-full"
               primary
@@ -444,12 +444,12 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={() => setScanState({ page: "SEND" })}
       >
-        <div className="bg-tertiary flex max-h-full w-full flex-col items-center rounded-t p-12">
-          <div className="mb-12 font-bold">{t("Enable network")}</div>
+        <div className="bg-tertiary flex max-h-full w-full flex-col items-center rounded-t p-6">
+          <div className="mb-6 font-bold">{t("Enable network")}</div>
           <video width="160" controls autoPlay>
             <source src="/videos/add-network-vault.mp4" type="video/mp4" />
           </video>
-          <div className="text-fg-secondary mb-16 mt-10 w-full px-10 text-center text-sm leading-10">
+          <div className="text-fg-secondary mb-8 mt-5 w-full px-5 text-center text-sm leading-10">
             <Trans
               t={t}
               defaults="You will need to create a derived key in your Polkadot Vault to enable this network.
@@ -487,25 +487,25 @@ const SendPage = ({
         containerId={containerId}
         onDismiss={() => setScanState({ page: "SEND" })}
       >
-        <div className="bg-tertiary flex flex-col items-center rounded-t p-12">
-          <PolkadotVaultIcon className="mb-10 h-auto w-16" />
-          <div className="mb-5 font-bold">{t("You may need to update metadata")}</div>
+        <div className="bg-tertiary flex flex-col items-center rounded-t p-6">
+          <PolkadotVaultIcon className="mb-5 h-auto w-8" />
+          <div className="mb-2.5 font-bold">{t("You may need to update metadata")}</div>
           <div className="text-fg-secondary max-w-md text-center text-sm leading-10">
             {t(
               "If you’re receiving an error on your Polkadot Vault when trying to scan the QR code, it likely means your metadata is out of date.",
             )}
           </div>
-          <div className="py-8">
+          <div className="py-4">
             <a
               href={POLKADOT_VAULT_DOCS_URL}
               target="_blank"
-              className="text-fg-tertiary hover:text-fg-primary mt-8 text-xs font-light"
+              className="text-fg-tertiary hover:text-fg-primary mt-4 text-xs font-light"
             >
               {t("Still seeing an error?")}
             </a>
           </div>
           <Button
-            className="mb-4 w-full"
+            className="mb-2 w-full"
             primary
             small
             onClick={() => setScanState({ page: "UPDATE_METADATA" })}

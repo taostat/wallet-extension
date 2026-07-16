@@ -79,12 +79,12 @@ export const BittensorStakingPositionSelect = () => {
       }
     >
       <div className="flex size-full flex-col overflow-hidden">
-        <div className="p-12 pt-0">
+        <div className="p-6 pt-0">
           <SearchInputControlled
             containerClassName={classNames(
-              "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.6rem] w-full border border-field text-sm !px-4",
-              "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
-              "@2xl:h-[4.4rem] @2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
+              "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[36px] w-full border border-field text-sm !px-2",
+              "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
+              "@2xl:h-[44px] @2xl:[&>input]:text-base @2xl:[&>svg]:size-5",
             )}
             placeholder={t("Search")}
             value={searchSync}
@@ -104,7 +104,7 @@ export const BittensorStakingPositionSelect = () => {
               />
             ))}
             {!filteredPositions.length && (
-              <div className="text-fg-secondary p-10">
+              <div className="text-fg-secondary p-5">
                 {!positions.length
                   ? t("No staking positions available")
                   : t("No staking positions match your search")}
@@ -132,14 +132,14 @@ const Position: FC<{
       type="button"
       onClick={onClick}
       className={cn(
-        "hover:bg-tertiary flex h-28 w-full shrink-0 items-center gap-4 overflow-hidden px-10",
+        "hover:bg-tertiary flex h-14 w-full shrink-0 items-center gap-2 overflow-hidden px-5",
         isSelected && "bg-tertiary",
       )}
     >
       <TokenLogo tokenId={position.token.id} className="shrink-0 text-2xl" />
-      <div className="flex grow flex-col gap-2 overflow-hidden">
-        <div className="flex w-full justify-between gap-4 overflow-hidden text-sm">
-          <div className="flex grow items-center gap-2">
+      <div className="flex grow flex-col gap-1 overflow-hidden">
+        <div className="flex w-full justify-between gap-2 overflow-hidden text-sm">
+          <div className="flex grow items-center gap-1">
             <AccountIcon
               className="shrink-0"
               address={position.balance.address}
@@ -160,7 +160,7 @@ const Position: FC<{
             />
           </div>
         </div>
-        <div className="text-fg-secondary flex w-full justify-between gap-4 overflow-hidden text-xs">
+        <div className="text-fg-secondary flex w-full justify-between gap-2 overflow-hidden text-xs">
           <div className="truncate">
             {position.token.netuid === 0
               ? t("Root Staking")

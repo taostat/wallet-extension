@@ -107,10 +107,10 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
   }, [accountDef, onChange])
 
   return (
-    <div className="mt-8">
-      <div className="mb-8 flex flex-col gap-4">
-        <div className="text-fg-orange bg-orange-secondary/5 flex items-center gap-6 rounded-sm p-8 text-sm">
-          <div className="bg-orange-secondary/10 rounded-full p-4">
+    <div className="mt-4">
+      <div className="mb-4 flex flex-col gap-2">
+        <div className="text-fg-orange bg-orange-secondary/5 flex items-center gap-3 rounded-sm p-4 text-sm">
+          <div className="bg-orange-secondary/10 rounded-full p-2">
             <InfoCircle className="shrink-0 text-lg" />
           </div>
           <div className="leading-paragraph">
@@ -123,7 +123,7 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
           <LedgerConnectionStatus {...connectionStatus} />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-2 gap-4">
         <FormFieldContainer label={t("Account index")}>
           <FormFieldInputText
             type="number"
@@ -154,11 +154,11 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
 
         <div className="col-span-2">
           <FormFieldContainer label={t("Preview")}>
-            <div className="bg-tertiary flex h-32 w-full items-center gap-8 rounded-sm px-8 py-4">
+            <div className="bg-tertiary flex h-16 w-full items-center gap-4 rounded-sm px-4 py-2">
               {accountDef ? (
                 <>
                   <AccountIcon address={accountDef.address} className="text-xl" />
-                  <div className="flex flex-grow flex-col gap-2 overflow-hidden">
+                  <div className="flex flex-grow flex-col gap-1 overflow-hidden">
                     <div className="overflow-hidden text-ellipsis whitespace-nowrap">
                       {accountDef.name}
                     </div>
@@ -172,9 +172,9 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
                       />
                     </div>
                   </div>
-                  <div className="flex items-center justify-end gap-2">
+                  <div className="flex items-center justify-end gap-1">
                     {balances.status === "initialising" ? (
-                      <div className="rounded-xs bg-tertiary h-[1.8rem] w-[6.8rem] animate-pulse"></div>
+                      <div className="rounded-xs bg-tertiary h-[18px] w-[68px] animate-pulse"></div>
                     ) : (
                       <Tooltip placement="bottom-end">
                         <TooltipTrigger asChild>
@@ -195,8 +195,8 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
                 </>
               ) : connectionStatus.status === "connecting" ? (
                 <>
-                  <div className="bg-tertiary size-[3.2rem] animate-pulse rounded-full" />
-                  <div className="flex flex-grow flex-col gap-2 overflow-hidden">
+                  <div className="bg-tertiary size-[32px] animate-pulse rounded-full" />
+                  <div className="flex flex-grow flex-col gap-1 overflow-hidden">
                     <div className="overflow-hidden text-ellipsis whitespace-nowrap">
                       <span className="bg-tertiary text-fg-disabled rounded-xs animate-pulse select-none">
                         Account Name
@@ -208,7 +208,7 @@ export const LedgerPolkadotLegacyAccountPickerCustom: FC<
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-end gap-2">
+                  <div className="flex items-center justify-end gap-1">
                     <div className="bg-tertiary text-fg-disabled rounded-xs animate-pulse select-none">
                       00.00$
                     </div>

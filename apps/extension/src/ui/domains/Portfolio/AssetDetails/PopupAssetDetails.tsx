@@ -29,7 +29,7 @@ const NoTokens = ({ symbol }: { symbol: string }) => {
 
   return (
     <FadeIn>
-      <div className="bg-secondary text-fg-secondary leading-base rounded-sm p-10 text-center text-sm">
+      <div className="bg-secondary text-fg-secondary leading-base rounded-sm p-5 text-center text-sm">
         <div>
           {selectedAccount
             ? t("You don't have any {{symbol}} in this account", { symbol })
@@ -37,7 +37,7 @@ const NoTokens = ({ symbol }: { symbol: string }) => {
               ? t("You don't have any {{symbol}} in this folder", { symbol })
               : t("You don't have any {{symbol}}", { symbol })}
         </div>
-        <div className="mt-6 flex justify-center gap-4">
+        <div className="mt-3 flex justify-center gap-2">
           <PillButton icon={ArrowDown} onClick={handleCopy}>
             {t("Copy address")}
           </PillButton>
@@ -61,7 +61,7 @@ export const PopupAssetDetails: FC<{
 
   return (
     <FadeIn>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         {rows.map(([tokenId, bal]) => (
           <PopupTokenBalances key={tokenId} tokenId={tokenId} balances={bal} />
         ))}

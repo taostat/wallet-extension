@@ -49,7 +49,7 @@ export const SummaryAddressDisplay: FC<{
       <TooltipTrigger asChild>
         <button
           type="button"
-          className="text-fg-primary inline-flex max-w-full items-center gap-2 overflow-hidden"
+          className="text-fg-primary inline-flex max-w-full items-center gap-1 overflow-hidden"
           onClick={handleClick}
         >
           <div>

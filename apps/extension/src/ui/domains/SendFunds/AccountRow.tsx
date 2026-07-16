@@ -64,7 +64,7 @@ export const AccountRow = ({
       onClick={onClick}
       tabIndex={0}
       className={classNames(
-        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[58px] w-full items-center gap-2 px-6 text-left",
         selected && "bg-secondary text-fg-secondary",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className,
@@ -77,8 +77,8 @@ export const AccountRow = ({
         className="!text-xl"
       />
       <div className="flex grow items-center justify-between overflow-hidden">
-        <div className="flex flex-col space-y-2">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col space-y-1">
+          <div className="flex items-center gap-1">
             <div className="truncate">
               {account.name ?? (
                 <Address address={displayAddress} startCharCount={6} endCharCount={6} noTooltip />
@@ -88,7 +88,7 @@ export const AccountRow = ({
           </div>
           <Address className="text-fg-secondary text-xs" address={displayAddress} />
         </div>
-        {selected && <CheckCircle className="ml-3 inline shrink-0" />}
+        {selected && <CheckCircle className="ml-1.5 inline shrink-0" />}
         {onClear && (
           <div onClick={onClear} role="button" tabIndex={0} onKeyDown={() => null}>
             <X className="shrink-0 text-[1.2em]" />
@@ -132,7 +132,7 @@ const AccountTokenBalance = ({
   return (
     <div
       className={classNames(
-        "space-y-2 whitespace-nowrap text-right text-sm",
+        "space-y-1 whitespace-nowrap text-right text-sm",
         balance.status === "cache" && "animate-pulse",
       )}
     >

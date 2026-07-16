@@ -14,8 +14,8 @@ export const TokenPillButton: FC<TokenPillButtonProps> = ({ tokenId, className, 
   if (!tokenId || !token) return null
 
   return (
-    <PillButton className={classNames("h-16 !px-4 !py-2", className)} onClick={onClick}>
-      <div className="text-fg-primary flex flex-nowrap items-center gap-4 text-base">
+    <PillButton className={classNames("h-8 !px-2 !py-1", className)} onClick={onClick}>
+      <div className="text-fg-primary flex flex-nowrap items-center gap-2 text-base">
         <div className="shrink-0">
           <TokenLogo className="!text-lg" tokenId={tokenId} />
         </div>

@@ -40,13 +40,13 @@ export const FolderContextMenu: FC<{
   return (
     <ContextMenu placement={placement}>
       {trigger ?? (
-        <ContextMenuTrigger className="enabled:hover:bg-tertiary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-6 disabled:cursor-[inherit]">
+        <ContextMenuTrigger className="enabled:hover:bg-tertiary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-3 disabled:cursor-[inherit]">
           <DotsHorizontal className="shrink-0" />
         </ContextMenuTrigger>
       )}
       <ContextMenuContent
         data-no-dnd="true"
-        className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg"
+        className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-1 py-1.5 text-left text-sm shadow-lg"
       >
         <ContextMenuItem onClick={() => renameFolder(folder.id, folder.name, treeName)}>
           {t("Rename")}

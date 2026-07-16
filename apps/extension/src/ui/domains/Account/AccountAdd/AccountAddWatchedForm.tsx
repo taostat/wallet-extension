@@ -140,7 +140,7 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
 
   return (
     <form onSubmit={handleSubmit(submit)}>
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-8">
         {!defaultPlatform && (
           <AccountPlatformSelector defaultValue={platform} onChange={handlePlatformChange} />
         )}
@@ -175,8 +175,8 @@ export const AccountAddWatchedForm = ({ onSuccess }: AccountAddPageProps) => {
                 data-lpignore
               />
             </FormFieldContainer>
-            <div className="bg-secondary mt-4 flex h-[58px] w-full items-center rounded px-12">
-              <div className="grow space-y-4">
+            <div className="bg-secondary mt-2 flex h-[58px] w-full items-center rounded px-6">
+              <div className="grow space-y-2">
                 <div className="text-fg-primary leading-none">{t("Include in my portfolio")}</div>
                 <div className="text-fg-disabled text-sm leading-none">
                   {t(

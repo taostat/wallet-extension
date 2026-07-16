@@ -97,15 +97,15 @@ const FolderButton: FC<{ option: FolderAccountOption }> = ({ option }) => {
       type="button"
       tabIndex={0}
       className={classNames(
-        "text-fg-secondary bg-secondary hover:bg-secondary hover:text-fg-primary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6",
+        "text-fg-secondary bg-secondary hover:bg-secondary hover:text-fg-primary flex h-[59px] w-full cursor-pointer items-center gap-3 overflow-hidden rounded-sm px-3",
       )}
       onClick={handleClick}
     >
       <div className="flex flex-col justify-center text-xl">
         <AccountFolderIcon />
       </div>
-      <div className="flex grow flex-col items-start justify-center gap-1 overflow-hidden">
-        <div className="text-fg-primary flex w-full items-center gap-3 text-base">
+      <div className="flex grow flex-col items-start justify-center gap-0.5 overflow-hidden">
+        <div className="text-fg-primary flex w-full items-center gap-1.5 text-base">
           <div className="truncate">{option.name}</div>
         </div>
         <div className="text-fg-secondary flex w-full truncate text-left text-sm">
@@ -133,22 +133,22 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
     <div
       className={classNames(
         "group",
-        "bg-secondary hover:bg-secondary relative h-[5.9rem] w-full rounded-sm",
+        "bg-secondary hover:bg-secondary relative h-[59px] w-full rounded-sm",
       )}
     >
       <button
         type="button"
         tabIndex={0}
         className={classNames(
-          "text-fg-secondary hover:text-fg-primary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6",
+          "text-fg-secondary hover:text-fg-primary flex h-[59px] w-full cursor-pointer items-center gap-3 overflow-hidden rounded-sm px-3",
         )}
         onClick={handleClick}
       >
         <div className="flex flex-col justify-center text-xl">
-          <div className="size-[3.2rem]"></div>
+          <div className="size-[32px]"></div>
         </div>
-        <div className="flex grow flex-col items-start justify-center gap-1 overflow-hidden">
-          <div className="text-fg-primary flex w-full items-center gap-3 text-base">
+        <div className="flex grow flex-col items-start justify-center gap-0.5 overflow-hidden">
+          <div className="text-fg-primary flex w-full items-center gap-1.5 text-base">
             <div className="truncate">{option.name}</div>
             <AccountTypeIcon
               className="text-fg-brand"
@@ -174,8 +174,8 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
         </div>
       </button>
       {/* Absolute positioning based on parent, to prevent a "button inside a button" situation */}
-      <div className="absolute left-6 top-0 flex h-[5.9rem] flex-col justify-center">
-        <div className="relative size-[3.2rem] text-xl">
+      <div className="absolute left-3 top-0 flex h-[59px] flex-col justify-center">
+        <div className="relative size-[32px] text-xl">
           <AccountIconCopyAddressButton address={option.address} genesisHash={option.genesisHash} />
         </div>
       </div>
@@ -217,12 +217,12 @@ const AccountsToolbar = () => {
   const { open: openSettings } = useQuickSettingsOpenClose()
 
   return (
-    <div className="flex w-full items-center justify-between gap-4 overflow-hidden">
+    <div className="flex w-full items-center justify-between gap-2 overflow-hidden">
       <div className="flex grow items-center overflow-hidden">
         <SearchInput
           containerClassName={classNames(
-            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.2rem] w-full border border-field text-sm !px-4",
-            "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
+            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[32px] w-full border border-field text-sm !px-2",
+            "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
           )}
           placeholder={t("Search account or folder")}
           onChange={setPortfolioAccountsSearch}
@@ -259,7 +259,7 @@ const AccountsToolbar = () => {
 
 const AccountsList = ({ className, options }: { className?: string; options: AccountOption[] }) => {
   return (
-    <div className={classNames("flex w-full flex-col gap-4", className)}>
+    <div className={classNames("flex w-full flex-col gap-2", className)}>
       {options.map((option) =>
         option.type === "folder" ? (
           <FolderButton key={option.id} option={option} />
@@ -291,7 +291,7 @@ const Accounts = ({
   const hasAnyAccount = accounts.length > 0
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-2">
       {folder ? (
         <FolderHeader folder={folder} folderTotal={folderTotal} />
       ) : (
@@ -306,7 +306,7 @@ const Accounts = ({
       {hasPortfolioOptions && <AccountsList options={portfolioOptions} />}
 
       {hasWatchedOptions && (
-        <div className={classNames("text-fg-secondary flex items-center gap-2 font-bold")}>
+        <div className={classNames("text-fg-secondary flex items-center gap-1 font-bold")}>
           <Eye />
           <div>{t("Followed only")}</div>
         </div>
@@ -314,7 +314,7 @@ const Accounts = ({
       {hasWatchedOptions && <AccountsList options={watchedOptions} />}
 
       {hasAnyAccount && !portfolioOptions.length && !watchedOptions.length && (
-        <div className="bg-app-bg text-fg-disabled flex h-[10rem] items-center justify-center rounded-sm text-xs opacity-50">
+        <div className="bg-app-bg text-fg-disabled flex h-[100px] items-center justify-center rounded-sm text-xs opacity-50">
           {t("No accounts found")}
         </div>
       )}
@@ -326,15 +326,15 @@ const FolderHeader = ({ folder, folderTotal }: { folder: TreeFolder; folderTotal
   const navigate = useNavigate()
 
   return (
-    <div className={"mb-6 flex w-full items-center gap-4 overflow-hidden"}>
+    <div className={"mb-3 flex w-full items-center gap-2 overflow-hidden"}>
       <IconButton onClick={() => navigate(-1)}>
         <ChevronLeft />
       </IconButton>
       <div className="flex flex-col justify-center">
         <CurrentAccountAvatar className="!text-2xl" />
       </div>
-      <div className="flex grow flex-col gap-1 overflow-hidden pl-2 text-sm">
-        <div className="flex items-center gap-3">
+      <div className="flex grow flex-col gap-0.5 overflow-hidden pl-1 text-sm">
+        <div className="flex items-center gap-1.5">
           <div className="text-fg-secondary truncate">{folder.name}</div>
         </div>
         <div className="truncate">

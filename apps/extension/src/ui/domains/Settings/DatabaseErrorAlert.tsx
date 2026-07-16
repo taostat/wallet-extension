@@ -47,7 +47,7 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
 
   if (!isOpen) return null
   return (
-    <div className="absolute bottom-0 right-0 m-8 max-w-full">
+    <div className="absolute bottom-0 right-0 m-4 max-w-full">
       <Card
         className="text-fg-secondary text-center"
         title={
@@ -56,12 +56,12 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
               <Database01 className="icon text-3xl text-white" />
               <AlertCircle className="icon bg-error-secondary text-md absolute right-0 top-0 rounded text-white" />
             </div>
-            <div className="text-fg-primary mt-4">{t("Database Unavailable")}</div>
+            <div className="text-fg-primary mt-2">{t("Database Unavailable")}</div>
           </div>
         }
         description={
           <>
-            <div className="mb-4 text-sm">
+            <div className="mb-2 text-sm">
               {hasRuntimeReloadFn
                 ? t(
                     "Please make sure there is free space on your disk (at least 1GB) and then reload the wallet.",
@@ -87,14 +87,14 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
           </>
         }
         cta={
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             {hasRuntimeReloadFn ? (
               <Button className="w-full" primary fullWidth small onClick={runtimeReload}>
                 {t("Reload Taostats Wallet")}
               </Button>
             ) : null}
             <button
-              className="hover:text-fg-primary focus:text-fg-primary self-center p-4 text-xs"
+              className="hover:text-fg-primary focus:text-fg-primary self-center p-2 text-xs"
               onClick={dismiss}
             >
               Dismiss

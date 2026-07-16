@@ -29,7 +29,7 @@ export const getContainerClassName = (size: CtaButtonSize) => {
     case "large":
       return {
         iconLeftClassName: "text-lg",
-        containerClassName: "h-16 py-md",
+        containerClassName: "h-8 py-md",
         contentClassName: "gap-xs",
         titleClassName: "text-md",
         subtitleClassName: "text-sm",
@@ -37,7 +37,7 @@ export const getContainerClassName = (size: CtaButtonSize) => {
     case "small":
       return {
         iconLeftClassName: "text-xl",
-        containerClassName: "h-12 py-sm",
+        containerClassName: "h-6 py-sm",
         contentClassName: "gap-xxs",
         titleClassName: "text-sm",
         subtitleClassName: "text-xs",

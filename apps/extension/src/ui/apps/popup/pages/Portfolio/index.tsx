@@ -40,27 +40,27 @@ const HideBalancesToggle = () => {
           />
           <div
             className={classNames(
-              "bg-tertiary peer h-14 w-28 shrink-0 rounded-full",
+              "bg-tertiary peer h-7 w-14 shrink-0 rounded-full",
               "peer-focus-visible:ring-body peer-focus:outline-none peer-focus-visible:ring-2",
             )}
           ></div>
           <div
             className={classNames(
-              "absolute left-1 top-1 flex h-12 w-12",
+              "absolute left-0.5 top-0.5 flex h-6 w-6",
               "bg-secondary rounded-full",
-              "peer-checked:bg-fg-brand transition peer-checked:translate-x-14",
+              "peer-checked:bg-fg-brand transition peer-checked:translate-x-7",
             )}
           >
             <Eye
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
+                "absolute left-1 top-1 h-4 w-4",
                 "text-fg-primary-alt transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
             <EyeOff
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
+                "absolute left-1 top-1 h-4 w-4",
                 "text-fg-primary transition-opacity",
                 !hideBalances ? "opacity-0" : "opacity-100",
               )}
@@ -99,7 +99,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <ScrollContainer ref={scrollableRef} className={classNames("size-full overflow-hidden px-8")}>
+    <ScrollContainer ref={scrollableRef} className={classNames("size-full overflow-hidden px-4")}>
       {children}
     </ScrollContainer>
   )
@@ -109,9 +109,9 @@ export const Portfolio = () => (
   <PortfolioContainer renderWhileLoading>
     <div id="main" className="relative size-full overflow-hidden">
       <Content>
-        <div className="flex size-full flex-col gap-4 py-8">
-          <header className="flex items-center justify-between p-4 pt-0">
-            <TaostatsLogo className="h-[1.5rem] w-auto" />
+        <div className="flex size-full flex-col gap-2 py-4">
+          <header className="flex items-center justify-between p-2 pt-0">
+            <TaostatsLogo className="h-[15px] w-auto" />
             <HideBalancesToggle />
           </header>
           <PortfolioRoutes />

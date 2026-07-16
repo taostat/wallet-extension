@@ -58,7 +58,7 @@ const ReviewButton = () => {
       <Button
         type="submit"
         primary
-        className="mt-8 w-full"
+        className="mt-4 w-full"
         disabled={!isValid}
         data-testid="component-review-button"
         onClick={() => setConfirmed(true)}
@@ -112,10 +112,10 @@ export const SendFundsAmountForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex h-full w-full flex-col overflow-hidden px-12 pb-8"
+      className="flex h-full w-full flex-col overflow-hidden px-6 pb-4"
     >
-      <Container className="flex h-[9rem] w-full flex-col justify-center gap-5 px-8">
-        <div className="flex w-full items-center justify-between gap-4">
+      <Container className="flex h-[90px] w-full flex-col justify-center gap-2.5 px-4">
+        <div className="flex w-full items-center justify-between gap-2">
           <div>{t("From")}</div>
           <div>
             <AddressPillButton
@@ -126,9 +126,9 @@ export const SendFundsAmountForm = () => {
             />
           </div>
         </div>
-        <div className="flex w-full items-center justify-between gap-2">
+        <div className="flex w-full items-center justify-between gap-1">
           <div>{t("To")}</div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <AddressPillButton
               className="!max-w-[260px]"
               address={to}
@@ -140,7 +140,7 @@ export const SendFundsAmountForm = () => {
         </div>
       </Container>
       <AmountEdit onTokenClick={handleGotoClick("token")} />
-      <div className="w-full space-y-4 text-xs leading-[140%]">
+      <div className="w-full space-y-2 text-xs leading-[140%]">
         <AvailableBalanceRow />
         <FeesSummary />
       </div>

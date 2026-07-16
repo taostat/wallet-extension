@@ -37,14 +37,14 @@ export const NomPoolWithdrawButton: FC<{
     <button
       className={classNames(
         "text-fg-brand/80 hover:text-fg-brand bg-fg-brand/10 hover:bg-fg-brand/20 font-light",
-        variant === "small" && "h-10 rounded-sm px-3 text-xs",
-        variant === "large" && "h-14 rounded px-4 text-sm",
+        variant === "small" && "h-5 rounded-sm px-1.5 text-xs",
+        variant === "large" && "h-7 rounded px-2 text-sm",
         className,
       )}
       type="button"
       onClick={handleClick}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <ZapMinusIcon
           className={classNames(
             "shrink-0",

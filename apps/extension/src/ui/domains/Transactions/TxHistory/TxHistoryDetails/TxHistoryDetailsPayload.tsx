@@ -74,7 +74,7 @@ export const TxHistoryDetailsPayload: FC<{
   return (
     <div>
       <CodeBlock code={code} />
-      <div className="mt-2 text-right">
+      <div className="mt-1 text-right">
         <CopyToClipboardLinkButton data={code} />
       </div>
     </div>

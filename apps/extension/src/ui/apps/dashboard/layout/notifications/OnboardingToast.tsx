@@ -20,11 +20,11 @@ export const OnboardingToast = () => {
   // so we have to build it here since we need the `t` reference, which comes from a hook
   const OnboardNotification = useMemo(
     () => (
-      <div className="flex items-center gap-8 p-4">
+      <div className="flex items-center gap-4 p-2">
         <div>
           <img src="/favicon.svg" width="34" height="34" alt="" />
         </div>
-        <div className="grow leading-[2.4rem]">
+        <div className="grow leading-[24px]">
           {t("Pin Taostats Wallet for easy access")}
           <br />
           <Trans

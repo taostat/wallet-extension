@@ -37,23 +37,23 @@ type TokenRowProps = {
 }
 
 const TokenRowSkeleton = () => (
-  <div className="flex h-[5.8rem] w-full items-center gap-4 px-12 text-left">
-    <div className="bg-tertiary h-16 w-16 animate-pulse rounded-full"></div>
+  <div className="flex h-[58px] w-full items-center gap-2 px-6 text-left">
+    <div className="bg-tertiary h-8 w-8 animate-pulse rounded-full"></div>
     <div className="grow space-y-[5px]">
       <div className={"text-fg-primary flex w-full justify-between text-sm font-bold"}>
         <div>
-          <div className="bg-tertiary rounded-xs inline-block h-7 w-20 animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs inline-block h-3.5 w-10 animate-pulse"></div>
         </div>
         <div>
-          <div className="bg-tertiary rounded-xs inline-block h-7 w-48 animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs inline-block h-3.5 w-24 animate-pulse"></div>
         </div>
       </div>
-      <div className="text-fg-secondary flex w-full items-center justify-between gap-2 text-right text-xs font-light">
+      <div className="text-fg-secondary flex w-full items-center justify-between gap-1 text-right text-xs font-light">
         <div>
-          <div className="bg-secondary rounded-xs inline-block h-6 w-40 animate-pulse"></div>
+          <div className="bg-secondary rounded-xs inline-block h-3 w-20 animate-pulse"></div>
         </div>
         <div className="grow text-right">
-          <div className="bg-secondary rounded-xs inline-block h-6 w-28 animate-pulse"></div>
+          <div className="bg-secondary rounded-xs inline-block h-3 w-14 animate-pulse"></div>
         </div>
       </div>
     </div>
@@ -158,22 +158,22 @@ const TokenRow: FC<TokenRowProps> = ({
       onClick={onClick}
       tabIndex={0}
       className={classNames(
-        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full items-center gap-4 overflow-hidden px-12 text-left",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[58px] w-full items-center gap-2 overflow-hidden px-6 text-left",
         "disabled:cursor-not-allowed disabled:opacity-50",
         selected && "bg-secondary text-fg-secondary",
       )}
     >
-      <div className="w-16 shrink-0">
+      <div className="w-8 shrink-0">
         <TokenLogo tokenId={token.id} className="!text-xl" />
       </div>
-      <div className="flex grow flex-col gap-2.5 overflow-hidden">
+      <div className="flex grow flex-col gap-1.5 overflow-hidden">
         <div
           className={classNames(
-            "flex w-full justify-between gap-6 overflow-hidden text-sm font-bold",
+            "flex w-full justify-between gap-3 overflow-hidden text-sm font-bold",
             selected ? "text-fg-secondary" : "text-fg-primary",
           )}
         >
-          <div className="flex grow items-center gap-2 overflow-hidden">
+          <div className="flex grow items-center gap-1 overflow-hidden">
             {!!token.name && token.name !== token.symbol && (
               <div className="text-fg-tertiary truncate font-normal">{token.name}</div>
             )}
@@ -191,7 +191,7 @@ const TokenRow: FC<TokenRowProps> = ({
           </div>
         </div>
         {token.type === "substrate-dtao" ? (
-          <div className="text-fg-secondary flex w-full items-center justify-between gap-6 overflow-hidden text-right text-xs font-light">
+          <div className="text-fg-secondary flex w-full items-center justify-between gap-3 overflow-hidden text-right text-xs font-light">
             <div className="flex grow items-center overflow-hidden">
               <div className="truncate" data-testid="picker-token-network">
                 <BittensorValidatorName hotkey={token.hotkey} />
@@ -407,7 +407,7 @@ const TokensList: FC<TokensListProps> = ({
           />
 
           {!tokens?.length && (
-            <div className="text-fg-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
+            <div className="text-fg-secondary flex h-[58px] w-full items-center px-6 text-left">
               {t("No token matches your search")}
             </div>
           )}
@@ -425,7 +425,7 @@ const TokensList: FC<TokensListProps> = ({
           <TokenRowSkeleton />
         </>
       ) : (
-        <div className="text-fg-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
+        <div className="text-fg-secondary flex h-[58px] w-full items-center px-6 text-left">
           {t("No tokens found")}
         </div>
       )}
@@ -475,7 +475,7 @@ export const TokenPicker: FC<TokenPickerProps> = ({
     <div
       className={classNames("flex h-full min-h-full w-full flex-col overflow-hidden", className)}
     >
-      <div className="flex min-h-fit w-full flex-col items-center gap-2 px-12 pb-8">
+      <div className="flex min-h-fit w-full flex-col items-center gap-1 px-6 pb-4">
         <SearchInput
           onChange={setSearch}
           placeholder={t("Search by token or network name")}
@@ -487,7 +487,7 @@ export const TokenPicker: FC<TokenPickerProps> = ({
           <div className="no-scrollbar max-w-full overflow-x-scroll">
             <OptionSwitch
               className="text-xs"
-              optionButtonClassName="px-3"
+              optionButtonClassName="px-1.5"
               options={tokenFilterOptions}
               defaultOption={tokenFilterDefaultOption}
               onChange={onTokenFilterOptionChange}

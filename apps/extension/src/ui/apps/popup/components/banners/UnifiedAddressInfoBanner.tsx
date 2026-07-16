@@ -25,12 +25,12 @@ export const UnifiedAddressInfoBanner = () => {
     <div
       className={classNames(
         "relative z-0 overflow-hidden",
-        "text-tiny select-none rounded-sm px-6 py-4",
+        "text-tiny select-none rounded-sm px-3 py-2",
         "bg-gradient-to-r from-[#9F7998] to-[#EB5D93]",
       )}
     >
       <div className="relative z-10">
-        <div className="flex items-center gap-4 text-base">
+        <div className="flex items-center gap-2 text-base">
           <div className="grow font-bold">{t("Unified address format")}</div>
           <div>
             <IconButton
@@ -47,17 +47,17 @@ export const UnifiedAddressInfoBanner = () => {
             defaults="Polkadot is unifying account formats across parachains.<br />Verify addresses during the transition to ensure smooth transfers."
           ></Trans>
         </p>
-        <div className="text-tiny mt-5 flex items-center justify-between">
-          <div className="flex h-12 flex-col justify-center rounded-lg bg-white/10 px-6">
+        <div className="text-tiny mt-2.5 flex items-center justify-between">
+          <div className="flex h-6 flex-col justify-center rounded-lg bg-white/10 px-3">
             5EoJmkBANK...os4rNjjoTt
           </div>
           <ArrowRight className="shrink-0 text-sm" />
-          <div className="flex h-12 flex-col justify-center rounded-lg bg-white/10 px-6">
+          <div className="flex h-6 flex-col justify-center rounded-lg bg-white/10 px-3">
             13jbv5SEE6...oDcwQFvFg2
           </div>
         </div>
       </div>
-      <BgIcon className="absolute -right-1 top-[2.2rem] h-[10.1rem] w-[16.5rem] fill-[#FF0067] opacity-20" />
+      <BgIcon className="absolute -right-0.5 top-[22px] h-[101px] w-[165px] fill-[#FF0067] opacity-20" />
     </div>
   )
 }

@@ -25,30 +25,30 @@ export const MessageSiws = ({ account, chain, request, validationError }: Props)
 
   return (
     <div className="scrollable scrollable-800 flex h-full max-h-full w-full flex-col items-center overflow-auto">
-      <div className="my-12 flex w-full flex-col items-center">
-        <div className="bg-secondary rounded-full p-5">
-          <UserRightIcon className="text-fg-brand text-[2.8rem]" />
+      <div className="my-6 flex w-full flex-col items-center">
+        <div className="bg-secondary rounded-full p-2.5">
+          <UserRightIcon className="text-fg-brand text-[28px]" />
         </div>
-        <div className="mt-8 text-lg font-bold">{t("Sign In")}</div>
-        <div className="text-fg-secondary my-16 flex w-full flex-col items-center gap-3 overflow-hidden">
+        <div className="mt-4 text-lg font-bold">{t("Sign In")}</div>
+        <div className="text-fg-secondary my-8 flex w-full flex-col items-center gap-1.5 overflow-hidden">
           <div className="text-fg-primary max-w-full truncate font-bold">{request.domain}</div>
           <div className="text-fg-secondary">{t("wants you to sign in with Substrate")}</div>
-          <div className="[&>button>div>span]:text-fg-primary flex max-w-full items-center justify-center gap-2 truncate [&>button>div>span]:font-bold">
+          <div className="[&>button>div>span]:text-fg-primary flex max-w-full items-center justify-center gap-1 truncate [&>button>div>span]:font-bold">
             <span>{t("with")}</span>
             <AccountPill account={account} ss58Format={chain?.prefix ?? undefined} />
           </div>
         </div>
         {!!request.statement && (
-          <div className="bg-secondary mb-16 w-full rounded-sm p-4 text-sm">
+          <div className="bg-secondary mb-8 w-full rounded-sm p-2 text-sm">
             <div className="text-fg-disabled text-xs">{t("Statement")}</div>
-            <div className="text-fg-primary leading-paragraph mt-2">{request.statement}</div>
+            <div className="text-fg-primary leading-paragraph mt-1">{request.statement}</div>
           </div>
         )}
         <ViewDetailsButton onClick={open} />
       </div>
       <div className="grow"></div>
       {validationError && (
-        <SignAlertMessage type="error" className="mt-8">
+        <SignAlertMessage type="error" className="mt-4">
           {t("Sign in domain or address is different from website domain or signer address.")}
         </SignAlertMessage>
       )}
@@ -68,8 +68,8 @@ const ViewDetailsContent: FC<{
   const message = useMemo(() => request.prepareMessage(), [request])
 
   return (
-    <div className="bg-secondary flex max-h-[60rem] w-full flex-col gap-12 p-12">
-      <div className="scrollable scrollable-700 flex-grow overflow-y-auto overflow-x-hidden pr-4 text-sm leading-[2rem]">
+    <div className="bg-secondary flex max-h-[600px] w-full flex-col gap-6 p-6">
+      <div className="scrollable scrollable-700 flex-grow overflow-y-auto overflow-x-hidden pr-2 text-sm leading-[20px]">
         <div className="text-fg-secondary">{t("Details")}</div>
         <p>
           {t(
@@ -89,8 +89,8 @@ const ViewDetailsContent: FC<{
         <ViewDetailsField label={t("Issued At")}>{request.issuedAt}</ViewDetailsField>
         <ViewDetailsField label={t("Expires At")}>{request.expirationTime}</ViewDetailsField>
         <ViewDetailsField label={t("Message")}>
-          <div className="mt-2 pr-2">
-            <pre className="text-fg-secondary scrollable scrollable-700 bg-secondary rounded-xs w-full overflow-x-auto p-4">
+          <div className="mt-1 pr-1">
+            <pre className="text-fg-secondary scrollable scrollable-700 bg-secondary rounded-xs w-full overflow-x-auto p-2">
               {message}
             </pre>
           </div>

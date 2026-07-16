@@ -97,8 +97,8 @@ const ViewDetailsContent: FC<{
   }, [genericEvent])
 
   return (
-    <div className="bg-secondary flex max-h-[60rem] w-full flex-col gap-12 p-12">
-      <div className="scrollable scrollable-700 flex-grow overflow-y-auto overflow-x-hidden pr-4 text-sm leading-[2rem]">
+    <div className="bg-secondary flex max-h-[600px] w-full flex-col gap-6 p-6">
+      <div className="scrollable scrollable-700 flex-grow overflow-y-auto overflow-x-hidden pr-2 text-sm leading-[20px]">
         <div className="text-fg-secondary">{t("Details")}</div>
         <ViewDetailsAddress label={t("From")} address={payload.address} network={chain} />
 
@@ -135,8 +135,8 @@ const ViewDetailsContent: FC<{
             <ViewDetailsField label={t("Type")}>{type}</ViewDetailsField>
             <ViewDetailsField label={t("Data")}>
               {data && (
-                <div className="mt-2 pr-2">
-                  <pre className="text-fg-secondary scrollable scrollable-700 bg-secondary rounded-xs w-full overflow-x-auto p-4">
+                <div className="mt-1 pr-1">
+                  <pre className="text-fg-secondary scrollable scrollable-700 bg-secondary rounded-xs w-full overflow-x-auto p-2">
                     {data}
                   </pre>
                 </div>

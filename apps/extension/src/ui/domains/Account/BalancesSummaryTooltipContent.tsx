@@ -54,16 +54,16 @@ export const BalancesSummaryTooltipContent: FC<{ balances: Balances | null | und
 
   return (
     <TooltipContent>
-      <div className="flex max-w-[30rem] flex-col gap-3 overflow-hidden p-2">
+      <div className="flex max-w-[300px] flex-col gap-1.5 overflow-hidden p-1">
         {tokenBalances.slice(0, 5).map((b, i) => (
           <div key={`${b.tokenId}-${i}`} className="flex w-full items-center truncate">
-            <TokenLogo tokenId={b.tokenId} className="h-8 w-8" />
-            <span className="ml-2">
+            <TokenLogo tokenId={b.tokenId} className="h-4 w-4" />
+            <span className="ml-1">
               <TokensAndFiat tokenId={b.tokenId} planck={b.total} noTooltip noCountUp isBalance />
             </span>
-            <span className="mx-2">{t("on")}</span>
-            <NetworkLogo networkId={b.networkId} className="h-8 w-8" />
-            <span className="ml-2 truncate">{b.networkName}</span>
+            <span className="mx-1">{t("on")}</span>
+            <NetworkLogo networkId={b.networkId} className="h-4 w-4" />
+            <span className="ml-1 truncate">{b.networkName}</span>
           </div>
         ))}
         {tokenBalances.length > 5 && (

@@ -12,10 +12,10 @@ export const SignViewStakingUnstake: FC<{
   const token = useToken(tokenId)
 
   return (
-    <div className="flex w-full flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-2">
       <div>
         {t("You are unstaking all")}{" "}
-        <span className="text-fg-primary inline-flex gap-2">
+        <span className="text-fg-primary inline-flex gap-1">
           <TokenLogo tokenId={tokenId} className="inline" />
           <span>{token?.symbol}</span>
         </span>

@@ -61,14 +61,14 @@ const NetworkRow: FC<{ network: Network; onClick: () => void }> = ({ network, on
     <button
       type="button"
       onClick={onClick}
-      className="text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-32 w-full items-center gap-6 px-12"
+      className="text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-16 w-full items-center gap-3 px-6"
     >
       <NetworkLogo className="shrink-0 text-xl" networkId={network.id} />
-      <div className="flex grow flex-col gap-2 overflow-hidden text-left">
+      <div className="flex grow flex-col gap-1 overflow-hidden text-left">
         <div className="text-fg-primary truncate">{network.name}</div>
         <div className="text-fg-secondary truncate text-xs">{network.blockExplorerUrls[0]}</div>
       </div>
-      <div className="flex gap-6">
+      <div className="flex gap-3">
         <LinkExternal01 className="text-md" />
       </div>
     </button>
@@ -96,15 +96,15 @@ export const ExplorerNetworkPicker: FC<{ address: string; onClose: () => void }>
 
   return (
     <div id="copy-address-modal" className="flex h-full w-full flex-col overflow-hidden bg-black">
-      <div className="flex h-32 w-full shrink-0 items-center px-12">
-        <div className="w-12"></div>
+      <div className="flex h-16 w-full shrink-0 items-center px-6">
+        <div className="w-6"></div>
         <div className="text-fg-secondary grow text-center">{t("View on Taostats")}</div>
         <IconButton onClick={onClose}>
           <X />
         </IconButton>
       </div>
       <div className="flex grow flex-col overflow-hidden">
-        <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+        <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
           {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
           <SearchInput onChange={setSearch} placeholder={t("Search by network name")} autoFocus />
         </div>
@@ -113,7 +113,7 @@ export const ExplorerNetworkPicker: FC<{ address: string; onClose: () => void }>
             <NetworkRow key={network.id} network={network} onClick={handleNetworkClick(network)} />
           ))}
           {!networks.length && (
-            <div className="text-fg-secondary flex h-32 items-center px-12">
+            <div className="text-fg-secondary flex h-16 items-center px-6">
               {t("No network match your search")}
             </div>
           )}

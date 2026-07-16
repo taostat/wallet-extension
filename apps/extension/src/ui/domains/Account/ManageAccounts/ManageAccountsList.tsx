@@ -119,7 +119,7 @@ export const ManageAccountsList: FC<{
           : null}
       </DndContext>
       {!items.filter((i) => i.isVisible).length && (
-        <div className="bg-secondary text-fg-disabled flex h-40 items-center justify-center rounded text-sm">
+        <div className="bg-secondary text-fg-disabled flex h-20 items-center justify-center rounded text-sm">
           {t("No accounts found")}
         </div>
       )}

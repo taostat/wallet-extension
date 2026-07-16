@@ -4,9 +4,9 @@ import { ToastContainer } from "react-toastify"
 
 export const NotificationsContainer = () => (
   <ToastContainer
-    toastClassName="!bg-secondary !rounded-md w-[33rem] right-12 !font-sans mr-0 mb-xs border border-primary"
-    bodyClassName="!px-4 !py-0"
-    className="!left-auto !right-0 !top-12 !w-auto"
+    toastClassName="!bg-secondary !rounded-md w-[330px] right-6 !font-sans mr-0 mb-xs border border-primary"
+    bodyClassName="!px-2 !py-0"
+    className="!left-auto !right-0 !top-6 !w-auto"
     progressClassName={"helloprogress"}
   />
 )

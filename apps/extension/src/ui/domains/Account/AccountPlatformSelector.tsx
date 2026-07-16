@@ -16,7 +16,7 @@ const AccountTypeButton: FC<{
   <button
     type="button"
     className={classNames(
-      "bg-secondary allow-focus flex h-32 items-center gap-6 rounded px-6 text-left",
+      "bg-secondary allow-focus flex h-16 items-center gap-3 rounded px-3 text-left",
       disabled && "text-fg-secondary opacity-40",
       !disabled && "hover:bg-secondary",
       className,
@@ -25,7 +25,7 @@ const AccountTypeButton: FC<{
     onClick={onClick}
   >
     <div className="text-xl">{icon}</div>
-    <div className="flex flex-grow flex-col justify-center gap-2">
+    <div className="flex flex-grow flex-col justify-center gap-1">
       <div className="text-fg-primary text-base">{title}</div>
       <div className="text-fg-secondary text-xs">{subtitle}</div>
     </div>
@@ -55,7 +55,7 @@ export const AccountPlatformSelector = ({
   }, [onChange, platform])
 
   return (
-    <div className={classNames("grid w-full grid-cols-2 gap-10", className)}>
+    <div className={classNames("grid w-full grid-cols-2 gap-5", className)}>
       <AccountTypeButton
         className={classNames(
           platform === "polkadot" ? "border-primary" : "border-primary border-opacity-20",

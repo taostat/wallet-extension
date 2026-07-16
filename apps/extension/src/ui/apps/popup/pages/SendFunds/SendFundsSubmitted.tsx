@@ -30,7 +30,7 @@ export const SendFundsSubmitted = () => {
   }, [])
 
   return (
-    <div id="main" className="relative h-full w-full px-12 py-8">
+    <div id="main" className="relative h-full w-full px-6 py-4">
       <SendFundsProgress txId={txId} networkId={networkId} onClose={handleClose} />
     </div>
   )

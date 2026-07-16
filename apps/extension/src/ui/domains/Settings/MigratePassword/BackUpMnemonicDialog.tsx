@@ -28,7 +28,7 @@ const ShowMnemonic = () => {
 
       <Mnemonic mnemonic={mnemonic} onReveal={() => setHasHovered(true)} />
 
-      <div className="mt-20 flex justify-end">
+      <div className="mt-10 flex justify-end">
         <Button
           primary={hasHovered}
           onClick={setMnemonicBackupConfirmed}
@@ -61,8 +61,8 @@ export const BackUpMnemonicDialog = () => {
           "We strongly encourage you to back up your recovery phrase by writing it down and storing it in a secure location.",
         )}
       </p>
-      <div className="mt-20 flex justify-between">
-        <Button className="mr-4 px-4" onClick={setMnemonicBackupConfirmed} fullWidth>
+      <div className="mt-10 flex justify-between">
+        <Button className="mr-2 px-2" onClick={setMnemonicBackupConfirmed} fullWidth>
           {t("I've already backed up")}
         </Button>
         <Button onClick={() => setShowMnemonic(true)} primary fullWidth>

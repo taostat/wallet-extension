@@ -11,7 +11,7 @@ export type ViewDetailsFieldProps = {
 
 export const ViewDetailsField: FC<ViewDetailsFieldProps> = ({ label, children, error }) =>
   error || children ? (
-    <div className="mt-4">
+    <div className="mt-2">
       <div className="text-fg-secondary">{label}</div>
       <div className={classNames(error && "text-fg-orange")}>{error || children}</div>
     </div>

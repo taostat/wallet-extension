@@ -34,7 +34,7 @@ export const NetworkSpecsQrCode = ({ genesisHash, qrCodeSource }: Props) => {
     return (
       <>
         <img
-          className="absolute h-full w-full rounded p-2"
+          className="absolute h-full w-full rounded p-1"
           src={chainspecQrUrl}
           ref={ref}
           onLoad={onLoad}
@@ -45,7 +45,7 @@ export const NetworkSpecsQrCode = ({ genesisHash, qrCodeSource }: Props) => {
         />
         {loaded && qrCodeLogo ? (
           <img
-            className="absolute left-1/2 top-1/2 w-11 -translate-x-1/2 -translate-y-1/2 bg-white p-2"
+            className="absolute left-0.5/2 top-0.5/2 w-[22px] -translate-x-0.5/2 -translate-y-0.5/2 bg-white p-1"
             src={qrCodeLogo}
             alt=""
           />

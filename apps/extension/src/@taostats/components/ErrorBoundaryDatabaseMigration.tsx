@@ -3,11 +3,11 @@ import { MIGRATION_ERROR_MSG } from "extension-core"
 import { Component, ErrorInfo, ReactNode } from "react"
 
 const ErrorMessage = () => (
-  <div className="text-whit mx-auto flex h-[60rem] w-[40rem] flex-col px-12 py-16 text-center">
+  <div className="text-whit mx-auto flex h-[600px] w-[400px] flex-col px-6 py-8 text-center">
     <div className="flex grow flex-col justify-center font-bold">
       <div className="text-xl">Updating</div>
-      <div className="my-[4.4rem]">
-        <Loading01 className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
+      <div className="my-[44px]">
+        <Loading01 className="text-secondary animate-spin-slow mx-auto h-6 w-6" />
       </div>
       <div className="text-md">
         Adding new and improved

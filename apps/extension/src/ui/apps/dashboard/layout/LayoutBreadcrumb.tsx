@@ -160,7 +160,7 @@ export const LayoutBreadcrumb: FC<{
   return (
     <div
       className={classNames(
-        "text-fg-tertiary mb-6 flex max-w-full items-center gap-1 overflow-hidden text-xs",
+        "text-fg-tertiary mb-3 flex max-w-full items-center gap-0.5 overflow-hidden text-xs",
         className,
       )}
     >
@@ -190,7 +190,7 @@ const BreadcrumbItem: FC<BreadcrumbItemProps & { selected: boolean }> = ({
     <NavLink
       to={to}
       className={classNames(
-        "hover:text-fg-secondary flex items-center gap-4 truncate font-normal",
+        "hover:text-fg-secondary flex items-center gap-2 truncate font-normal",
         selected && "!text-fg-secondary font-medium",
       )}
     >

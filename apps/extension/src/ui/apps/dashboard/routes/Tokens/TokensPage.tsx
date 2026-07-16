@@ -79,30 +79,30 @@ const Content = () => {
 
   return (
     <>
-      <div className="flex w-full gap-8">
+      <div className="flex w-full gap-4">
         <HeaderBlock title={t("Tokens")} className="grow" text={t("Enable and disable tokens")} />
       </div>
       <Spacer small />
-      <div className="h-4" />
+      <div className="h-2" />
       <NetworkCombo
         networks={networkOptions}
         onChange={setNetworkId}
         value={networkId}
         bgClassName="bg-secondary"
       />
-      <div className="h-4" />
-      <div className="flex gap-4">
+      <div className="h-2" />
+      <div className="flex gap-2">
         <SearchInput
           initialValue={search}
           onChange={setSearch}
           placeholder={t("Search tokens")}
-          containerClassName="rounded-sm [&>svg]:size-12"
+          containerClassName="rounded-sm [&>svg]:size-6"
         />
       </div>
-      <div className="h-4"></div>
-      <div className="flex justify-end gap-4">
+      <div className="h-2"></div>
+      <div className="flex justify-end gap-2">
         <div className="grow">
-          <PillButton className="h-16" onClick={() => ocResetAllModal.open()}>
+          <PillButton className="h-8" onClick={() => ocResetAllModal.open()}>
             {t("Reset active states")}
           </PillButton>
         </div>
@@ -159,11 +159,11 @@ const ResetStatesModalContent: FC<{
 
   return (
     <ModalDialog title={t("Reset tokens")} onClose={onClose}>
-      <div className="text-fg-secondary mb-8 text-sm">
+      <div className="text-fg-secondary mb-4 text-sm">
         {t("This will reset active state of all tokens to their defaults.")}
       </div>
 
-      <div className="mt-4 flex justify-end gap-8">
+      <div className="mt-2 flex justify-end gap-4">
         <Button onClick={onClose}>{t("Cancel")}</Button>
         <Button primary onClick={handleClick}>
           {t("Reset")}

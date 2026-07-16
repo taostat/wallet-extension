@@ -22,7 +22,7 @@ export const TxHistoryDetailsIdentifier: FC<{
   return (
     <div>
       <CodeBlock code={identifier} />
-      <div className="mt-2 text-right">
+      <div className="mt-1 text-right">
         <CopyToClipboardLinkButton data={identifier} />
       </div>
     </div>

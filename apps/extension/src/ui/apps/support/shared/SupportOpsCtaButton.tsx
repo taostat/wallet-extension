@@ -8,7 +8,7 @@ export const SupportOpsCtaButton: FC<{
   <button
     type="button"
     onClick={onClick}
-    className="border-primary bg-app-bg hover:bg-secondary flex flex-col gap-4 rounded border p-10 text-left"
+    className="border-primary bg-app-bg hover:bg-secondary flex flex-col gap-2 rounded border p-5 text-left"
   >
     <div className="text-md font-bold">{title}</div>
     <p className="text-fg-secondary">{description}</p>

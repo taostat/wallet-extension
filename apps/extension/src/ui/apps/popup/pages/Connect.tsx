@@ -29,9 +29,9 @@ const NoAccountWarning = ({
   const { t } = useTranslation()
   return (
     <Drawer isOpen anchor="bottom" containerId="main">
-      <div className="bg-secondary flex flex-col gap-8 rounded-t-xl p-12">
+      <div className="bg-secondary flex flex-col gap-4 rounded-t-xl p-6">
         <div className="w-full text-center">
-          <InfoCircle className="text-fg-brand inline-block text-[4rem]" />
+          <InfoCircle className="text-fg-brand inline-block text-[40px]" />
         </div>
         <p className="text-fg-secondary text-center">
           <Trans
@@ -41,7 +41,7 @@ const NoAccountWarning = ({
             values={{ type: capitalize(type) }}
           />
         </p>
-        <div className="mt-4 grid grid-cols-2 gap-8">
+        <div className="mt-2 grid grid-cols-2 gap-4">
           <Button onClick={onIgnoreClick}>{t("No")}</Button>
           <Button primary onClick={onAddAccountClick}>
             {t("Yes")}
@@ -126,7 +126,7 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
       />
 
       <PopupFooter>
-        <div className="grid w-full grid-cols-2 gap-12">
+        <div className="grid w-full grid-cols-2 gap-6">
           <Button onClick={reject} data-testid="connection-reject-button">
             {t("Reject")}
           </Button>
@@ -169,7 +169,7 @@ export const ConnectPolkadot: ConnectComponent = ({
 
   return (
     <PopupContent>
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-2">
         <ConnectAccountsContainer
           status="disabled"
           connectedAddresses={connected}

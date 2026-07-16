@@ -25,7 +25,7 @@ export const ModalDialog: FC<ModalDialogProps> = ({
     <div
       id={id}
       className={classNames(
-        "border-primary bg-app-bg text-fg-primary flex max-h-[100dvh] w-[42rem] max-w-[100dvw] flex-col overflow-hidden rounded-lg border",
+        "border-primary bg-app-bg text-fg-primary flex max-h-[100dvh] w-[420px] max-w-[100dvw] flex-col overflow-hidden rounded-lg border",
         className,
       )}
       tabIndex={-1} // reset to prevent tab key from giving focus to elements below the modal

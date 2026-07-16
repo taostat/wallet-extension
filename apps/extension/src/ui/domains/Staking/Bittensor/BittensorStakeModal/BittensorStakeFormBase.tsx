@@ -136,8 +136,8 @@ const TokenInput = ({ onEdit }: { onEdit: () => void }) => {
   useInputAutoWidth(refTokensInput)
 
   return (
-    <div className="flex w-full flex-nowrap items-center justify-between gap-4">
-      <div className="text-fg-primary flex shrink-0 items-center gap-2 text-base font-normal">
+    <div className="flex w-full flex-nowrap items-center justify-between gap-2">
+      <div className="text-fg-primary flex shrink-0 items-center gap-1 text-base font-normal">
         <TokenLogo
           className="text-lg"
           tokenId={isSubnetUnstake ? dtaoToken?.id : nativeToken?.id}
@@ -227,8 +227,8 @@ const AlphaInput = ({ lastEditedInput }: { lastEditedInput: { current: "primary"
   if (!secondaryToken || typeof netuid !== "number" || netuid === 0) return null
 
   return (
-    <div className="flex w-full flex-nowrap items-center justify-between gap-4">
-      <div className="text-fg-primary flex shrink-0 items-center gap-2 text-base font-normal">
+    <div className="flex w-full flex-nowrap items-center justify-between gap-2">
+      <div className="text-fg-primary flex shrink-0 items-center gap-1 text-base font-normal">
         <TokenLogo className="text-lg" tokenId={secondaryTokenId} />
         <div>{secondarySymbol}</div>
       </div>
@@ -340,7 +340,7 @@ const FiatInput = () => {
         className="text-fg-primary peer inline-block min-w-0 bg-transparent text-lg"
         onChange={handleChange}
       />
-      {/* {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>} */}
+      {/* {isEstimatingMaxAmount && <div className="bg-secondary h-8 w-24 rounded"></div>} */}
       <div className="block shrink-0">{currencyConfig[currency]?.symbol}</div>
     </div>
   )
@@ -372,32 +372,32 @@ export const AmountEdit = () => {
   }, [maxPlancks, setPlancks])
 
   return (
-    <div className="flex w-full grow flex-col justify-center gap-4">
+    <div className="flex w-full grow flex-col justify-center gap-2">
       {!!nativeToken && (
         <>
-          <div className="h-16">{/* mirrors the height of error message reserved space */}</div>
-          <div className="flex flex-col items-center gap-2">
+          <div className="h-8">{/* mirrors the height of error message reserved space */}</div>
+          <div className="flex flex-col items-center gap-1">
             <div className="flex w-full flex-col text-lg">
               {displayMode === "token" ? <TokenInput onEdit={onPrimaryEdit} /> : <FiatInput />}
             </div>
             {displayMode === "token" && isSubnetOperation && (
-              <div className="border-primary w-full border-t pt-2">
+              <div className="border-primary w-full border-t pt-1">
                 <AlphaInput lastEditedInput={lastEditedInput} />
               </div>
             )}
           </div>
-          <div className={classNames("flex max-w-full items-center justify-center gap-4")}>
+          <div className={classNames("flex max-w-full items-center justify-center gap-2")}>
             {tokenRates && <FiatDisplay />}
             <PillButton
               onClick={onSetMaxClick}
               disabled={!maxPlancks}
               size="xs"
-              className={classNames("h-[2.2rem] rounded-sm !px-4 !py-0")}
+              className={classNames("h-[22px] rounded-sm !px-2 !py-0")}
             >
               {t("Max")}
             </PillButton>
           </div>
-          <div className="h-16">
+          <div className="h-8">
             <div className="text-brand-orange line-clamp-2 text-center text-xs">
               {inputErrorMessage}
             </div>
@@ -466,7 +466,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
           onCloseModal={close}
         />
       }
-      contentClassName="text-fg-secondary flex size-full flex-col gap-4 p-12 pt-0"
+      contentClassName="text-fg-secondary flex size-full flex-col gap-2 p-6 pt-0"
     >
       <BittensorAssetAccountSummary
         token={nativeToken}
@@ -478,7 +478,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
         accountLabel={t("Account")}
       />
       <AmountEdit />
-      <div className="bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-2 text-xs">
         <div className="flex items-center justify-between">
           <div className="whitespace-nowrap">
             {stakeDirection === "stake" ? t("Available Balance") : t("Available to unstake")}
@@ -495,15 +495,15 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
         </div>
       </div>
 
-      <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-4 text-xs">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-1 rounded p-2 text-xs">
         <StakeTypeDetails />
         <div
           className={classNames(
-            "flex gap-8",
+            "flex gap-4",
             stakeType === "subnet" ? "flex-col-reverse" : "flex-col",
           )}
         >
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex items-center justify-between gap-3">
             <div className="whitespace-nowrap">{t("Select Validator")}</div>
             <div className="text-fg-primary truncate">
               <BittensorDelegatorNameButton
@@ -513,9 +513,9 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-8 pb-2 text-xs">
+        <div className="flex items-center justify-between gap-4 pb-1 text-xs">
           <div className="whitespace-nowrap">{t("Estimated Amount")} </div>
-          <div className="text-fg-secondary flex items-center gap-2 truncate">
+          <div className="text-fg-secondary flex items-center gap-1 truncate">
             {!!amountOut && (
               <TokensAndFiat
                 planck={amountOut}
@@ -528,7 +528,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
         </div>
         {!isSubnetUnstake && (
           <>
-            <div className="flex items-center justify-between gap-8">
+            <div className="flex items-center justify-between gap-4">
               <div className="whitespace-nowrap">{t("Estimated Fee")}</div>
               <div className="overflow-hidden">
                 <FeeEstimate />
@@ -541,7 +541,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
       <Button
         primary
         fullWidth
-        className="mt-6"
+        className="mt-3"
         disabled={!payload}
         onClick={() => setStep("review")}
       >

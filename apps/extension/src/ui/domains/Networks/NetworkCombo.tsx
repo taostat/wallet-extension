@@ -54,7 +54,7 @@ export const NetworkCombo: FC<{
         <div className={classNames("relative")}>
           <div
             className={classNames(
-              "flex h-24 items-center gap-4 px-8",
+              "flex h-12 items-center gap-2 px-4",
               "w-full",
               "focus-within:border-primary rounded-sm border border-transparent",
               open && "rounded-b-none border-b-transparent",
@@ -64,7 +64,7 @@ export const NetworkCombo: FC<{
           >
             <NetworkLogo
               networkId={value ?? undefined}
-              className={classNames("size-12", !selected && "opacity-50")}
+              className={classNames("size-6", !selected && "opacity-50")}
             />
             <ComboboxInput
               placeholder={placeholder ?? t("Select network")}
@@ -76,17 +76,17 @@ export const NetworkCombo: FC<{
             />
             {!open && (!!search || selected) ? (
               <button type="button" className="group" onClick={() => onChange(null)}>
-                <X className="group-hover:text-fg-primary text-fg-secondary size-12" />
+                <X className="group-hover:text-fg-primary text-fg-secondary size-6" />
               </button>
             ) : (
               <ComboboxButton className="group">
-                <ChevronDown className="group-hover:text-fg-primary text-fg-secondary size-12" />
+                <ChevronDown className="group-hover:text-fg-primary text-fg-secondary size-6" />
               </ComboboxButton>
             )}
           </div>
           <ComboboxOptions
             className={classNames(
-              "overflow-x-none absolute top-24 z-10 max-h-[28rem] min-h-10 w-full overflow-y-scroll rounded-b pb-0 empty:invisible",
+              "overflow-x-none absolute top-12 z-10 max-h-[280px] min-h-5 w-full overflow-y-scroll rounded-b pb-0 empty:invisible",
               "border-primary border",
               bgClassName,
             )}
@@ -96,10 +96,10 @@ export const NetworkCombo: FC<{
                 key={option.id}
                 value={option}
                 className={classNames(
-                  `text-fg-secondary [&[data-selected]]:text-fg-primary [&[data-selected]]:bg-tertiary [&[data-focus]]:bg-tertiary hover:bg-tertiary relative flex h-24 w-full items-center gap-4 px-8`,
+                  `text-fg-secondary [&[data-selected]]:text-fg-primary [&[data-selected]]:bg-tertiary [&[data-focus]]:bg-tertiary hover:bg-tertiary relative flex h-12 w-full items-center gap-2 px-4`,
                 )}
               >
-                <NetworkLogo networkId={option.id} className="size-12" />
+                <NetworkLogo networkId={option.id} className="size-6" />
                 <NetworkName networkId={option.id} className="text-base" />
               </ComboboxOption>
             )}

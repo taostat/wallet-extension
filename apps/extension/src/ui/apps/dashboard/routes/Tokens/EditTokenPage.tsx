@@ -72,7 +72,7 @@ export const EditTokenPage = () => {
     <DashboardLayout sidebar="settings">
       <HeaderBlock
         title={
-          <div className="flex items-center justify-between gap-5">
+          <div className="flex items-center justify-between gap-2.5">
             {t("{{tokenSymbol}} on {{networkName}}", {
               tokenSymbol: token.name,
               networkName: network.name,
@@ -116,7 +116,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
   return (
     <>
       <form
-        className="my-20"
+        className="my-10"
         onSubmit={(e) => {
           e.preventDefault()
           e.stopPropagation()
@@ -134,7 +134,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
               readOnly
               disabled
               small
-              before={<NetworkLogo networkId={token.networkId} className="size-12" />}
+              before={<NetworkLogo networkId={token.networkId} className="size-6" />}
             />
           </FormFieldContainer>
           {isTokenInTypes(token, ["substrate-assets"]) && (
@@ -169,7 +169,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
             </FormFieldContainer>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-x-12">
+        <div className="grid grid-cols-2 gap-x-6">
           <form.Field
             name="symbol"
             validators={{
@@ -251,7 +251,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
                   small
                   before={
                     <AssetLogo
-                      className="mr-2 rounded-full text-[3rem]"
+                      className="mr-1 rounded-full text-[30px]"
                       url={field.form.getFieldValue("logo")}
                     />
                   }
@@ -318,7 +318,7 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
         </div>
         <div>
           <FormFieldContainer label={t("Display balances")}>
-            <div className="flex gap-3">
+            <div className="flex gap-1.5">
               <Toggle checked={isActive} onChange={(e) => setActive(e.target.checked)}>
                 <span className={"text-fg-tertiary"}>{isActive ? t("Yes") : t("No")}</span>
               </Toggle>
@@ -339,10 +339,10 @@ const TokenForm: FC<{ token: Token }> = ({ token }) => {
             </div>
           </FormFieldContainer>
         </div>
-        <div className="flex justify-end gap-8 py-8">
+        <div className="flex justify-end gap-4 py-4">
           {isTokenCustom(token) && (
             <Button
-              className="h-24 w-[24rem] text-base"
+              className="h-12 w-[240px] text-base"
               type="button"
               onClick={ocConfirmRemove.open}
             >
@@ -488,7 +488,7 @@ const ConfirmRemove: FC<{
       title={isTokenKnown(saved) ? t("Reset Token") : t("Remove Token")}
       onClose={onClose}
     >
-      <div className="text-fg-secondary mt-4 space-y-16">
+      <div className="text-fg-secondary mt-2 space-y-8">
         <div className="text-base">
           {isTokenKnown(saved) ? (
             <Trans t={t}>
@@ -502,7 +502,7 @@ const ConfirmRemove: FC<{
             </Trans>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-4">
           <Button onClick={onClose}>{t("Cancel")}</Button>
           <Button primary onClick={handleRemove} processing={confirming}>
             {isTokenKnown(saved) ? t("Reset") : t("Remove")}

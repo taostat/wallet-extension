@@ -93,11 +93,11 @@ const TokenInput = ({ onTokenClick }: { onTokenClick: () => void }) => {
   return (
     <div
       className={classNames(
-        "flex w-full max-w-[400px] flex-nowrap items-center justify-center gap-4",
+        "flex w-full max-w-[400px] flex-nowrap items-center justify-center gap-2",
         isEstimatingMaxAmount && "animate-pulse",
       )}
     >
-      {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>}
+      {isEstimatingMaxAmount && <div className="bg-secondary h-8 w-24 rounded"></div>}
       <input
         key="tokenInput"
         ref={refTokensInput}
@@ -188,7 +188,7 @@ const FiatInput = () => {
         )}
         onChange={handleChange}
       />
-      {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>}
+      {isEstimatingMaxAmount && <div className="bg-secondary h-8 w-24 rounded"></div>}
       <div
         className={classNames(
           "block shrink-0",
@@ -261,12 +261,12 @@ export const AmountEdit = ({ onTokenClick }: { onTokenClick: () => void }) => {
     <div className="w-full grow">
       {!!token && (
         <>
-          <div className="flex h-[12rem] flex-col justify-end text-xl font-bold">
+          <div className="flex h-[120px] flex-col justify-end text-xl font-bold">
             {isTokenEdit ? <TokenInput onTokenClick={onTokenClick} /> : <FiatInput />}
           </div>
           <div
             className={classNames(
-              "mt-4 flex max-w-full items-center justify-center gap-4",
+              "mt-2 flex max-w-full items-center justify-center gap-2",
               isEstimatingMaxAmount && "invisible",
             )}
           >
@@ -276,7 +276,7 @@ export const AmountEdit = ({ onTokenClick }: { onTokenClick: () => void }) => {
                 <PillButton
                   onClick={toggleIsTokenEdit}
                   size="xs"
-                  className="h-[2.2rem] w-[2.2rem] rounded-full !px-0 !py-0"
+                  className="h-[22px] w-[22px] rounded-full !px-0 !py-0"
                 >
                   <SwapIcon />
                 </PillButton>
@@ -286,12 +286,12 @@ export const AmountEdit = ({ onTokenClick }: { onTokenClick: () => void }) => {
               onClick={onSendMaxClick}
               disabled={!maxAmount}
               size="xs"
-              className={classNames("h-[2.2rem] rounded-sm !px-4 !py-0")}
+              className={classNames("h-[22px] rounded-sm !px-2 !py-0")}
             >
               {t("Max")}
             </PillButton>
           </div>
-          <div className="text-brand-orange mt-4 text-center text-xs">
+          <div className="text-brand-orange mt-2 text-center text-xs">
             <ErrorMessage />
           </div>
         </>

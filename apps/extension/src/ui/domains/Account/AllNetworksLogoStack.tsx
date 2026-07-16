@@ -67,7 +67,7 @@ export const AllNetworksLogoStack = ({ className, ids, max = 4 }: Props) => {
   )
 
   return (
-    <div className={classNames("h-[1em] shrink-0 pl-[0.25rem]", className)}>
+    <div className={classNames("h-[1em] shrink-0 pl-[2.5px]", className)}>
       {visibleNetworks.map((network, idx) => (
         <AllNetworksLogoStackItem key={`${network}-${idx}`} network={network} />
       ))}
@@ -98,7 +98,7 @@ function AllNetworksLogoStackMore({ networks }: { networks: PortfolioNetwork[] }
 
   return (
     <div className="ml-[-0.25rem] inline-block h-[1em] w-auto overflow-hidden">
-      <div className="text-fg-secondary bg-tertiary relative flex h-[1em] w-auto flex-col justify-center rounded-full px-2 text-center">
+      <div className="text-fg-secondary bg-tertiary relative flex h-[1em] w-auto flex-col justify-center rounded-full px-1 text-center">
         <div className="text-[0.5em] font-bold leading-[1em]">{networks.length}+</div>
       </div>
     </div>

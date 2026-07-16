@@ -10,9 +10,9 @@ import useAuthorisedSiteById from "@ui/hooks/useAuthorisedSiteById"
 import { AuthorisedSiteAccount } from "./AuthorisedSiteAccount"
 
 const Title: FC<{ name: string; domain: string }> = ({ name, domain }) => (
-  <div className="flex items-center gap-3 text-base">
-    <Favicon url={domain} className="text-[2rem]" />
-    <div className="ml-2">{name || domain}</div>
+  <div className="flex items-center gap-1.5 text-base">
+    <Favicon url={domain} className="text-[20px]" />
+    <div className="ml-1">{name || domain}</div>
   </div>
 )
 
@@ -33,10 +33,10 @@ const ConfirmForgetDialog: FC<{
           values={{ siteLabel }}
         />
       </p>
-      <p className="mt-4 text-sm">
+      <p className="mt-2 text-sm">
         {t("You can always reconnect to this site by visiting it in the future.")}
       </p>
-      <div className="mt-8 grid grid-cols-2 gap-8">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         <Button type="button" onClick={onCancel}>
           {t("Cancel")}
         </Button>
@@ -48,7 +48,7 @@ const ConfirmForgetDialog: FC<{
   )
 }
 
-const Rule = () => <div className="mx-[1em] inline-block h-[1em] w-0.5 bg-current"></div>
+const Rule = () => <div className="mx-[1em] inline-block h-[1em] w-px bg-current"></div>
 
 export const AuthorizedSite: FC<{
   id: string
@@ -70,14 +70,14 @@ export const AuthorizedSite: FC<{
     <div>
       <button
         type="button"
-        className="text-fg-secondary hover:text-fg-primary bg-secondary hover:bg-secondary flex h-24 w-full items-center gap-3 rounded-sm px-8 text-left"
+        className="text-fg-secondary hover:text-fg-primary bg-secondary hover:bg-secondary flex h-12 w-full items-center gap-1.5 rounded-sm px-4 text-left"
         onClick={toggle}
       >
         <div className="text-fg-primary">
           <Title name={origin} domain={id} />
         </div>
         <div className="text-fg-secondary grow">{origin === "" ? "" : id}</div>
-        <div className="text-fg-brand mr-3 shrink-0 text-right">
+        <div className="text-fg-brand mr-1.5 shrink-0 text-right">
           {t("{{connectedCount}} of {{totalCount}}", {
             connectedCount: connected?.length ?? 0,
             totalCount: availableAddresses?.length ?? 0,
@@ -88,7 +88,7 @@ export const AuthorizedSite: FC<{
         </div>
       </button>
       <Accordion isOpen={isOpen}>
-        <div className="mt-4 flex w-full flex-col gap-2 px-8">
+        <div className="mt-2 flex w-full flex-col gap-1 px-4">
           <div className="text-fg-disabled text-right text-xs">
             <button className="hover:text-fg-primary" onClick={() => setShowForget(true)}>
               {t("Forget Site")}

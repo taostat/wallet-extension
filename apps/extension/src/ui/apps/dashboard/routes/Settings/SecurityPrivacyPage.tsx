@@ -21,7 +21,7 @@ const Content = () => {
         text={t("Control security and privacy preferences")}
       />
       <Spacer large />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <CtaButton
           iconLeft={Lock01}
           iconRight={ChevronRight}

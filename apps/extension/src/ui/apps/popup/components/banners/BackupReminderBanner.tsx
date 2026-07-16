@@ -25,12 +25,12 @@ export const BackupReminderBanner = () => {
     <div
       className={classNames(
         "relative z-0 overflow-hidden",
-        "select-none rounded-sm p-6 py-4 text-xs",
+        "select-none rounded-sm p-3 py-2 text-xs",
         "border-primary border",
       )}
     >
       <div className="relative z-10">
-        <div className="flex items-center gap-4 text-base">
+        <div className="flex items-center gap-2 text-base">
           <div className="grow text-sm font-bold">{t("Protect your funds")}</div>
           <div>
             <IconButton className="text-md text-fg-primary select-auto" onClick={onDismissClick}>
@@ -38,7 +38,7 @@ export const BackupReminderBanner = () => {
             </IconButton>
           </div>
         </div>
-        <p className="text-fg-secondary mt-2">
+        <p className="text-fg-secondary mt-1">
           {hasFundsInNotBackedUpMnemonics
             ? t(
                 "You have funds! Taostats is a non custodial wallet so only you have access to your keys, make sure you have backed them up or you may lose access to your funds.",
@@ -47,16 +47,16 @@ export const BackupReminderBanner = () => {
                 "Your recovery phrases control your accounts. Taostats is a non-custodial wallet, so only you have access to your keys. Make sure you’ve backed them up.",
               )}
         </p>
-        <div className="mt-5 grid grid-cols-2 gap-4">
+        <div className="mt-2.5 grid grid-cols-2 gap-2">
           <Button
             small
             onClick={onSnoozeClick}
-            className="border-primary text-fg-secondary h-16 rounded-full text-xs"
+            className="border-primary text-fg-secondary h-8 rounded-full text-xs"
           >
             {t("Remind me later")}
           </Button>
 
-          <Button primary small onClick={onBackupClick} className="h-16 rounded-full text-xs">
+          <Button primary small onClick={onBackupClick} className="h-8 rounded-full text-xs">
             {t("Backup to dismiss")}
           </Button>
         </div>

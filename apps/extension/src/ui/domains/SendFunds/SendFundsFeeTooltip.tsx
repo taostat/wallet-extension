@@ -13,9 +13,9 @@ export const SendFundsFeeTooltip = () => {
 
   return (
     <WithTooltip
-      className="ml-1"
+      className="ml-0.5"
       tooltip={
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-1">
           <div>{t("Estimated fee:")}</div>
           <div className="text-right">
             <TokensAndFiat planck={estimatedFee.planck} tokenId={feeToken.id} noCountUp />

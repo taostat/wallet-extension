@@ -56,12 +56,12 @@ export const BittensorRootStakeReview = () => {
           withClose
         />
       }
-      contentClassName="p-12 pt-0 flex flex-col w-full"
+      contentClassName="p-6 pt-0 flex flex-col w-full"
     >
-      <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-8">
-        <div className="flex items-center justify-between gap-8 pb-2">
+      <div className="bg-app-bg text-fg-secondary flex w-full flex-col rounded p-4">
+        <div className="flex items-center justify-between gap-4 pb-1">
           <div className="whitespace-nowrap">{t("Tao")} </div>
-          <div className="flex items-center gap-4 overflow-hidden">
+          <div className="flex items-center gap-2 overflow-hidden">
             <TokenLogo tokenId={nativeToken?.id} className="shrink-0 text-lg" />
             <TokensAndFiat
               isBalance
@@ -73,33 +73,33 @@ export const BittensorRootStakeReview = () => {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-8 py-2">
+        <div className="flex items-center justify-between gap-4 py-1">
           <div className="whitespace-nowrap">{t("USD")} </div>
           <div className="text-fg-primary overflow-hidden">
             <Fiat amount={amountTao} forceCurrency="usd" noCountUp />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-8 pt-2">
+        <div className="flex items-center justify-between gap-4 pt-1">
           <div className="whitespace-nowrap">{t("Account")} </div>
-          <div className="flex items-center gap-4 overflow-hidden">
+          <div className="flex items-center gap-2 overflow-hidden">
             <StakingAccountDisplay address={account.address} chainId={nativeToken?.networkId} />
           </div>
         </div>
-        <div className="py-8">
+        <div className="py-4">
           <hr className="text-fg-disabled" />
         </div>
-        <div className="flex items-center justify-between gap-8 pb-2 text-xs">
+        <div className="flex items-center justify-between gap-4 pb-1 text-xs">
           <div className="whitespace-nowrap">{t("Validator")} </div>
           <div className="text-fg-primary truncate">
             <BittensorValidatorName hotkey={hotkey} />
           </div>
         </div>
         {stakeDirection === "stake" && (
-          <div className="flex items-center justify-between gap-8 py-2 text-xs">
-            <div className="flex items-center gap-1 whitespace-nowrap">
+          <div className="flex items-center justify-between gap-4 py-1 text-xs">
+            <div className="flex items-center gap-0.5 whitespace-nowrap">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5">
                     {t("APY")}
                     <InfoCircle />
                   </div>
@@ -112,7 +112,7 @@ export const BittensorRootStakeReview = () => {
             </div>
           </div>
         )}
-        <div className="flex items-center justify-between gap-8 pt-2 text-xs">
+        <div className="flex items-center justify-between gap-4 pt-1 text-xs">
           <div className="whitespace-nowrap">{t("Estimated Fee")} </div>
           <div>
             <FeeEstimate />

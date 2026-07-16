@@ -62,8 +62,8 @@ export const BittensorSlippageDrawer = () => {
       onDismiss={close}
       containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
     >
-      <div className="bg-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
-        <div className="text-fg-primary pb-8 font-bold">{t("Slippage Tolerance")}</div>
+      <div className="bg-secondary flex w-full flex-col items-center gap-2 rounded-t-xl p-6">
+        <div className="text-fg-primary pb-4 font-bold">{t("Slippage Tolerance")}</div>
         <p className="text-fg-secondary text-sm">
           {t(
             "You can customize the slippage percentage to balance transaction success and price accuracy.",
@@ -72,7 +72,7 @@ export const BittensorSlippageDrawer = () => {
         <p className="text-fg-secondary text-sm">
           {t("This setting will apply to all your subnet staking transactions.")}
         </p>
-        <div className="text-fg-secondary mt-4 flex items-center gap-2 self-start text-sm">
+        <div className="text-fg-secondary mt-2 flex items-center gap-1 self-start text-sm">
           <div className="">{t("Max Slippage")}</div>
           <Tooltip>
             <TooltipTrigger>
@@ -89,11 +89,11 @@ export const BittensorSlippageDrawer = () => {
         </div>
         <FormFieldInputText
           small
-          containerProps={{ className: "px-6 text-right bg-secondary" }}
+          containerProps={{ className: "px-3 text-right bg-secondary" }}
           after={
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <div>%</div>
-              <PillButton className="h-[3rem] px-4" onClick={handleReset}>
+              <PillButton className="h-[30px] px-2" onClick={handleReset}>
                 {t("Reset")}
               </PillButton>
             </div>
@@ -104,7 +104,7 @@ export const BittensorSlippageDrawer = () => {
         />
         <div
           className={classNames(
-            "mb-4 flex w-full items-center justify-end gap-2 text-xs text-orange-500",
+            "mb-2 flex w-full items-center justify-end gap-1 text-xs text-orange-500",
             Number(slippageEdit) < HIGH_PRICE_IMPACT && "invisible",
             Number(slippageEdit) >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
           )}

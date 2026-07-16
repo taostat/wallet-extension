@@ -30,12 +30,12 @@ export const TokenBalancesDetailRow = ({
   return (
     <div
       className={classNames(
-        "bg-secondary flex w-full items-center gap-8 px-7 py-6",
+        "bg-secondary flex w-full items-center gap-4 px-3.5 py-3",
         isLastRow && "rounded-b-sm",
       )}
     >
-      <div className="flex grow flex-col justify-center gap-2 overflow-hidden">
-        <div className="flex h-10 w-full items-center gap-2 font-bold text-white">
+      <div className="flex grow flex-col justify-center gap-1 overflow-hidden">
+        <div className="flex h-5 w-full items-center gap-1 font-bold text-white">
           <div className="truncate capitalize">{row.title}</div>
           {!!row.locked && tokenId && row.meta && (
             <LockedExtra
@@ -52,13 +52,13 @@ export const TokenBalancesDetailRow = ({
           </div>
         )}
         {!row.address && row.isLoading && !row.description && row.locked && (
-          <div className="bg-secondary rounded-xs h-[1.4rem] max-w-48 animate-pulse" />
+          <div className="bg-secondary rounded-xs h-[14px] max-w-24 animate-pulse" />
         )}
         {!row.address && row.description && (
           <div className="text-left text-xs">
             <Tooltip>
               <TooltipTrigger className="max-w-full truncate">{row.description}</TooltipTrigger>
-              <TooltipContent className="rounded-xs text-fg-secondary border-primary z-20 border-[0.5px] bg-black p-3 text-[1.1rem] shadow">
+              <TooltipContent className="rounded-xs text-fg-secondary border-primary z-20 border-[0.5px] bg-black p-1.5 text-[11px] shadow">
                 {row.description}
               </TooltipContent>
             </Tooltip>
@@ -67,13 +67,13 @@ export const TokenBalancesDetailRow = ({
       </div>
       <div
         className={classNames(
-          "flex flex-col flex-nowrap items-end justify-center gap-2 whitespace-nowrap",
+          "flex flex-col flex-nowrap items-end justify-center gap-1 whitespace-nowrap",
           status.status === "fetching" && "animate-pulse transition-opacity",
         )}
       >
         <div
           className={classNames(
-            "flex h-10 items-center gap-2 font-bold",
+            "flex h-5 items-center gap-1 font-bold",
             row.locked ? "text-fg-secondary" : "text-white",
           )}
         >

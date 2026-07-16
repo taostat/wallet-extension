@@ -93,12 +93,12 @@ export const ConnectSignetSelectAccounts = () => {
       <HeaderBlock title="Confirm Import?" />
       <Spacer large />
 
-      <div className="grid w-full max-w-xl gap-[1rem]">
+      <div className="grid w-full max-w-xl gap-[10px]">
         {vaults.map((vault) => (
           <button
             type="button"
             key={vault.address}
-            className="bg-secondary text-fg-tertiary enabled:hover:bg-secondary flex h-32 w-full items-center gap-8 rounded-sm px-8 text-left disabled:opacity-50"
+            className="bg-secondary text-fg-tertiary enabled:hover:bg-secondary flex h-16 w-full items-center gap-4 rounded-sm px-4 text-left disabled:opacity-50"
             onClick={() => handleToggle(vault.address)}
           >
             <AccountIcon
@@ -122,7 +122,7 @@ export const ConnectSignetSelectAccounts = () => {
       </div>
       <Spacer large />
       <Button
-        className="mt-8"
+        className="mt-4"
         primary
         icon={ArrowRight}
         processing={importing}

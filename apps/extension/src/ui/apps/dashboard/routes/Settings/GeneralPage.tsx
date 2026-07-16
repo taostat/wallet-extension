@@ -50,7 +50,7 @@ const Content = () => {
   return (
     <>
       <HeaderBlock title={t("General")} text={t("General settings")} />
-      <div className="mt-16 flex flex-col gap-4">
+      <div className="mt-8 flex flex-col gap-2">
         {hasRuntimeReloadFn ? (
           <Setting
             iconLeft={RefreshCw01}
@@ -177,13 +177,13 @@ export const LedgerTransportTypeSelect = () => {
     return <div className="text-fg-disabled text-right">{t("Unavailable")}</div>
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-2">
       <Dropdown
         items={ledgerTransportTypeItems}
         propertyKey="value"
-        className="h-20 py-0"
-        buttonClassName="h-20 py-0"
-        optionClassName="h-20 py-0 flex"
+        className="h-10 py-0"
+        buttonClassName="h-10 py-0"
+        optionClassName="h-10 py-0 flex"
         value={ledgerTransportTypeValue}
         onChange={(v) => setLedgerTransportType(v!.value)}
         renderItem={(item) => item.label}
@@ -221,16 +221,16 @@ const LedgerTransportCheckModalDialog: FC<{
 
   return (
     <ModalDialog title={t("Ledger connectivity check")} onClose={onClose}>
-      <div className="flex w-full items-center gap-6">
+      <div className="flex w-full items-center gap-3">
         <div
           className={classNames(
-            "flex size-24 shrink-0 items-center justify-center rounded-full",
+            "flex size-12 shrink-0 items-center justify-center rounded-full",
             s.ok
               ? "text-fg-success bg-brand-secondary/10"
               : "text-fg-orange bg-orange-secondary/10",
           )}
         >
-          {s.ok ? <Check className="size-12" /> : <X className="size-12" />}
+          {s.ok ? <Check className="size-6" /> : <X className="size-6" />}
         </div>
         <div className="grow">
           <p className="text-fg-primary">
@@ -246,7 +246,7 @@ const LedgerTransportCheckModalDialog: FC<{
         </div>
       </div>
       {!s.ok && (
-        <p className="text-fg-secondary mt-8">
+        <p className="text-fg-secondary mt-4">
           {t(
             "You may need to reload this page before being able to try again, some browsers prevent multiple {{transport}} connection attempts.",
             { transport: transport.toUpperCase() },
@@ -254,7 +254,7 @@ const LedgerTransportCheckModalDialog: FC<{
         </p>
       )}
 
-      <div className="mt-12 flex w-full justify-end gap-8">
+      <div className="mt-6 flex w-full justify-end gap-4">
         {!s.ok && (
           <Button
             onClick={() => {

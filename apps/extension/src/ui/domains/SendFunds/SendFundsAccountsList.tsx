@@ -79,7 +79,7 @@ export const SendFundsAccountsList: FC<SendFundsAccountsListProps> = ({
 
   return (
     <div>
-      {!!header && <div className="text-fg-secondary mb-4 mt-8 px-12 font-bold">{header}</div>}
+      {!!header && <div className="text-fg-secondary mb-2 mt-4 px-6 font-bold">{header}</div>}
       {accountsWithBalance?.map((account) => (
         <AccountRow
           selected={account.address === selected}
@@ -94,7 +94,7 @@ export const SendFundsAccountsList: FC<SendFundsAccountsListProps> = ({
         />
       ))}
       {!accounts?.length && (
-        <div className="text-fg-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
+        <div className="text-fg-secondary flex h-[58px] w-full items-center px-6 text-left">
           {t("No account matches your search")}
         </div>
       )}

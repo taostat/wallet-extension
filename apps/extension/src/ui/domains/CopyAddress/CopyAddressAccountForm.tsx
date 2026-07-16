@@ -37,7 +37,7 @@ const AccountRowContainer: FC<
   const className = useMemo(
     () =>
       classNames(
-        "hover:bg-tertiary focus:bg-tertiary flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[58px] w-full items-center gap-2 px-6 text-left",
         isSelected && "bg-secondary ",
         "text-fg-secondary hover:text-fg-primary",
       ),
@@ -83,8 +83,8 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
         genesisHash={getAccountGenesisHash(account)}
         className="text-xl"
       />
-      <div className="mr-2 flex grow flex-col items-start gap-2 overflow-hidden">
-        <div className="text-fg-primary flex w-full items-center gap-3 overflow-hidden">
+      <div className="mr-1 flex grow flex-col items-start gap-1 overflow-hidden">
+        <div className="text-fg-primary flex w-full items-center gap-1.5 overflow-hidden">
           <div className="text-fg-primary truncate">
             {account.name ?? shortenAddress(formatted, 6, 6)}
           </div>
@@ -100,7 +100,7 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
           <TooltipContent>{formatted}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="flex gap-6">
+      <div className="flex gap-3">
         {isCopiable ? (
           <>
             <Tooltip>
@@ -113,7 +113,7 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <IconButton className="text-md mr-2" onClick={handleCopyClick}>
+                <IconButton className="text-md mr-1" onClick={handleCopyClick}>
                   <Copy01 />
                 </IconButton>
               </TooltipTrigger>
@@ -146,7 +146,7 @@ export const AccountsList: FC<AccountsListProps> = ({ selected, accounts, onSele
 
   return (
     <div>
-      {!!header && <div className="text-fg-secondary mb-4 mt-8 px-12 font-bold">{header}</div>}
+      {!!header && <div className="text-fg-secondary mb-2 mt-4 px-6 font-bold">{header}</div>}
       {accounts?.map((account) => (
         <AccountRow
           selected={account.address === selected}
@@ -156,7 +156,7 @@ export const AccountsList: FC<AccountsListProps> = ({ selected, accounts, onSele
         />
       ))}
       {!accounts?.length && (
-        <div className="text-fg-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
+        <div className="text-fg-secondary flex h-[58px] w-full items-center px-6 text-left">
           {t("No account matches your search")}
         </div>
       )}
@@ -188,7 +188,7 @@ export const CopyAddressAccountForm = () => {
   return (
     <CopyAddressLayout title={t("Select account")}>
       <div className="flex h-full min-h-full w-full flex-col overflow-hidden">
-        <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+        <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
           <div className="grow">
             <SearchInput onChange={setSearch} placeholder={t("Search by account name")} />
           </div>

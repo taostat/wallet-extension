@@ -38,13 +38,13 @@ export const AssetBalanceCellValue = ({
     <WithTooltip tooltip={tooltip}>
       <div
         className={classNames(
-          "flex h-[6.6rem] flex-col justify-center gap-2 whitespace-nowrap p-8 text-right",
+          "flex h-[66px] flex-col justify-center gap-1 whitespace-nowrap p-4 text-right",
           className,
         )}
       >
         <div
           className={classNames(
-            "flex items-center justify-end gap-2",
+            "flex items-center justify-end gap-1",
             locked ? "text-fg-secondary" : "text-fg-primary",
           )}
         >
@@ -52,12 +52,12 @@ export const AssetBalanceCellValue = ({
             <Tokens amount={tokens} symbol={symbol} isBalance noCountUp={noCountUp} />
           </div>
           {locked ? (
-            <div className="pb-1">
+            <div className="pb-0.5">
               <Lock01 className="lock" />
             </div>
           ) : null}
           {balancesStatus?.status === "stale" ? (
-            <div className="pb-1">
+            <div className="pb-0.5">
               <StaleBalancesIcon staleChains={balancesStatus.staleChains} />
             </div>
           ) : null}

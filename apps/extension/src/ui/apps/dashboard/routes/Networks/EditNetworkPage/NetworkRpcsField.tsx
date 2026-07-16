@@ -57,7 +57,7 @@ export const NetworkRpcsField = ({
             }}
           >
             <SortableContext items={fieldRpcs.state.value.map((rpc) => rpc.id)}>
-              <div className="flex w-full flex-col gap-2">
+              <div className="flex w-full flex-col gap-1">
                 {fieldRpcs.state.value.map((rpc, index, arr) => (
                   <FieldComponent
                     key={rpc.id}
@@ -74,7 +74,7 @@ export const NetworkRpcsField = ({
           </DndContext>
           <button
             type="button"
-            className="text-fg-secondary hover:text-fg-primary disabled:text-fg-disabled flex gap-2 self-start text-sm disabled:cursor-not-allowed"
+            className="text-fg-secondary hover:text-fg-primary disabled:text-fg-disabled flex gap-1 self-start text-sm disabled:cursor-not-allowed"
             disabled={fieldRpcs.state.value.length >= 10}
             onClick={() => fieldRpcs.pushValue({ id: crypto.randomUUID(), url: "" })} // append({ url: "" }) TODO}
           >
@@ -130,7 +130,7 @@ export const SortableRpcField: FC<SortableRpcItemProps> = ({
               before={
                 <button
                   type="button"
-                  className="allow-focus text-md ml-[-1.2rem] px-2 opacity-80 outline-none hover:opacity-100 focus:opacity-100 disabled:opacity-50"
+                  className="allow-focus text-md ml-[-1.2rem] px-1 opacity-80 outline-none hover:opacity-100 focus:opacity-100 disabled:opacity-50"
                   disabled={!canDrag}
                   {...dragHandleProps}
                 >
@@ -139,13 +139,13 @@ export const SortableRpcField: FC<SortableRpcItemProps> = ({
               }
               after={
                 field.state.meta.isValidating ? (
-                  <div className="mr-[-1.2rem] shrink-0 px-2">
+                  <div className="mr-[-1.2rem] shrink-0 px-1">
                     <Loading01 className="animate-spin-slow transition-none" />
                   </div>
                 ) : canDelete ? (
                   <button
                     type="button"
-                    className="allow-focus text-md mr-[-1.2rem] shrink-0 px-2 opacity-80 outline-none hover:opacity-100 focus:opacity-100 disabled:opacity-50"
+                    className="allow-focus text-md mr-[-1.2rem] shrink-0 px-1 opacity-80 outline-none hover:opacity-100 focus:opacity-100 disabled:opacity-50"
                     onClick={onDelete}
                   >
                     <Trash01 className="transition-none" />
@@ -153,7 +153,7 @@ export const SortableRpcField: FC<SortableRpcItemProps> = ({
                 ) : null
               }
             />
-            <div className="text-fg-orange h-8 max-w-full overflow-hidden text-ellipsis whitespace-nowrap py-2 text-right text-xs uppercase leading-none">
+            <div className="text-fg-orange h-4 max-w-full overflow-hidden text-ellipsis whitespace-nowrap py-1 text-right text-xs uppercase leading-none">
               {field.state.meta.errors[0]}
             </div>
           </>

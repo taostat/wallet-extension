@@ -116,11 +116,11 @@ export const QrCodeSourceSelector = ({
   return sources.length > 1 ? (
     <Popover placement="bottom-end" open={showPopover} onOpenChange={togglePopover}>
       <PopoverTrigger asChild>
-        <div className={classNames("text-fg-secondary flex items-center gap-3 text-sm", className)}>
+        <div className={classNames("text-fg-secondary flex items-center gap-1.5 text-sm", className)}>
           {t("QR Source:")}{" "}
           <button
             type="button"
-            className="text-fg-primary hover:bg-tertiary flex cursor-pointer items-center gap-2 rounded-sm p-3"
+            className="text-fg-primary hover:bg-tertiary flex cursor-pointer items-center gap-1 rounded-sm p-1.5"
             onClick={togglePopover}
           >
             {startCase(qrCodeSource)}
@@ -130,7 +130,7 @@ export const QrCodeSourceSelector = ({
       </PopoverTrigger>
       <PopoverContent
         className={classNames(
-          "border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left shadow-lg",
+          "border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-1 py-1.5 text-left shadow-lg",
           showPopover ? "visible opacity-100" : "invisible opacity-0",
         )}
       >
@@ -139,7 +139,7 @@ export const QrCodeSourceSelector = ({
             type="button"
             key={source}
             onClick={() => setSource(source)}
-            className="hover:bg-secondary rounded-xs h-20 p-6 text-left"
+            className="hover:bg-secondary rounded-xs h-10 p-3 text-left"
           >
             {startCase(source)}
           </button>

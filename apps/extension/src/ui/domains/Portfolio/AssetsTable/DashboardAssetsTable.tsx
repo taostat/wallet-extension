@@ -17,25 +17,25 @@ const AssetRowSkeleton: FC<{ className?: string }> = ({ className }) => {
   return (
     <div
       className={classNames(
-        "text-fg-secondary bg-secondary mb-4 mt-4 grid w-full grid-cols-[40%_30%_30%] rounded text-left text-base",
+        "text-fg-secondary bg-secondary mb-2 mt-2 grid w-full grid-cols-[40%_30%_30%] rounded text-left text-base",
         className,
       )}
     >
       <div>
-        <div className="flex h-[6.6rem]">
-          <div className="p-8 text-xl">
-            <div className="bg-tertiary h-16 w-16 animate-pulse rounded-full"></div>
+        <div className="flex h-[66px]">
+          <div className="p-4 text-xl">
+            <div className="bg-tertiary h-8 w-8 animate-pulse rounded-full"></div>
           </div>
-          <div className="flex grow flex-col justify-center gap-2">
-            <div className="bg-tertiary rounded-xs h-8 w-20 animate-pulse"></div>
+          <div className="flex grow flex-col justify-center gap-1">
+            <div className="bg-tertiary rounded-xs h-4 w-10 animate-pulse"></div>
           </div>
         </div>
       </div>
       <div></div>
       <div>
-        <div className="flex h-full flex-col items-end justify-center gap-2 px-8">
-          <div className="bg-tertiary rounded-xs h-8 w-[10rem] animate-pulse"></div>
-          <div className="bg-tertiary rounded-xs h-8 w-[6rem] animate-pulse"></div>
+        <div className="flex h-full flex-col items-end justify-center gap-1 px-4">
+          <div className="bg-tertiary rounded-xs h-4 w-[100px] animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-4 w-[60px] animate-pulse"></div>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ const HeaderRow = () => {
   if (!balances.count) return null
 
   return (
-    <div className="text-fg-secondary bg-secondary mb-4 grid h-40 grid-cols-[40%_30%_30%] items-center rounded px-8 text-left text-base">
+    <div className="text-fg-secondary bg-secondary mb-2 grid h-20 grid-cols-[40%_30%_30%] items-center rounded px-4 text-left text-base">
       <div className="h-auto w-auto p-0" />
       {/* <Statistics
         className="h-auto w-auto p-0"
@@ -62,9 +62,9 @@ const HeaderRow = () => {
         showCurrencyToggle
         align="left"
       /> */}
-      <div className="className=h-auto w-auto items-end p-0 pr-8" />
+      <div className="className=h-auto w-auto items-end p-0 pr-4" />
       {/* <Statistics
-        className="h-auto w-auto items-end p-0 pr-8"
+        className="h-auto w-auto items-end p-0 pr-4"
         title={t("Locked")}
         fiat={locked}
         locked
@@ -85,7 +85,7 @@ const NoAssetsFound = () => {
   const { selectedAccount, selectedFolder } = usePortfolioNavigation()
 
   return (
-    <div className="text-fg-secondary bg-secondary mb-4 flex h-[6.6rem] flex-col justify-center rounded-sm p-8">
+    <div className="text-fg-secondary bg-secondary mb-2 flex h-[66px] flex-col justify-center rounded-sm p-4">
       {selectedAccount
         ? t("No assets were found on this account.")
         : selectedFolder
@@ -101,7 +101,7 @@ export const DashboardAssetsTable = () => {
   const location = useLocation()
 
   return (
-    <div key={location.key} className="text-fg-secondary min-w-[45rem] text-left text-base">
+    <div key={location.key} className="text-fg-secondary min-w-[450px] text-left text-base">
       {!symbolBalances.length && !isInitialising && <NoAssetsFound />}
       {!!symbolBalances.length && <HeaderRow />}
       <VirtualizedRows symbolBalances={symbolBalances} />

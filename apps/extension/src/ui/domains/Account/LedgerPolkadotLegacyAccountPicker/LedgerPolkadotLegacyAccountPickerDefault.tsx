@@ -57,7 +57,7 @@ export const LedgerPolkadotLegacyAccountPickerDefault: FC<
 
   return (
     <>
-      <div className="mb-8">
+      <div className="mb-4">
         <LedgerConnectionStatus {...connectionStatus} />
       </div>
       <DerivedAccountPickerBase

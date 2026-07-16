@@ -26,10 +26,10 @@ function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) 
   }, [])
 
   return (
-    <section className="text-fg-secondary max-w-screen p-xl mx-auto flex h-[60rem] max-h-screen w-[40rem] flex-col overflow-hidden text-center">
+    <section className="text-fg-secondary max-w-screen p-xl mx-auto flex h-[600px] max-h-screen w-[400px] flex-col overflow-hidden text-center">
       <div className="gap-2xl flex w-full flex-grow flex-col items-center justify-center">
         <h1 className="text-fg-primary m-0 text-3xl font-bold">Oops!</h1>
-        <TaostatsLogo className="text-[16rem]" />
+        <TaostatsLogo className="text-[160px]" />
         <div className="gap-xxs flex flex-col">
           <div>{errorMessage}</div>
           {!canClearDatabases && (
@@ -49,7 +49,7 @@ function ErrorMessage({ error, eventId }: { error: unknown; eventId?: string }) 
           )}
         </div>
       </div>
-      <div className="flex w-full shrink-0 flex-col gap-4">
+      <div className="flex w-full shrink-0 flex-col gap-2">
         {canClearDatabases && (
           <Button fullWidth color="red" onClick={clearDatabases}>
             Clear local databases

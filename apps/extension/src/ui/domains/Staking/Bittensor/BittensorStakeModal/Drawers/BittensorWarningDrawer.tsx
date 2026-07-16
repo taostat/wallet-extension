@@ -21,7 +21,7 @@ export const BittensorWarningDrawer = ({ setHasAckWarning }: BittensorWarningDra
 
   return (
     <Drawer anchor="bottom" isOpen={isOpen} containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}>
-      <div className="bg-secondary flex w-full flex-col items-center gap-8 rounded-t-xl p-12">
+      <div className="bg-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-6">
         <div className="text-fg-primary font-bold">{t("Subnet staking warning")}</div>
         <p className="text-fg-secondary text-sm">
           <Trans
@@ -37,7 +37,7 @@ export const BittensorWarningDrawer = ({ setHasAckWarning }: BittensorWarningDra
             {t("Don't show this again")}
           </Checkbox>
         </div>
-        <div className="grid w-full grid-cols-2 gap-8">
+        <div className="grid w-full grid-cols-2 gap-4">
           <Button onClick={close}>{t("Close")}</Button>
           <Button
             primary

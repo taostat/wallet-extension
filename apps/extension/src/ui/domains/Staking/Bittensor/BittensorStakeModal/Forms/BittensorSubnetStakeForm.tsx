@@ -11,7 +11,7 @@ export const BittensorSubnetStakeForm = () => {
 
   const SubnetStakeDetails = () => {
     return (
-      <div className="flex items-center justify-between gap-8">
+      <div className="flex items-center justify-between gap-4">
         <div className="whitespace-nowrap">{t("Select Subnet")}</div>
         <div className="text-fg-primary truncate">
           <BittensorSelectButton

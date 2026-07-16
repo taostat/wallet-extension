@@ -13,7 +13,7 @@ export const SignViewVotingVote: FC<{
 }> = ({ voteAmount, tokenId, pollIndex, conviction }) => {
   const { t } = useTranslation()
   return (
-    <div className="flex w-full flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-2">
       <div className="flex w-full items-center justify-between">
         <div>{t("Referenda")}</div>
         <div className="text-fg-primary">#{pollIndex}</div>

@@ -44,26 +44,26 @@ export const LedgerConnectionStatus = ({
   return (
     <div
       className={classNames(
-        "text-fg-secondary bg-secondary flex h-28 w-full items-center gap-4 rounded-sm p-8",
+        "text-fg-secondary bg-secondary flex h-14 w-full items-center gap-2 rounded-sm p-4",
         className,
       )}
     >
       {status === "ready" && (
-        <CheckCircle className="text-fg-success min-w-[1em] shrink-0 text-[2rem]" />
+        <CheckCircle className="text-fg-success min-w-[1em] shrink-0 text-[20px]" />
       )}
       {status === "warning" && (
-        <XCircle className="text-fg-orange min-w-[1em] shrink-0 text-[2rem]" />
+        <XCircle className="text-fg-orange min-w-[1em] shrink-0 text-[20px]" />
       )}
-      {status === "error" && <XCircle className="text-fg-error min-w-[1em] shrink-0 text-[2rem]" />}
+      {status === "error" && <XCircle className="text-fg-error min-w-[1em] shrink-0 text-[20px]" />}
       {status === "connecting" && (
-        <Loading01 className="animate-spin-slow min-w-[1em] shrink-0 text-[2rem] text-white" />
+        <Loading01 className="animate-spin-slow min-w-[1em] shrink-0 text-[20px] text-white" />
       )}
-      <div className="grow text-left leading-[2rem]">{wrapStrong(message)}</div>
+      <div className="grow text-left leading-[20px]">{wrapStrong(message)}</div>
       {!!onRetryClick && (
         <button
           type="button"
           onClick={onRetryClick}
-          className="bg-secondary hover:bg-tertiary text-fg-primary border-primary hover:border-primary h-20 rounded border px-8"
+          className="bg-secondary hover:bg-tertiary text-fg-primary border-primary hover:border-primary h-10 rounded border px-4"
         >
           {t("Retry")}
         </button>

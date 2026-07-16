@@ -35,7 +35,7 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
 
   return (
     <div id="main" className="relative flex h-full w-full flex-col">
-      <div className="text-fg-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
+      <div className="text-fg-secondary flex h-16 min-h-[64px] w-full items-center px-6">
         {showBackButton ? (
           <button
             type="button"
@@ -45,10 +45,10 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
             <ChevronLeft />
           </button>
         ) : (
-          <div className="w-12">&nbsp;</div>
+          <div className="w-6">&nbsp;</div>
         )}
         <div className="grow text-center">{title}</div>
-        <div className="w-12">&nbsp;</div>
+        <div className="w-6">&nbsp;</div>
       </div>
       <div className="w-full grow overflow-hidden">{children}</div>
     </div>

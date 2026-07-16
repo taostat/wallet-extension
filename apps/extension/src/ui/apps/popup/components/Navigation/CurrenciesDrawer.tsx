@@ -23,24 +23,24 @@ const CurrencyButton: FC<{
     <button
       type="button"
       className={classNames(
-        "text-fg-secondary flex h-28 w-full items-center gap-4 rounded-sm px-6",
+        "text-fg-secondary flex h-14 w-full items-center gap-2 rounded-sm px-3",
         "border-primary border",
         selected && "bg-app-bg",
         "hover:border-primary hover:bg-secondary stroke-fg-brand",
       )}
       onClick={onClick}
     >
-      <img className="w-16 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
-      <div className="flex grow flex-col items-start gap-1">
+      <img className="w-8 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
+      <div className="flex grow flex-col items-start gap-0.5">
         <div className="text-fg-primary text-base uppercase">{currency}</div>
         <div className="text-xs">
           {currencyConfig[currency]?.symbol ?? ""} {currencyConfig[currency]?.name ?? currency}
         </div>
       </div>
       {selected ? (
-        <Star01 className="stroke-fg-brand fill-fg-brand size-8" />
+        <Star01 className="stroke-fg-brand fill-fg-brand size-4" />
       ) : (
-        <Star01 className="size-8" />
+        <Star01 className="size-4" />
       )}
     </button>
   )
@@ -74,7 +74,7 @@ const CurrenciesList = () => {
   )
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       {currencyOrder.map((currency) => (
         <CurrencyButton
           key={currency}
@@ -92,21 +92,21 @@ const CurrenciesDrawerContent = () => {
   const { close } = useCurrenciesDrawerOpenClose()
 
   return (
-    <div className="text-fg-secondary flex h-[60rem] w-[40rem] flex-col gap-10 bg-black pt-10">
-      <div className="flex items-center gap-3 px-8 text-base font-bold text-white">
+    <div className="text-fg-secondary flex h-[600px] w-[400px] flex-col gap-5 bg-black pt-5">
+      <div className="flex items-center gap-1.5 px-4 text-base font-bold text-white">
         <IconButton onClick={close}>
           <ChevronLeft />
         </IconButton>
         <div>{t("Currency")}</div>
       </div>
-      <div className="px-8">
+      <div className="px-4">
         <p className="text-xs">
           {t(
             "Choose your favorite currencies. You can toggle between your favorite currencies directly from your portfolio.",
           )}
         </p>
       </div>
-      <ScrollContainer className="grow" innerClassName="px-8 pb-8">
+      <ScrollContainer className="grow" innerClassName="px-4 pb-4">
         <CurrenciesList />
       </ScrollContainer>
     </div>

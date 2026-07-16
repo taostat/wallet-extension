@@ -41,7 +41,7 @@ const HideBalancesToggle = () => {
         <label
           htmlFor="showBalances"
           className={classNames(
-            "absolute right-10 top-10 z-20",
+            "absolute right-5 top-5 z-20",
             "inline-flex cursor-pointer items-center",
           )}
         >
@@ -54,27 +54,27 @@ const HideBalancesToggle = () => {
           />
           <div
             className={classNames(
-              "bg-tertiary peer h-14 w-28 shrink-0 rounded-full",
+              "bg-tertiary peer h-7 w-14 shrink-0 rounded-full",
               "peer-focus-visible:ring-body peer-focus:outline-none peer-focus-visible:ring-2",
             )}
           ></div>
           <div
             className={classNames(
-              "absolute left-1 top-1 flex h-12 w-12",
+              "absolute left-0.5 top-0.5 flex h-6 w-6",
               "bg-secondary rounded-full",
-              "peer-checked:bg-fg-brand transition peer-checked:translate-x-14",
+              "peer-checked:bg-fg-brand transition peer-checked:translate-x-7",
             )}
           >
             <Eye
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
+                "absolute left-1 top-1 h-4 w-4",
                 "text-fg-primary-alt transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
             <EyeOff
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
+                "absolute left-1 top-1 h-4 w-4",
                 "text-fg-primary transition-opacity",
                 !hideBalances ? "opacity-0" : "opacity-100",
               )}
@@ -157,7 +157,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
         </Suspense>
         <PopupContent
           className={classNames(
-            "z-10 select-none pt-32 text-center",
+            "z-10 select-none pt-16 text-center",
             isSubmitting && "animate-pulse",
           )}
         >
@@ -166,11 +166,11 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
           </div>
           <h1 className="mt-[34px] text-lg">{t("Unlock Taostats Wallet")}</h1>
           {errors.password?.message && (
-            <div className="text-fg-orange mt-8">{errors.password?.message}</div>
+            <div className="text-fg-orange mt-4">{errors.password?.message}</div>
           )}
         </PopupContent>
         <PopupFooter className="z-10">
-          <form className="flex flex-col items-center gap-6" onSubmit={handleSubmit(submit)}>
+          <form className="flex flex-col items-center gap-3" onSubmit={handleSubmit(submit)}>
             <FormFieldInputText
               {...register("password")}
               type="password"
@@ -194,7 +194,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
             </Button>
             <button
               type="button"
-              className="text-fg-disabled hover:text-fg-primary mt-2 cursor-pointer text-sm transition-colors"
+              className="text-fg-disabled hover:text-fg-primary mt-1 cursor-pointer text-sm transition-colors"
               onClick={setShowResetWallet}
             >
               {t("Forgot Password?")}
@@ -265,7 +265,7 @@ const VersionInfo = () => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={handleClick}
-      className="bg-fg-brand/10 text-fg-brand/80 absolute left-10 top-10 z-20 flex h-14 select-none items-center justify-center rounded-full px-4 text-sm"
+      className="bg-fg-brand/10 text-fg-brand/80 absolute left-5 top-5 z-20 flex h-7 select-none items-center justify-center rounded-full px-2 text-sm"
     >
       v{process.env.VERSION}
     </div>

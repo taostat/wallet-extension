@@ -18,10 +18,10 @@ export const SubSignBody: FC = () => {
 
   return (
     <div className="animate-fade-in flex grow flex-col">
-      <h1 className="text-md text-fg-primary my-12 font-bold">
+      <h1 className="text-md text-fg-primary my-6 font-bold">
         {isBatch ? t("Approve Batch Request") : t("Approve Request")}
       </h1>
-      <h2 className="text-base leading-[3.2rem]">
+      <h2 className="text-base leading-[32px]">
         <Trans
           t={t}
           components={{
@@ -32,7 +32,7 @@ export const SubSignBody: FC = () => {
           defaults="You are approving a <RequestType /> with account <Account /><Extra />"
         />
       </h2>
-      <div className="my-16 flex justify-center">
+      <div className="my-8 flex justify-center">
         <ViewDetailsSub />
       </div>
       <SubSignDecoded />

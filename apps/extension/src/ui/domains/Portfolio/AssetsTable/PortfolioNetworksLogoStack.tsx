@@ -27,7 +27,7 @@ export const PortfolioNetworksLogoStackItem = ({ network }: { network?: Portfoli
 
 const MoreNetworksTooltip = ({ networks }: { networks: PortfolioNetwork[] }) => {
   return (
-    <div className="flex flex-col gap-1 text-left">
+    <div className="flex flex-col gap-0.5 text-left">
       {networks.map(({ name }, i) => (
         <div key={i}>{name}</div>
       ))}
@@ -62,7 +62,7 @@ export const PortfolioNetworksLogoStack = ({ networkIds, className, max = 4 }: P
   }, [networks, max])
 
   return (
-    <div className={classNames("h-[1em] pl-[0.25rem]", className)}>
+    <div className={classNames("h-[1em] pl-[2.5px]", className)}>
       {visibleNetworks.map((network, idx) => (
         <PortfolioNetworksLogoStackItem key={`${network}-${idx}`} network={network} />
       ))}

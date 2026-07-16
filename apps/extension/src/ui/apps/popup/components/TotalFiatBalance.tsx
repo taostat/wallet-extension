@@ -42,9 +42,9 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
   )
 
   return (
-    <div className={classNames("flex flex-col items-start justify-between gap-4", className)}>
-      <div className="flex flex-col gap-2">
-        <div className="text-fg-primary flex gap-4 text-xs">
+    <div className={classNames("flex flex-col items-start justify-between gap-2", className)}>
+      <div className="flex flex-col gap-1">
+        <div className="text-fg-primary flex gap-2 text-xs">
           <div className="leading-10 tracking-[0.06px]">{t("Total Portfolio")}</div>
           <button
             className={classNames(
@@ -56,12 +56,12 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
             {hideBalances ? <Eye /> : <EyeOff />}
           </button>
         </div>
-        <div className="flex w-full max-w-full items-center gap-2">
+        <div className="flex w-full max-w-full items-center gap-1">
           <button
             className={classNames(
-              "bg-tertiary/20 text-fg-tertiary hover:text-fg-primary hover:bg-fg-primary/10 pointer-events-auto flex size-16 shrink-0 items-center justify-center rounded-full text-center shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
+              "bg-tertiary/20 text-fg-tertiary hover:text-fg-primary hover:bg-fg-primary/10 pointer-events-auto flex size-8 shrink-0 items-center justify-center rounded-full text-center shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
               currencyConfig[currency]?.symbol?.length === 2 && "text-xs",
-              currencyConfig[currency]?.symbol?.length > 2 && "text-[1rem]",
+              currencyConfig[currency]?.symbol?.length > 2 && "text-[10px]",
             )}
             onClick={(event) => {
               event.stopPropagation()
@@ -72,7 +72,7 @@ export const TotalFiatBalance = ({ className, mouseOver, disabled }: Props) => {
           </button>
           <Fiat
             className={classNames(
-              "overflow-hidden text-ellipsis whitespace-pre pr-10 text-[2.4rem] font-bold leading-[2.8rem] tracking-[0.016px]",
+              "overflow-hidden text-ellipsis whitespace-pre pr-5 text-[24px] font-bold leading-[28px] tracking-[0.016px]",
               disabled && "text-fg-secondary",
             )}
             amount={portfolioTotal}
@@ -126,14 +126,14 @@ const Action: FC<ActionProps> = ({
         <button
           type="button"
           className={classNames(
-            "text-fg-secondary pointer-events-auto flex h-10 items-center gap-2 rounded-full bg-white/5 px-3 text-[1rem] opacity-90 backdrop-blur-sm",
+            "text-fg-secondary pointer-events-auto flex h-5 items-center gap-1 rounded-full bg-white/5 px-1.5 text-[10px] opacity-90 backdrop-blur-sm",
             "enabled:hover:text-fg-primary enabled:hover:bg-white/10",
           )}
           onClick={handleClick}
           disabled={disabled}
         >
           <div>
-            <Icon className="size-6" />
+            <Icon className="size-3" />
           </div>
           <div>{label}</div>
         </button>
@@ -190,7 +190,7 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
 
   return (
     <div className="flex w-full items-center justify-between">
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-2">
         {topActions.map((action, index) => (
           <Action key={index} {...action} />
         ))}

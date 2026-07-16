@@ -19,10 +19,10 @@ const Step: FC<{ step: ReactNode; title: ReactNode; children: ReactNode }> = ({
 }) => (
   <div className="text-fg-secondary leading-paragraph">
     <div className="flex w-full">
-      <div className="w-20 shrink-0 text-center">{step}</div>
+      <div className="w-10 shrink-0 text-center">{step}</div>
       <div className="text-fg-primary grow">{title}</div>
     </div>
-    <div className="mt-2 pl-20 text-sm">{children}</div>
+    <div className="mt-1 pl-10 text-sm">{children}</div>
   </div>
 )
 
@@ -90,7 +90,7 @@ export const ConnectSignetPage = () => {
 
       <form onSubmit={handleContinue}>
         <Step step={1} title={t("Enter Signet URL where you have your Signet Vaults setup.")}>
-          <FormFieldContainer className="mt-8" label={t("Signet URL")}>
+          <FormFieldContainer className="mt-4" label={t("Signet URL")}>
             <FormFieldInputText
               disabled={isConnecting}
               placeholder={SIGNET_APP_URL}
@@ -102,7 +102,7 @@ export const ConnectSignetPage = () => {
         <Spacer large />
         <Step step={2} title={t("Connect and select Vaults to import.")}>
           <Button
-            className="mt-8"
+            className="mt-4"
             primary
             icon={ArrowRight}
             onClick={handleContinue}

@@ -65,13 +65,13 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
   }, [isCopied])
 
   return (
-    <div className="min-w-[58rem]">
-      <div className="bg-secondary group relative overflow-hidden rounded p-2">
-        <div className={`grid min-h-[12.6rem] grid-cols-4 gap-4 p-2`}>
+    <div className="min-w-[580px]">
+      <div className="bg-secondary group relative overflow-hidden rounded p-1">
+        <div className={`grid min-h-[126px] grid-cols-4 gap-2 p-1`}>
           {!!mnemonic &&
             mnemonic.split(" ").map((word, i) => (
               <span
-                className="bg-tertiary text-fg-primary whitespace-nowrap rounded px-8 py-4"
+                className="bg-tertiary text-fg-primary whitespace-nowrap rounded px-4 py-2"
                 key={`mnemonic-${i}`}
               >
                 <span className="text-fg-disabled select-none">{i + 1}. </span>
@@ -104,7 +104,7 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
           </button>
         </div>
       </div>
-      <div className="flex items-center py-4 text-sm">
+      <div className="flex items-center py-2 text-sm">
         <button
           type="button"
           onClick={handleCopy}
@@ -112,12 +112,12 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
         >
           {isCopied ? (
             <>
-              <Check className="text-fg-brand mr-2 inline" />
+              <Check className="text-fg-brand mr-1 inline" />
               <span className="text-fg-brand">{t("Copied")}</span>
             </>
           ) : (
             <>
-              <Copy01 className="mr-2 inline" />
+              <Copy01 className="mr-1 inline" />
               <span>{t("Copy to clipboard")}</span>
             </>
           )}

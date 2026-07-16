@@ -52,8 +52,8 @@ export const ConnectedAccounts: FC = () => {
   )
 
   return (
-    <div className="flex w-full flex-col gap-6 pb-12">
-      <div className="text-fg-secondary my-2 text-xs">
+    <div className="flex w-full flex-col gap-3 pb-6">
+      <div className="text-fg-secondary my-1 text-xs">
         {t("Select which account(s) to connect to")}{" "}
         <span className="text-fg-primary font-bold">{site?.id}</span>
       </div>

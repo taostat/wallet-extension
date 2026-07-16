@@ -21,9 +21,9 @@ export const AlertCard = ({ className, onAccept }: Props) => {
     <Card
       className={classNames("text-fg-secondary !rounded-b-none text-center", className)}
       title={
-        <div className="flex flex-col items-center p-2">
-          <Lock01 className="icon text-fg-brand inline-block p-1 text-3xl" />
-          <div className="text-fg-primary mt-4">{t("Security Upgrade")}</div>
+        <div className="flex flex-col items-center p-1">
+          <Lock01 className="icon text-fg-brand inline-block p-0.5 text-3xl" />
+          <div className="text-fg-primary mt-2">{t("Security Upgrade")}</div>
         </div>
       }
       description={
@@ -36,7 +36,7 @@ export const AlertCard = ({ className, onAccept }: Props) => {
         </>
       }
       cta={
-        <div className="flex w-full flex-col gap-5">
+        <div className="flex w-full flex-col gap-2.5">
           <Button className="w-full" primary onClick={onAccept}>
             {t("Continue")}
           </Button>

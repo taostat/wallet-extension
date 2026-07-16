@@ -27,11 +27,11 @@ export const BittensorAssetAccountSummary = ({
   return (
     <div
       className={classNames(
-        "bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-sm",
+        "bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-2 text-sm",
         className,
       )}
     >
-      <div className="flex h-16 items-center justify-between gap-4">
+      <div className="flex h-8 items-center justify-between gap-2">
         <div className="whitespace-nowrap">{accountLabel}</div>
         <div className="overflow-hidden">
           <Suspense fallback={<SuspenseTracker name={suspenseName} />}>

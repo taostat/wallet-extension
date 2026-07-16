@@ -91,14 +91,14 @@ const NetworkForm: FC = () => {
   return (
     <>
       <form
-        className="my-20"
+        className="my-10"
         onSubmit={(e) => {
           e.preventDefault()
           e.stopPropagation()
           form.handleSubmit()
         }}
       >
-        <div className="grid grid-cols-3 gap-12">
+        <div className="grid grid-cols-3 gap-6">
           <div className={"col-span-3"}>
             <form.Field
               name="name"
@@ -113,7 +113,7 @@ const NetworkForm: FC = () => {
                     data-lpignore
                     autoComplete="off"
                     small
-                    before={<NetworkLogo networkId={network.id} className="size-12" />}
+                    before={<NetworkLogo networkId={network.id} className="size-6" />}
                   />
                 </FormFieldContainer>
               )}
@@ -123,7 +123,7 @@ const NetworkForm: FC = () => {
 
         {/* <NetworkRpcsField /> */}
 
-        <div className="grid grid-cols-2 gap-x-12">
+        <div className="grid grid-cols-2 gap-x-6">
           <form.Field
             name="nativeCurrency.symbol"
             validators={{
@@ -210,7 +210,7 @@ const NetworkForm: FC = () => {
                   small
                   before={
                     <AssetLogo
-                      className="mr-2 rounded-full text-[3rem]"
+                      className="mr-1 rounded-full text-[30px]"
                       url={
                         field.state.value
                           ? getGithubTokenLogoUrlByCoingeckoId(field.state.value)
@@ -277,7 +277,7 @@ const NetworkForm: FC = () => {
             },
           }}
         />
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-2">
           <div>
             <form.Field
               name="isTestnet"
@@ -312,9 +312,9 @@ const NetworkForm: FC = () => {
           )}
         </div>
         <div>
-          <div className="mt-8">
+          <div className="mt-4">
             <FormFieldContainer label={t("Display balances")}>
-              <div className="flex gap-3">
+              <div className="flex gap-1.5">
                 <Toggle checked={isActive} onChange={(e) => setActive(e.target.checked)}>
                   <span className={"text-fg-tertiary"}>{isActive ? t("Yes") : t("No")}</span>
                 </Toggle>
@@ -335,10 +335,10 @@ const NetworkForm: FC = () => {
               </div>
             </FormFieldContainer>
           </div>
-          <div className="flex justify-end gap-8 py-8">
+          <div className="flex justify-end gap-4 py-4">
             {isNetworkCustom(network) && (
               <Button
-                className="h-24 w-[24rem] text-base"
+                className="h-12 w-[240px] text-base"
                 type="button"
                 onClick={ocConfirmRemove.open}
               >
@@ -352,7 +352,7 @@ const NetworkForm: FC = () => {
                 <Button
                   primary
                   icon={SaveIcon}
-                  className="h-24 w-[24rem] text-base"
+                  className="h-12 w-[240px] text-base"
                   type="submit"
                   processing={isSubmitting}
                   disabled={!isSubmitting && (!canSubmit || !isDirty)}
@@ -405,7 +405,7 @@ const ConfirmRemove: FC<{
       title={isNetworkKnown(saved) ? t("Reset Token") : t("Remove Token")}
       onClose={onClose}
     >
-      <div className="text-fg-secondary mt-4 space-y-16">
+      <div className="text-fg-secondary mt-2 space-y-8">
         <div className="text-base">
           {isNetworkKnown(saved) ? (
             <Trans t={t}>
@@ -419,7 +419,7 @@ const ConfirmRemove: FC<{
             </Trans>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-4">
           <Button onClick={onClose}>{t("Cancel")}</Button>
           <Button primary onClick={handleRemove} processing={confirming}>
             {isNetworkKnown(saved) ? t("Reset") : t("Remove")}

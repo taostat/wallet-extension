@@ -226,7 +226,7 @@ export const AccountAddMnemonicForm = () => {
   }, [setValue])
 
   return (
-    <div className="flex w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-4">
       <HeaderBlock
         title={t("Import via Recovery Phrase")}
         text={t("Import your Bittensor account")}
@@ -247,7 +247,7 @@ export const AccountAddMnemonicForm = () => {
                 targetAddress ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <div className="size-16">
+                      <div className="size-8">
                         <AccountIcon address={targetAddress} className="text-xl" />
                       </div>
                     </TooltipTrigger>
@@ -264,7 +264,7 @@ export const AccountAddMnemonicForm = () => {
             data-lpignore
             spellCheck={false}
           />
-          <div className="mt-2 flex w-full items-center justify-between gap-4 overflow-hidden text-xs">
+          <div className="mt-1 flex w-full items-center justify-between gap-2 overflow-hidden text-xs">
             <div className="text-fg-disabled shrink-0">{t("Word count: {{words}}", { words })}</div>
             <DevMnemonicButton setValue={setValue} />
             <div className="text-fg-orange grow truncate text-right">
@@ -274,7 +274,7 @@ export const AccountAddMnemonicForm = () => {
           <Spacer small />
           <DerivationModeDropdown value={mode} onChange={handleModeChange} />
           <FormFieldContainer
-            className={classNames("mt-2", mode !== "custom" && "invisible")}
+            className={classNames("mt-1", mode !== "custom" && "invisible")}
             error={errors.derivationPath?.message}
           >
             <FormFieldInputText
@@ -288,10 +288,10 @@ export const AccountAddMnemonicForm = () => {
           </FormFieldContainer>
           <Spacer small />
         </div>
-        <div className="mt-1 flex w-full justify-between">
+        <div className="mt-0.5 flex w-full justify-between">
           <BackToAddAccountButton methodType="new" />
           <Button
-            className="w-[24rem]"
+            className="w-[240px]"
             type="submit"
             primary
             disabled={!isValid}

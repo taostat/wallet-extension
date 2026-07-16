@@ -75,14 +75,14 @@ export const TokenContextMenu = forwardRef<HTMLElement, Props>(function AccountC
       <ContextMenuTrigger
         ref={ref}
         className={classNames(
-          "hover:bg-secondary text-fg-secondary hover:text-fg-primary rounded p-6",
+          "hover:bg-secondary text-fg-secondary hover:text-fg-primary rounded p-3",
           className,
         )}
         asChild={!!trigger}
       >
         {trigger ? trigger : <DotsHorizontal className="shrink-0" />}
       </ContextMenuTrigger>
-      <ContextMenuContent className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg">
+      <ContextMenuContent className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-1 py-1.5 text-left text-sm shadow-lg">
         <Suspense fallback={<SuspenseTracker name="TokenContextMenu.Stake" />}>
           <StakeMenuItem tokenId={tokenId} />
         </Suspense>

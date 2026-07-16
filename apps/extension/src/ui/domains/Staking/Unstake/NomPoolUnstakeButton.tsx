@@ -39,14 +39,14 @@ export const NomPoolUnstakeButton: FC<{
     <button
       className={classNames(
         "bg-fg-primary/10 hover:bg-fg-primary/20 text-fg-secondary hover:text-fg-primary font-light",
-        variant === "small" && "h-10 rounded-sm px-3 text-xs",
-        variant === "large" && "h-14 rounded px-4 text-sm",
+        variant === "small" && "h-5 rounded-sm px-1.5 text-xs",
+        variant === "large" && "h-7 rounded px-2 text-sm",
         className,
       )}
       type="button"
       onClick={handleClick}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <ZapOff
           className={classNames(
             "shrink-0",

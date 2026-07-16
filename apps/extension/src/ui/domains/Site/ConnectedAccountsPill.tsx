@@ -60,17 +60,17 @@ export const ConnectedAccountsPill: FC = () => {
       <button
         type="button"
         className={classNames(
-          "group h-[3.6rem] w-full overflow-hidden rounded-full p-0.5",
+          "group h-[36px] w-full overflow-hidden rounded-full p-px",
           containerColors,
           "text-fg-secondary hover:text-fg-tertiary",
         )}
         onClick={() => setShowConnectedAccounts(true)}
       >
-        <div className="bg-secondary group-hover:bg-secondary flex h-full items-center gap-3 overflow-hidden rounded-full px-4">
+        <div className="bg-secondary group-hover:bg-secondary flex h-full items-center gap-1.5 overflow-hidden rounded-full px-2">
           <ConnectedSiteIndicator status={count ? "connected" : "disconnected"} />
-          <div className="flex grow items-center gap-3 truncate">
+          <div className="flex grow items-center gap-1.5 truncate">
             <div className="text-fg-primary max-w-[50%] shrink-0 truncate text-sm">{label}</div>
-            <div className="bg-tertiary h-6 w-0.5 shrink-0"></div>
+            <div className="bg-tertiary h-3 w-px shrink-0"></div>
             <div className="text-fg-secondary grow text-left text-xs">{host}</div>
           </div>
           <ChevronDown className="shrink-0" />

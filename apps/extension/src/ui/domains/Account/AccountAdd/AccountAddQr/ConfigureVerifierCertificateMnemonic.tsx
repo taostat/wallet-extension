@@ -15,9 +15,9 @@ import { useAccountAddQr } from "./context"
 import { MnemonicForm } from "./MnemonicForm"
 
 const VerifierCertificateOption = ({ text, children }: { text: string; children: ReactNode }) => (
-  <div className="text-fg-secondary grid grid-cols-2 items-center gap-8 text-sm">
+  <div className="text-fg-secondary grid grid-cols-2 items-center gap-4 text-sm">
     {children}
-    <div className="p-2">{text}</div>
+    <div className="p-1">{text}</div>
   </div>
 )
 
@@ -59,7 +59,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
   return (
     <div>
       <HeaderBlock
-        className="mb-12"
+        className="mb-6"
         title={t("Configure your Polkadot Vault Verifier Certificate Mnemonic")}
         text={t(
           "To use your Polkadot Vault with Taostats, you need to configure your Polkadot Vault Verifier Certificate Mnemonic.",
@@ -67,7 +67,7 @@ const ConfigureVerifierCertificateMnemonicForm = () => {
       />
       {(!state.verifierCertificateConfig ||
         state.verifierCertificateConfig.verifierCertificateType !== "import") && (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4">
           <span>{t("Why do I need to do this?")}</span>
           <div className="text-fg-secondary text-sm">
             <Trans t={t}>

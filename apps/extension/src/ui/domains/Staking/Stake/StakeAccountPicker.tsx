@@ -71,7 +71,7 @@ export const StakeAccountPicker = ({
       className="relative z-50 size-full"
     >
       <div className="flex size-full flex-grow flex-col bg-black">
-        <header className="flex items-center justify-between p-10">
+        <header className="flex items-center justify-between p-5">
           <IconButton onClick={onBackClick} className={cn(!onBackClick && "invisible")}>
             <ChevronLeft />
           </IconButton>
@@ -81,8 +81,8 @@ export const StakeAccountPicker = ({
           </IconButton>
         </header>
         <div className="flex grow flex-col">
-          <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
-            <div className="mx-1 grow overflow-hidden px-1">
+          <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
+            <div className="mx-0.5 grow overflow-hidden px-0.5">
               <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
             </div>
           </div>

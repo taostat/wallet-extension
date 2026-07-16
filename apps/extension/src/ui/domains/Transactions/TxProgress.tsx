@@ -78,28 +78,28 @@ const TxProgressBase: FC<TxProgressBaseProps> = ({ tx, blockNumber, href, onClos
 
   return (
     <div className="flex h-full w-full flex-col items-center">
-      <div className="text-fg-primary mt-8 text-lg font-bold">{title}</div>
-      <div className="text-fg-secondary mt-12 text-center text-base font-light">{subtitle}</div>
+      <div className="text-fg-primary mt-4 text-lg font-bold">{title}</div>
+      <div className="text-fg-secondary mt-6 text-center text-base font-light">{subtitle}</div>
 
       {tx?.status === "pending" && (
-        <div className="my-12 flex w-full justify-center">
-          <Loading01 className="animate-spin-slow text-secondary h-12 w-12" />
+        <div className="my-6 flex w-full justify-center">
+          <Loading01 className="animate-spin-slow text-secondary h-6 w-6" />
         </div>
       )}
 
       {tx?.status === "success" && (
-        <div className="my-12 flex w-full justify-center">
-          <CheckCircle className="text-fg-success h-12 w-12" />
+        <div className="my-6 flex w-full justify-center">
+          <CheckCircle className="text-fg-success h-6 w-6" />
         </div>
       )}
 
       {tx?.status === "error" && (
-        <div className="my-12 flex w-full justify-center">
-          <XCircle className="text-fg-error h-12 w-12" />
+        <div className="my-6 flex w-full justify-center">
+          <XCircle className="text-fg-error h-6 w-6" />
         </div>
       )}
 
-      <div className="text-fg-secondary flex w-full grow flex-col justify-center gap-10 px-10 text-center">
+      <div className="text-fg-secondary flex w-full grow flex-col justify-center gap-5 px-5 text-center">
         <div>
           {blockNumber ? (
             <>
@@ -124,9 +124,9 @@ const TxProgressBase: FC<TxProgressBaseProps> = ({ tx, blockNumber, href, onClos
             </Trans>
           ) : null}
         </div>
-        <div className="h-[3.6rem]">
+        <div className="h-[36px]">
           {tx?.status === "success" && !tx?.confirmed && (
-            <div className="text-secondary h-[3.6rem] animate-pulse">
+            <div className="text-secondary h-[36px] animate-pulse">
               {t("You may close this window or wait for the transaction to be confirmed")}
             </div>
           )}

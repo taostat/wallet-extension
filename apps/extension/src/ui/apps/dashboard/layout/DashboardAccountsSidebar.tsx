@@ -111,32 +111,32 @@ const Accounts = () => {
   }, [genericEvent, navigate])
 
   return (
-    <div className="flex w-full flex-col gap-8 p-8" data-testid="sidebar-account-list">
-      <div className="flex h-16 shrink-0 items-center">
-        <div className="grow pl-4 text-[2rem] font-bold">{t("Accounts")}</div>
+    <div className="flex w-full flex-col gap-4 p-4" data-testid="sidebar-account-list">
+      <div className="flex h-8 shrink-0 items-center">
+        <div className="grow pl-2 text-[20px] font-bold">{t("Accounts")}</div>
         <Tooltip>
           <TooltipTrigger asChild>
-            <IconButton onClick={handleManageAccountsClick} className="p-3">
-              <PencilIcon className="size-10" />
+            <IconButton onClick={handleManageAccountsClick} className="p-1.5">
+              <PencilIcon className="size-5" />
             </IconButton>
           </TooltipTrigger>
           <TooltipContent>{t("Manage Accounts")}</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
-            <IconButton onClick={handleAddAccountClick} className="p-3">
-              <Plus className="size-10" />
+            <IconButton onClick={handleAddAccountClick} className="p-1.5">
+              <Plus className="size-5" />
             </IconButton>
           </TooltipTrigger>
           <TooltipContent>{t("Add Account")}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="bg-secondary h-0.5"></div>
+      <div className="bg-secondary h-px"></div>
       <TreeAccounts options={allPortfolioOptions} showAllAccounts />
       {!!allWatchedOptions.length && (
         <>
-          {!!allPortfolioOptions.length && <div className="bg-secondary h-0.5"></div>}
-          <div className="flex items-center gap-4">
+          {!!allPortfolioOptions.length && <div className="bg-secondary h-px"></div>}
+          <div className="flex items-center gap-2">
             <Eye />
             <div className="text-sm">{t("Followed only")}</div>
           </div>
@@ -174,7 +174,7 @@ const TreeAccounts: FC<{
   showAllAccounts?: boolean
 }> = ({ options, showAllAccounts }) => {
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className="flex w-full flex-col gap-1">
       {showAllAccounts && <AllAccountsOption />}
       {options.map((option) => (
         <Fragment key={option.type === "folder" ? option.id : option.address}>
@@ -206,16 +206,16 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
     <div className="hover:bg-tertiary group relative w-full rounded-[12px]">
       <SidebarButtonBase
         label={
-          <div className="flex w-full items-center gap-2">
+          <div className="flex w-full items-center gap-1">
             <div className="truncate">{option.name ?? shortenAddress(option.address)}</div>
             <AccountTypeIcon className="text-fg-brand shrink-0" type={option.accountType} />
           </div>
         }
-        logo={<div className="size-20 shrink-0"></div>}
+        logo={<div className="size-10 shrink-0"></div>}
         fiat={
           <>
             <Fiat
-              className="h-8 group-hover:hidden"
+              className="h-4 group-hover:hidden"
               amount={option.total ?? 0}
               isBalance
               noCountUp
@@ -239,7 +239,7 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
       <AccountIconCopyAddressButton
         address={option.address}
         genesisHash={option.genesisHash}
-        className="absolute left-4 top-4 text-[4rem]"
+        className="absolute left-2 top-2 text-[40px]"
         tooltipPlacement="bottom"
       />
     </div>
@@ -311,19 +311,19 @@ const SidebarButtonBase: FC<{
     <button
       type="button"
       className={classNames(
-        "hover:bg-tertiary flex h-28 w-full items-center gap-4 rounded-[12px] px-4 text-left",
+        "hover:bg-tertiary flex h-14 w-full items-center gap-2 rounded-[12px] px-2 text-left",
         isSelected && "bg-secondary",
       )}
       onClick={onClick}
     >
-      <div className="size-20 text-[4rem]">{logo}</div>
-      <div className="flex grow flex-col justify-center gap-1 overflow-hidden">
+      <div className="size-10 text-[40px]">{logo}</div>
+      <div className="flex grow flex-col justify-center gap-0.5 overflow-hidden">
         <div className="text-fg-tertiary truncate">{label}</div>
         <div className="text-fg-disabled truncate text-xs">{fiat}</div>
       </div>
       <div>
         {isSelected ? (
-          <div className="bg-fg-brand flex size-10 items-center justify-center rounded-full text-xs text-black">
+          <div className="bg-fg-brand flex size-5 items-center justify-center rounded-full text-xs text-black">
             <Check />
           </div>
         ) : (

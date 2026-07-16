@@ -13,14 +13,14 @@ export const BittensorSelectStakeDrawer = ({ containerId }: BittensorSelectStake
 
   return (
     <Drawer anchor="bottom" isOpen={stakeTypeDrawer.isOpen} containerId={containerId}>
-      <div className="bg-secondary flex w-full flex-col items-center gap-8 rounded-t-xl p-12">
+      <div className="bg-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-6">
         <div className="text-fg-primary font-bold">{t("Select the staking type")}</div>
         <p className="text-fg-secondary text-sm">
           {t(
             "Choose either to stake on root or on a subnet. Root staking lets you earn rewards in TAO. Subnet staking converts your TAO into subnet alpha tokens, and your rewards are also paid in these tokens.",
           )}
         </p>
-        <div className="grid w-full grid-cols-2 gap-8">
+        <div className="grid w-full grid-cols-2 gap-4">
           <Button
             onClick={() => {
               setStakeType("root")
@@ -29,7 +29,7 @@ export const BittensorSelectStakeDrawer = ({ containerId }: BittensorSelectStake
             Root Staking
           </Button>
           <Button
-            className="px-2"
+            className="px-1"
             primary
             onClick={() => {
               setStakeType("subnet")

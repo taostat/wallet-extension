@@ -37,7 +37,7 @@ export const TokenTypePill: FC<{ type: Token["type"]; className?: string }> = ({
   return (
     <span
       data-testid="component-token-pill"
-      className={classNames("text-fg-disabled rounded-xs border px-2 py-1 text-[1rem]", className)}
+      className={classNames("text-fg-disabled rounded-xs border px-1 py-0.5 text-[10px]", className)}
     >
       {label}
     </span>

@@ -11,13 +11,13 @@ export const AvailableBalanceRow = () => {
   const { balance, token } = useSendFunds()
 
   return (
-    <Container className="space-y-4 px-8 py-4">
+    <Container className="space-y-2 px-4 py-2">
       <div className="flex w-full items-center justify-between">
         <div>{t("Available Balance")}</div>
         {balance && token && (
           <div
             className={classNames(
-              "flex items-center gap-2",
+              "flex items-center gap-1",
               balance?.status === "cache" && "animate-pulse",
             )}
           >

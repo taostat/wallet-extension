@@ -13,10 +13,10 @@ const Content = () => {
   return (
     <>
       <HeaderBlock title={t("About")} />
-      <div className="mt-6 flex flex-col gap-4">
-        <div className="bg-secondary text-fg-disabled flex w-full items-start gap-8 rounded-sm p-8">
+      <div className="mt-3 flex flex-col gap-2">
+        <div className="bg-secondary text-fg-disabled flex w-full items-start gap-4 rounded-sm p-4">
           <InfoCircle className={"text-fg-primary shrink-0 text-lg"} />
-          <div className={"flex grow flex-col items-start gap-4"}>
+          <div className={"flex grow flex-col items-start gap-2"}>
             <div className={"text-fg-primary text-base"}>Open Source Attribution</div>
             <div className={"text-fg-secondary text-left text-sm"}>
               Taostats Wallet is a modified fork of the Talisman Wallet. <br />
@@ -24,7 +24,7 @@ const Content = () => {
               Copyright © Talisman Wallet Contributors <br />
               <br />
               Source code: <br />
-              <div className="mt-2 flex flex-row justify-start gap-4">
+              <div className="mt-1 flex flex-row justify-start gap-2">
                 <LinkToGithub href="https://github.com/taostat/wallet-extension">
                   Taostats
                 </LinkToGithub>
@@ -71,7 +71,7 @@ const LinkToGithub = ({ href, children }: { href: string; children: React.ReactN
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="text-fg-secondary border-primary hover:text-fg-primary hover:bg-secondary group flex items-center justify-between gap-2 rounded-sm border p-4 transition-all duration-300"
+      className="text-fg-secondary border-primary hover:text-fg-primary hover:bg-secondary group flex items-center justify-between gap-1 rounded-sm border p-2 transition-all duration-300"
     >
       {children}
       <LinkExternal01 className="text-fg-secondary group-hover:text-fg-primary shrink-0 transition-all duration-300" />

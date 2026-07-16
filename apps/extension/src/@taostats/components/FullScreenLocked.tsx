@@ -17,7 +17,7 @@ export const FullScreenLocked = ({ className, title, subtitle }: Props) => (
       className={classNames("text-fg-secondary flex select-none flex-col items-center", className)}
     >
       <div className="relative">
-        <TaostatsLogo className={classNames("text-fg-primary mb-md block text-[12rem]")} />
+        <TaostatsLogo className={classNames("text-fg-primary mb-md block text-[120px]")} />
       </div>
       {title && <h1 className="text-md text-fg-tertiary mb-xxs font-bold">{title}</h1>}
       {subtitle && <h2 className="text-xs">{subtitle}</h2>}

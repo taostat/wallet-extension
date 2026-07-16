@@ -33,15 +33,15 @@ import { useSendFunds } from "./useSendFunds"
 const AddressFormatError = ({ chain }: { chain?: DotNetwork }) => {
   const { t } = useTranslation()
   return (
-    <div className="h-min-h-full align-center flex w-full flex-col items-center gap-4 px-12 py-7">
+    <div className="h-min-h-full align-center flex w-full flex-col items-center gap-2 px-6 py-3.5">
       <AlertOctagon className="text-brand-orange text-lg" />
       <span className="text-fg-primary">{t("Address Format Mismatch")}</span>
-      <p className="text-fg-secondary mt-4 text-center">
+      <p className="text-fg-secondary mt-2 text-center">
         <Trans
           t={t}
           defaults="The address you've entered is not compatible with the <Chain><ChainLogo />{{chainName}}</Chain> chain. Please enter a compatible address or select a different chain to send on."
           components={{
-            Chain: <div className="text-fg-primary inline-flex items-baseline gap-1" />,
+            Chain: <div className="text-fg-primary inline-flex items-baseline gap-0.5" />,
             ChainLogo: <NetworkLogo className="self-center" networkId={chain?.id} />,
           }}
           values={{ chainName: chain?.name ?? t("Unknown") }}
@@ -132,9 +132,9 @@ export const SendFundsRecipientPicker = () => {
 
   return (
     <div className="flex h-full min-h-full w-full flex-col overflow-hidden">
-      <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+      <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
         <div className="font-bold">{t("To")}</div>
-        <div className="mx-1 grow overflow-hidden px-1">
+        <div className="mx-0.5 grow overflow-hidden px-0.5">
           <SearchInput
             onSubmit={handleSubmitSearch}
             // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -166,7 +166,7 @@ export const SendFundsRecipientPicker = () => {
               onSelect={handleSelect}
               header={
                 <>
-                  <User01 className="mr-2 inline align-text-top" />
+                  <User01 className="mr-1 inline align-text-top" />
                   <span>{t("Contacts")}</span>
                 </>
               }
@@ -179,7 +179,7 @@ export const SendFundsRecipientPicker = () => {
               onSelect={handleSelect}
               header={
                 <>
-                  <Home01 className="mr-2 inline-block align-text-top" />
+                  <Home01 className="mr-1 inline-block align-text-top" />
                   {t("My Accounts")}
                 </>
               }
@@ -194,7 +194,7 @@ export const SendFundsRecipientPicker = () => {
               onSelect={handleSelect}
               header={
                 <>
-                  <Eye className="mr-2 inline-block align-text-top" />
+                  <Eye className="mr-1 inline-block align-text-top" />
                   {t("Followed only")}
                 </>
               }

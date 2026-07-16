@@ -62,24 +62,24 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
   if (!token || !network || !summary) return null
 
   return (
-    <div className="group relative h-[6.6rem] w-full">
+    <div className="group relative h-[66px] w-full">
       <button
         type="button"
         className={classNames(
-          "text-fg-secondary bg-secondary hover:bg-secondary grid h-[6.6rem] w-full grid-cols-[40%_30%_30%] overflow-hidden rounded text-left text-base",
+          "text-fg-secondary bg-secondary hover:bg-secondary grid h-[66px] w-full grid-cols-[40%_30%_30%] overflow-hidden rounded text-left text-base",
         )}
         onClick={handleClick}
       >
         <div className="flex h-full">
-          <div className="shrink-0 p-8 text-xl">
+          <div className="shrink-0 p-4 text-xl">
             <TokenLogo tokenId={token.id} />
           </div>
-          <div className="flex grow flex-col justify-center gap-2">
-            <div className="flex items-center gap-3">
-              <div className="text-fg-primary flex items-center gap-4 text-base font-bold">
+          <div className="flex grow flex-col justify-center gap-1">
+            <div className="flex items-center gap-1.5">
+              <div className="text-fg-primary flex items-center gap-2 text-base font-bold">
                 <TokenDisplaySymbol tokenId={token.id} />
                 {!!network.isTestnet && (
-                  <span className="text-tiny bg-orange-secondary/10 text-fg-orange rounded px-3 py-1 font-light">
+                  <span className="text-tiny bg-orange-secondary/10 text-fg-orange rounded px-1.5 py-0.5 font-light">
                     {t("Testnet")}
                   </span>
                 )}
@@ -95,7 +95,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             )}
           </div>
         </div>
-        <div className="h-[6.6rem] text-right">
+        <div className="h-[66px] text-right">
           {/* <AssetBalanceCellValue
             locked
             render={summary.lockedTokens.gt(0)}
@@ -110,7 +110,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             noCountUp={noCountUp}
           /> */}
         </div>
-        {/* <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 text-right">
+        {/* <div className="flex h-[66px] flex-col items-end justify-center gap-1 text-right">
           <AssetBalanceCellValue
             render
             tokens={summary.availableTokens}
@@ -124,7 +124,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             noCountUp={noCountUp}
           />
         </div> */}
-        <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 text-right">
+        <div className="flex h-[66px] flex-col items-end justify-center gap-1 text-right">
           <AssetBalanceCellValue
             render
             tokens={summary.totalTokens}
@@ -140,17 +140,17 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
         </div>
       </button>
       {canStake && (
-        <div className="absolute right-8 top-0 hidden h-[6.6rem] flex-col justify-center group-hover:flex">
-          <div className="flex items-center gap-3">
+        <div className="absolute right-4 top-0 hidden h-[66px] flex-col justify-center group-hover:flex">
+          <div className="flex items-center gap-1.5">
             <StakePillButton
               balances={balances}
               isPortfolio
-              className="[>svg]:text-[2rem] text-sm"
+              className="[>svg]:text-[20px] text-sm"
             />
             <BittensorUnstakeButton
               balances={balances}
               variant="pill"
-              className="[>svg]:text-[2rem] text-sm"
+              className="[>svg]:text-[20px] text-sm"
             />
           </div>
         </div>

@@ -23,14 +23,14 @@ export const DashboardLayout: FC<{
 }> = ({ children, sidebar }) => {
   return (
     <div id="main" className="h-dvh w-dvw overflow-x-auto overflow-y-scroll">
-      <div className="relative mx-auto w-full max-w-[144rem]">
+      <div className="relative mx-auto w-full max-w-[1440px]">
         <div className={classNames("flex w-full", RESPONSIVE_FLEX_SPACING)}>
           {/* Sidebar */}
-          <div className="w-[29.6rem] shrink-0 pb-20">
-            <div className="hidden h-48 w-[29.6rem] shrink-0 items-center gap-4 sm:flex">
-              <TaostatsLogo className="h-[3rem] w-[14.7172rem]" />
+          <div className="w-[296px] shrink-0 pb-10">
+            <div className="hidden h-24 w-[296px] shrink-0 items-center gap-2 sm:flex">
+              <TaostatsLogo className="h-[30px] w-[147.172px]" />
               <PillButton className="bg-fg-brand/5 text-fg-brand hover:bg-fg-brand/20 rounded-3xl">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <span>Wallet</span>
                 </div>
               </PillButton>
@@ -41,9 +41,9 @@ export const DashboardLayout: FC<{
             </Suspense>
           </div>
           {/* Main area */}
-          <div className="grow pb-20">
+          <div className="grow pb-10">
             <div className="flex w-full flex-col items-center">
-              <div className="flex h-48 w-full shrink-0 items-center justify-end px-8">
+              <div className="flex h-24 w-full shrink-0 items-center justify-end px-4">
                 <HorizontalNav />
               </div>
               <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Content" />}>
@@ -66,7 +66,7 @@ export const DashboardLayout: FC<{
   )
 }
 
-const RESPONSIVE_FLEX_SPACING = classNames("gap-8 px-5", "md:px-10", "lg:px-20", "xl:px-32")
+const RESPONSIVE_FLEX_SPACING = classNames("gap-4 px-2.5", "md:px-5", "lg:px-10", "xl:px-16")
 
 const NavButton: FC<{
   label: ReactNode
@@ -85,13 +85,13 @@ const NavButton: FC<{
     <button
       type="button"
       className={classNames(
-        "text-fg-tertiary hover:text-fg-secondary flex items-center gap-4",
+        "text-fg-tertiary hover:text-fg-secondary flex items-center gap-2",
         routeMatch && "!text-fg-brand",
         className,
       )}
       onClick={onClick}
     >
-      <Icon className="shrink-0 text-[2rem]" />
+      <Icon className="shrink-0 text-[20px]" />
       <div>{label}</div>
     </button>
   )
@@ -137,7 +137,7 @@ const HorizontalNav = () => {
   }, [navigate])
 
   return (
-    <div className="border-primary flex h-24 gap-16 rounded-lg border px-8">
+    <div className="border-primary flex h-12 gap-8 rounded-lg border px-4">
       <NavButton
         label={t("Home")}
         onClick={handlePortfolioClick}

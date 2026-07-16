@@ -43,8 +43,8 @@ export const StakeAccountPillButton: FC<AccountPillButtonProps> = ({
   )
 
   return (
-    <PillButton className={classNames("h-16 max-w-full rounded px-4", className)} onClick={onClick}>
-      <div className="text-fg-primary flex h-16 max-w-full flex-nowrap items-center gap-4 overflow-x-hidden text-base">
+    <PillButton className={classNames("h-8 max-w-full rounded px-2", className)} onClick={onClick}>
+      <div className="text-fg-primary flex h-8 max-w-full flex-nowrap items-center gap-2 overflow-x-hidden text-base">
         {address ? (
           <AccountIcon className="!text-lg" address={address} genesisHash={accountGenesisHash} />
         ) : (

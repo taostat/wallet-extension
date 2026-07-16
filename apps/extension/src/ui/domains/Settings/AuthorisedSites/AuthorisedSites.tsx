@@ -45,12 +45,12 @@ export const AuthorisedSites = () => {
         {showBatchActions && <AuthorisedSitesBatchActions providerType={providerType} />}
       </div>
       <Spacer small />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         {siteIds.map((id) => (
           <AuthorizedSite key={`${providerType}-${id}`} id={id} provider={providerType} />
         ))}
         {providerType === "polkadot" && !hasPolkadotSites && (
-          <div className="bg-secondary text-fg-secondary w-full rounded p-8">
+          <div className="bg-secondary text-fg-secondary w-full rounded p-4">
             {t("You haven't connected to any sites yet.")}
           </div>
         )}

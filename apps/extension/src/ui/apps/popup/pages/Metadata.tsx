@@ -57,9 +57,9 @@ export const Metadata: FC<{ className?: string }> = ({ className }) => {
       <PopupHeader>{t("Update Metadata")}</PopupHeader>
       <PopupContent>
         <div>
-          <div className="px-4 text-center">
-            <h1 className="my-8 text-lg">{t("Your metadata is out of date")}</h1>
-            <p className="text-fg-secondary mt-16">
+          <div className="px-2 text-center">
+            <h1 className="my-4 text-lg">{t("Your metadata is out of date")}</h1>
+            <p className="text-fg-secondary mt-8">
               <Trans t={t}>
                 Approving this update will sync your metadata for the{" "}
                 <span className="text-fg-primary">{request.chain}</span> chain
@@ -74,9 +74,9 @@ export const Metadata: FC<{ className?: string }> = ({ className }) => {
               )}
             </p>
           </div>
-          <hr className="text-fg-disabled my-20" />
+          <hr className="text-fg-disabled my-10" />
           <div className="text-left">
-            <div className="ml-16 inline-grid grid-cols-2 gap-x-8 gap-y-2">
+            <div className="ml-8 inline-grid grid-cols-2 gap-x-4 gap-y-1">
               <div className="text-fg-secondary">{t("Symbol:")}</div>
               <div>{request.tokenSymbol}</div>
               <div className="text-fg-secondary">{t("Decimals:")}</div>
@@ -86,7 +86,7 @@ export const Metadata: FC<{ className?: string }> = ({ className }) => {
         </div>
       </PopupContent>
       <PopupFooter>
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid grid-cols-2 gap-6">
           <Button onClick={reject}>{t("Cancel")}</Button>
           <Button primary onClick={approve}>
             {t("Approve")}

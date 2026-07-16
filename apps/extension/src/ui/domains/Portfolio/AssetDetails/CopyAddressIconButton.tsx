@@ -34,7 +34,7 @@ const CopyAddressButtonInner: FC<CopyAddressButtonProps> = ({ networkId }) => {
         <button
           type="button"
           onClick={handleClick}
-          className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary focus:bg-tertiary hover:bg-tertiary rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs"
+          className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary focus:bg-tertiary hover:bg-tertiary rounded-xs inline-flex h-[18px] w-[18px] items-center justify-center text-xs"
         >
           <Copy01 />
         </button>
@@ -48,7 +48,7 @@ export const CopyAddressButton: FC<CopyAddressButtonProps> = ({ networkId }) => 
   <Suspense
     fallback={
       <>
-        <div className="inline-block h-9 w-9"></div>
+        <div className="inline-block h-[18px] w-[18px]"></div>
         <SuspenseTracker name="CopyAddressButton" />
       </>
     }

@@ -23,13 +23,13 @@ const NetworkOptionRow: FC<{
       type="button"
       onClick={onClick}
       className={classNames(
-        "text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-24 w-full items-center gap-6 overflow-hidden px-12",
+        "text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-12 w-full items-center gap-3 overflow-hidden px-6",
         "focus-visible:bg-secondary",
         isSelected && "!bg-tertiary",
       )}
     >
       <NetworkLogo networkId={option.networkIds[0]} className="shrink-0 text-xl" />
-      <div className="text-fg-primary flex grow flex-col gap-2 truncate text-left">
+      <div className="text-fg-primary flex grow flex-col gap-1 truncate text-left">
         {option.name}
       </div>
     </button>
@@ -54,7 +54,7 @@ const NetworkOptionsList: FC<{
 
   if (!options.length)
     return (
-      <div className="text-fg-tertiary flex h-24 w-full items-center px-12">
+      <div className="text-fg-tertiary flex h-12 w-full items-center px-6">
         {t("No networks found")}
       </div>
     )
@@ -129,22 +129,22 @@ const NetworkOptionsModalContent: FC<{
 
   return (
     <div className="flex h-full min-h-full w-full flex-col overflow-hidden">
-      <div className="flex w-full items-center px-8 pt-8">
+      <div className="flex w-full items-center px-4 pt-4">
         <IconButton
-          className={classNames("size-12 shrink-0", !IS_POPUP && "invisible")}
+          className={classNames("size-6 shrink-0", !IS_POPUP && "invisible")}
           onClick={onClose}
         >
           <ChevronLeft />
         </IconButton>
         <div className="text-secondary grow text-center">{t("Network Filter")}</div>
         <IconButton
-          className={classNames("size-12 shrink-0", IS_POPUP && "invisible")}
+          className={classNames("size-6 shrink-0", IS_POPUP && "invisible")}
           onClick={onClose}
         >
           <X />
         </IconButton>
       </div>
-      <div className="flex w-full shrink-0 items-center gap-8 px-12 py-8">
+      <div className="flex w-full shrink-0 items-center gap-4 px-6 py-4">
         {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
         <SearchInput onChange={setSearch} placeholder={t("Search by network name")} autoFocus />
       </div>
@@ -172,7 +172,7 @@ export const NetworkOptionsModal: FC<{
       isOpen={isOpen}
       onDismiss={onClose}
       className={classNames(
-        "border-primary h-[60rem] w-[40rem] overflow-hidden bg-black",
+        "border-primary h-[600px] w-[400px] overflow-hidden bg-black",
         IS_POPUP ? "max-h-full max-w-full" : "rounded-lg border shadow",
       )}
       containerId={containerId ?? (IS_POPUP ? "main" : undefined)}

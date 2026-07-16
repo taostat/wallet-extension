@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 
 import { ConnectAccountToggleButtonRow } from "./ConnectAccountToggleButtonRow"
 
-const AccountSeparator = () => <div className="bg-secondary mx-6 h-0.5"></div>
+const AccountSeparator = () => <div className="bg-secondary mx-3 h-px"></div>
 
 export const ConnectedAccountsPolkadot: FC<{
   activeAccounts: Array<[Account, boolean]>
@@ -48,8 +48,8 @@ export const ConnectedAccountsPolkadot: FC<{
 
   return (
     <>
-      <div className="mb-2 mt-6 flex w-full items-center justify-between gap-3 overflow-hidden px-8 text-xs">
-        <div className="flex items-center gap-2 truncate">
+      <div className="mb-1 mt-3 flex w-full items-center justify-between gap-1.5 overflow-hidden px-4 text-xs">
+        <div className="flex items-center gap-1 truncate">
           <button
             type="button"
             className="text-fg-secondary hover:text-fg-tertiary truncate"
@@ -57,7 +57,7 @@ export const ConnectedAccountsPolkadot: FC<{
           >
             {t("Disconnect All")}
           </button>
-          <div className="bg-disabled h-[1rem] w-0.5"></div>
+          <div className="bg-disabled h-[10px] w-px"></div>
           <button
             type="button"
             className="text-fg-secondary hover:text-fg-tertiary truncate"

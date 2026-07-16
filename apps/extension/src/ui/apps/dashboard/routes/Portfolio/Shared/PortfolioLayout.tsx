@@ -23,7 +23,7 @@ const EnableNetworkMessage: FC<{ type?: "substrate" | "evm" }> = ({ type }) => {
   }, [navigate, type])
 
   return (
-    <div className="text-fg-secondary mt-72 flex flex-col items-center justify-center gap-8 text-center">
+    <div className="text-fg-secondary mt-[144px] flex flex-col items-center justify-center gap-4 text-center">
       <div>{t("Enable some networks to display your assets")}</div>
       <div>
         <Button onClick={handleClick} primary small type="button">
@@ -61,17 +61,17 @@ export const PortfolioLayout: FC<
   const isTokenDetailRoute = !!useMatch("/portfolio/tokens/:netuid")
 
   return (
-    // "-mx-4 px-4" allows for portfolio staking badges to overflow, while keeping a consistant width limit and keep content centered
-    <div className="-mx-4 w-full px-4">
-      <div className="relative flex w-full flex-col gap-6">
+    // "-mx-2 px-2" allows for portfolio staking badges to overflow, while keeping a consistant width limit and keep content centered
+    <div className="-mx-2 w-full px-2">
+      <div className="relative flex w-full flex-col gap-3">
         <Suspense
           fallback={<SuspenseTracker name="DashboardPortfolioLayout.PortfolioAccountCheck" />}
         >
           {header ?? <DashboardPortfolioHeader />}
           <PortfolioAccountCheck>
             {!isTokenDetailRoute && <AccountPortfolioSummary />}
-            <div className="flex h-16 w-full items-center justify-between gap-8 overflow-hidden">
-              <PortfolioTabs className="text-md my-0 h-14 w-auto font-bold" />
+            <div className="flex h-8 w-full items-center justify-between gap-4 overflow-hidden">
+              <PortfolioTabs className="text-md my-0 h-7 w-auto font-bold" />
               <div className="shrink-0">
                 <Suspense fallback={<SuspenseTracker name="DashboardPortfolioLayout.Toolbar" />}>
                   {toolbar}

@@ -30,8 +30,8 @@ export const TreeItemAccount: FC<{
     <div className={classNames("@container relative flex items-center")}>
       <div
         className={classNames(
-          "flex h-[5.9rem] flex-grow items-center gap-8 overflow-hidden rounded-sm border-[1px] border-transparent px-8",
-          isInFolder ? "bg-secondary pr-4" : "bg-secondary",
+          "flex h-[59px] flex-grow items-center gap-4 overflow-hidden rounded-sm border-[1px] border-transparent px-4",
+          isInFolder ? "bg-secondary pr-2" : "bg-secondary",
         )}
       >
         <AccountIcon
@@ -39,8 +39,8 @@ export const TreeItemAccount: FC<{
           address={address}
           genesisHash={getAccountGenesisHash(account)}
         />
-        <div className="flex grow flex-col gap-2 overflow-hidden">
-          <div className="flex items-center gap-2">
+        <div className="flex grow flex-col gap-1 overflow-hidden">
+          <div className="flex items-center gap-1">
             <div className="overflow-hidden text-ellipsis whitespace-nowrap">{account.name}</div>
             <AccountTypeIcon
               className="text-fg-brand"
@@ -52,7 +52,7 @@ export const TreeItemAccount: FC<{
             <Address address={formattedAddress} noTooltip={noTooltip} />
           </div>
         </div>
-        <div className="@2xl:flex hidden flex-col gap-2">
+        <div className="@2xl:flex hidden flex-col gap-1">
           <Fiat amount={balanceTotal} isBalance noCountUp />
         </div>
 

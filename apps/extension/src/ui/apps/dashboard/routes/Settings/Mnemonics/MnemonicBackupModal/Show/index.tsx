@@ -31,7 +31,7 @@ export const ShowMnemonic = () => {
 
   return (
     <MnemonicBackupModalBase title={title}>
-      <div className="min-h-[18.6rem] grow">
+      <div className="min-h-[186px] grow">
         <MnemonicUnlock
           mnemonicId={mnemonic.id}
           buttonText={t("View Recovery Phrase")}

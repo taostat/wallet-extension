@@ -10,7 +10,7 @@ const Content = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-8">
       <HeaderBlock
         title={t("Add Account")}
         text={t("Add new account, import existing account or connect your ledger.")}

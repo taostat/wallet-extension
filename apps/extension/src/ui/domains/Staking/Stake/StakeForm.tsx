@@ -43,11 +43,11 @@ const AssetPill: FC<{ token: Token | null }> = ({ token }) => {
   if (!token) return null
 
   return (
-    <div className="flex h-16 items-center gap-4 px-4">
+    <div className="flex h-8 items-center gap-2 px-2">
       <TokenLogo tokenId={token.id} className="shrink-0 text-lg" />
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <div className="text-fg-primary text-base">{token.symbol}</div>
-        <div className="bg-disabled inline-block size-2 rounded-full"></div>
+        <div className="bg-disabled inline-block size-1 rounded-full"></div>
         <div className="text-fg-secondary text-sm">{t("Pooled Staking")}</div>
       </div>
     </div>
@@ -158,7 +158,7 @@ const TokenInput = () => {
   useInputAutoWidth(refTokensInput)
 
   return (
-    <div className={"flex w-full max-w-[400px] flex-nowrap items-center justify-center gap-4"}>
+    <div className={"flex w-full max-w-[400px] flex-nowrap items-center justify-center gap-2"}>
       <input
         key="tokenInput"
         ref={refTokensInput}
@@ -171,7 +171,7 @@ const TokenInput = () => {
         }
         onChange={handleChange}
       />
-      <div className="text-fg-primary flex shrink-0 items-center gap-2 text-base font-normal">
+      <div className="text-fg-primary flex shrink-0 items-center gap-1 text-base font-normal">
         <TokenLogo className="text-lg" tokenId={token?.id} />
         <div>{token?.symbol}</div>
       </div>
@@ -251,7 +251,7 @@ const FiatInput = () => {
         className="text-fg-primary peer inline-block min-w-0 bg-transparent text-xl"
         onChange={handleChange}
       />
-      {/* {isEstimatingMaxAmount && <div className="bg-secondary h-16 w-48 rounded"></div>} */}
+      {/* {isEstimatingMaxAmount && <div className="bg-secondary h-8 w-24 rounded"></div>} */}
       <div className="block shrink-0">{currencyConfig[currency]?.symbol}</div>
     </div>
   )
@@ -275,21 +275,21 @@ export const AmountEdit = () => {
   }, [maxPlancks, setPlancks])
 
   return (
-    <div className="flex w-full grow flex-col justify-center gap-4">
+    <div className="flex w-full grow flex-col justify-center gap-2">
       {!!token && (
         <>
-          <div className="h-16">{/* mirrors the height of error message reserved space */}</div>
+          <div className="h-8">{/* mirrors the height of error message reserved space */}</div>
           <div className="flex flex-col text-xl font-bold">
             {displayMode === "token" ? <TokenInput /> : <FiatInput />}
           </div>
-          <div className={classNames("flex max-w-full items-center justify-center gap-4")}>
+          <div className={classNames("flex max-w-full items-center justify-center gap-2")}>
             {tokenRates && (
               <>
                 {displayMode !== "token" ? <TokenDisplay /> : <FiatDisplay />}
                 <PillButton
                   onClick={toggleDisplayMode}
                   size="xs"
-                  className="h-[2.2rem] w-[2.2rem] rounded-full !px-0 !py-0"
+                  className="h-[22px] w-[22px] rounded-full !px-0 !py-0"
                 >
                   <SwapIcon />
                 </PillButton>
@@ -299,12 +299,12 @@ export const AmountEdit = () => {
               onClick={onSetMaxClick}
               disabled={!maxPlancks}
               size="xs"
-              className={classNames("h-[2.2rem] rounded-sm !px-4 !py-0")}
+              className={classNames("h-[22px] rounded-sm !px-2 !py-0")}
             >
               {t("Max")}
             </PillButton>
           </div>
-          <div className="h-16">
+          <div className="h-8">
             <div className="text-brand-orange line-clamp-2 text-center text-xs">
               {inputErrorMessage}
             </div>
@@ -377,7 +377,7 @@ const WithAprDocsLink = ({ children }: { children: ReactNode }) => {
 
   // return the APR wrapped with a tooltip
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-0.5">
       {children}
       <Tooltip>
         <TooltipTrigger>
@@ -422,15 +422,15 @@ export const StakeForm = () => {
   )
 
   return (
-    <div className="text-fg-secondary flex size-full flex-col gap-4">
-      <div className="bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-sm">
-        <div className="flex h-16 items-center justify-between gap-4">
+    <div className="text-fg-secondary flex size-full flex-col gap-2">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-2 text-sm">
+        <div className="flex h-8 items-center justify-between gap-2">
           <div className="whitespace-nowrap">{t("Asset")}</div>
           <div className="overflow-hidden">
             <AssetPill token={token} />
           </div>
         </div>
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex h-8 items-center justify-between gap-2">
           <div className="whitespace-nowrap">{t("Account")}</div>
           <div className="overflow-hidden">
             <Suspense fallback={<SuspenseTracker name="AccountPillButton" />}>
@@ -440,24 +440,24 @@ export const StakeForm = () => {
         </div>
       </div>
       <AmountEdit />
-      <div className="bg-app-bg leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-2 text-xs">
         <div className="flex items-center justify-between">
           <div className="whitespace-nowrap">{t("Available Balance")}</div>
           <div>{!!token && !!account && <AvailableBalance token={token} account={account} />}</div>
         </div>
       </div>
-      <div className="bg-app-bg leading-paragraph flex flex-col gap-6 rounded p-4 text-xs">
-        <div className="flex items-center justify-between gap-8">
+      <div className="bg-app-bg leading-paragraph flex flex-col gap-3 rounded p-2 text-xs">
+        <div className="flex items-center justify-between gap-4">
           <div className="whitespace-nowrap">{t("Pool")}</div>
           <div className="text-fg-primary truncate">
             <NominationPoolName poolId={poolId} chainId={token?.networkId} />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-8">
+        <div className="flex items-center justify-between gap-4">
           <div>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="flex items-center gap-1 whitespace-nowrap leading-none">
+                <div className="flex items-center gap-0.5 whitespace-nowrap leading-none">
                   {t("APR")}
                   <InfoCircle />
                 </div>
@@ -469,7 +469,7 @@ export const StakeForm = () => {
             <StakeApr />
           </div>
         </div>
-        <div className="flex items-center justify-between gap-8">
+        <div className="flex items-center justify-between gap-4">
           <div className="whitespace-nowrap">{t("Estimated Fee")}</div>
           <div className="overflow-hidden">
             <FeeEstimate />

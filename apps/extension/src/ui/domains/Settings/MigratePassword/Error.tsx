@@ -40,13 +40,13 @@ export const MigratePasswordError = () => {
       </p>
       <p className="text-fg-secondary text-sm">
         {!useErrorTracking && (
-          <span className="mb-4 block">
+          <span className="mb-2 block">
             <Checkbox onChange={() => setUseErrorTracking((prev) => !prev)}>
               {t("Send error report and enable error tracking")}
             </Checkbox>
           </span>
         )}
-        <span className="text-fg-primary bg-tertiary my-2 flex justify-center rounded-sm bg-opacity-50 p-4 font-mono">
+        <span className="text-fg-primary bg-tertiary my-1 flex justify-center rounded-sm bg-opacity-50 p-2 font-mono">
           {statusMessage}
         </span>
       </p>

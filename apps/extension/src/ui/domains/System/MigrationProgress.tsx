@@ -21,18 +21,18 @@ export const MigrationProgress = () => {
         !IS_POPUP && "flex h-screen w-screen flex-col items-center justify-center",
       )}
     >
-      <div className="animate-fade-in-slow flex h-[60rem] w-[40rem] flex-col items-center justify-between overflow-hidden p-8">
-        <div className="flex h-[26.8rem] flex-col items-center justify-center gap-24 pt-4">
+      <div className="animate-fade-in-slow flex h-[600px] w-[400px] flex-col items-center justify-between overflow-hidden p-4">
+        <div className="flex h-[268px] flex-col items-center justify-center gap-12 pt-2">
           <Home01
-            className={classNames("h-48 w-48", !migration.errors?.length && "animate-pulse")}
+            className={classNames("h-24 w-24", !migration.errors?.length && "animate-pulse")}
           />
           <div className={classNames("text-lg font-bold")}>
             {migration.errors?.length ? t("Taostats update failed") : t("Taostats update")}
           </div>
         </div>
-        <div className="flex h-[26.8rem] max-h-[26.8rem] w-full flex-col items-center justify-center gap-12">
+        <div className="flex h-[268px] max-h-[268px] w-full flex-col items-center justify-center gap-6">
           {migration.errors?.length ? (
-            <div className="leading-paragraph flex h-full w-full flex-col gap-8">
+            <div className="leading-paragraph flex h-full w-full flex-col gap-4">
               <div className="text-fg-secondary">
                 <Trans
                   t={t}
@@ -47,7 +47,7 @@ export const MigrationProgress = () => {
                   }}
                 ></Trans>
               </div>
-              <ul className="text-fg-orange grow overflow-scroll pl-8">
+              <ul className="text-fg-orange grow overflow-scroll pl-4">
                 {migration.errors.map((err, idx) => (
                   <li key={idx} className="list-disc">
                     {migration.name}: {String(err)}
@@ -65,11 +65,11 @@ export const MigrationProgress = () => {
             </div>
           ) : migration.acknowledgeRequest ? (
             <div className="flex grow flex-col">
-              <p className="text-fg-secondary mt-4 grow text-center text-base">
+              <p className="text-fg-secondary mt-2 grow text-center text-base">
                 {migration.acknowledgeRequest}
               </p>
               <Button
-                className="mt-8"
+                className="mt-4"
                 onClick={() => {
                   appStore.set({ currentMigration: { ...migration, acknowledged: true } })
                 }}
@@ -78,7 +78,7 @@ export const MigrationProgress = () => {
               </Button>
             </div>
           ) : (
-            <p className="text-fg-secondary mt-4 text-center text-base">
+            <p className="text-fg-secondary mt-2 text-center text-base">
               <span>{t("Progress:")}</span>{" "}
               <span className="tabular-nums">{(100 * (migration.progress ?? 0)).toFixed(0)}%</span>
             </p>

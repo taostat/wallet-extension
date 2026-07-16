@@ -16,11 +16,11 @@ export const AuthorisedSiteToolbar = () => {
 
   return (
     <>
-      <div className="absolute left-0 top-0 z-20 flex w-full shrink-0 items-center justify-between gap-4 px-8 pt-20">
+      <div className="absolute left-0 top-0 z-20 flex w-full shrink-0 items-center justify-between gap-2 px-4 pt-10">
         <ConnectedAccountsPill />
       </div>
       {/* Placeholder to reserve scrolling space */}
-      <div className="h-[3.6rem] w-full shrink-0"></div>
+      <div className="h-[36px] w-full shrink-0"></div>
     </>
   )
 }

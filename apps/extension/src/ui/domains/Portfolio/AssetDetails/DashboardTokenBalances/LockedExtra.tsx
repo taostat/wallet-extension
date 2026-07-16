@@ -53,14 +53,14 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
   if (!rowAddress) return null
 
   return (
-    <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 whitespace-nowrap p-8 text-right">
+    <div className="flex h-[66px] flex-col items-end justify-center gap-1 whitespace-nowrap p-4 text-right">
       {rowMeta.unbonding ? (
         accountStatus?.canWithdraw ? (
           <NomPoolWithdrawButton tokenId={tokenId} address={rowAddress} variant="large" />
         ) : (
           <>
             <div className={classNames(isLoading && "animate-pulse transition-opacity")}>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <ZapOff className="shrink-0 text-sm" />
                 <div>{t("Unstaking")}</div>
               </div>

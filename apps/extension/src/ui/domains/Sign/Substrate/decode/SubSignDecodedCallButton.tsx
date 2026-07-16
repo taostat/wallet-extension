@@ -15,9 +15,9 @@ export const SubSignDecodedButtonBase: DecodedCallComponent<
       type="button"
       className={classNames(
         "bg-secondary hover:bg-secondary border-primary text-fg-secondary",
-        "left-align group flex w-full items-center gap-4 overflow-x-hidden truncate rounded border pl-8 pr-4 text-left font-normal",
-        mode === "multiline" && "leading-paragraph py-4",
-        mode === "compact" && "h-[3.6rem]",
+        "left-align group flex w-full items-center gap-2 overflow-x-hidden truncate rounded border pl-4 pr-2 text-left font-normal",
+        mode === "multiline" && "leading-paragraph py-2",
+        mode === "compact" && "h-[36px]",
       )}
       onClick={onClick}
     >

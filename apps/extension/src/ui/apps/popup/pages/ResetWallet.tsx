@@ -43,30 +43,30 @@ const ConfirmDrawer = ({
 
   return (
     <Drawer isOpen={isOpen} anchor="bottom">
-      <div className="bg-secondary items-center rounded-t-xl p-12 pt-12">
-        <div className="flex flex-col items-center gap-12 px-12 text-center">
+      <div className="bg-secondary items-center rounded-t-xl p-6 pt-6">
+        <div className="flex flex-col items-center gap-6 px-6 text-center">
           <div className="text-3xl">
-            <AlertTriangle className="text-brand-orange text-[4.8rem]" />
+            <AlertTriangle className="text-brand-orange text-[48px]" />
           </div>
-          <div className="max-w-[30rem] font-bold leading-[2.2rem] text-white">
+          <div className="max-w-[300px] font-bold leading-[22px] text-white">
             {t("Are you sure you want to reset your Taostats wallet?")}
           </div>
         </div>
-        <div className="text-fg-secondary my-8 text-sm">
-          <p className="px-4 text-center">
+        <div className="text-fg-secondary my-4 text-sm">
+          <p className="px-2 text-center">
             {t(
               "Your current wallet, accounts and assets will be erased from Taostats. You will need to re-import your original account using your recovery (seed) phrase or private key.",
             )}
           </p>
-          <p className="mt-12 text-center">
+          <p className="mt-6 text-center">
             {t("Type '{{resetWalletText}}' below to continue", { resetWalletText: "Reset wallet" })}
           </p>
         </div>
         <FormFieldInputText onChange={handleTextChange} placeholder={"Reset wallet"} />
-        <div className="mt-12 flex flex-col gap-8">
+        <div className="mt-6 flex flex-col gap-4">
           <Button
             type="submit"
-            className="enabled:!bg-brand-orange hover:enabled:!bg-brand-orange/80 h-24 enabled:text-white"
+            className="enabled:!bg-brand-orange hover:enabled:!bg-brand-orange/80 h-12 enabled:text-white"
             fullWidth
             onClick={handleReset}
             primary={isMatch}
@@ -75,7 +75,7 @@ const ConfirmDrawer = ({
           >
             {t("Reset Wallet")}
           </Button>
-          <Button className="h-24" fullWidth onClick={closeResetWallet}>
+          <Button className="h-12" fullWidth onClick={closeResetWallet}>
             {t("Cancel")}
           </Button>
         </div>
@@ -95,7 +95,7 @@ export const ResetWallet = ({ closeResetWallet }: { closeResetWallet: () => void
 
   return (
     <PopupLayout>
-      <div className="text-fg-secondary flex h-32 items-center justify-center px-12 pr-[16px]">
+      <div className="text-fg-secondary flex h-16 items-center justify-center px-6 pr-[16px]">
         <ChevronLeft
           className="hover:text-fg-primary flex-shrink cursor-pointer text-lg"
           onClick={closeResetWallet}
@@ -103,10 +103,10 @@ export const ResetWallet = ({ closeResetWallet }: { closeResetWallet: () => void
         <span className="flex-grow pr-[24px] text-center">{t("Reset Wallet")}</span>
       </div>
       <PopupContent>
-        <div className="flex h-full flex-col items-center justify-end gap-16 pb-8">
-          <Lock01 className="text-fg-brand text-[4.8rem]" />
+        <div className="flex h-full flex-col items-center justify-end gap-8 pb-4">
+          <Lock01 className="text-fg-brand text-[48px]" />
           <div className="text-lg font-bold">{t("Forgot your password?")}</div>
-          <div className="text-fg-secondary space-y-12">
+          <div className="text-fg-secondary space-y-6">
             <p className="text-center">
               {t(
                 "This action will reset your current wallet, accounts and assets. There is no way for us to recover your password as it is only stored on your device. You can also try other passwords.",
@@ -120,11 +120,11 @@ export const ResetWallet = ({ closeResetWallet }: { closeResetWallet: () => void
           </div>
         </div>
       </PopupContent>
-      <PopupFooter className="flex flex-col gap-8">
-        <Button fullWidth primary onClick={open} className="h-24">
+      <PopupFooter className="flex flex-col gap-4">
+        <Button fullWidth primary onClick={open} className="h-12">
           {t("Reset Wallet")}
         </Button>
-        <Button fullWidth onClick={closeResetWallet} className="h-24">
+        <Button fullWidth onClick={closeResetWallet} className="h-12">
           {t("Cancel")}
         </Button>
       </PopupFooter>

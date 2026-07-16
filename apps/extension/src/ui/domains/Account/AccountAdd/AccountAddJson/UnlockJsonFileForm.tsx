@@ -73,7 +73,7 @@ export const UnlockJsonFileForm: FC = () => {
   return (
     <FadeIn>
       <form onSubmit={handleSubmit(submit)} autoComplete="off">
-        <div className="text-fg-secondary mb-8">
+        <div className="text-fg-secondary mb-4">
           {t("Enter the password that was used to encrypt this JSON file.")}
         </div>
         <FormFieldContainer error={errors.password?.message}>
@@ -87,7 +87,7 @@ export const UnlockJsonFileForm: FC = () => {
             after={<CapsLockWarningIcon />}
           />
         </FormFieldContainer>
-        <div className="mt-8 flex w-full justify-between">
+        <div className="mt-4 flex w-full justify-between">
           <BackToAddAccountButton methodType="new" />
           <Button type="submit" primary disabled={!isValid} processing={isSubmitting}>
             {t("Unlock JSON file")}

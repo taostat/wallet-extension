@@ -51,7 +51,7 @@ export const ViewDetailsAddress: FC<
           <button
             type="button"
             onClick={handleClick}
-            className="flex w-full items-center gap-2 overflow-hidden"
+            className="flex w-full items-center gap-1 overflow-hidden"
           >
             <AccountIcon address={formatted} className="text-md" />
             {account ? (

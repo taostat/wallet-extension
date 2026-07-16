@@ -12,7 +12,7 @@ export const Radio: FC<{
   return (
     <label
       className={classNames(
-        "text-fg-secondary cursor-pointer p-0.5",
+        "text-fg-secondary cursor-pointer p-px",
         "hover:text-fg-primary",
         "has-[:checked]:text-fg-primary has-[:checked]:cursor-default",
         className,

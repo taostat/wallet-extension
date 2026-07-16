@@ -14,11 +14,11 @@ export type NotificationProps = {
 }
 
 const NotificationIcon = ({ type }: { type: NotificationType }) => {
-  if (type === "success") return <CheckCircle className="text-fg-success h-16 w-16" />
-  if (type === "warn") return <AlertCircle className="text-fg-orange h-16 w-16" />
-  if (type === "error") return <XCircle className="text-fg-error h-16 w-16" />
+  if (type === "success") return <CheckCircle className="text-fg-success h-8 w-8" />
+  if (type === "warn") return <AlertCircle className="text-fg-orange h-8 w-8" />
+  if (type === "error") return <XCircle className="text-fg-error h-8 w-8" />
   if (type === "processing")
-    return <Loading01 className="text-fg-secondary animate-spin-slow h-16 w-16" />
+    return <Loading01 className="text-fg-secondary animate-spin-slow h-8 w-8" />
   return null
 }
 

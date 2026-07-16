@@ -89,14 +89,14 @@ export const BottomNav = () => {
 
   return (
     <>
-      <div className="h-32 shrink-0">{/* Placeholder for nav height */}</div>
+      <div className="h-16 shrink-0">{/* Placeholder for nav height */}</div>
       <QuickSettingsOverlay />
 
-      <div className="absolute bottom-0 left-0 z-20 flex w-full flex-col justify-center gap-6 px-8 pb-6">
+      <div className="absolute bottom-0 left-0 z-20 flex w-full flex-col justify-center gap-3 px-4 pb-3">
         <QuickSettingsModal />
         <div
           className={classNames(
-            "border-primary flex h-[5.2rem] w-full items-center justify-between rounded border bg-black/90 px-7 backdrop-blur-[2px]",
+            "border-primary flex h-[52px] w-full items-center justify-between rounded border bg-black/90 px-3.5 backdrop-blur-[2px]",
           )}
         >
           <NavButton
@@ -155,7 +155,7 @@ const NavButton: FC<{
       type="button"
       className={classNames(
         "group",
-        "text-fg-disabled h-20 w-20",
+        "text-fg-disabled h-10 w-10",
         "enabled:hover:text-fg-secondary",
         "enabled:focus-visible:border",
         routeMatch && "!text-fg-brand",
@@ -165,21 +165,21 @@ const NavButton: FC<{
     >
       <div
         className={classNames(
-          "flex w-full flex-col items-center justify-center gap-[0.15rem] overflow-visible",
-          "translate-y-4 transition-transform group-hover:translate-y-0",
+          "flex w-full flex-col items-center justify-center gap-[1.5px] overflow-visible",
+          "translate-y-2 transition-transform group-hover:translate-y-0",
         )}
       >
         {withBadge ? (
-          <div className="relative size-10 shrink-0">
-            <Icon className={classNames("size-10", iconClassName)} />
-            <div className="bg-fg-brand absolute -right-1 -top-1 size-3 rounded-full"></div>
+          <div className="relative size-5 shrink-0">
+            <Icon className={classNames("size-5", iconClassName)} />
+            <div className="bg-fg-brand absolute -right-0.5 -top-0.5 size-1.5 rounded-full"></div>
           </div>
         ) : (
-          <Icon className={classNames("size-10 shrink-0", iconClassName)} />
+          <Icon className={classNames("size-5 shrink-0", iconClassName)} />
         )}
         <div
           className={classNames(
-            "leading-paragraph text-[1rem]",
+            "leading-paragraph text-[10px]",
             "text-nowrap opacity-0 transition-opacity group-hover:opacity-100",
           )}
         >

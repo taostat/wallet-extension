@@ -25,7 +25,7 @@ export const NewFolderModal = () => {
 
   return (
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
-      <ModalDialog title={t("New Folder")} onClose={close} className="w-[36.8rem]">
+      <ModalDialog title={t("New Folder")} onClose={close} className="w-[368px]">
         <NewFolder onConfirm={close} onCancel={close} />
       </ModalDialog>
     </Modal>
@@ -135,7 +135,7 @@ const NewFolder = ({ onConfirm, onCancel, className }: NewFolderProps) => {
           {t("Add this folder to my followed only section")}
         </Checkbox>
       )}
-      <div className="mt-12 grid grid-cols-2 gap-8">
+      <div className="mt-6 grid grid-cols-2 gap-4">
         <Button onClick={onCancel}>{t("Cancel")}</Button>
         <Button type="submit" primary disabled={!isValid} processing={isSubmitting}>
           {t("Save")}

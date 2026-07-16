@@ -39,7 +39,7 @@ const HeaderRow: FC<{
   if (summary.totalTokens.isZero()) return null
 
   return (
-    <div className="text-fg-secondary bg-secondary rounded p-8 text-left text-base">
+    <div className="text-fg-secondary bg-secondary rounded p-4 text-left text-base">
       <div className="grid grid-cols-[40%_30%_30%]">
         <Statistics
           className="h-auto w-auto p-0"
@@ -53,7 +53,7 @@ const HeaderRow: FC<{
         {canHaveLockedState ? (
           <>
             <Statistics
-              className="h-auto w-auto items-end p-0 pr-8"
+              className="h-auto w-auto items-end p-0 pr-4"
               title={t("Locked")}
               tokens={summary.lockedTokens}
               fiat={summary.lockedFiat}
@@ -134,11 +134,11 @@ const TokenBreadcrumb: FC<{
   }, [t, name, navigate])
 
   return (
-    <div className="flex h-20 items-center justify-between">
+    <div className="flex h-10 items-center justify-between">
       <div className="grow">
         <Breadcrumb items={items} />
       </div>
-      <div className="flex h-20 items-center gap-2">
+      <div className="flex h-10 items-center gap-1">
         {/* <BittensorClaimSettingsToolbarButton balances={balances} /> */}
         {/* <BittensorStakeToolbarButton balances={balances} />
         <BittensorUnstakeToolbarButton balances={balances} />*/}

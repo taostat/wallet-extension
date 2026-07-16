@@ -93,8 +93,8 @@ export const NavigationDrawer: FC = () => {
   return (
     <Drawer className="h-full" containerId="main" anchor="bottom" isOpen={isOpen} onDismiss={close}>
       <div className="flex h-full w-full flex-col bg-black">
-        <header className="border-primary box-border flex h-36 w-full items-center justify-between gap-6 border-b px-12">
-          <TaostatsLogo className="h-[2.5rem] w-auto" />
+        <header className="border-primary box-border flex h-[72px] w-full items-center justify-between gap-3 border-b px-6">
+          <TaostatsLogo className="h-[25px] w-auto" />
           <BuildVersionPill className="bg-fg-brand/20 text-fg-brand hover:bg-fg-brand/30" />
           <div className="grow"></div>
           <IconButton onClick={close} aria-label={t("Close menu")}>
@@ -103,7 +103,7 @@ export const NavigationDrawer: FC = () => {
         </header>
         <div className="w-full grow overflow-hidden">
           {/* buttons must shrink height if necessary */}
-          <Nav className="flex size-full flex-col overflow-hidden p-4">
+          <Nav className="flex size-full flex-col overflow-hidden p-2">
             <NavItem icon={<Plus />} onClick={handleAddAccountClick}>
               {t("Add Account")}
             </NavItem>
@@ -117,7 +117,7 @@ export const NavigationDrawer: FC = () => {
             <NavItem icon={<Key01 />} onClick={handleBackupClick}>
               <span className="flex items-center">
                 {t("Backup Wallet")}
-                {!allBackedUp && <AlertCircle className="text-fg-brand ml-2 inline text-sm" />}
+                {!allBackedUp && <AlertCircle className="text-fg-brand ml-1 inline text-sm" />}
               </span>
             </NavItem>
             <NavItem icon={<Settings01 />} onClick={handleSettingsClick}>
@@ -131,8 +131,8 @@ export const NavigationDrawer: FC = () => {
             className="text-fg-secondary hover:bg-secondary hover:text-fg-primary flex w-full flex-col items-center"
             onClick={handleLock}
           >
-            <div className="border-1 border-primary h-0 w-11/12 border-t" />
-            <div className="flex w-full items-center justify-center gap-4 p-10">
+            <div className="border-1 border-primary h-0 w-[22px]/12 border-t" />
+            <div className="flex w-full items-center justify-center gap-2 p-5">
               <Lock01 className="text-md" />
               <span>{t("Lock Wallet")}</span>
             </div>

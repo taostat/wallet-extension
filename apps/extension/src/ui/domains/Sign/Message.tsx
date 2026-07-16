@@ -26,13 +26,13 @@ export const Message: FC<MessageProps> = ({ text, rows, className }) => {
         rows={rows}
         className={classNames(
           "text-fg-secondary bg-secondary scrollable scrollable-600",
-          "rounded p-6 text-left font-mono",
+          "rounded p-3 text-left font-mono",
           className,
         )}
         value={value}
       />
       {canShowAll && (
-        <div className="text-fg-disabled mt-4 flex w-full justify-between text-xs">
+        <div className="text-fg-disabled mt-2 flex w-full justify-between text-xs">
           <div>{t("Displaying first 1000 characters only")}</div>
           <div>
             <button type="button" className="hover:text-fg-tertiary" onClick={handleShowAll}>

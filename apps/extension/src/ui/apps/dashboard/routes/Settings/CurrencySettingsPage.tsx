@@ -22,12 +22,12 @@ const Content = () => {
         )}
       />
       <Spacer />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         {currencyOrder.map((currency) => (
           <button
             type="button"
             key={currency}
-            className="bg-secondary enabled:hover:bg-secondary text-fg-disabled enabled:hover:text-fg-secondary flex h-28 w-full cursor-pointer items-center gap-8 rounded-sm px-8 disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-secondary enabled:hover:bg-secondary text-fg-disabled enabled:hover:text-fg-secondary flex h-14 w-full cursor-pointer items-center gap-4 rounded-sm px-4 disabled:cursor-not-allowed disabled:opacity-50"
             onClick={() =>
               setFavorites((selectable) => {
                 const newSelectable = selectable.includes(currency)
@@ -47,8 +47,8 @@ const Content = () => {
               })
             }
           >
-            <img className="w-16 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
-            <div className="flex grow flex-col items-start gap-1">
+            <img className="w-8 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
+            <div className="flex grow flex-col items-start gap-0.5">
               <div className="text-fg-primary uppercase">{currency}</div>
               <div className="text-fg-secondary text-xs">
                 {currencyConfig[currency]?.symbol ?? ""}{" "}

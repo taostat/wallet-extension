@@ -31,7 +31,7 @@ export const BittensorSelectButton = ({
     return (
       <div
         className={
-          "text-fg-disabled bg-tertiary rounded-xs my-[0.45rem] h-[1.6rem] w-40 animate-pulse"
+          "text-fg-disabled bg-tertiary rounded-xs my-[4.5px] h-[16px] w-20 animate-pulse"
         }
       />
     )
@@ -40,7 +40,7 @@ export const BittensorSelectButton = ({
     <button
       onClick={handleClick}
       className={classNames(
-        "bg-pill hover:bg-tertiary flex cursor-pointer items-center gap-2 rounded-xl px-4 py-2 text-xs font-light",
+        "bg-pill hover:bg-tertiary flex cursor-pointer items-center gap-1 rounded-xl px-2 py-1 text-xs font-light",
         isBtnDisabled && "cursor-not-allowed opacity-50",
       )}
     >

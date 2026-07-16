@@ -52,14 +52,14 @@ export const NewPasswordForm = () => {
 
   return (
     <ModalDialog title={t("Enter new password")}>
-      <p className="text-fg-secondary mb-16 text-sm">
+      <p className="text-fg-secondary mb-8 text-sm">
         {t(
           "This is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols and numbers.",
         )}
       </p>
 
       <form onSubmit={handleSubmit(submit)}>
-        <div className="mb-6 flex h-[1.2em] items-center justify-between text-sm">
+        <div className="mb-3 flex h-[1.2em] items-center justify-between text-sm">
           <div className="text-fg-disabled">
             {t("Password strength:")} <PasswordStrength password={newPwWatch} />
           </div>
@@ -67,7 +67,7 @@ export const NewPasswordForm = () => {
             <CapsLockWarningMessage />
           </div>
         </div>
-        <FormFieldContainer error={errors.newPw?.message} className="mb-12">
+        <FormFieldContainer error={errors.newPw?.message} className="mb-6">
           <FormFieldInputText
             {...register("newPw")}
             placeholder={t("Enter New Password")}
@@ -78,7 +78,7 @@ export const NewPasswordForm = () => {
             tabIndex={0}
           />
         </FormFieldContainer>
-        <FormFieldContainer error={errors.newPwConfirm?.message} className="mb-12">
+        <FormFieldContainer error={errors.newPwConfirm?.message} className="mb-6">
           <FormFieldInputText
             {...register("newPwConfirm")}
             placeholder={t("Confirm New Password")}
@@ -90,7 +90,7 @@ export const NewPasswordForm = () => {
           />
         </FormFieldContainer>
         <Button
-          className="mt-12"
+          className="mt-6"
           type="submit"
           primary
           fullWidth

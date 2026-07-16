@@ -32,7 +32,7 @@ export const SignLedgerBase: FC<{
   return (
     <div
       className={classNames(
-        "grid w-full gap-8",
+        "grid w-full gap-4",
         onCancel ? "grid-cols-2" : "grid-cols-1",
         className,
       )}
@@ -43,7 +43,7 @@ export const SignLedgerBase: FC<{
         processing={isProcessing}
         disabled={disabled}
         onClick={onSignClick}
-        className="px-4"
+        className="px-2"
       >
         {t("Sign on Ledger")}
       </SignApproveButton>

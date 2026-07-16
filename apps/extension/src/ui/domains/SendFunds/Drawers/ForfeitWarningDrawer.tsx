@@ -61,16 +61,16 @@ export const ForfeitWarningDrawer = ({
 
   return (
     <Drawer anchor="bottom" isOpen={isOpen} onDismiss={close} containerId="main">
-      <div className="bg-tertiary rounded-t-xl p-12 text-center">
+      <div className="bg-tertiary rounded-t-xl p-6 text-center">
         <div>
           <InfoCircle className="text-fg-brand inline-block text-3xl" />
         </div>
-        <div className="mt-10 font-bold">{t("Confirm forfeit")}</div>
-        <div className="text-fg-secondary mt-5 text-sm">
+        <div className="mt-5 font-bold">{t("Confirm forfeit")}</div>
+        <div className="text-fg-secondary mt-2.5 text-sm">
           {tokensToBeReaped?.map(({ token, amount }) => (
             <ForfeitDetails key={token.id} tokenId={token.id} planck={amount.planck.toString()} />
           ))}
-          <div className="mt-5">
+          <div className="mt-2.5">
             <a
               className="text-white underline"
               target="_blank"
@@ -80,7 +80,7 @@ export const ForfeitWarningDrawer = ({
             </a>
           </div>
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-4">
+        <div className="mt-5 grid grid-cols-2 gap-2">
           <Button onClick={close}>{t("Cancel")}</Button>
           <Button primary onClick={handleAccept}>
             {t("Proceed")}

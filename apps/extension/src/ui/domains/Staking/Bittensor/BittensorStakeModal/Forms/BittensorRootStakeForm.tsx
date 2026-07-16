@@ -52,11 +52,11 @@ export const BittensorRootStakeForm = () => {
     if (stakeDirection === "unstake") return null
 
     return (
-      <div className="flex items-center justify-between gap-8">
+      <div className="flex items-center justify-between gap-4">
         <div>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="flex items-center gap-1 whitespace-nowrap leading-none">
+              <div className="flex items-center gap-0.5 whitespace-nowrap leading-none">
                 {t("APY")}
                 <InfoCircle />
               </div>

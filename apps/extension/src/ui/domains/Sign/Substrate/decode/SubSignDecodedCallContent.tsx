@@ -24,7 +24,7 @@ export const SubSignDecodedCallContent: FC<{
 }> = ({ decodedCall, sapi, payload }) => (
   <FallbackErrorBoundary fallback={<ErrorFallback decodedCall={decodedCall} sapi={sapi} />}>
     <Suspense fallback={<LoadingShimmer />}>
-      <div className="text-fg-secondary flex flex-col gap-4 text-sm">
+      <div className="text-fg-secondary flex flex-col gap-2 text-sm">
         {/* Summary can suspense to fetch additional data, and break if a chain uses incompatible types */}
         <SubSignDecodedCallSummaryBlock decodedCall={decodedCall} sapi={sapi} payload={payload} />
         <DefaultView decodedCall={decodedCall} sapi={sapi} />
@@ -37,7 +37,7 @@ const ErrorFallback: FC<{
   decodedCall: DecodedCall
   sapi: ScaleApi
 }> = ({ decodedCall, sapi }) => (
-  <div className="text-fg-secondary flex flex-col gap-4 text-sm">
+  <div className="text-fg-secondary flex flex-col gap-2 text-sm">
     <DefaultView decodedCall={decodedCall} sapi={sapi} />
   </div>
 )
@@ -76,11 +76,11 @@ const DefaultView: FC<{
 
   return (
     <>
-      <div className="flex w-full justify-between gap-8">
+      <div className="flex w-full justify-between gap-4">
         <div>{t("Pallet")}</div>
         <div className="text-fg-primary truncate">{decodedCall.pallet}</div>
       </div>
-      <div className="flex w-full justify-between gap-8">
+      <div className="flex w-full justify-between gap-4">
         <div>{t("Method")}</div>
         <div className="text-fg-primary truncate">{decodedCall.method}</div>
       </div>
@@ -94,11 +94,11 @@ const DefaultView: FC<{
       )}
       {!!docs && (
         <>
-          <div className="mt-4">{t("Documentation")}</div>
+          <div className="mt-2">{t("Documentation")}</div>
           <div
             className={classNames(
-              "flex w-full flex-col gap-2 overflow-hidden !text-xs",
-              "[&_code]:text-fg-primary [&_em]:text-fg-primary [&_h1]:text-xs [&_h2]:text-xs [&_h3]:text-xs [&_h4]:text-xs [&_h5]:text-xs [&_ul]:list-disc [&_ul]:pl-10",
+              "flex w-full flex-col gap-1 overflow-hidden !text-xs",
+              "[&_code]:text-fg-primary [&_em]:text-fg-primary [&_h1]:text-xs [&_h2]:text-xs [&_h3]:text-xs [&_h4]:text-xs [&_h5]:text-xs [&_ul]:list-disc [&_ul]:pl-5",
               "[overflow-wrap:anywhere]",
             )}
           >
@@ -114,9 +114,9 @@ const LoadingShimmer = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="text-fg-secondary animate-fade-in flex flex-col items-center gap-2 pt-40 leading-[140%]">
-      <Loading01 className="animate-spin-slow h-14 w-14" />
-      <div className="mt-4 text-sm font-bold text-white opacity-70">{t("Analysing request")}</div>
+    <div className="text-fg-secondary animate-fade-in flex flex-col items-center gap-1 pt-20 leading-[140%]">
+      <Loading01 className="animate-spin-slow h-7 w-7" />
+      <div className="mt-2 text-sm font-bold text-white opacity-70">{t("Analysing request")}</div>
     </div>
   )
 }

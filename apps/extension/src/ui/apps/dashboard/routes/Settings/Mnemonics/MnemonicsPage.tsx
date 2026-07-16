@@ -46,7 +46,7 @@ const NoMnemonicMessage = () => {
   }, [navigate])
 
   return (
-    <div className="text-fg-secondary bg-secondary flex items-center gap-6 rounded p-6 text-base">
+    <div className="text-fg-secondary bg-secondary flex items-center gap-3 rounded p-3 text-base">
       <InfoCircle className="shrink-0 text-lg" />
       <div>
         <Trans
@@ -81,13 +81,13 @@ const useMnemonicAccounts = (mnemonicId: string) => {
 }
 
 const AccountRow: FC<{ account: AccountOfType<"keypair"> }> = ({ account }) => (
-  <div className="text-fg-secondary bg-app-bg mt-4 flex h-[4.8rem] w-full items-center gap-6 overflow-hidden rounded-sm px-8">
+  <div className="text-fg-secondary bg-app-bg mt-2 flex h-[48px] w-full items-center gap-3 overflow-hidden rounded-sm px-4">
     <AccountIcon
       className="text-lg"
       address={account.address}
       genesisHash={getAccountGenesisHash(account)}
     />
-    <div className="flex grow flex-col gap-1 overflow-hidden">
+    <div className="flex grow flex-col gap-0.5 overflow-hidden">
       <div className="text-fg-primary max-w-full truncate text-sm">{account.name}</div>
       <div className="text-fg-secondary text-xs">
         <Address address={account.address} startCharCount={6} endCharCount={6} />
@@ -138,53 +138,53 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
         type="button"
         onClick={toggle}
         className={classNames(
-          "hover:text-fg-primary text-fg-secondary flex h-[6.5rem] w-full items-center gap-6 rounded-sm px-8 text-left",
+          "hover:text-fg-primary text-fg-secondary flex h-[65px] w-full items-center gap-3 rounded-sm px-4 text-left",
           mnemonic.confirmed
             ? "bg-secondary hover:bg-secondary"
             : "bg-orange-secondary/5 hover:bg-orange-secondary/10",
         )}
       >
-        <div className="bg-tertiary/10 flex h-[4rem] w-[4rem] shrink-0 items-center justify-center rounded-full">
+        <div className="bg-tertiary/10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full">
           <SecretIcon className="text-fg-secondary text-lg" />
         </div>
-        <div className="flex grow flex-col gap-2 overflow-hidden">
-          <div className="flex items-center gap-2">
+        <div className="flex grow flex-col gap-1 overflow-hidden">
+          <div className="flex items-center gap-1">
             <div className="text-fg-primary truncate text-base">{mnemonic.name}</div>
             {isVerifier(mnemonic.id) && <PolkadotVaultIcon className="text-fg-brand shrink-0" />}
           </div>
-          <div className="text-fg-secondary flex items-center gap-2 text-xs leading-none">
+          <div className="text-fg-secondary flex items-center gap-1 text-xs leading-none">
             <AccountsStack accounts={accounts} />
             <div>{t("used by {{count}} accounts", { count: accounts.length })}</div>
           </div>
         </div>
 
         {/* reserved space for the context menu button */}
-        <div style={actionsStyle} className="h-[3.6rem] w-[3.6rem] shrink-0"></div>
+        <div style={actionsStyle} className="h-[36px] w-[36px] shrink-0"></div>
         <AccordionIcon isOpen={isOpen} className="text-lg" />
       </button>
       <div
         ref={refActions}
-        className="absolute right-24 top-0 flex h-[6.5rem] flex-col justify-center"
+        className="absolute right-12 top-0 flex h-[65px] flex-col justify-center"
       >
-        <div className="relative flex items-center gap-6">
+        <div className="relative flex items-center gap-3">
           {!mnemonic.confirmed && (
             <button
               ref={refBackup}
               onClick={handleBackupClick}
-              className="bg-orange-secondary/5 hover:bg-orange-secondary/10 text-fg-orange flex h-[3rem] items-center gap-[0.5em] rounded-[2rem] border px-6 text-sm"
+              className="bg-orange-secondary/5 hover:bg-orange-secondary/10 text-fg-orange flex h-[30px] items-center gap-[0.5em] rounded-[20px] border px-3 text-sm"
             >
               <span>{t("Backup")}</span>
               <AlertCircle className="inline-block text-base" />
             </button>
           )}
           <ContextMenu placement="bottom-end">
-            <ContextMenuTrigger className="hover:bg-secondary active:hover:bg-secondary hover:text-fg-primary text-fg-secondary rounded p-2">
+            <ContextMenuTrigger className="hover:bg-secondary active:hover:bg-secondary hover:text-fg-primary text-fg-secondary rounded p-1">
               <DotsHorizontal className="text-lg" />
             </ContextMenuTrigger>
             <ContextMenuContent>
               <ContextMenuItem onClick={handleRenameClick}>{t("Rename")}</ContextMenuItem>
               <ContextMenuItem onClick={handleBackupClick}>
-                <div className="flex items-center gap-[0.8rem]">
+                <div className="flex items-center gap-[8px]">
                   <span>{t("Backup")}</span>
                   {!mnemonic.confirmed && (
                     <AlertCircle className="text-fg-orange inline-block text-base" />
@@ -199,9 +199,9 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
         </div>
       </div>
       <Accordion isOpen={isOpen}>
-        <div className="relative pl-[6rem]">
+        <div className="relative pl-[60px]">
           {!accounts.length && (
-            <div className="text-fg-secondary bg-app-bg mt-4 flex h-[4.8rem] items-center gap-6 rounded-sm px-8 text-sm">
+            <div className="text-fg-secondary bg-app-bg mt-2 flex h-[48px] items-center gap-3 rounded-sm px-4 text-sm">
               <InfoCircle className="text-md" />{" "}
               {t("There are no accounts derived from this recovery phrase")}
             </div>
@@ -209,7 +209,7 @@ const MnemonicRow: FC<{ mnemonic: Mnemonic }> = ({ mnemonic }) => {
           {accounts.map((account) => (
             <AccountRow key={account.address} account={account} />
           ))}
-          <CornerDownRight className="text-fg-disabled absolute left-12 top-6 text-lg" />
+          <CornerDownRight className="text-fg-disabled absolute left-6 top-3 text-lg" />
         </div>
       </Accordion>
     </div>
@@ -230,10 +230,10 @@ const BackupReminder: FC = () => {
   return (
     <div
       className={classNames(
-        "border-primary mb-8 flex w-full items-center gap-4 rounded-sm border p-4",
+        "border-primary mb-4 flex w-full items-center gap-2 rounded-sm border p-2",
       )}
     >
-      <div className="bg-fg-brand/10 rounded-full p-3">
+      <div className="bg-fg-brand/10 rounded-full p-1.5">
         <AlertCircle className="text-fg-brand text-sm" />
       </div>
       <div className="grow text-sm">
@@ -273,7 +273,7 @@ const MnemonicsList = () => {
   if (!mnemonics.length) return <NoMnemonicMessage />
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       {sortedMnemonics.map((mnemonic) => (
         <MnemonicRow key={mnemonic.id} mnemonic={mnemonic} />
       ))}

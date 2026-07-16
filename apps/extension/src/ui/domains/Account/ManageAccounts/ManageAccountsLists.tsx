@@ -49,7 +49,7 @@ export const ManageAccountsLists: FC<{ className?: string }> = ({ className }) =
       />
       {!!watchedUiTree.length && (
         <>
-          {!!portfolioUiTree.length && <div className="h-8 shrink-0"></div>}
+          {!!portfolioUiTree.length && <div className="h-4 shrink-0"></div>}
           <Separator icon={Eye} label={t("Followed only")} />
           <ManageAccountsList
             accounts={accounts}
@@ -96,9 +96,9 @@ const Separator: FC<{ label: ReactNode; icon: FC<{ className?: string }> }> = ({
   icon: Icon,
   label,
 }) => (
-  <div className="text-fg-disabled @xl:text-sm flex w-full items-center gap-4 text-xs font-bold">
+  <div className="text-fg-disabled @xl:text-sm flex w-full items-center gap-2 text-xs font-bold">
     <Icon className="inline" />
     <div>{label}</div>
-    <div className="bg-secondary h-0.5 grow"></div>
+    <div className="bg-secondary h-px grow"></div>
   </div>
 )

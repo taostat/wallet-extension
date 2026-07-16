@@ -31,7 +31,7 @@ export const CopyToClipboardLinkButton: FC<{ data: string; className?: string }>
         </>
       ) : (
         <>
-          <Copy01 className="mr-2 inline" />
+          <Copy01 className="mr-1 inline" />
           <span>{t("Copy to clipboard")}</span>
         </>
       )}

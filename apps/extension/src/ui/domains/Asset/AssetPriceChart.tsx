@@ -121,16 +121,16 @@ const AssetPriceChartOriginal: FC<{
     <div
       className={classNames(
         "bg-secondary border-primary relative flex w-full shrink-0 flex-col gap-0 overflow-hidden rounded-md border",
-        variant === "small" && "h-[16.8rem]",
-        variant === "large" && "h-[19.2rem]",
+        variant === "small" && "h-[168px]",
+        variant === "large" && "h-[192px]",
         className,
       )}
     >
       <div
         className={classNames(
           "flex shrink-0 items-center justify-between",
-          variant === "small" && "h-20 px-4",
-          variant === "large" && "h-24 px-5",
+          variant === "small" && "h-10 px-2",
+          variant === "large" && "h-12 px-2.5",
         )}
       >
         <TokenSelect
@@ -139,13 +139,13 @@ const AssetPriceChartOriginal: FC<{
           variant={variant}
           onChange={setSelectedTokenId}
         />
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           {isValid && (
             <div
               className={classNames(
                 "text-fg-secondary font-bold",
                 variant === "small" && "text-base",
-                variant === "large" && "text-[2rem]",
+                variant === "large" && "text-[20px]",
                 formattedHoveredValue && "text-fg-primary",
               )}
             >
@@ -478,9 +478,9 @@ const TimespanSelect: FC<{
   return (
     <div
       className={classNames(
-        "text-fg-secondary flex w-full shrink-0 items-center justify-center gap-2 font-bold",
-        variant === "small" && "h-16",
-        variant === "large" && "h-20",
+        "text-fg-secondary flex w-full shrink-0 items-center justify-center gap-1 font-bold",
+        variant === "small" && "h-8",
+        variant === "large" && "h-10",
         className,
       )}
     >
@@ -489,9 +489,9 @@ const TimespanSelect: FC<{
           key={key}
           type="button"
           className={classNames(
-            "text-fg-secondary hover:bg-fg-primary/5 hover:text-fg-primary rounded-[0.6rem] px-3 py-1.5",
+            "text-fg-secondary hover:bg-fg-primary/5 hover:text-fg-primary rounded-[6px] px-1.5 py-0.5.5",
             "pointer-events-auto",
-            variant === "small" && "text-[1rem]",
+            variant === "small" && "text-[10px]",
             variant === "large" && "text-sm",
             value === key && "bg-fg-primary/10 text-fg-primary",
           )}
@@ -518,9 +518,9 @@ const TokenSelect: FC<{
     return (
       <div
         className={classNames(
-          "flex items-center gap-2 p-2 font-bold",
+          "flex items-center gap-1 p-1 font-bold",
           variant === "small" && "text-base",
-          variant === "large" && "text-[2rem]",
+          variant === "large" && "text-[20px]",
         )}
       >
         <div className="flex flex-col justify-center">
@@ -539,9 +539,9 @@ const TokenSelect: FC<{
           type="button"
           className={classNames(
             "bg-secondary hover:bg-secondary group rounded",
-            "flex items-center gap-2 p-2 font-bold",
+            "flex items-center gap-1 p-1 font-bold",
             variant === "small" && "text-base",
-            variant === "large" && "text-[2rem]",
+            variant === "large" && "text-[20px]",
           )}
         >
           <div className="flex flex-col justify-center">
@@ -554,7 +554,7 @@ const TokenSelect: FC<{
         </button>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="bg-app-bg flex w-full flex-col gap-2 rounded p-4">
+        <div className="bg-app-bg flex w-full flex-col gap-1 rounded p-2">
           {tokens.map((t) => (
             <TokenSelectOption
               key={t.id}
@@ -587,20 +587,20 @@ const TokenSelectOption: FC<{ token: Token; selected: boolean; onClick: () => vo
       type="button"
       onClick={handleClick}
       className={classNames(
-        "enabled:hover:bg-secondary focus-visible:bg-secondary disabled:text-fg-disabled rounded-xs h-20 p-6 px-3 text-left",
-        "flex w-full items-center justify-between gap-16",
+        "enabled:hover:bg-secondary focus-visible:bg-secondary disabled:text-fg-disabled rounded-xs h-10 p-3 px-1.5 text-left",
+        "flex w-full items-center justify-between gap-8",
       )}
     >
-      <div className="flex items-center gap-4">
-        <TokenLogo tokenId={token.id} className="inline-block text-[2.8rem]" />
-        <div className="flex grow flex-col gap-1">
+      <div className="flex items-center gap-2">
+        <TokenLogo tokenId={token.id} className="inline-block text-[28px]" />
+        <div className="flex grow flex-col gap-0.5">
           <span className="text-sm font-bold">{token.symbol}</span>
-          <span className="text-fg-secondary text-[1rem]">
+          <span className="text-fg-secondary text-[10px]">
             {t("Mkt Cap:")} <MarketCap tokenId={token.id} />
           </span>
         </div>
       </div>
-      <div className="text-fg-primary flex gap-4 font-bold">
+      <div className="text-fg-primary flex gap-2 font-bold">
         <AssetPrice tokenId={token.id} balances={null} noTooltip noChange className="text-sm" />
         <Check
           className={classNames("text-fg-brand text-base", selected ? "visible" : "invisible")}

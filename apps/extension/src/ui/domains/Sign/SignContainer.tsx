@@ -27,18 +27,18 @@ export const SignContainer: FC<SignContainerProps> = ({
   const alertContainer = document.getElementById("sign-alerts-inject") as Element
 
   return (
-    <FadeIn className={classNames("flex h-full flex-col pt-8", className)}>
+    <FadeIn className={classNames("flex h-full flex-col pt-4", className)}>
       {header}
-      <h1 className="leading-base text-fg-primary mb-12 mt-0 font-sans text-lg font-bold">
+      <h1 className="leading-base text-fg-primary mb-6 mt-0 font-sans text-lg font-bold">
         {title}
       </h1>
-      <div className="flex w-full flex-col items-center gap-4 py-8 [&>div]:max-w-full [&>div]:overflow-x-hidden">
+      <div className="flex w-full flex-col items-center gap-2 py-4 [&>div]:max-w-full [&>div]:overflow-x-hidden">
         {children}
       </div>
       <div className="flex w-full justify-center">
         {networkType === "substrate" && <ViewDetailsSub />}
       </div>
-      <div className="mb-8 mt-12 grow text-center">
+      <div className="mb-4 mt-6 grow text-center">
         {networkType === "substrate" && <SubSignDecoded />}
       </div>
       {alert && alertContainer && createPortal(alert, alertContainer)}

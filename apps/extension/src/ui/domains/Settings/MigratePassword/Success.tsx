@@ -9,7 +9,7 @@ export const MigratePasswordSuccess = () => {
   const { onComplete } = useMigratePassword()
   return (
     <ModalDialog title={t("Security Upgrade Complete")}>
-      <CheckCircle className="text-fg-brand h-12 w-12" />
+      <CheckCircle className="text-fg-brand h-6 w-6" />
 
       <Button onClick={onComplete} fullWidth>
         {t("Close")}

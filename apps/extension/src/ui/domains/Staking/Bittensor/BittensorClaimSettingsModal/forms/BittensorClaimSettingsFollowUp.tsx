@@ -10,7 +10,7 @@ export const BittensorClaimSettingsFollowUp = () => {
   if (!hash || !nativeToken?.networkId) return null
 
   return (
-    <div className="size-full p-12">
+    <div className="size-full p-6">
       <TxProgress hash={hash} networkIdOrHash={nativeToken?.networkId} onClose={close} />
     </div>
   )

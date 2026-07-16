@@ -13,7 +13,7 @@ export const AccountsStack: FC<{ accounts: Account[]; className?: string }> = ({
   return (
     <div
       className={classNames(
-        "ml-[0.4em] inline-block h-9 pl-0.5 leading-none [&>div]:ml-[-0.4em]",
+        "ml-[0.4em] inline-block h-[18px] pl-px leading-none [&>div]:ml-[-0.4em]",
         className,
       )}
     >

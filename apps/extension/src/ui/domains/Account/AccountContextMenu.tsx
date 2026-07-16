@@ -117,13 +117,13 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
     <ContextMenu placement={placement ?? "bottom-end"}>
       <ContextMenuTrigger
         ref={ref}
-        className="enabled:hover:bg-secondary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-6 disabled:cursor-[inherit]"
+        className="enabled:hover:bg-secondary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-3 disabled:cursor-[inherit]"
         asChild={!!trigger}
         disabled={disabled}
       >
         {trigger ? trigger : <DotsHorizontal className="shrink-0" />}
       </ContextMenuTrigger>
-      <ContextMenuContent className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg">
+      <ContextMenuContent className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-1 py-1.5 text-left text-sm shadow-lg">
         <Suspense fallback={<SuspenseTracker name="AccountContextMenu" />}>
           {account && (
             <>

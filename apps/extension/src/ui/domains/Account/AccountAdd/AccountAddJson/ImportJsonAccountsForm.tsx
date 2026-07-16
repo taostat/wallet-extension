@@ -39,7 +39,7 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
           <button
             tabIndex={-1}
             type="button"
-            className="bg-app-bg text-fg-primary enabled:hover:bg-secondary flex h-32 w-full shrink-0 cursor-pointer items-center gap-10 rounded-sm px-8 text-left disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-app-bg text-fg-primary enabled:hover:bg-secondary flex h-16 w-full shrink-0 cursor-pointer items-center gap-5 rounded-sm px-4 text-left disabled:cursor-not-allowed disabled:opacity-50"
             onClick={handleClick}
             disabled={!account.isPrivateKeyAvailable || account.isExisting}
           >
@@ -48,8 +48,8 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
               address={account.address}
               genesisHash={account.genesisHash}
             />
-            <div className="flex grow flex-col gap-2 overflow-hidden">
-              <div className="flex w-full items-center gap-1 overflow-hidden text-base">
+            <div className="flex grow flex-col gap-1 overflow-hidden">
+              <div className="flex w-full items-center gap-0.5 overflow-hidden text-base">
                 <div className="truncate">{account.name}</div>
                 <div className="shrink-0">
                   <AccountTypeIcon className="text-fg-brand inline-block" />
@@ -68,7 +68,7 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
               </Tooltip>
             </div>
             {account.isExisting || !account.isPrivateKeyAvailable ? (
-              <div className="w-8 shrink-0"></div>
+              <div className="w-4 shrink-0"></div>
             ) : account.isLocked ? (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -92,11 +92,11 @@ const JsonAccount: FC<{ account: JsonImportAccount; onSelect: (select: boolean) 
             )}
 
             {account.isExisting ? (
-              <div className="w-[1.92rem] shrink-0 text-center">
+              <div className="w-[19.2px] shrink-0 text-center">
                 <CheckCircle className="text-fg-brand" />
               </div>
             ) : !account.isPrivateKeyAvailable ? (
-              <div className="w-[1.92rem] shrink-0 text-center">
+              <div className="w-[19.2px] shrink-0 text-center">
                 <AlertCircle className="text-fg-orange" />
               </div>
             ) : (
@@ -194,31 +194,31 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
   return (
     <FadeIn>
       {alreadyImported && (
-        <div className="bg-secondary text-fg-secondary mb-8 flex w-full items-center gap-6 rounded p-8">
+        <div className="bg-secondary text-fg-secondary mb-4 flex w-full items-center gap-3 rounded p-4">
           <AlertCircle className="shrink-0 text-lg" />
           <div className="grow">
             {t("All accounts included in this file already exist in Taostats.")}
           </div>
         </div>
       )}
-      <div className={classNames("flex items-center px-8", accounts.length > 4 && "pr-12")}>
+      <div className={classNames("flex items-center px-4", accounts.length > 4 && "pr-6")}>
         <div className="grow">
           <Trans
             t={t}
             values={{ selectedCount, totalCount }}
             defaults="Selected accounts <Selected>{{selectedCount}}</Selected><Total>/{{totalCount}}</Total>"
             components={{
-              Selected: <span className="text-fg-brand ml-2" />,
+              Selected: <span className="text-fg-brand ml-1" />,
               Total: <span className="text-fg-disabled text-sm" />,
             }}
           ></Trans>
         </div>
         {accounts.length > 1 && (
-          <div className="text-fg-disabled flex items-center gap-4">
+          <div className="text-fg-disabled flex items-center gap-2">
             <button type="button" className="hover:text-fg-tertiary" onClick={selectNone}>
               {t("Clear")}
             </button>
-            <div className="bg-disabled h-6 w-0.5"></div>
+            <div className="bg-disabled h-3 w-px"></div>
             <button type="button" className="hover:text-fg-tertiary" onClick={selectAll}>
               {t("Select all")}
             </button>
@@ -227,17 +227,17 @@ export const ImportJsonAccountsForm: FC<{ onSuccess: (address: string) => void }
       </div>
       <div
         className={classNames(
-          "scrollable scrollable-800 mt-6 flex max-h-[28rem] flex-col gap-4 overflow-y-auto",
-          accounts.length > 4 && "pr-4",
+          "scrollable scrollable-800 mt-3 flex max-h-[280px] flex-col gap-2 overflow-y-auto",
+          accounts.length > 4 && "pr-2",
         )}
       >
         {accounts.map((acc, i) => (
           <JsonAccount key={i} account={acc} onSelect={handleSelect(acc.id)} />
         ))}
       </div>
-      <div className="mt-16 flex w-full justify-between">
+      <div className="mt-8 flex w-full justify-between">
         <BackToAddAccountButton methodType="new" />
-        <div className="flex justify-end gap-8">
+        <div className="flex justify-end gap-4">
           <UnlockJsonAccountsButton />
           <Button
             icon={ArrowRight}

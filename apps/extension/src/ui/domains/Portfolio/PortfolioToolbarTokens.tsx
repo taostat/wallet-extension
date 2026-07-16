@@ -92,10 +92,10 @@ const PortfolioSearch = () => {
   return (
     <SearchInput
       containerClassName={classNames(
-        "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-16 w-full border border-field text-xs !px-4",
-        "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
-        "@2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
-        IS_POPUP ? "w-full" : "max-w-[37.4rem]",
+        "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-8 w-full border border-field text-xs !px-2",
+        "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
+        "@2xl:[&>input]:text-base @2xl:[&>svg]:size-5",
+        IS_POPUP ? "w-full" : "max-w-[374px]",
       )}
       placeholder={t("Search")}
       onChange={setPortfolioSearch}
@@ -173,11 +173,11 @@ const OpenInTaostatsButton = () => {
 
 export const PortfolioToolbarTokens = () => {
   return (
-    <div className="@container flex h-16 w-full min-w-[30rem] shrink-0 items-center justify-between gap-4 overflow-hidden">
+    <div className="@container flex h-8 w-full min-w-[300px] shrink-0 items-center justify-between gap-2 overflow-hidden">
       <div className="flex grow items-center overflow-hidden">
         <PortfolioSearch />
       </div>
-      <div className="flex shrink-0 gap-4">
+      <div className="flex shrink-0 gap-2">
         {!IS_POPUP && <TokensSortButton />}
         <NetworkFilterButton />
       </div>

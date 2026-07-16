@@ -5,9 +5,9 @@ import { PRIVACY_POLICY_URL } from "extension-shared"
 import { FC, ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
-const TickYes = () => <CheckCircle className="text-md text-fg-brand mr-6" />
+const TickYes = () => <CheckCircle className="text-md text-fg-brand mr-3" />
 
-const TickNo = () => <X className="text-md text-brand-orange mr-6" />
+const TickNo = () => <X className="text-md text-brand-orange mr-3" />
 
 export const AnalyticsOptInInfo: FC<{
   className?: string
@@ -16,15 +16,15 @@ export const AnalyticsOptInInfo: FC<{
   const { t } = useTranslation()
 
   return (
-    <div className={classNames("flex flex-col gap-12", className)}>
-      <h1 className="mb-4">{t("Help us improve Taostats")}</h1>
+    <div className={classNames("flex flex-col gap-6", className)}>
+      <h1 className="mb-2">{t("Help us improve Taostats")}</h1>
       <p className="text-fg-secondary">
         {t(
           "We want to build simple tools that empower our users and allow them navigate web3 applications with ease. To help improve our product and features we'd like to collect anonymous usage information. This is optional, and you can opt-out at any time.",
         )}
       </p>
       <div>
-        <h3 className="mb-4">{t("What we track")}</h3>
+        <h3 className="mb-2">{t("What we track")}</h3>
         <ul className="text-fg-secondary m-0 list-none pl-0 [&>li]:flex [&>li]:items-center">
           <li>
             <TickYes />
@@ -37,7 +37,7 @@ export const AnalyticsOptInInfo: FC<{
         </ul>
       </div>
       <div>
-        <h3 className="mb-4">{t("What we don't track")}</h3>
+        <h3 className="mb-2">{t("What we don't track")}</h3>
         <ul className="text-fg-secondary m-0 list-none pl-0 [&>li]:flex [&>li]:items-center">
           <li>
             <TickNo />

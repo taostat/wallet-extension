@@ -29,11 +29,11 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
   return (
     <div className="bg-tertiary max-h-screen">
       <div className="flex h-screen flex-col items-center justify-center">
-        <TaostatsLogo className="my-16 h-16 w-4/12" />
+        <TaostatsLogo className="my-8 h-8 w-2/12" />
         <div className="flex flex-grow items-center">
           <div className="scrollable scrollable-700 flex flex-col overflow-auto">
-            <div className="bg-black-primary text-fg-secondary flex max-w-3xl flex-col items-center gap-16 self-center rounded-lg p-20 text-center">
-              <AlertTriangle className="text-fg-orange inline-block text-[7.7rem]" />
+            <div className="bg-black-primary text-fg-secondary flex max-w-3xl flex-col items-center gap-8 self-center rounded-lg p-10 text-center">
+              <AlertTriangle className="text-fg-orange inline-block text-[77px]" />
               <h1 className="text-bold text-fg-orange m-0 text-xl">{t("Warning")}</h1>
               <div className="text-lg font-light text-white">
                 <Trans t={t}>
@@ -49,7 +49,7 @@ export const PhishingPage: FC<PhishingPageProps> = ({ url }) => {
               </div>
               <div className="w-full">
                 <a href={TAOSTATS_WEB_APP_URL}>
-                  <Button className="mb-6 w-full" primary>
+                  <Button className="mb-3 w-full" primary>
                     {t("Get me out of here")}
                   </Button>
                 </a>

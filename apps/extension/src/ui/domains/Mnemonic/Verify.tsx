@@ -18,7 +18,7 @@ const WordSlot = ({
 }) => (
   <span
     className={classNames(
-      "bg-tertiary whitespace-nowrap rounded-xl px-6 py-3",
+      "bg-tertiary whitespace-nowrap rounded-xl px-3 py-1.5",
       error
         ? "text-brand-orange border-brand-orange border border-dashed"
         : active || word
@@ -44,7 +44,7 @@ const WordOption = ({
     onClick={onClick}
     disabled={selected}
     className={classNames(
-      "bg-tertiary text-fg-primary enabled:hover:bg-tertiary rounded-xl px-8 py-3 disabled:text-opacity-20",
+      "bg-tertiary text-fg-primary enabled:hover:bg-tertiary rounded-xl px-4 py-1.5 disabled:text-opacity-20",
     )}
   >
     <span className="notranslate">{word}</span>
@@ -108,16 +108,16 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
 
   return (
     <div>
-      <div className="flex flex-col gap-12">
-        <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <span className="text-fg-secondary text-xs">
             {t("Confirm your recovery phrase by selecting the words below.")}
           </span>
-          <div className="bg-secondary group relative overflow-hidden rounded p-2">
+          <div className="bg-secondary group relative overflow-hidden rounded p-1">
             <div
-              className={`grid min-h-[12.6rem] grid-cols-4 ${
+              className={`grid min-h-[126px] grid-cols-4 ${
                 mnemonicWords!.length > 12 && "lg:grid-cols-6"
-              } gap-4 p-2`}
+              } gap-2 p-1`}
             >
               {!!mnemonicWords &&
                 mnemonicWords.map((_, i) => (
@@ -137,7 +137,7 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
                 ))}
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-4 p-2">
+          <div className="flex flex-wrap justify-center gap-2 p-1">
             {!!displayWords &&
               displayWords.map((word, i) => (
                 <WordOption
@@ -149,7 +149,7 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
               ))}
           </div>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           <Button
             primary
             onClick={onComplete}
@@ -158,10 +158,10 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
           >
             {t("Complete Verification")}
           </Button>
-          <div className="flex w-full items-center justify-between gap-2">
-            <div className="w-48">
+          <div className="flex w-full items-center justify-between gap-1">
+            <div className="w-24">
               <button
-                className="text-fg-secondary hover:text-fg-tertiary flex cursor-pointer items-center gap-2"
+                className="text-fg-secondary hover:text-fg-tertiary flex cursor-pointer items-center gap-1"
                 onClick={onBack}
                 type="button"
               >
@@ -169,16 +169,16 @@ export const Verify: FC<VerifyProps> = ({ onComplete, onBack, onSkip, mnemonic }
                 <span>{t("Back")}</span>
               </button>
             </div>
-            <div className="flex h-11 grow justify-center">
+            <div className="flex h-[22px] grow justify-center">
               <button
-                className="text-fg-tertiary hover:text-fg-primary cursor-pointer gap-5 self-center font-bold"
+                className="text-fg-tertiary hover:text-fg-primary cursor-pointer gap-2.5 self-center font-bold"
                 onClick={onSkip}
                 type="button"
               >
                 {t("Skip Verification")}
               </button>
             </div>
-            <div className="w-48"></div>
+            <div className="w-24"></div>
           </div>
         </div>
       </div>

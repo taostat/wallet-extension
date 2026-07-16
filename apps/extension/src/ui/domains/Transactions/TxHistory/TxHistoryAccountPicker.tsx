@@ -40,7 +40,7 @@ export const TxHistoryAccountPicker: FC<{
       className="relative z-50 size-full"
     >
       <div className="flex size-full flex-grow flex-col bg-black">
-        <header className="flex items-center justify-between p-10">
+        <header className="flex items-center justify-between p-5">
           <IconButton onClick={onDismiss}>
             <ChevronLeft />
           </IconButton>
@@ -50,7 +50,7 @@ export const TxHistoryAccountPicker: FC<{
           </IconButton>
         </header>
         <div className="flex grow flex-col overflow-hidden">
-          <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+          <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
             <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
           </div>
           <ScrollContainer className="bg-secondary border-primary scrollable grow border-t">
@@ -89,7 +89,7 @@ const AccountsList: FC<{
         />
       ))}
       {accounts.length === 0 && (
-        <div className="text-fg-secondary p-16 text-center">{t("No accounts found")}</div>
+        <div className="text-fg-secondary p-8 text-center">{t("No accounts found")}</div>
       )}
     </div>
   )
@@ -112,7 +112,7 @@ const AccountRow: FC<{
       onClick={onClick}
       tabIndex={0}
       className={classNames(
-        "hover:bg-tertiary focus:bg-tertiary text-fg-secondary hover:text-fg-primary flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
+        "hover:bg-tertiary focus:bg-tertiary text-fg-secondary hover:text-fg-primary flex h-[58px] w-full items-center gap-2 px-6 text-left",
         selected && "bg-secondary",
         "disabled:cursor-not-allowed disabled:opacity-50",
       )}
@@ -127,8 +127,8 @@ const AccountRow: FC<{
         <AllAccountsIcon className="shrink-0 text-lg" />
       )}
       <div className="flex grow items-center overflow-hidden">
-        <div className="flex flex-col space-y-2">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col space-y-1">
+          <div className="flex items-center gap-1">
             <div className="text-fg-primary truncate">
               {account
                 ? (account.name ?? (
@@ -146,7 +146,7 @@ const AccountRow: FC<{
           {account && <Address className="text-fg-secondary text-xs" address={formattedAddress} />}
         </div>
       </div>
-      <div className="shrinkk-0 flex size-12 items-center justify-center">
+      <div className="shrinkk-0 flex size-6 items-center justify-center">
         {selected ? (
           <CheckCircle className="text-fg-primary" />
         ) : (

@@ -47,16 +47,16 @@ export const ManageAccountsToolbar: FC<{
   return (
     <div
       className={classNames(
-        "@container flex w-full shrink-0 items-center justify-between gap-4 overflow-hidden",
+        "@container flex w-full shrink-0 items-center justify-between gap-2 overflow-hidden",
         className,
       )}
     >
       <div className="flex grow items-center overflow-hidden">
         <SearchInput
           containerClassName={classNames(
-            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[3.6rem] w-full border border-field text-sm !px-4",
-            "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
-            "@2xl:h-[4.4rem] @2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
+            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[36px] w-full border border-field text-sm !px-2",
+            "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
+            "@2xl:h-[44px] @2xl:[&>input]:text-base @2xl:[&>svg]:size-5",
           )}
           placeholder={t("Search account or folder")}
           onChange={onSearchChange}
@@ -79,8 +79,8 @@ const ToolbarButton: FC<{
     <TooltipTrigger asChild>
       <PortfolioToolbarButton
         className={classNames(
-          "size-[3.6rem]",
-          !IS_POPUP && "@2xl:h-[4.4rem] @2xl:px-6 flex h-[3.6rem] w-auto items-center gap-3 px-4",
+          "size-[36px]",
+          !IS_POPUP && "@2xl:h-[44px] @2xl:px-3 flex h-[36px] w-auto items-center gap-1.5 px-2",
         )}
         onClick={onClick}
       >
@@ -107,7 +107,7 @@ const AccountsContextMenu = () => {
           className={classNames(
             "bg-app-bg hover:bg-secondary text-fg-secondary border-content flex items-center justify-center rounded-sm",
             "focus-visible:border-primary border border-transparent ring-transparent",
-            "@2xl:size-[4.4rem] size-[3.6rem]",
+            "@2xl:size-[44px] size-[36px]",
           )}
         >
           <DotsHorizontal />

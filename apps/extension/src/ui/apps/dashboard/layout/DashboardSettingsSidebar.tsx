@@ -28,23 +28,23 @@ export const DashboardSettingsSidebar = () => {
   }, [genericEvent, navigate])
 
   return (
-    <div className={classNames("bg-app-bg rounded-lg", "flex w-full flex-col gap-8 p-8")}>
-      <div className="flex h-16 shrink-0 items-center">
-        <div className="grow pl-4 text-[2rem] font-bold">{t("Settings")}</div>
+    <div className={classNames("bg-app-bg rounded-lg", "flex w-full flex-col gap-4 p-4")}>
+      <div className="flex h-8 shrink-0 items-center">
+        <div className="grow pl-2 text-[20px] font-bold">{t("Settings")}</div>
         <Tooltip>
           <TooltipTrigger asChild>
             <IconButton
               onClick={handleAddAccountClick}
-              className="bg-fg-brand/10 enabled:hover:bg-fg-brand/20 enabled:hover:text-fg-brand text-fg-brand/90 rounded-full p-3"
+              className="bg-fg-brand/10 enabled:hover:bg-fg-brand/20 enabled:hover:text-fg-brand text-fg-brand/90 rounded-full p-1.5"
             >
-              <Plus className="size-10" />
+              <Plus className="size-5" />
             </IconButton>
           </TooltipTrigger>
           <TooltipContent>{t("Add Account")}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="bg-secondary h-0.5"></div>
-      <div className="flex w-full flex-col gap-2">
+      <div className="bg-secondary h-px"></div>
+      <div className="flex w-full flex-col gap-1">
         <SidebarNavItem to="/settings/general" label={t("General")} icon={<Sliders01 />} />
         <SidebarNavItem
           label={t("Manage Accounts")}
@@ -54,7 +54,7 @@ export const DashboardSettingsSidebar = () => {
         />
         <SidebarNavItem
           label={
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-1">
               {t("Recovery Phrases")}
               <Suspense fallback={<SuspenseTracker name="SettingsSidebar.MnemonicNotification" />}>
                 <MnemonicNotification />
@@ -99,15 +99,15 @@ const SidebarNavItem: FC<{
     <NavLink
       to={to}
       className={classNames(
-        "flex w-full items-center gap-6 overflow-hidden rounded",
+        "flex w-full items-center gap-3 overflow-hidden rounded",
         "text-fg-tertiary [&.active]:text-fg-primary",
         "hover:bg-tertiary [&.active]:bg-secondary",
-        "h-28 px-6",
+        "h-14 px-3",
         forceActive && "active",
         className,
       )}
     >
-      <span className="size-12 shrink-0 text-lg">{icon}</span>
+      <span className="size-6 shrink-0 text-lg">{icon}</span>
       <span className="truncate">{label}</span>
     </NavLink>
   )

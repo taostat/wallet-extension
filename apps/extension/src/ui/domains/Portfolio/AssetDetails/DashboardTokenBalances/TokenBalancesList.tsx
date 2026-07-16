@@ -46,7 +46,7 @@ export const TokenBalancesList = ({
   if (!token) return null
 
   return (
-    <div className="mb-8">
+    <div className="mb-4">
       <div
         className={classNames(
           "bg-secondary grid grid-cols-[40%_30%_30%]",
@@ -54,11 +54,11 @@ export const TokenBalancesList = ({
         )}
       >
         <div className="flex">
-          <div className="shrink-0 p-8 pr-6 text-xl">
+          <div className="shrink-0 p-4 pr-3 text-xl">
             <TokenLogo tokenId={tokenId} />
           </div>
-          <div className="flex grow flex-col justify-center gap-2 overflow-hidden">
-            <div className="flex items-center gap-3">
+          <div className="flex grow flex-col justify-center gap-1 overflow-hidden">
+            <div className="flex items-center gap-1.5">
               <div className="text-fg-primary truncate font-bold">{getTokenName(token.name)}</div>
               <div className="text-fg-primary flex shrink-0 items-center text-base font-bold">
                 <CopyAddressButton networkId={chainOrNetworkId} />
@@ -69,13 +69,13 @@ export const TokenBalancesList = ({
                     <TokenContextMenu
                       tokenId={tokenId}
                       placement="bottom-start"
-                      className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary hover:bg-tertiary focus-visible:bg-tertiary rounded-xs inline-flex h-9 w-9 items-center justify-center p-0 text-xs opacity-50"
+                      className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary hover:bg-tertiary focus-visible:bg-tertiary rounded-xs inline-flex h-[18px] w-[18px] items-center justify-center p-0 text-xs opacity-50"
                     />
                   )}
                 </Suspense>
               </div>
             </div>
-            <div className="flex w-full items-center gap-2 overflow-hidden">
+            <div className="flex w-full items-center gap-1 overflow-hidden">
               <span className="truncate text-sm">
                 {token.type === "substrate-dtao" && (
                   <BittensorValidatorName

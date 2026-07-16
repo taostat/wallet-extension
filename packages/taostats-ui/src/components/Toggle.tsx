@@ -5,9 +5,9 @@ import { DetailedHTMLProps, forwardRef, InputHTMLAttributes, PropsWithChildren, 
 type ToggleVariant = "default" | "sm" | "tiny"
 
 const VARIANTS: Record<ToggleVariant, string> = {
-  tiny: "h-6 w-[2.2rem] after:size-5 after:left-0.5 after:top-0.5 border-2",
-  sm: "h-10 w-[3.6rem] after:h-8 after:w-8 ",
-  default: "h-12 w-[4.4rem] after:h-10 after:w-10 ",
+  tiny: "h-3 w-[22px] after:size-2.5 after:left-px after:top-px border-2",
+  sm: "h-5 w-[36px] after:h-4 after:w-4 ",
+  default: "h-6 w-[44px] after:h-5 after:w-5 ",
 }
 
 type ToggleProps = Omit<
@@ -38,7 +38,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
             "bg-tertiary peer box-content shrink-0 rounded-full border-2 border-transparent",
             "peer-focus-visible:border-fg-primary peer-focus:outline-none",
             "peer-checked:after:bg-fg-brand peer-checked:after:translate-x-full",
-            "after:bg-secondary relative after:absolute after:left-1 after:top-1 after:rounded-full after:transition-all after:content-['']",
+            "after:bg-secondary relative after:absolute after:left-0.5 after:top-0.5 after:rounded-full after:transition-all after:content-['']",
             VARIANTS[variant],
           )}
           data-testid="component-toggle-button"

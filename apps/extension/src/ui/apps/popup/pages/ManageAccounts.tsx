@@ -33,7 +33,7 @@ const Header = () => {
   }, [navigate])
 
   return (
-    <header className="my-8 flex h-[3.6rem] w-full shrink-0 items-center gap-3 px-8">
+    <header className="my-4 flex h-[36px] w-full shrink-0 items-center gap-1.5 px-4">
       <IconButton onClick={goToPortfolio}>
         <ChevronLeft />
       </IconButton>
@@ -48,7 +48,7 @@ export const ManageAccountsPage = () => (
     <PopupContent>
       <ManageAccountsProvider>
         <ManageAccountsToolbar analytics={ANALYTICS_PAGE} />
-        <ManageAccountsLists className="py-8" />
+        <ManageAccountsLists className="py-4" />
       </ManageAccountsProvider>
     </PopupContent>
     <NewFolderModal />

@@ -102,7 +102,7 @@ const DeleteFolder = ({
           values={{ name }}
         />
       </p>
-      <div className="mt-8 grid grid-cols-2 gap-8">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         <Button type="button" onClick={onCancel}>
           {t("Cancel")}
         </Button>

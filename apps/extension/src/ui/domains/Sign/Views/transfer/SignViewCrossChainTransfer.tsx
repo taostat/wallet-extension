@@ -26,8 +26,8 @@ const FormattedAddress = ({ address, className }: { address: string; className?:
 
   return (
     <Tooltip>
-      <TooltipTrigger className={classNames("flex items-center gap-2", className)}>
-        <AccountIcon address={address} className="shrink-0 text-[2rem]" />
+      <TooltipTrigger className={classNames("flex items-center gap-1", className)}>
+        <AccountIcon address={address} className="shrink-0 text-[20px]" />
         <span className="overflow-hidden text-ellipsis whitespace-nowrap">{label}</span>
       </TooltipTrigger>
       <TooltipContent>{address}</TooltipContent>
@@ -40,9 +40,9 @@ const NetworkAndAccount: FC<{ networkId: string; networkName: string; address: s
   networkName,
   address,
 }) => (
-  <div className="flex w-[150px] flex-col items-center gap-5 overflow-hidden">
-    <div className="flex w-full items-center justify-center gap-2">
-      <NetworkLogo networkId={networkId} className="!h-9 !w-9 shrink-0" />
+  <div className="flex w-[150px] flex-col items-center gap-2.5 overflow-hidden">
+    <div className="flex w-full items-center justify-center gap-1">
+      <NetworkLogo networkId={networkId} className="!h-[18px] !w-[18px] shrink-0" />
       <div className="text-md text-fg-primary overflow-hidden text-ellipsis whitespace-nowrap font-bold">
         {networkName}
       </div>
@@ -87,12 +87,12 @@ export const SignViewXTokensTransfer: FC<{
   const currency = useSelectedCurrency()
 
   return (
-    <div className="flex w-full flex-col items-center gap-16">
-      <div className="flex items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-8">
+      <div className="flex items-center gap-2">
         <div>
-          <AssetLogo url={tokenLogo} className="h-24 w-24 text-[48px]" />
+          <AssetLogo url={tokenLogo} className="h-12 w-12 text-[48px]" />
         </div>
-        <div className="text-fg-primary flex-col items-start gap-4">
+        <div className="text-fg-primary flex-col items-start gap-2">
           <div className="text-md text-left font-bold">
             <Tokens
               amount={amount.tokens}
@@ -108,7 +108,7 @@ export const SignViewXTokensTransfer: FC<{
           )}
         </div>
       </div>
-      <div className="flex w-full items-center justify-center gap-8">
+      <div className="flex w-full items-center justify-center gap-4">
         <NetworkAndAccount
           networkId={fromNetwork}
           networkName={sourceNetwork?.name ?? t("Unknown")}

@@ -26,7 +26,7 @@ export const LedgerPolkadotLegacyAccountPicker: FC<LedgerPolkadotLegacyAccountPi
 
   return (
     <div>
-      <div className="text-fg-secondary mb-8 flex w-full items-center gap-2">
+      <div className="text-fg-secondary mb-4 flex w-full items-center gap-1">
         <div className="grow">{t("Derivation mode:")}</div>
         <div>
           <DerivationModeButton selected={mode === "default"} onClick={handleModeClick("default")}>

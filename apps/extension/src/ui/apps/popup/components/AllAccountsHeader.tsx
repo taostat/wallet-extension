@@ -19,11 +19,11 @@ export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => 
   const disabled = useMemo(() => !accounts.length, [accounts.length])
 
   return (
-    <div ref={ref} className="relative min-h-56 w-full">
+    <div ref={ref} className="relative min-h-[112px] w-full">
       <button
         type="button"
         className={classNames(
-          "flex size-full items-center justify-end gap-4 overflow-hidden rounded-sm p-6 text-lg",
+          "flex size-full items-center justify-end gap-2 overflow-hidden rounded-sm p-3 text-lg",
           "bg-secondary text-fg-secondary transition-colors duration-75",
           !disabled && "hover:text-fg-primary",
         )}
@@ -33,7 +33,7 @@ export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => 
         {!disabled && <ChevronRight className="z-10" />}
       </button>
       <TotalFiatBalance
-        className="pointer-events-none absolute left-0 top-0 size-full p-6"
+        className="pointer-events-none absolute left-0 top-0 size-full p-3"
         mouseOver={isHovered}
         disabled={disabled}
       />
@@ -49,7 +49,7 @@ const PopoutButton: FC = () => {
   }, [])
 
   return (
-    <IconButton className="absolute right-3 top-3 p-3 text-base" onClick={handleClick}>
+    <IconButton className="absolute right-1.5 top-1.5 p-1.5 text-base" onClick={handleClick}>
       <PopoutIcon />
     </IconButton>
   )

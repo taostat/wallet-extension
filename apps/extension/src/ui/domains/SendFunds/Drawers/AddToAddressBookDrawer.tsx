@@ -110,10 +110,10 @@ const AddToAddressBookDrawerForm: FC<{
 
   return (
     <form
-      className="bg-secondary flex h-[26.8rem] flex-col justify-end rounded-t-xl p-12"
+      className="bg-secondary flex h-[268px] flex-col justify-end rounded-t-xl p-6"
       onSubmit={submitWithoutBubbleUp}
     >
-      <header className="flex flex-col items-center justify-center gap-6">
+      <header className="flex flex-col items-center justify-center gap-3">
         <AccountIcon
           className="text-xl"
           address={address}
@@ -123,7 +123,7 @@ const AddToAddressBookDrawerForm: FC<{
           <Address className="address" address={address} endCharCount={6} startCharCount={6} />
         </span>
       </header>
-      <section className="my-4 mt-10">
+      <section className="my-2 mt-5">
         <FormFieldContainer error={errors.name?.message}>
           <FormFieldInputText
             {...register("name")}
@@ -133,14 +133,14 @@ const AddToAddressBookDrawerForm: FC<{
         </FormFieldContainer>
         {tokenGenesisHash ? (
           <Checkbox
-            childProps={{ className: "flex items-center gap-2" }}
+            childProps={{ className: "flex items-center gap-1" }}
             {...register("limitToNetwork")}
           >
             <Trans
               t={t}
               defaults="Limit to <Chain><ChainLogo />{{chainName}}</Chain>"
               components={{
-                Chain: <div className="text-fg-primary inline-flex items-baseline gap-1" />,
+                Chain: <div className="text-fg-primary inline-flex items-baseline gap-0.5" />,
                 ChainLogo: <NetworkLogo className="self-center" networkId={chain?.id} />,
               }}
               values={{ chainName: chain?.name }}
@@ -149,7 +149,7 @@ const AddToAddressBookDrawerForm: FC<{
           </Checkbox>
         ) : null}
       </section>
-      <footer className="grid grid-cols-2 gap-8">
+      <footer className="grid grid-cols-2 gap-4">
         <Button fullWidth onClick={onClose}>
           {t("Cancel")}
         </Button>

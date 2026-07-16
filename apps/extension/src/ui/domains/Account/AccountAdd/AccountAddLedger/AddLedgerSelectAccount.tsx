@@ -100,20 +100,20 @@ export const AddLedgerSelectAccount = () => {
   if (isInvalidInputs) return <Navigate to="/accounts/add/ledger" replace />
 
   return (
-    <form className="flex flex-col gap-12" onSubmit={handleSubmit(submit)}>
+    <form className="flex flex-col gap-6" onSubmit={handleSubmit(submit)}>
       <div className="flex-grow">
         <h1 className="m-0">{t("Connect Ledger")}</h1>
         {(data.platform === "ethereum" || data.platform === "solana") && (
           <>
-            <p className="text-fg-secondary mb-12 mt-[1em]">
+            <p className="text-fg-secondary mb-6 mt-[1em]">
               {t(
                 "The derivation path will be different based on which application you used to initialise your Ledger account.",
               )}
             </p>
-            <div className="h-4" />
+            <div className="h-2" />
           </>
         )}
-        <p className="text-fg-secondary mb-12 mt-[1em]">
+        <p className="text-fg-secondary mb-6 mt-[1em]">
           {t("Please select which account(s) you'd like to connect.")}
         </p>
         {data.platform === "polkadot" && (
@@ -139,7 +139,7 @@ export const AddLedgerSelectAccount = () => {
       </div>
       <div className="flex justify-end">
         <Button
-          className="w-[24rem]"
+          className="w-[240px]"
           type="submit"
           primary
           disabled={!isValid}

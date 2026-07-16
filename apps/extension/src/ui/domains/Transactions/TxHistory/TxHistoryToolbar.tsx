@@ -17,7 +17,7 @@ import { TxHistoryNetworkPicker } from "./TxHistoryNetworkPicker"
 
 export const TxHistoryToolbar = () => {
   return (
-    <div className="mb-4 grid h-16 shrink-0 grid-cols-2 gap-4 px-8">
+    <div className="mb-2 grid h-8 shrink-0 grid-cols-2 gap-2 px-4">
       <AccountFilterButton />
       <NetworkFilterButton />
     </div>
@@ -44,7 +44,7 @@ const AccountFilterButton = () => {
         onClick={open}
         className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary overflow-hidden rounded-sm text-left text-xs"
       >
-        <div className="flex size-full items-center gap-4 overflow-hidden px-4">
+        <div className="flex size-full items-center gap-2 overflow-hidden px-2">
           {account ? (
             <AccountIcon
               address={account.address}
@@ -91,7 +91,7 @@ const NetworkFilterButton = () => {
         onClick={open}
         className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary overflow-hidden rounded-sm text-left text-xs"
       >
-        <div className="flex size-full items-center gap-4 overflow-hidden px-4">
+        <div className="flex size-full items-center gap-2 overflow-hidden px-2">
           {network ? (
             <NetworkLogo networkId={network.id} className="text-md shrink-0" />
           ) : (

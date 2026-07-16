@@ -12,10 +12,10 @@ export const CopyAddressExchangeWarning: FC<{
 
   return (
     <Drawer containerId="copy-address-modal" isOpen={isOpen} anchor="bottom" onDismiss={onDismiss}>
-      <div className="bg-secondary flex w-full flex-col items-center rounded-t-xl p-12">
+      <div className="bg-secondary flex w-full flex-col items-center rounded-t-xl p-6">
         <AlertCircle className="text-fg-brand text-3xl" />
-        <div className="text-md mt-12 font-bold">{t("Receiving from an exchange?")}</div>
-        <p className="text-fg-secondary mt-8 text-center">
+        <div className="text-md mt-6 font-bold">{t("Receiving from an exchange?")}</div>
+        <p className="text-fg-secondary mt-4 text-center">
           {t("Generic substrate addresses are often incompatible with exchanges.")}
           <br />
           <Trans
@@ -26,7 +26,7 @@ export const CopyAddressExchangeWarning: FC<{
             }}
           />
         </p>
-        <Button className="mt-12" primary fullWidth onClick={onContinue}>
+        <Button className="mt-6" primary fullWidth onClick={onContinue}>
           {t("Continue")}
         </Button>
       </div>

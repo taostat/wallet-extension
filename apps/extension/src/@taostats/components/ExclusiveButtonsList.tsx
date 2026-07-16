@@ -43,7 +43,7 @@ const Button: FC<{
     <button
       type="button"
       className={classNames(
-        "text-fg-secondary gap-xs px-sm sm:px-lg flex h-10 w-full items-center justify-between rounded-sm",
+        "text-fg-secondary gap-xs px-sm sm:px-lg flex h-5 w-full items-center justify-between rounded-sm",
         "border-primary border",
         selected && "bg-brand-secondary text-fg-brand border-brand",
         "hover:border-primary hover:bg-tertiary stroke-fg-brand",

@@ -32,7 +32,7 @@ export const TxHistoryDetailsTxInfo: FC<{
 }
 
 const TxInfoCard: FC<{ children: ReactNode }> = ({ children }) => (
-  <div className="bg-secondary scrollable scrollable-700 text-fg-secondary leading-paragraph overflow-x-auto rounded-sm p-8 py-4">
+  <div className="bg-secondary scrollable scrollable-700 text-fg-secondary leading-paragraph overflow-x-auto rounded-sm p-4 py-2">
     {children}
   </div>
 )
@@ -108,7 +108,7 @@ const SwapTxInfoCard: FC<{
 
   return (
     <TxInfoCard>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <div>
           <Trans
             t={t}

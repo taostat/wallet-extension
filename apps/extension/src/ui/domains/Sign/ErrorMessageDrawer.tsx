@@ -28,13 +28,13 @@ export const ErrorMessageDrawer: FC<{
       containerId={containerId}
       onDismiss={onDismiss}
     >
-      <div className="bg-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
-        <XCircle className={"text-fg-error text-[3rem]"} />
-        <p className="text-fg-secondary mt-4">
+      <div className="bg-secondary flex w-full flex-col items-center gap-2 rounded-t-xl p-6">
+        <XCircle className={"text-fg-error text-[30px]"} />
+        <p className="text-fg-secondary mt-2">
           {name === "GenericAppRequired" ? <LedgerGenericRequired /> : wrapStrong(content)}
         </p>
         {name === "Unauthorized" && (
-          <p className="text-fg-secondary mt-4">
+          <p className="text-fg-secondary mt-2">
             <Trans
               t={t}
               defaults="Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>"
@@ -56,7 +56,7 @@ export const ErrorMessageDrawer: FC<{
             />
           </p>
         )}
-        <Button className="mt-8 w-full" primary onClick={onDismiss}>
+        <Button className="mt-4 w-full" primary onClick={onDismiss}>
           {t("Close")}
         </Button>
       </div>

@@ -38,15 +38,15 @@ export const TokenBalancesList = ({
     <div className={classNames("text-fg-secondary text-sm")}>
       <div
         className={classNames(
-          "bg-secondary flex w-full items-center gap-4 overflow-hidden border-transparent px-7 py-6",
+          "bg-secondary flex w-full items-center gap-2 overflow-hidden border-transparent px-3.5 py-3",
           detailRowsLength ? "rounded-t-sm" : "rounded",
         )}
       >
         <div className="text-xl">
           <TokenLogo tokenId={tokenId} />
         </div>
-        <div className="flex grow flex-col justify-center gap-2 overflow-hidden pr-8">
-          <div className="flex grow items-center gap-3">
+        <div className="flex grow flex-col justify-center gap-1 overflow-hidden pr-4">
+          <div className="flex grow items-center gap-1.5">
             <div className="text-fg-primary truncate font-bold">{getTokenName(token.name)}</div>
             <div className="flex items-center">
               <CopyAddressButton networkId={chainOrNetworkId} />
@@ -56,7 +56,7 @@ export const TokenBalancesList = ({
               </Suspense>
             </div>
           </div>
-          <div className="flex w-full items-center gap-2 overflow-hidden">
+          <div className="flex w-full items-center gap-1 overflow-hidden">
             <span className="truncate">
               {token.type === "substrate-dtao" && (
                 <BittensorValidatorName
@@ -67,13 +67,13 @@ export const TokenBalancesList = ({
             </span>
           </div>
         </div>
-        <div className="size-[3.8rem] shrink-0 empty:hidden">
+        <div className="size-[38px] shrink-0 empty:hidden">
           <Suspense fallback={<SuspenseTracker name="StakeButton" />}>
             <StakeButton balances={balances} />
           </Suspense>
         </div>
         {tokenId && (
-          <div className="size-[3.8rem] shrink-0">
+          <div className="size-[38px] shrink-0">
             <TokenContextMenu
               tokenId={tokenId}
               className="hover:bg-tertiary focus-visible:bg-tertiary rounded-full"

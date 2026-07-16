@@ -10,7 +10,7 @@ export const Acknowledgement = () => {
   const { setStage } = useMnemonicBackupModal()
 
   return (
-    <MnemonicBackupModalBase title={t("Before you get started")} className="!w-[56rem]">
+    <MnemonicBackupModalBase title={t("Before you get started")} className="!w-[560px]">
       <BaseAcknowledgement
         onContinueClick={() => {
           setStage(Stages.Show)

@@ -79,11 +79,11 @@ export const AccountRemoveModal = () => {
             />
           </p>
           {account?.type === "keypair" && (
-            <p className="mt-4 text-sm">
+            <p className="mt-2 text-sm">
               {t("Ensure you have backed up your recovery phrase or private key before removing.")}
             </p>
           )}
-          <div className="mt-8 grid grid-cols-2 gap-8">
+          <div className="mt-4 grid grid-cols-2 gap-4">
             <Button type="button" onClick={close}>
               {t("Cancel")}
             </Button>

@@ -41,7 +41,7 @@ const Header = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex w-full shrink-0 flex-col gap-2 px-8 py-12">
+    <div className="flex w-full shrink-0 flex-col gap-1 px-4 py-6">
       <div className="text-fg-primary text-lg font-bold">{t("Recent Activity")}</div>
       <div className="text-fg-secondary text-xs">{t("Review your latest transactions.")}</div>
     </div>

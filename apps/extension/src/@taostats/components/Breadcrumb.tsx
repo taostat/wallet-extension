@@ -21,7 +21,7 @@ export const Breadcrumb: FC<{
               <button
                 onClick={onClick}
                 className={classNames(
-                  "bg-tertiary hover:bg-secondary hover:text-fg-primary px-xs h-8 truncate rounded-sm",
+                  "bg-tertiary hover:bg-secondary hover:text-fg-primary px-xs h-4 truncate rounded-sm",
                   className,
                 )}
               >

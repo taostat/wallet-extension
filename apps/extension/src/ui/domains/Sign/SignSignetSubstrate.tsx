@@ -15,8 +15,8 @@ type Props = {
 const SignetSignetError: React.FC<{ call: boolean; network: boolean }> = ({ call, network }) => {
   if (!call && !network) return null
   return (
-    <div className="bg-secondary flex w-full items-center justify-center gap-4 rounded-sm p-6">
-      <XCircle className="text-fg-error min-w-[1em] shrink-0 text-[2rem]" />
+    <div className="bg-secondary flex w-full items-center justify-center gap-2 rounded-sm p-3">
+      <XCircle className="text-fg-error min-w-[1em] shrink-0 text-[20px]" />
       <p className="text-fg-tertiary text-left">
         {call
           ? "This request is not supported on Signet."
@@ -42,15 +42,15 @@ export const SignSignetSubstrate: React.FC<Props> = ({ account, onApprove, onCan
   }, [account.genesisHash, payload])
 
   return (
-    <div className={"flex w-full flex-col gap-6"}>
+    <div className={"flex w-full flex-col gap-3"}>
       <SignetSignetError {...error} />
-      <div className={"grid w-full grid-cols-2 gap-8"}>
+      <div className={"grid w-full grid-cols-2 gap-4"}>
         {!!onCancel && <Button onClick={onCancel}>{t("Cancel")}</Button>}
         <Button
           primary
           onClick={onApprove}
           disabled={!!error.call || !!error.network}
-          className="px-4"
+          className="px-2"
         >
           {t("Sign on Signet")}
         </Button>

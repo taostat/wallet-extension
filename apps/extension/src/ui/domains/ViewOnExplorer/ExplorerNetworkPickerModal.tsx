@@ -13,7 +13,7 @@ export const ExplorerNetworkPickerModal: FC = () => {
       isOpen={isOpen}
       onDismiss={close}
       className={classNames(
-        "border-primary h-[60rem] w-[40rem] overflow-hidden bg-black shadow",
+        "border-primary h-[600px] w-[400px] overflow-hidden bg-black shadow",
         window.location.pathname === "/popup.html" ? "max-h-full max-w-full" : "rounded-lg border",
       )}
       containerId={window.location.pathname === "/popup.html" ? "main" : undefined}

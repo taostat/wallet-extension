@@ -66,7 +66,7 @@ export const MnemonicSetPvVerifierModal = () => {
   return (
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
       <ModalDialog title={t("Set as Polkadot Vault Verifier")} onClose={close}>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <p className="text-fg-secondary">
             <Trans
               t={t}
@@ -85,7 +85,7 @@ export const MnemonicSetPvVerifierModal = () => {
             </p>
           )}
         </div>
-        <div className="mt-12 grid grid-cols-2 gap-8">
+        <div className="mt-6 grid grid-cols-2 gap-4">
           <Button onClick={close}>{t("Cancel")}</Button>
           <Button primary onClick={handleConfirmClick}>
             {t("Confirm")}

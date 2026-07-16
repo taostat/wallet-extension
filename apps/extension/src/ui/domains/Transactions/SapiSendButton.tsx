@@ -130,7 +130,7 @@ const HardwareAccountSendButton: FC<SapiSendButtonProps> = ({
   )
 
   return (
-    <div className="flex w-full flex-col gap-6">
+    <div className="flex w-full flex-col gap-3">
       <SubmitErrorDisplay error={error} />
       <SignHardwareSubstrate
         className={className}
@@ -194,7 +194,7 @@ const QrAccountSendButton: FC<SapiSendButtonProps> = ({
   if (!account) return null
 
   return (
-    <div className="flex w-full flex-col gap-6">
+    <div className="flex w-full flex-col gap-3">
       <SubmitErrorDisplay error={error} />
       <QrSubstrate
         containerId={containerId ?? "main"}
@@ -247,7 +247,7 @@ const LocalAccountSendButton: FC<SapiSendButtonProps> = ({
   }, [mode, onSubmitEnd, onSubmitStart, onSubmitted, payload, sapi, txInfo])
 
   return (
-    <div className="flex w-full flex-col gap-6">
+    <div className="flex w-full flex-col gap-3">
       <SubmitErrorDisplay error={error} />
       <Button
         className={classNames("w-full", className)}
@@ -301,9 +301,9 @@ export const SapiSendButton: FC<SapiSendButtonProps> = (props) => {
 
 const SubmitErrorDisplay: FC<{ error: string | null | undefined }> = ({ error }) =>
   error ? (
-    <div className="text-fg-orange bg-app-bg flex w-full items-center gap-5 rounded-sm px-5 py-6 pr-0 text-xs">
+    <div className="text-fg-orange bg-app-bg flex w-full items-center gap-2.5 rounded-sm px-2.5 py-3 pr-0 text-xs">
       <AlertCircle className="shrink-0 text-lg" />
-      <div className="scrollable scrollable-800 max-h-40 overflow-y-auto pr-5">{error}</div>
+      <div className="scrollable scrollable-800 max-h-20 overflow-y-auto pr-2.5">{error}</div>
     </div>
   ) : null
 

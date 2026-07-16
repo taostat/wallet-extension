@@ -13,17 +13,17 @@ export const Scan = () => {
   if (state.type !== "SCAN") return null
   return (
     <>
-      <HeaderBlock className="mb-12" title={t("Import Polkadot Vault")} />
-      <div className="grid grid-cols-2 gap-12">
+      <HeaderBlock className="mb-6" title={t("Import Polkadot Vault")} />
+      <div className="grid grid-cols-2 gap-6">
         <div>
-          <ol className="flex flex-col gap-12">
+          <ol className="flex flex-col gap-6">
             {[
               {
                 title: t("Open Polkadot Vault on your device"),
                 body: (
                   <>
                     <div>{t("Select the ‘Key Sets’ tab from the bottom navigation bar")}</div>
-                    <div className="mt-4">
+                    <div className="mt-2">
                       <a
                         className="text-fg-secondary hover:text-fg-primary"
                         href={POLKADOT_VAULT_DOCS_URL}
@@ -48,7 +48,7 @@ export const Scan = () => {
                     extra: (
                       <button
                         type="button"
-                        className="bg-fg-brand/10 text-fg-brand hover:bg-fg-brand/20 mt-6 inline-block rounded-full px-6 text-sm font-light leading-[32px]"
+                        className="bg-fg-brand/10 text-fg-brand hover:bg-fg-brand/20 mt-3 inline-block rounded-full px-3 text-sm font-light leading-[32px]"
                         onClick={() => dispatch({ method: "enableScan" })}
                       >
                         {t("Retry")}
@@ -69,7 +69,7 @@ export const Scan = () => {
                       extra: (
                         <button
                           type="button"
-                          className="bg-fg-brand/10 text-fg-brand hover:bg-fg-brand/20 mt-6 inline-block rounded-full px-6 text-sm font-light leading-[32px]"
+                          className="bg-fg-brand/10 text-fg-brand hover:bg-fg-brand/20 mt-3 inline-block rounded-full px-3 text-sm font-light leading-[32px]"
                           onClick={() => dispatch({ method: "enableScan" })}
                         >
                           {t("Turn on Camera")}
@@ -84,17 +84,17 @@ export const Scan = () => {
                 ),
               },
             ].map(({ title, body, extra, errorIcon }, index) => (
-              <li className="relative ml-20" key={index}>
+              <li className="relative ml-10" key={index}>
                 {errorIcon ? (
-                  <div className="border-alert-error text-fg-error absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full border-2 text-xs font-bold">
+                  <div className="border-alert-error text-fg-error absolute -left-10 flex h-6 w-6 items-center justify-center rounded-full border-2 text-xs font-bold">
                     !
                   </div>
                 ) : (
-                  <div className="bg-tertiary text-fg-secondary absolute -left-20 flex h-12 w-12 items-center justify-center rounded-full text-xs lining-nums">
+                  <div className="bg-tertiary text-fg-secondary absolute -left-10 flex h-6 w-6 items-center justify-center rounded-full text-xs lining-nums">
                     {index + 1}
                   </div>
                 )}
-                <div className="mb-8">{title}</div>
+                <div className="mb-4">{title}</div>
                 <p className="text-fg-secondary">{body}</p>
                 {extra ?? null}
               </li>
@@ -132,7 +132,7 @@ export const Scan = () => {
             }}
           />
           {state.scanError && (
-            <div className="text-fg-error bg-error-secondary/10 mt-6 inline-block w-[260px] rounded p-4 text-center text-xs font-light">
+            <div className="text-fg-error bg-error-secondary/10 mt-3 inline-block w-[260px] rounded p-2 text-center text-xs font-light">
               {state.scanError}
             </div>
           )}

@@ -31,7 +31,7 @@ export const BatchActionButton: FC<{
       <Modal isOpen={isOpen} onDismiss={close}>
         <ModalDialog onClose={close} title={confirmTitle} className="border-primary border">
           <p className="text-fg-secondary">{confirmDescription}</p>
-          <div className="mt-8 grid grid-cols-2 gap-8">
+          <div className="mt-4 grid grid-cols-2 gap-4">
             <Button onClick={close}>{t("Cancel")}</Button>
             <Button primary onClick={handlerConfirm}>
               {confirmBtnText}
@@ -67,7 +67,7 @@ export const AuthorisedSitesBatchActions: FC<{ providerType: ProviderType }> = (
   }, [providerType, t])
 
   return (
-    <div className="text-fg-disabled flex gap-[0.5rem] text-xs">
+    <div className="text-fg-disabled flex gap-[5px] text-xs">
       <BatchActionButton
         confirmTitle={t("Forget All Sites")}
         confirmDescription={
@@ -84,7 +84,7 @@ export const AuthorisedSitesBatchActions: FC<{ providerType: ProviderType }> = (
       >
         {t("Forget All Sites")}
       </BatchActionButton>
-      <div className="bg-tertiary w-0.5 py-1"></div>
+      <div className="bg-tertiary w-px py-0.5"></div>
       <BatchActionButton
         confirmTitle={t("Disconnect All Sites")}
         confirmDescription={

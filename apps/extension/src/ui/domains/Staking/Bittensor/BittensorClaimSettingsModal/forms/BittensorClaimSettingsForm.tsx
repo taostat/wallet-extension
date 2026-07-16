@@ -76,7 +76,7 @@ export const BittensorClaimSettingsForm = () => {
       header={
         <BittensorStakingModalHeader title={t("Claim Settings")} withClose onCloseModal={close} />
       }
-      contentClassName="text-fg-secondary flex size-full flex-col gap-4 p-12 pt-0"
+      contentClassName="text-fg-secondary flex size-full flex-col gap-2 p-6 pt-0"
     >
       <BittensorAssetAccountSummary
         token={nativeToken}
@@ -86,8 +86,8 @@ export const BittensorClaimSettingsForm = () => {
         accountLabel={t("Account")}
       />
 
-      <div className="mt-4 flex flex-col gap-2">
-        <div className="flex flex-col gap-1">
+      <div className="mt-2 flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <span className="text-fg-primary text-sm font-semibold leading-[1.1]">
             {t("Reward Type")}
           </span>
@@ -96,7 +96,7 @@ export const BittensorClaimSettingsForm = () => {
           </span>
         </div>
 
-        <div className="mt-6 flex flex-col gap-6" role="radiogroup" aria-label={t("Reward Type")}>
+        <div className="mt-3 flex flex-col gap-3" role="radiogroup" aria-label={t("Reward Type")}>
           {claimTypeOptions.map((option) => {
             const isSelected = selectedClaimType === option.value
             const button = (
@@ -107,7 +107,7 @@ export const BittensorClaimSettingsForm = () => {
                 onClick={() => !option.disabled && setSelectedClaimType(option.value)}
                 disabled={isClaimTypeLoading}
                 className={classNames(
-                  "border-light-gray relative w-full rounded-sm border px-6 py-5 text-left transition-colors",
+                  "border-light-gray relative w-full rounded-sm border px-3 py-2.5 text-left transition-colors",
                   "bg-tertiary text-sm",
                   isSelected
                     ? "text-fg-primary"
@@ -115,7 +115,7 @@ export const BittensorClaimSettingsForm = () => {
                   option.disabled && "cursor-not-allowed opacity-50",
                 )}
               >
-                <div className="flex flex-col gap-1 pr-10">
+                <div className="flex flex-col gap-0.5 pr-5">
                   <span className="text-fg-primary text-[14px] font-semibold leading-[1.2]">
                     {option.title}
                   </span>
@@ -125,12 +125,12 @@ export const BittensorClaimSettingsForm = () => {
                 </div>
                 <span
                   className={
-                    "bg-tertiary absolute right-6 top-5 flex h-7 w-7 items-center justify-center rounded-full transition-colors"
+                    "bg-tertiary absolute right-3 top-2.5 flex h-3.5 w-3.5 items-center justify-center rounded-full transition-colors"
                   }
                 >
                   <span
                     className={classNames(
-                      "h-3.5 w-3.5 rounded-full transition-colors",
+                      "h-1.5.5 w-1.5.5 rounded-full transition-colors",
                       isSelected ? "bg-fg-brand" : "bg-transparent",
                     )}
                   />
@@ -152,11 +152,11 @@ export const BittensorClaimSettingsForm = () => {
         </div>
       </div>
 
-      <div className={"mt-auto grid w-full grid-cols-2 gap-8"}>
+      <div className={"mt-auto grid w-full grid-cols-2 gap-4"}>
         <Button onClick={close}>{t("Cancel")}</Button>
 
         {isPayloadLoading || !setClaimTypePayload?.payload || isClaimTypeLoading ? (
-          <Button className="px-2" primary disabled>
+          <Button className="px-1" primary disabled>
             {t("Confirm")}
           </Button>
         ) : (

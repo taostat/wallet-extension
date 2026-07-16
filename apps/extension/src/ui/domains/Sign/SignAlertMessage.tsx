@@ -37,7 +37,7 @@ export const SignAlertMessage: FC<SignAlertMessageProps> = ({
   return (
     <div
       className={classNames(
-        "bg-orange-secondary/10 flex w-full items-center gap-4 rounded-sm p-5",
+        "bg-orange-secondary/10 flex w-full items-center gap-2 rounded-sm p-2.5",
         className,
       )}
     >

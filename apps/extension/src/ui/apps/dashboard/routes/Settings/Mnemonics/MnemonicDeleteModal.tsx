@@ -78,7 +78,7 @@ export const MnemonicDeleteModal = () => {
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
       <ModalDialog
         title={
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <AlertTriangle className="text-brand-orange inline text-lg" />
             <span>{t("Delete Recovery Phrase")}</span>
           </div>
@@ -94,14 +94,14 @@ export const MnemonicDeleteModal = () => {
           />
         </p>
         <div>
-          <div className="text-fg-disabled mb-4 mt-12">{t("Type Delete to continue")}</div>
+          <div className="text-fg-disabled mb-2 mt-6">{t("Type Delete to continue")}</div>
           <FormFieldInputText
             placeholder={t("Delete")}
             defaultValue=""
             onChange={(e) => setInputCheck(e.target.value)}
           />
         </div>
-        <div className="mt-12 grid grid-cols-2 gap-8">
+        <div className="mt-6 grid grid-cols-2 gap-4">
           <Button onClick={close}>{t("Cancel")}</Button>
           <Button
             primary

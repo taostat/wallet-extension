@@ -63,11 +63,11 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
           <Tooltip>
             <TooltipTrigger
               className={classNames(
-                "text-fg-secondary bg-fg-primary/10 h-10 rounded-sm px-3 text-xs opacity-60",
+                "text-fg-secondary bg-fg-primary/10 h-5 rounded-sm px-1.5 text-xs opacity-60",
                 isLoading && "animate-pulse",
               )}
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <ZapOff className="shrink-0 text-xs" />
                 <div>{t("Unstaking")}</div>
               </div>

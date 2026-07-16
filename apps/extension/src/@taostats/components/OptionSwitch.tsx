@@ -39,7 +39,7 @@ const OptionButton = <O extends string>({
       ref={buttonRef}
       disabled={selected}
       className={classNames(
-        "z-10 h-full whitespace-pre px-7 py-2 transition-colors duration-150",
+        "z-10 h-full whitespace-pre px-3.5 py-1 transition-colors duration-150",
         selected && "text-fg-primary-alt",
         className,
       )}
@@ -83,11 +83,11 @@ export const OptionSwitch = <O extends string>({
   return (
     <div
       className={classNames(
-        "text-fg-secondary inline-block h-14 rounded-full p-[0.25em]",
+        "text-fg-secondary inline-block h-7 rounded-full p-[0.25em]",
         className,
       )}
     >
-      <div className="relative z-0 flex h-full items-center gap-2">
+      <div className="relative z-0 flex h-full items-center gap-1">
         {options.map(([option, optionText]) => (
           <OptionButton
             className={optionButtonClassName}

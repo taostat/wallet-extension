@@ -41,8 +41,8 @@ const useTooltipRenderer = () =>
     if (!date || leftValue == null || rightValue == null) return null
 
     return (
-      <div className="bg-tooltip-bg min-w-[15rem] rounded-lg px-5 py-3">
-        <div className="flex flex-col gap-2">
+      <div className="bg-tooltip-bg min-w-[150px] rounded-lg px-2.5 py-1.5">
+        <div className="flex flex-col gap-1">
           <div className="text-fg-secondary text-sm">
             {date.toLocaleDateString("en-US", {
               month: "short",
@@ -50,12 +50,12 @@ const useTooltipRenderer = () =>
               year: "numeric",
             })}
           </div>
-          <div className="flex flex-row items-center gap-2">
-            <div className="bg-accent-1 h-3 w-3 rounded-sm" />
+          <div className="flex flex-row items-center gap-1">
+            <div className="bg-accent-1 h-1.5 w-1.5 rounded-sm" />
             <span className="text-fg-secondary text-sm">{formatNumber(rightValue)} t</span>
           </div>
-          <div className="flex flex-row items-center gap-2">
-            <div className="bg-accent-2 h-3 w-3 rounded-sm" />
+          <div className="flex flex-row items-center gap-1">
+            <div className="bg-accent-2 h-1.5 w-1.5 rounded-sm" />
             <span className="text-fg-secondary text-sm">${formatNumber(leftValue)}</span>
           </div>
         </div>
@@ -88,7 +88,7 @@ export const EarningsChart = memo(function EarningsChart({
 
   if (isError) {
     return (
-      <div className="bg-secondary flex min-h-[200px] w-full flex-col items-center justify-center gap-4 rounded-lg p-8">
+      <div className="bg-secondary flex min-h-[200px] w-full flex-col items-center justify-center gap-2 rounded-lg p-4">
         <p className="text-fg-secondary text-center text-sm">
           An error occurred while loading the earnings chart.
         </p>
@@ -303,7 +303,7 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? width - defaultMargin.right - 85 : width - 90}, ${chartConfig.rightValMaxBadgePosition})`}
         >
           <foreignObject width={100} height={24}>
-            <span className="bg-accent-1/20 text-accent-1 inline-block rounded px-2 py-0.5 text-xs">
+            <span className="bg-accent-1/20 text-accent-1 inline-block rounded px-1 py-px text-xs">
               {chartConfig.rightAxisMax.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
@@ -316,7 +316,7 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? width - defaultMargin.right - 85 : width - 90}, ${chartConfig.rightValMinBadgePosition})`}
         >
           <foreignObject width={100} height={24}>
-            <span className="bg-accent-1/10 text-accent-1 inline-block rounded px-2 py-0.5 text-xs opacity-60">
+            <span className="bg-accent-1/10 text-accent-1 inline-block rounded px-1 py-px text-xs opacity-60">
               {chartConfig.rightAxisMin.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
@@ -329,7 +329,7 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? defaultMargin.left + 20 : 10}, ${chartConfig.leftValMaxBadgePosition})`}
         >
           <foreignObject width={200} height={24}>
-            <span className="bg-accent-2/20 text-accent-2 inline-block rounded px-2 py-0.5 text-xs">
+            <span className="bg-accent-2/20 text-accent-2 inline-block rounded px-1 py-px text-xs">
               $
               {chartConfig.leftAxisMax.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
@@ -342,7 +342,7 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? defaultMargin.left + 20 : 10}, ${chartConfig.leftValMinBadgePosition})`}
         >
           <foreignObject width={200} height={24}>
-            <span className="bg-accent-2/10 text-accent-2 inline-block rounded px-2 py-0.5 text-xs opacity-60">
+            <span className="bg-accent-2/10 text-accent-2 inline-block rounded px-1 py-px text-xs opacity-60">
               $
               {chartConfig.leftAxisMin.toLocaleString("en-US", {
                 minimumFractionDigits: 2,

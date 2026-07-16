@@ -32,22 +32,22 @@ const BackupModalDialog: FC<{ onClose: () => void }> = ({ onClose }) => {
   }, [onClose])
 
   return (
-    <ModalDialog title="Backup" className="w-[40rem]" onClose={onClose}>
-      <div className="flex flex-col gap-10">
+    <ModalDialog title="Backup" className="w-[400px]" onClose={onClose}>
+      <div className="flex flex-col gap-5">
         <p className="text-fg-secondary leading-paragraph">
           This will save all your Taostats data into a file, which you can use to restore your
           Taostats on another browser.
           <br />
           Make sure to store this file securely.
         </p>
-        <div className="bg-orange-secondary/10 text-fg-orange flex items-center justify-center gap-8 rounded p-5 px-8 text-center text-sm">
+        <div className="bg-orange-secondary/10 text-fg-orange flex items-center justify-center gap-4 rounded p-2.5 px-4 text-center text-sm">
           <p>
             <strong>DO NOT</strong> share your backup file with <strong>anyone</strong>.
             <br />
             The Taostats support team will <strong>never</strong> ask for it.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid grid-cols-2 gap-5">
           <Button onClick={onClose}>Cancel</Button>
           <Button primary icon={Save01} onClick={handleSave}>
             Save

@@ -66,7 +66,7 @@ export const ScanQr = <T extends Types>({
   )
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-1">
       <div
         className="bg-app-bg relative overflow-hidden rounded-xl"
         style={{ width: `${size}px`, height: `${size}px` }}
@@ -154,7 +154,7 @@ const Scanner = ({
         )}
       />
       {inputDevices.length > 1 ? (
-        <div className="absolute left-1/2 top-10 -translate-x-1/2">
+        <div className="absolute left-0.5/2 top-5 -translate-x-0.5/2">
           <ChevronDown
             className="cursor-pointer text-lg"
             onClick={() => setShowInputMenu((shown) => !shown)}
@@ -164,18 +164,18 @@ const Scanner = ({
       {showInputMenu ? (
         <div
           ref={inputMenu}
-          className="bg-tertiary absolute left-1/2 top-24 max-h-80 w-96 -translate-x-1/2 space-y-4 overflow-y-scroll rounded p-4"
+          className="bg-tertiary absolute left-0.5/2 top-12 max-h-[160px] w-[192px] -translate-x-0.5/2 space-y-2 overflow-y-scroll rounded p-2"
         >
           {inputDevices.map((device) => (
             <button
               key={device.deviceId}
               type="button"
-              className="flex w-full items-center gap-3 text-sm"
+              className="flex w-full items-center gap-1.5 text-sm"
               onClick={() => setSelectedVideoInput(device.deviceId)}
             >
               <div
                 className={classNames(
-                  "h-4 w-4 shrink-0 rounded-full",
+                  "h-2 w-2 shrink-0 rounded-full",
                   device.deviceId === selectedVideoInput ? "bg-fg-brand" : "bg-tertiary",
                 )}
               />
@@ -238,24 +238,24 @@ const CameraMarker = ({
   error: boolean
 }) => {
   const bg = error ? "bg-error-secondary" : active ? "bg-white" : "bg-secondary"
-  const width = (horizontal: boolean) => (horizontal ? "w-2" : "h-2")
-  const length = (horizontal: boolean) => (horizontal ? "h-1/5" : "w-1/5")
+  const width = (horizontal: boolean) => (horizontal ? "w-1" : "h-1")
+  const length = (horizontal: boolean) => (horizontal ? "h-0.5/5" : "w-0.5/5")
   const horizontal = `${width(true)} ${length(true)}`
   const vertical = `${width(false)} ${length(false)}`
 
   return (
     <div className={className}>
-      <div className={`absolute left-10 top-10 rounded ${horizontal} ${bg}`} />
-      <div className={`absolute left-10 top-10 rounded ${vertical} ${bg}`} />
+      <div className={`absolute left-5 top-5 rounded ${horizontal} ${bg}`} />
+      <div className={`absolute left-5 top-5 rounded ${vertical} ${bg}`} />
 
-      <div className={`absolute bottom-10 left-10 rounded ${horizontal} ${bg}`} />
-      <div className={`absolute bottom-10 left-10 rounded ${vertical} ${bg}`} />
+      <div className={`absolute bottom-5 left-5 rounded ${horizontal} ${bg}`} />
+      <div className={`absolute bottom-5 left-5 rounded ${vertical} ${bg}`} />
 
-      <div className={`absolute right-10 top-10 rounded ${horizontal} ${bg}`} />
-      <div className={`absolute right-10 top-10 rounded ${vertical} ${bg}`} />
+      <div className={`absolute right-5 top-5 rounded ${horizontal} ${bg}`} />
+      <div className={`absolute right-5 top-5 rounded ${vertical} ${bg}`} />
 
-      <div className={`absolute bottom-10 right-10 rounded ${horizontal} ${bg}`} />
-      <div className={`absolute bottom-10 right-10 rounded ${vertical} ${bg}`} />
+      <div className={`absolute bottom-5 right-5 rounded ${horizontal} ${bg}`} />
+      <div className={`absolute bottom-5 right-5 rounded ${vertical} ${bg}`} />
     </div>
   )
 }

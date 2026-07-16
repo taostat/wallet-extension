@@ -39,10 +39,10 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
 
   if (account)
     return (
-      <div className="flex h-14 w-full items-center gap-6 text-base">
-        <div className="flex h-14 grow items-center gap-3 overflow-hidden">
+      <div className="flex h-7 w-full items-center gap-3 text-base">
+        <div className="flex h-7 grow items-center gap-1.5 overflow-hidden">
           <AccountIcon
-            className="shrink-0 text-[2rem]"
+            className="shrink-0 text-[20px]"
             address={account.address}
             genesisHash={getAccountGenesisHash(account)}
           />
@@ -55,7 +55,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
             analyticsFrom="dashboard portfolio"
             placement="bottom-end"
             trigger={
-              <IconButton className="bg-secondary/50 hover:bg-secondary/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
+              <IconButton className="bg-secondary/50 hover:bg-secondary/80 flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-sm">
                 <DotsHorizontal className="text-base" />
               </IconButton>
             }
@@ -66,9 +66,9 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
 
   if (folder)
     return (
-      <div className="flex h-14 w-full items-center gap-6 text-base">
-        <div className="flex grow items-center gap-3 overflow-hidden text-base">
-          <div className="bg-secondary rounded-xs flex size-10 shrink-0 items-center justify-center">
+      <div className="flex h-7 w-full items-center gap-3 text-base">
+        <div className="flex grow items-center gap-1.5 overflow-hidden text-base">
+          <div className="bg-secondary rounded-xs flex size-5 shrink-0 items-center justify-center">
             <Folder className="text-fg-brand shrink-0 text-xs" />
           </div>
           <div className="truncate">{folder.name}</div>
@@ -78,7 +78,7 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
             folderId={folder.id}
             placement="bottom-end"
             trigger={
-              <ContextMenuTrigger className="bg-secondary/50 hover:bg-secondary/80 flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-sm">
+              <ContextMenuTrigger className="bg-secondary/50 hover:bg-secondary/80 flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-sm">
                 <DotsHorizontal className="text-base" />
               </ContextMenuTrigger>
             }
@@ -88,8 +88,8 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
     )
 
   return (
-    <div className="flex h-14 items-center gap-3 text-base">
-      <AllAccountsIcon className="shrink-0 text-[2rem]" />
+    <div className="flex h-7 items-center gap-1.5 text-base">
+      <AllAccountsIcon className="shrink-0 text-[20px]" />
       <div>{t("Total Portfolio")}</div>
     </div>
   )
@@ -109,16 +109,16 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
   return (
     <div
       className={classNames(
-        "bg-app-bg relative z-0 flex flex-col items-start justify-between gap-4 rounded-lg p-10",
+        "bg-app-bg relative z-0 flex flex-col items-start justify-between gap-2 rounded-lg p-5",
         className,
       )}
     >
-      <div className="z-[1] flex w-full flex-col gap-4 overflow-hidden">
+      <div className="z-[1] flex w-full flex-col gap-2 overflow-hidden">
         <SelectionScope folder={selectedFolder} account={selectedAccount} />
-        <div className="flex w-full max-w-full items-center gap-6">
+        <div className="flex w-full max-w-full items-center gap-3">
           <button
             className={classNames(
-              "bg-tertiary/20 text-fg-tertiary hover:text-fg-primary hover:bg-fg-primary/10 pointer-events-auto flex size-[4.4rem] shrink-0 items-center justify-center rounded-full text-center text-lg leading-none shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
+              "bg-tertiary/20 text-fg-tertiary hover:text-fg-primary hover:bg-fg-primary/10 pointer-events-auto flex size-[44px] shrink-0 items-center justify-center rounded-full text-center text-lg leading-none shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
               currencyConfig[currency]?.symbol?.length === 2 && "text-md",
               currencyConfig[currency]?.symbol?.length > 2 && "text-base",
             )}
@@ -131,7 +131,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
           </button>
           <Fiat
             className={classNames(
-              "overflow-hidden text-ellipsis whitespace-pre pr-10 text-[3rem] font-bold leading-[3.6rem]",
+              "overflow-hidden text-ellipsis whitespace-pre pr-5 text-[30px] font-bold leading-[36px]",
             )}
             amount={selectedTotal}
             isBalance
@@ -184,14 +184,14 @@ const Action: FC<ActionProps> = ({
         <button
           type="button"
           className={classNames(
-            "text-fg-secondary pointer-events-auto flex h-14 items-center gap-4 rounded-full bg-white/5 px-5 text-base opacity-90 backdrop-blur-sm disabled:opacity-70",
+            "text-fg-secondary pointer-events-auto flex h-7 items-center gap-2 rounded-full bg-white/5 px-2.5 text-base opacity-90 backdrop-blur-sm disabled:opacity-70",
             "enabled:hover:text-fg-primary enabled:hover:bg-white/10",
           )}
           onClick={handleClick}
           disabled={disabled}
         >
           <div>
-            <Icon className="size-8" />
+            <Icon className="size-4" />
           </div>
           <div>{label}</div>
         </button>
@@ -272,8 +272,8 @@ const TopActions: FC = () => {
   )
 
   return (
-    <div className="z-[1] flex w-full items-center justify-between gap-8">
-      <div className="flex justify-center gap-4">
+    <div className="z-[1] flex w-full items-center justify-between gap-4">
+      <div className="flex justify-center gap-2">
         {topActions.map((action, index) => (
           <Action key={index} {...action} />
         ))}

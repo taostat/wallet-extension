@@ -55,7 +55,7 @@ const Content = () => {
   return (
     <>
       <Spacer small />
-      <div className="flex justify-end gap-4" data-testid="platform-options-switch">
+      <div className="flex justify-end gap-2" data-testid="platform-options-switch">
         <div className="flex-grow" />
 
         <TogglePill
@@ -66,7 +66,7 @@ const Content = () => {
         />
       </div>
       <Spacer small />
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         <SearchInput
           initialValue={search}
           onChange={setSearch}

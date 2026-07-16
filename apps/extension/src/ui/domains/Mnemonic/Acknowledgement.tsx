@@ -11,9 +11,9 @@ export const Acknowledgement = ({ onContinueClick }: { onContinueClick: () => vo
 
   return (
     <div>
-      <div className="mb-4 flex flex-col gap-16">
-        <div className="flex flex-col gap-12">
-          <div className="flex items-center gap-6">
+      <div className="mb-2 flex flex-col gap-8">
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-3">
             <IconContainer Icon={Lock01} />
             <span>
               {t(
@@ -21,11 +21,11 @@ export const Acknowledgement = ({ onContinueClick }: { onContinueClick: () => vo
               )}
             </span>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3">
             <IconContainer Icon={Shield01} />
             <span>{t("Write down your recovery phrase and store it in a secure location.")}</span>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3">
             <IconContainer Icon={X} className="bg-[#FD48481A] text-red-500" />
             <span className="text-red-500">
               {t("If you lose your recovery phrase, you will lose access to your funds.")}
@@ -55,11 +55,11 @@ const IconContainer = ({
   return (
     <span
       className={cn(
-        "text-primary-700 flex h-20 items-center rounded-2xl bg-[#D5FF5C1A] p-6",
+        "text-primary-700 flex h-10 items-center rounded-2xl bg-[#D5FF5C1A] p-3",
         className,
       )}
     >
-      <Icon className="h-10 w-10" />
+      <Icon className="h-5 w-5" />
     </span>
   )
 }

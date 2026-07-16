@@ -96,12 +96,12 @@ const BaseMnemonicUnlock: FC<MnemonicUnlockProps> = ({ children, buttonText, tit
   }, [setValue])
 
   return mnemonic ? (
-    <div className="w-[58rem]">{children}</div>
+    <div className="w-[580px]">{children}</div>
   ) : (
-    <form onSubmit={handleSubmit(submit)} className="flex w-[58rem] flex-col justify-between gap-8">
+    <form onSubmit={handleSubmit(submit)} className="flex w-[580px] flex-col justify-between gap-4">
       <FormFieldContainer label={title} error={errors.password?.message}>
         <FormFieldInputText
-          before={<Key01 className="h-10 w-10 opacity-50" />}
+          before={<Key01 className="h-5 w-5 opacity-50" />}
           {...register("password")}
           type="password"
           placeholder={t("Enter password")}

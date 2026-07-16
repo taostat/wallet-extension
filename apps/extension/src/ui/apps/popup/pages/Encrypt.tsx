@@ -30,18 +30,18 @@ const SignMessage = ({
   }, [request])
 
   return (
-    <div className="text-fg-secondary flex h-full w-full flex-col items-center pt-8">
+    <div className="text-fg-secondary flex h-full w-full flex-col items-center pt-4">
       <h1 className="text-fg-primary leading-base text-md my-0 font-sans font-bold">
         {isDecrypt ? "Decrypt " : "Encrypt "}Request
       </h1>
-      <h2 className="mt-8 flex w-full flex-col items-center text-base leading-[3.2rem]">
+      <h2 className="mt-4 flex w-full flex-col items-center text-base leading-[32px]">
         {isDecrypt
           ? t("You are decrypting some data with")
           : t("You are encrypting some data with")}
         <br />
         <AccountPill account={account} />
       </h2>
-      <Message className="mt-8 w-full flex-grow" text={data} />
+      <Message className="mt-4 w-full flex-grow" text={data} />
     </div>
   )
 }
@@ -84,13 +84,13 @@ export const Encrypt = () => {
       </PopupContent>
       <PopupFooter>
         {errorMessage && (
-          <SignAlertMessage className="mb-8" type="error">
+          <SignAlertMessage className="mb-4" type="error">
             {errorMessage}
           </SignAlertMessage>
         )}
         {account && request && (
           <>
-            <div className="grid w-full grid-cols-2 gap-12">
+            <div className="grid w-full grid-cols-2 gap-6">
               <Button disabled={processing} onClick={reject}>
                 {t("Cancel")}
               </Button>

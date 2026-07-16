@@ -15,7 +15,7 @@ const Content = () => {
     <>
       <HeaderBlock title={t("Networks & Tokens")} text={t("Manage networks and tokens")} />
       <Spacer large />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <CtaButton
           iconLeft={Globe01}
           iconRight={ChevronRight}

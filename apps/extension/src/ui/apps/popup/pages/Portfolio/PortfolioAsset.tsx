@@ -45,19 +45,19 @@ const PageContent = ({
 
   return (
     <>
-      <div className="text-fg-primary flex h-[3.6rem] w-full items-center gap-4 text-base font-bold">
+      <div className="text-fg-primary flex h-[36px] w-full items-center gap-2 text-base font-bold">
         <IconButton onClick={handleBackBtnClick}>
           <ChevronLeft />
         </IconButton>
         <div className="shrink-0">{name}</div>
-        <div className="flex grow items-center justify-end gap-3">
+        <div className="flex grow items-center justify-end gap-1.5">
           <div className="text-fg-secondary text-sm">{t("Total")}</div>
           <Fiat amount={total} isBalance />
         </div>
       </div>
 
-      <div className="py-4">
-        <AssetPriceChart tokenIds={tokenIds} variant="small" className="mb-8" />
+      <div className="py-2">
+        <AssetPriceChart tokenIds={tokenIds} variant="small" className="mb-4" />
         <PopupAssetDetails balances={balancesToDisplay} symbol={symbol} />
       </div>
     </>

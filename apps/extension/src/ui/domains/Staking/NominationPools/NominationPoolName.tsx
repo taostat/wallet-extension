@@ -14,7 +14,7 @@ export const NominationPoolName = ({ chainId, poolId }: NominationPoolNameProps)
 
   if (isLoading)
     return (
-      <div className={"text-fg-disabled bg-tertiary rounded-xs h-[1.6rem] w-40 animate-pulse"} />
+      <div className={"text-fg-disabled bg-tertiary rounded-xs h-[16px] w-20 animate-pulse"} />
     )
 
   if (isError || !poolName) return <>{defaultPoolName}</>

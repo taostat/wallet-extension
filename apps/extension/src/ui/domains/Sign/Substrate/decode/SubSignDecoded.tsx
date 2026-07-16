@@ -13,7 +13,7 @@ export const SubSignDecoded = () => {
   if (!decodedCall || !sapi || !isJsonPayload(payload)) return null
 
   return (
-    <div className="flex w-full flex-col gap-4 px-3 text-left text-sm">
+    <div className="flex w-full flex-col gap-2 px-1.5 text-left text-sm">
       {isBatchCall(decodedCall) ? (
         <>
           <div className="text-fg-tertiary">{t("Batch content")}</div>

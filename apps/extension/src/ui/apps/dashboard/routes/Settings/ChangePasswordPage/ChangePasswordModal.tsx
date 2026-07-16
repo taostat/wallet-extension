@@ -32,12 +32,12 @@ export const ChangePasswordModal = ({
 
   return (
     <Modal isOpen={isOpen}>
-      <ModalDialog title={t("Changing password")} centerTitle className="w-[40rem]">
-        <Loading01 className="text-secondary animate-spin-slow mx-auto h-12 w-12" />
+      <ModalDialog title={t("Changing password")} centerTitle className="w-[400px]">
+        <Loading01 className="text-secondary animate-spin-slow mx-auto h-6 w-6" />
 
-        <div className="flex flex-col gap-5">
-          <p className="my-8 animate-pulse text-center">{progressDisplay}</p>
-          <div className="bg-orange-secondary/10 text-fg-orange flex items-center gap-6 rounded p-4 px-6 text-sm">
+        <div className="flex flex-col gap-2.5">
+          <p className="my-4 animate-pulse text-center">{progressDisplay}</p>
+          <div className="bg-orange-secondary/10 text-fg-orange flex items-center gap-3 rounded p-2 px-3 text-sm">
             <AlertTriangle className="text-fg-orange shrink-0 text-lg" />
             <div>
               {t(
