@@ -152,7 +152,8 @@ const PortfolioBalanceDisplay: FC<{ amount: number }> = ({ amount }) => {
       <span
         className={classNames(
           "text-fg-brand text-display-md font-medium leading-none",
-          !isHidden && "[text-shadow:0_0_20px_rgba(0,219,188,0.45)]",
+          !isHidden &&
+            "[text-shadow:0_0_12px_rgba(0,219,188,0.9),0_0_28px_rgba(0,219,188,0.65),0_0_48px_rgba(0,219,188,0.4)]",
         )}
       >
         {parts.integer}
