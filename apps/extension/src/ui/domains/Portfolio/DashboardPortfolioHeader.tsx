@@ -146,7 +146,7 @@ const PortfolioBalanceDisplay: FC<{ amount: number }> = ({ amount }) => {
       ref={refReveal}
       className={classNames(
         "flex min-w-0 items-baseline overflow-visible",
-        isHidden && "balance-revealable",
+        isHidden && "cursor-pointer",
       )}
     >
       <span

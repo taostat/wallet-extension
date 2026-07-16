@@ -9,7 +9,6 @@ import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { AccountPortfolioSummary } from "@ui/domains/Portfolio/AccountPortfolioSummary"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { GetStarted } from "@ui/domains/Portfolio/GetStarted/GetStarted"
-import { PortfolioTabs } from "@ui/domains/Portfolio/PortfolioTabs"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { usePortfolioGlobalData } from "@ui/state"
 
@@ -58,6 +57,7 @@ const PortfolioAccountCheck: FC<PropsWithChildren> = ({ children }) => {
 export const PortfolioLayout: FC<
   PropsWithChildren & { toolbar?: ReactNode; header?: ReactNode }
 > = ({ header, toolbar, children }) => {
+  const { t } = useTranslation()
   const isTokenDetailRoute = !!useMatch("/portfolio/tokens/:netuid")
 
   return (
@@ -71,7 +71,7 @@ export const PortfolioLayout: FC<
           <PortfolioAccountCheck>
             {!isTokenDetailRoute && <AccountPortfolioSummary />}
             <div className="flex h-8 w-full items-center justify-between gap-4 overflow-hidden">
-              <PortfolioTabs className="text-md my-0 h-7 w-auto font-bold" />
+              <div className="text-fg-primary text-md shrink-0 font-medium">{t("Holdings")}</div>
               <div className="shrink-0">
                 <Suspense fallback={<SuspenseTracker name="DashboardPortfolioLayout.Toolbar" />}>
                   {toolbar}

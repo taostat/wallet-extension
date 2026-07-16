@@ -23,8 +23,8 @@ export const DashboardLayout: FC<{
   return (
     <div id="main" className="h-dvh w-dvw overflow-x-auto overflow-y-scroll">
       <div className="relative mx-auto w-full max-w-[1440px]">
-        <div className={classNames("flex w-full items-center", RESPONSIVE_FLEX_SPACING)}>
-          <div className="hidden h-24 w-[296px] shrink-0 items-center gap-2 sm:flex">
+        <div className={classNames("flex w-full items-center py-2", RESPONSIVE_FLEX_SPACING)}>
+          <div className="hidden w-[296px] shrink-0 items-center gap-2 sm:flex">
             <TaostatsLogo className="h-[30px] w-[147.172px]" />
             <PillButton className="bg-fg-brand/5 text-fg-brand hover:bg-fg-brand/20 rounded-3xl">
               <div className="flex items-center gap-1">
@@ -32,14 +32,14 @@ export const DashboardLayout: FC<{
               </div>
             </PillButton>
           </div>
-          <div className="flex h-24 w-full grow items-center justify-end px-4">
+          <div className="flex w-full grow items-center justify-end px-4">
             <HorizontalNav />
           </div>
         </div>
       </div>
       <div className="border-primary/6 h-px w-full shrink-0 border-b" />
       <div className="relative mx-auto w-full max-w-[1440px]">
-        <div className={classNames("flex w-full", RESPONSIVE_FLEX_SPACING)}>
+        <div className={classNames("flex w-full pt-8", RESPONSIVE_FLEX_SPACING)}>
           {/* Sidebar */}
           <div className="w-[296px] shrink-0 pb-10">
             <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Sidebar" />}>

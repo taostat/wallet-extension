@@ -1,14 +1,12 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Balances } from "@taostats-wallet/balances"
 import { classNames } from "@taostats-wallet/util"
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 
-import { usePortfolioGlobalData, useSelectedCurrency } from "@ui/state"
+import { usePortfolioGlobalData } from "@ui/state"
 
-import { Statistics } from "../Statistics"
-import { usePortfolioDisplayBalances } from "../useDisplayBalances"
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { AssetRow } from "./DashboardAssetRow"
 import { usePortfolioSymbolBalancesByFilter } from "./usePortfolioSymbolBalances"
@@ -17,7 +15,7 @@ const AssetRowSkeleton: FC<{ className?: string }> = ({ className }) => {
   return (
     <div
       className={classNames(
-        "text-fg-secondary bg-secondary mb-2 mt-2 grid w-full grid-cols-[40%_30%_30%] rounded text-left text-base",
+        "text-fg-secondary mb-2 mt-2 grid w-full grid-cols-[40%_30%_30%] border-b border-primary text-left text-base",
         className,
       )}
     >
@@ -42,50 +40,12 @@ const AssetRowSkeleton: FC<{ className?: string }> = ({ className }) => {
   )
 }
 
-const HeaderRow = () => {
-  const balances = usePortfolioDisplayBalances("network")
-  const { t } = useTranslation()
-
-  const currency = useSelectedCurrency()
-
-  const { total } = useMemo(() => balances.sum.fiat(currency), [balances.sum, currency])
-
-  if (!balances.count) return null
-
-  return (
-    <div className="text-fg-secondary bg-secondary mb-2 grid h-20 grid-cols-[40%_30%_30%] items-center rounded px-4 text-left text-base">
-      <div className="h-auto w-auto p-0" />
-      {/* <Statistics
-        className="h-auto w-auto p-0"
-        title={t("Total Value")}
-        fiat={total}
-        showCurrencyToggle
-        align="left"
-      /> */}
-      <div className="className=h-auto w-auto items-end p-0 pr-4" />
-      {/* <Statistics
-        className="h-auto w-auto items-end p-0 pr-4"
-        title={t("Locked")}
-        fiat={locked}
-        locked
-        align="right"
-      /> */}
-      <Statistics
-        className="h-auto w-auto items-end p-0"
-        title={t("Total")}
-        fiat={total}
-        align="right"
-      />
-    </div>
-  )
-}
-
 const NoAssetsFound = () => {
   const { t } = useTranslation()
   const { selectedAccount, selectedFolder } = usePortfolioNavigation()
 
   return (
-    <div className="text-fg-secondary bg-secondary mb-2 flex h-[66px] flex-col justify-center rounded-sm p-4">
+    <div className="text-fg-secondary mb-2 flex h-[66px] flex-col justify-center border-b border-primary p-4">
       {selectedAccount
         ? t("No assets were found on this account.")
         : selectedFolder
@@ -103,7 +63,6 @@ export const DashboardAssetsTable = () => {
   return (
     <div key={location.key} className="text-fg-secondary min-w-[450px] text-left text-base">
       {!symbolBalances.length && !isInitialising && <NoAssetsFound />}
-      {!!symbolBalances.length && <HeaderRow />}
       <VirtualizedRows symbolBalances={symbolBalances} />
       {isInitialising && <AssetRowSkeleton />}
     </div>
@@ -126,7 +85,7 @@ const VirtualizedRows: FC<{ symbolBalances: [string, Balances][] }> = ({ symbolB
   const virtualizer = useVirtualizer({
     count: symbolBalances.length,
     overscan: 6,
-    gap: 8,
+    gap: 0,
     estimateSize: () => 66,
     getScrollElement: () => document.getElementById("main"),
   })

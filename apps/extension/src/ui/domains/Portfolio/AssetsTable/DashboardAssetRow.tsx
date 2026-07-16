@@ -66,12 +66,12 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
       <button
         type="button"
         className={classNames(
-          "text-fg-secondary bg-secondary hover:bg-secondary grid h-[66px] w-full grid-cols-[40%_30%_30%] overflow-hidden rounded text-left text-base",
+          "text-fg-secondary hover:bg-secondary/50 border-primary grid h-[66px] w-full grid-cols-[40%_30%_30%] overflow-hidden border-b text-left text-base",
         )}
         onClick={handleClick}
       >
         <div className="flex h-full">
-          <div className="shrink-0 p-4 text-xl">
+          <div className="flex shrink-0 items-center justify-center p-4 text-3xl">
             <TokenLogo tokenId={token.id} />
           </div>
           <div className="flex grow flex-col justify-center gap-1">
