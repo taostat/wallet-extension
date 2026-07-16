@@ -130,42 +130,82 @@ export const StarryBackground = ({ children }: { children: ReactNode }) => {
     if (!motionEnabled) return
 
     let cancelled = false
-    let timeoutId = 0
+    const timeouts = new Set<number>()
 
-    const schedule = () => {
-      const delay = randomBetween(3000, 6000)
-      timeoutId = window.setTimeout(() => {
-        if (cancelled) return
-
-        setComets((prev) => [...prev, createComet()])
-
-        // Occasionally spawn a second comet on the other ring for overlap.
-        if (Math.random() < 0.25) {
-          window.setTimeout(
-            () => {
-              if (!cancelled) setComets((prev) => [...prev, createComet()])
-            },
-            randomBetween(120, 420),
-          )
-        }
-
-        schedule()
-      }, delay)
+    const clearAllTimeouts = () => {
+      timeouts.forEach((id) => window.clearTimeout(id))
+      timeouts.clear()
     }
 
-    // Kick off with one comet shortly after mount.
-    timeoutId = window.setTimeout(
-      () => {
-        if (cancelled) return
-        setComets((prev) => [...prev, createComet()])
-        schedule()
-      },
-      randomBetween(400, 1200),
-    )
+    const setTrackedTimeout = (fn: () => void, delay: number) => {
+      const id = window.setTimeout(() => {
+        timeouts.delete(id)
+        fn()
+      }, delay)
+      timeouts.add(id)
+      return id
+    }
+
+    // 25% less frequent than 3–6s → ~4–8s between spawns.
+    const schedule = () => {
+      if (cancelled || document.hidden) return
+
+      setTrackedTimeout(
+        () => {
+          if (cancelled || document.hidden) return
+
+          setComets((prev) => [...prev, createComet()])
+
+          // Occasionally spawn a second comet on the other ring for overlap.
+          if (Math.random() < 0.75) {
+            setTrackedTimeout(
+              () => {
+                if (!cancelled && !document.hidden) {
+                  setComets((prev) => [...prev, createComet()])
+                }
+              },
+              randomBetween(120, 420),
+            )
+          }
+
+          schedule()
+        },
+        randomBetween(6000, 8000),
+      )
+    }
+
+    const start = () => {
+      if (cancelled || document.hidden) return
+      setTrackedTimeout(
+        () => {
+          if (cancelled || document.hidden) return
+          setComets((prev) => [...prev, createComet()])
+          schedule()
+        },
+        randomBetween(400, 1200),
+      )
+    }
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        // Stop scheduling while backgrounded — timers would otherwise queue up
+        // while Framer animations are paused, causing a burst on return.
+        clearAllTimeouts()
+        setComets([])
+      } else {
+        clearAllTimeouts()
+        setComets([])
+        start()
+      }
+    }
+
+    document.addEventListener("visibilitychange", onVisibilityChange)
+    start()
 
     return () => {
       cancelled = true
-      window.clearTimeout(timeoutId)
+      clearAllTimeouts()
+      document.removeEventListener("visibilitychange", onVisibilityChange)
     }
   }, [motionEnabled])
 
