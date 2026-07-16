@@ -6,6 +6,7 @@ import { FC } from "react"
 import { combineLatest, map } from "rxjs"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { formatFiat } from "@taostats/util/formatFiat"
 import { getTokenRates$, selectedCurrency$ } from "@ui/state"
 
 const [useDisplayAssetPrice] = bind(
@@ -21,9 +22,16 @@ const [useDisplayAssetPrice] = bind(
 
         if (!rate) return null
 
-        const compact = formatPrice(rate.price, currency, true)
+        // Holdings list: always show USD at 2dp; other currencies keep compact price formatting.
+        const compact =
+          currency === "usd"
+            ? formatFiat(rate.price, "usd", "narrowSymbol", 2)
+            : formatPrice(rate.price, currency, true)
 
-        const full = formatPrice(rate.price, currency, false)
+        const full =
+          currency === "usd"
+            ? formatFiat(rate.price, "usd", "narrowSymbol", 2)
+            : formatPrice(rate.price, currency, false)
 
         const rawChange24h = rate.change24h
           ? new Intl.NumberFormat(undefined, {
@@ -46,11 +54,14 @@ const [useDisplayAssetPrice] = bind(
           compact,
           full,
           change24h,
+          change24hValue: typeof rate.change24h === "number" ? rate.change24h : null,
           changeClassName,
         }
       }),
     ),
 )
+
+export { useDisplayAssetPrice }
 
 export const AssetPrice: FC<{
   tokenId: TokenId | null | undefined
@@ -61,6 +72,8 @@ export const AssetPrice: FC<{
   changeClassName?: string
   noTooltip?: boolean
   noChange?: boolean
+  /** Overrides the default tooltip (full price). */
+  tooltipLabel?: string
 }> = ({
   as: Container = "div",
   tokenId,
@@ -70,6 +83,7 @@ export const AssetPrice: FC<{
   className,
   priceClassName,
   changeClassName,
+  tooltipLabel,
 }) => {
   const price = useDisplayAssetPrice(tokenId, balances)
 
@@ -79,7 +93,7 @@ export const AssetPrice: FC<{
     <Tooltip placement="bottom-start">
       <TooltipTrigger asChild>
         <Container className={classNames("whitespace-nowrap", className)}>
-          <span className={priceClassName}>{price.compact} </span>
+          <span className={priceClassName}>{price.compact}</span>
           {!noChange && price.change24h ? (
             <span
               className={classNames(
@@ -93,7 +107,7 @@ export const AssetPrice: FC<{
           ) : null}
         </Container>
       </TooltipTrigger>
-      {!noTooltip && <TooltipContent>{price.full}</TooltipContent>}
+      {!noTooltip && <TooltipContent>{tooltipLabel ?? price.full}</TooltipContent>}
     </Tooltip>
   )
 }

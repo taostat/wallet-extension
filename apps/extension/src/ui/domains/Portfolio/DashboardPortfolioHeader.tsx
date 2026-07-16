@@ -15,6 +15,7 @@ import {
   Button,
   ContextMenuTrigger,
   IconButton,
+  PercentChangePill,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -175,26 +176,18 @@ const PortfolioChange: FC<{
   if (!change || (change.diff === 0 && change.ratio === 0)) return null
 
   const isPositive = change.diff >= 0
-  const percent = Math.abs(change.ratio * 100)
-  const diffFormatted = formatFiat(Math.abs(change.diff), currency, "narrowSymbol", 2)
+  const absDiff = Math.abs(change.diff)
+  const diffFormatted =
+    currency === "tao"
+      ? `${currencyConfig.tao.symbol}${formatFiat(absDiff, undefined, undefined, 2)}`
+      : formatFiat(absDiff, currency, "narrowSymbol", 2)
   const signedDiff = `${isPositive ? "+" : "-"}${diffFormatted}`
 
   return (
     <div className="gap-md flex items-center">
       <span className="text-fg-tertiary text-sm">{signedDiff}</span>
-      <span
-        className={classNames(
-          "gap-xxs px-sm py-xxs inline-flex items-center rounded-full text-xs font-medium",
-          isPositive ? "bg-brand-secondary text-fg-brand" : "bg-accent-2/20 text-accent-2",
-        )}
-      >
-        {isPositive ? (
-          <ArrowUpRight className="size-3 shrink-0" />
-        ) : (
-          <ArrowDownLeft className="size-3 shrink-0" />
-        )}
-        {percent.toFixed(2)}%
-      </span>
+      {/* `ratio` is already in percentage points (same units as TokenRateData.change24h). */}
+      <PercentChangePill value={change.ratio} />
     </div>
   )
 }

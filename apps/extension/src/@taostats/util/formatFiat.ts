@@ -23,6 +23,7 @@ export const formatFiat = (
       // NOTE: If minimumFractionDigits is set to an integer greater than `20` then it throws the error:
       //       `RangeError: minimumFractionDigits value is out of range`
       minimumFractionDigits: minimumDecimalPlaces <= 20 ? minimumDecimalPlaces : 20,
+      maximumFractionDigits: minimumDecimalPlaces <= 20 ? minimumDecimalPlaces : 20,
     }),
   }
 

@@ -3,7 +3,7 @@ import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
-import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
+import { AssetPrice, useDisplayAssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
@@ -28,6 +28,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
 
   const status = useBalancesStatus(balances)
   const { token, rate, summary } = useTokenBalancesSummary(balances)
+  const displayPrice = useDisplayAssetPrice(token?.id, balances)
   const network = useNetworkById(token?.networkId)
 
   const navigate = useNavigateWithQuery()
@@ -91,45 +92,24 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
               </div>
             )}
             {!isUniswapV2LpToken && !!rate && (
-              <AssetPrice tokenId={token.id} className="text-fg-secondary" balances={balances} />
+              <AssetPrice
+                tokenId={token.id}
+                balances={balances}
+                noChange
+                tooltipLabel={t("Alpha Price")}
+                className="text-fg-secondary text-xs"
+              />
             )}
           </div>
         </div>
-        <div className="h-[66px] text-right">
-          {/* <AssetBalanceCellValue
-            locked
-            render={summary.lockedTokens.gt(0)}
-            tokens={summary.lockedTokens}
-            fiat={summary.lockedFiat}
-            symbol={isUniswapV2LpToken ? "" : token.symbol}
-            balancesStatus={status}
-            className={classNames(
-              "noPadRight",
-              status.status === "fetching" && "animate-pulse transition-opacity",
-            )}
-            noCountUp={noCountUp}
-          /> */}
-        </div>
-        {/* <div className="flex h-[66px] flex-col items-end justify-center gap-1 text-right">
-          <AssetBalanceCellValue
-            render
-            tokens={summary.availableTokens}
-            fiat={summary.availableFiat}
-            symbol={isUniswapV2LpToken ? "" : token.symbol}
-            balancesStatus={status}
-            className={classNames(
-              canStake && "group-hover:hidden",
-              status.status === "fetching" && "animate-pulse transition-opacity",
-            )}
-            noCountUp={noCountUp}
-          />
-        </div> */}
+        <div className="h-[66px] text-right" />
         <div className="flex h-[66px] flex-col items-end justify-center gap-1 text-right">
           <AssetBalanceCellValue
             render
             tokens={summary.totalTokens}
             fiat={summary.totalFiat}
             symbol={isUniswapV2LpToken ? "" : token.symbol}
+            change24hPct={displayPrice?.change24hValue ?? null}
             balancesStatus={status}
             className={classNames(
               canStake && "group-hover:hidden",
