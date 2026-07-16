@@ -72,7 +72,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
         onClick={handleClick}
       >
         <div className="flex h-full">
-          <div className="flex shrink-0 items-center justify-center p-4 text-3xl">
+          <div className="flex shrink-0 items-center justify-center py-4 pr-4 text-3xl">
             <TokenLogo tokenId={token.id} />
           </div>
           <div className="flex grow flex-col justify-center gap-1">
@@ -120,7 +120,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
         </div>
       </button>
       {canStake && (
-        <div className="absolute right-4 top-0 hidden h-[66px] flex-col justify-center group-hover:flex">
+        <div className="absolute right-0 top-0 hidden h-[66px] flex-col justify-center group-hover:flex">
           <div className="flex items-center gap-1.5">
             <StakePillButton
               balances={balances}

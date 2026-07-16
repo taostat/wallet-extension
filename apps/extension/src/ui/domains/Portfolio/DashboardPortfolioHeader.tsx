@@ -16,6 +16,7 @@ import {
   ContextMenuTrigger,
   IconButton,
   PercentChangePill,
+  SurfaceCard,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -211,11 +212,8 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
   const change24h = displayBalances.sum.change24h(currency).total
 
   return (
-    <div
-      className={classNames(
-        "border-primary/6 bg-secondary-solid gap-lg p-xl relative z-0 flex flex-col rounded-lg border",
-        className,
-      )}
+    <SurfaceCard
+      className={classNames("gap-lg p-xl z-0 flex flex-col", className)}
     >
       <div className="gap-md z-[1] flex w-full items-center justify-between">
         <SelectionScope folder={selectedFolder} account={selectedAccount} />
@@ -248,7 +246,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
       </div>
 
       <TopActions />
-    </div>
+    </SurfaceCard>
   )
 }
 

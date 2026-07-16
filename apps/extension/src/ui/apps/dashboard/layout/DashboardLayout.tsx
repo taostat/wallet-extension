@@ -24,7 +24,7 @@ export const DashboardLayout: FC<{
     <div id="main" className="h-dvh w-dvw overflow-x-auto overflow-y-scroll">
       <div className="relative mx-auto w-full max-w-[1440px]">
         <div className={classNames("flex w-full items-center py-2", RESPONSIVE_FLEX_SPACING)}>
-          <div className="hidden w-[296px] shrink-0 items-center gap-2 sm:flex">
+          <div className={classNames("hidden shrink-0 items-center gap-2 sm:flex", SIDEBAR_WIDTH)}>
             <TaostatsLogo className="h-[30px] w-[147.172px]" />
             <PillButton className="bg-fg-brand/5 text-fg-brand hover:bg-fg-brand/20 rounded-3xl">
               <div className="flex items-center gap-1">
@@ -41,7 +41,7 @@ export const DashboardLayout: FC<{
       <div className="relative mx-auto w-full max-w-[1440px]">
         <div className={classNames("flex w-full pt-8", RESPONSIVE_FLEX_SPACING)}>
           {/* Sidebar */}
-          <div className="w-[296px] shrink-0 pb-10">
+          <div className={classNames("shrink-0 pb-10", SIDEBAR_WIDTH)}>
             <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Sidebar" />}>
               {sidebar === "accounts" && <DashboardAccountsSidebar />}
               {sidebar === "settings" && <DashboardSettingsSidebar />}
@@ -69,6 +69,9 @@ export const DashboardLayout: FC<{
 }
 
 const RESPONSIVE_FLEX_SPACING = classNames("gap-4 px-2.5", "md:px-5", "lg:px-10", "xl:px-16")
+
+// Golden ratio split: sidebar ≈ 38.2% of the content row (1 : 1.618 vs main area)
+const SIDEBAR_WIDTH = "w-[38.2%] min-w-[296px] max-w-[440px]"
 
 const NavButton: FC<{
   label: ReactNode

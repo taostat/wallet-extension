@@ -84,7 +84,7 @@ export const AssetBalanceCellValue = ({
   return (
     <div
       className={classNames(
-        "flex h-[66px] flex-col justify-center gap-1 whitespace-nowrap p-4 text-right",
+        "flex h-[66px] flex-col justify-center gap-1 whitespace-nowrap py-4 text-right",
         className,
       )}
     >

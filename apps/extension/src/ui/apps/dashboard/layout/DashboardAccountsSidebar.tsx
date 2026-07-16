@@ -1,7 +1,8 @@
-import { PencilIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { Check } from "@untitledui/icons/Check"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
 import { Eye } from "@untitledui/icons/Eye"
+import { FolderPlus } from "@untitledui/icons/FolderPlus"
 import { Plus } from "@untitledui/icons/Plus"
 import {
   AccountsCatalogTree,
@@ -11,33 +12,63 @@ import {
   isAccountPortfolio,
   TreeItem,
 } from "extension-core"
-import { FC, Fragment, ReactNode, useCallback, useMemo } from "react"
+import { FC, Fragment, ReactNode, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
+import {
+  Button,
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+  SurfaceCard,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "taostats-ui"
 
+import { SearchInput } from "@taostats/components/SearchInput"
 import { shortenAddress } from "@taostats/util/shortenAddress"
+import { AccountContextMenu } from "@ui/domains/Account/AccountContextMenu"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"
 import { AccountIconCopyAddressButton } from "@ui/domains/Account/AccountIconCopyAddressButton"
-import { AccountsLogoStack } from "@ui/domains/Account/AccountsLogoStack"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { AllAccountsIcon } from "@ui/domains/Account/AllAccountsIcon"
+import { ExportAllAccountsModal, useExportAllAccountsModal } from "@ui/domains/Account/ExportAllAccountsModal"
+import { FolderContextMenu } from "@ui/domains/Account/FolderContextMenu"
+import { NewFolderModal, useNewFolderModal } from "@ui/domains/Account/NewFolderModal"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
 
+const SelectionIndicator: FC<{ className?: string }> = ({ className }) => (
+  <span
+    className={classNames(
+      "border-fg-brand flex size-4 shrink-0 items-center justify-center rounded-sm border",
+      className,
+    )}
+    aria-hidden
+  >
+    <span className="bg-fg-brand size-2 rounded-[2px]" />
+  </span>
+)
+
 export const DashboardAccountsSidebar: FC = () => {
   return (
-    <div className="bg-app-bg rounded-lg">
-      <Accounts />
-    </div>
+    <>
+      <SurfaceCard className="flex w-full flex-col gap-4 p-4" data-testid="sidebar-account-list">
+        <Accounts />
+      </SurfaceCard>
+      <NewFolderModal />
+    </>
   )
 }
 
 const Accounts = () => {
   const { t } = useTranslation()
+  const [search, setSearch] = useState("")
 
   const { currentFolder, treeName } = usePortfolioNavigation()
   const { accounts, catalog, balanceTotals } = usePortfolioAccounts()
@@ -74,6 +105,7 @@ const Accounts = () => {
               accountType: account?.type,
               isPortfolio: isAccountPortfolio(account),
               signetUrl: getAccountSignetUrl(account),
+              searchContent: [account?.name, item.address].filter(Boolean).join(" ").toLowerCase(),
             }
           : {
               type: "folder",
@@ -85,6 +117,7 @@ const Accounts = () => {
                 0,
               ),
               addresses: item.tree.map((account) => account.address),
+              searchContent: item.name.toLowerCase(),
             }
       }
 
@@ -97,13 +130,25 @@ const Accounts = () => {
     ]
   }, [currentFolder, treeName, catalog, accounts, t, balanceTotals])
 
+  const searchLower = search.trim().toLowerCase()
+  const filteredPortfolio = useMemo(
+    () =>
+      searchLower
+        ? allPortfolioOptions.filter((o) => o.searchContent.includes(searchLower))
+        : allPortfolioOptions,
+    [allPortfolioOptions, searchLower],
+  )
+  const filteredWatched = useMemo(
+    () =>
+      searchLower
+        ? allWatchedOptions.filter((o) => o.searchContent.includes(searchLower))
+        : allWatchedOptions,
+    [allWatchedOptions, searchLower],
+  )
+
   const { genericEvent } = useAnalytics()
   const navigate = useNavigate()
-
-  const handleManageAccountsClick = useCallback(() => {
-    genericEvent("goto manage accounts", { from: "sidebar" })
-    navigate("/settings/accounts")
-  }, [genericEvent, navigate])
+  const { open: openNewFolderModal } = useNewFolderModal()
 
   const handleAddAccountClick = useCallback(() => {
     genericEvent("goto add account", { from: "sidebar" })
@@ -111,39 +156,94 @@ const Accounts = () => {
   }, [genericEvent, navigate])
 
   return (
-    <div className="flex w-full flex-col gap-4 p-4" data-testid="sidebar-account-list">
-      <div className="flex h-8 shrink-0 items-center">
-        <div className="grow pl-2 text-[20px] font-bold">{t("Accounts")}</div>
+    <>
+      <div className="text-fg-primary text-lg font-bold">{t("Accounts")}</div>
+
+      <div className="flex w-full items-center gap-2">
+        <SearchInput
+          containerClassName={classNames(
+            "!bg-tertiary ring-transparent focus-within:border-primary h-9 w-full rounded-md border border-transparent text-sm !px-2",
+            "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-4",
+          )}
+          placeholder={t("Search account or folder")}
+          onChange={setSearch}
+          initialValue={search}
+        />
         <Tooltip>
           <TooltipTrigger asChild>
-            <IconButton onClick={handleManageAccountsClick} className="p-1.5">
-              <PencilIcon className="size-5" />
-            </IconButton>
+            <Button
+              type="button"
+              color="secondary"
+              iconOnly
+              className="size-9"
+              onClick={openNewFolderModal}
+            >
+              <FolderPlus className="size-4" />
+            </Button>
           </TooltipTrigger>
-          <TooltipContent>{t("Manage Accounts")}</TooltipContent>
+          <TooltipContent>{t("Add Folder")}</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
-            <IconButton onClick={handleAddAccountClick} className="p-1.5">
-              <Plus className="size-5" />
-            </IconButton>
+            <Button
+              type="button"
+              color="secondary"
+              iconOnly
+              className="size-9"
+              onClick={handleAddAccountClick}
+            >
+              <Plus className="size-4" />
+            </Button>
           </TooltipTrigger>
           <TooltipContent>{t("Add Account")}</TooltipContent>
         </Tooltip>
+        <AccountsOverflowMenu />
       </div>
-      <div className="bg-secondary h-px"></div>
-      <TreeAccounts options={allPortfolioOptions} showAllAccounts />
-      {!!allWatchedOptions.length && (
+
+      <TreeAccounts options={filteredPortfolio} showAllAccounts={!searchLower} />
+      {!!filteredWatched.length && (
         <>
-          {!!allPortfolioOptions.length && <div className="bg-secondary h-px"></div>}
-          <div className="flex items-center gap-2">
-            <Eye />
-            <div className="text-sm">{t("Followed only")}</div>
+          {!!filteredPortfolio.length && <div className="bg-secondary h-px" />}
+          <div className="text-fg-secondary flex items-center gap-2 text-sm">
+            <Eye className="size-4" />
+            <div>{t("Followed only")}</div>
           </div>
-          <TreeAccounts options={allWatchedOptions} />
+          <TreeAccounts options={filteredWatched} />
         </>
       )}
-    </div>
+    </>
+  )
+}
+
+const AccountsOverflowMenu = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { genericEvent } = useAnalytics()
+  const { isOpenExportAll, canExportAll, openExportAll, closeExportAll } =
+    useExportAllAccountsModal()
+
+  const handleManageAccountsClick = useCallback(() => {
+    genericEvent("goto manage accounts", { from: "sidebar" })
+    navigate("/settings/accounts")
+  }, [genericEvent, navigate])
+
+  return (
+    <>
+      <ContextMenu placement="bottom-end">
+        <ContextMenuTrigger asChild>
+          <Button type="button" color="secondary" iconOnly className="size-9" title={t("More")}>
+            <DotsHorizontal className="size-4" />
+          </Button>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem onClick={handleManageAccountsClick}>{t("Manage Accounts")}</ContextMenuItem>
+          {canExportAll && (
+            <ContextMenuItem onClick={openExportAll}>{t("Export all as JSON")}</ContextMenuItem>
+          )}
+        </ContextMenuContent>
+      </ContextMenu>
+      <ExportAllAccountsModal isOpen={isOpenExportAll} onClose={closeExportAll} />
+    </>
   )
 }
 
@@ -154,6 +254,7 @@ type FolderAccountOption = {
   name: string
   total?: number
   addresses: string[]
+  searchContent: string
 }
 
 type AccountAccountOption = {
@@ -165,6 +266,7 @@ type AccountAccountOption = {
   accountType?: AccountType
   isPortfolio?: boolean
   signetUrl?: string
+  searchContent: string
 }
 
 type AccountOption = FolderAccountOption | AccountAccountOption
@@ -174,7 +276,7 @@ const TreeAccounts: FC<{
   showAllAccounts?: boolean
 }> = ({ options, showAllAccounts }) => {
   return (
-    <div className="flex w-full flex-col gap-1">
+    <div className="flex w-full flex-col gap-2">
       {showAllAccounts && <AllAccountsOption />}
       {options.map((option) => (
         <Fragment key={option.type === "folder" ? option.id : option.address}>
@@ -203,7 +305,7 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
   }, [option.address, searchParams])
 
   return (
-    <div className="hover:bg-tertiary group relative w-full rounded-[12px]">
+    <div className="group relative w-full">
       <SidebarButtonBase
         label={
           <div className="flex w-full items-center gap-1">
@@ -211,7 +313,7 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
             <AccountTypeIcon className="text-fg-brand shrink-0" type={option.accountType} />
           </div>
         }
-        logo={<div className="size-10 shrink-0"></div>}
+        logo={<div className="size-10 shrink-0" />}
         fiat={
           <>
             <Fiat
@@ -232,14 +334,26 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
         }
         isSelected={isSelected}
         onClick={handleClick}
-        right={null}
+        right={
+          <AccountContextMenu
+            address={option.address}
+            analyticsFrom="sidebar"
+            placement="bottom-end"
+            hideManageAccounts
+            trigger={
+              <span className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md">
+                <DotsHorizontal className="size-4" />
+              </span>
+            }
+          />
+        }
       />
 
       {/* Absolute positioning based on parent, to prevent a "button inside a button" situation*/}
       <AccountIconCopyAddressButton
         address={option.address}
         genesisHash={option.genesisHash}
-        className="absolute left-2 top-2 text-[40px]"
+        className="absolute left-2 top-1/2 -translate-y-1/2 text-[40px]"
         tooltipPlacement="bottom"
       />
     </div>
@@ -261,12 +375,31 @@ const FolderOption = ({ option }: { option: FolderAccountOption }) => {
 
   return (
     <SidebarButtonBase
-      label={option.name}
-      logo={<AccountFolderIcon />}
+      label={
+        <div className="flex items-center gap-1">
+          <span className="truncate">{option.name}</span>
+          <ChevronRight className="text-fg-tertiary size-3.5 shrink-0" />
+        </div>
+      }
+      logo={<AccountFolderIcon className="text-[40px]" />}
       fiat={<Fiat amount={option.total ?? 0} isBalance noCountUp />}
       isSelected={isSelected}
       onClick={handleClick}
-      right={<AccountsLogoStack addresses={option.addresses} />}
+      right={
+        <FolderContextMenu
+          folderId={option.id}
+          noManageAccountsLink
+          placement="bottom-end"
+          trigger={
+            <ContextMenuTrigger
+              className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <DotsHorizontal className="size-4" />
+            </ContextMenuTrigger>
+          }
+        />
+      }
     />
   )
 }
@@ -290,11 +423,10 @@ const AllAccountsOption = () => {
   return (
     <SidebarButtonBase
       label={t("All Accounts")}
-      logo={<AllAccountsIcon />}
+      logo={<AllAccountsIcon className="text-[40px]" />}
       fiat={<Fiat amount={portfolioTotal ?? 0} isBalance noCountUp />}
       isSelected={isSelected}
       onClick={handleClick}
-      right={null}
     />
   )
 }
@@ -311,24 +443,20 @@ const SidebarButtonBase: FC<{
     <button
       type="button"
       className={classNames(
-        "hover:bg-tertiary flex h-14 w-full items-center gap-2 rounded-[12px] px-2 text-left",
-        isSelected && "bg-secondary",
+        "flex h-14 w-full items-center gap-2 rounded-lg border px-2 text-left transition-colors",
+        isSelected
+          ? "border-fg-brand bg-fg-brand/5"
+          : "border-primary/6 hover:bg-tertiary/50 bg-transparent",
       )}
       onClick={onClick}
     >
-      <div className="size-10 text-[40px]">{logo}</div>
+      <div className="flex size-10 shrink-0 items-center justify-center text-[40px]">{logo}</div>
       <div className="flex grow flex-col justify-center gap-0.5 overflow-hidden">
-        <div className="text-fg-tertiary truncate">{label}</div>
-        <div className="text-fg-disabled truncate text-xs">{fiat}</div>
+        <div className="text-fg-primary truncate text-sm font-medium">{label}</div>
+        <div className="text-fg-tertiary truncate text-xs">{fiat}</div>
       </div>
-      <div>
-        {isSelected ? (
-          <div className="bg-fg-brand flex size-5 items-center justify-center rounded-full text-xs text-black">
-            <Check />
-          </div>
-        ) : (
-          right
-        )}
+      <div className="flex shrink-0 items-center" onClick={(e) => e.stopPropagation()}>
+        {isSelected ? <SelectionIndicator /> : right}
       </div>
     </button>
   )

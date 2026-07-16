@@ -1,10 +1,10 @@
 import { classNames } from "@taostats-wallet/util"
-import { Users01 } from "@untitledui/icons/Users01"
+import { Wallet01 } from "@untitledui/icons/Wallet01"
 import { ReactNode } from "react"
 
 export const AllAccountsIcon = ({ className }: { className?: string }) => (
-  <AccountsIconContainer className={className}>
-    <Users01 className="text-fg-brand w-full" />
+  <AccountsIconContainer className={classNames("bg-fg-brand/15 rounded-md", className)}>
+    <Wallet01 className="text-fg-brand w-full" />
   </AccountsIconContainer>
 )
 
