@@ -1,6 +1,5 @@
-import { HistoryIcon } from "@taostats-wallet/icons"
 import { classNames, isTruthy } from "@taostats-wallet/util"
-import { Home01 } from "@untitledui/icons/Home01"
+import { Calendar } from "@untitledui/icons/Calendar"
 import { Settings01 } from "@untitledui/icons/Settings01"
 import { FC, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -8,7 +7,7 @@ import { matchPath, useLocation, useNavigate, useSearchParams } from "react-rout
 import { PillButton } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TaostatsLogo } from "@taostats/theme/logos"
+import { TaostatsIcon, TaostatsLogo } from "@taostats/theme/logos"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 
 import { DashboardAccountsSidebar } from "./DashboardAccountsSidebar"
@@ -24,17 +23,25 @@ export const DashboardLayout: FC<{
   return (
     <div id="main" className="h-dvh w-dvw overflow-x-auto overflow-y-scroll">
       <div className="relative mx-auto w-full max-w-[1440px]">
+        <div className={classNames("flex w-full items-center", RESPONSIVE_FLEX_SPACING)}>
+          <div className="hidden h-24 w-[296px] shrink-0 items-center gap-2 sm:flex">
+            <TaostatsLogo className="h-[30px] w-[147.172px]" />
+            <PillButton className="bg-fg-brand/5 text-fg-brand hover:bg-fg-brand/20 rounded-3xl">
+              <div className="flex items-center gap-1">
+                <span>Wallet</span>
+              </div>
+            </PillButton>
+          </div>
+          <div className="flex h-24 w-full grow items-center justify-end px-4">
+            <HorizontalNav />
+          </div>
+        </div>
+      </div>
+      <div className="border-primary/6 h-px w-full shrink-0 border-b" />
+      <div className="relative mx-auto w-full max-w-[1440px]">
         <div className={classNames("flex w-full", RESPONSIVE_FLEX_SPACING)}>
           {/* Sidebar */}
           <div className="w-[296px] shrink-0 pb-10">
-            <div className="hidden h-24 w-[296px] shrink-0 items-center gap-2 sm:flex">
-              <TaostatsLogo className="h-[30px] w-[147.172px]" />
-              <PillButton className="bg-fg-brand/5 text-fg-brand hover:bg-fg-brand/20 rounded-3xl">
-                <div className="flex items-center gap-1">
-                  <span>Wallet</span>
-                </div>
-              </PillButton>
-            </div>
             <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Sidebar" />}>
               {sidebar === "accounts" && <DashboardAccountsSidebar />}
               {sidebar === "settings" && <DashboardSettingsSidebar />}
@@ -42,22 +49,17 @@ export const DashboardLayout: FC<{
           </div>
           {/* Main area */}
           <div className="grow pb-10">
-            <div className="flex w-full flex-col items-center">
-              <div className="flex h-24 w-full shrink-0 items-center justify-end px-4">
-                <HorizontalNav />
+            <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Content" />}>
+              <div
+                className={classNames(
+                  // minimum width is automatically set by the horizontal nav bar which never shrinks
+                  "animate-fade-in w-full grow",
+                )}
+              >
+                <LayoutBreadcrumb />
+                {children}
               </div>
-              <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Content" />}>
-                <div
-                  className={classNames(
-                    // minimum width is automatically set by the horizontal nav bar which never shrinks
-                    "animate-fade-in w-full grow",
-                  )}
-                >
-                  <LayoutBreadcrumb />
-                  {children}
-                </div>
-              </Suspense>
-            </div>
+            </Suspense>
           </div>
         </div>
       </div>
@@ -85,13 +87,23 @@ const NavButton: FC<{
     <button
       type="button"
       className={classNames(
-        "text-fg-tertiary hover:text-fg-secondary flex items-center gap-2",
-        routeMatch && "!text-fg-brand",
+        "font-mono-num group inline-flex shrink-0 cursor-pointer items-center justify-center overflow-hidden font-medium uppercase no-underline transition-colors",
+        "focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        "h-4xl px-lg py-md gap-md rounded-sm text-sm leading-5",
+        "border",
+        routeMatch
+          ? "border-fg-brand bg-brand-secondary text-fg-brand"
+          : "text-fg-tertiary hover:text-fg-primary border-transparent bg-transparent",
         className,
       )}
       onClick={onClick}
     >
-      <Icon className="shrink-0 text-[20px]" />
+      <Icon
+        className={classNames(
+          "h-[12px] w-[12px] shrink-0 transition-colors",
+          routeMatch ? "text-fg-brand" : "text-fg-tertiary group-hover:text-fg-primary",
+        )}
+      />
       <div>{label}</div>
     </button>
   )
@@ -137,17 +149,17 @@ const HorizontalNav = () => {
   }, [navigate])
 
   return (
-    <div className="border-primary flex h-12 gap-8 rounded-lg border px-4">
+    <div className="gap-md flex items-center">
       <NavButton
         label={t("Home")}
         onClick={handlePortfolioClick}
-        icon={Home01}
+        icon={TaostatsIcon}
         route="/portfolio/*"
       />
       <NavButton
         label={t("History")}
         onClick={handleActivityClick}
-        icon={HistoryIcon}
+        icon={Calendar}
         route="/tx-history"
       />
       <NavButton

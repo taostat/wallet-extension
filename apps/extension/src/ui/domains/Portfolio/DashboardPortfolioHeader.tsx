@@ -1,13 +1,18 @@
 import { classNames, isNotNil } from "@taostats-wallet/util"
-import { ArrowDown } from "@untitledui/icons/ArrowDown"
+import { ArrowDownLeft } from "@untitledui/icons/ArrowDownLeft"
+import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
 import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
 import { Folder } from "@untitledui/icons/Folder"
-import { Send01 } from "@untitledui/icons/Send01"
+import { SwitchVertical01 } from "@untitledui/icons/SwitchVertical01"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
+import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMatch } from "react-router-dom"
 import {
+  Button,
   ContextMenuTrigger,
   IconButton,
   Tooltip,
@@ -15,19 +20,19 @@ import {
   TooltipTrigger,
 } from "taostats-ui"
 
+import { fiatDecimalSeparator, formatFiat } from "@taostats/util/formatFiat"
 import { shortenAddress } from "@taostats/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsEventName, AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { AccountContextMenu } from "@ui/domains/Account/AccountContextMenu"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
-import { AllAccountsIcon } from "@ui/domains/Account/AllAccountsIcon"
 import { FolderContextMenu } from "@ui/domains/Account/FolderContextMenu"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
-import { Fiat } from "@ui/domains/Asset/Fiat"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
+import { useRevealableBalance } from "@ui/hooks/useRevealableBalance"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
-import { useBalanceTotals, useSelectedCurrency } from "@ui/state"
+import { useBalances, useSelectedCurrency, useSetting } from "@ui/state"
 
 import { usePortfolioNavigation } from "./usePortfolioNavigation"
 
@@ -39,88 +44,202 @@ const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }
 
   if (account)
     return (
-      <div className="flex h-7 w-full items-center gap-3 text-base">
-        <div className="flex h-7 grow items-center gap-1.5 overflow-hidden">
-          <AccountIcon
-            className="shrink-0 text-[20px]"
-            address={account.address}
-            genesisHash={getAccountGenesisHash(account)}
-          />
-          <div className="truncate">{account.name ?? shortenAddress(account.address)}</div>
-          <AccountTypeIcon type={account.type} className="text-fg-brand" />
+      <div className="flex min-w-0 grow items-center gap-1.5 overflow-hidden">
+        <AccountIcon
+          className="shrink-0 text-[20px]"
+          address={account.address}
+          genesisHash={getAccountGenesisHash(account)}
+        />
+        <div className="text-fg-primary truncate text-sm font-semibold">
+          {account.name ?? shortenAddress(account.address)}
         </div>
-        <div className="shrink-0">
-          <AccountContextMenu
-            address={account.address}
-            analyticsFrom="dashboard portfolio"
-            placement="bottom-end"
-            trigger={
-              <IconButton className="bg-secondary/50 hover:bg-secondary/80 flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-sm">
-                <DotsHorizontal className="text-base" />
-              </IconButton>
-            }
-          />
-        </div>
+        <AccountTypeIcon type={account.type} className="text-fg-brand shrink-0" />
       </div>
     )
 
   if (folder)
     return (
-      <div className="flex h-7 w-full items-center gap-3 text-base">
-        <div className="flex grow items-center gap-1.5 overflow-hidden text-base">
-          <div className="bg-secondary rounded-xs flex size-5 shrink-0 items-center justify-center">
-            <Folder className="text-fg-brand shrink-0 text-xs" />
-          </div>
-          <div className="truncate">{folder.name}</div>
+      <div className="flex min-w-0 grow items-center gap-1.5 overflow-hidden">
+        <div className="bg-secondary rounded-xs flex size-5 shrink-0 items-center justify-center">
+          <Folder className="text-fg-brand shrink-0 text-xs" />
         </div>
-        <div className="shrink-0">
-          <FolderContextMenu
-            folderId={folder.id}
-            placement="bottom-end"
-            trigger={
-              <ContextMenuTrigger className="bg-secondary/50 hover:bg-secondary/80 flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-sm">
-                <DotsHorizontal className="text-base" />
-              </ContextMenuTrigger>
-            }
-          />
-        </div>
+        <div className="text-fg-primary truncate text-sm font-semibold">{folder.name}</div>
       </div>
     )
 
+  return <div className="text-fg-primary text-sm font-semibold">{t("All Accounts")}</div>
+}
+
+const HideBalancesButton: FC = () => {
+  const [hideBalances, setHideBalances] = useSetting("hideBalances")
+
+  const toggleHideBalance: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (event) => {
+      event.stopPropagation()
+      setHideBalances((prev) => !prev)
+    },
+    [setHideBalances],
+  )
+
   return (
-    <div className="flex h-7 items-center gap-1.5 text-base">
-      <AllAccountsIcon className="shrink-0 text-[20px]" />
-      <div>{t("Total Portfolio")}</div>
+    <IconButton
+      className="text-fg-tertiary hover:text-fg-primary size-7"
+      onClick={toggleHideBalance}
+    >
+      {hideBalances ? <Eye className="size-4" /> : <EyeOff className="size-4" />}
+    </IconButton>
+  )
+}
+
+const ScopeContextMenu: FC<{ account: Account | null; folder?: TreeFolder | null }> = ({
+  account,
+  folder,
+}) => {
+  if (account)
+    return (
+      <AccountContextMenu
+        address={account.address}
+        analyticsFrom="dashboard portfolio"
+        placement="bottom-end"
+        trigger={
+          <IconButton className="text-fg-tertiary hover:text-fg-primary size-7">
+            <DotsHorizontal className="size-4" />
+          </IconButton>
+        }
+      />
+    )
+
+  if (folder)
+    return (
+      <FolderContextMenu
+        folderId={folder.id}
+        placement="bottom-end"
+        trigger={
+          <ContextMenuTrigger className="text-fg-tertiary hover:text-fg-primary flex size-7 items-center justify-center">
+            <DotsHorizontal className="size-4" />
+          </ContextMenuTrigger>
+        }
+      />
+    )
+
+  return null
+}
+
+const PortfolioBalanceDisplay: FC<{ amount: number }> = ({ amount }) => {
+  const { refReveal, isHidden } = useRevealableBalance(true, true)
+
+  const parts = useMemo(() => {
+    if (isHidden) return { integer: "••••••", decimal: "" }
+
+    const formatted = formatFiat(amount, undefined, undefined, 2)
+    const sepIndex = formatted.lastIndexOf(fiatDecimalSeparator)
+    if (sepIndex === -1) return { integer: formatted, decimal: "" }
+
+    return {
+      integer: formatted.slice(0, sepIndex),
+      decimal: formatted.slice(sepIndex),
+    }
+  }, [amount, isHidden])
+
+  return (
+    <span
+      ref={refReveal}
+      className={classNames(
+        "flex min-w-0 items-baseline overflow-visible",
+        isHidden && "balance-revealable",
+      )}
+    >
+      <span
+        className={classNames(
+          "text-fg-brand text-display-md font-medium leading-none",
+          !isHidden && "[text-shadow:0_0_20px_rgba(0,219,188,0.45)]",
+        )}
+      >
+        {parts.integer}
+      </span>
+      {parts.decimal && (
+        <span className="text-fg-brand text-display-xs font-medium leading-none opacity-50">
+          {parts.decimal}
+        </span>
+      )}
+    </span>
+  )
+}
+
+const PortfolioChange: FC<{
+  change: { diff: number; ratio: number } | null
+}> = ({ change }) => {
+  const currency = useSelectedCurrency()
+
+  if (!change || (change.diff === 0 && change.ratio === 0)) return null
+
+  const isPositive = change.diff >= 0
+  const percent = Math.abs(change.ratio * 100)
+  const diffFormatted = formatFiat(Math.abs(change.diff), currency, "narrowSymbol", 2)
+  const signedDiff = `${isPositive ? "+" : "-"}${diffFormatted}`
+
+  return (
+    <div className="gap-md flex items-center">
+      <span className="text-fg-tertiary text-sm">{signedDiff}</span>
+      <span
+        className={classNames(
+          "gap-xxs px-sm py-xxs inline-flex items-center rounded-full text-xs font-medium",
+          isPositive ? "bg-brand-secondary text-fg-brand" : "bg-accent-2/20 text-accent-2",
+        )}
+      >
+        {isPositive ? (
+          <ArrowUpRight className="size-3 shrink-0" />
+        ) : (
+          <ArrowDownLeft className="size-3 shrink-0" />
+        )}
+        {percent.toFixed(2)}%
+      </span>
     </div>
   )
 }
 
 export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className }) => {
-  const { selectedAccount, selectedAccounts, selectedFolder } = usePortfolioNavigation()
-  const balanceTotals = useBalanceTotals()
+  const { selectedAccount, selectedFolder } = usePortfolioNavigation()
+  const allBalances = useBalances()
+  const portfolioBalances = useBalances("portfolio")
 
   const currency = useSelectedCurrency()
   const toggleCurrency = useToggleCurrency()
 
-  const selectedTotal = useMemo(() => {
-    return selectedAccounts.reduce((total, acc) => total + (balanceTotals[acc.address] ?? 0), 0)
-  }, [selectedAccounts, balanceTotals])
+  const displayBalances = useMemo(() => {
+    if (selectedAccount) return allBalances.find({ address: selectedAccount.address })
+    if (selectedFolder)
+      return allBalances.find(selectedFolder.tree.map((account) => ({ address: account.address })))
+    return portfolioBalances
+  }, [allBalances, portfolioBalances, selectedAccount, selectedFolder])
+
+  const selectedTotal = displayBalances.sum.fiat(currency).total ?? 0
+  const change24h = displayBalances.sum.change24h(currency).total
 
   return (
     <div
       className={classNames(
-        "bg-app-bg relative z-0 flex flex-col items-start justify-between gap-2 rounded-lg p-5",
+        "border-primary/6 bg-secondary-solid gap-lg p-xl relative z-0 flex flex-col rounded-lg border",
         className,
       )}
     >
-      <div className="z-[1] flex w-full flex-col gap-2 overflow-hidden">
+      <div className="gap-md z-[1] flex w-full items-center justify-between">
         <SelectionScope folder={selectedFolder} account={selectedAccount} />
-        <div className="flex w-full max-w-full items-center gap-3">
-          <button
+        <div className="gap-xs flex shrink-0 items-center">
+          <HideBalancesButton />
+          <ScopeContextMenu account={selectedAccount} folder={selectedFolder} />
+        </div>
+      </div>
+
+      <div className="gap-sm z-[1] flex w-full flex-col">
+        <div className="gap-md flex w-full max-w-full items-center">
+          <Button
+            type="button"
+            color="secondary"
+            iconOnly
             className={classNames(
-              "bg-tertiary/20 text-fg-tertiary hover:text-fg-primary hover:bg-fg-primary/10 pointer-events-auto flex size-[44px] shrink-0 items-center justify-center rounded-full text-center text-lg leading-none shadow-[inset_0px_0px_1px_rgb(228_228_228_/_1)] transition-[box-shadow,color,background-color] duration-200 ease-out hover:shadow-[inset_0px_0px_2px_rgb(250_250_250_/_1)]",
-              currencyConfig[currency]?.symbol?.length === 2 && "text-md",
-              currencyConfig[currency]?.symbol?.length > 2 && "text-base",
+              "pointer-events-auto",
+              currencyConfig[currency]?.symbol?.length > 2 && "text-xs",
             )}
             onClick={(event) => {
               event.stopPropagation()
@@ -128,17 +247,12 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
             }}
           >
             {currencyConfig[currency]?.symbol}
-          </button>
-          <Fiat
-            className={classNames(
-              "overflow-hidden text-ellipsis whitespace-pre pr-5 text-[30px] font-bold leading-[36px]",
-            )}
-            amount={selectedTotal}
-            isBalance
-            currencyDisplay="code"
-          />
+          </Button>
+          <PortfolioBalanceDisplay amount={selectedTotal} />
         </div>
+        <PortfolioChange change={change24h} />
       </div>
+
       <TopActions />
     </div>
   )
@@ -181,20 +295,17 @@ const Action: FC<ActionProps> = ({
   return (
     <Tooltip placement="bottom-start">
       <TooltipTrigger asChild>
-        <button
+        <Button
           type="button"
-          className={classNames(
-            "text-fg-secondary pointer-events-auto flex h-7 items-center gap-2 rounded-full bg-white/5 px-2.5 text-base opacity-90 backdrop-blur-sm disabled:opacity-70",
-            "enabled:hover:text-fg-primary enabled:hover:bg-white/10",
-          )}
+          color="secondary"
+          fullWidth
+          className="pointer-events-auto h-11 font-medium disabled:cursor-not-allowed disabled:opacity-50"
           onClick={handleClick}
           disabled={disabled}
+          icon={Icon}
         >
-          <div>
-            <Icon className="size-4" />
-          </div>
-          <div>{label}</div>
-        </button>
+          {label}
+        </Button>
       </TooltipTrigger>
       {(!!disabledReason || !!tooltip) && (
         <TooltipContent>{disabledReason || tooltip}</TooltipContent>
@@ -204,7 +315,7 @@ const Action: FC<ActionProps> = ({
 }
 
 const ANALYTICS_PAGE: AnalyticsPage = {
-  container: "Popup",
+  container: "Fullscreen",
   feature: "Portfolio",
   featureVersion: 2,
   page: "Portfolio Home",
@@ -227,7 +338,6 @@ const TopActions: FC = () => {
 
   const selectedAddress = useMemo(() => selectedAccount?.address, [selectedAccount?.address])
 
-  // this component is not located in the asset details route, so we can't use useParams
   const match = useMatch("/portfolio/tokens/:symbol")
   const symbol = useMemo(() => match?.params.symbol, [match])
 
@@ -238,7 +348,7 @@ const TopActions: FC = () => {
           analyticsName: "Goto" as const,
           analyticsAction: "Send Funds button",
           label: t("Send"),
-          icon: Send01,
+          icon: ArrowUpRight,
           onClick: () =>
             api.sendFundsOpen({
               from: selectedAddress,
@@ -251,12 +361,21 @@ const TopActions: FC = () => {
           analyticsName: "Goto" as const,
           analyticsAction: "open receive",
           label: !!selectedAccount && !isAccountOwned(selectedAccount) ? t("Copy") : t("Receive"),
-          icon: ArrowDown,
+          icon: ArrowDownLeft,
           onClick: () =>
             openCopyAddressModal({
               address: selectedAddress,
             }),
-          disabled: !selectedAccounts.length, // always allow, as long as there is at least one account
+          disabled: !selectedAccounts.length,
+        },
+        {
+          analyticsName: "Goto" as const,
+          analyticsAction: "swap",
+          label: t("Swap"),
+          icon: SwitchVertical01,
+          onClick: () => window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank"),
+          disabled: disableActions,
+          disabledReason,
         },
       ].filter(isNotNil),
     [
@@ -272,12 +391,10 @@ const TopActions: FC = () => {
   )
 
   return (
-    <div className="z-[1] flex w-full items-center justify-between gap-4">
-      <div className="flex justify-center gap-2">
-        {topActions.map((action, index) => (
-          <Action key={index} {...action} />
-        ))}
-      </div>
+    <div className="z-[1] grid w-full grid-cols-3 gap-sm">
+      {topActions.map((action, index) => (
+        <Action key={index} {...action} />
+      ))}
     </div>
   )
 }

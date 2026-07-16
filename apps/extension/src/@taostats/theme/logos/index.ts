@@ -2,6 +2,7 @@ export { ReactComponent as EthereumCircleBorderedLogo } from "./ethereum-circle-
 export { ReactComponent as EthereumCircleLogo } from "./ethereum-circle.svg"
 export { ReactComponent as PolkadotCircleBorderedLogo } from "./polkadot-circle-bordered.svg"
 export { ReactComponent as PolkadotCircleLogo } from "./polkadot-circle.svg"
+export { TaostatsIcon } from "./TaostatsIcon"
 export { ReactComponent as TaostatsLogo } from "./taostats.svg"
 export { ReactComponent as SolanaLogo } from "./solana-color.svg"
 export { ReactComponent as SolanaCircleLogo } from "./solana-circle.svg"
