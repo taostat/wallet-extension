@@ -341,11 +341,6 @@ const AccountOption = ({ option }: { option: AccountAccountOption }) => {
               analyticsFrom="sidebar"
               placement="bottom-end"
               hideManageAccounts
-              trigger={
-                <span className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md">
-                  <DotsHorizontal className="size-4" />
-                </span>
-              }
             />
           ) : undefined
         }
@@ -393,11 +388,6 @@ const FolderOption = ({ option }: { option: FolderAccountOption }) => {
             folderId={option.id}
             noManageAccountsLink
             placement="bottom-end"
-            trigger={
-              <ContextMenuTrigger className="text-fg-secondary hover:text-fg-primary flex size-8 items-center justify-center rounded-md">
-                <DotsHorizontal className="size-4" />
-              </ContextMenuTrigger>
-            }
           />
         ) : undefined
       }

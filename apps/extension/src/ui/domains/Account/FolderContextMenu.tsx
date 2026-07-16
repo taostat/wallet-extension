@@ -39,11 +39,12 @@ export const FolderContextMenu: FC<{
 
   return (
     <ContextMenu placement={placement}>
-      {trigger ?? (
-        <ContextMenuTrigger className="enabled:hover:bg-tertiary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-3 disabled:cursor-[inherit]">
-          <DotsHorizontal className="shrink-0" />
-        </ContextMenuTrigger>
-      )}
+      <ContextMenuTrigger
+        className="enabled:hover:bg-tertiary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-3 disabled:cursor-[inherit]"
+        asChild={!!trigger}
+      >
+        {trigger ? trigger : <DotsHorizontal className="shrink-0" />}
+      </ContextMenuTrigger>
       <ContextMenuContent
         data-no-dnd="true"
         className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-1 py-1.5 text-left text-sm shadow-lg"

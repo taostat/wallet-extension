@@ -1,6 +1,6 @@
 import { classNames } from "@taostats-wallet/util"
 import { Loading01 } from "@untitledui/icons/Loading01"
-import { FC, SVGProps, useMemo } from "react"
+import { forwardRef, SVGProps, useMemo } from "react"
 
 type ButtonColor = "default" | "primary" | "secondary" | "red" | "orange"
 
@@ -14,24 +14,28 @@ export type ButtonProps = React.DetailedHTMLProps<
   small?: boolean
   /** Square icon-sized button (e.g. currency toggle). */
   iconOnly?: boolean
-  icon?: FC<SVGProps<SVGSVGElement>>
-  iconLeft?: FC<SVGProps<SVGSVGElement>>
+  icon?: React.FC<SVGProps<SVGSVGElement>>
+  iconLeft?: React.FC<SVGProps<SVGSVGElement>>
   color?: ButtonColor // this overrides the `primary` flag if set
 }
 
-export const Button: FC<ButtonProps> = ({
-  icon: Icon,
-  iconLeft: IconLeft,
-  disabled,
-  primary,
-  fullWidth,
-  small,
-  iconOnly,
-  processing,
-  className,
-  color,
-  ...props
-}) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    icon: Icon,
+    iconLeft: IconLeft,
+    disabled,
+    primary,
+    fullWidth,
+    small,
+    iconOnly,
+    processing,
+    className,
+    color,
+    children,
+    ...props
+  },
+  ref,
+) {
   const colors = useMemo(() => {
     // color prop takes precedence over primary flag
     const effectiveColor: ButtonColor = color ?? (primary ? "primary" : "default")
@@ -64,6 +68,7 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <button
+      ref={ref}
       type="button"
       disabled={disabled || processing}
       className={classNames(
@@ -88,7 +93,7 @@ export const Button: FC<ButtonProps> = ({
               <IconLeft className={small || iconOnly ? "size-3.5" : "size-4"} />
             </div>
           )}
-          <div>{props.children}</div>
+          <div>{children}</div>
           {Icon && (
             <div className={small || iconOnly ? "text-sm" : "text-md"}>
               <Icon className={small || iconOnly ? "size-3.5" : "size-4"} />
@@ -107,4 +112,4 @@ export const Button: FC<ButtonProps> = ({
       )}
     </button>
   )
-}
+})

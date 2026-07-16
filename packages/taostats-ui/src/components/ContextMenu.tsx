@@ -33,7 +33,7 @@ export const ContextMenuContent: FC<HTMLAttributes<HTMLDivElement>> = (props) =>
   return (
     <PopoverContent
       {...props}
-      className="border-primary bg-menu-bg text-fg-primary shadow-menu-dropdown px-xs py-xs z-50 flex w-min flex-col whitespace-nowrap rounded-md border text-left text-sm backdrop-blur-md"
+      className="border-primary bg-menu-bg text-fg-primary shadow-menu-dropdown px-xs py-xs gap-xxs z-50 flex w-min flex-col whitespace-nowrap rounded-md border text-left text-sm backdrop-blur-md"
     />
   )
 }
@@ -59,7 +59,7 @@ export const ContextMenuItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
       {...props}
       onClick={handleClick}
       className={classNames(
-        "enabled:hover:bg-tertiary focus-visible:bg-tertiary disabled:text-fg-disabled text-fg-primary px-sm py-xs h-4 rounded-sm text-left",
+        "enabled:hover:bg-tertiary focus-visible:bg-tertiary disabled:text-fg-disabled text-fg-primary px-md py-sm flex min-h-8 items-center rounded-sm text-left",
         className,
       )}
     />
