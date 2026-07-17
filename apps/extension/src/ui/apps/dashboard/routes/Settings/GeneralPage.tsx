@@ -47,7 +47,7 @@ const Content = () => {
   return (
     <>
       <HeaderBlock title={t("General Settings")} text={t("Organise and sort your accounts")} />
-      <div className="mt-8 flex flex-col gap-2">
+      <div className="mt-4 flex flex-col gap-2">
         {hasRuntimeReloadFn ? (
           <Setting
             iconLeft={RefreshCcw01}

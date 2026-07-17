@@ -13,7 +13,12 @@ import { formatFiat } from "@taostats/util/formatFiat"
 import { shortenAddress } from "@taostats/util/shortenAddress"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { useViewOnExplorer } from "@ui/domains/ViewOnExplorer"
-import { portfolioDateRangeAtom, useSelectedCurrency, useSetting, useTokenRatesMap } from "@ui/state"
+import {
+  portfolioDateRangeAtom,
+  useSelectedCurrency,
+  useSetting,
+  useTokenRatesMap,
+} from "@ui/state"
 import { copyAddress } from "@ui/util/copyAddress"
 
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
@@ -39,7 +44,7 @@ const SelectorButton: FC<{
       "rounded-md border text-xs transition-colors",
       isSelected
         ? "border-fg-brand bg-fg-brand/10 text-fg-primary"
-        : "border-primary/6 text-fg-tertiary hover:text-fg-primary hover:bg-tertiary/50",
+        : "border-primary text-fg-tertiary hover:text-fg-primary hover:bg-tertiary/50",
       className,
     )}
     onClick={onClick}
@@ -79,11 +84,7 @@ const CurrencySelector: FC = () => {
   return (
     <div className="flex gap-1">
       {(["tao", "usd"] as const).map((opt) => (
-        <SelectorButton
-          key={opt}
-          isSelected={currency === opt}
-          onClick={() => setCurrency(opt)}
-        >
+        <SelectorButton key={opt} isSelected={currency === opt} onClick={() => setCurrency(opt)}>
           {currencyConfig[opt]?.symbol ?? opt.toUpperCase()}
         </SelectorButton>
       ))}
@@ -204,13 +205,7 @@ const GainsCard: FC<GainsCardProps> = ({
       realisedPercent: rPct,
       unrealisedPercent: total > 0 ? 100 - rPct : 0,
     }
-  }, [
-    currency,
-    realisedProfitTao,
-    realisedProfitUsd,
-    unrealisedProfitTao,
-    unrealisedProfitUsd,
-  ])
+  }, [currency, realisedProfitTao, realisedProfitUsd, unrealisedProfitTao, unrealisedProfitUsd])
 
   const formatGain = (value: number) =>
     currency === "tao" ? formatTaoAmount(value) : formatUsdAmount(value)

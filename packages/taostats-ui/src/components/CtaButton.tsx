@@ -10,6 +10,8 @@ import {
 } from "react"
 import { useNavigate } from "react-router-dom"
 
+import { IconTile } from "./IconTile"
+
 export type CtaButtonSize = "large" | "small"
 
 type CtaButton = DetailedHTMLProps<
@@ -28,19 +30,19 @@ export const getContainerClassName = (size: CtaButtonSize) => {
   switch (size) {
     case "large":
       return {
-        iconLeftClassName: "size-5",
         containerClassName: "min-h-[72px] py-4",
         contentClassName: "gap-1",
         titleClassName: "text-sm",
         subtitleClassName: "text-xs",
+        iconTileSize: "md" as const,
       }
     case "small":
       return {
-        iconLeftClassName: "size-5",
         containerClassName: "min-h-14 py-3",
         contentClassName: "gap-0.5",
         titleClassName: "text-sm",
         subtitleClassName: "text-xs",
+        iconTileSize: "sm" as const,
       }
   }
 }
@@ -66,28 +68,21 @@ export const CtaButton: FC<CtaButton> = ({
     [navigate, onClick, to],
   )
 
-  const {
-    containerClassName,
-    iconLeftClassName,
-    contentClassName,
-    titleClassName,
-    subtitleClassName,
-  } = useMemo(() => getContainerClassName(size), [size])
+  const { containerClassName, contentClassName, titleClassName, subtitleClassName, iconTileSize } =
+    useMemo(() => getContainerClassName(size), [size])
 
   return (
     <button
       type="button"
       {...props}
       className={classNames(
-        "border-primary/6 bg-secondary-solid text-fg-disabled enabled:hover:bg-tertiary/50 enabled:hover:text-fg-primary gap-md px-lg flex w-full cursor-pointer items-center rounded-lg border disabled:cursor-not-allowed disabled:opacity-50",
+        "border-primary bg-secondary-solid text-fg-disabled enabled:hover:bg-tertiary/50 enabled:hover:text-fg-primary gap-md px-lg flex w-full cursor-pointer items-center rounded-lg border disabled:cursor-not-allowed disabled:opacity-50",
         containerClassName,
         className,
       )}
       onClick={handleClick}
     >
-      {IconLeft && (
-        <IconLeft className={classNames("text-fg-primary shrink-0", iconLeftClassName)} />
-      )}
+      {IconLeft && <IconTile icon={IconLeft} size={iconTileSize} />}
       <div className={classNames("flex grow flex-col items-start", contentClassName)}>
         <div className={classNames("text-fg-primary font-medium", titleClassName)}>{title}</div>
         <div className={classNames("text-fg-secondary text-left", subtitleClassName)}>

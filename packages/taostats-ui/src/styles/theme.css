@@ -191,6 +191,31 @@
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.48);
 }
 
+/* Icon tile — vertical fill + gradient border (settings / feature rows) */
+.icon-tile {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, #161719 0%, #1d1f21 100%);
+}
+
+.icon-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 0.5px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
 /* Footer background — aliases the shared dark surface gradient */
 .bg-footer {
   background: var(--dark-surface-gradient);

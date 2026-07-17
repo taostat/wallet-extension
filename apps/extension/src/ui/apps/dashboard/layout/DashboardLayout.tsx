@@ -37,7 +37,7 @@ export const DashboardLayout: FC<{
           </div>
         </div>
       </div>
-      <div className="border-primary/6 h-px w-full shrink-0 border-b" />
+      <div className="border-primary h-px w-full shrink-0 border-b" />
       <div className="relative mx-auto w-full max-w-[1440px]">
         <div className={classNames("flex w-full pt-8", RESPONSIVE_FLEX_SPACING)}>
           {/* Sidebar */}
@@ -56,7 +56,7 @@ export const DashboardLayout: FC<{
                   "animate-fade-in w-full grow",
                 )}
               >
-                <LayoutBreadcrumb />
+                {sidebar !== "settings" && <LayoutBreadcrumb />}
                 {children}
               </div>
             </Suspense>

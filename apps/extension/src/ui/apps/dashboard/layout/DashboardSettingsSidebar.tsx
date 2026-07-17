@@ -22,7 +22,7 @@ export const DashboardSettingsSidebar = () => {
   return (
     <SurfaceCard className="flex w-full flex-col gap-5 p-4">
       <div className="text-fg-primary px-2 text-lg font-bold">{t("Settings")}</div>
-      <div className="flex w-full flex-col gap-md">
+      <div className="gap-md flex w-full flex-col">
         <SidebarNavItem to="/settings/general" label={t("General")} icon={<Sliders01 />} />
         <SidebarNavItem
           label={t("Manage Accounts")}
@@ -86,7 +86,7 @@ const SidebarNavItem: FC<{
           "relative flex w-full items-center gap-3 overflow-hidden rounded-md border px-3 py-2",
           "transition-[color,background-color,border-color,opacity] duration-700 ease-out",
           selected
-            ? "border-primary/6 bg-white/[0.04] text-fg-primary"
+            ? "border-primary text-fg-primary bg-white/[0.04]"
             : "text-fg-tertiary hover:text-fg-secondary border-transparent bg-transparent",
           className,
         )

@@ -35,7 +35,10 @@ import { AccountIconCopyAddressButton } from "@ui/domains/Account/AccountIconCop
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { AllAccountsIcon } from "@ui/domains/Account/AllAccountsIcon"
-import { ExportAllAccountsModal, useExportAllAccountsModal } from "@ui/domains/Account/ExportAllAccountsModal"
+import {
+  ExportAllAccountsModal,
+  useExportAllAccountsModal,
+} from "@ui/domains/Account/ExportAllAccountsModal"
 import { FolderContextMenu } from "@ui/domains/Account/FolderContextMenu"
 import { NewFolderModal, useNewFolderModal } from "@ui/domains/Account/NewFolderModal"
 import { Fiat } from "@ui/domains/Asset/Fiat"
@@ -236,7 +239,9 @@ const AccountsOverflowMenu = () => {
           </Button>
         </ContextMenuTrigger>
         <ContextMenuContent>
-          <ContextMenuItem onClick={handleManageAccountsClick}>{t("Manage Accounts")}</ContextMenuItem>
+          <ContextMenuItem onClick={handleManageAccountsClick}>
+            {t("Manage Accounts")}
+          </ContextMenuItem>
           {canExportAll && (
             <ContextMenuItem onClick={openExportAll}>{t("Export all as JSON")}</ContextMenuItem>
           )}
@@ -384,11 +389,7 @@ const FolderOption = ({ option }: { option: FolderAccountOption }) => {
       onClick={handleClick}
       right={
         !isSelected ? (
-          <FolderContextMenu
-            folderId={option.id}
-            noManageAccountsLink
-            placement="bottom-end"
-          />
+          <FolderContextMenu folderId={option.id} noManageAccountsLink placement="bottom-end" />
         ) : undefined
       }
     />
@@ -436,7 +437,7 @@ const SidebarButtonBase: FC<{
         "relative flex h-14 w-full items-center gap-2 rounded-lg border px-2 transition-colors",
         isSelected
           ? "border-fg-brand bg-fg-brand/5"
-          : "border-primary/6 hover:bg-tertiary/50 bg-transparent",
+          : "border-primary hover:bg-tertiary/50 bg-transparent",
       )}
     >
       <button
