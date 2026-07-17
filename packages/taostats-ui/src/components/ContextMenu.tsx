@@ -7,6 +7,7 @@ import {
   HTMLAttributes,
   MouseEvent,
   ReactNode,
+  SVGProps,
   useCallback,
 } from "react"
 
@@ -80,5 +81,29 @@ export const ContextMenuOptionItem: FC<{
   >
     <div>{label}</div>
     <Check className={classNames(selected ? "visible" : "invisible")} />
+  </ContextMenuItem>
+)
+
+/**
+ * Styled context menu row with a left-aligned mono/uppercase label and a
+ * right-aligned icon. Shared across the account and recovery-phrase menus.
+ */
+export const ContextMenuActionItem: FC<
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    label: ReactNode
+    icon: FC<SVGProps<SVGSVGElement>>
+    destructive?: boolean
+  }
+> = ({ label, icon: Icon, destructive, className, ...props }) => (
+  <ContextMenuItem
+    {...props}
+    className={classNames(
+      "gap-xl min-w-[220px] justify-between font-mono text-xs uppercase tracking-wide transition-colors duration-300",
+      destructive ? "text-fg-error hover:text-fg-error" : "text-fg-primary",
+      className,
+    )}
+  >
+    <span>{label}</span>
+    <Icon className="size-4 shrink-0" />
   </ContextMenuItem>
 )

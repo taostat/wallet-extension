@@ -7,10 +7,8 @@ export const Complete = () => {
   const { close } = useMnemonicBackupModal()
 
   return (
-    <MnemonicBackupModalBase>
-      <div className="!w-[560px]">
-        <VerificationComplete onComplete={close} />
-      </div>
+    <MnemonicBackupModalBase className="!w-[400px]">
+      <VerificationComplete onComplete={close} />
     </MnemonicBackupModalBase>
   )
 }

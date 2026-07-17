@@ -1,4 +1,3 @@
-import { classNames } from "@taostats-wallet/util"
 import { Copy01 } from "@untitledui/icons/Copy01"
 import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
 import { Download01 } from "@untitledui/icons/Download01"
@@ -9,13 +8,13 @@ import { Send01 } from "@untitledui/icons/Send01"
 import { Settings01 } from "@untitledui/icons/Settings01"
 import { XClose } from "@untitledui/icons/XClose"
 import { Account, getAccountGenesisHash } from "extension-core"
-import React, { FC, forwardRef, ReactNode, Suspense, SVGProps, useCallback, useMemo } from "react"
+import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import {
   ContextMenu,
+  ContextMenuActionItem,
   ContextMenuContent,
-  ContextMenuItem,
   ContextMenuTrigger,
   PopoverOptions,
 } from "taostats-ui"
@@ -33,19 +32,6 @@ import { useAccountByAddress, useNetworkByGenesisHash } from "@ui/state"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"
 
-const menuItemClassName =
-  "gap-xl text-fg-primary min-w-[220px] justify-between font-mono text-xs uppercase tracking-wide transition-colors duration-300"
-
-const MenuItemContent: FC<{
-  label: ReactNode
-  icon: FC<SVGProps<SVGSVGElement>>
-}> = ({ label, icon: Icon }) => (
-  <>
-    <span>{label}</span>
-    <Icon className="size-4 shrink-0" />
-  </>
-)
-
 const ViewOnExplorerMenuItem: FC<{ account: Account }> = ({ account }) => {
   const { t } = useTranslation()
   const { open, canOpen } = useViewOnExplorer(account.address, getAccountGenesisHash(account))
@@ -59,9 +45,11 @@ const ViewOnExplorerMenuItem: FC<{ account: Account }> = ({ account }) => {
   if (!canOpen) return null
 
   return (
-    <ContextMenuItem className={menuItemClassName} onClick={handleClick}>
-      <MenuItemContent label={t("View on Taostats")} icon={LinkExternal01} />
-    </ContextMenuItem>
+    <ContextMenuActionItem
+      label={t("View on Taostats")}
+      icon={LinkExternal01}
+      onClick={handleClick}
+    />
   )
 }
 
@@ -161,43 +149,47 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
           {account && (
             <>
               {canToggleIsPortfolio && (
-                <ContextMenuItem className={menuItemClassName} onClick={toggleIsPortfolio}>
-                  <MenuItemContent label={toggleLabel} icon={Eye} />
-                </ContextMenuItem>
+                <ContextMenuActionItem label={toggleLabel} icon={Eye} onClick={toggleIsPortfolio} />
               )}
               {canCopyAddress && (
-                <ContextMenuItem className={menuItemClassName} onClick={copyAddress}>
-                  <MenuItemContent label={t("Copy address")} icon={Copy01} />
-                </ContextMenuItem>
+                <ContextMenuActionItem
+                  label={t("Copy address")}
+                  icon={Copy01}
+                  onClick={copyAddress}
+                />
               )}
               {canSendFunds && (
-                <ContextMenuItem className={menuItemClassName} onClick={sendFunds}>
-                  <MenuItemContent label={t("Send funds")} icon={Send01} />
-                </ContextMenuItem>
+                <ContextMenuActionItem label={t("Send funds")} icon={Send01} onClick={sendFunds} />
               )}
               <ViewOnExplorerMenuItem account={account} />
               {canRename && (
-                <ContextMenuItem className={menuItemClassName} onClick={openAccountRenameModal}>
-                  <MenuItemContent label={t("Rename")} icon={Edit01} />
-                </ContextMenuItem>
+                <ContextMenuActionItem
+                  label={t("Rename")}
+                  icon={Edit01}
+                  onClick={openAccountRenameModal}
+                />
               )}
               {canExport && (
-                <ContextMenuItem className={menuItemClassName} onClick={openAccountExportModal}>
-                  <MenuItemContent label={t("Export as JSON")} icon={Download01} />
-                </ContextMenuItem>
+                <ContextMenuActionItem
+                  label={t("Export as JSON")}
+                  icon={Download01}
+                  onClick={openAccountExportModal}
+                />
               )}
-              <ContextMenuItem
-                className={classNames(menuItemClassName, "text-fg-error hover:text-fg-error")}
+              <ContextMenuActionItem
+                label={t("Remove account")}
+                icon={XClose}
+                destructive
                 onClick={openAccountRemoveModal}
-              >
-                <MenuItemContent label={t("Remove account")} icon={XClose} />
-              </ContextMenuItem>
+              />
             </>
           )}
           {!hideManageAccounts && (
-            <ContextMenuItem className={menuItemClassName} onClick={goToManageAccounts}>
-              <MenuItemContent label={t("Manage accounts")} icon={Settings01} />
-            </ContextMenuItem>
+            <ContextMenuActionItem
+              label={t("Manage accounts")}
+              icon={Settings01}
+              onClick={goToManageAccounts}
+            />
           )}
         </Suspense>
       </ContextMenuContent>

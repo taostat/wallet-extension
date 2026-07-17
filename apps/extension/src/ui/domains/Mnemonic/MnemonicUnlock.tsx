@@ -3,7 +3,7 @@ import { Key01 } from "@untitledui/icons/Key01"
 import { FC, ReactNode, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
+import { Button, FormFieldInputText } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
@@ -54,9 +54,15 @@ type MnemonicUnlockProps = {
   children: ReactNode
   buttonText?: string
   title?: ReactNode
+  onUnlocked?: () => void
 }
 
-const BaseMnemonicUnlock: FC<MnemonicUnlockProps> = ({ children, buttonText, title }) => {
+const BaseMnemonicUnlock: FC<MnemonicUnlockProps> = ({
+  children,
+  buttonText,
+  title,
+  onUnlocked,
+}) => {
   const { t } = useTranslation()
   const {
     register,
@@ -90,27 +96,43 @@ const BaseMnemonicUnlock: FC<MnemonicUnlockProps> = ({ children, buttonText, tit
   }, [mnemonic, setFocus])
 
   useEffect(() => {
+    if (mnemonic) onUnlocked?.()
+  }, [mnemonic, onUnlocked])
+
+  useEffect(() => {
     return () => {
       setValue("password", "")
     }
   }, [setValue])
 
-  return mnemonic ? (
-    <div className="w-[580px]">{children}</div>
-  ) : (
-    <form onSubmit={handleSubmit(submit)} className="flex w-[580px] flex-col justify-between gap-4">
-      <FormFieldContainer label={title} error={errors.password?.message}>
+  if (mnemonic) return <div className="w-full">{children}</div>
+
+  return (
+    <form onSubmit={handleSubmit(submit)} className="flex w-full flex-col gap-xl">
+      {title && <div className="text-fg-secondary text-sm font-medium">{title}</div>}
+      <div>
         <FormFieldInputText
           before={<Key01 className="h-5 w-5 opacity-50" />}
           {...register("password")}
           type="password"
-          placeholder={t("Enter password")}
+          placeholder={t("Enter Password")}
           spellCheck={false}
           data-lpignore
           after={<CapsLockWarningIcon />}
         />
-      </FormFieldContainer>
-      <Button type="submit" fullWidth primary disabled={!isValid} processing={isSubmitting}>
+        {errors.password?.message ? (
+          <div className="text-fg-orange mt-xs max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-right text-xs leading-none">
+            {errors.password.message}
+          </div>
+        ) : null}
+      </div>
+      <Button
+        type="submit"
+        fullWidth
+        disabled={!isValid}
+        processing={isSubmitting}
+        className="!border-0 !bg-fg-brand shadow-none hover:!bg-fg-brand/90 !text-black focus-visible:ring-0"
+      >
         {buttonText || t("Unlock")}
       </Button>
     </form>

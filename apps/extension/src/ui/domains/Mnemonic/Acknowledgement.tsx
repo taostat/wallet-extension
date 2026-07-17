@@ -1,65 +1,65 @@
-import { cn } from "@taostats-wallet/util"
-import { ArrowRight } from "@untitledui/icons/ArrowRight"
-import { Lock01 } from "@untitledui/icons/Lock01"
-import { Shield01 } from "@untitledui/icons/Shield01"
-import { X } from "@untitledui/icons/X"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
+import { EyeOff } from "@untitledui/icons/EyeOff"
+import { Key01 } from "@untitledui/icons/Key01"
+import { FC, SVGProps } from "react"
 import { useTranslation } from "react-i18next"
-import { Button } from "taostats-ui"
+import { Button, IconTile } from "taostats-ui"
+
+const TipRow: FC<{ icon: FC<SVGProps<SVGSVGElement>>; children: string }> = ({
+  icon,
+  children,
+}) => (
+  <div className="gap-md flex items-start">
+    <IconTile icon={icon} size="sm" />
+    <p className="text-fg-secondary text-sm leading-snug">{children}</p>
+  </div>
+)
 
 export const Acknowledgement = ({ onContinueClick }: { onContinueClick: () => void }) => {
   const { t } = useTranslation()
 
   return (
-    <div>
-      <div className="mb-2 flex flex-col gap-8">
-        <div className="flex flex-col gap-6">
-          <div className="flex items-center gap-3">
-            <IconContainer Icon={Lock01} />
-            <span>
-              {t(
-                "Protect your recovery phrase. Anyone who has it can access your wallet and funds.",
-              )}
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <IconContainer Icon={Shield01} />
-            <span>{t("Write down your recovery phrase and store it in a secure location.")}</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <IconContainer Icon={X} className="bg-[#FD48481A] text-red-500" />
-            <span className="text-red-500">
-              {t("If you lose your recovery phrase, you will lose access to your funds.")}
-            </span>
-          </div>
+    <div className="flex flex-col items-center gap-8">
+      <div className="gap-xl flex flex-col items-center text-center">
+        <img
+          src="/images/recovery/backup-logo.png"
+          alt=""
+          className="h-[128px] w-auto select-none object-contain"
+        />
+        <div className="flex flex-col gap-2">
+          <h2 className="text-fg-primary text-xl font-semibold">{t("Protect Your Private Key")}</h2>
+          <p className="text-fg-secondary text-sm">
+            {t("Never pass the seed phrase from your wallet to anyone")}
+          </p>
         </div>
-        <Button
-          primary
-          onClick={onContinueClick}
-          data-testid="mnemonic-acknowledge-button"
-          icon={ArrowRight}
-        >
-          {t("Acknowledge and Continue")}
-        </Button>
       </div>
-    </div>
-  )
-}
 
-const IconContainer = ({
-  Icon,
-  className,
-}: {
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>
-  className?: string
-}) => {
-  return (
-    <span
-      className={cn(
-        "text-primary-700 flex h-10 items-center rounded-2xl bg-[#D5FF5C1A] p-3",
-        className,
-      )}
-    >
-      <Icon className="h-5 w-5" />
-    </span>
+      <div className="flex w-full flex-col gap-5">
+        <TipRow icon={Key01}>
+          {t(
+            "Your Private Key is the key to your account — it grants full access, just like your password and login combined. Keep it secure.",
+          )}
+        </TipRow>
+        <TipRow icon={EyeOff}>
+          {t(
+            "Anyone with access to this Private Key can control your funds. Taostats cannot recover your assets if it's lost or stolen.",
+          )}
+        </TipRow>
+        <TipRow icon={AlertTriangle}>
+          {t(
+            "Never share your Private Key with anyone — including websites, apps, or individuals. Taostats will never ask for it.",
+          )}
+        </TipRow>
+      </div>
+
+      <Button
+        fullWidth
+        onClick={onContinueClick}
+        data-testid="mnemonic-acknowledge-button"
+        className="!bg-fg-brand hover:!bg-fg-brand/90 !border-0 !text-black shadow-none focus-visible:ring-0"
+      >
+        {t("Acknowledge & Continue")}
+      </Button>
+    </div>
   )
 }

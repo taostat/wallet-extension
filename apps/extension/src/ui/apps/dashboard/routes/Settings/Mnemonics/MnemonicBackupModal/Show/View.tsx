@@ -39,25 +39,26 @@ export const ViewMnemonic: FC<ShowMnemonicProps> = ({ handleComplete }) => {
   }, [])
 
   return (
-    <div className="flex min-w-[580px] flex-col gap-3">
+    <div className="flex w-full flex-col gap-3">
       <span className="text-fg-secondary text-sm">
         {t("Only reveal your recovery phrase when in a secure location")}
       </span>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         <Mnemonic onReveal={handleMnemonicReveal} mnemonic={mnemonic ?? ""} />
         <div className="flex flex-col gap-4">
           <Checkbox
             disabled={!canConfirm}
             onChange={handleConfirmToggle}
             checked={mnemonicInfo?.confirmed}
-            className="text-fg-secondary hover:text-fg-primary gap-4!"
+            className="gap-4"
+            childProps={{ className: "text-fg-tertiary text-sm" }}
           >
             {t("I have backed up my recovery phrase, don't remind me again")}
           </Checkbox>
           <Button
-            primary
             onClick={handleComplete}
             disabled={!mnemonicInfo?.confirmed || !canConfirm}
+            className="!border-0 !bg-fg-brand shadow-none hover:!bg-fg-brand/90 !text-black focus-visible:ring-0"
           >
             {t("Verify my recovery phrase")}
           </Button>

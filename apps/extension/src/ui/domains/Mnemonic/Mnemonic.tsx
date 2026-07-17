@@ -65,44 +65,44 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
   }, [isCopied])
 
   return (
-    <div className="min-w-[580px]">
-      <div className="bg-secondary group relative overflow-hidden rounded p-1">
-        <div className={`grid min-h-[126px] grid-cols-4 gap-2 p-1`}>
+    <div className="w-full min-w-0">
+      <div className="bg-secondary relative w-full overflow-hidden rounded p-1">
+        <div className="grid min-h-[126px] grid-cols-4 gap-2 p-1">
           {!!mnemonic &&
             mnemonic.split(" ").map((word, i) => (
               <span
-                className="bg-tertiary text-fg-primary whitespace-nowrap rounded px-4 py-2"
+                className="bg-tertiary text-fg-primary min-w-0 truncate rounded p-2 text-xs"
                 key={`mnemonic-${i}`}
               >
                 <span className="text-fg-disabled select-none">{i + 1}. </span>
                 <span className="notranslate">{word}</span>
               </span>
             ))}
-          <button
-            type="button"
-            onClick={() => {
-              setIsRevealed((isRevealed) => !isRevealed)
-              setBlurOnHover(isRevealed)
-              setIconType(isRevealed ? "open" : null)
-            }}
-            className={classNames(
-              "text-fg-primary absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-sm transition",
-              !isRevealed && "backdrop-blur-md",
-              blurOnHover && isRevealed && "hover:backdrop-blur-md",
-            )}
-            onMouseLeave={() => {
-              if (isRevealed) {
-                setBlurOnHover(true)
-                setIconType(null)
-              }
-            }}
-            onMouseOver={() => isRevealed && setIconType("closed")}
-            onFocus={() => isRevealed && setIconType("closed")}
-          >
-            {iconType === "open" && <Eye className="text-xl" />}
-            {iconType === "closed" && <EyeOff className="text-xl" />}
-          </button>
         </div>
+        <button
+          type="button"
+          onClick={() => {
+            setIsRevealed((isRevealed) => !isRevealed)
+            setBlurOnHover(isRevealed)
+            setIconType(isRevealed ? "open" : null)
+          }}
+          className={classNames(
+            "text-fg-primary absolute inset-0 z-[1] flex items-center justify-center rounded-sm transition",
+            !isRevealed && "backdrop-blur-md",
+            blurOnHover && isRevealed && "hover:backdrop-blur-md",
+          )}
+          onMouseLeave={() => {
+            if (isRevealed) {
+              setBlurOnHover(true)
+              setIconType(null)
+            }
+          }}
+          onMouseOver={() => isRevealed && setIconType("closed")}
+          onFocus={() => isRevealed && setIconType("closed")}
+        >
+          {iconType === "open" && <Eye className="text-xl" />}
+          {iconType === "closed" && <EyeOff className="text-xl" />}
+        </button>
       </div>
       <div className="flex items-center py-2 text-sm">
         <button

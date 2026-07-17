@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { MnemonicUnlock } from "@ui/domains/Mnemonic/MnemonicUnlock"
@@ -11,6 +11,7 @@ import { ViewMnemonic } from "./View"
 export const ShowMnemonic = () => {
   const { t } = useTranslation()
   const { mnemonic, stage, setStage } = useMnemonicBackupModal()
+  const [isUnlocked, setIsUnlocked] = useState(false)
 
   const title = useMemo(() => {
     switch (stage) {
@@ -22,23 +23,29 @@ export const ShowMnemonic = () => {
     }
   }, [stage, t])
 
+  const handleUnlocked = useCallback(() => setIsUnlocked(true), [])
+
+  const widthClass =
+    isUnlocked || stage === Stages.Verify ? "!w-[500px]" : "!w-[400px]"
+
   if (!mnemonic)
     return (
-      <MnemonicBackupModalBase title={"Error"}>
+      <MnemonicBackupModalBase title={"Error"} className="!w-[400px]">
         {t("No mnemonic available")}
       </MnemonicBackupModalBase>
     )
 
   return (
-    <MnemonicBackupModalBase title={title}>
-      <div className="min-h-[186px] grow">
+    <MnemonicBackupModalBase title={title} className={widthClass}>
+      <div className="grow">
         <MnemonicUnlock
           mnemonicId={mnemonic.id}
           buttonText={t("View Recovery Phrase")}
+          onUnlocked={handleUnlocked}
           title={
-            <div className="text-fg-secondary">
-              {t("Enter your password to show your recovery phrase.")}
-            </div>
+            <span className="text-fg-secondary">
+              {t("Enter your password to show your recovery phrase")}
+            </span>
           }
         >
           {stage === Stages.Show && <ViewMnemonic handleComplete={() => setStage(Stages.Verify)} />}
