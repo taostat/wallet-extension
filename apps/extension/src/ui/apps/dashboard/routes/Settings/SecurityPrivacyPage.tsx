@@ -6,7 +6,6 @@ import { CtaButton } from "taostats-ui"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 
 const Content = () => {
@@ -46,8 +45,4 @@ const Content = () => {
   )
 }
 
-export const SecurityPrivacyPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const SecurityPrivacyPage = () => <Content />

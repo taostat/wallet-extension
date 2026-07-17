@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 
 const Content = () => {
   const { t } = useTranslation()
@@ -79,8 +78,4 @@ const LinkToGithub = ({ href, children }: { href: string; children: React.ReactN
   )
 }
 
-export const AboutPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const AboutPage = () => <Content />

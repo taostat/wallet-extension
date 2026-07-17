@@ -28,7 +28,6 @@ import { Spacer } from "@taostats/components/Spacer"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
@@ -228,8 +227,4 @@ const Content = () => {
   )
 }
 
-export const AddressBookPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const AddressBookPage = () => <Content />

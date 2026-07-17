@@ -31,7 +31,6 @@ import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { useActivableNetwork } from "@ui/hooks/useActivableNetwork"
@@ -62,7 +61,7 @@ export const EditNetworkPage = () => {
   if (!network) return null
 
   return (
-    <DashboardLayout sidebar="settings">
+    <>
       <HeaderBlock
         title={t("Network settings for {{name}}", { name: network.name })}
         text={
@@ -75,7 +74,7 @@ export const EditNetworkPage = () => {
       <NetworkFormProvider network={network}>
         <NetworkForm />
       </NetworkFormProvider>
-    </DashboardLayout>
+    </>
   )
 }
 

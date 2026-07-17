@@ -8,7 +8,6 @@ import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { SearchInput } from "@taostats/components/SearchInput"
 import { Spacer } from "@taostats/components/Spacer"
 import { TogglePill } from "@taostats/components/TogglePill"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 import { activeNetworksState$, balancesHydrate$ } from "@ui/state"
 
@@ -22,12 +21,12 @@ export const NetworksPage = () => {
   useAnalyticsPageView(ANALYTICS_PAGE)
 
   return (
-    <DashboardLayout sidebar="settings">
+    <>
       <div className="flex w-full justify-between">
         <HeaderBlock title={t("Manage Networks")} text={<>{t("Enable and disable networks")}</>} />
       </div>
       <Content />
-    </DashboardLayout>
+    </>
   )
 }
 

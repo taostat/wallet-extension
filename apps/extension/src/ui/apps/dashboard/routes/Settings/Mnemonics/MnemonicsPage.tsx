@@ -14,7 +14,6 @@ import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountsStack } from "@ui/domains/Account/AccountIconsStack"
 import { Address } from "@ui/domains/Account/Address"
@@ -306,8 +305,4 @@ const Content = () => {
   )
 }
 
-export const MnemonicsPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const MnemonicsPage = () => <Content />

@@ -6,7 +6,6 @@ import { CtaButton } from "taostats-ui"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 
 const Content = () => {
   const { t } = useTranslation()
@@ -35,8 +34,4 @@ const Content = () => {
   )
 }
 
-export const NetworksTokensPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const NetworksTokensPage = () => <Content />

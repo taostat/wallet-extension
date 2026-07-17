@@ -10,7 +10,6 @@ import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { SearchInput } from "@taostats/components/SearchInput"
 import { Spacer } from "@taostats/components/Spacer"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { NetworkCombo } from "@ui/domains/Networks/NetworkCombo"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 import { useAnyNetwork, useBalancesHydrate, useNetworks } from "@ui/state"
@@ -141,11 +140,7 @@ const Content = () => {
   )
 }
 
-export const TokensPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const TokensPage = () => <Content />
 
 const ResetStatesModalContent: FC<{
   onClose: () => void

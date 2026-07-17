@@ -37,7 +37,6 @@ import { notify } from "@taostats/components/Notifications"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"
 import { TokenTypePill } from "@ui/domains/Asset/TokenTypePill"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
@@ -69,7 +68,7 @@ export const EditTokenPage = () => {
   if (!token || !network) return null
 
   return (
-    <DashboardLayout sidebar="settings">
+    <>
       <HeaderBlock
         title={
           <div className="flex items-center justify-between gap-2.5">
@@ -82,7 +81,7 @@ export const EditTokenPage = () => {
         }
       />
       <TokenForm token={token} />
-    </DashboardLayout>
+    </>
   )
 }
 

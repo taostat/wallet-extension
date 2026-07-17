@@ -12,7 +12,6 @@ import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMess
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 
 import { ChangePasswordModal } from "./ChangePasswordModal"
@@ -222,8 +221,4 @@ const Content = () => {
   )
 }
 
-export const ChangePasswordPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const ChangePasswordPage = () => <Content />

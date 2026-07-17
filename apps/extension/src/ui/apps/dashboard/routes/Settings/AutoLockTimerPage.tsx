@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 import { ExclusiveButtonsList } from "@taostats/components/ExclusiveButtonsList"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useSetting } from "@ui/state"
 
 type Option = { value: number; label: string }
@@ -44,8 +43,4 @@ export const Content = () => {
   )
 }
 
-export const AutoLockTimerPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const AutoLockTimerPage = () => <Content />

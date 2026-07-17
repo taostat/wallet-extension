@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { currencyConfig, currencyOrder, sortCurrencies } from "@ui/domains/Asset/currencyConfig"
 import { useFavoriteCurrencies } from "@ui/hooks/useFavoriteCurrencies"
 import { useSetting } from "@ui/state"
@@ -67,8 +66,4 @@ const Content = () => {
   )
 }
 
-export const CurrencySettingsPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const CurrencySettingsPage = () => <Content />

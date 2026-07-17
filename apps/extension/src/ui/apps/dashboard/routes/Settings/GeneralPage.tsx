@@ -22,7 +22,6 @@ import { Button, CtaButton, Dropdown, Modal, ModalDialog, Toggle } from "taostat
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Setting } from "@taostats/components/Setting"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useRuntimeReload } from "@ui/hooks/useRuntimeReload"
 import { useSetting } from "@ui/state"
 import { getIsLedgerCapable } from "@ui/util/getIsLedgerCapable"
@@ -34,11 +33,7 @@ const ANALYTICS_PAGE: AnalyticsPage = {
   page: "General",
 }
 
-export const GeneralPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const GeneralPage = () => <Content />
 
 const Content = () => {
   const { t } = useTranslation()
