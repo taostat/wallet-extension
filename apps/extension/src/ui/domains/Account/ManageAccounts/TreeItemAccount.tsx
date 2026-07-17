@@ -2,6 +2,7 @@ import { classNames } from "@taostats-wallet/util"
 import { Account, getAccountGenesisHash } from "extension-core"
 import { FC, useMemo } from "react"
 
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Address } from "@ui/domains/Account/Address"
@@ -30,8 +31,8 @@ export const TreeItemAccount: FC<{
     <div className={classNames("@container relative flex items-center")}>
       <div
         className={classNames(
-          "flex h-[59px] flex-grow items-center gap-4 overflow-hidden rounded-sm border-[1px] border-transparent px-4",
-          isInFolder ? "bg-secondary pr-2" : "bg-secondary",
+          "border-primary bg-secondary-solid gap-md px-lg flex min-h-[72px] w-full flex-grow items-center overflow-hidden rounded-lg border py-4",
+          isInFolder && "pr-2",
         )}
       >
         <AccountIcon
@@ -41,18 +42,21 @@ export const TreeItemAccount: FC<{
         />
         <div className="flex grow flex-col gap-1 overflow-hidden">
           <div className="flex items-center gap-1">
-            <div className="overflow-hidden text-ellipsis whitespace-nowrap">{account.name}</div>
+            <div className="text-fg-primary overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium">
+              {account.name}
+            </div>
             <AccountTypeIcon
               className="text-fg-brand"
               type={account.type}
               signetUrl={account.type === "signet" ? account.url : undefined}
             />
           </div>
-          <div className="text-fg-secondary @2xl:text-sm text-xs">
+          <div className="text-fg-secondary flex items-center gap-1 text-xs">
             <Address address={formattedAddress} noTooltip={noTooltip} />
+            <CopyAddressIconButton address={formattedAddress} iconClassName="size-3.5" />
           </div>
         </div>
-        <div className="@2xl:flex hidden flex-col gap-1">
+        <div className="@2xl:flex text-fg-brand hidden flex-col gap-1">
           <Fiat amount={balanceTotal} isBalance noCountUp />
         </div>
 

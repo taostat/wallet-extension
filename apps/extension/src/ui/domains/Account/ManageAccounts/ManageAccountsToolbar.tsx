@@ -103,15 +103,21 @@ const AccountsContextMenu = () => {
   return (
     <>
       <ContextMenu placement="bottom-end">
-        <ContextMenuTrigger
-          className={classNames(
-            "bg-app-bg hover:bg-secondary text-fg-secondary border-content flex items-center justify-center rounded-sm",
-            "focus-visible:border-primary border border-transparent ring-transparent",
-            "@2xl:size-[44px] size-[36px]",
-          )}
-        >
-          <DotsHorizontal />
-        </ContextMenuTrigger>
+        <Tooltip placement="bottom-end">
+          <TooltipTrigger asChild>
+            <ContextMenuTrigger asChild>
+              <PortfolioToolbarButton
+                className={classNames(
+                  "size-[36px]",
+                  !IS_POPUP && "@2xl:size-[44px]",
+                )}
+              >
+                <DotsHorizontal />
+              </PortfolioToolbarButton>
+            </ContextMenuTrigger>
+          </TooltipTrigger>
+          <TooltipContent>{t("More")}</TooltipContent>
+        </Tooltip>
         <ContextMenuContent>
           <ContextMenuItem onClick={openExportAll}>{t("Export all as JSON")}</ContextMenuItem>
         </ContextMenuContent>

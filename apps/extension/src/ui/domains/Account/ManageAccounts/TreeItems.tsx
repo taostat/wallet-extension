@@ -14,7 +14,6 @@ import {
 
 import { Accordion, AccordionIcon } from "@taostats/components/Accordion"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"
-import { AccountsLogoStack } from "@ui/domains/Account/AccountsLogoStack"
 import { useDeleteFolderModal } from "@ui/domains/Account/DeleteFolderModal"
 import { useRenameFolderModal } from "@ui/domains/Account/RenameFolderModal"
 import { Fiat } from "@ui/domains/Asset/Fiat"
@@ -151,7 +150,7 @@ export const TreeItemFolder: FC<{
           "flex h-[53px] items-center gap-4 overflow-hidden border-[1px] border-transparent px-4 pb-0",
         )}
       >
-        <AccountFolderIcon className="shrink-0 text-xl" />
+        <AccountFolderIcon className="shrink-0 text-3xl" />
         <div className="flex w-full grow flex-col gap-1 overflow-hidden">
           <div className="flex max-w-full items-center gap-2">
             <div className="truncate">{folder.name}</div>
@@ -159,7 +158,6 @@ export const TreeItemFolder: FC<{
               <AccordionIcon isOpen={isOpen} className="text-[20px]" />
             </IconButton>
           </div>
-          {addresses.length > 0 && <AccountsLogoStack addresses={addresses} />}
         </div>
         <div className="@2xl:flex hidden flex-col">
           <Fiat amount={balanceTotal} isBalance noCountUp />

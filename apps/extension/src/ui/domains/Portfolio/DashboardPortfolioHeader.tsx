@@ -212,9 +212,7 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
   const change24h = displayBalances.sum.change24h(currency).total
 
   return (
-    <SurfaceCard
-      className={classNames("gap-lg p-xl z-0 flex flex-col", className)}
-    >
+    <SurfaceCard className={classNames("gap-lg p-xl z-0 flex flex-col", className)}>
       <div className="gap-md z-[1] flex w-full items-center justify-between">
         <SelectionScope folder={selectedFolder} account={selectedAccount} />
         <div className="gap-xs flex shrink-0 items-center">
@@ -383,7 +381,7 @@ const TopActions: FC = () => {
   )
 
   return (
-    <div className="z-[1] grid w-full grid-cols-3 gap-sm">
+    <div className="gap-sm z-[1] grid w-full grid-cols-3">
       {topActions.map((action, index) => (
         <Action key={index} {...action} />
       ))}

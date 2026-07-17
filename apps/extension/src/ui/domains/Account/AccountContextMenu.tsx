@@ -1,6 +1,15 @@
+import { classNames } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Download01 } from "@untitledui/icons/Download01"
+import { Edit01 } from "@untitledui/icons/Edit01"
+import { Eye } from "@untitledui/icons/Eye"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { Send01 } from "@untitledui/icons/Send01"
+import { Settings01 } from "@untitledui/icons/Settings01"
+import { XClose } from "@untitledui/icons/XClose"
 import { Account, getAccountGenesisHash } from "extension-core"
-import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
+import React, { FC, forwardRef, ReactNode, Suspense, SVGProps, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import {
@@ -19,9 +28,23 @@ import { useCopyAddressModal } from "@ui/domains/CopyAddress"
 import { useViewOnExplorer } from "@ui/domains/ViewOnExplorer"
 import { useAccountToggleIsPortfolio } from "@ui/hooks/useAccountToggleIsPortfolio"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
+import { useSendFundsPopup } from "@ui/hooks/useSendFundsPopup"
 import { useAccountByAddress, useNetworkByGenesisHash } from "@ui/state"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"
+
+const menuItemClassName =
+  "gap-xl text-fg-primary min-w-[220px] justify-between font-mono text-xs uppercase tracking-wide transition-colors duration-300"
+
+const MenuItemContent: FC<{
+  label: ReactNode
+  icon: FC<SVGProps<SVGSVGElement>>
+}> = ({ label, icon: Icon }) => (
+  <>
+    <span>{label}</span>
+    <Icon className="size-4 shrink-0" />
+  </>
+)
 
 const ViewOnExplorerMenuItem: FC<{ account: Account }> = ({ account }) => {
   const { t } = useTranslation()
@@ -35,7 +58,11 @@ const ViewOnExplorerMenuItem: FC<{ account: Account }> = ({ account }) => {
 
   if (!canOpen) return null
 
-  return <ContextMenuItem onClick={handleClick}>{t("View on Taostats")}</ContextMenuItem>
+  return (
+    <ContextMenuItem className={menuItemClassName} onClick={handleClick}>
+      <MenuItemContent label={t("View on Taostats")} icon={LinkExternal01} />
+    </ContextMenuItem>
+  )
 }
 
 type Props = {
@@ -91,6 +118,12 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
     openCopyAddressModal({ address: account.address, networkId: chain?.id })
   }, [account, analyticsFrom, chain?.id, genericEvent, openCopyAddressModal])
 
+  const { canSendFunds, openSendFundsPopup } = useSendFundsPopup(account)
+  const sendFunds = useCallback(() => {
+    genericEvent("open send funds", { from: analyticsFrom })
+    openSendFundsPopup()
+  }, [analyticsFrom, genericEvent, openSendFundsPopup])
+
   const { open: _openAccountRenameModal } = useAccountRenameModal()
   const canRename = !!account
   const openAccountRenameModal = useCallback(
@@ -123,32 +156,48 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
       >
         {trigger ? trigger : <DotsHorizontal className="shrink-0" />}
       </ContextMenuTrigger>
-      <ContextMenuContent className="border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-1 py-1.5 text-left text-sm shadow-lg">
+      <ContextMenuContent>
         <Suspense fallback={<SuspenseTracker name="AccountContextMenu" />}>
           {account && (
             <>
               {canToggleIsPortfolio && (
-                <ContextMenuItem onClick={toggleIsPortfolio}>{toggleLabel}</ContextMenuItem>
+                <ContextMenuItem className={menuItemClassName} onClick={toggleIsPortfolio}>
+                  <MenuItemContent label={toggleLabel} icon={Eye} />
+                </ContextMenuItem>
               )}
               {canCopyAddress && (
-                <ContextMenuItem onClick={copyAddress}>{t("Copy address")}</ContextMenuItem>
+                <ContextMenuItem className={menuItemClassName} onClick={copyAddress}>
+                  <MenuItemContent label={t("Copy address")} icon={Copy01} />
+                </ContextMenuItem>
+              )}
+              {canSendFunds && (
+                <ContextMenuItem className={menuItemClassName} onClick={sendFunds}>
+                  <MenuItemContent label={t("Send funds")} icon={Send01} />
+                </ContextMenuItem>
               )}
               <ViewOnExplorerMenuItem account={account} />
               {canRename && (
-                <ContextMenuItem onClick={openAccountRenameModal}>{t("Rename")}</ContextMenuItem>
-              )}
-              {canExport && (
-                <ContextMenuItem onClick={openAccountExportModal}>
-                  {t("Export as JSON")}
+                <ContextMenuItem className={menuItemClassName} onClick={openAccountRenameModal}>
+                  <MenuItemContent label={t("Rename")} icon={Edit01} />
                 </ContextMenuItem>
               )}
-              <ContextMenuItem onClick={openAccountRemoveModal}>
-                {t("Remove account")}
+              {canExport && (
+                <ContextMenuItem className={menuItemClassName} onClick={openAccountExportModal}>
+                  <MenuItemContent label={t("Export as JSON")} icon={Download01} />
+                </ContextMenuItem>
+              )}
+              <ContextMenuItem
+                className={classNames(menuItemClassName, "text-fg-error hover:text-fg-error")}
+                onClick={openAccountRemoveModal}
+              >
+                <MenuItemContent label={t("Remove account")} icon={XClose} />
               </ContextMenuItem>
             </>
           )}
           {!hideManageAccounts && (
-            <ContextMenuItem onClick={goToManageAccounts}>{t("Manage accounts")}</ContextMenuItem>
+            <ContextMenuItem className={menuItemClassName} onClick={goToManageAccounts}>
+              <MenuItemContent label={t("Manage accounts")} icon={Settings01} />
+            </ContextMenuItem>
           )}
         </Suspense>
       </ContextMenuContent>

@@ -1,6 +1,5 @@
 import { classNames } from "@taostats-wallet/util"
 import { Eye } from "@untitledui/icons/Eye"
-import { Home01 } from "@untitledui/icons/Home01"
 import { Account } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -40,7 +39,7 @@ export const ManageAccountsLists: FC<{ className?: string }> = ({ className }) =
 
   return (
     <div className={classNames("@container", className)}>
-      {!!watchedUiTree.length && <Separator icon={Home01} label={t("My portfolio")} />}
+      {!!watchedUiTree.length && <Separator label={t("Accounts")} className="text-fg-primary" />}
       <ManageAccountsList
         accounts={accounts}
         balanceTotalPerAccount={balanceTotals}
@@ -92,12 +91,18 @@ const searchTree = (
   return workTree
 }
 
-const Separator: FC<{ label: ReactNode; icon: FC<{ className?: string }> }> = ({
-  icon: Icon,
-  label,
-}) => (
-  <div className="text-fg-disabled @xl:text-sm flex w-full items-center gap-2 text-xs font-bold">
-    <Icon className="inline" />
+const Separator: FC<{
+  label: ReactNode
+  icon?: FC<{ className?: string }>
+  className?: string
+}> = ({ icon: Icon, label, className }) => (
+  <div
+    className={classNames(
+      "text-fg-disabled @xl:text-sm flex w-full items-center gap-2 text-xs font-bold",
+      className,
+    )}
+  >
+    {Icon && <Icon className="inline" />}
     <div>{label}</div>
     <div className="bg-secondary h-px grow"></div>
   </div>

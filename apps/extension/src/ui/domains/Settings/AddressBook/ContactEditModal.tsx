@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { encodeAddressSs58 } from "@taostats-wallet/crypto"
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { HexString } from "@taostats-wallet/util"
-import { Copy01 } from "@untitledui/icons/Copy01"
 import { isAccountAddressSs58, isAddressCompatibleWithNetwork } from "extension-core"
 import { keyBy } from "lodash-es"
 import { FC, useCallback, useMemo } from "react"
@@ -11,14 +11,11 @@ import {
   Button,
   FormFieldContainer,
   FormFieldInputText,
-  IconButton,
   Modal,
   ModalDialog,
 } from "taostats-ui"
 import * as yup from "yup"
 
-import { notify } from "@taostats/components/Notifications"
-import { shortenAddress } from "@taostats/util/shortenAddress"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
@@ -145,7 +142,7 @@ export const ContactEditModal = ({ contact, isOpen, close }: ExistingContactModa
                   type="text"
                   value={address}
                   readOnly
-                  after={<CopyAddressIconButton address={address} className="text-[20px]" />}
+                  after={<CopyAddressIconButton address={address} iconClassName="text-[20px]" />}
                 />
               </FormFieldContainer>
               {isAddressSs58 && (
@@ -170,34 +167,5 @@ export const ContactEditModal = ({ contact, isOpen, close }: ExistingContactModa
         </ModalDialog>
       </div>
     </Modal>
-  )
-}
-
-const CopyAddressIconButton: FC<{ address: string; className?: string }> = ({
-  address,
-  className,
-}) => {
-  const { t } = useTranslation()
-  const handleClick = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(address)
-      notify({
-        type: "success",
-        title: t(`Address copied`),
-        subtitle: shortenAddress(address, 6, 6),
-      })
-    } catch (err) {
-      notify({
-        type: "error",
-        title: t("Error"),
-        subtitle: (err as Error).message ?? "Failed to copy address",
-      })
-    }
-  }, [address, t])
-
-  return (
-    <IconButton className={className} onClick={handleClick} disabled={!address}>
-      <Copy01 />
-    </IconButton>
   )
 }

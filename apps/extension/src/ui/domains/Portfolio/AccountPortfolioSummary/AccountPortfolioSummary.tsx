@@ -1,5 +1,5 @@
 import { classNames } from "@taostats-wallet/util"
-import { Copy01 } from "@untitledui/icons/Copy01"
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { Trophy01 } from "@untitledui/icons/Trophy01"
@@ -19,8 +19,6 @@ import {
   useSetting,
   useTokenRatesMap,
 } from "@ui/state"
-import { copyAddress } from "@ui/util/copyAddress"
-
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { EarningsChart } from "./EarningsChart/EarningsChart"
 import { useAccountPortfolioData } from "./useAccountPortfolioData"
@@ -318,24 +316,13 @@ const AccountChartCard: FC<{
 }) => {
   const { open: openExplorer, canOpen } = useViewOnExplorer(address, genesisHash)
 
-  const handleCopy = useCallback(() => {
-    void copyAddress(address)
-  }, [address])
-
   return (
     <SurfaceCard className="flex h-full min-h-[340px] w-full flex-col gap-4 p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex min-w-0 flex-col gap-2">
           <div className="text-fg-tertiary flex items-center gap-2 text-sm">
             <span className="truncate font-medium">{shortenAddress(address, 6, 4)}</span>
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="text-fg-tertiary hover:text-fg-primary shrink-0"
-              aria-label="Copy address"
-            >
-              <Copy01 className="size-4" />
-            </button>
+            <CopyAddressIconButton address={address} />
             {canOpen && (
               <button
                 type="button"
