@@ -178,49 +178,48 @@ export const ContactCreateModal = ({ isOpen, close }: ContactModalProps) => {
 
   return (
     <Modal isOpen={isOpen} onDismiss={close}>
-      <div id="create-contact-modal" className="h-[600px] w-[400px] overflow-hidden">
-        <ModalDialog title={t("Add new contact")} className="size-full overflow-hidden">
-          <form onSubmit={handleSubmit(submit)} className="flex size-full flex-col overflow-hidden">
-            <div className="grow">
-              <FormFieldContainer error={errors.name?.message} label={t("Name")}>
-                <FormFieldInputText
-                  type="text"
-                  {...register("name")}
-                  placeholder={t("Contact name")}
-                  autoComplete="off"
-                  spellCheck="false"
+      <div id="create-contact-modal" className="w-[400px]">
+        <ModalDialog title={t("Add new contact")} className="w-full" onClose={close}>
+          <form onSubmit={handleSubmit(submit)} className="flex flex-col">
+            <FormFieldContainer error={errors.name?.message} label={t("Name")}>
+              <FormFieldInputText
+                type="text"
+                {...register("name")}
+                placeholder={t("Contact name")}
+                autoComplete="off"
+                spellCheck="false"
+              />
+            </FormFieldContainer>
+            <FormFieldContainer error={errors.address?.message} label={t("Address")}>
+              <FormFieldInputText
+                type="text"
+                {...register("searchAddress")}
+                placeholder={t("Address")}
+                autoComplete="off"
+                spellCheck="false"
+                /* Fixes implicit min-width of approx. 180px */
+                size={1}
+              />
+            </FormFieldContainer>
+            {isAddressSs58 && (
+              <FormFieldContainer label={t("Limit to network")}>
+                <ContactNetworkPickerButton
+                  networks={compatibleNetworks}
+                  selected={selectedNetworkId}
+                  onChange={handleNetworkChange}
+                  containerId="create-contact-modal"
                 />
               </FormFieldContainer>
-              <FormFieldContainer error={errors.address?.message} label={t("Address")}>
-                <FormFieldInputText
-                  type="text"
-                  {...register("searchAddress")}
-                  placeholder={t("Address")}
-                  autoComplete="off"
-                  spellCheck="false"
-                  /* Fixes implicit min-width of approx. 180px */
-                  size={1}
-                />
-              </FormFieldContainer>
-              {isAddressSs58 && (
-                <FormFieldContainer label={t("Limit to network")}>
-                  <ContactNetworkPickerButton
-                    networks={compatibleNetworks}
-                    selected={selectedNetworkId}
-                    onChange={handleNetworkChange}
-                    containerId="create-contact-modal"
-                  />
-                </FormFieldContainer>
-              )}
-            </div>
-            <div className="flex items-stretch gap-2 pt-2">
-              <Button fullWidth onClick={close}>
-                {t("Cancel")}
-              </Button>
-              <Button type="submit" fullWidth primary processing={isSubmitting} disabled={!isValid}>
-                {t("Save")}
-              </Button>
-            </div>
+            )}
+            <Button
+              type="submit"
+              fullWidth
+              processing={isSubmitting}
+              disabled={!isValid}
+              className="mt-2 !border-0 !bg-fg-brand shadow-none hover:!bg-fg-brand/90 !text-black focus-visible:ring-0"
+            >
+              {t("Create")}
+            </Button>
           </form>
         </ModalDialog>
       </div>

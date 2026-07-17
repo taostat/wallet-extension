@@ -1,5 +1,5 @@
 import { useCallback } from "react"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import { Button, Modal, ModalDialog } from "taostats-ui"
 
 import { api } from "@ui/api"
@@ -31,23 +31,30 @@ export const ContactDeleteModal = ({ contact, isOpen, close }: ContactModalProps
     }
   }, [close, contact])
 
-  const contactName = contact?.name || ""
-
   return (
     <Modal isOpen={isOpen} onDismiss={close}>
-      <ModalDialog title={t("Delete contact")}>
-        <div className="text-fg-secondary my-6">
-          <Trans t={t}>
-            You are deleting contact '<span className="font-bold text-white">{contactName}</span>'
-            from your address book.
-          </Trans>
-        </div>
-        <div className="flex items-stretch gap-2 pt-2">
-          <Button fullWidth onClick={close}>
-            {t("Cancel")}
-          </Button>
-          <Button onClick={handleDelete} fullWidth primary>
-            {t("Confirm")}
+      <ModalDialog className="!w-[400px]" onClose={close}>
+        <div className="flex w-full flex-col items-center gap-8">
+          <div className="flex flex-col items-center gap-1 text-center">
+            <img
+              src="/images/address-book/delete.png"
+              alt=""
+              className="h-[128px] w-auto select-none object-contain"
+            />
+            <div className="flex flex-col gap-2">
+              <h2 className="text-fg-primary text-xl font-semibold">{t("Remove Contact")}</h2>
+              <p className="text-fg-tertiary text-sm">
+                {t("Confirm to remove contact from address book")}
+              </p>
+            </div>
+          </div>
+
+          <Button
+            fullWidth
+            onClick={handleDelete}
+            className="!bg-fg-error hover:!bg-fg-error/90 !border-0 !text-black shadow-none focus-visible:ring-0"
+          >
+            {t("Remove")}
           </Button>
         </div>
       </ModalDialog>

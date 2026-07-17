@@ -2,27 +2,24 @@ import { detectAddressEncoding } from "@taostats-wallet/crypto"
 import { classNames } from "@taostats-wallet/util"
 import { Copy01 } from "@untitledui/icons/Copy01"
 import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Edit01 } from "@untitledui/icons/Edit01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { Plus } from "@untitledui/icons/Plus"
+import { Trash01 } from "@untitledui/icons/Trash01"
 import { UserPlus01 } from "@untitledui/icons/UserPlus01"
-import {
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  forwardRef,
-  Suspense,
-  useCallback,
-  useMemo,
-  useState,
-} from "react"
+import { Suspense, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
   ContextMenu,
+  ContextMenuActionItem,
   ContextMenuContent,
-  ContextMenuItem,
   ContextMenuTrigger,
+  getContainerClassName,
   PillButton,
 } from "taostats-ui"
 
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
@@ -46,22 +43,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
   featureVersion: 1,
   page: "Address book contact list",
 }
-
-const SquareButton = forwardRef<
-  HTMLButtonElement,
-  DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
->((props, ref) => (
-  <button
-    {...props}
-    type="button"
-    ref={ref}
-    className={classNames(
-      "enabled:hover:bg-tertiary enabled:hover:text-fg-secondary flex h-[32px] w-[32px] items-center justify-center rounded-sm enabled:cursor-pointer disabled:cursor-not-allowed",
-      props.className,
-    )}
-  ></button>
-))
-SquareButton.displayName = "SquareButton"
 
 type ContactItemProps = ExistingContactComponentProps & {
   handleDelete: (address: string) => void
@@ -102,57 +83,72 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
     }
   }, [contact])
 
+  const { containerClassName, contentClassName, titleClassName, subtitleClassName } =
+    getContainerClassName("large")
+
   return (
-    <div className="bg-secondary group flex h-16 w-full items-center justify-between gap-2 rounded px-4">
+    <div
+      className={classNames(
+        "border-primary bg-secondary-solid gap-md px-lg flex w-full items-center rounded-lg border",
+        containerClassName,
+      )}
+    >
       <AccountIcon
-        className="text-xl"
+        className="shrink-0 text-3xl"
         address={contact.address}
         genesisHash={contact.genesisHash}
       />
-      <div className="flex grow flex-col justify-between overflow-hidden">
-        <div className="truncate">{contact.name}</div>
-        <div>
-          {isMultiAddress ? (
-            <div className="text-fg-secondary text-xs">{t("Multichain address")}</div>
-          ) : (
-            <Address
-              className="text-fg-secondary text-xs"
-              address={contact.address}
-              genesisHash={contact.genesisHash}
-            />
-          )}
+      <div className={classNames("flex grow flex-col items-start overflow-hidden", contentClassName)}>
+        <div className={classNames("text-fg-primary truncate font-medium", titleClassName)}>
+          {contact.name}
         </div>
+        {isMultiAddress ? (
+          <div className={classNames("text-fg-secondary font-mono", subtitleClassName)}>
+            {t("Multichain address")}
+          </div>
+        ) : (
+          <div
+            className={classNames(
+              "text-fg-secondary flex items-center gap-1 font-mono",
+              subtitleClassName,
+            )}
+          >
+            <Address address={contact.address} genesisHash={contact.genesisHash} />
+            <CopyAddressIconButton address={contact.address} iconClassName="size-3.5" />
+          </div>
+        )}
       </div>
-      <div className={`text-fg-disabled flex shrink-0 gap-1`}>
-        <SquareButton onClick={handleCopyClick}>
-          <Copy01 />
-        </SquareButton>
-        <ContextMenu placement="bottom-end">
-          <ContextMenuTrigger asChild>
-            <SquareButton>
-              <DotsHorizontal />
-            </SquareButton>
-          </ContextMenuTrigger>
-          <ContextMenuContent>
-            <Suspense fallback={<SuspenseTracker name="AddressBookContactItem.ContextMenu" />}>
-              <ContextMenuItem onClick={() => handleEdit(contact.address)}>
-                {t("Edit contact")}
-              </ContextMenuItem>
-              <ContextMenuItem onClick={handleCopyClick}>{t("Copy address")}</ContextMenuItem>
-              <ContextMenuItem
-                disabled={!canViewOnExplorer}
-                onClick={handleViewOnExplorer}
-                className="disabled:!text-fg-disabled disabled:!cursor-not-allowed disabled:!bg-transparent"
-              >
-                {t("View on Taostats")}
-              </ContextMenuItem>
-              <ContextMenuItem onClick={() => handleDelete(contact.address)}>
-                {t("Delete contact")}
-              </ContextMenuItem>
-            </Suspense>
-          </ContextMenuContent>
-        </ContextMenu>
-      </div>
+      <ContextMenu placement="bottom-end">
+        <ContextMenuTrigger className="text-fg-secondary hover:text-fg-primary hover:bg-tertiary rounded p-2">
+          <DotsHorizontal className="text-lg" />
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <Suspense fallback={<SuspenseTracker name="AddressBookContactItem.ContextMenu" />}>
+            <ContextMenuActionItem
+              label={t("Edit contact")}
+              icon={Edit01}
+              onClick={() => handleEdit(contact.address)}
+            />
+            <ContextMenuActionItem
+              label={t("Copy address")}
+              icon={Copy01}
+              onClick={handleCopyClick}
+            />
+            <ContextMenuActionItem
+              label={t("View on Taostats")}
+              icon={LinkExternal01}
+              disabled={!canViewOnExplorer}
+              onClick={handleViewOnExplorer}
+            />
+            <ContextMenuActionItem
+              label={t("Delete contact")}
+              icon={Trash01}
+              destructive
+              onClick={() => handleDelete(contact.address)}
+            />
+          </Suspense>
+        </ContextMenuContent>
+      </ContextMenu>
     </div>
   )
 }
@@ -189,7 +185,7 @@ const Content = () => {
         )}
       </div>
       <Spacer small />
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         {contactsToDisplay.map((contact) => (
           <AddressBookContactItem
             contact={contact}
@@ -199,9 +195,13 @@ const Content = () => {
           />
         ))}
         {contactsToDisplay.length === 0 && (
-          <div className="bg-secondary text-fg-secondary flex h-[160px] w-full flex-col items-center justify-center gap-6 rounded px-8 py-4">
+          <div className="border-primary bg-secondary-solid text-fg-secondary flex h-[160px] w-full flex-col items-center justify-center gap-6 rounded-lg border px-8 py-4">
             <span>{t("You have no saved contacts yet.")}</span>
-            <Button primary onClick={open} iconLeft={Plus}>
+            <Button
+              onClick={open}
+              iconLeft={Plus}
+              className="!border-0 !bg-fg-brand shadow-none hover:!bg-fg-brand/90 !text-black focus-visible:ring-0"
+            >
               {t("Add a contact")}
             </Button>
           </div>
