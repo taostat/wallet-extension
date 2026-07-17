@@ -1,22 +1,27 @@
 import { classNames } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { Trophy01 } from "@untitledui/icons/Trophy01"
+import { getAccountGenesisHash } from "extension-core"
 import { useAtom } from "jotai"
-import { FC, useMemo } from "react"
+import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
+import { SurfaceCard, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { formatFiat } from "@taostats/util/formatFiat"
+import { shortenAddress } from "@taostats/util/shortenAddress"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
-import { Tokens } from "@ui/domains/Asset/Tokens"
-import { portfolioDateRangeAtom, useSelectedCurrency, useSetting } from "@ui/state"
+import { useViewOnExplorer } from "@ui/domains/ViewOnExplorer"
+import { portfolioDateRangeAtom, useSelectedCurrency, useSetting, useTokenRatesMap } from "@ui/state"
+import { copyAddress } from "@ui/util/copyAddress"
 
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { EarningsChart } from "./EarningsChart/EarningsChart"
 import { useAccountPortfolioData } from "./useAccountPortfolioData"
 import { formatNumber } from "./utils"
 
-const StatCardContainer: FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="bg-secondary flex flex-grow flex-col gap-2 rounded-lg p-3">{children}</div>
-)
+const TAO_TOKEN_ID = "bittensor:substrate-dtao:0"
 
 const Skeleton: FC<{ className?: string }> = ({ className }) => (
   <div className={classNames("bg-tertiary h-5 w-16 animate-pulse rounded", className)} />
@@ -25,16 +30,16 @@ const Skeleton: FC<{ className?: string }> = ({ className }) => (
 const SelectorButton: FC<{
   isSelected: boolean
   onClick: () => void
-  children: React.ReactNode
+  children: ReactNode
   className?: string
 }> = ({ isSelected, onClick, children, className = "px-1.5 py-0.5" }) => (
   <button
     type="button"
     className={classNames(
-      "rounded-lg border text-sm transition-colors",
+      "rounded-md border text-xs transition-colors",
       isSelected
-        ? "border-accent-1 bg-accent-1/10 text-white"
-        : "hover:text-fg-primary border-[#323232] bg-[#1D1D1D] text-white/60 hover:bg-emerald-500/20",
+        ? "border-fg-brand bg-fg-brand/10 text-fg-primary"
+        : "border-primary/6 text-fg-tertiary hover:text-fg-primary hover:bg-tertiary/50",
       className,
     )}
     onClick={onClick}
@@ -78,7 +83,6 @@ const CurrencySelector: FC = () => {
           key={opt}
           isSelected={currency === opt}
           onClick={() => setCurrency(opt)}
-          className="px-1.5 py-0.5.5"
         >
           {currencyConfig[opt]?.symbol ?? opt.toUpperCase()}
         </SelectorButton>
@@ -87,33 +91,25 @@ const CurrencySelector: FC = () => {
   )
 }
 
-type StatCardProps = {
-  title: string
-  value: React.ReactNode
-  footer?: React.ReactNode
-  isLoading?: boolean
-  skeletonRows?: number
-}
-
-const StatCard: FC<StatCardProps> = ({ title, value, footer, isLoading, skeletonRows = 1 }) => (
-  <StatCardContainer>
-    <div className="text-fg-secondary text-sm">{title}</div>
-    <div className="flex flex-1 flex-col justify-between gap-1">
-      {isLoading ? (
-        <div className="flex flex-col gap-1">
-          {Array.from({ length: skeletonRows }).map((_, i) => (
-            <Skeleton key={i} />
-          ))}
-        </div>
-      ) : (
-        <>
-          <div className="text-lg font-normal">{value}</div>
-          {footer && <div className="text-fg-secondary text-xs">{footer}</div>}
-        </>
-      )}
+const StatCard: FC<{
+  title: ReactNode
+  titleRight?: ReactNode
+  children: ReactNode
+  className?: string
+}> = ({ title, titleRight, children, className }) => (
+  <SurfaceCard className={classNames("flex flex-col gap-4 p-4", className)}>
+    <div className="flex items-center justify-between gap-2">
+      <div className="text-fg-tertiary text-sm font-medium">{title}</div>
+      {titleRight ? <div className="text-fg-tertiary text-sm">{titleRight}</div> : null}
     </div>
-  </StatCardContainer>
+    {children}
+  </SurfaceCard>
 )
+
+const formatTaoAmount = (amount: number) =>
+  `${currencyConfig.tao.symbol}${formatFiat(amount, undefined, undefined, 2)}`
+
+const formatUsdAmount = (amount: number) => `$${formatNumber(amount)}`
 
 type EarningsCardProps = {
   isLoading: boolean
@@ -131,64 +127,275 @@ const EarningsCard: FC<EarningsCardProps> = ({
   overallYieldPercentage,
 }) => {
   const { t } = useTranslation()
-  const showApyValue = !isValidatorYieldLoading
 
   return (
-    <StatCardContainer>
-      {/* Header row: Earnings (left) | Staking APY (right) */}
-      <div className="flex flex-row justify-between">
-        <span className="text-fg-secondary text-sm">{t("Earnings")}</span>
-        <div className="flex flex-row items-center justify-end gap-0.5">
-          <span className="text-fg-secondary text-sm">{t("Staking APY")}</span>
+    <StatCard
+      title={t("Total Earnings")}
+      titleRight={
+        <div className="flex items-center gap-1">
+          <span>{t("Staking APY")}</span>
           <Tooltip>
             <TooltipTrigger asChild>
               <span className="cursor-help">
-                <InfoCircle className="text-fg-secondary ml-0.5 inline text-white/60" />
+                <InfoCircle className="text-fg-tertiary size-3.5" />
               </span>
             </TooltipTrigger>
             <TooltipContent>{t("The weighted APY of your staking positions.")}</TooltipContent>
           </Tooltip>
         </div>
-      </div>
-
-      {/* Content row: left = earnings, right = APY */}
+      }
+    >
       {isLoading ? (
-        <div className="flex flex-row justify-between gap-2">
+        <div className="flex justify-between gap-2">
           <Skeleton />
-          <Skeleton className="!w-10" />
+          <Skeleton className="!w-14" />
         </div>
       ) : (
-        <div className="flex flex-row justify-between">
+        <div className="flex items-start justify-between gap-3">
           <div className="flex flex-col gap-1">
-            <div className="text-lg font-normal">
-              <Tokens amount={totalEarningsTao} symbol="TAO" isBalance />
+            <div className="text-fg-primary text-xl font-medium">
+              {formatTaoAmount(totalEarningsTao)}
             </div>
-            <div className="text-fg-secondary text-base text-white/60">
-              ${formatNumber(totalEarningsUsd)}
-            </div>
+            <div className="text-fg-tertiary text-sm">{formatUsdAmount(totalEarningsUsd)}</div>
           </div>
-          <div className="flex min-w-[40px] flex-col items-start justify-start">
-            {showApyValue ? (
-              <span className="text-fg-secondary text-sm font-light text-white/60">
-                {overallYieldPercentage != null
-                  ? `${formatNumber(overallYieldPercentage)}% APY`
-                  : "—"}
-              </span>
+          <div className="text-fg-brand text-xl font-medium">
+            {isValidatorYieldLoading ? (
+              <Skeleton className="!h-6 !w-14" />
+            ) : overallYieldPercentage != null ? (
+              `${formatNumber(overallYieldPercentage)}%`
             ) : (
-              <Skeleton className="!h-2.5 !w-8" />
+              "—"
             )}
           </div>
         </div>
       )}
-    </StatCardContainer>
+    </StatCard>
+  )
+}
+
+type GainsCardProps = {
+  isLoading: boolean
+  realisedProfitTao: number
+  realisedProfitUsd: number
+  unrealisedProfitTao: number
+  unrealisedProfitUsd: number
+}
+
+const GainsCard: FC<GainsCardProps> = ({
+  isLoading,
+  realisedProfitTao,
+  realisedProfitUsd,
+  unrealisedProfitTao,
+  unrealisedProfitUsd,
+}) => {
+  const { t } = useTranslation()
+  const currency = useSelectedCurrency()
+
+  const { realisedValue, unrealisedValue, realisedPercent, unrealisedPercent } = useMemo(() => {
+    const realised = currency === "tao" ? realisedProfitTao : realisedProfitUsd
+    const unrealised = currency === "tao" ? unrealisedProfitTao : unrealisedProfitUsd
+    const realisedMag = Math.abs(realised)
+    const unrealisedMag = Math.abs(unrealised)
+    const total = realisedMag + unrealisedMag
+    const rPct = total > 0 ? (realisedMag / total) * 100 : 0
+    return {
+      realisedValue: realised,
+      unrealisedValue: unrealised,
+      realisedPercent: rPct,
+      unrealisedPercent: total > 0 ? 100 - rPct : 0,
+    }
+  }, [
+    currency,
+    realisedProfitTao,
+    realisedProfitUsd,
+    unrealisedProfitTao,
+    unrealisedProfitUsd,
+  ])
+
+  const formatGain = (value: number) =>
+    currency === "tao" ? formatTaoAmount(value) : formatUsdAmount(value)
+
+  return (
+    <StatCard title={t("Gains")}>
+      {isLoading ? (
+        <div className="flex flex-col gap-3">
+          <Skeleton className="!h-2 !w-full rounded-full" />
+          <Skeleton />
+          <Skeleton />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          <div className="bg-tertiary flex h-2 w-full overflow-hidden rounded-full">
+            {realisedPercent > 0 && (
+              <div className="bg-fg-brand h-full" style={{ width: `${realisedPercent}%` }} />
+            )}
+            {unrealisedPercent > 0 && (
+              <div className="bg-secondary h-full" style={{ width: `${unrealisedPercent}%` }} />
+            )}
+          </div>
+
+          {(
+            [
+              { label: t("Realized"), value: realisedValue, accent: "bg-fg-brand" },
+              { label: t("Unrealized"), value: unrealisedValue, accent: "bg-fg-tertiary" },
+            ] as const
+          ).map(({ label, value, accent }) => (
+            <div key={label} className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <div className={classNames("h-3 w-0.5 shrink-0 rounded-full", accent)} />
+                <span className="text-fg-secondary text-sm">{label}</span>
+              </div>
+              <span className="text-fg-primary text-sm">{formatGain(value)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </StatCard>
+  )
+}
+
+type RankCardProps = {
+  isLoading: boolean
+  rank: number
+  accountsTotal: number
+  rankPercentage: number
+}
+
+const RankCard: FC<RankCardProps> = ({ isLoading, rank, accountsTotal, rankPercentage }) => {
+  const { t } = useTranslation()
+
+  const rankPercentageDisplay =
+    accountsTotal > 0
+      ? rankPercentage < 5
+        ? formatNumber(rankPercentage, 3)
+        : String(Math.round(rankPercentage))
+      : null
+
+  return (
+    <StatCard title={t("Wallet Rank")}>
+      {isLoading ? (
+        <div className="flex flex-col gap-3">
+          <Skeleton className="!h-7 !w-28" />
+          <Skeleton className="!w-48" />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3">
+          <div className="flex items-baseline gap-1.5 overflow-hidden">
+            <span className="text-fg-primary text-xl font-medium">{rank.toLocaleString()}</span>
+            <span className="text-fg-secondary text-sm">/{accountsTotal.toLocaleString()}</span>
+          </div>
+          {rankPercentageDisplay != null && (
+            <div className="text-fg-tertiary flex items-center gap-2 text-xs">
+              <Trophy01 className="size-4 shrink-0" />
+              <span>
+                {t("You're in the top")}{" "}
+                <span className="text-fg-brand">{rankPercentageDisplay}%</span>{" "}
+                {t("of Tao owners.")}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+    </StatCard>
+  )
+}
+
+const AccountChartCard: FC<{
+  address: string
+  genesisHash?: `0x${string}` | null
+  balanceTotalTao: number
+  balanceTotalUsd: number
+  coldkeyData: ReturnType<typeof useAccountPortfolioData>["coldkeyData"]
+  isLoading: boolean
+  isError: boolean
+  dateRangeSelected: string
+  onDateRangeChange: (value: string) => void
+}> = ({
+  address,
+  genesisHash,
+  balanceTotalTao,
+  balanceTotalUsd,
+  coldkeyData,
+  isLoading,
+  isError,
+  dateRangeSelected,
+  onDateRangeChange,
+}) => {
+  const { open: openExplorer, canOpen } = useViewOnExplorer(address, genesisHash)
+
+  const handleCopy = useCallback(() => {
+    void copyAddress(address)
+  }, [address])
+
+  return (
+    <SurfaceCard className="flex h-full min-h-[340px] w-full flex-col gap-4 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-col gap-2">
+          <div className="text-fg-tertiary flex items-center gap-2 text-sm">
+            <span className="truncate font-medium">{shortenAddress(address, 6, 4)}</span>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="text-fg-tertiary hover:text-fg-primary shrink-0"
+              aria-label="Copy address"
+            >
+              <Copy01 className="size-4" />
+            </button>
+            {canOpen && (
+              <button
+                type="button"
+                onClick={openExplorer}
+                className="text-fg-tertiary hover:text-fg-primary shrink-0"
+                aria-label="View on explorer"
+              >
+                <LinkExternal01 className="size-4" />
+              </button>
+            )}
+          </div>
+          <div className="flex flex-col gap-1">
+            {isLoading ? (
+              <>
+                <Skeleton className="!h-8 !w-40" />
+                <Skeleton className="!w-24" />
+              </>
+            ) : (
+              <>
+                <div className="text-fg-primary text-display-xs font-medium">
+                  {formatTaoAmount(balanceTotalTao)}
+                </div>
+                <div className="text-fg-tertiary text-sm">{formatUsdAmount(balanceTotalUsd)}</div>
+              </>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <DateRangeSelector
+            dateRangeSelected={dateRangeSelected}
+            onDateRangeChange={onDateRangeChange}
+          />
+          <CurrencySelector />
+        </div>
+      </div>
+
+      <div className="min-h-0 flex-1">
+        <EarningsChart
+          coldkeyData={coldkeyData}
+          balanceTotalTao={balanceTotalTao}
+          isLoading={isLoading}
+          isError={isError}
+          embedded
+        />
+      </div>
+    </SurfaceCard>
   )
 }
 
 export const AccountPortfolioSummary: FC = () => {
   const { selectedAccount } = usePortfolioNavigation()
-  const { t } = useTranslation()
   const [dateRangeSelected, setDateRangeSelected] = useAtom(portfolioDateRangeAtom)
   const address = selectedAccount?.address
+  const tokenRates = useTokenRatesMap()
+  const taoUsdPrice = tokenRates?.[TAO_TOKEN_ID]?.usd?.price ?? 0
 
   const {
     isLoading,
@@ -208,127 +415,47 @@ export const AccountPortfolioSummary: FC = () => {
     balanceTotalTao,
   } = useAccountPortfolioData(address, dateRangeSelected)
 
-  const currency = useSelectedCurrency()
-  const gainsValue = useMemo(() => {
-    if (isLoading) return "…"
-    const rows: { label: string; tao: number; usd: number; colour: "green" | "red" }[] = [
-      { label: t("Realised"), tao: realisedProfitTao, usd: realisedProfitUsd, colour: "green" },
-      {
-        label: t("Unrealised"),
-        tao: unrealisedProfitTao,
-        usd: unrealisedProfitUsd,
-        colour: "red",
-      },
-    ]
-    return (
-      <table className="w-full table-auto">
-        <tbody>
-          {rows.map(({ label, tao, usd, colour }) => (
-            <tr key={label}>
-              <td className="w-auto pr-1.5 align-middle">
-                <div className="flex items-center">
-                  <div
-                    className={classNames(
-                      "mr-1 h-1 w-1 shrink-0 rounded-full",
-                      colour === "green" ? "bg-accent-1" : "bg-accent-2",
-                    )}
-                  />
-                  <span className="text-fg-secondary text-sm text-white/60">{label}</span>
-                </div>
-              </td>
-              <td className="w-full min-w-0 whitespace-nowrap align-middle">
-                <div className="flex items-center justify-end">
-                  <span className="text-sm">
-                    {currency === "tao" ? (
-                      <Tokens amount={tao} symbol="TAO" isBalance className="text-white" />
-                    ) : (
-                      <span className="text-white">${formatNumber(usd)}</span>
-                    )}
-                  </span>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )
-  }, [
-    isLoading,
-    realisedProfitTao,
-    realisedProfitUsd,
-    unrealisedProfitTao,
-    unrealisedProfitUsd,
-    currency,
-    t,
-  ])
+  const balanceTotalUsd = balanceTotalTao * taoUsdPrice
 
-  const rankValue = useMemo(() => {
-    if (isLoading) return "…"
-    const rankStr = rank.toLocaleString()
-    const totalStr = accountsTotal.toLocaleString()
-    return (
-      <>
-        {rankStr}
-        <span className="text-fg-secondary text-[0.7em]"> / {totalStr}</span>
-      </>
-    )
-  }, [isLoading, rank, accountsTotal])
-
-  const rankFooter = useMemo(() => {
-    if (accountsTotal <= 0) return undefined
-    return rankPercentage < 5
-      ? `You're in the top ${formatNumber(rankPercentage, 3)}% of Tao owners`
-      : `You're in the top ${Math.round(rankPercentage)}% of Tao owners`
-  }, [accountsTotal, rankPercentage])
-
-  // Only show when a single account is selected (after all hooks)
   if (!selectedAccount) return null
 
   return (
-    <div className="flex flex-col gap-3">
-      {/* Main: Two columns - left stats, right chart */}
-      <div className="flex flex-col gap-3 sm:flex-row">
-        {/* Left column: Stats cards stacked vertically */}
-        <div className="flex-shrink-0 sm:w-[350px]">
-          <div className="flex flex-col gap-3">
-            <EarningsCard
-              isLoading={isLoading}
-              isValidatorYieldLoading={isValidatorYieldLoading}
-              totalEarningsTao={totalEarningsTao}
-              totalEarningsUsd={totalEarningsUsd}
-              overallYieldPercentage={overallYieldPercentage}
-            />
-            <StatCard
-              title={t("Gains")}
-              value={gainsValue}
-              isLoading={isLoading}
-              skeletonRows={2}
-            />
-            <StatCard
-              title={t("Wallet Rank")}
-              value={rankValue}
-              footer={rankFooter}
-              isLoading={isLoading}
-            />
-          </div>
-        </div>
+    <div className="flex flex-col items-stretch gap-3 lg:flex-row">
+      <div className="flex min-h-[340px] min-w-0 flex-1">
+        <AccountChartCard
+          address={selectedAccount.address}
+          genesisHash={getAccountGenesisHash(selectedAccount)}
+          balanceTotalTao={balanceTotalTao}
+          balanceTotalUsd={balanceTotalUsd}
+          coldkeyData={coldkeyData}
+          isLoading={isLoading}
+          isError={isError}
+          dateRangeSelected={dateRangeSelected}
+          onDateRangeChange={(v) => setDateRangeSelected(v as "1d" | "1w" | "1m" | "1y")}
+        />
+      </div>
 
-        {/* Right column: Chart with date range + currency below */}
-        <div className="flex min-h-[250px] min-w-[300px] flex-1 flex-col gap-2 overflow-hidden">
-          <EarningsChart
-            coldkeyData={coldkeyData}
-            balanceTotalTao={balanceTotalTao}
-            isLoading={isLoading}
-            isError={isError}
-          />
-          <div className="flex flex-row flex-wrap items-center justify-end gap-2">
-            <DateRangeSelector
-              dateRangeSelected={dateRangeSelected}
-              onDateRangeChange={(v) => setDateRangeSelected(v as "1d" | "1w" | "1m" | "1y")}
-            />
-            <CurrencySelector />
-          </div>
-        </div>
+      <div className="flex shrink-0 flex-col gap-3 lg:w-[285px]">
+        <EarningsCard
+          isLoading={isLoading}
+          isValidatorYieldLoading={isValidatorYieldLoading}
+          totalEarningsTao={totalEarningsTao}
+          totalEarningsUsd={totalEarningsUsd}
+          overallYieldPercentage={overallYieldPercentage}
+        />
+        <GainsCard
+          isLoading={isLoading}
+          realisedProfitTao={realisedProfitTao}
+          realisedProfitUsd={realisedProfitUsd}
+          unrealisedProfitTao={unrealisedProfitTao}
+          unrealisedProfitUsd={unrealisedProfitUsd}
+        />
+        <RankCard
+          isLoading={isLoading}
+          rank={rank}
+          accountsTotal={accountsTotal}
+          rankPercentage={rankPercentage}
+        />
       </div>
     </div>
   )
