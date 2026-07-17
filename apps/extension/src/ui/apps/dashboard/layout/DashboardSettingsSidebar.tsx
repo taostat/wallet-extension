@@ -11,7 +11,7 @@ import { Users01 } from "@untitledui/icons/Users01"
 import { FC, ReactNode, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, To, useMatch, useNavigate } from "react-router-dom"
-import { IconButton, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
+import { IconButton, SurfaceCard, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -28,9 +28,9 @@ export const DashboardSettingsSidebar = () => {
   }, [genericEvent, navigate])
 
   return (
-    <div className={classNames("bg-app-bg rounded-lg", "flex w-full flex-col gap-4 p-4")}>
+    <SurfaceCard className="flex w-full flex-col gap-4 p-4">
       <div className="flex h-8 shrink-0 items-center">
-        <div className="grow pl-2 text-[20px] font-bold">{t("Settings")}</div>
+        <div className="text-fg-primary grow pl-2 text-lg font-bold">{t("Settings")}</div>
         <Tooltip>
           <TooltipTrigger asChild>
             <IconButton
@@ -43,8 +43,8 @@ export const DashboardSettingsSidebar = () => {
           <TooltipContent>{t("Add Account")}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="bg-secondary h-px"></div>
-      <div className="flex w-full flex-col gap-1">
+      <div className="bg-secondary h-px" />
+      <div className="flex w-full flex-col gap-2">
         <SidebarNavItem to="/settings/general" label={t("General")} icon={<Sliders01 />} />
         <SidebarNavItem
           label={t("Manage Accounts")}
@@ -82,7 +82,7 @@ export const DashboardSettingsSidebar = () => {
         />
         <SidebarNavItem label={t("About")} to="/settings/about" icon={<InfoCircle />} />
       </div>
-    </div>
+    </SurfaceCard>
   )
 }
 
@@ -99,16 +99,16 @@ const SidebarNavItem: FC<{
     <NavLink
       to={to}
       className={classNames(
-        "flex w-full items-center gap-3 overflow-hidden rounded",
+        "flex h-14 w-full items-center gap-3 overflow-hidden rounded-lg border px-3 transition-colors",
         "text-fg-tertiary [&.active]:text-fg-primary",
-        "hover:bg-tertiary [&.active]:bg-secondary",
-        "h-14 px-3",
+        "border-primary/6 hover:bg-tertiary/50 bg-transparent",
+        "[&.active]:border-fg-brand [&.active]:bg-fg-brand/5",
         forceActive && "active",
         className,
       )}
     >
-      <span className="size-6 shrink-0 text-lg">{icon}</span>
-      <span className="truncate">{label}</span>
+      <span className="size-5 shrink-0 text-lg">{icon}</span>
+      <span className="truncate text-sm font-medium">{label}</span>
     </NavLink>
   )
 }

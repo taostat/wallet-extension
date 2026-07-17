@@ -2,7 +2,7 @@ import { classNames } from "@taostats-wallet/util"
 import { Loading01 } from "@untitledui/icons/Loading01"
 import { forwardRef, SVGProps, useMemo } from "react"
 
-type ButtonColor = "default" | "primary" | "secondary" | "red" | "orange"
+type ButtonColor = "default" | "primary" | "secondary" | "brand" | "red" | "orange"
 
 export type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -58,6 +58,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           disabled && "bg-disabled text-fg-disabled border-primary",
         )
 
+      // Teal outline + tinted fill (settings Reload / Check)
+      case "brand":
+        return classNames(
+          "bg-brand-secondary border-brand text-fg-brand border",
+          "hover:bg-fg-brand/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+          disabled && "bg-disabled text-fg-disabled border-primary",
+        )
+
       case "orange":
         return "bg-fg-orange text-fg-primary-alt shadow-btn-primary hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
 
@@ -76,7 +84,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         iconOnly
           ? "size-8 shrink-0 rounded-md text-sm"
           : small
-            ? "px-lg py-md gap-xs rounded-sm text-sm"
+            ? "px-md py-xs gap-xs rounded-sm text-xs"
             : "gap-xs rounded-md px-3.5 py-2.5 text-sm",
         fullWidth ? "w-full" : "",
         colors,

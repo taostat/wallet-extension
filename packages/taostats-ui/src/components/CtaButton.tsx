@@ -28,17 +28,17 @@ export const getContainerClassName = (size: CtaButtonSize) => {
   switch (size) {
     case "large":
       return {
-        iconLeftClassName: "text-lg",
-        containerClassName: "h-8 py-md",
-        contentClassName: "gap-xs",
-        titleClassName: "text-md",
-        subtitleClassName: "text-sm",
+        iconLeftClassName: "size-5",
+        containerClassName: "min-h-[72px] py-4",
+        contentClassName: "gap-1",
+        titleClassName: "text-sm",
+        subtitleClassName: "text-xs",
       }
     case "small":
       return {
-        iconLeftClassName: "text-xl",
-        containerClassName: "h-6 py-sm",
-        contentClassName: "gap-xxs",
+        iconLeftClassName: "size-5",
+        containerClassName: "min-h-14 py-3",
+        contentClassName: "gap-0.5",
         titleClassName: "text-sm",
         subtitleClassName: "text-xs",
       }
@@ -79,7 +79,7 @@ export const CtaButton: FC<CtaButton> = ({
       type="button"
       {...props}
       className={classNames(
-        "bg-secondary-btn-bg border-primary text-fg-disabled enabled:hover:bg-secondary-btn-bg-hover enabled:hover:text-fg-primary gap-md px-lg shadow-btn-secondary flex w-full cursor-pointer items-center rounded-md border disabled:cursor-not-allowed disabled:opacity-50",
+        "border-primary/6 bg-secondary-solid text-fg-disabled enabled:hover:bg-tertiary/50 enabled:hover:text-fg-primary gap-md px-lg flex w-full cursor-pointer items-center rounded-lg border disabled:cursor-not-allowed disabled:opacity-50",
         containerClassName,
         className,
       )}

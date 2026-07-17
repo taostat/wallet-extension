@@ -30,7 +30,7 @@ export const Setting: FC<{
   return (
     <div
       className={classNames(
-        "border-primary bg-secondary text-fg-secondary gap-md px-lg flex w-full items-center rounded-md border",
+        "border-primary/6 bg-secondary-solid text-fg-secondary gap-md px-lg flex w-full items-center rounded-lg border",
         containerClassName,
         className,
       )}

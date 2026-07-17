@@ -1,15 +1,17 @@
 import Transport from "@ledgerhq/hw-transport"
 import TransportWebHID from "@ledgerhq/hw-transport-webhid"
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb"
-import { CoinsIcon, UsbIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
-import { Bell01 } from "@untitledui/icons/Bell01"
+import { Bell03 } from "@untitledui/icons/Bell03"
 import { Check } from "@untitledui/icons/Check"
 import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Code02 } from "@untitledui/icons/Code02"
+import { CoinsStacked01 } from "@untitledui/icons/CoinsStacked01"
+import { CoinsStacked02 } from "@untitledui/icons/CoinsStacked02"
+import { Dataflow01 } from "@untitledui/icons/Dataflow01"
 import { EyeOff } from "@untitledui/icons/EyeOff"
-import { Flag01 } from "@untitledui/icons/Flag01"
-import { RefreshCw01 } from "@untitledui/icons/RefreshCw01"
-import { Tool01 } from "@untitledui/icons/Tool01"
+import { RefreshCcw01 } from "@untitledui/icons/RefreshCcw01"
+import { Translate01 } from "@untitledui/icons/Translate01"
 import { X } from "@untitledui/icons/X"
 import { LedgerTransportType } from "extension-core"
 import { log } from "extension-shared"
@@ -53,17 +55,17 @@ const Content = () => {
       <div className="mt-8 flex flex-col gap-2">
         {hasRuntimeReloadFn ? (
           <Setting
-            iconLeft={RefreshCw01}
+            iconLeft={RefreshCcw01}
             title={t("Reload Taostats Wallet")}
             subtitle={t("Close and restart the wallet, this sometimes helps fix errors")}
           >
-            <Button primary small onClick={runtimeReload}>
+            <Button color="brand" small onClick={runtimeReload}>
               {t("Reload")}
             </Button>
           </Setting>
         ) : null}
         <Setting
-          iconLeft={Bell01}
+          iconLeft={Bell03}
           title={t("Allow notifications")}
           subtitle={t("Allow notifications about transaction progress")}
         >
@@ -80,14 +82,14 @@ const Content = () => {
           <Toggle checked={hideBalances} onChange={(e) => setHideBalances(e.target.checked)} />
         </Setting>
         <Setting
-          iconLeft={CoinsIcon}
+          iconLeft={CoinsStacked01}
           title={t("Hide small balances")}
           subtitle={t("Hide tokens with a balance below US$1")}
         >
           <Toggle checked={hideDust} onChange={(e) => setHideDust(e.target.checked)} />
         </Setting>
         <Setting
-          iconLeft={CoinsIcon}
+          iconLeft={CoinsStacked02}
           title={t("Leave dust")}
           subtitle={t("When pressing the Max button when sending Tao, leave 0.01 Tao behind")}
         >
@@ -97,21 +99,21 @@ const Content = () => {
           />
         </Setting>
         <CtaButton
-          iconLeft={Flag01}
+          iconLeft={Translate01}
           iconRight={ChevronRight}
           title={t("Language")}
           subtitle={t("Change the wallet display language")}
           to={`/settings/general/language`}
         />
         <Setting
-          iconLeft={UsbIcon}
+          iconLeft={Dataflow01}
           title={t("Ledger interface")}
           subtitle={t("Select which connection type to use with Ledger hardware wallets")}
         >
           <LedgerTransportTypeSelect />
         </Setting>
         <Setting
-          iconLeft={Tool01}
+          iconLeft={Code02}
           title={t("Developer mode")}
           subtitle={t("Allow connecting to dapps with watch-only accounts")}
         >
@@ -179,16 +181,14 @@ export const LedgerTransportTypeSelect = () => {
   return (
     <div className="flex items-center gap-2">
       <Dropdown
+        small
         items={ledgerTransportTypeItems}
         propertyKey="value"
-        className="h-10 py-0"
-        buttonClassName="h-10 py-0"
-        optionClassName="h-10 py-0 flex"
         value={ledgerTransportTypeValue}
         onChange={(v) => setLedgerTransportType(v!.value)}
         renderItem={(item) => item.label}
       />
-      <Button primary small onClick={checkConnectivity}>
+      <Button color="brand" small onClick={checkConnectivity}>
         {t("Check")}
       </Button>
       <Modal isOpen={!!checkStatus} onDismiss={() => setCheckStatus(undefined)}>
