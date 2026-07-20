@@ -1,14 +1,14 @@
 import { classNames } from "@taostats-wallet/util"
-import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { Trophy01 } from "@untitledui/icons/Trophy01"
 import { getAccountGenesisHash } from "extension-core"
 import { useAtom } from "jotai"
-import { FC, ReactNode, useCallback, useMemo } from "react"
+import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { SurfaceCard, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { formatFiat } from "@taostats/util/formatFiat"
 import { shortenAddress } from "@taostats/util/shortenAddress"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
@@ -19,6 +19,7 @@ import {
   useSetting,
   useTokenRatesMap,
 } from "@ui/state"
+
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { EarningsChart } from "./EarningsChart/EarningsChart"
 import { useAccountPortfolioData } from "./useAccountPortfolioData"

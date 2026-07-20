@@ -11,14 +11,7 @@ import {
   UseFormWatch,
 } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import {
-  Button,
-  FormFieldInputText,
-  StarryBackground,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "taostats-ui"
+import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
@@ -150,58 +143,61 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
 
   return (
     <PopupLayout>
-      <StarryBackground>
-        <Suspense fallback={<SuspenseTracker name="Background" />}>
-          <HideBalancesToggle />
-          <VersionInfo />
-        </Suspense>
-        <PopupContent
-          className={classNames(
-            "z-10 select-none pt-16 text-center",
-            isSubmitting && "animate-pulse",
-          )}
-        >
-          <div className="mt-[60px]">
-            <TaostatsLogo className="inline-block text-[128px]" />
-          </div>
-          <h1 className="mt-[34px] text-lg">{t("Unlock Taostats Wallet")}</h1>
-          {errors.password?.message && (
-            <div className="text-fg-orange mt-4">{errors.password?.message}</div>
-          )}
-        </PopupContent>
-        <PopupFooter className="z-10">
-          <form className="flex flex-col items-center gap-3" onSubmit={handleSubmit(submit)}>
-            <FormFieldInputText
-              {...register("password")}
-              type="password"
-              placeholder={t("Enter password")}
-              spellCheck={false}
-              autoComplete="off"
-              data-lpignore
-              // containerProps={INPUT_CONTAINER_PROPS}
-              className="placeholder:text-fg-disabled"
-              after={<CapsLockWarningIcon />}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              primary
-              disabled={!isValid}
-              processing={isSubmitting}
-              className={classNames(!isValid && "bg-secondary")}
-            >
-              {t("Unlock")}
-            </Button>
-            <button
-              type="button"
-              className="text-fg-disabled hover:text-fg-primary mt-1 cursor-pointer text-sm transition-colors"
-              onClick={setShowResetWallet}
-            >
-              {t("Forgot Password?")}
-            </button>
-          </form>
-        </PopupFooter>
-      </StarryBackground>
+      <Suspense fallback={<SuspenseTracker name="Background" />}>
+        <HideBalancesToggle />
+        <VersionInfo />
+      </Suspense>
+      <PopupContent
+        className={classNames(
+          "z-10 select-none pt-16 text-center",
+          isSubmitting && "animate-pulse",
+        )}
+      >
+        <div className="relative mt-[20px] flex flex-col items-center">
+          <TaostatsLogo className="relative z-10 h-[29px] w-[153px]" />
+          <img
+            src="/images/lock/lock.png"
+            alt="Login hero"
+            className="relative z-[-1] -mt-10 h-[350px] w-auto select-none object-contain"
+          />
+        </div>
+        <h1 className="text-display-xs -mt-12">{t("Unlock Taostats Wallet")}</h1>
+        {errors.password?.message && (
+          <div className="text-fg-orange mt-4">{errors.password?.message}</div>
+        )}
+      </PopupContent>
+      <PopupFooter className="z-10">
+        <form className="flex flex-col items-center gap-3" onSubmit={handleSubmit(submit)}>
+          <FormFieldInputText
+            {...register("password")}
+            type="password"
+            placeholder={t("Enter password")}
+            spellCheck={false}
+            autoComplete="off"
+            data-lpignore
+            // containerProps={INPUT_CONTAINER_PROPS}
+            className="placeholder:text-fg-disabled"
+            after={<CapsLockWarningIcon />}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            primary
+            disabled={!isValid}
+            processing={isSubmitting}
+            className={classNames(!isValid && "bg-secondary")}
+          >
+            {t("Unlock")}
+          </Button>
+          <button
+            type="button"
+            className="text-fg-disabled hover:text-fg-primary mt-1 cursor-pointer text-sm transition-colors"
+            onClick={setShowResetWallet}
+          >
+            {t("Forgot Password?")}
+          </button>
+        </form>
+      </PopupFooter>
     </PopupLayout>
   )
 }
