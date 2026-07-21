@@ -99,7 +99,7 @@ export const BottomNav = () => {
         <QuickSettingsModal />
         <nav
           aria-label={t("Main navigation")}
-          className="border-input-border-primary flex h-[52px] w-full items-center justify-between rounded-full border bg-[rgba(40,40,40,0.6)] px-1 shadow-[0px_2px_20px_0px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgb(255_255_255/0.04)]"
+          className="flex h-[52px] w-full items-center justify-between rounded-full border border-white/10 bg-[rgba(28,28,28,0.7)] px-1 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.28),inset_0_1px_0_0_rgb(255_255_255/0.1)] backdrop-blur-sm backdrop-saturate-150"
         >
           <NavButton
             label={t("Home")}
@@ -154,8 +154,8 @@ const NavButton: FC<{
       className={classNames(
         "relative flex h-10 w-[60px] shrink-0 items-center justify-center rounded-full transition-colors duration-500",
         routeMatch || isActive
-          ? "bg-tertiary text-fg-brand"
-          : "text-grayish hover:bg-tertiary hover:text-label-secondary",
+          ? "text-fg-brand bg-white/10 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.08)]"
+          : "text-grayish hover:text-label-secondary hover:bg-white/[0.06]",
       )}
       onClick={onClick}
     >
