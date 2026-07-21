@@ -1,3 +1,4 @@
+import { PopoutIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
 import { ArrowDownLeft } from "@untitledui/icons/ArrowDownLeft"
 import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
@@ -34,9 +35,11 @@ import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
 import { useRevealableBalance } from "@ui/hooks/useRevealableBalance"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
-import { useBalances, useSelectedCurrency, useSetting } from "@ui/state"
+import { useBalances, useSelectedCurrency, useSetting, useAccounts } from "@ui/state"
 
 import { usePortfolioNavigation } from "./usePortfolioNavigation"
+import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }> = ({
   account,
@@ -193,7 +196,21 @@ const PortfolioChange: FC<{
   )
 }
 
-export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className }) => {
+export type PortfolioHeaderProps = {
+  className?: string
+  variant?: "dashboard" | "popup"
+  disabled?: boolean
+  onNavigate?: () => void
+}
+
+export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
+  className,
+  variant = "dashboard",
+  disabled,
+  onNavigate,
+}) => {
+  const { t } = useTranslation()
+  const isPopup = variant === "popup"
   const { selectedAccount, selectedFolder } = usePortfolioNavigation()
   const allBalances = useBalances()
   const portfolioBalances = useBalances("portfolio")
@@ -211,40 +228,77 @@ export const DashboardPortfolioHeader: FC<{ className?: string }> = ({ className
   const selectedTotal = displayBalances.sum.fiat(currency).total ?? 0
   const change24h = displayBalances.sum.change24h(currency).total
 
+  const balanceSection = (
+    <>
+      <div className="gap-md flex w-full max-w-full items-center">
+        <Button
+          type="button"
+          color="secondary"
+          iconOnly
+          className={classNames(
+            "pointer-events-auto",
+            currencyConfig[currency]?.symbol?.length > 2 && "text-xs",
+          )}
+          onClick={(event) => {
+            event.stopPropagation()
+            toggleCurrency()
+          }}
+        >
+          {currencyConfig[currency]?.symbol}
+        </Button>
+        <PortfolioBalanceDisplay amount={selectedTotal} />
+      </div>
+      <PortfolioChange change={change24h} />
+    </>
+  )
+
   return (
     <SurfaceCard className={classNames("gap-lg p-xl z-0 flex flex-col", className)}>
       <div className="gap-md z-[1] flex w-full items-center justify-between">
-        <SelectionScope folder={selectedFolder} account={selectedAccount} />
+        {isPopup ? (
+          <div className="text-fg-primary text-sm font-semibold">{t("Total Portfolio")}</div>
+        ) : (
+          <SelectionScope folder={selectedFolder} account={selectedAccount} />
+        )}
         <div className="gap-xs flex shrink-0 items-center">
           <HideBalancesButton />
-          <ScopeContextMenu account={selectedAccount} folder={selectedFolder} />
+          {!isPopup && <ScopeContextMenu account={selectedAccount} folder={selectedFolder} />}
+          {isPopup && IS_EMBEDDED_POPUP && <PopoutButton />}
         </div>
       </div>
 
-      <div className="gap-sm z-[1] flex w-full flex-col">
-        <div className="gap-md flex w-full max-w-full items-center">
-          <Button
-            type="button"
-            color="secondary"
-            iconOnly
-            className={classNames(
-              "pointer-events-auto",
-              currencyConfig[currency]?.symbol?.length > 2 && "text-xs",
-            )}
-            onClick={(event) => {
-              event.stopPropagation()
-              toggleCurrency()
-            }}
-          >
-            {currencyConfig[currency]?.symbol}
-          </Button>
-          <PortfolioBalanceDisplay amount={selectedTotal} />
-        </div>
-        <PortfolioChange change={change24h} />
-      </div>
+      {isPopup && onNavigate ? (
+        <button
+          type="button"
+          className={classNames(
+            "gap-sm z-[1] flex w-full flex-col text-left",
+            !disabled && "cursor-pointer",
+            disabled && "cursor-default opacity-60",
+          )}
+          onClick={!disabled ? onNavigate : undefined}
+          disabled={disabled}
+        >
+          {balanceSection}
+        </button>
+      ) : (
+        <div className="gap-sm z-[1] flex w-full flex-col">{balanceSection}</div>
+      )}
 
-      <TopActions />
+      <TopActions variant={variant} disabled={disabled} />
     </SurfaceCard>
+  )
+}
+
+const PopoutButton: FC = () => {
+  const handleClick = useCallback(() => {
+    api.popupOpen("#/portfolio")
+    void closeWalletSurface()
+  }, [])
+
+  return (
+    <IconButton className="text-fg-tertiary hover:text-fg-primary size-7 p-1" onClick={handleClick}>
+      <PopoutIcon className="size-4" />
+    </IconButton>
   )
 }
 
@@ -259,7 +313,7 @@ type ActionProps = {
   disabledReason?: string
 }
 
-const Action: FC<ActionProps> = ({
+const Action: FC<ActionProps & { analyticsPage: AnalyticsPage }> = ({
   analyticsName,
   analyticsAction,
   label,
@@ -268,18 +322,19 @@ const Action: FC<ActionProps> = ({
   onClick,
   disabled,
   disabledReason,
+  analyticsPage,
 }) => {
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       event.stopPropagation()
       sendAnalyticsEvent({
-        ...ANALYTICS_PAGE,
+        ...analyticsPage,
         name: analyticsName,
         action: analyticsAction,
       })
       onClick()
     },
-    [onClick, analyticsAction, analyticsName],
+    [onClick, analyticsAction, analyticsName, analyticsPage],
   )
 
   return (
@@ -304,27 +359,46 @@ const Action: FC<ActionProps> = ({
   )
 }
 
-const ANALYTICS_PAGE: AnalyticsPage = {
+const ANALYTICS_PAGE_DASHBOARD: AnalyticsPage = {
   container: "Fullscreen",
   feature: "Portfolio",
   featureVersion: 2,
   page: "Portfolio Home",
 }
 
-const TopActions: FC = () => {
+const ANALYTICS_PAGE_POPUP: AnalyticsPage = {
+  container: "Popup",
+  feature: "Portfolio",
+  featureVersion: 2,
+  page: "Portfolio Home",
+}
+
+const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = ({
+  variant = "dashboard",
+  disabled: disabledProp,
+}) => {
   const { selectedAccounts, selectedAccount } = usePortfolioNavigation()
   const { t } = useTranslation()
   const { open: openCopyAddressModal } = useCopyAddressModal()
+  const isPopup = variant === "popup"
+  const ownedAccounts = useAccounts("owned")
+  const analyticsPage = isPopup ? ANALYTICS_PAGE_POPUP : ANALYTICS_PAGE_DASHBOARD
 
   const [disableActions, disabledReason] = useMemo(() => {
+    if (disabledProp && isPopup)
+      return [true, t("Add an account to send or receive funds") as string]
+
     if (!!selectedAccount && !isAccountOwned(selectedAccount))
       return [true, t("Cannot send or receive funds on accounts that you don't own") as string]
 
     if (!selectedAccounts.some(isAccountOwned))
       return [true, t("Cannot send or receive funds on accounts that you don't own") as string]
 
+    if (isPopup && !ownedAccounts.length)
+      return [true, t("Add an account to send or receive funds") as string]
+
     return [false, ""]
-  }, [selectedAccount, t, selectedAccounts])
+  }, [disabledProp, isPopup, ownedAccounts.length, selectedAccount, selectedAccounts, t])
 
   const selectedAddress = useMemo(() => selectedAccount?.address, [selectedAccount?.address])
 
@@ -340,10 +414,12 @@ const TopActions: FC = () => {
           label: t("Send"),
           icon: ArrowUpRight,
           onClick: () =>
-            api.sendFundsOpen({
-              from: selectedAddress,
-              tokenSymbol: symbol || undefined,
-            }),
+            isPopup
+              ? api.sendFundsOpen({ from: selectedAddress }).then(() => void closeWalletSurface())
+              : api.sendFundsOpen({
+                  from: selectedAddress,
+                  tokenSymbol: symbol || undefined,
+                }),
           disabled: disableActions,
           disabledReason,
         },
@@ -372,6 +448,7 @@ const TopActions: FC = () => {
       t,
       disableActions,
       disabledReason,
+      isPopup,
       selectedAccount,
       selectedAccounts.length,
       selectedAddress,
@@ -383,7 +460,7 @@ const TopActions: FC = () => {
   return (
     <div className="gap-sm z-[1] grid w-full grid-cols-3">
       {topActions.map((action, index) => (
-        <Action key={index} {...action} />
+        <Action key={index} {...action} analyticsPage={analyticsPage} />
       ))}
     </div>
   )

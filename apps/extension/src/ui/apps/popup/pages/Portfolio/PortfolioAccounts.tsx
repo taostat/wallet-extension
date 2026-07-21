@@ -27,15 +27,15 @@ import { SearchInput } from "@taostats/components/SearchInput"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
-import { AllAccountsHeader } from "@ui/apps/popup/components/AllAccountsHeader"
+import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"
 import { AccountIconCopyAddressButton } from "@ui/domains/Account/AccountIconCopyAddressButton"
-import { AccountsLogoStack } from "@ui/domains/Account/AccountsLogoStack"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { CurrentAccountAvatar } from "@ui/domains/Account/CurrentAccountAvatar"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { GetStarted } from "@ui/domains/Portfolio/GetStarted/GetStarted"
+import { PortfolioAccountRow } from "@ui/domains/Portfolio/PortfolioAccountRow"
 import { PortfolioToolbarButton } from "@ui/domains/Portfolio/PortfolioToolbarButton"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -94,27 +94,17 @@ const FolderButton: FC<{ option: FolderAccountOption }> = ({ option }) => {
   }, [navigate, option])
 
   return (
-    <button
-      type="button"
-      tabIndex={0}
-      className={classNames(
-        "text-fg-secondary bg-secondary hover:bg-secondary hover:text-fg-primary flex h-[59px] w-full cursor-pointer items-center gap-3 overflow-hidden rounded-sm px-3",
-      )}
+    <PortfolioAccountRow
+      label={
+        <div className="flex items-center gap-1">
+          <span className="truncate">{option.name}</span>
+        </div>
+      }
+      logo={<AccountFolderIcon className="text-[40px]" />}
+      fiat={<Fiat amount={option.total} isBalance noCountUp />}
       onClick={handleClick}
-    >
-      <div className="flex flex-col justify-center text-xl">
-        <AccountFolderIcon />
-      </div>
-      <div className="flex grow flex-col items-start justify-center gap-0.5 overflow-hidden">
-        <div className="text-fg-primary flex w-full items-center gap-1.5 text-base">
-          <div className="truncate">{option.name}</div>
-        </div>
-        <div className="text-fg-secondary flex w-full truncate text-left text-sm">
-          <Fiat amount={option.total} isBalance />
-        </div>
-      </div>
-      <AccountsLogoStack className="text-sm" addresses={option.addresses} />
-    </button>
+      right={<ChevronRight className="text-fg-tertiary size-4" />}
+    />
   )
 }
 
@@ -131,55 +121,41 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
   }, [genericEvent, navigate, option])
 
   return (
-    <div
-      className={classNames(
-        "group",
-        "bg-secondary hover:bg-secondary relative h-[59px] w-full rounded-sm",
-      )}
-    >
-      <button
-        type="button"
-        tabIndex={0}
-        className={classNames(
-          "text-fg-secondary hover:text-fg-primary flex h-[59px] w-full cursor-pointer items-center gap-3 overflow-hidden rounded-sm px-3",
-        )}
-        onClick={handleClick}
-      >
-        <div className="flex flex-col justify-center text-xl">
-          <div className="size-[32px]"></div>
-        </div>
-        <div className="flex grow flex-col items-start justify-center gap-0.5 overflow-hidden">
-          <div className="text-fg-primary flex w-full items-center gap-1.5 text-base">
+    <div className="group relative w-full">
+      <PortfolioAccountRow
+        label={
+          <div className="flex w-full items-center gap-1">
             <div className="truncate">{option.name}</div>
             <AccountTypeIcon
-              className="text-fg-brand"
+              className="text-fg-brand shrink-0"
               type={option.accountType}
               signetUrl={option.signetUrl}
             />
           </div>
-          <div className="text-fg-secondary flex w-full truncate text-left text-sm">
-            <Fiat amount={option.total} isBalance className="group-hover:hidden" />
+        }
+        logo={<div className="size-10 shrink-0" />}
+        fiat={
+          <>
+            <Fiat amount={option.total} isBalance noCountUp className="group-hover:hidden" />
             <Address
-              className="hidden truncate group-hover:block"
+              className="hidden group-hover:block"
               address={option.address}
               genesisHash={option.genesisHash}
               noTooltip
               startCharCount={6}
               endCharCount={6}
             />
-          </div>
-        </div>
-
-        <div className="text-lg">
-          <ChevronRight />
-        </div>
-      </button>
-      {/* Absolute positioning based on parent, to prevent a "button inside a button" situation */}
-      <div className="absolute left-3 top-0 flex h-[59px] flex-col justify-center">
-        <div className="relative size-[32px] text-xl">
-          <AccountIconCopyAddressButton address={option.address} genesisHash={option.genesisHash} />
-        </div>
-      </div>
+          </>
+        }
+        onClick={handleClick}
+        right={<ChevronRight className="text-fg-tertiary size-4" />}
+      />
+      <AccountIconCopyAddressButton
+        address={option.address}
+        genesisHash={option.genesisHash}
+        className="absolute left-2 top-1/2 -translate-y-1/2 text-[40px]"
+        tooltipPlacement="bottom"
+      />
     </div>
   )
 }
@@ -222,8 +198,8 @@ const AccountsToolbar = () => {
       <div className="flex grow items-center overflow-hidden">
         <SearchInput
           containerClassName={classNames(
-            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[32px] w-full border border-field text-sm !px-2",
-            "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
+            "!bg-tertiary ring-transparent focus-within:border-primary h-9 w-full rounded-md border border-transparent text-sm !px-2",
+            "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-4",
           )}
           placeholder={t("Search account or folder")}
           onChange={setPortfolioAccountsSearch}
@@ -286,23 +262,37 @@ const Accounts = ({
   watchedOptions: AccountOption[]
 }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+
+  const handlePortfolioNavigate = useCallback(() => {
+    navigate("/portfolio/tokens")
+  }, [navigate])
 
   const hasPortfolioOptions = portfolioOptions.length > 0
   const hasWatchedOptions = watchedOptions.length > 0
   const hasAnyAccount = accounts.length > 0
+  const disabled = !accounts.length
 
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className="flex w-full flex-col gap-4">
       {folder ? (
         <FolderHeader folder={folder} folderTotal={folderTotal} />
       ) : (
         <>
-          <AllAccountsHeader accounts={accounts} />
+          <DashboardPortfolioHeader
+            variant="popup"
+            disabled={disabled}
+            onNavigate={handlePortfolioNavigate}
+          />
           <PopupHomeBanners />
         </>
       )}
 
       {hasAnyAccount && <AccountsToolbar />}
+
+      {hasAnyAccount && !folder && (
+        <div className="text-fg-primary text-lg font-bold">{t("Accounts")}</div>
+      )}
 
       {hasPortfolioOptions && <AccountsList options={portfolioOptions} />}
 

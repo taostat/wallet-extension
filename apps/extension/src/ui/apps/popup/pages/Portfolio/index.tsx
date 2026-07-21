@@ -105,14 +105,18 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   )
 }
 
-export const Portfolio = () => (
+export const Portfolio = () => {
+  const location = useLocation()
+  const isAccountsHome = !location.pathname.includes("/tokens")
+
+  return (
   <PortfolioContainer renderWhileLoading>
     <div id="main" className="relative size-full overflow-hidden">
       <Content>
         <div className="flex size-full flex-col gap-2 py-4">
           <header className="flex items-center justify-between p-2 pt-0">
             <TaostatsLogo className="h-[15px] w-auto" />
-            <HideBalancesToggle />
+            {!isAccountsHome && <HideBalancesToggle />}
           </header>
           <PortfolioRoutes />
           <BottomNav />
@@ -121,4 +125,5 @@ export const Portfolio = () => (
       <NavigationDrawer />
     </div>
   </PortfolioContainer>
-)
+  )
+}
