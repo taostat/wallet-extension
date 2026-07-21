@@ -1,11 +1,13 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Balances } from "@taostats-wallet/balances"
 import { classNames } from "@taostats-wallet/util"
-import { FC, useEffect, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 
+import { useScrollContainer } from "@taostats/components/ScrollContainer"
 import { usePortfolioGlobalData } from "@ui/state"
+import { IS_POPUP } from "@ui/util/constants"
 
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { AssetRow } from "./DashboardAssetRow"
@@ -61,7 +63,10 @@ export const DashboardAssetsTable = () => {
   const location = useLocation()
 
   return (
-    <div key={location.key} className="text-fg-secondary min-w-[450px] text-left text-base">
+    <div
+      key={location.key}
+      className={classNames("text-fg-secondary text-left text-base", !IS_POPUP && "min-w-[450px]")}
+    >
       {!symbolBalances.length && !isInitialising && <NoAssetsFound />}
       <VirtualizedRows symbolBalances={symbolBalances} />
       {isInitialising && <AssetRowSkeleton />}
@@ -71,6 +76,20 @@ export const DashboardAssetsTable = () => {
 
 const VirtualizedRows: FC<{ symbolBalances: [string, Balances][] }> = ({ symbolBalances }) => {
   const [noCountUp, setNoCountUp] = useState(false)
+  const scrollContainer = useScrollContainer()
+
+  const getScrollElement = useCallback(() => {
+    if (
+      scrollContainer &&
+      typeof scrollContainer === "object" &&
+      "ref" in scrollContainer &&
+      scrollContainer.ref.current
+    ) {
+      return scrollContainer.ref.current
+    }
+
+    return document.getElementById("main")
+  }, [scrollContainer])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -87,7 +106,7 @@ const VirtualizedRows: FC<{ symbolBalances: [string, Balances][] }> = ({ symbolB
     overscan: 6,
     gap: 0,
     estimateSize: () => 66,
-    getScrollElement: () => document.getElementById("main"),
+    getScrollElement,
   })
 
   return (

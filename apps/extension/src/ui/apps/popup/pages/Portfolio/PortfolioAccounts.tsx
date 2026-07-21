@@ -291,7 +291,7 @@ const Accounts = ({
       {hasAnyAccount && <AccountsToolbar />}
 
       {hasAnyAccount && !folder && (
-        <div className="text-fg-primary text-lg font-bold">{t("Accounts")}</div>
+        <div className="text-fg-primary text-md font-bold">{t("Accounts")}</div>
       )}
 
       {hasPortfolioOptions && <AccountsList options={portfolioOptions} />}

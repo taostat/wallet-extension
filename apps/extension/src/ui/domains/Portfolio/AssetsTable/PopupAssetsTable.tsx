@@ -10,6 +10,7 @@ import { FadeIn } from "@taostats/components/FadeIn"
 import { useScrollContainer } from "@taostats/components/ScrollContainer"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
+import { BalanceSeparator } from "@ui/domains/Asset/BalanceSeparator"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { Tokens } from "@ui/domains/Asset/Tokens"
@@ -142,7 +143,14 @@ const AssetRow: FC<{
                 <span className="text-[8px]">TVL</span>
               </div>
             )}
-            {!isUniswapV2LpToken && (
+            {!isUniswapV2LpToken && token.type === "substrate-dtao" && (
+              <div className="text-fg-secondary flex items-center gap-1 whitespace-nowrap text-xs">
+                <span>{`SN${token.netuid}`}</span>
+                <BalanceSeparator />
+                <AssetPrice tokenId={token.id} balances={balances} noChange as="span" />
+              </div>
+            )}
+            {!isUniswapV2LpToken && token.type !== "substrate-dtao" && (
               <AssetPrice
                 tokenId={token.id}
                 balances={balances}

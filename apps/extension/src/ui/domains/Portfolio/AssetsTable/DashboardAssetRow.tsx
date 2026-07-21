@@ -4,6 +4,7 @@ import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
 import { AssetPrice, useDisplayAssetPrice } from "@ui/domains/Asset/AssetPrice"
+import { BalanceSeparator } from "@ui/domains/Asset/BalanceSeparator"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
@@ -13,10 +14,12 @@ import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
 import { useUniswapV2LpTokenTotalValueLocked } from "@ui/hooks/useUniswapV2LpTokenTotalValueLocked"
 import { useNetworkById } from "@ui/state"
+import { IS_POPUP } from "@ui/util/constants"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
 import { AssetBalanceCellValue } from "../AssetBalanceCellValue"
 import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
+import { isRootTaoHolding } from "../isRootTaoHolding"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
 
 export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
@@ -40,7 +43,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
       const netuid = token.netuid
       navigate(`/portfolio/tokens/${netuid}`)
       genericEvent("goto portfolio asset", {
-        from: "dashboard",
+        from: IS_POPUP ? "popup" : "dashboard",
         symbol: token.symbol,
         netuid,
       })
@@ -50,7 +53,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
     // Fallback: use symbol for non-dTAO tokens.
     navigate(`/portfolio/tokens/${encodeURIComponent(token.symbol)}`)
     genericEvent("goto portfolio asset", {
-      from: "dashboard",
+      from: IS_POPUP ? "popup" : "dashboard",
       symbol: token.symbol,
     })
   }, [genericEvent, navigate, token])
@@ -75,9 +78,14 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
           <div className="flex shrink-0 items-center justify-center py-4 pr-4 text-3xl">
             <TokenLogo tokenId={token.id} />
           </div>
-          <div className="flex grow flex-col justify-center gap-1">
+          <div className="flex grow flex-col justify-center gap-0">
             <div className="flex items-center gap-1.5">
-              <div className="text-fg-primary flex items-center gap-2 text-base font-bold">
+              <div
+                className={classNames(
+                  "text-fg-primary flex items-center gap-2 font-bold",
+                  IS_POPUP ? "text-sm" : "text-base",
+                )}
+              >
                 <TokenDisplaySymbol tokenId={token.id} />
                 {!!network.isTestnet && (
                   <span className="text-tiny bg-orange-secondary/10 text-fg-orange rounded px-1.5 py-0.5 font-light">
@@ -91,7 +99,20 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
                 <Fiat amount={tvl} noCountUp={noCountUp} /> <span className="text-tiny">TVL</span>
               </div>
             )}
-            {!isUniswapV2LpToken && !!rate && (
+            {!isUniswapV2LpToken && !!rate && token.type === "substrate-dtao" && (
+              <div className="text-fg-secondary flex items-center gap-1 whitespace-nowrap text-xs">
+                <span>{`SN${token.netuid}`}</span>
+                <BalanceSeparator />
+                <AssetPrice
+                  tokenId={token.id}
+                  balances={balances}
+                  noChange
+                  as="span"
+                  tooltipLabel={t("Alpha Price")}
+                />
+              </div>
+            )}
+            {!isUniswapV2LpToken && !!rate && token.type !== "substrate-dtao" && (
               <AssetPrice
                 tokenId={token.id}
                 balances={balances}
@@ -109,8 +130,10 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             tokens={summary.totalTokens}
             fiat={summary.totalFiat}
             symbol={isUniswapV2LpToken ? "" : token.symbol}
+            isRootTao={isRootTaoHolding(token)}
             change24hPct={displayPrice?.change24hValue ?? null}
             balancesStatus={status}
+            amountClassName="text-sm"
             className={classNames(
               canStake && "group-hover:hidden",
               status.status === "fetching" && "animate-pulse transition-opacity",

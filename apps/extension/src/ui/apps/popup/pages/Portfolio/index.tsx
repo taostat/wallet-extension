@@ -107,7 +107,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
 
 export const Portfolio = () => {
   const location = useLocation()
-  const isAccountsHome = !location.pathname.includes("/tokens")
+  const isTokenDetail = /\/portfolio\/tokens\/.+/.test(location.pathname)
 
   return (
     <PortfolioContainer renderWhileLoading>
@@ -116,7 +116,7 @@ export const Portfolio = () => {
           <div className="flex size-full flex-col gap-2 py-4">
             <header className="flex items-center justify-between p-2 pt-0">
               <TaostatsLogo className="h-[15px] w-auto" />
-              {!isAccountsHome && <HideBalancesToggle />}
+              {isTokenDetail && <HideBalancesToggle />}
             </header>
             <PortfolioRoutes />
             <BottomNav />

@@ -2,20 +2,19 @@ import { isNetworkDot } from "@taostats-wallet/chaindata-provider"
 import { isAccountAddressSs58 } from "extension-core"
 import { FC, Suspense, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { useMatch } from "react-router-dom"
+import { useMatch, useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
-import { PopupAssetsTable } from "@ui/domains/Portfolio/AssetsTable"
+import { DashboardAssetsTable } from "@ui/domains/Portfolio/AssetsTable"
+import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { PortfolioTabs } from "@ui/domains/Portfolio/PortfolioTabs"
 import { PortfolioToolbarTokens } from "@ui/domains/Portfolio/PortfolioToolbarTokens"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioGlobalData } from "@ui/state"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
-
-import { PortfolioAssetsHeader } from "./shared/PortfolioAssetsHeader"
 
 const EnableNetworkMessage: FC<{ type?: "substrate" }> = ({ type }) => {
   const { t } = useTranslation()
@@ -65,7 +64,7 @@ const MainContent: FC = () => {
   if (matchTokens)
     return (
       <>
-        <PopupAssetsTable />
+        <DashboardAssetsTable />
         <PopupAnalyticsEvent name="portfolio assets" />
       </>
     )
@@ -74,20 +73,32 @@ const MainContent: FC = () => {
 }
 
 export const PortfolioAssets = () => {
-  return (
-    <>
-      <PortfolioAssetsHeader />
-      <PortfolioTabs className="mt-2" />
-      <Suspense fallback={<SuspenseTracker name="PortfolioAssets.TabContent" />}>
-        <PortfolioAssetsToolbar />
-        <MainContent />
-      </Suspense>
-    </>
-  )
-}
-
-const PortfolioAssetsToolbar = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
   const matchTokens = useMatch("/portfolio/tokens")
 
-  return <>{!!matchTokens && <PortfolioToolbarTokens />}</>
+  const handleBack = useCallback(() => {
+    navigate("/portfolio")
+  }, [navigate])
+
+  return (
+    <div className="flex w-full flex-col gap-3">
+      <DashboardPortfolioHeader variant="popup" onBack={handleBack} />
+      <PortfolioTabs />
+      {!!matchTokens && <div className="border-primary -mx-2 border-b" />}
+      <Suspense fallback={<SuspenseTracker name="PortfolioAssets.TabContent" />}>
+        {!!matchTokens && (
+          <>
+            <div className="w-full overflow-hidden">
+              <Suspense fallback={<SuspenseTracker name="PortfolioAssets.Toolbar" />}>
+                <PortfolioToolbarTokens />
+              </Suspense>
+            </div>
+            <div className="text-fg-primary text-md font-medium">{t("Holdings")}</div>
+          </>
+        )}
+        <MainContent />
+      </Suspense>
+    </div>
+  )
 }

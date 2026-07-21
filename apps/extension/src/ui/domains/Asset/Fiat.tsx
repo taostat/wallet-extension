@@ -16,6 +16,8 @@ type FiatProps = {
   isBalance?: boolean
   noCountUp?: boolean
   forceCurrency?: TokenRateCurrency
+  /** Render "<$0.01" instead of "< $0.01" for sub-cent balances. */
+  compactLessThan?: boolean
 }
 
 type DisplayValueProps = {
@@ -24,6 +26,7 @@ type DisplayValueProps = {
   currencyDisplay?: Intl.NumberFormatOptions["currencyDisplay"]
   isBalance?: boolean
   noCountUp?: boolean
+  compactLessThan?: boolean
 }
 
 export const Fiat = ({
@@ -33,6 +36,7 @@ export const Fiat = ({
   isBalance = false,
   noCountUp = false,
   forceCurrency,
+  compactLessThan,
 }: FiatProps) => {
   const { refReveal, isRevealable, isRevealed, isHidden, effectiveNoCountUp } =
     useRevealableBalance(isBalance, noCountUp)
@@ -59,6 +63,7 @@ export const Fiat = ({
           currencyDisplay={currencyDisplay}
           isBalance={isBalance}
           noCountUp={effectiveNoCountUp}
+          compactLessThan={compactLessThan}
         />
       )}
     </span>
@@ -67,7 +72,7 @@ export const Fiat = ({
 
 // Memoize to smooth up the count up animation
 const DisplayValue = React.memo(
-  ({ amount, currency, currencyDisplay, isBalance, noCountUp }: DisplayValueProps) => {
+  ({ amount, currency, currencyDisplay, isBalance, noCountUp, compactLessThan }: DisplayValueProps) => {
     const decimalPlacesCount = getDecimalPlacesCount(amount)
     // for non balances (ie: prices), display 3 meaningful digits starting from the first non-zero digit => decimalPlacesCount + 2
     const decimalPlaces =
@@ -75,12 +80,15 @@ const DisplayValue = React.memo(
 
     const format = useCallback(
       (amount = 0) => {
-        if (amount !== 0 && isBalance && Math.abs(amount) < 0.01)
-          return `${amount < 0 ? "-" : ""}< ${formatFiat(0.01, currency, currencyDisplay, 2)}`
+        if (amount !== 0 && isBalance && Math.abs(amount) < 0.01) {
+          const threshold = formatFiat(0.01, currency, currencyDisplay, 2)
+          const lessThan = compactLessThan ? `<${threshold}` : `< ${threshold}`
+          return `${amount < 0 ? "-" : ""}${lessThan}`
+        }
 
         return formatFiat(amount, currency, currencyDisplay, decimalPlaces)
       },
-      [currency, currencyDisplay, decimalPlaces, isBalance],
+      [compactLessThan, currency, currencyDisplay, decimalPlaces, isBalance],
     )
     const formatted = useMemo(() => format(amount), [format, amount])
 

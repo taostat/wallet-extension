@@ -2,6 +2,7 @@ import { PopoutIcon } from "@taostats-wallet/icons"
 import { classNames, isNotNil } from "@taostats-wallet/util"
 import { ArrowDownLeft } from "@untitledui/icons/ArrowDownLeft"
 import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
 import { Eye } from "@untitledui/icons/Eye"
 import { EyeOff } from "@untitledui/icons/EyeOff"
@@ -201,6 +202,7 @@ export type PortfolioHeaderProps = {
   variant?: "dashboard" | "popup"
   disabled?: boolean
   onNavigate?: () => void
+  onBack?: () => void
 }
 
 export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
@@ -208,9 +210,11 @@ export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
   variant = "dashboard",
   disabled,
   onNavigate,
+  onBack,
 }) => {
   const { t } = useTranslation()
   const isPopup = variant === "popup"
+  const showTotalPortfolioTitle = isPopup && !onBack
   const { selectedAccount, selectedFolder } = usePortfolioNavigation()
   const allBalances = useBalances()
   const portfolioBalances = useBalances("portfolio")
@@ -255,15 +259,24 @@ export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
   return (
     <SurfaceCard className={classNames("gap-lg p-xl z-0 flex flex-col", className)}>
       <div className="gap-md z-[1] flex w-full items-center justify-between">
-        {isPopup ? (
-          <div className="text-fg-primary text-sm font-semibold">{t("Total Portfolio")}</div>
-        ) : (
-          <SelectionScope folder={selectedFolder} account={selectedAccount} />
-        )}
+        <div className="gap-xs flex min-w-0 grow items-center overflow-hidden">
+          {onBack && (
+            <IconButton className="text-fg-tertiary hover:text-fg-primary size-7 shrink-0" onClick={onBack}>
+              <ChevronLeft className="size-4" />
+            </IconButton>
+          )}
+          {showTotalPortfolioTitle ? (
+            <div className="text-fg-primary text-sm font-semibold">{t("Total Portfolio")}</div>
+          ) : (
+            <SelectionScope folder={selectedFolder} account={selectedAccount} />
+          )}
+        </div>
         <div className="gap-xs flex shrink-0 items-center">
           <HideBalancesButton />
-          {!isPopup && <ScopeContextMenu account={selectedAccount} folder={selectedFolder} />}
-          {isPopup && IS_EMBEDDED_POPUP && <PopoutButton />}
+          {(!isPopup || selectedAccount || selectedFolder) && (
+            <ScopeContextMenu account={selectedAccount} folder={selectedFolder} />
+          )}
+          {showTotalPortfolioTitle && IS_EMBEDDED_POPUP && <PopoutButton />}
         </div>
       </div>
 
@@ -313,7 +326,7 @@ type ActionProps = {
   disabledReason?: string
 }
 
-const Action: FC<ActionProps & { analyticsPage: AnalyticsPage }> = ({
+const Action: FC<ActionProps & { analyticsPage: AnalyticsPage; variant?: "dashboard" | "popup" }> = ({
   analyticsName,
   analyticsAction,
   label,
@@ -323,6 +336,7 @@ const Action: FC<ActionProps & { analyticsPage: AnalyticsPage }> = ({
   disabled,
   disabledReason,
   analyticsPage,
+  variant = "dashboard",
 }) => {
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
@@ -344,7 +358,11 @@ const Action: FC<ActionProps & { analyticsPage: AnalyticsPage }> = ({
           type="button"
           color="secondary"
           fullWidth
-          className="pointer-events-auto h-11 font-medium disabled:cursor-not-allowed disabled:opacity-50"
+          size={variant === "popup" ? "header" : undefined}
+          className={classNames(
+            "pointer-events-auto font-medium disabled:cursor-not-allowed disabled:opacity-50",
+            variant === "dashboard" && "h-11",
+          )}
           onClick={handleClick}
           disabled={disabled}
           icon={Icon}
@@ -460,7 +478,7 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
   return (
     <div className="gap-sm z-[1] grid w-full grid-cols-3">
       {topActions.map((action, index) => (
-        <Action key={index} {...action} analyticsPage={analyticsPage} />
+        <Action key={index} {...action} analyticsPage={analyticsPage} variant={variant} />
       ))}
     </div>
   )

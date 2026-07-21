@@ -8,21 +8,28 @@ import { PercentChangePill, Tooltip, TooltipContent, TooltipTrigger } from "taos
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useSelectedCurrency } from "@ui/state"
 
+import { BalanceSeparator } from "../Asset/BalanceSeparator"
+import { currencyConfig } from "../Asset/currencyConfig"
 import { Fiat } from "../Asset/Fiat"
 import { Tokens } from "../Asset/Tokens"
 import { StaleBalancesIcon } from "./StaleBalancesIcon"
+import { isAlphaSymbol, isRootTaoHolding, isRootTaoSymbol } from "./isRootTaoHolding"
 
 type Props = {
   locked?: boolean
   tokens: BigNumber | number
   fiat: number | null
   symbol: string
+  /** Root / native TAO (netuid 0 or substrate-native TAO). */
+  isRootTao?: boolean
   /** 24h price change in percentage points (e.g. 3.01 for +3.01%). */
   change24hPct?: number | null
   /** Tooltip for the tokens / fiat line (e.g. locked / available labels). */
   tooltip?: string
   render?: boolean
   className?: string
+  /** Applied to the primary token / fiat amount line. */
+  amountClassName?: string
   balancesStatus?: BalancesStatus
   noCountUp?: boolean
 }
@@ -32,10 +39,12 @@ export const AssetBalanceCellValue = ({
   tokens,
   fiat,
   symbol,
+  isRootTao,
   change24hPct,
   tooltip,
   render = true,
   className,
+  amountClassName,
   balancesStatus,
   noCountUp,
 }: Props) => {
@@ -50,25 +59,47 @@ export const AssetBalanceCellValue = ({
 
   if (!render) return null
 
+  const isRootTaoBalance = isRootTao || isRootTaoSymbol(symbol)
+  const showTaoFiatOnly = isRootTaoBalance && currency === "tao"
+  const showSecondaryValue = fiat !== null && !showTaoFiatOnly
+
   const balanceLine = (
     <div
       className={classNames(
         "flex items-center justify-end gap-1",
+        amountClassName,
         locked ? "text-fg-secondary" : "text-fg-primary",
       )}
     >
       <div className="flex items-baseline gap-1">
-        <Tokens
-          amount={tokens}
-          symbol={symbol}
-          isBalance
-          noCountUp={noCountUp}
-          noSpaceBeforeSymbol
-        />
-        {fiat !== null && (
+        {showTaoFiatOnly ? (
+          <Fiat
+            amount={fiat ?? (BigNumber.isBigNumber(tokens) ? tokens.toNumber() : tokens)}
+            isBalance
+            noCountUp={noCountUp}
+            forceCurrency="tao"
+          />
+        ) : (
           <>
-            <span className="text-fg-brand px-0.5">/</span>
-            <Fiat amount={fiat} isBalance noCountUp={noCountUp} />
+            <Tokens
+              amount={tokens}
+              symbol={isRootTaoBalance ? currencyConfig.tao.symbol : symbol}
+              isBalance
+              noCountUp={noCountUp}
+              noSpaceBeforeSymbol
+              symbolBeforeAmount={isRootTaoBalance || isAlphaSymbol(symbol)}
+            />
+            {showSecondaryValue && (
+              <>
+                <BalanceSeparator />
+                <Fiat
+                  amount={fiat}
+                  isBalance
+                  noCountUp={noCountUp}
+                  forceCurrency={isRootTaoBalance ? "usd" : undefined}
+                />
+              </>
+            )}
           </>
         )}
       </div>
@@ -115,7 +146,7 @@ export const AssetBalanceCellValue = ({
               >
                 <span
                   className={classNames(
-                    "inline-flex items-baseline text-sm",
+                    "inline-flex items-baseline font-mono text-xs",
                     holdingChange > 0 && "text-fg-brand",
                     holdingChange < 0 && "text-accent-2",
                     holdingChange === 0 && "text-fg-tertiary",
@@ -127,6 +158,7 @@ export const AssetBalanceCellValue = ({
                     amount={Math.abs(holdingChange)}
                     isBalance
                     noCountUp
+                    compactLessThan
                     forceCurrency={currency}
                   />
                 </span>

@@ -3,6 +3,7 @@ import { Loading01 } from "@untitledui/icons/Loading01"
 import { forwardRef, SVGProps, useMemo } from "react"
 
 type ButtonColor = "default" | "primary" | "secondary" | "brand" | "red" | "orange"
+type ButtonSize = "default" | "small" | "header"
 
 export type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -12,6 +13,7 @@ export type ButtonProps = React.DetailedHTMLProps<
   primary?: boolean
   fullWidth?: boolean
   small?: boolean
+  size?: ButtonSize
   /** Square icon-sized button (e.g. currency toggle). */
   iconOnly?: boolean
   icon?: React.FC<SVGProps<SVGSVGElement>>
@@ -27,6 +29,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     primary,
     fullWidth,
     small,
+    size: sizeProp,
     iconOnly,
     processing,
     className,
@@ -36,6 +39,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
+  const size: ButtonSize = sizeProp ?? (small ? "small" : "default")
+
   const colors = useMemo(() => {
     // color prop takes precedence over primary flag
     const effectiveColor: ButtonColor = color ?? (primary ? "primary" : "default")
@@ -74,6 +79,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     }
   }, [color, disabled, primary])
 
+  const sizeClasses = useMemo(() => {
+    if (iconOnly) return "size-8 shrink-0 rounded-md text-sm"
+
+    switch (size) {
+      case "small":
+        return "px-md py-xs gap-xs rounded-sm text-xs"
+      case "header":
+        return "px-lg py-md gap-xs rounded-md text-sm"
+      default:
+        return "gap-xs rounded-md px-3.5 py-2.5 text-sm"
+    }
+  }, [iconOnly, size])
+
   return (
     <button
       ref={ref}
@@ -81,11 +99,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={disabled || processing}
       className={classNames(
         "relative inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors duration-200 ease-linear disabled:pointer-events-none",
-        iconOnly
-          ? "size-8 shrink-0 rounded-md text-sm"
-          : small
-            ? "px-md py-xs gap-xs rounded-sm text-xs"
-            : "gap-xs rounded-md px-3.5 py-2.5 text-sm",
+        sizeClasses,
         fullWidth ? "w-full" : "",
         colors,
         className,
@@ -97,14 +111,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           className={classNames("gap-xs flex items-center", !disabled && processing && "invisible")}
         >
           {IconLeft && (
-            <div className={small || iconOnly ? "text-sm" : "text-md"}>
-              <IconLeft className={small || iconOnly ? "size-3.5" : "size-4"} />
+            <div className={size === "default" && !iconOnly ? "text-md" : "text-sm"}>
+              <IconLeft className={size === "default" && !iconOnly ? "size-4" : "size-3.5"} />
             </div>
           )}
           <div>{children}</div>
           {Icon && (
-            <div className={small || iconOnly ? "text-sm" : "text-md"}>
-              <Icon className={small || iconOnly ? "size-3.5" : "size-4"} />
+            <div className={size === "default" && !iconOnly ? "text-md" : "text-sm"}>
+              <Icon className={size === "default" && !iconOnly ? "size-4" : "size-3.5"} />
             </div>
           )}
         </div>

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
+import { isRootTaoHolding } from "@ui/domains/Portfolio/isRootTaoHolding"
 import { StakeButton } from "@ui/domains/Staking/Stake/StakeButton"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { getTokenName } from "@ui/util/getTokenName"
@@ -94,6 +95,7 @@ export const TokenBalancesList = ({
             tokens={summary.lockedTokens}
             fiat={summary.lockedFiat}
             symbol={symbol}
+            isRootTao={isRootTaoHolding(token)}
             tooltip={t("Total Locked Balance")}
             balancesStatus={status}
             className={classNames(
@@ -109,6 +111,7 @@ export const TokenBalancesList = ({
             tokens={summary.availableTokens}
             fiat={summary.availableFiat}
             symbol={symbol}
+            isRootTao={isRootTaoHolding(token)}
             tooltip={t("Total Available Balance")}
             balancesStatus={status}
             className={classNames(

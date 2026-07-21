@@ -17,6 +17,8 @@ type TokensProps = {
   isBalance?: boolean
   /** Omit the space between the amount and symbol (e.g. `12.3α`). */
   noSpaceBeforeSymbol?: boolean
+  /** Render symbol before the amount (e.g. `α12.3`). */
+  symbolBeforeAmount?: boolean
 }
 
 type DisplayValueProps = {
@@ -24,11 +26,12 @@ type DisplayValueProps = {
   symbol?: string | null
   noCountUp?: boolean
   noSpaceBeforeSymbol?: boolean
+  symbolBeforeAmount?: boolean
 }
 
 // Memoize to smooth up the count up animation
 const DisplayValue: FC<DisplayValueProps> = React.memo(
-  ({ amount, symbol, noCountUp, noSpaceBeforeSymbol }) => {
+  ({ amount, symbol, noCountUp, noSpaceBeforeSymbol, symbolBeforeAmount }) => {
     const num = useMemo(
       () => (BigNumber.isBigNumber(amount) ? amount.toNumber() : Number(amount)),
       [amount],
@@ -36,11 +39,36 @@ const DisplayValue: FC<DisplayValueProps> = React.memo(
 
     const formated = useMemo(() => formatDecimals(num), [num])
     const gap = noSpaceBeforeSymbol ? "" : " "
+    const formattedAmount = noCountUp || formated.startsWith("<") ? formated : null
 
     if (isNaN(num)) return null
 
-    if (noCountUp || formated.startsWith("<"))
-      return <>{`${formated}${gap}${symbol ?? ""}`.trim()}</>
+    if (formattedAmount !== null) {
+      return (
+        <>
+          {symbolBeforeAmount ? `${symbol ?? ""}${gap}${formattedAmount}` : `${formattedAmount}${gap}${symbol ?? ""}`}
+        </>
+      )
+    }
+
+    if (symbolBeforeAmount) {
+      return (
+        <>
+          {symbol ?? ""}
+          {gap}
+          <CountUp
+            end={num}
+            decimals={num >= 1000 ? 0 : (formated.split(".")[1]?.length ?? 0)} // define the decimals based on the formatted number
+            decimal="."
+            separator=","
+            duration={0.4}
+            formattingFn={formatDecimals}
+            useEasing
+            preserveValue
+          />
+        </>
+      )
+    }
 
     return (
       <>
@@ -72,16 +100,20 @@ export const Tokens: FC<TokensProps> = ({
   noCountUp,
   isBalance = false,
   noSpaceBeforeSymbol,
+  symbolBeforeAmount,
 }) => {
   const { refReveal, isRevealable, isRevealed, isHidden, effectiveNoCountUp } =
     useRevealableBalance(isBalance, noCountUp)
 
   const tooltipAmount = useMemo(() => {
     const gap = noSpaceBeforeSymbol ? "" : " "
-    return `${formatDecimals(amount, decimals ?? MAX_DECIMALS_FORMAT, { notation: "standard" })}${gap}${
-      symbol ?? ""
-    }`.trim()
-  }, [amount, decimals, noSpaceBeforeSymbol, symbol])
+    const formatted = formatDecimals(amount, decimals ?? MAX_DECIMALS_FORMAT, {
+      notation: "standard",
+    })
+    return symbolBeforeAmount
+      ? `${symbol ?? ""}${gap}${formatted}`.trim()
+      : `${formatted}${gap}${symbol ?? ""}`.trim()
+  }, [amount, decimals, noSpaceBeforeSymbol, symbol, symbolBeforeAmount])
   const tooltip = useMemo(() => (noTooltip ? null : tooltipAmount), [noTooltip, tooltipAmount])
 
   const render = amount !== null && amount !== undefined
@@ -105,6 +137,7 @@ export const Tokens: FC<TokensProps> = ({
                 symbol={symbol}
                 noCountUp={effectiveNoCountUp}
                 noSpaceBeforeSymbol={noSpaceBeforeSymbol}
+                symbolBeforeAmount={symbolBeforeAmount}
               />
             </span>
           </TooltipTrigger>
