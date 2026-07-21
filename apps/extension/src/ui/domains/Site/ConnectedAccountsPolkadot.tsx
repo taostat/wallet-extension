@@ -48,7 +48,7 @@ export const ConnectedAccountsPolkadot: FC<{
 
   return (
     <>
-      <div className="mb-1 mt-3 flex w-full items-center justify-between gap-1.5 overflow-hidden px-4 text-xs">
+      <div className="mb-1 mt-3 flex w-full items-center justify-between gap-1.5 overflow-hidden px-2 text-xs">
         <div className="flex items-center gap-1 truncate">
           <button
             type="button"

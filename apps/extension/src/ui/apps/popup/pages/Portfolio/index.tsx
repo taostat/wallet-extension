@@ -99,7 +99,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <ScrollContainer ref={scrollableRef} className={classNames("size-full overflow-hidden px-4")}>
+    <ScrollContainer ref={scrollableRef} className={classNames("size-full overflow-hidden px-2")}>
       {children}
     </ScrollContainer>
   )
@@ -110,20 +110,20 @@ export const Portfolio = () => {
   const isAccountsHome = !location.pathname.includes("/tokens")
 
   return (
-  <PortfolioContainer renderWhileLoading>
-    <div id="main" className="relative size-full overflow-hidden">
-      <Content>
-        <div className="flex size-full flex-col gap-2 py-4">
-          <header className="flex items-center justify-between p-2 pt-0">
-            <TaostatsLogo className="h-[15px] w-auto" />
-            {!isAccountsHome && <HideBalancesToggle />}
-          </header>
-          <PortfolioRoutes />
-          <BottomNav />
-        </div>
-      </Content>
-      <NavigationDrawer />
-    </div>
-  </PortfolioContainer>
+    <PortfolioContainer renderWhileLoading>
+      <div id="main" className="relative size-full overflow-hidden">
+        <Content>
+          <div className="flex size-full flex-col gap-2 py-4">
+            <header className="flex items-center justify-between p-2 pt-0">
+              <TaostatsLogo className="h-[15px] w-auto" />
+              {!isAccountsHome && <HideBalancesToggle />}
+            </header>
+            <PortfolioRoutes />
+            <BottomNav />
+          </div>
+        </Content>
+        <NavigationDrawer />
+      </div>
+    </PortfolioContainer>
   )
 }
