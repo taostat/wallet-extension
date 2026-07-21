@@ -1,8 +1,25 @@
 import { sleep } from "@taostats-wallet/util"
-import { IS_FIREFOX, log } from "extension-shared"
+import {
+  IS_CHROME,
+  IS_FIREFOX,
+  log,
+  NAVIGATE_SIDE_PANEL_MESSAGE,
+  OPEN_SIDEPANEL_MESSAGE,
+  SIDE_PANEL_AFTER_APPROVAL_MESSAGE,
+  SIDE_PANEL_VISIBILITY_MESSAGE,
+  SIDE_PANEL_WAS_OPEN_KEY,
+} from "extension-shared"
 
 import { appStore } from "../domains/app/store.app"
 import { RequestRoute } from "../domains/app/types"
+
+/** Returned when UI is shown in the Chrome side panel instead of a popup window. */
+export const SIDE_PANEL_SURFACE_ID = -1
+
+export type PopupOpenOptions = {
+  /** When false on Chrome, never opens a floating popup (side panel only). */
+  allowPopupFallback?: boolean
+}
 
 const WINDOW_OPTS: chrome.windows.CreateData & { width: number; height: number } = {
   type: "popup",
@@ -11,12 +28,189 @@ const WINDOW_OPTS: chrome.windows.CreateData & { width: number; height: number }
   height: 600,
 }
 
+const DEFAULT_SIDE_PANEL_PORTFOLIO_PATH = "popup.html#/portfolio"
+
 class WindowManager {
   #windows: number[] = []
   // Prevents opening two onboarding tabs at once
   #onboardingTabOpening = false
   // Prevents opening two login popups at once
   #isLoginPromptOpen = false
+  #sidePanelCloseCallbacks = new Set<() => void>()
+  #initialized = false
+  /** Tab that triggered a dapp approval — used to route the side panel without a user gesture. */
+  #gestureTabId: number | undefined
+  /** Whether the side panel is currently visible to the user. */
+  #sidePanelKnownOpen = false
+  /** Snapshot taken once per dapp approval (guards against double-recording from content script + port handler). */
+  #sidePanelWasOpenBeforeCurrentApproval: boolean | undefined
+  /** Dapp tab/window that opened the panel for the current approval — used to close it again. */
+  #approvalTabId: number | undefined
+  #approvalWindowId: number | undefined
+
+  private canUseSidePanel() {
+    return IS_CHROME && Boolean(chrome.sidePanel?.setOptions)
+  }
+
+  private resetSidePanelApprovalTracking() {
+    this.#sidePanelWasOpenBeforeCurrentApproval = undefined
+    void chrome.storage.session.remove(SIDE_PANEL_WAS_OPEN_KEY)
+  }
+
+  private recordSidePanelStateBeforeApproval() {
+    if (this.#sidePanelWasOpenBeforeCurrentApproval !== undefined) return
+
+    this.#sidePanelWasOpenBeforeCurrentApproval = this.#sidePanelKnownOpen
+    void chrome.storage.session.set({ [SIDE_PANEL_WAS_OPEN_KEY]: this.#sidePanelKnownOpen })
+  }
+
+  /**
+   * Opens the side panel during a user gesture when needed.
+   * Skips open if the panel is already visible so post-approval close can restore prior state.
+   */
+  private openSidePanelDuringGesture(tabId?: number, windowId?: number) {
+    this.recordSidePanelStateBeforeApproval()
+
+    if (tabId !== undefined) this.#approvalTabId = tabId
+    if (windowId !== undefined) this.#approvalWindowId = windowId
+
+    if (this.#sidePanelKnownOpen) return
+
+    try {
+      if (tabId !== undefined) chrome.sidePanel.open({ tabId })
+      else if (windowId !== undefined) chrome.sidePanel.open({ windowId })
+    } catch (err) {
+      log.error("Failed to open side panel during user gesture", err)
+    }
+  }
+
+  private async resetSidePanelPath(tabId?: number, path = DEFAULT_SIDE_PANEL_PORTFOLIO_PATH) {
+    if (!this.canUseSidePanel()) return
+
+    try {
+      if (tabId !== undefined) {
+        await chrome.sidePanel.setOptions({ tabId, path, enabled: true })
+      }
+      await chrome.sidePanel.setOptions({ path, enabled: true })
+    } catch (err) {
+      log.error("Failed to reset side panel path", { tabId, err })
+    }
+  }
+
+  private async closeSidePanel(windowId?: number, tabId?: number) {
+    if (!this.canUseSidePanel()) return
+
+    const sidePanel = chrome.sidePanel as typeof chrome.sidePanel & {
+      close?: (options: { windowId?: number; tabId?: number }) => Promise<void>
+    }
+
+    const attempts: Array<{ tabId?: number; windowId?: number }> = []
+    if (tabId !== undefined) attempts.push({ tabId })
+    if (windowId !== undefined) attempts.push({ windowId })
+    if (attempts.length === 0) {
+      const win = await chrome.windows.getLastFocused()
+      if (win.id !== undefined) attempts.push({ windowId: win.id })
+    }
+
+    if (sidePanel.close) {
+      for (const options of attempts) {
+        try {
+          await sidePanel.close(options)
+          this.#sidePanelKnownOpen = false
+          return
+        } catch (err) {
+          log.warn("chrome.sidePanel.close attempt failed", { options, err })
+        }
+      }
+    }
+
+    // No close API or all attempts failed — keep portfolio visible rather than a blank panel.
+    await this.notifySidePanelNavigation("#/portfolio")
+  }
+
+  async handleSidePanelAfterApproval(windowId?: number) {
+    const stored = await chrome.storage.session.get(SIDE_PANEL_WAS_OPEN_KEY)
+    const hasSnapshot =
+      this.#sidePanelWasOpenBeforeCurrentApproval !== undefined ||
+      stored[SIDE_PANEL_WAS_OPEN_KEY] !== undefined
+
+    if (!hasSnapshot) return
+
+    const wasOpenBeforeApproval =
+      this.#sidePanelWasOpenBeforeCurrentApproval ?? stored[SIDE_PANEL_WAS_OPEN_KEY] === true
+
+    const tabId = this.#approvalTabId
+    const approvalWindowId = windowId ?? this.#approvalWindowId
+
+    this.resetSidePanelApprovalTracking()
+    this.#approvalTabId = undefined
+    this.#approvalWindowId = undefined
+
+    // Clear tab-specific approval URL so the next toolbar open loads portfolio.
+    await this.resetSidePanelPath(tabId)
+
+    if (wasOpenBeforeApproval) {
+      await this.notifySidePanelNavigation("#/portfolio")
+      return
+    }
+
+    await this.closeSidePanel(approvalWindowId, tabId)
+  }
+
+  /** Called during a dapp user gesture to open the side panel before async approval handling. */
+  captureGestureAndOpenSidePanel(tabId?: number, windowId?: number) {
+    if (!this.canUseSidePanel()) return
+
+    if (tabId !== undefined) this.#gestureTabId = tabId
+
+    this.openSidePanelDuringGesture(tabId, windowId)
+  }
+
+  init() {
+    if (this.#initialized || !IS_CHROME || !chrome.sidePanel?.open) return
+    this.#initialized = true
+
+    chrome.sidePanel
+      .setPanelBehavior({ openPanelOnActionClick: true })
+      .catch((err) => log.error("Failed to set side panel behavior", err))
+
+    chrome.runtime.onMessage.addListener((message, sender) => {
+      if (message?.type === SIDE_PANEL_VISIBILITY_MESSAGE) {
+        this.#sidePanelKnownOpen = message.visible === true
+        return
+      }
+
+      if (message?.type === SIDE_PANEL_AFTER_APPROVAL_MESSAGE) {
+        void this.handleSidePanelAfterApproval(message.windowId as number | undefined)
+        return
+      }
+
+      if (message?.type !== OPEN_SIDEPANEL_MESSAGE) return
+
+      const tabId = sender.tab?.id
+      const windowId = sender.tab?.windowId
+
+      if (tabId !== undefined) this.#gestureTabId = tabId
+
+      // Must call open synchronously to preserve the user gesture chain.
+      this.openSidePanelDuringGesture(tabId, windowId)
+    })
+
+    const sidePanel = chrome.sidePanel as typeof chrome.sidePanel & {
+      onClosed?: chrome.events.Event<(windowId: number) => void>
+      onOpened?: chrome.events.Event<(windowId: number) => void>
+    }
+
+    sidePanel.onOpened?.addListener(() => {
+      this.#sidePanelKnownOpen = true
+    })
+
+    sidePanel.onClosed?.addListener(() => {
+      this.#sidePanelKnownOpen = false
+      this.#sidePanelCloseCallbacks.forEach((cb) => cb())
+      this.#sidePanelCloseCallbacks.clear()
+    })
+  }
 
   private waitTabLoaded = (tabId: number): Promise<void> => {
     // wait either page to be loaded or a 3 seconds timeout, first to occur wins
@@ -65,7 +259,7 @@ class WindowManager {
       const { windowId } = await chrome.tabs.update(tab.id, options)
 
       if (shouldFocus && windowId) {
-        const { focused } = await chrome.windows.get(windowId)
+        const { focused } = await chrome.windows.getLastFocused()
         if (!focused) await chrome.windows.update(windowId, { focused: true })
       }
     } else {
@@ -101,6 +295,8 @@ class WindowManager {
   }
 
   async popupClose(id?: number) {
+    if (id === SIDE_PANEL_SURFACE_ID) return
+
     if (id) {
       await chrome.windows.remove(id)
       this.#windows = this.#windows.filter((wid) => wid !== id)
@@ -110,7 +306,72 @@ class WindowManager {
     }
   }
 
-  async popupOpen(argument?: string, onClose?: () => void) {
+  private async notifySidePanelNavigation(hashRoute?: string) {
+    if (!hashRoute) return
+
+    const hash = hashRoute.startsWith("#") ? hashRoute : `#${hashRoute}`
+    const message = { type: NAVIGATE_SIDE_PANEL_MESSAGE, hash }
+
+    // Retry while the side panel React app is mounting.
+    for (let attempt = 0; attempt < 20; attempt++) {
+      try {
+        await chrome.runtime.sendMessage(message)
+        return
+      } catch {
+        await sleep(150)
+      }
+    }
+
+    log.warn("Side panel navigation message was not acknowledged", { hash })
+  }
+
+  private async navigateSidePanel(hashRoute?: string): Promise<boolean> {
+    if (!this.canUseSidePanel()) return false
+
+    try {
+      const gestureTabId = this.#gestureTabId
+      this.#gestureTabId = undefined
+
+      const [activeTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+      const tabId = gestureTabId ?? activeTab?.id
+
+      const path = hashRoute
+        ? `popup.html${hashRoute.startsWith("#") ? hashRoute : `#${hashRoute}`}`
+        : "popup.html"
+
+      // setOptions updates the path for the next open; notifySidePanelNavigation handles an already-open panel.
+      if (tabId !== undefined) {
+        await chrome.sidePanel.setOptions({ tabId, path, enabled: true })
+      } else {
+        await chrome.sidePanel.setOptions({ path, enabled: true })
+      }
+
+      await this.notifySidePanelNavigation(hashRoute)
+
+      return true
+    } catch (err) {
+      log.error("Failed to navigate side panel", err)
+      return false
+    }
+  }
+
+  async popupOpen(argument?: string, onClose?: () => void, options?: PopupOpenOptions) {
+    const allowPopupFallback = options?.allowPopupFallback ?? true
+
+    if (this.canUseSidePanel()) {
+      const navigated = await this.navigateSidePanel(argument)
+
+      if (navigated || !allowPopupFallback) {
+        if (onClose) this.#sidePanelCloseCallbacks.add(onClose)
+        return SIDE_PANEL_SURFACE_ID
+      }
+    }
+
+    if (!allowPopupFallback && this.canUseSidePanel()) {
+      if (onClose) this.#sidePanelCloseCallbacks.add(onClose)
+      return SIDE_PANEL_SURFACE_ID
+    }
+
     const currWindow = await chrome.windows.getLastFocused()
     const [widthDelta, heightDelta] = await appStore.get("popupSizeDelta")
 
@@ -151,9 +412,9 @@ class WindowManager {
     }
 
     if (onClose) {
-      chrome.windows.onRemoved.addListener((id) => {
+      chrome.windows.onRemoved.addListener(function onRemoved(id) {
         if (id === popup.id) {
-          this.#windows = this.#windows.filter((wid) => wid !== id)
+          chrome.windows.onRemoved.removeListener(onRemoved)
           onClose()
         }
       })

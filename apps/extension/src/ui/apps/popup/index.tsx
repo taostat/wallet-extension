@@ -24,7 +24,9 @@ import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { MigrationProgress } from "@ui/domains/System/MigrationProgress"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 import { useLoginCheck } from "@ui/hooks/useLoginCheck"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
+import { SidePanelNavigationListener } from "./components/SidePanelNavigationListener"
 import { LedgerPolkadotUpgradeAlertDrawer } from "./components/LedgerPolkadotUpgradeDrawer"
 import { Connect } from "./pages/Connect"
 import { Encrypt } from "./pages/Encrypt"
@@ -47,7 +49,7 @@ const Popup = () => {
       api.onboardOpen()
       // most browsers automatically close the extension popup when giving focus to the onboarding tab
       // but on firefox, we need to close the window explicitely
-      window.close()
+      void closeWalletSurface()
     }
   }, [isOnboarded])
 
@@ -57,6 +59,7 @@ const Popup = () => {
 
   return (
     <FadeIn className="h-full w-full">
+      <SidePanelNavigationListener />
       <Suspense fallback={<SuspenseTracker name="Routes" />}>
         <Routes>
           <Route path="portfolio/*" element={<Portfolio />} />

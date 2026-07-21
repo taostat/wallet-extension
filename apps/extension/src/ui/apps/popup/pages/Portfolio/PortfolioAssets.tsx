@@ -13,6 +13,7 @@ import { PortfolioToolbarTokens } from "@ui/domains/Portfolio/PortfolioToolbarTo
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioGlobalData } from "@ui/state"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import { PortfolioAssetsHeader } from "./shared/PortfolioAssetsHeader"
 
@@ -21,7 +22,7 @@ const EnableNetworkMessage: FC<{ type?: "substrate" }> = ({ type }) => {
   const handleClick = useCallback(() => {
     if (type === "substrate") api.dashboardOpen("/settings/networks-tokens/networks/polkadot")
     else api.dashboardOpen("/settings/networks-tokens/networks")
-    window.close()
+    void closeWalletSurface()
   }, [type])
 
   return (

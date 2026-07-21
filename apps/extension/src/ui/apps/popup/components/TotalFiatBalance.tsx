@@ -16,6 +16,7 @@ import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
 import { useAccounts, useSelectedCurrency, useSetting } from "@ui/state"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 type Props = {
   className?: string
@@ -171,7 +172,7 @@ const TopActions = ({ disabled }: { disabled?: boolean }) => {
           analyticsAction: "Send Funds button",
           label: t("Send"),
           icon: Send01,
-          onClick: () => api.sendFundsOpen().then(() => window.close()),
+          onClick: () => api.sendFundsOpen().then(() => void closeWalletSurface()),
           disabled: disableActions,
           disabledReason,
         },

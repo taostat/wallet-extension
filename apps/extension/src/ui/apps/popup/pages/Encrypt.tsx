@@ -11,6 +11,7 @@ import { Message } from "@ui/domains/Sign/Message"
 import { SignAlertMessage } from "@ui/domains/Sign/SignAlertMessage"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useRequest } from "@ui/state"
+import { useCloseIfRequestMissing } from "@ui/util/useCloseIfRequestMissing"
 
 import { PopupContent, PopupFooter, PopupHeader, PopupLayout } from "../Layout/PopupLayout"
 import { SignAccountAvatar } from "./Sign/SignAccountAvatar"
@@ -53,9 +54,7 @@ export const Encrypt = () => {
   const req = useRequest(id)
   const { url, request, approve, reject, status, message, account, type } = useEncryptRequest(req)
 
-  useEffect(() => {
-    if (!req) window.close()
-  }, [req])
+  useCloseIfRequestMissing(id)
 
   useEffect(() => {
     popupOpenEvent("encrypt")

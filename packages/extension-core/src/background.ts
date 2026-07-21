@@ -7,10 +7,13 @@ import { sessionStore } from "./domains/app/store.session"
 import taostatsHandler from "./handlers"
 import { IconManager } from "./libs/IconManager"
 import { setWalletReady } from "./libs/isWalletReady"
+import { windowManager } from "./libs/WindowManager"
 import { MigrationRunner, migrations } from "./libs/migrations"
 import { migrateConnectAllSubstrate } from "./libs/migrations/legacyMigrations"
 
 sentry.init()
+
+windowManager.init()
 
 chrome.action.setBadgeBackgroundColor({ color: "#d90000" })
 

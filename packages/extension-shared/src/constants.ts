@@ -2,10 +2,29 @@ const PORT_SUFFIX =
   process.env.BUILD !== "production" ? `-${process.env.BUILD}-${process.env.RELEASE}` : ""
 export const PORT_EXTENSION = `taostats-extension${PORT_SUFFIX}`
 export const PORT_CONTENT = `taostats-content${PORT_SUFFIX}`
+export const OPEN_SIDEPANEL_MESSAGE = "taostats.openSidePanel"
+export const NAVIGATE_SIDE_PANEL_MESSAGE = "taostats.navigateSidePanel"
+export const SIDE_PANEL_MOUNTED_MESSAGE = "taostats.sidePanelMounted"
+export const SIDE_PANEL_UNMOUNTED_MESSAGE = "taostats.sidePanelUnmounted"
+export const SIDE_PANEL_VISIBILITY_MESSAGE = "taostats.sidePanelVisibility"
+export const SIDE_PANEL_AFTER_APPROVAL_MESSAGE = "taostats.sidePanelAfterApproval"
+/** Session storage key: whether the side panel was already open when a dapp approval started. */
+export const SIDE_PANEL_WAS_OPEN_KEY = "sidePanelWasOpenBeforeApproval"
+
+/** Dapp RPC messages that require user approval UI. */
+export const APPROVAL_UI_MESSAGES = new Set([
+  "pub(authorize.tab)",
+  "pub(bytes.sign)",
+  "pub(extrinsic.sign)",
+  "pub(metadata.provide)",
+  "pub(encrypt.encrypt)",
+  "pub(encrypt.decrypt)",
+])
 export const DEBUG = process.env.DEBUG === "true"
 export const TEST = process.env.NODE_ENV === "test"
 
 export const IS_FIREFOX = process.env.BROWSER === "firefox"
+export const IS_CHROME = process.env.BROWSER === "chrome"
 
 export const TAOSTATS_API_URL = process.env.TAOSTATS_API_URL
 export const ASSET_DISCOVERY_API_URL = ""

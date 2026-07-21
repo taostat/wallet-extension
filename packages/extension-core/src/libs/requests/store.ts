@@ -104,16 +104,21 @@ export class RequestStore {
       } as KnownRespondableRequest<T>
 
       this.requests[id] = { request }
+      this.observable.next(this.getAllRequests())
 
       windowManager
-        .popupOpen(`#/${requestOptions.type}/${id}`, () => {
-          if (!this.requests[id]) return
+        .popupOpen(
+          `#/${requestOptions.type}/${id}`,
+          () => {
+            if (!this.requests[id]) return
 
-          delete this.requests[id]
-          this.observable.next(this.getAllRequests())
+            delete this.requests[id]
+            this.observable.next(this.getAllRequests())
 
-          reject(new Error("Cancelled"))
-        })
+            reject(new Error("Cancelled"))
+          },
+          { allowPopupFallback: false },
+        )
         .then((windowId) => {
           if (windowId === undefined && !TEST) reject(new Error("Failed to open popup"))
           else {

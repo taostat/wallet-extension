@@ -17,6 +17,7 @@ import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { BuildVersionPill } from "@ui/domains/Build/BuildVersionPill"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 import { usePopupNavOpenClose } from "@ui/hooks/usePopupNavOpenClose"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Popup",
@@ -36,7 +37,7 @@ export const NavigationDrawer: FC = () => {
       action: "Lock wallet",
     })
     api.lock()
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleAddAccountClick = useCallback(() => {
@@ -46,7 +47,7 @@ export const NavigationDrawer: FC = () => {
       action: "Add account button",
     })
     api.dashboardOpen("/accounts/add")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleAddressBookClick = useCallback(() => {
@@ -56,7 +57,7 @@ export const NavigationDrawer: FC = () => {
       action: "Address Book button",
     })
     api.dashboardOpen("/settings/address-book")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const allBackedUp = useMnemonicsAllBackedUp()
@@ -67,7 +68,7 @@ export const NavigationDrawer: FC = () => {
       action: "Backup Wallet button",
     })
     api.dashboardOpen("/settings/mnemonics")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleSettingsClick = useCallback(() => {
@@ -77,7 +78,7 @@ export const NavigationDrawer: FC = () => {
       action: "Settings button",
     })
     api.dashboardOpen("/settings/general")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleManageNetworksClick = useCallback(() => {
@@ -87,7 +88,7 @@ export const NavigationDrawer: FC = () => {
       action: "Manage Networks button",
     })
     api.dashboardOpen("/settings/networks-tokens/networks")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   return (

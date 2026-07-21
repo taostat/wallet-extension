@@ -41,6 +41,7 @@ import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNaviga
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
 import { useBalances } from "@ui/state"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import { AuthorisedSiteToolbar } from "../../components/AuthorisedSiteToolbar"
 import { PopupHomeBanners } from "../../components/banners/PopupHomeBanners"
@@ -195,7 +196,7 @@ const AccountsToolbar = () => {
       action: "Add account button",
     })
     api.dashboardOpen("/accounts/add")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleManageAccountsClick = useCallback(() => {

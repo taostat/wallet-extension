@@ -14,6 +14,7 @@ import { MetadataStatus } from "@ui/domains/Sign/MetadataStatus"
 import { SignAlertMessage } from "@ui/domains/Sign/SignAlertMessage"
 import { usePolkadotSigningRequest } from "@ui/domains/Sign/SignRequestContext"
 import { SubSignBody } from "@ui/domains/Sign/Substrate/SubSignBody"
+import { closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
 
 import { SignNetworkLogo } from "../SignNetworkLogo"
 import { FooterContent } from "./FooterContent"
@@ -34,7 +35,7 @@ export const PolkadotSignTransactionRequest: FC = () => {
 
   useEffect(() => {
     // force close upon success, usefull in case this is the browser embedded popup (which doesn't close by itself)
-    if (status === "SUCCESS") window.close()
+    if (status === "SUCCESS") void closeWalletSurfaceAfterApproval()
   }, [status])
 
   return (

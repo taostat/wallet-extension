@@ -3,14 +3,21 @@ import "@common/i18nConfig"
 import "@common/zodConfig"
 
 import { appStore } from "extension-core"
-import { IS_FIREFOX, log } from "extension-shared"
+import {
+  IS_FIREFOX,
+  log,
+  SIDE_PANEL_VISIBILITY_MESSAGE,
+} from "extension-shared"
 
 import { renderApp } from "@ui"
 import Popup from "@ui/apps/popup"
+import { detectWalletSurface, isFloatingPopup } from "@ui/util/constants"
 
 const adjustPopupSize = async () => {
   // on embedded popup, zoom is disabled and the frame automatically syncs with the size of content
   if (window.location.search === "?embedded") return
+
+  if (!(await isFloatingPopup())) return
 
   try {
     const [currentWindow, currentZoom] = await Promise.all([
@@ -61,10 +68,33 @@ const adjustPopupSize = async () => {
   }
 }
 
-// Always keep wallet unlocked when embedded popup is open,
-// listen for user interaction when standalone popup window is open.
-const keepWalletUnlockedMode =
-  window.location.search === "?embedded" ? "always" : "user-interaction"
+const notifySidePanelLifecycle = () => {
+  if (!document.documentElement.classList.contains("side-panel")) return
 
-renderApp(<Popup />, { keepWalletUnlockedMode })
-adjustPopupSize()
+  const sendVisibility = (visible: boolean) => {
+    chrome.runtime.sendMessage({ type: SIDE_PANEL_VISIBILITY_MESSAGE, visible }).catch(() => {})
+  }
+
+  sendVisibility(document.visibilityState === "visible")
+
+  document.addEventListener("visibilitychange", () => {
+    sendVisibility(document.visibilityState === "visible")
+  })
+}
+
+const bootstrap = async () => {
+  await detectWalletSurface()
+  notifySidePanelLifecycle()
+
+  const isEmbedded = window.location.search === "?embedded"
+  const isFloating = await isFloatingPopup()
+
+  // Keep wallet unlocked while side panel / embedded popup is open.
+  const keepWalletUnlockedMode = isEmbedded || !isFloating ? "always" : "user-interaction"
+
+  renderApp(<Popup />, { keepWalletUnlockedMode })
+
+  if (isFloating) await adjustPopupSize()
+}
+
+void bootstrap()

@@ -2,6 +2,7 @@ import { AnySigningRequest, KnownRespondableRequest, SigningRequests } from "ext
 import { log } from "extension-shared"
 import { useCallback } from "react"
 
+import { closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
 import useStatus, { SetStatusFn, StatusOptions } from "@taostats/hooks/useStatus"
 
 interface UseAnySigningRequestProps<T extends AnySigningRequest> {
@@ -51,13 +52,13 @@ export const useAnySigningRequest = <T extends AnySigningRequest>({
 
   // handle request rejection
   const reject = useCallback(async () => {
+    void closeWalletSurfaceAfterApproval()
     try {
       if (currentRequest) await cancelSignFn(currentRequest.id)
     } catch (err) {
       // ignore, request doesn't exist
       // we just want popup to close
     }
-    window.close()
   }, [cancelSignFn, currentRequest])
 
   const setReady = useCallback(() => {

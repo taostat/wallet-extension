@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { Button, IconButton } from "taostats-ui"
 
 import { api } from "@ui/api"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 import {
   useAccounts,
   useAppState,
@@ -121,7 +122,7 @@ const useBackupBanner = () => {
 
   const onBackupClick = useCallback(async () => {
     await Promise.all([api.dashboardOpen("/settings/mnemonics"), setIsSessionSnoozed(true)])
-    window.close()
+    void closeWalletSurface()
   }, [setIsSessionSnoozed])
 
   return {

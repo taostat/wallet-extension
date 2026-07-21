@@ -8,6 +8,7 @@ import { Button, Drawer, FormFieldInputText } from "taostats-ui"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { api } from "@ui/api"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import { PopupContent, PopupFooter, PopupLayout } from "../Layout/PopupLayout"
 
@@ -36,7 +37,7 @@ const ConfirmDrawer = ({
     setResetting(true)
     // don't wait for the response here, or the normal onboarding tab will open
     api.resetWallet()
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const isMatch = useMemo(() => confirmText?.toLowerCase() === "reset wallet", [confirmText])

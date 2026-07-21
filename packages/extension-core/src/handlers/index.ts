@@ -1,6 +1,7 @@
 import { assert } from "@polkadot/util"
-import { log, PORT_EXTENSION } from "extension-shared"
+import { APPROVAL_UI_MESSAGES, log, PORT_EXTENSION } from "extension-shared"
 
+import { windowManager } from "../libs/WindowManager"
 import { MessageTypes, TransportRequestMessage } from "../types"
 import Extension from "./Extension"
 import { extensionStores, tabStores } from "./stores"
@@ -70,6 +71,11 @@ const taostatsHandler = <TMessageType extends MessageTypes>(
 
   if (!IGNORED_LOG_MESSAGES.includes(message))
     log.debug(`[${port.name} REQ] ${source}`, { request: shouldLog ? request : OBFUSCATED_PAYLOAD })
+
+  // Open the side panel synchronously while the user gesture is still active.
+  if (!isExtension && APPROVAL_UI_MESSAGES.has(message)) {
+    windowManager.captureGestureAndOpenSidePanel(sender.tab?.id, sender.tab?.windowId)
+  }
 
   const safePostMessage = (port: chrome.runtime.Port | undefined, message: unknown): void => {
     // only send message back to port if it's still connected, unfortunately this check is not reliable in all browsers

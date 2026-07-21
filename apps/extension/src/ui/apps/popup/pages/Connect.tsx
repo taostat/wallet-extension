@@ -3,7 +3,7 @@ import { Account, KnownRequestIdOnly, ProviderType } from "extension-core"
 import capitalize from "lodash-es/capitalize"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+import { useParams, Navigate } from "react-router-dom"
 import { Button, Drawer } from "taostats-ui"
 
 import { AppPill } from "@taostats/components/AppPill"
@@ -14,6 +14,8 @@ import { ConnectedAccountsPolkadot } from "@ui/domains/Site/ConnectedAccountsPol
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useInjectableAccounts } from "@ui/hooks/useInjectableAccounts"
 import { useRequest } from "@ui/state"
+import { closeWalletSurface, closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
+import { useCloseIfRequestMissing } from "@ui/util/useCloseIfRequestMissing"
 
 import { PopupContent, PopupFooter, PopupHeader, PopupLayout } from "../Layout/PopupLayout"
 
@@ -66,15 +68,13 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
   const { popupOpenEvent } = useAnalytics()
   const [connected, setConnected] = useState<string[]>([])
 
-  useEffect(() => {
-    if (!authRequest) window.close()
-  }, [authRequest])
+  useCloseIfRequestMissing(id)
 
   const authorise = useCallback(async () => {
     if (!authRequest) return
     try {
       await api.authrequestApprove(authRequest.id, connected)
-      window.close()
+      void closeWalletSurfaceAfterApproval()
     } catch (err) {
       notify({ type: "error", title: t("Failed to connect"), subtitle: (err as Error).message })
     }
@@ -82,14 +82,14 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
 
   const reject = useCallback(() => {
     if (!authRequest) return
+    void closeWalletSurfaceAfterApproval()
     api.authrequestReject(authRequest.id)
-    window.close()
   }, [authRequest])
 
   const ignore = useCallback(() => {
     if (!authRequest) return
+    void closeWalletSurfaceAfterApproval()
     api.authrequestIgnore(authRequest.id)
-    window.close()
   }, [authRequest])
 
   useEffect(() => {
@@ -102,12 +102,12 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
         api.dashboardOpen("/accounts/add")
         ignore()
       } else reject()
-      window.close()
+      void closeWalletSurface()
     },
     [ignore, reject],
   )
 
-  if (!authRequest) return null
+  if (!authRequest) return <Navigate to="/portfolio" replace />
 
   const ConnectContentComponent: ConnectComponent = getConnectComponent(
     authRequest.request.provider,

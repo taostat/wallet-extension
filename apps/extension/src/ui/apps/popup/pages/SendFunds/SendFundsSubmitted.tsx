@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import { AnalyticsPage } from "@ui/api/analytics"
 import { SendFundsProgress } from "@ui/domains/SendFunds/SendFundsProgress"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Popup",
@@ -26,7 +27,7 @@ export const SendFundsSubmitted = () => {
   )
 
   const handleClose = useCallback(() => {
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   return (

@@ -12,6 +12,7 @@ import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 import { usePopupNavOpenClose } from "@ui/hooks/usePopupNavOpenClose"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import {
   QuickSettingsModal,
@@ -59,7 +60,7 @@ export const BottomNav = () => {
       action: "Staking button",
     })
     window.open(TAOSTATS_WEB_APP_STAKING_URL, "_blank")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleExpandClick = useCallback(() => {
@@ -71,7 +72,7 @@ export const BottomNav = () => {
     // assume paths are the same in dashboard
     // portfolio pages supports account/folder query string arguments to stay in sync with popup
     api.dashboardOpen(`${location.pathname}${location.search}`)
-    window.close()
+    void closeWalletSurface()
   }, [location.pathname, location.search])
 
   const handleMoreClick = useCallback(() => {

@@ -4,7 +4,12 @@
 // Adapted from https://github.com/polkadot-js/extension/packages/extension/src/content.ts
 
 import type { Message } from "@polkadot/extension-base/types"
-import { PORT_CONTENT } from "extension-shared"
+import {
+  APPROVAL_UI_MESSAGES,
+  IS_CHROME,
+  OPEN_SIDEPANEL_MESSAGE,
+  PORT_CONTENT,
+} from "extension-shared"
 
 class PortManager {
   port: chrome.runtime.Port | undefined = undefined
@@ -19,6 +24,13 @@ class PortManager {
       // only allow messages from our window, by the inject
       if (source !== window || data.origin !== "taostats-page") {
         return
+      }
+
+      const message = (data as { message?: string }).message
+
+      if (message && APPROVAL_UI_MESSAGES.has(message) && IS_CHROME) {
+        // Open side panel synchronously during the user gesture chain
+        chrome.runtime.sendMessage({ type: OPEN_SIDEPANEL_MESSAGE })
       }
 
       if (!this.port) {

@@ -2,6 +2,7 @@ import { AnyEncryptRequest, isDecryptRequest } from "extension-core"
 import { DEBUG } from "extension-shared"
 import { useCallback } from "react"
 
+import { closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
 import useStatus from "@taostats/hooks/useStatus"
 import { api } from "@ui/api"
 
@@ -31,6 +32,7 @@ export const useEncryptRequest = (currentRequest?: AnyEncryptRequest) => {
   }, [currentRequest, setStatus])
 
   const reject = useCallback(async () => {
+    void closeWalletSurfaceAfterApproval()
     try {
       if (currentRequest) {
         await api.cancelEncryptRequest(currentRequest.id)
@@ -39,7 +41,6 @@ export const useEncryptRequest = (currentRequest?: AnyEncryptRequest) => {
       // ignore, request doesn't exist
       // we just want popup to close
     }
-    window.close()
   }, [currentRequest])
 
   return {

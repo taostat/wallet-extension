@@ -1,13 +1,15 @@
 import { KnownRequestIdOnly } from "extension-core"
 import { FC, useCallback, useEffect, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+import { useParams, Navigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
 import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useRequest } from "@ui/state"
+import { closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
+import { useCloseIfRequestMissing } from "@ui/util/useCloseIfRequestMissing"
 
 import { PopupContent, PopupFooter, PopupHeader, PopupLayout } from "../Layout/PopupLayout"
 
@@ -20,15 +22,13 @@ export const Metadata: FC<{ className?: string }> = ({ className }) => {
     popupOpenEvent("metadata")
   }, [popupOpenEvent])
 
-  useEffect(() => {
-    if (!metadataRequest) window.close()
-  }, [metadataRequest])
+  useCloseIfRequestMissing(id)
 
   const approve = useCallback(async () => {
     if (!metadataRequest) return
     try {
       await api.approveMetaRequest(metadataRequest.id)
-      window.close()
+      void closeWalletSurfaceAfterApproval()
     } catch (err) {
       notify({ type: "error", title: "Failed to update", subtitle: (err as Error).message })
     }
@@ -36,8 +36,8 @@ export const Metadata: FC<{ className?: string }> = ({ className }) => {
 
   const reject = useCallback(() => {
     if (!metadataRequest) return
+    void closeWalletSurfaceAfterApproval()
     api.rejectMetaRequest(metadataRequest.id)
-    window.close()
   }, [metadataRequest])
 
   const displayUrl = useMemo(
@@ -48,7 +48,7 @@ export const Metadata: FC<{ className?: string }> = ({ className }) => {
     [metadataRequest?.url],
   )
 
-  if (!metadataRequest) return null
+  if (!metadataRequest) return <Navigate to="/portfolio" replace />
 
   const { request } = metadataRequest
 

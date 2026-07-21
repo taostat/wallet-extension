@@ -10,6 +10,7 @@ import { IconButton } from "taostats-ui"
 import { api } from "@ui/api"
 import { TotalFiatBalance } from "@ui/apps/popup/components/TotalFiatBalance"
 import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => {
   const navigate = useNavigate()
@@ -45,7 +46,7 @@ export const AllAccountsHeader: FC<{ accounts: Account[] }> = ({ accounts }) => 
 const PopoutButton: FC = () => {
   const handleClick = useCallback(() => {
     api.popupOpen("#/portfolio")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   return (

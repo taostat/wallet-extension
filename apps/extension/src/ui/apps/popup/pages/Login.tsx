@@ -20,6 +20,7 @@ import { TaostatsLogo } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useSetting } from "@ui/state"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import { PopupContent, PopupFooter, PopupLayout } from "../Layout/PopupLayout"
 import { ResetWallet } from "./ResetWallet"
@@ -119,7 +120,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
         const result = await api.authenticate(password)
         if (result) {
           const qs = new URLSearchParams(window.location.search)
-          if (qs.get("closeAfterLogin") === "true") window.close()
+          if (qs.get("closeAfterLogin") === "true") void closeWalletSurface()
         } else throw new Error(t("Taostats access denied"))
       } catch (err) {
         setError("password", { message: (err as Error)?.message ?? t("Unknown error") })

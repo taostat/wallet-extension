@@ -100,7 +100,11 @@ const updateManifestDetails = async (env, manifest) => {
   manifest.version = process.env.npm_package_version
 
   // add a version name key to distinguish in list of installed extensions (only for chrome)
-  if (browser === "chrome") manifest.version_name = getManifestVersionName(env)
+  if (browser === "chrome") {
+    manifest.version_name = getManifestVersionName(env)
+    // Side panel opens via chrome.sidePanel.setPanelBehavior — default_popup takes precedence if set
+    delete manifest.action?.default_popup
+  }
 
   // Set the dev title and icon if we're doing a dev build
   if (env.build === "dev") {

@@ -15,6 +15,7 @@ import {
 import { AccountPill } from "@ui/domains/Account/AccountPill"
 import { Message } from "@ui/domains/Sign/Message"
 import { usePolkadotSigningRequest } from "@ui/domains/Sign/SignRequestContext"
+import { closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
 
 import { SignNetworkLogo } from "../SignNetworkLogo"
 import { FooterContent } from "./FooterContent"
@@ -44,7 +45,7 @@ export const PolkadotSignMessageRequest = () => {
 
   useEffect(() => {
     // force close upon success, usefull in case this is the browser embedded popup (which doesn't close by itself)
-    if (status === "SUCCESS") window.close()
+    if (status === "SUCCESS") void closeWalletSurfaceAfterApproval()
   }, [status])
 
   const [siwsRequest, siwsValidationError] = useSiwsRequest({ url, request, account })

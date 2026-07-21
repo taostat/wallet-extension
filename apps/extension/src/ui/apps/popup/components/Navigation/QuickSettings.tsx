@@ -11,6 +11,7 @@ import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 // import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 // import { useFavoriteCurrencies } from "@ui/hooks/useFavoriteCurrencies"
 import { useSetting } from "@ui/state"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import { AutoLockDrawer, useAutoLockDrawerOpenClose } from "./AutoLockDrawer"
 // import { CurrenciesDrawer, useCurrenciesDrawerOpenClose } from "./CurrenciesDrawer"
@@ -205,7 +206,7 @@ const AllSettingsButton = () => {
       action: "All Settings button",
     })
     api.dashboardOpen("/settings/general")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   return (

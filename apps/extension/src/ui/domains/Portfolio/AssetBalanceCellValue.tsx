@@ -108,6 +108,7 @@ export const AssetBalanceCellValue = ({
         (holdingChange !== 0 || change24hPct !== 0) && (
           <Tooltip placement="bottom-end">
             <TooltipTrigger asChild>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
               <div
                 className="flex items-center justify-end gap-1.5"
                 onClick={(e) => e.stopPropagation()}

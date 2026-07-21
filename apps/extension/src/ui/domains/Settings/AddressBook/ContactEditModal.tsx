@@ -1,21 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { encodeAddressSs58 } from "@taostats-wallet/crypto"
-import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { HexString } from "@taostats-wallet/util"
 import { isAccountAddressSs58, isAddressCompatibleWithNetwork } from "extension-core"
 import { keyBy } from "lodash-es"
-import { FC, useCallback, useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import {
-  Button,
-  FormFieldContainer,
-  FormFieldInputText,
-  Modal,
-  ModalDialog,
-} from "taostats-ui"
+import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
