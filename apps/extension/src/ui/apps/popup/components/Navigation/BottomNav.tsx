@@ -1,13 +1,15 @@
-import { CloseIcon, ExpandIcon, HistoryIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { Home01 } from "@untitledui/icons/Home01"
-import { Link02 } from "@untitledui/icons/Link02"
-import { Menu01 } from "@untitledui/icons/Menu01"
+import { Calendar } from "@untitledui/icons/Calendar"
+import { Expand04 } from "@untitledui/icons/Expand04"
+import { Link01 } from "@untitledui/icons/Link01"
+import { Menu04 } from "@untitledui/icons/Menu04"
+import { XClose } from "@untitledui/icons/XClose"
 import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useMatch, useNavigate } from "react-router-dom"
 
+import { TaostatsIcon } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
@@ -95,46 +97,40 @@ export const BottomNav = () => {
 
       <div className="absolute bottom-0 left-0 z-20 flex w-full flex-col justify-center gap-3 px-4 pb-3">
         <QuickSettingsModal />
-        <div
-          className={classNames(
-            "border-primary flex h-[52px] w-full items-center justify-between rounded border bg-black/90 px-3.5 backdrop-blur-[2px]",
-          )}
+        <nav
+          aria-label={t("Main navigation")}
+          className="border-input-border-primary flex h-[52px] w-full items-center justify-between rounded-full border bg-[rgba(40,40,40,0.6)] px-1 shadow-[0px_2px_20px_0px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgb(255_255_255/0.04)]"
         >
           <NavButton
             label={t("Home")}
-            icon={Home01}
+            icon={TaostatsIcon}
             onClick={handleHomeClick}
             route="/portfolio/*"
           />
           <NavButton
             label={t("Staking")}
-            icon={Link02}
-            iconClassName="-rotate-45"
+            icon={Link01}
+            iconClassName="rotate-45"
             onClick={handleStakingClick}
           />
           <NavButton
             label={t("History")}
-            icon={HistoryIcon}
+            icon={Calendar}
             onClick={handleTxHistoryClick}
             route="/tx-history"
           />
-          <NavButton label={t("Full Screen")} icon={ExpandIcon} onClick={handleExpandClick} />
+          <NavButton label={t("Full Screen")} icon={Expand04} onClick={handleExpandClick} />
           {isQuickSettingsOpen ? (
-            <NavButton
-              label={t("Close")}
-              icon={CloseIcon}
-              onClick={closeQuickSettings}
-              className="!text-white"
-            />
+            <NavButton label={t("Close")} icon={XClose} onClick={closeQuickSettings} isActive />
           ) : (
             <NavButton
               label={t("More")}
-              icon={Menu01}
+              icon={Menu04}
               onClick={handleMoreClick}
               withBadge={!allBackedUp}
             />
           )}
-        </div>
+        </nav>
       </div>
     </>
   )
@@ -144,49 +140,33 @@ const NavButton: FC<{
   label: ReactNode
   icon: FC<{ className?: string }>
   iconClassName?: string
-  className?: string
+  isActive?: boolean
   withBadge?: boolean
   route?: string
   onClick: () => void
-}> = ({ label, icon: Icon, iconClassName, withBadge, route, className, onClick }) => {
+}> = ({ label, icon: Icon, iconClassName, isActive, withBadge, route, onClick }) => {
   const routeMatch = useMatch(route ?? "")
 
   return (
     <button
       type="button"
+      aria-label={typeof label === "string" ? label : undefined}
       className={classNames(
-        "group",
-        "text-fg-disabled h-10 w-10",
-        "enabled:hover:text-fg-secondary",
-        "enabled:focus-visible:border",
-        routeMatch && "!text-fg-brand",
-        className,
+        "relative flex h-10 w-[60px] shrink-0 items-center justify-center rounded-full transition-colors duration-500",
+        routeMatch || isActive
+          ? "bg-tertiary text-fg-brand"
+          : "text-grayish hover:bg-tertiary hover:text-label-secondary",
       )}
       onClick={onClick}
     >
-      <div
-        className={classNames(
-          "flex w-full flex-col items-center justify-center gap-[1.5px] overflow-visible",
-          "translate-y-2 transition-transform group-hover:translate-y-0",
-        )}
-      >
-        {withBadge ? (
-          <div className="relative size-5 shrink-0">
-            <Icon className={classNames("size-5", iconClassName)} />
-            <div className="bg-fg-brand absolute -right-0.5 -top-0.5 size-1.5 rounded-full"></div>
-          </div>
-        ) : (
-          <Icon className={classNames("size-5 shrink-0", iconClassName)} />
-        )}
-        <div
-          className={classNames(
-            "leading-paragraph text-[10px]",
-            "text-nowrap opacity-0 transition-opacity group-hover:opacity-100",
-          )}
-        >
-          {label}
+      {withBadge ? (
+        <div className="relative size-5 shrink-0">
+          <Icon className={classNames("size-5", iconClassName)} />
+          <div className="bg-fg-brand absolute -right-0.5 -top-0.5 size-1.5 rounded-full" />
         </div>
-      </div>
+      ) : (
+        <Icon className={classNames("size-5 shrink-0", iconClassName)} />
+      )}
     </button>
   )
 }
