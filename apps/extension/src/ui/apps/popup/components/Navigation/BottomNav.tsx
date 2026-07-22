@@ -107,12 +107,7 @@ export const BottomNav = () => {
             onClick={handleHomeClick}
             route="/portfolio/*"
           />
-          <NavButton
-            label={t("Staking")}
-            icon={Link01}
-            iconClassName="rotate-45"
-            onClick={handleStakingClick}
-          />
+          <NavButton label={t("Staking")} icon={Link01} onClick={handleStakingClick} />
           <NavButton
             label={t("History")}
             icon={Calendar}

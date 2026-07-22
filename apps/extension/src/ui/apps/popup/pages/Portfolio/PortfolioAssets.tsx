@@ -9,7 +9,6 @@ import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { DashboardAssetsTable } from "@ui/domains/Portfolio/AssetsTable"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
-import { PortfolioTabs } from "@ui/domains/Portfolio/PortfolioTabs"
 import { PortfolioToolbarTokens } from "@ui/domains/Portfolio/PortfolioToolbarTokens"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -82,22 +81,23 @@ export const PortfolioAssets = () => {
   }, [navigate])
 
   return (
-    <div className="flex w-full flex-col gap-3">
+    <div className="flex flex-col gap-3">
       <DashboardPortfolioHeader variant="popup" onBack={handleBack} />
-      <PortfolioTabs />
-      {!!matchTokens && <div className="border-primary -mx-2 border-b" />}
+      {!!matchTokens && <div className="border-primary w-full border-b" aria-hidden />}
       <Suspense fallback={<SuspenseTracker name="PortfolioAssets.TabContent" />}>
         {!!matchTokens && (
           <>
-            <div className="w-full overflow-hidden">
+            <div className="px-2 w-full overflow-hidden">
               <Suspense fallback={<SuspenseTracker name="PortfolioAssets.Toolbar" />}>
                 <PortfolioToolbarTokens />
               </Suspense>
             </div>
-            <div className="text-fg-primary text-md font-medium">{t("Holdings")}</div>
+            <div className="text-fg-primary text-md px-2 font-medium">{t("Holdings")}</div>
           </>
         )}
-        <MainContent />
+        <div className="px-2">
+          <MainContent />
+        </div>
       </Suspense>
     </div>
   )

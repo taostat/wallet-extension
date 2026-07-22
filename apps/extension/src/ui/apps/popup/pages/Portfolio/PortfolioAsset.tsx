@@ -44,7 +44,7 @@ const PageContent = ({
   const { t } = useTranslation()
 
   return (
-    <>
+    <div className="px-2">
       <div className="text-fg-primary flex h-[36px] w-full items-center gap-2 text-base font-bold">
         <IconButton onClick={handleBackBtnClick}>
           <ChevronLeft />
@@ -60,7 +60,7 @@ const PageContent = ({
         <AssetPriceChart tokenIds={tokenIds} variant="small" className="mb-4" />
         <PopupAssetDetails balances={balancesToDisplay} symbol={symbol} />
       </div>
-    </>
+    </div>
   )
 }
 

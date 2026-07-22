@@ -3,6 +3,7 @@ import { classNames, isNotNil } from "@taostats-wallet/util"
 import { ArrowDownLeft } from "@untitledui/icons/ArrowDownLeft"
 import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
 import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
 import { Eye } from "@untitledui/icons/Eye"
 import { EyeOff } from "@untitledui/icons/EyeOff"
@@ -41,6 +42,11 @@ import { useBalances, useSelectedCurrency, useSetting, useAccounts } from "@ui/s
 import { usePortfolioNavigation } from "./usePortfolioNavigation"
 import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
+import { copyAddress } from "@ui/util/copyAddress"
+
+const PortfolioFullWidthSeparator: FC = () => (
+  <div className="border-primary w-full border-b" aria-hidden />
+)
 
 const SelectionScope: FC<{ account: Account | null; folder?: TreeFolder | null }> = ({
   account,
@@ -131,6 +137,62 @@ const ScopeContextMenu: FC<{ account: Account | null; folder?: TreeFolder | null
   return null
 }
 
+const PopupSingleAccountTitleRow: FC<{
+  account: Account
+  onBack: () => void
+}> = ({ account, onBack }) => {
+  const { t } = useTranslation()
+
+  const handleCopyAddress = useCallback(() => {
+    void copyAddress(account.address)
+  }, [account.address])
+
+  return (
+    <div className="flex w-full items-center gap-2 py-1">
+      <IconButton
+        className="text-fg-tertiary hover:text-fg-primary size-7 shrink-0"
+        onClick={onBack}
+      >
+        <ChevronLeft className="size-4" />
+      </IconButton>
+      <AccountIcon
+        className="shrink-0 text-[32px]"
+        address={account.address}
+        genesisHash={getAccountGenesisHash(account)}
+      />
+      <div className="flex min-w-0 grow flex-col justify-center gap-0 overflow-hidden">
+        <div className="text-fg-primary truncate text-sm font-semibold">
+          {account.name ?? shortenAddress(account.address)}
+        </div>
+        <div className="text-fg-tertiary truncate text-xs">
+          {shortenAddress(account.address, 7, 6)}
+        </div>
+      </div>
+      <Tooltip placement="bottom-end">
+        <TooltipTrigger asChild>
+          <IconButton
+            className="text-fg-tertiary hover:text-fg-primary size-7 shrink-0"
+            onClick={handleCopyAddress}
+          >
+            <Copy01 className="size-4" />
+          </IconButton>
+        </TooltipTrigger>
+        <TooltipContent>{t("Copy address")}</TooltipContent>
+      </Tooltip>
+      <AccountContextMenu
+        address={account.address}
+        analyticsFrom="dashboard portfolio"
+        placement="bottom-end"
+        trigger={
+          <IconButton className="text-fg-tertiary hover:text-fg-primary size-7 shrink-0">
+            <DotsHorizontal className="size-4" />
+          </IconButton>
+        }
+      />
+    </div>
+  )
+}
+
 const PortfolioBalanceDisplay: FC<{ amount: number }> = ({ amount }) => {
   const { refReveal, isHidden } = useRevealableBalance(true, true)
 
@@ -214,8 +276,9 @@ export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
 }) => {
   const { t } = useTranslation()
   const isPopup = variant === "popup"
-  const showTotalPortfolioTitle = isPopup && !onBack
   const { selectedAccount, selectedFolder } = usePortfolioNavigation()
+  const showTotalPortfolioTitle = isPopup && !onBack
+  const showSingleAccountPopupTitle = isPopup && !!onBack && !!selectedAccount && !selectedFolder
   const allBalances = useBalances()
   const portfolioBalances = useBalances("portfolio")
 
@@ -232,7 +295,32 @@ export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
   const selectedTotal = displayBalances.sum.fiat(currency).total ?? 0
   const change24h = displayBalances.sum.change24h(currency).total
 
-  const balanceSection = (
+  const balanceSection = showSingleAccountPopupTitle ? (
+    <div className="flex w-full items-start justify-between gap-3">
+      <div className="gap-sm flex min-w-0 flex-col">
+        <div className="gap-md flex w-full max-w-full items-center">
+          <Button
+            type="button"
+            color="secondary"
+            iconOnly
+            className={classNames(
+              "pointer-events-auto",
+              currencyConfig[currency]?.symbol?.length > 2 && "text-xs",
+            )}
+            onClick={(event) => {
+              event.stopPropagation()
+              toggleCurrency()
+            }}
+          >
+            {currencyConfig[currency]?.symbol}
+          </Button>
+          <PortfolioBalanceDisplay amount={selectedTotal} />
+        </div>
+        <PortfolioChange change={change24h} />
+      </div>
+      <HideBalancesButton />
+    </div>
+  ) : (
     <>
       <div className="gap-md flex w-full max-w-full items-center">
         <Button
@@ -256,29 +344,34 @@ export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
     </>
   )
 
-  return (
+  const headerCard = (
     <SurfaceCard className={classNames("gap-lg p-xl z-0 flex flex-col", className)}>
-      <div className="gap-md z-[1] flex w-full items-center justify-between">
-        <div className="gap-xs flex min-w-0 grow items-center overflow-hidden">
-          {onBack && (
-            <IconButton className="text-fg-tertiary hover:text-fg-primary size-7 shrink-0" onClick={onBack}>
-              <ChevronLeft className="size-4" />
-            </IconButton>
-          )}
-          {showTotalPortfolioTitle ? (
-            <div className="text-fg-primary text-sm font-semibold">{t("Total Portfolio")}</div>
-          ) : (
-            <SelectionScope folder={selectedFolder} account={selectedAccount} />
-          )}
+      {!showSingleAccountPopupTitle && (
+        <div className="gap-md z-[1] flex w-full items-center justify-between">
+          <div className="gap-xs flex min-w-0 grow items-center overflow-hidden">
+            {onBack && (
+              <IconButton
+                className="text-fg-tertiary hover:text-fg-primary size-7 shrink-0"
+                onClick={onBack}
+              >
+                <ChevronLeft className="size-4" />
+              </IconButton>
+            )}
+            {showTotalPortfolioTitle ? (
+              <div className="text-fg-primary text-sm font-semibold">{t("Total Portfolio")}</div>
+            ) : (
+              <SelectionScope folder={selectedFolder} account={selectedAccount} />
+            )}
+          </div>
+          <div className="gap-xs flex shrink-0 items-center">
+            <HideBalancesButton />
+            {(!isPopup || selectedAccount || selectedFolder) && (
+              <ScopeContextMenu account={selectedAccount} folder={selectedFolder} />
+            )}
+            {showTotalPortfolioTitle && IS_EMBEDDED_POPUP && <PopoutButton />}
+          </div>
         </div>
-        <div className="gap-xs flex shrink-0 items-center">
-          <HideBalancesButton />
-          {(!isPopup || selectedAccount || selectedFolder) && (
-            <ScopeContextMenu account={selectedAccount} folder={selectedFolder} />
-          )}
-          {showTotalPortfolioTitle && IS_EMBEDDED_POPUP && <PopoutButton />}
-        </div>
-      </div>
+      )}
 
       {isPopup && onNavigate ? (
         <button
@@ -300,6 +393,20 @@ export const DashboardPortfolioHeader: FC<PortfolioHeaderProps> = ({
       <TopActions variant={variant} disabled={disabled} />
     </SurfaceCard>
   )
+
+  if (showSingleAccountPopupTitle && selectedAccount && onBack) {
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="px-2">
+          <PopupSingleAccountTitleRow account={selectedAccount} onBack={onBack} />
+        </div>
+        <PortfolioFullWidthSeparator />
+        <div className="px-2">{headerCard}</div>
+      </div>
+    )
+  }
+
+  return headerCard
 }
 
 const PopoutButton: FC = () => {
@@ -326,7 +433,7 @@ type ActionProps = {
   disabledReason?: string
 }
 
-const Action: FC<ActionProps & { analyticsPage: AnalyticsPage; variant?: "dashboard" | "popup" }> = ({
+const Action: FC<ActionProps & { analyticsPage: AnalyticsPage }> = ({
   analyticsName,
   analyticsAction,
   label,
@@ -336,7 +443,6 @@ const Action: FC<ActionProps & { analyticsPage: AnalyticsPage; variant?: "dashbo
   disabled,
   disabledReason,
   analyticsPage,
-  variant = "dashboard",
 }) => {
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
@@ -358,11 +464,8 @@ const Action: FC<ActionProps & { analyticsPage: AnalyticsPage; variant?: "dashbo
           type="button"
           color="secondary"
           fullWidth
-          size={variant === "popup" ? "header" : undefined}
-          className={classNames(
-            "pointer-events-auto font-medium disabled:cursor-not-allowed disabled:opacity-50",
-            variant === "dashboard" && "h-11",
-          )}
+          size="header"
+          className="pointer-events-auto font-medium disabled:cursor-not-allowed disabled:opacity-50"
           onClick={handleClick}
           disabled={disabled}
           icon={Icon}
@@ -478,7 +581,7 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
   return (
     <div className="gap-sm z-[1] grid w-full grid-cols-3">
       {topActions.map((action, index) => (
-        <Action key={index} {...action} analyticsPage={analyticsPage} variant={variant} />
+        <Action key={index} {...action} analyticsPage={analyticsPage} />
       ))}
     </div>
   )

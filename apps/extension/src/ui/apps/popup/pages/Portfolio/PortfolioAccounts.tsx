@@ -274,7 +274,7 @@ const Accounts = ({
   const disabled = !accounts.length
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-4 px-2">
       {folder ? (
         <FolderHeader folder={folder} folderTotal={folderTotal} />
       ) : (

@@ -99,7 +99,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <ScrollContainer ref={scrollableRef} className={classNames("size-full overflow-hidden px-2")}>
+    <ScrollContainer ref={scrollableRef} className="size-full overflow-hidden">
       {children}
     </ScrollContainer>
   )
@@ -114,7 +114,7 @@ export const Portfolio = () => {
       <div id="main" className="relative size-full overflow-hidden">
         <Content>
           <div className="flex size-full flex-col gap-2 py-4">
-            <header className="flex items-center justify-between p-2 pt-0">
+            <header className="flex items-center justify-between px-2 pb-2 pt-0">
               <TaostatsLogo className="h-[15px] w-auto" />
               {isTokenDetail && <HideBalancesToggle />}
             </header>
