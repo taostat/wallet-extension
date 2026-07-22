@@ -1,21 +1,19 @@
 import { classNames } from "@taostats-wallet/util"
 import { Eye } from "@untitledui/icons/Eye"
 import { EyeOff } from "@untitledui/icons/EyeOff"
-import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
+import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { Route, Routes, useLocation } from "react-router-dom"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
 // import BraveWarningPopupBanner from "@ui/domains/Settings/BraveWarning/BraveWarningPopupBanner"
 import MigratePasswordAlert from "@ui/domains/Settings/MigratePasswordAlert"
 import { useSetting } from "@ui/state"
 
-import { BottomNav } from "../../components/Navigation/BottomNav"
-import { NavigationDrawer } from "../../components/Navigation/NavigationDrawer"
+import { TaoPriceHeader } from "../../components/TaoPriceHeader"
+import { PopupTabShell } from "../../Layout/PopupTabShell"
 import { PortfolioAccounts } from "./PortfolioAccounts"
 import { PortfolioAsset } from "./PortfolioAsset"
 import { PortfolioAssets } from "./PortfolioAssets"
@@ -89,22 +87,6 @@ const PortfolioRoutes = () => (
   </>
 )
 
-const Content: FC<PropsWithChildren> = ({ children }) => {
-  //scrollToTop on location change
-  const scrollableRef = useRef<HTMLDivElement>(null)
-  const location = useLocation()
-
-  useEffect(() => {
-    scrollableRef.current?.scrollTo(0, 0)
-  }, [location.pathname])
-
-  return (
-    <ScrollContainer ref={scrollableRef} className="size-full overflow-hidden">
-      {children}
-    </ScrollContainer>
-  )
-}
-
 export const Portfolio = () => {
   const location = useLocation()
   const isTokenDetail = /\/portfolio\/tokens\/.+/.test(location.pathname)
@@ -112,17 +94,16 @@ export const Portfolio = () => {
   return (
     <PortfolioContainer renderWhileLoading>
       <div id="main" className="relative size-full overflow-hidden">
-        <Content>
-          <div className="flex size-full flex-col gap-2 py-4">
-            <header className="flex items-center justify-between px-2 pb-2 pt-0">
-              <TaostatsLogo className="h-[15px] w-auto" />
+        <PopupTabShell
+          headerRight={
+            <>
+              <TaoPriceHeader />
               {isTokenDetail && <HideBalancesToggle />}
-            </header>
-            <PortfolioRoutes />
-            <BottomNav />
-          </div>
-        </Content>
-        <NavigationDrawer />
+            </>
+          }
+        >
+          <PortfolioRoutes />
+        </PopupTabShell>
       </div>
     </PortfolioContainer>
   )

@@ -70,7 +70,9 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
       <button
         type="button"
         className={classNames(
-          "text-fg-secondary hover:bg-secondary/50 border-primary grid h-[66px] w-full grid-cols-[40%_30%_30%] overflow-hidden border-b text-left text-base",
+          "text-fg-secondary border-primary grid h-[66px] w-full grid-cols-[40%_30%_30%] overflow-hidden border-b text-left text-base",
+          "transition-colors duration-700 ease-out hover:bg-white/[0.06] active:bg-white/[0.08]",
+          IS_POPUP && "px-2",
         )}
         onClick={handleClick}
       >
@@ -143,7 +145,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
         </div>
       </button>
       {canStake && (
-        <div className="absolute right-0 top-0 hidden h-[66px] flex-col justify-center group-hover:flex">
+        <div className={classNames("absolute right-0 top-0 hidden h-[66px] flex-col justify-center group-hover:flex", IS_POPUP && "pr-2")}>
           <div className="flex items-center gap-1.5">
             <StakePillButton
               balances={balances}

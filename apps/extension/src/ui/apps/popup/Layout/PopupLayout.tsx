@@ -14,7 +14,6 @@ import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { api } from "@ui/api"
 
 import { BottomNav } from "../components/Navigation/BottomNav"
-import { NavigationDrawer } from "../components/Navigation/NavigationDrawer"
 
 type ContainerProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
@@ -72,12 +71,7 @@ export const PopupContent: FC<ContainerProps & { withBottomNav?: boolean }> = ({
       className={classNames("w-full flex-grow overflow-hidden px-2", className)}
     >
       {children}
-      {!!withBottomNav && (
-        <>
-          <BottomNav />
-          <NavigationDrawer />
-        </>
-      )}
+      {!!withBottomNav && <BottomNav />}
     </ScrollContainer>
   )
 }

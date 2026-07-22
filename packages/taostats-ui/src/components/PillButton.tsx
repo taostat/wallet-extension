@@ -1,6 +1,8 @@
 import { classNames } from "@taostats-wallet/util"
 import { FC, forwardRef, SVGProps } from "react"
 
+import { getPillClassName, PillSize } from "./Pill"
+
 export type PillButtonSize = "tiny" | "xs" | "sm" | "base"
 
 export type PillButtonProps = Omit<
@@ -10,6 +12,13 @@ export type PillButtonProps = Omit<
   },
   "ref"
 >
+
+const buttonSizeMap: Record<PillButtonSize, PillSize> = {
+  tiny: "xs",
+  xs: "xs",
+  sm: "sm",
+  base: "md",
+}
 
 const getFontSize = (size: PillButtonSize) => {
   // because of tailwind, all used classes must appear as plain text
@@ -34,9 +43,8 @@ export const PillButton = forwardRef<HTMLButtonElement, PillButtonProps>(
         type="button"
         className={classNames(
           getFontSize(size),
+          getPillClassName({ variant: "secondary", size: buttonSizeMap[size] }),
           "transition-colors duration-100 ease-out",
-          "bg-secondary-btn-bg text-fg-secondary inline-flex shrink-0 items-center justify-center leading-none outline-none",
-          "gap-xs rounded-full px-[1em] py-[0.666em]",
           "hover:bg-secondary-btn-bg-hover disabled:opacity-50",
           "allow-focus outline-offset-0 focus-visible:outline-current",
           className,

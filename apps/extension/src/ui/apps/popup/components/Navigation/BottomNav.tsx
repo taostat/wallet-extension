@@ -13,7 +13,6 @@ import { TaostatsIcon } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
-import { usePopupNavOpenClose } from "@ui/hooks/usePopupNavOpenClose"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import {
@@ -32,7 +31,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 export const BottomNav = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { open } = usePopupNavOpenClose()
   const { close: closeQuickSettings, isOpen: isQuickSettingsOpen } = useQuickSettingsOpenClose()
 
   const handleHomeClick = useCallback(() => {
@@ -77,14 +75,15 @@ export const BottomNav = () => {
     void closeWalletSurface()
   }, [location.pathname, location.search])
 
-  const handleMoreClick = useCallback(() => {
+  const handleSettingsClick = useCallback(() => {
     sendAnalyticsEvent({
       ...ANALYTICS_PAGE,
-      name: "Interact",
-      action: "More button",
+      name: "Goto",
+      action: "Settings button",
     })
-    open()
-  }, [open])
+    navigate("/settings")
+    closeQuickSettings()
+  }, [closeQuickSettings, navigate])
 
   const allBackedUp = useMnemonicsAllBackedUp()
 
@@ -121,7 +120,8 @@ export const BottomNav = () => {
             <NavButton
               label={t("More")}
               icon={Menu04}
-              onClick={handleMoreClick}
+              onClick={handleSettingsClick}
+              route="/settings"
               withBadge={!allBackedUp}
             />
           )}

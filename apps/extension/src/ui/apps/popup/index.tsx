@@ -35,6 +35,7 @@ import { ManageAccountsPage } from "./pages/ManageAccounts"
 import { Metadata } from "./pages/Metadata"
 import { Portfolio } from "./pages/Portfolio"
 import { SendFundsPage } from "./pages/SendFunds"
+import { SettingsPage } from "./pages/Settings"
 import { SubstrateSignRequest } from "./pages/Sign/substrate"
 import { TryPage } from "./pages/TryPage"
 import { TxHistoryPage } from "./pages/TxHistory"
@@ -71,6 +72,7 @@ const Popup = () => {
           <Route path="try-page" element={<TryPage />} />
           <Route path="manage-accounts" element={<ManageAccountsPage />} />
           <Route path="tx-history" element={<TxHistoryPage />} />
+          <Route path="settings" element={<SettingsPage />} />
           <Route path="send/*" element={<SendFundsPage />} />
           <Route path="*" element={<Navigate to="/portfolio" replace />} />
         </Routes>

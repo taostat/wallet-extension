@@ -95,9 +95,7 @@ export const PortfolioAssets = () => {
             <div className="text-fg-primary text-md px-2 font-medium">{t("Holdings")}</div>
           </>
         )}
-        <div className="px-2">
-          <MainContent />
-        </div>
+        <MainContent />
       </Suspense>
     </div>
   )

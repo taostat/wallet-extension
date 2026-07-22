@@ -1,24 +1,20 @@
-import { classNames } from "@taostats-wallet/util"
-import { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
-
-const Pill = ({ className, children }: { className?: string; children?: ReactNode }) => (
-  <div
-    className={classNames(
-      "bg-fg-brand/10 text-fg-brand inline-block rounded p-2 text-xs font-light",
-      className,
-    )}
-  >
-    {children}
-  </div>
-)
+import { Pill } from "taostats-ui"
 
 export const TestnetPill = () => {
   const { t } = useTranslation()
-  return <Pill className="bg-orange-secondary/10 text-fg-orange">{t("Testnet")}</Pill>
+  return (
+    <Pill variant="orange" shape="square" className="font-light">
+      {t("Testnet")}
+    </Pill>
+  )
 }
 
 export const CustomPill = () => {
   const { t } = useTranslation()
-  return <Pill>{t("Custom")}</Pill>
+  return (
+    <Pill variant="brand" shape="square" className="font-light">
+      {t("Custom")}
+    </Pill>
+  )
 }

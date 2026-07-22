@@ -10,7 +10,8 @@ import {
 } from "@ui/domains/Transactions/TxHistory"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 
-import { PopupContent, PopupLayout } from "../Layout/PopupLayout"
+import { TaoPriceHeader } from "../components/TaoPriceHeader"
+import { PopupTabPage } from "../Layout/PopupTabShell"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Popup",
@@ -23,25 +24,32 @@ export const TxHistoryPage = () => {
   useAnalyticsPageView(ANALYTICS_PAGE)
 
   return (
-    <PopupLayout>
+    <PopupTabPage
+      headerRight={<TaoPriceHeader />}
+      contentClassName="flex min-h-0 flex-1 flex-col text-fg-secondary text-xs"
+    >
       <TxHistoryProvider>
-        <Header />
         <Suspense fallback={<SuspenseTracker name="TxHistoryPage" />}>
-          <TxHistoryToolbar />
-          <PopupContent withBottomNav className="text-fg-secondary text-xs">
-            <TxHistoryList />
-          </PopupContent>
+          <TxHistoryPageContent />
         </Suspense>
       </TxHistoryProvider>
-    </PopupLayout>
+    </PopupTabPage>
   )
 }
+
+const TxHistoryPageContent = () => (
+  <>
+    <Header />
+    <TxHistoryToolbar />
+    <TxHistoryList />
+  </>
+)
 
 const Header = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex w-full shrink-0 flex-col gap-1 px-4 py-6">
+    <div className="flex w-full shrink-0 flex-col gap-1 px-2 pb-2">
       <div className="text-fg-primary text-lg font-bold">{t("Recent Activity")}</div>
       <div className="text-fg-secondary text-xs">{t("Review your latest transactions.")}</div>
     </div>
