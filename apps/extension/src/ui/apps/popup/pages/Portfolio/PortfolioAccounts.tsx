@@ -275,6 +275,7 @@ const Accounts = ({
 
   return (
     <div className="flex w-full flex-col gap-4 px-2">
+      {!folder && <AuthorisedSiteToolbar />}
       {folder ? (
         <FolderHeader folder={folder} folderTotal={folderTotal} />
       ) : (
@@ -449,7 +450,6 @@ export const PortfolioAccounts = () => {
 
   return (
     <>
-      {!folder && <AuthorisedSiteToolbar />}
       <Accounts
         accounts={accounts}
         folder={folder}

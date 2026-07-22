@@ -41,8 +41,6 @@ export const ConnectedAccountsPill: FC = () => {
     return { count, label }
   }, [accounts, site, t])
 
-  const containerColors = useMemo(() => (count ? "bg-fg-brand" : "bg-accent-2"), [count])
-
   const host = useMemo(() => {
     try {
       if (!currentSite.url) return null
@@ -55,26 +53,29 @@ export const ConnectedAccountsPill: FC = () => {
 
   if (!site?.addresses) return null
 
+  const isConnected = count > 0
+
   return (
     <>
       <button
         type="button"
         className={classNames(
-          "group h-[36px] w-full overflow-hidden rounded-full p-px",
-          containerColors,
-          "text-fg-secondary hover:text-fg-tertiary",
+          "group flex h-9 w-full items-center gap-2 overflow-hidden rounded-md border px-2.5 text-left",
+          "bg-secondary-solid transition-colors duration-700 ease-out",
+          "hover:bg-white/[0.06] active:bg-white/[0.08]",
+          isConnected ? "border-fg-brand/25" : "border-accent-2/25",
         )}
         onClick={() => setShowConnectedAccounts(true)}
       >
-        <div className="bg-secondary group-hover:bg-secondary flex h-full items-center gap-1.5 overflow-hidden rounded-full px-2">
-          <ConnectedSiteIndicator status={count ? "connected" : "disconnected"} />
-          <div className="flex grow items-center gap-1.5 truncate">
-            <div className="text-fg-primary max-w-[50%] shrink-0 truncate text-sm">{label}</div>
-            <div className="bg-tertiary h-3 w-px shrink-0"></div>
-            <div className="text-fg-secondary grow text-left text-xs">{host}</div>
+        <ConnectedSiteIndicator status={isConnected ? "connected" : "disconnected"} />
+        <div className="flex min-w-0 grow items-center gap-2 truncate">
+          <div className="text-fg-primary max-w-[50%] shrink-0 truncate text-sm font-medium">
+            {label}
           </div>
-          <ChevronDown className="shrink-0" />
+          <div className="bg-tertiary h-3 w-px shrink-0" />
+          <div className="text-fg-secondary min-w-0 grow truncate text-xs">{host}</div>
         </div>
+        <ChevronDown className="text-fg-tertiary size-4 shrink-0" />
       </button>
       <ConnectedAccountsDrawer
         open={showConnectedAccounts}
