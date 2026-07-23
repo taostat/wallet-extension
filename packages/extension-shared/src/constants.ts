@@ -8,6 +8,7 @@ export const SIDE_PANEL_MOUNTED_MESSAGE = "taostats.sidePanelMounted"
 export const SIDE_PANEL_UNMOUNTED_MESSAGE = "taostats.sidePanelUnmounted"
 export const SIDE_PANEL_VISIBILITY_MESSAGE = "taostats.sidePanelVisibility"
 export const SIDE_PANEL_AFTER_APPROVAL_MESSAGE = "taostats.sidePanelAfterApproval"
+export const CLOSE_SIDE_PANEL_MESSAGE = "taostats.closeSidePanel"
 /** Session storage key: whether the side panel was already open when a dapp approval started. */
 export const SIDE_PANEL_WAS_OPEN_KEY = "sidePanelWasOpenBeforeApproval"
 

@@ -2,6 +2,7 @@ import { sleep } from "@taostats-wallet/util"
 import {
   IS_CHROME,
   IS_FIREFOX,
+  CLOSE_SIDE_PANEL_MESSAGE,
   log,
   NAVIGATE_SIDE_PANEL_MESSAGE,
   OPEN_SIDEPANEL_MESSAGE,
@@ -185,6 +186,14 @@ class WindowManager {
         return
       }
 
+      if (message?.type === CLOSE_SIDE_PANEL_MESSAGE) {
+        void this.closeSidePanel(
+          message.windowId as number | undefined,
+          message.tabId as number | undefined,
+        )
+        return
+      }
+
       if (message?.type !== OPEN_SIDEPANEL_MESSAGE) return
 
       const tabId = sender.tab?.id
@@ -290,8 +299,20 @@ class WindowManager {
     const baseUrl = chrome.runtime.getURL("dashboard.html")
 
     await this.openTabOnce({ url: `${baseUrl}#${route}`, baseUrl })
+    await this.dismissSidePanelAfterDashboardOpen()
 
     return true
+  }
+
+  private async dismissSidePanelAfterDashboardOpen() {
+    if (!this.canUseSidePanel()) return
+
+    try {
+      const [activeTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+      await this.closeSidePanel(activeTab?.windowId, activeTab?.id)
+    } catch (err) {
+      log.warn("Failed to close side panel after opening dashboard", err)
+    }
   }
 
   async popupClose(id?: number) {

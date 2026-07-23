@@ -79,18 +79,20 @@ export default class Tabs extends TabsHandler {
     }
     // site may exist if created during a connection with EVM API
     if (siteFromUrl?.addresses) {
-      // this url was seen in the past
       assert(
         siteFromUrl.addresses?.length,
         `No Taostats Wallet accounts are authorised to connect to ${url}`,
       )
 
-      return false
+      return true
     }
     try {
       await requestAuthoriseSite(url, request, port)
     } catch (err) {
       log.error(err)
+      if (err instanceof Error && err.message === "Rejected") {
+        throw err
+      }
       return false
     }
     return true
@@ -315,6 +317,9 @@ export default class Tabs extends TabsHandler {
     if (type === "pub(phishing.redirectIfDenied)") {
       return this.redirectIfPhishing(url)
     }
+    if (type === "pub(ping)") {
+      return Promise.resolve(true)
+    }
     // Always check for onboarding before doing anything else
     // Because of chrome extensions can be synchronised on multiple computers,
     // Wallet may be installed on computers where user do not want to onboard
@@ -411,9 +416,6 @@ export default class Tabs extends TabsHandler {
           result: response.result,
         } as DecryptResult
       }
-
-      case "pub(ping)":
-        return Promise.resolve(true)
 
       default:
         throw new Error(`Unable to handle message of type ${type}`)

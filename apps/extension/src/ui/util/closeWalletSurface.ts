@@ -1,4 +1,4 @@
-import { SIDE_PANEL_AFTER_APPROVAL_MESSAGE, SIDE_PANEL_WAS_OPEN_KEY } from "extension-shared"
+import { CLOSE_SIDE_PANEL_MESSAGE, SIDE_PANEL_AFTER_APPROVAL_MESSAGE, SIDE_PANEL_WAS_OPEN_KEY } from "extension-shared"
 
 import { IS_EMBEDDED_POPUP, IS_POPUP } from "./constants"
 
@@ -17,7 +17,7 @@ export type CloseWalletSurfaceOptions = {
  * Dismiss or reset the current wallet UI surface.
  * - Floating popup (Firefox): closes the OS popup window.
  * - Embedded toolbar popup: closes the dropdown.
- * - Side panel: navigates to portfolio (or restores pre-approval open/closed state when `afterApproval` is set).
+ * - Side panel: closes the panel (or restores pre-approval open/closed state when `afterApproval` is set).
  *
  * Used from navigation, login, send flows, etc. For dapp approval completion, prefer `closeWalletSurfaceAfterApproval`.
  */
@@ -39,20 +39,23 @@ export async function closeWalletSurface(options?: CloseWalletSurfaceOptions) {
       return
     }
 
-    if (options?.afterApproval && isSidePanelSurface()) {
+    if (isSidePanelSurface()) {
+      if (options?.afterApproval) {
+        await chrome.runtime.sendMessage({
+          type: SIDE_PANEL_AFTER_APPROVAL_MESSAGE,
+          windowId: win.id,
+        })
+        return
+      }
+
       await chrome.runtime.sendMessage({
-        type: SIDE_PANEL_AFTER_APPROVAL_MESSAGE,
+        type: CLOSE_SIDE_PANEL_MESSAGE,
         windowId: win.id,
       })
       return
     }
   } catch {
     // ignore — side panel may not expose window type reliably
-  }
-
-  const { pathname, search } = window.location
-  if (window.location.hash !== "#/portfolio") {
-    window.location.replace(`${pathname}${search}#/portfolio`)
   }
 }
 
