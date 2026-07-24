@@ -171,7 +171,7 @@ const SendFundsProgressSubstrate: FC<SendFundsProgressSubstrateProps> = ({
       className={className}
       onClose={onClose}
       blockNumber={tx.blockNumber}
-      href={href}
+      href={href ?? undefined}
     />
   )
 }
@@ -195,7 +195,9 @@ export const SendFundsProgress: FC<SendFundsProgressProps> = ({
   // tx is null if not found in db
   if (tx === null) {
     const href = getBlockExplorerUrl(network, txId)
-    return <SendFundsProgressBase href={href} className={className} onClose={onClose} />
+    return (
+      <SendFundsProgressBase href={href ?? undefined} className={className} onClose={onClose} />
+    )
   }
 
   switch (tx?.platform) {
