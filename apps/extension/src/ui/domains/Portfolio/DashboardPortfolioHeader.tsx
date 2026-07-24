@@ -43,7 +43,7 @@ import { usePortfolioNavigation } from "./usePortfolioNavigation"
 import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 import { copyAddress } from "@ui/util/copyAddress"
-import { buildSendFundsRoute } from "@ui/util/sendFundsNavigation"
+import { buildSendFundsRoute, openSendFundsFromDashboard } from "@ui/util/sendFundsNavigation"
 
 const PortfolioFullWidthSeparator: FC = () => (
   <div className="border-primary w-full border-b" aria-hidden />
@@ -544,7 +544,7 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
                     tokenSymbol: symbol || undefined,
                   }),
                 )
-              : void api.sendFundsOpen({
+              : openSendFundsFromDashboard({
                   from: selectedAddress,
                   tokenSymbol: symbol || undefined,
                 }),

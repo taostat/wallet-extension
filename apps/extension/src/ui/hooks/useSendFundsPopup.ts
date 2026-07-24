@@ -8,11 +8,10 @@ import { useTranslation } from "react-i18next"
 
 import { useNavigate } from "react-router-dom"
 
-import { api } from "@ui/api"
 import { useAccounts, useBalances, useToken } from "@ui/state"
 import { IS_POPUP } from "@ui/util/constants"
 import { isTransferableToken } from "@ui/util/isTransferableToken"
-import { buildSendFundsRoute } from "@ui/util/sendFundsNavigation"
+import { buildSendFundsRoute, openSendFundsFromDashboard } from "@ui/util/sendFundsNavigation"
 
 const isCompatibleAddress = (from: Address, to: Address) => {
   try {
@@ -92,7 +91,7 @@ export const useSendFundsPopup = (
       return
     }
 
-    void api.sendFundsOpen(request)
+    openSendFundsFromDashboard(request)
   }, [account?.address, canSendFunds, navigate, to, tokenId, tokenSymbol])
 
   return { canSendFunds, cannotSendFundsReason, openSendFundsPopup }

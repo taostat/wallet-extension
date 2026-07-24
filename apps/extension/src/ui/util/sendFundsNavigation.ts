@@ -1,4 +1,7 @@
 import type { SendFundsOpenRequest } from "extension-core"
+import { OPEN_SIDEPANEL_MESSAGE } from "extension-shared"
+
+import { api } from "@ui/api"
 
 export const buildSendFundsRoute = ({
   from,
@@ -13,4 +16,15 @@ export const buildSendFundsRoute = ({
   if (to) params.set("to", to)
 
   return `/send?${params.toString()}`
+}
+
+/** Opens send funds in the side panel from dashboard/desktop UI. Must run during a user gesture. */
+export const openSendFundsFromDashboard = (request: SendFundsOpenRequest = {}) => {
+  try {
+    chrome.runtime.sendMessage({ type: OPEN_SIDEPANEL_MESSAGE, forNavigation: true })
+  } catch {
+    // Side panel is Chrome-only; sendFundsOpen still opens a floating popup on Firefox.
+  }
+
+  void api.sendFundsOpen(request)
 }

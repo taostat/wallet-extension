@@ -69,11 +69,17 @@ class WindowManager {
    * Opens the side panel during a user gesture when needed.
    * Skips open if the panel is already visible so post-approval close can restore prior state.
    */
-  private openSidePanelDuringGesture(tabId?: number, windowId?: number) {
-    this.recordSidePanelStateBeforeApproval()
+  private openSidePanelDuringGesture(
+    tabId?: number,
+    windowId?: number,
+    options?: { forApproval?: boolean },
+  ) {
+    if (options?.forApproval !== false) {
+      this.recordSidePanelStateBeforeApproval()
 
-    if (tabId !== undefined) this.#approvalTabId = tabId
-    if (windowId !== undefined) this.#approvalWindowId = windowId
+      if (tabId !== undefined) this.#approvalTabId = tabId
+      if (windowId !== undefined) this.#approvalWindowId = windowId
+    }
 
     if (this.#sidePanelKnownOpen) return
 
@@ -198,11 +204,12 @@ class WindowManager {
 
       const tabId = sender.tab?.id
       const windowId = sender.tab?.windowId
+      const forNavigation = message.forNavigation === true
 
       if (tabId !== undefined) this.#gestureTabId = tabId
 
       // Must call open synchronously to preserve the user gesture chain.
-      this.openSidePanelDuringGesture(tabId, windowId)
+      this.openSidePanelDuringGesture(tabId, windowId, { forApproval: !forNavigation })
     })
 
     const sidePanel = chrome.sidePanel as typeof chrome.sidePanel & {
