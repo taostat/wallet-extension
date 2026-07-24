@@ -11,7 +11,14 @@ import { Button } from "taostats-ui"
 import { useAnyNetwork, useNetworkById, useTransaction } from "@ui/state"
 
 const getBlockExplorerUrl = (network: Network | undefined | null, hash: string) => {
-  return getBlockExplorerUrls(network!, { type: "transaction", id: hash })[0] ?? null
+  if (!network) return null
+
+  const url = getBlockExplorerUrls(network, { type: "transaction", id: hash })[0]
+  if (!url) return null
+
+  if (url.includes("taostats.io")) return url.replace("/hash/", "/extrinsic/")
+
+  return url
 }
 
 const useStatusDetails = (tx?: WalletTransaction) => {
