@@ -70,10 +70,8 @@ export const BottomNav = () => {
       name: "Goto",
       action: "Fullscreen button",
     })
-    // assume paths are the same in dashboard
-    // portfolio pages supports account/folder query string arguments to stay in sync with popup
+    // dashboardOpen closes the side panel once the desktop tab is focused
     api.dashboardOpen(`${location.pathname}${location.search}`)
-    void closeWalletSurface()
   }, [location.pathname, location.search])
 
   const handleSettingsClick = useCallback(() => {

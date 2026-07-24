@@ -48,6 +48,9 @@ class WindowManager {
   /** Dapp tab/window that opened the panel for the current approval — used to close it again. */
   #approvalTabId: number | undefined
   #approvalWindowId: number | undefined
+  /** Tab/window that opened the panel for in-app navigation (e.g. dashboard Send). */
+  #navigationTabId: number | undefined
+  #navigationWindowId: number | undefined
 
   private canUseSidePanel() {
     return IS_CHROME && Boolean(chrome.sidePanel?.setOptions)
@@ -65,6 +68,67 @@ class WindowManager {
     void chrome.storage.session.set({ [SIDE_PANEL_WAS_OPEN_KEY]: this.#sidePanelKnownOpen })
   }
 
+  private recordNavigationSidePanelContext(tabId?: number, windowId?: number) {
+    if (tabId !== undefined) this.#navigationTabId = tabId
+    if (windowId !== undefined) this.#navigationWindowId = windowId
+  }
+
+  private clearNavigationSidePanelContext() {
+    this.#navigationTabId = undefined
+    this.#navigationWindowId = undefined
+  }
+
+  private async getSidePanelCloseAttempts(
+    windowId?: number,
+    tabId?: number,
+  ): Promise<Array<{ tabId?: number; windowId?: number }>> {
+    const attempts: Array<{ tabId?: number; windowId?: number }> = []
+    const seen = new Set<string>()
+
+    const addAttempt = (attempt: { tabId?: number; windowId?: number }) => {
+      const key = `${attempt.tabId ?? ""}:${attempt.windowId ?? ""}`
+      if (seen.has(key)) return
+      seen.add(key)
+      attempts.push(attempt)
+    }
+
+    // Prefer window-scoped close — tab-scoped close fails for extension-page tabs (dashboard)
+    // while that tab is focused, which breaks expand → send → close on desktop.
+    if (windowId !== undefined) addAttempt({ windowId })
+    if (this.#navigationWindowId !== undefined) addAttempt({ windowId: this.#navigationWindowId })
+    if (this.#approvalWindowId !== undefined) addAttempt({ windowId: this.#approvalWindowId })
+
+    try {
+      const win = await chrome.windows.getLastFocused({ populate: true })
+      if (win.id !== undefined) addAttempt({ windowId: win.id })
+    } catch {
+      // ignore
+    }
+
+    if (tabId !== undefined) addAttempt({ tabId })
+    if (this.#navigationTabId !== undefined) addAttempt({ tabId: this.#navigationTabId })
+    if (this.#approvalTabId !== undefined) addAttempt({ tabId: this.#approvalTabId })
+
+    try {
+      const [activeTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+      if (activeTab?.windowId !== undefined) addAttempt({ windowId: activeTab.windowId })
+      if (activeTab?.id !== undefined) addAttempt({ tabId: activeTab.id })
+    } catch {
+      // ignore
+    }
+
+    try {
+      const win = await chrome.windows.getLastFocused({ populate: true })
+      const activeTab = win.tabs?.find((tab) => tab.active)
+      if (activeTab?.windowId !== undefined) addAttempt({ windowId: activeTab.windowId })
+      if (activeTab?.id !== undefined) addAttempt({ tabId: activeTab.id })
+    } catch {
+      // ignore
+    }
+
+    return attempts
+  }
+
   /**
    * Opens the side panel during a user gesture when needed.
    * Skips open if the panel is already visible so post-approval close can restore prior state.
@@ -74,18 +138,29 @@ class WindowManager {
     windowId?: number,
     options?: { forApproval?: boolean },
   ) {
-    if (options?.forApproval !== false) {
+    const forNavigation = options?.forApproval === false
+
+    if (!forNavigation) {
       this.recordSidePanelStateBeforeApproval()
 
       if (tabId !== undefined) this.#approvalTabId = tabId
       if (windowId !== undefined) this.#approvalWindowId = windowId
+    } else if (windowId !== undefined) {
+      this.recordNavigationSidePanelContext(undefined, windowId)
+    } else if (tabId !== undefined) {
+      this.recordNavigationSidePanelContext(tabId, windowId)
     }
 
-    if (this.#sidePanelKnownOpen) return
+    if (!forNavigation && this.#sidePanelKnownOpen) return
 
     try {
-      if (tabId !== undefined) chrome.sidePanel.open({ tabId })
-      else if (windowId !== undefined) chrome.sidePanel.open({ windowId })
+      if (forNavigation && windowId !== undefined) {
+        chrome.sidePanel.open({ windowId })
+      } else if (tabId !== undefined) {
+        chrome.sidePanel.open({ tabId })
+      } else if (windowId !== undefined) {
+        chrome.sidePanel.open({ windowId })
+      }
     } catch (err) {
       log.error("Failed to open side panel during user gesture", err)
     }
@@ -111,19 +186,14 @@ class WindowManager {
       close?: (options: { windowId?: number; tabId?: number }) => Promise<void>
     }
 
-    const attempts: Array<{ tabId?: number; windowId?: number }> = []
-    if (tabId !== undefined) attempts.push({ tabId })
-    if (windowId !== undefined) attempts.push({ windowId })
-    if (attempts.length === 0) {
-      const win = await chrome.windows.getLastFocused()
-      if (win.id !== undefined) attempts.push({ windowId: win.id })
-    }
+    const attempts = await this.getSidePanelCloseAttempts(windowId, tabId)
 
     if (sidePanel.close) {
       for (const options of attempts) {
         try {
           await sidePanel.close(options)
           this.#sidePanelKnownOpen = false
+          this.clearNavigationSidePanelContext()
           return
         } catch (err) {
           log.warn("chrome.sidePanel.close attempt failed", { options, err })
@@ -219,6 +289,17 @@ class WindowManager {
 
     sidePanel.onOpened?.addListener(() => {
       this.#sidePanelKnownOpen = true
+
+      if (this.#sidePanelWasOpenBeforeCurrentApproval === undefined) {
+        void chrome.tabs
+          .query({ active: true, lastFocusedWindow: true })
+          .then(([activeTab]) => {
+            if (activeTab?.windowId !== undefined) {
+              this.recordNavigationSidePanelContext(undefined, activeTab.windowId)
+            }
+          })
+          .catch(() => {})
+      }
     })
 
     sidePanel.onClosed?.addListener(() => {
@@ -316,9 +397,23 @@ class WindowManager {
 
     try {
       const [activeTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
-      await this.closeSidePanel(activeTab?.windowId, activeTab?.id)
+
+      if (activeTab?.id !== undefined) {
+        try {
+          await chrome.sidePanel.setOptions({ tabId: activeTab.id, enabled: false })
+        } catch {
+          // ignore
+        }
+      }
+
+      await chrome.sidePanel.setOptions({ path: DEFAULT_SIDE_PANEL_PORTFOLIO_PATH, enabled: true })
+      await this.closeSidePanel(activeTab?.windowId)
     } catch (err) {
       log.warn("Failed to close side panel after opening dashboard", err)
+    } finally {
+      // Expand dismiss can leave this stale while the panel is actually closed, which skips
+      // the sync open on the first Send from desktop.
+      this.#sidePanelKnownOpen = false
     }
   }
 
@@ -363,16 +458,35 @@ class WindowManager {
       const [activeTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
       const tabId = gestureTabId ?? activeTab?.id
 
+      let windowId = activeTab?.windowId
+      if (tabId !== undefined) {
+        try {
+          const tab = await chrome.tabs.get(tabId)
+          windowId = tab.windowId
+        } catch {
+          // use activeTab windowId
+        }
+      }
+
+      if (windowId !== undefined) {
+        this.recordNavigationSidePanelContext(undefined, windowId)
+      }
+
       const path = hashRoute
         ? `popup.html${hashRoute.startsWith("#") ? hashRoute : `#${hashRoute}`}`
         : "popup.html"
 
-      // setOptions updates the path for the next open; notifySidePanelNavigation handles an already-open panel.
+      // Clear any tab-scoped options (e.g. left over from a prior expand/send cycle on dashboard).
       if (tabId !== undefined) {
-        await chrome.sidePanel.setOptions({ tabId, path, enabled: true })
-      } else {
-        await chrome.sidePanel.setOptions({ path, enabled: true })
+        try {
+          await chrome.sidePanel.setOptions({ tabId, enabled: false })
+        } catch {
+          // ignore
+        }
       }
+
+      // Window-scoped path only — tab-scoped setOptions breaks close on extension-page tabs.
+      await chrome.sidePanel.setOptions({ path, enabled: true })
 
       await this.notifySidePanelNavigation(hashRoute)
 

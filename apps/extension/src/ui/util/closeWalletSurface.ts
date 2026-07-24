@@ -32,26 +32,19 @@ export async function closeWalletSurface(options?: CloseWalletSurfaceOptions) {
     return
   }
 
+  if (isSidePanelSurface()) {
+    try {
+      await chrome.runtime.sendMessage({ type: CLOSE_SIDE_PANEL_MESSAGE })
+    } catch {
+      // ignore
+    }
+    return
+  }
+
   try {
     const win = await chrome.windows.getCurrent()
     if (win.type === "popup") {
       window.close()
-      return
-    }
-
-    if (isSidePanelSurface()) {
-      if (options?.afterApproval) {
-        await chrome.runtime.sendMessage({
-          type: SIDE_PANEL_AFTER_APPROVAL_MESSAGE,
-          windowId: win.id,
-        })
-        return
-      }
-
-      await chrome.runtime.sendMessage({
-        type: CLOSE_SIDE_PANEL_MESSAGE,
-        windowId: win.id,
-      })
       return
     }
   } catch {
