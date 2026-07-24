@@ -33,7 +33,7 @@ export const FeesSummary = () => {
 
   return (
     <Container
-      className={classNames("space-y-2 px-4 py-2", isLoading && !estimatedFee && "animate-pulse")}
+      className={classNames("space-y-2 px-2 py-2", isLoading && !estimatedFee && "animate-pulse")}
     >
       <NetworkRow />
       <div className="flex w-full items-center justify-between gap-2">

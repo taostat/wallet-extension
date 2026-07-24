@@ -320,13 +320,13 @@ export const SendFundsConfirmForm = () => {
 
   return (
     <ExternalAddressWarningProvider>
-      <div className="flex h-full w-full flex-col items-center gap-3 px-6 pb-4">
+      <div className="flex h-full w-full flex-col items-center gap-3 px-2 pb-4">
         <ScrollContainer
           className="w-full grow"
           innerClassName="flex flex-col w-full items-center space-between min-h-full"
         >
           <div className="w-full grow">
-            <div className="bg-app-bg text-fg-secondary flex flex-col rounded px-6 py-4 leading-[140%]">
+            <div className="bg-app-bg text-fg-secondary flex flex-col rounded px-2 py-4 leading-[140%]">
               <div className="text-fg-primary flex h-8 items-center justify-between gap-4">
                 <div className="text-fg-secondary whitespace-nowrap text-sm">{t("Amount")}</div>
                 <AmountDisplay />

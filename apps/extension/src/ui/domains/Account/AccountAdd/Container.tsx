@@ -1,6 +1,7 @@
 import { AnnotationDots } from "@untitledui/icons/AnnotationDots"
 import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { Eye } from "@untitledui/icons/Eye"
+import { FilePlus01 } from "@untitledui/icons/FilePlus01"
 import { Link01 } from "@untitledui/icons/Link01"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
@@ -47,6 +48,13 @@ function NewAccountMethodButtons() {
         title={t("Import via Recovery Phrase")}
         subtitle={t("Import with 12 or 24 word recovery phrase")}
         to="/accounts/add/mnemonic"
+      />
+      <CtaButton
+        iconLeft={FilePlus01}
+        iconRight={ChevronRight}
+        title={t("Import via JSON")}
+        subtitle={t("Import your Polkadot.{js} file")}
+        to="/accounts/add/json"
       />
       <CtaButton
         iconLeft={Eye}

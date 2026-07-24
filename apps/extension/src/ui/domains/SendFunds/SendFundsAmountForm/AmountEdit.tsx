@@ -276,9 +276,9 @@ export const AmountEdit = ({ onTokenClick }: { onTokenClick: () => void }) => {
                 <PillButton
                   onClick={toggleIsTokenEdit}
                   size="xs"
-                  className="h-[22px] w-[22px] rounded-full !px-0 !py-0"
+                  className="h-[22px] w-[22px] justify-center rounded-full !gap-0 !px-0 !py-0 [&>div]:contents"
                 >
-                  <SwapIcon />
+                  <SwapIcon className="size-3" />
                 </PillButton>
               </>
             )}
