@@ -15,7 +15,7 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 export const SendFundsToken = () => {
   const { t } = useTranslation()
   return (
-    <SendFundsLayout title={t("Select a token")} analytics={ANALYTICS_PAGE}>
+    <SendFundsLayout title={t("Select a token")} backTo="/portfolio" analytics={ANALYTICS_PAGE}>
       <SendFundsTokenPicker />
     </SendFundsLayout>
   )

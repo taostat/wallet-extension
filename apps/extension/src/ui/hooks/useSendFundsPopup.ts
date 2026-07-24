@@ -6,9 +6,13 @@ import { log } from "extension-shared"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
+import { useNavigate } from "react-router-dom"
+
 import { api } from "@ui/api"
 import { useAccounts, useBalances, useToken } from "@ui/state"
+import { IS_POPUP } from "@ui/util/constants"
 import { isTransferableToken } from "@ui/util/isTransferableToken"
+import { buildSendFundsRoute } from "@ui/util/sendFundsNavigation"
 
 const isCompatibleAddress = (from: Address, to: Address) => {
   try {
@@ -26,6 +30,7 @@ export const useSendFundsPopup = (
   to?: Address,
 ) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const token = useToken(tokenId)
   const accounts = useAccounts("owned")
   const balances = useBalances("owned")
@@ -79,8 +84,16 @@ export const useSendFundsPopup = (
 
   const openSendFundsPopup = useCallback(() => {
     if (!canSendFunds) return
-    api.sendFundsOpen({ from: account?.address, tokenId, tokenSymbol, to })
-  }, [account?.address, canSendFunds, to, tokenId, tokenSymbol])
+
+    const request = { from: account?.address, tokenId, tokenSymbol, to }
+
+    if (IS_POPUP) {
+      navigate(buildSendFundsRoute(request))
+      return
+    }
+
+    void api.sendFundsOpen(request)
+  }, [account?.address, canSendFunds, navigate, to, tokenId, tokenSymbol])
 
   return { canSendFunds, cannotSendFundsReason, openSendFundsPopup }
 }

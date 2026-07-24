@@ -12,8 +12,8 @@ import { BalanceSeparator } from "../Asset/BalanceSeparator"
 import { currencyConfig } from "../Asset/currencyConfig"
 import { Fiat } from "../Asset/Fiat"
 import { Tokens } from "../Asset/Tokens"
+import { isAlphaSymbol, isRootTaoSymbol } from "./isRootTaoHolding"
 import { StaleBalancesIcon } from "./StaleBalancesIcon"
-import { isAlphaSymbol, isRootTaoHolding, isRootTaoSymbol } from "./isRootTaoHolding"
 
 type Props = {
   locked?: boolean

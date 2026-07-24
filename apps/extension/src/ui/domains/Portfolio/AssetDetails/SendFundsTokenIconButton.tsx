@@ -10,13 +10,7 @@ import { useToken } from "@ui/state"
 
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 
-export const SendFundsTokenButton = ({
-  tokenId,
-  shouldClose,
-}: {
-  tokenId: TokenId
-  shouldClose?: boolean
-}) => {
+export const SendFundsTokenButton = ({ tokenId }: { tokenId: TokenId }) => {
   const { t } = useTranslation()
   const { selectedAccount } = usePortfolioNavigation()
   const token = useToken(tokenId)
@@ -29,8 +23,7 @@ export const SendFundsTokenButton = ({
   const handleClick = useCallback(() => {
     if (!canSendFunds) return
     openSendFundsPopup()
-    if (shouldClose) window.close()
-  }, [canSendFunds, openSendFundsPopup, shouldClose])
+  }, [canSendFunds, openSendFundsPopup])
 
   if (!token) return null
 

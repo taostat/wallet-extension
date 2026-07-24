@@ -8,6 +8,7 @@ import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 type SendFundsLayoutProps = {
   title?: ReactNode
   withBackLink?: boolean
+  backTo?: string
   children?: ReactNode
   analytics: AnalyticsPage
 }
@@ -16,6 +17,7 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
   title,
   children,
   withBackLink,
+  backTo,
   analytics,
 }) => {
   const navigate = useNavigate()
@@ -28,13 +30,24 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
       name: "Goto",
       action: "Back",
     })
-    navigate(-1)
-  }, [analytics, navigate])
 
-  const showBackButton = withBackLink && window.history.length > 1
+    if (backTo) {
+      navigate(backTo)
+      return
+    }
+
+    if (withBackLink && window.history.length > 1) {
+      navigate(-1)
+      return
+    }
+
+    navigate("/portfolio")
+  }, [analytics, backTo, navigate, withBackLink])
+
+  const showBackButton = withBackLink || !!backTo
 
   return (
-    <div id="main" className="relative flex h-full w-full flex-col">
+    <div className="relative flex min-h-0 w-full flex-1 flex-col">
       <div className="text-fg-secondary flex h-16 min-h-[64px] w-full items-center px-6">
         {showBackButton ? (
           <button

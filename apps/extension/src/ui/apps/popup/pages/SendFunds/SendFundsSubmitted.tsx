@@ -1,10 +1,9 @@
 import { useCallback, useMemo } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
 import { AnalyticsPage } from "@ui/api/analytics"
 import { SendFundsProgress } from "@ui/domains/SendFunds/SendFundsProgress"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
-import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 const ANALYTICS_PAGE: AnalyticsPage = {
   container: "Popup",
@@ -14,6 +13,7 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 }
 
 export const SendFundsSubmitted = () => {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
   useAnalyticsPageView(ANALYTICS_PAGE)
@@ -27,11 +27,11 @@ export const SendFundsSubmitted = () => {
   )
 
   const handleClose = useCallback(() => {
-    void closeWalletSurface()
-  }, [])
+    navigate("/portfolio")
+  }, [navigate])
 
   return (
-    <div id="main" className="relative h-full w-full px-6 py-4">
+    <div className="relative flex min-h-0 w-full flex-1 flex-col px-6 py-4">
       <SendFundsProgress txId={txId} networkId={networkId} onClose={handleClose} />
     </div>
   )

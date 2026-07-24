@@ -52,7 +52,7 @@ export const TokenBalancesList = ({
               <CopyAddressButton networkId={chainOrNetworkId} />
               <BittensorUnstakeButton balances={balances} />
               <Suspense fallback={<SuspenseTracker name="ChainTokenBalances.Buttons" />}>
-                <SendFundsTokenButton tokenId={tokenId} shouldClose />
+                <SendFundsTokenButton tokenId={tokenId} />
               </Suspense>
             </div>
           </div>

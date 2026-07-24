@@ -13,7 +13,7 @@ import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "exte
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, MouseEventHandler, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { useMatch } from "react-router-dom"
+import { useMatch, useNavigate } from "react-router-dom"
 import {
   Button,
   ContextMenuTrigger,
@@ -43,6 +43,7 @@ import { usePortfolioNavigation } from "./usePortfolioNavigation"
 import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 import { copyAddress } from "@ui/util/copyAddress"
+import { buildSendFundsRoute } from "@ui/util/sendFundsNavigation"
 
 const PortfolioFullWidthSeparator: FC = () => (
   <div className="border-primary w-full border-b" aria-hidden />
@@ -500,6 +501,7 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
 }) => {
   const { selectedAccounts, selectedAccount } = usePortfolioNavigation()
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const { open: openCopyAddressModal } = useCopyAddressModal()
   const isPopup = variant === "popup"
   const ownedAccounts = useAccounts("owned")
@@ -536,8 +538,13 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
           icon: ArrowUpRight,
           onClick: () =>
             isPopup
-              ? api.sendFundsOpen({ from: selectedAddress }).then(() => void closeWalletSurface())
-              : api.sendFundsOpen({
+              ? navigate(
+                  buildSendFundsRoute({
+                    from: selectedAddress,
+                    tokenSymbol: symbol || undefined,
+                  }),
+                )
+              : void api.sendFundsOpen({
                   from: selectedAddress,
                   tokenSymbol: symbol || undefined,
                 }),
@@ -570,6 +577,7 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
       disableActions,
       disabledReason,
       isPopup,
+      navigate,
       selectedAccount,
       selectedAccounts.length,
       selectedAddress,
