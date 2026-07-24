@@ -3,7 +3,7 @@ export const IS_POPUP = typeof window !== "undefined" && window.location.pathnam
 export const IS_EMBEDDED_POPUP =
   IS_POPUP && new URLSearchParams(window.location.search).has("embedded")
 
-export const IS_SIDE_PANEL =
+export const isSidePanel = () =>
   IS_POPUP &&
   !IS_EMBEDDED_POPUP &&
   typeof document !== "undefined" &&

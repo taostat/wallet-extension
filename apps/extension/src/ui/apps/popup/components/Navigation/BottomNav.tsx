@@ -14,6 +14,7 @@ import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
+import { isSidePanel } from "@ui/util/constants"
 
 import {
   QuickSettingsModal,
@@ -85,7 +86,17 @@ export const BottomNav = () => {
     closeQuickSettings()
   }, [closeQuickSettings, navigate])
 
+  const handleCloseSidePanelClick = useCallback(() => {
+    sendAnalyticsEvent({
+      ...ANALYTICS_PAGE,
+      name: "Goto",
+      action: "Close side panel button",
+    })
+    void closeWalletSurface()
+  }, [])
+
   const allBackedUp = useMnemonicsAllBackedUp()
+  const showSidePanelClose = isSidePanel()
 
   const { t } = useTranslation()
 
@@ -105,17 +116,35 @@ export const BottomNav = () => {
             icon={TaostatsIcon}
             onClick={handleHomeClick}
             route="/portfolio/*"
+            compact={showSidePanelClose}
           />
-          <NavButton label={t("Staking")} icon={Link01} onClick={handleStakingClick} />
+          <NavButton
+            label={t("Staking")}
+            icon={Link01}
+            onClick={handleStakingClick}
+            compact={showSidePanelClose}
+          />
           <NavButton
             label={t("History")}
             icon={Calendar}
             onClick={handleTxHistoryClick}
             route="/tx-history"
+            compact={showSidePanelClose}
           />
-          <NavButton label={t("Full Screen")} icon={Expand04} onClick={handleExpandClick} />
+          <NavButton
+            label={t("Full Screen")}
+            icon={Expand04}
+            onClick={handleExpandClick}
+            compact={showSidePanelClose}
+          />
           {isQuickSettingsOpen ? (
-            <NavButton label={t("Close")} icon={XClose} onClick={closeQuickSettings} isActive />
+            <NavButton
+              label={t("Close")}
+              icon={XClose}
+              onClick={closeQuickSettings}
+              isActive
+              compact={showSidePanelClose}
+            />
           ) : (
             <NavButton
               label={t("More")}
@@ -123,8 +152,18 @@ export const BottomNav = () => {
               onClick={handleSettingsClick}
               route="/settings"
               withBadge={!allBackedUp}
+              compact={showSidePanelClose}
             />
           )}
+          {showSidePanelClose ? (
+            <NavButton
+              label={t("Close")}
+              icon={XClose}
+              onClick={handleCloseSidePanelClick}
+              variant="negative"
+              compact
+            />
+          ) : null}
         </nav>
       </div>
     </>
@@ -138,8 +177,20 @@ const NavButton: FC<{
   isActive?: boolean
   withBadge?: boolean
   route?: string
+  variant?: "default" | "negative"
+  compact?: boolean
   onClick: () => void
-}> = ({ label, icon: Icon, iconClassName, isActive, withBadge, route, onClick }) => {
+}> = ({
+  label,
+  icon: Icon,
+  iconClassName,
+  isActive,
+  withBadge,
+  route,
+  variant = "default",
+  compact = false,
+  onClick,
+}) => {
   const routeMatch = useMatch(route ?? "")
 
   return (
@@ -147,10 +198,13 @@ const NavButton: FC<{
       type="button"
       aria-label={typeof label === "string" ? label : undefined}
       className={classNames(
-        "relative flex h-10 w-[60px] shrink-0 items-center justify-center rounded-full transition-colors duration-500",
+        "relative flex h-10 shrink-0 items-center justify-center rounded-full transition-colors duration-500",
+        compact ? "w-[52px]" : "w-[60px]",
         routeMatch || isActive
           ? "text-fg-brand bg-white/10 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.08)]"
-          : "text-grayish hover:text-label-secondary hover:bg-white/[0.06]",
+          : variant === "negative"
+            ? "bg-accent-2/10 text-accent-2 hover:bg-accent-2/15"
+            : "text-grayish hover:text-label-secondary hover:bg-white/[0.06]",
       )}
       onClick={onClick}
     >
