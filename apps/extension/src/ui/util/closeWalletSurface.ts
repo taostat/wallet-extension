@@ -34,7 +34,16 @@ export async function closeWalletSurface(options?: CloseWalletSurfaceOptions) {
 
   if (isSidePanelSurface()) {
     try {
-      await chrome.runtime.sendMessage({ type: CLOSE_SIDE_PANEL_MESSAGE })
+      const [win, [activeTab]] = await Promise.all([
+        chrome.windows.getCurrent(),
+        chrome.tabs.query({ active: true, lastFocusedWindow: true }),
+      ])
+
+      await chrome.runtime.sendMessage({
+        type: CLOSE_SIDE_PANEL_MESSAGE,
+        windowId: win.id,
+        tabId: activeTab?.id,
+      })
     } catch {
       // ignore
     }

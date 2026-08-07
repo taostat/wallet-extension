@@ -11,6 +11,8 @@ export const SIDE_PANEL_AFTER_APPROVAL_MESSAGE = "taostats.sidePanelAfterApprova
 export const CLOSE_SIDE_PANEL_MESSAGE = "taostats.closeSidePanel"
 /** Session storage key: whether the side panel was already open when a dapp approval started. */
 export const SIDE_PANEL_WAS_OPEN_KEY = "sidePanelWasOpenBeforeApproval"
+/** Session storage key: dapp tab that owns the tab-scoped approval side panel. */
+export const SIDE_PANEL_APPROVAL_TAB_KEY = "sidePanelApprovalTabId"
 
 /** Dapp RPC messages that require user approval UI. */
 export const APPROVAL_UI_MESSAGES = new Set([

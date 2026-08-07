@@ -7,12 +7,19 @@ import {
   NAVIGATE_SIDE_PANEL_MESSAGE,
   OPEN_SIDEPANEL_MESSAGE,
   SIDE_PANEL_AFTER_APPROVAL_MESSAGE,
+  SIDE_PANEL_APPROVAL_TAB_KEY,
   SIDE_PANEL_VISIBILITY_MESSAGE,
   SIDE_PANEL_WAS_OPEN_KEY,
 } from "extension-shared"
 
 import { appStore } from "../domains/app/store.app"
 import { RequestRoute } from "../domains/app/types"
+import {
+  APPROVAL_NOTIFICATION_ID_PREFIX,
+  APPROVAL_NOTIFICATION_SESSION_KEY,
+  clearApprovalNotification,
+  createApprovalNotification,
+} from "../notifications"
 
 /** Returned when UI is shown in the Chrome side panel instead of a popup window. */
 export const SIDE_PANEL_SURFACE_ID = -1
@@ -20,6 +27,13 @@ export const SIDE_PANEL_SURFACE_ID = -1
 export type PopupOpenOptions = {
   /** When false on Chrome, never opens a floating popup (side panel only). */
   allowPopupFallback?: boolean
+  /**
+   * `approval` — dapp connect/sign/metadata (tab-scoped panel, must stay enabled on dapp tabs).
+   * `navigation` — in-app routes e.g. send from desktop (window-scoped, clears tab bindings).
+   */
+  mode?: "approval" | "navigation"
+  /** Dapp origin shown in approval notifications when the side panel cannot auto-open. */
+  approvalSiteUrl?: string
 }
 
 const WINDOW_OPTS: chrome.windows.CreateData & { width: number; height: number } = {
@@ -51,6 +65,10 @@ class WindowManager {
   /** Tab/window that opened the panel for in-app navigation (e.g. dashboard Send). */
   #navigationTabId: number | undefined
   #navigationWindowId: number | undefined
+  /** In-memory payload for synchronous side panel open on notification click (must not await before open). */
+  #approvalNotificationPayload:
+    | { tabId: number; path: string; notificationId: string }
+    | undefined
 
   private canUseSidePanel() {
     return IS_CHROME && Boolean(chrome.sidePanel?.setOptions)
@@ -78,6 +96,32 @@ class WindowManager {
     this.#navigationWindowId = undefined
   }
 
+  private persistApprovalSidePanelContext(tabId?: number, windowId?: number) {
+    if (tabId !== undefined) {
+      this.#approvalTabId = tabId
+      void chrome.storage.session.set({ [SIDE_PANEL_APPROVAL_TAB_KEY]: tabId })
+    }
+    if (windowId !== undefined) this.#approvalWindowId = windowId
+  }
+
+  private clearApprovalSidePanelContext() {
+    this.#approvalTabId = undefined
+    this.#approvalWindowId = undefined
+    void chrome.storage.session.remove(SIDE_PANEL_APPROVAL_TAB_KEY)
+  }
+
+  private async resolveApprovalTabId(): Promise<number | undefined> {
+    if (this.#approvalTabId !== undefined) return this.#approvalTabId
+
+    try {
+      const stored = await chrome.storage.session.get(SIDE_PANEL_APPROVAL_TAB_KEY)
+      const tabId = stored[SIDE_PANEL_APPROVAL_TAB_KEY]
+      return typeof tabId === "number" ? tabId : undefined
+    } catch {
+      return undefined
+    }
+  }
+
   private async getSidePanelCloseAttempts(
     windowId?: number,
     tabId?: number,
@@ -92,34 +136,43 @@ class WindowManager {
       attempts.push(attempt)
     }
 
-    // Prefer window-scoped close — tab-scoped close fails for extension-page tabs (dashboard)
-    // while that tab is focused, which breaks expand → send → close on desktop.
-    if (windowId !== undefined) addAttempt({ windowId })
-    if (this.#navigationWindowId !== undefined) addAttempt({ windowId: this.#navigationWindowId })
-    if (this.#approvalWindowId !== undefined) addAttempt({ windowId: this.#approvalWindowId })
+    const approvalTabId = await this.resolveApprovalTabId()
+
+    const addTabAttempts = () => {
+      if (tabId !== undefined) addAttempt({ tabId })
+      if (approvalTabId !== undefined && approvalTabId !== tabId) addAttempt({ tabId: approvalTabId })
+      if (this.#navigationTabId !== undefined) addAttempt({ tabId: this.#navigationTabId })
+    }
+
+    const addWindowAttempts = () => {
+      if (windowId !== undefined) addAttempt({ windowId })
+      if (this.#navigationWindowId !== undefined) addAttempt({ windowId: this.#navigationWindowId })
+      if (this.#approvalWindowId !== undefined) addAttempt({ windowId: this.#approvalWindowId })
+    }
+
+    // Tab-specific approval panels must close via tabId — windowId close rejects (Chrome 145+).
+    // Navigation panels (desktop send) must close via windowId — tab close fails on extension tabs.
+    const preferTabClose = approvalTabId !== undefined || tabId !== undefined
+
+    if (preferTabClose) {
+      addTabAttempts()
+      addWindowAttempts()
+    } else {
+      addWindowAttempts()
+      addTabAttempts()
+    }
 
     try {
       const win = await chrome.windows.getLastFocused({ populate: true })
       if (win.id !== undefined) addAttempt({ windowId: win.id })
-    } catch {
-      // ignore
-    }
-
-    if (tabId !== undefined) addAttempt({ tabId })
-    if (this.#navigationTabId !== undefined) addAttempt({ tabId: this.#navigationTabId })
-    if (this.#approvalTabId !== undefined) addAttempt({ tabId: this.#approvalTabId })
-
-    try {
-      const [activeTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
-      if (activeTab?.windowId !== undefined) addAttempt({ windowId: activeTab.windowId })
+      const activeTab = win.tabs?.find((t) => t.active)
       if (activeTab?.id !== undefined) addAttempt({ tabId: activeTab.id })
     } catch {
       // ignore
     }
 
     try {
-      const win = await chrome.windows.getLastFocused({ populate: true })
-      const activeTab = win.tabs?.find((tab) => tab.active)
+      const [activeTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
       if (activeTab?.windowId !== undefined) addAttempt({ windowId: activeTab.windowId })
       if (activeTab?.id !== undefined) addAttempt({ tabId: activeTab.id })
     } catch {
@@ -143,23 +196,45 @@ class WindowManager {
     if (!forNavigation) {
       this.recordSidePanelStateBeforeApproval()
 
-      if (tabId !== undefined) this.#approvalTabId = tabId
-      if (windowId !== undefined) this.#approvalWindowId = windowId
-    } else if (windowId !== undefined) {
+      this.persistApprovalSidePanelContext(tabId, windowId)
+
+      // Always re-enable the dapp tab — even when the panel is already open — so toolbar
+      // openPanelOnActionClick keeps working after prior close/navigation cycles.
+      if (tabId !== undefined) {
+        void chrome.sidePanel.setOptions({
+          tabId,
+          path: DEFAULT_SIDE_PANEL_PORTFOLIO_PATH,
+          enabled: true,
+        })
+      }
+
+      // Skip open when already visible so post-approval close can restore prior state.
+      if (this.#sidePanelKnownOpen) return
+
+      // setOptions (above) must not be awaited or the user gesture is lost before open().
+      try {
+        if (tabId !== undefined) {
+          chrome.sidePanel.open({ tabId })
+        } else if (windowId !== undefined) {
+          chrome.sidePanel.open({ windowId })
+        }
+      } catch (err) {
+        log.error("Failed to open side panel during user gesture", err)
+      }
+      return
+    }
+
+    if (windowId !== undefined) {
       this.recordNavigationSidePanelContext(undefined, windowId)
     } else if (tabId !== undefined) {
       this.recordNavigationSidePanelContext(tabId, windowId)
     }
 
-    if (!forNavigation && this.#sidePanelKnownOpen) return
-
     try {
-      if (forNavigation && windowId !== undefined) {
+      if (windowId !== undefined) {
         chrome.sidePanel.open({ windowId })
       } else if (tabId !== undefined) {
         chrome.sidePanel.open({ tabId })
-      } else if (windowId !== undefined) {
-        chrome.sidePanel.open({ windowId })
       }
     } catch (err) {
       log.error("Failed to open side panel during user gesture", err)
@@ -188,16 +263,39 @@ class WindowManager {
 
     const attempts = await this.getSidePanelCloseAttempts(windowId, tabId)
 
+    const approvalTabId = await this.resolveApprovalTabId()
+
     if (sidePanel.close) {
       for (const options of attempts) {
         try {
           await sidePanel.close(options)
           this.#sidePanelKnownOpen = false
           this.clearNavigationSidePanelContext()
+          if (approvalTabId !== undefined) {
+            this.clearApprovalSidePanelContext()
+          }
           return
         } catch (err) {
           log.warn("chrome.sidePanel.close attempt failed", { options, err })
         }
+      }
+    }
+
+    // Fallback for tab-scoped panels when close() rejects (e.g. opened via toolbar).
+    const tabIdsToCollapse = new Set<number>()
+    if (tabId !== undefined) tabIdsToCollapse.add(tabId)
+    if (approvalTabId !== undefined) tabIdsToCollapse.add(approvalTabId)
+
+    for (const collapseTabId of tabIdsToCollapse) {
+      try {
+        await chrome.sidePanel.setOptions({ tabId: collapseTabId, enabled: false })
+        await chrome.sidePanel.setOptions({ tabId: collapseTabId, enabled: true })
+        this.#sidePanelKnownOpen = false
+        this.clearNavigationSidePanelContext()
+        this.clearApprovalSidePanelContext()
+        return
+      } catch (err) {
+        log.warn("sidePanel tab collapse attempt failed", { tabId: collapseTabId, err })
       }
     }
 
@@ -216,12 +314,12 @@ class WindowManager {
     const wasOpenBeforeApproval =
       this.#sidePanelWasOpenBeforeCurrentApproval ?? stored[SIDE_PANEL_WAS_OPEN_KEY] === true
 
-    const tabId = this.#approvalTabId
+    const tabId = this.#approvalTabId ?? (await this.resolveApprovalTabId())
     const approvalWindowId = windowId ?? this.#approvalWindowId
 
     this.resetSidePanelApprovalTracking()
-    this.#approvalTabId = undefined
-    this.#approvalWindowId = undefined
+    this.clearApprovalSidePanelContext()
+    this.clearApprovalNotificationState()
 
     // Clear tab-specific approval URL so the next toolbar open loads portfolio.
     await this.resetSidePanelPath(tabId)
@@ -251,9 +349,18 @@ class WindowManager {
       .setPanelBehavior({ openPanelOnActionClick: true })
       .catch((err) => log.error("Failed to set side panel behavior", err))
 
+    chrome.notifications.onClicked.addListener((notificationId) => {
+      if (notificationId.startsWith(APPROVAL_NOTIFICATION_ID_PREFIX)) {
+        this.handleApprovalNotificationClick(notificationId)
+      }
+    })
+
+    void this.restoreApprovalNotificationPayloadFromSession()
+
     chrome.runtime.onMessage.addListener((message, sender) => {
       if (message?.type === SIDE_PANEL_VISIBILITY_MESSAGE) {
         this.#sidePanelKnownOpen = message.visible === true
+        if (message.visible === true) this.clearApprovalNotificationState()
         return
       }
 
@@ -448,7 +555,162 @@ class WindowManager {
     log.warn("Side panel navigation message was not acknowledged", { hash })
   }
 
-  private async navigateSidePanel(hashRoute?: string): Promise<boolean> {
+  private clearApprovalNotificationState() {
+    this.#approvalNotificationPayload = undefined
+    void clearApprovalNotification()
+  }
+
+  private async restoreApprovalNotificationPayloadFromSession() {
+    try {
+      const stored = await chrome.storage.session.get(APPROVAL_NOTIFICATION_SESSION_KEY)
+      const payload = stored[APPROVAL_NOTIFICATION_SESSION_KEY] as
+        | { tabId?: number; path?: string; notificationId?: string }
+        | undefined
+
+      if (
+        payload?.tabId !== undefined &&
+        payload.path &&
+        payload.notificationId &&
+        !this.#approvalNotificationPayload
+      ) {
+        this.#approvalNotificationPayload = {
+          tabId: payload.tabId,
+          path: payload.path,
+          notificationId: payload.notificationId,
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  /**
+   * Must run synchronously on notification click — any await before sidePanel.open loses the gesture.
+   */
+  handleApprovalNotificationClick(notificationId: string) {
+    if (!this.canUseSidePanel()) return
+
+    const payload =
+      this.#approvalNotificationPayload?.notificationId === notificationId
+        ? this.#approvalNotificationPayload
+        : undefined
+
+    if (!payload) {
+      log.warn("Approval notification clicked without in-memory payload", { notificationId })
+      void this.openApprovalSidePanelFromNotificationFallback()
+      return
+    }
+
+    const { tabId, path } = payload
+
+    this.persistApprovalSidePanelContext(tabId)
+
+    void chrome.sidePanel.setOptions({ tabId, path, enabled: true })
+    try {
+      void chrome.sidePanel.open({ tabId }).catch((err) => {
+        log.warn("Failed to open side panel from approval notification", err)
+      })
+    } catch (err) {
+      log.warn("Failed to open side panel from approval notification", err)
+    }
+
+    void this.completeApprovalNotificationClick(tabId)
+  }
+
+  private async openApprovalSidePanelFromNotificationFallback() {
+    try {
+      const stored = await chrome.storage.session.get(APPROVAL_NOTIFICATION_SESSION_KEY)
+      const payload = stored[APPROVAL_NOTIFICATION_SESSION_KEY] as
+        | { tabId?: number; path?: string }
+        | undefined
+
+      if (payload?.tabId === undefined || !payload.path) return
+
+      const { tabId, path } = payload
+
+      await chrome.tabs.update(tabId, { active: true })
+      await chrome.sidePanel.setOptions({ tabId, path, enabled: true })
+      // Gesture already lost — user may need to click the toolbar icon.
+      try {
+        await chrome.sidePanel.open({ tabId })
+      } catch {
+        // ignore
+      }
+    } catch (err) {
+      log.error("Failed fallback approval notification handling", err)
+    }
+  }
+
+  private async completeApprovalNotificationClick(tabId: number) {
+    try {
+      await chrome.tabs.update(tabId, { active: true })
+      const tab = await chrome.tabs.get(tabId)
+      if (tab.windowId !== undefined) {
+        await chrome.windows.update(tab.windowId, { focused: true })
+      }
+    } catch {
+      // ignore
+    }
+
+    this.clearApprovalNotificationState()
+  }
+
+  private async maybeNotifyApprovalSidePanelRequired({
+    tabId,
+    path,
+    hashRoute,
+    siteUrl,
+  }: {
+    tabId?: number
+    path: string
+    hashRoute?: string
+    siteUrl?: string
+  }) {
+    if (!this.canUseSidePanel()) return
+
+    // Allow a briefly-opened panel time to report visibility before notifying.
+    await sleep(400)
+
+    if (this.#sidePanelKnownOpen) {
+      this.clearApprovalNotificationState()
+      return
+    }
+
+    const resolvedTabId = tabId ?? (await this.resolveApprovalTabId())
+    if (resolvedTabId === undefined) return
+
+    let siteLabel = "A site"
+    if (siteUrl) {
+      try {
+        siteLabel = new URL(siteUrl).hostname
+      } catch {
+        siteLabel = siteUrl
+      }
+    }
+
+    const notificationKey =
+      hashRoute?.replace(/^#\//, "").replace(/\//g, "-") ?? `tab-${resolvedTabId}`
+    const fullNotificationId = `${APPROVAL_NOTIFICATION_ID_PREFIX}${notificationKey}`
+
+    this.#approvalNotificationPayload = {
+      tabId: resolvedTabId,
+      path,
+      notificationId: fullNotificationId,
+    }
+
+    void createApprovalNotification({
+      notificationId: notificationKey,
+      tabId: resolvedTabId,
+      path,
+      siteLabel,
+    })
+  }
+
+  private async navigateSidePanel(
+    hashRoute?: string,
+    mode: PopupOpenOptions["mode"] = "approval",
+    meta?: { approvalSiteUrl?: string },
+  ): Promise<boolean> {
     if (!this.canUseSidePanel()) return false
 
     try {
@@ -468,13 +730,37 @@ class WindowManager {
         }
       }
 
-      if (windowId !== undefined) {
-        this.recordNavigationSidePanelContext(undefined, windowId)
-      }
-
       const path = hashRoute
         ? `popup.html${hashRoute.startsWith("#") ? hashRoute : `#${hashRoute}`}`
         : "popup.html"
+
+      if (mode === "approval") {
+        if (tabId !== undefined) {
+          this.persistApprovalSidePanelContext(tabId, windowId)
+
+          try {
+            await chrome.sidePanel.setOptions({ tabId, path, enabled: true })
+          } catch {
+            // ignore
+          }
+        }
+
+        await chrome.sidePanel.setOptions({ path, enabled: true })
+        await this.notifySidePanelNavigation(hashRoute)
+
+        void this.maybeNotifyApprovalSidePanelRequired({
+          tabId,
+          path,
+          hashRoute,
+          siteUrl: meta?.approvalSiteUrl,
+        })
+
+        return true
+      }
+
+      if (windowId !== undefined) {
+        this.recordNavigationSidePanelContext(undefined, windowId)
+      }
 
       // Clear any tab-scoped options (e.g. left over from a prior expand/send cycle on dashboard).
       if (tabId !== undefined) {
@@ -501,7 +787,10 @@ class WindowManager {
     const allowPopupFallback = options?.allowPopupFallback ?? true
 
     if (this.canUseSidePanel()) {
-      const navigated = await this.navigateSidePanel(argument)
+      const mode = options?.mode ?? "approval"
+      const navigated = await this.navigateSidePanel(argument, mode, {
+        approvalSiteUrl: options?.approvalSiteUrl,
+      })
 
       if (navigated || !allowPopupFallback) {
         if (onClose) this.#sidePanelCloseCallbacks.add(onClose)

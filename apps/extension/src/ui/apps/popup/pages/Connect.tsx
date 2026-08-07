@@ -1,4 +1,5 @@
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { Account, KnownRequestIdOnly, ProviderType } from "extension-core"
 import capitalize from "lodash-es/capitalize"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -13,7 +14,7 @@ import { ConnectAccountsContainer } from "@ui/domains/Site/ConnectAccountsContai
 import { ConnectedAccountsPolkadot } from "@ui/domains/Site/ConnectedAccountsPolkadot"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useInjectableAccounts } from "@ui/hooks/useInjectableAccounts"
-import { useRequest } from "@ui/state"
+import { useRequest, useRequests } from "@ui/state"
 import { closeWalletSurface, closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
 import { useCloseIfRequestMissing } from "@ui/util/useCloseIfRequestMissing"
 
@@ -65,6 +66,7 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
   const { t } = useTranslation()
   const { id } = useParams<"id">() as KnownRequestIdOnly<"auth">
   const authRequest = useRequest(id)
+  const requests = useRequests()
   const { popupOpenEvent } = useAnalytics()
   const [connected, setConnected] = useState<string[]>([])
 
@@ -107,7 +109,20 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
     [ignore, reject],
   )
 
-  if (!authRequest) return <Navigate to="/portfolio" replace />
+  if (!authRequest) {
+    const isPending = requests.some((req) => req.id === id)
+    if (isPending) {
+      return (
+        <PopupLayout className={className}>
+          <PopupContent className="flex flex-1 items-center justify-center">
+            <Loading01 className="animate-spin-slow text-fg-secondary inline-block text-[32px]" />
+          </PopupContent>
+        </PopupLayout>
+      )
+    }
+
+    return <Navigate to="/portfolio" replace />
+  }
 
   const ConnectContentComponent: ConnectComponent = getConnectComponent(
     authRequest.request.provider,

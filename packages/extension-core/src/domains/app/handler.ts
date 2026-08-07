@@ -215,7 +215,7 @@ export default class AppHandler extends ExtensionHandler {
     // tokenId takes precedence over tokenSymbol
     if (!tokenId && tokenSymbol) params.append("tokenSymbol", tokenSymbol)
     if (to) params.append("to", to)
-    await windowManager.popupOpen(`#/send?${params.toString()}`)
+    await windowManager.popupOpen(`#/send?${params.toString()}`, undefined, { mode: "navigation" })
 
     return true
   }
@@ -226,7 +226,7 @@ export default class AppHandler extends ExtensionHandler {
   }
 
   private popupOpen(argument?: string): boolean {
-    windowManager.popupOpen(argument)
+    windowManager.popupOpen(argument, undefined, { mode: "navigation" })
     return true
   }
 

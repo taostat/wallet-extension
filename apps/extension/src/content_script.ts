@@ -5,9 +5,6 @@
 
 import type { Message } from "@polkadot/extension-base/types"
 import {
-  APPROVAL_UI_MESSAGES,
-  IS_CHROME,
-  OPEN_SIDEPANEL_MESSAGE,
   PORT_CONTENT,
 } from "extension-shared"
 
@@ -26,12 +23,8 @@ class PortManager {
         return
       }
 
-      const message = (data as { message?: string }).message
-
-      if (message && APPROVAL_UI_MESSAGES.has(message) && IS_CHROME) {
-        // Open side panel synchronously during the user gesture chain
-        chrome.runtime.sendMessage({ type: OPEN_SIDEPANEL_MESSAGE })
-      }
+      // Approval side panel open is handled synchronously in the port handler
+      // (handlers/index.ts captureGestureAndOpenSidePanel).
 
       if (!this.port) {
         this.createPort()
