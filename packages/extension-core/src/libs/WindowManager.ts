@@ -194,26 +194,21 @@ class WindowManager {
     const forNavigation = options?.forApproval === false
 
     if (!forNavigation) {
+      // Skip open when already visible so post-approval close can restore prior state.
+      if (this.#sidePanelKnownOpen) return
+
       this.recordSidePanelStateBeforeApproval()
 
       this.persistApprovalSidePanelContext(tabId, windowId)
 
-      // Always re-enable the dapp tab — even when the panel is already open — so toolbar
-      // openPanelOnActionClick keeps working after prior close/navigation cycles.
-      if (tabId !== undefined) {
-        void chrome.sidePanel.setOptions({
-          tabId,
-          path: DEFAULT_SIDE_PANEL_PORTFOLIO_PATH,
-          enabled: true,
-        })
-      }
-
-      // Skip open when already visible so post-approval close can restore prior state.
-      if (this.#sidePanelKnownOpen) return
-
-      // setOptions (above) must not be awaited or the user gesture is lost before open().
+      // setOptions + open must stay synchronous to preserve the user gesture chain.
       try {
         if (tabId !== undefined) {
+          void chrome.sidePanel.setOptions({
+            tabId,
+            path: DEFAULT_SIDE_PANEL_PORTFOLIO_PATH,
+            enabled: true,
+          })
           chrome.sidePanel.open({ tabId })
         } else if (windowId !== undefined) {
           chrome.sidePanel.open({ windowId })

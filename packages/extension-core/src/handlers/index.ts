@@ -1,6 +1,7 @@
 import { assert } from "@polkadot/util"
 import { APPROVAL_UI_MESSAGES, log, PORT_EXTENSION } from "extension-shared"
 
+import { siteNeedsConnectAuthorization } from "../domains/sitesAuthorised/siteAuthorization"
 import { windowManager } from "../libs/WindowManager"
 import { MessageTypes, TransportRequestMessage } from "../types"
 import Extension from "./Extension"
@@ -73,7 +74,14 @@ const taostatsHandler = <TMessageType extends MessageTypes>(
     log.debug(`[${port.name} REQ] ${source}`, { request: shouldLog ? request : OBFUSCATED_PAYLOAD })
 
   // Open the side panel synchronously while the user gesture is still active.
-  if (!isExtension && APPROVAL_UI_MESSAGES.has(message)) {
+  // Skip silent re-authorisation (`enable()` on an already-connected site) so dapp
+  // wallet dialogs do not pop the extension sidebar or leave tab-scoped bindings.
+  const shouldCaptureApprovalGesture =
+    !isExtension &&
+    APPROVAL_UI_MESSAGES.has(message) &&
+    (message !== "pub(authorize.tab)" || siteNeedsConnectAuthorization(sender?.url))
+
+  if (shouldCaptureApprovalGesture) {
     windowManager.captureGestureAndOpenSidePanel(sender.tab?.id, sender.tab?.windowId)
   }
 

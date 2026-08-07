@@ -5,23 +5,15 @@ import { IS_EMBEDDED_POPUP, IS_POPUP } from "./constants"
 const isSidePanelSurface = () =>
   document.documentElement.classList.contains("side-panel")
 
-export type CloseWalletSurfaceOptions = {
-  /**
-   * After a dapp approval completes: keep the side panel open if it was already open
-   * when the request started, otherwise close the panel entirely.
-   */
-  afterApproval?: boolean
-}
-
 /**
  * Dismiss or reset the current wallet UI surface.
  * - Floating popup (Firefox): closes the OS popup window.
  * - Embedded toolbar popup: closes the dropdown.
- * - Side panel: closes the panel (or restores pre-approval open/closed state when `afterApproval` is set).
+ * - Side panel: closes the panel.
  *
  * Used from navigation, login, send flows, etc. For dapp approval completion, prefer `closeWalletSurfaceAfterApproval`.
  */
-export async function closeWalletSurface(options?: CloseWalletSurfaceOptions) {
+export async function closeWalletSurface() {
   if (!IS_POPUP) {
     window.close()
     return
@@ -104,5 +96,5 @@ export async function closeWalletSurfaceAfterApproval() {
     // fall through
   }
 
-  await closeWalletSurface({ afterApproval: true })
+  await closeWalletSurface()
 }

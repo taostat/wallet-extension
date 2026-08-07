@@ -14,8 +14,18 @@ export class SitesAuthorizedStore extends SubscribableByIdStorageProvider<
   "pri(sites.subscribe)",
   "pri(sites.byid.subscribe)"
 > {
+  #snapshot: AuthorizedSites = {}
+
   constructor(initialData: AuthorizedSites = {}) {
     super("sitesAuthorized", initialData)
+
+    this.#snapshot = initialData
+    void this.get().then((sites) => {
+      this.#snapshot = sites
+    })
+    this.observable.subscribe((sites) => {
+      this.#snapshot = sites
+    })
 
     // One time migration to retrieve previously set authorizations and
     // save them to the new SitesAuthorisationStore
@@ -40,6 +50,11 @@ export class SitesAuthorizedStore extends SubscribableByIdStorageProvider<
     if (err) throw new Error(val)
 
     return this.get(val)
+  }
+
+  /** In-memory snapshot for synchronous authorization checks in the port handler. */
+  getSiteSnapshot(domain: string): AuthorizedSite | undefined {
+    return this.#snapshot[domain]
   }
 
   public async ensureUrlAuthorized(
