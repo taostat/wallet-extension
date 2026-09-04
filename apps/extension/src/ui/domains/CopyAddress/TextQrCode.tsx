@@ -15,6 +15,8 @@ export const TextQrCode = ({
   moduleStyle,
   cornersColor,
   dotsColor,
+  errorCorrectionLevel,
+  quietZone = 0,
 }: {
   data?: string
   /** Pass `null` to omit the centre logo (better for dense payloads). */
@@ -31,12 +33,17 @@ export const TextQrCode = ({
   cornersColor?: string
   /** Colour for data modules. Keep dark for scan reliability. */
   dotsColor?: string
+  /** Override EC level. Default: H with logo, M without. Prefer M for dense payloads. */
+  errorCorrectionLevel?: "L" | "M" | "Q" | "H"
+  /** Quiet-zone modules around the code (helps phone scanners). */
+  quietZone?: number
 }) => {
   const [qrCode, setQrCode] = useState<string>()
   const [error, setError] = useState<Error>()
   const { t } = useTranslation()
   const hasImage = typeof image === "string" && image.length > 0
   const useSquareModules = (moduleStyle ?? (hasImage ? "dots" : "square")) === "square"
+  const ecLevel = errorCorrectionLevel ?? (hasImage ? "H" : "M")
 
   useEffect(() => {
     if (!data) return
@@ -46,7 +53,7 @@ export const TextQrCode = ({
       const styling = new QrCodeStyling({
         type: "svg",
         data,
-        margin: 0,
+        margin: quietZone,
         dotsOptions: {
           type: useSquareModules ? "square" : "dots",
           ...(dotsColor ? { color: dotsColor } : {}),
@@ -60,8 +67,7 @@ export const TextQrCode = ({
           ...(cornersColor ? { color: cornersColor } : {}),
         },
         qrOptions: {
-          // Logo covers modules — keep higher EC when present.
-          errorCorrectionLevel: hasImage ? "H" : "M",
+          errorCorrectionLevel: ecLevel,
         },
         ...(hasImage
           ? {
@@ -85,7 +91,17 @@ export const TextQrCode = ({
     } catch (err) {
       setError(err as Error)
     }
-  }, [cornersColor, data, dotsColor, hasImage, image, imageOptions, useSquareModules])
+  }, [
+    cornersColor,
+    data,
+    dotsColor,
+    ecLevel,
+    hasImage,
+    image,
+    imageOptions,
+    quietZone,
+    useSquareModules,
+  ])
 
   useEffect(() => {
     if (!error) return
@@ -109,7 +125,7 @@ export const TextQrCode = ({
   // apply a key to prevent flickering of inner icon if changing chain
   return (
     <img
-      key={`${data}-${image ?? "none"}-${useSquareModules ? "square" : "dots"}-${cornersColor ?? "default"}`}
+      key={`${data}-${image ?? "none"}-${useSquareModules ? "square" : "dots"}-${cornersColor ?? "default"}-${ecLevel}`}
       className="relative h-full w-full"
       src={qrCode}
       alt=""

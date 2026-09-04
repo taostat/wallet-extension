@@ -9,7 +9,7 @@ import { Spacer } from "@taostats/components/Spacer"
 import { api } from "@ui/api"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { PasswordUnlock, usePasswordUnlock } from "@ui/domains/Account/PasswordUnlock"
-import { TextQrCode, QR_BRAND_COLOR } from "@ui/domains/CopyAddress/TextQrCode"
+import { QR_BRAND_COLOR, TextQrCode } from "@ui/domains/CopyAddress/TextQrCode"
 import { useAccounts } from "@ui/state"
 
 type Step = "explainer" | "pin1" | "pin2" | "pin3" | "account" | "unlock" | "qr"
@@ -47,7 +47,7 @@ const ExplainerStep: FC<{ onContinue: () => void }> = ({ onContinue }) => {
       <Spacer />
       <div className="bg-secondary text-fg-secondary rounded-md p-4 text-sm">
         {t(
-          "On your phone, open Import from Taostats Wallet, then enter the import code shown there into this extension. The QR code will expire after 5 minutes.",
+          "On your phone, open Import from Taostats Browser Extension, then enter the import code shown there into this extension. The QR code will expire after 5 minutes.",
         )}
       </div>
       <Spacer />
@@ -276,7 +276,10 @@ const QrStep: FC<{
             data={qrPayload}
             moduleStyle="square"
             cornersColor={QR_BRAND_COLOR}
-            imageOptions={{ imageSize: 0.15, margin: 2 }}
+            // Dense import payloads scan faster with medium EC + quiet zone + small logo.
+            errorCorrectionLevel="M"
+            quietZone={0}
+            imageOptions={{ imageSize: 0.12, margin: 1 }}
           />
         )}
       </div>

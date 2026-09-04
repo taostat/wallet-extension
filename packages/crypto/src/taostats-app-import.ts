@@ -1,6 +1,6 @@
 /**
  * PIN-encrypted QR payload for transferring a single sr25519 keypair from
- * the Taostats Wallet extension into the Taostats mobile app.
+ * the Taostats Browser Extension into the Taostats mobile app.
  *
  * Wire format (identical in wallet-extension):
  *   taostats-app-import:1:<base64url(JSON { v, s, n, c })>
@@ -181,7 +181,7 @@ export const decryptTaostatsAppImport = ({
   if (!trimmed.startsWith(TAOSTATS_APP_IMPORT_PREFIX)) {
     throw new TaostatsAppImportError(
       "invalid_payload",
-      "QR code is not a Taostats Wallet import code",
+      "QR code is not a Taostats Browser Extension import code",
     )
   }
 
