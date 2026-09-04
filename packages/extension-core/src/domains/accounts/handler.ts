@@ -1,11 +1,12 @@
 import { ResponseAccountsExport } from "@polkadot/extension-base/background/types"
 import { KeyringPair$Json } from "@polkadot/keyring/types"
 import { KeyringPairs$Json } from "@polkadot/ui-keyring/types"
-import { assert, objectSpread, stringToU8a } from "@polkadot/util"
+import { assert, objectSpread, stringToU8a, u8aToHex } from "@polkadot/util"
 import { jsonEncrypt } from "@polkadot/util-crypto"
 import {
   addressFromMnemonic,
   base64,
+  encryptTaostatsAppImport,
   getAccountPlatformFromAddress,
   KeypairCurve,
 } from "@taostats-wallet/crypto"
@@ -22,6 +23,7 @@ import type {
   RequestAccountExternalSetIsPortfolio,
   RequestAccountForget,
   RequestAccountRename,
+  RequestAccountTaostatsAppImport,
   RequestAccountsCatalogAction,
   RequestAddAccountDerive,
   RequestAddAccountExternal,
@@ -29,6 +31,7 @@ import type {
   RequestAddressLookup,
   RequestNextDerivationPath,
   ResponseAccountExport,
+  ResponseAccountTaostatsAppImport,
 } from "./types"
 import { genericAsyncSubscription } from "../../handlers/subscriptions"
 import { walletAnalytics } from "../../libs/Analytics"
@@ -138,6 +141,42 @@ export default class AccountsHandler extends ExtensionHandler {
     })
     if (err) throw new Error(val as string)
     return val
+  }
+
+  private async accountTaostatsAppImport({
+    address,
+    password,
+    pin,
+  }: RequestAccountTaostatsAppImport): Promise<ResponseAccountTaostatsAppImport> {
+    await this.stores.password.checkPassword(password)
+
+    // Secret keys are encrypted with the session password hash, not the plaintext.
+    const passwordHash = await this.stores.password.getPassword()
+    assert(passwordHash, "Unauthorised")
+
+    const account = await keyringStore.getAccount(address)
+    assert(account, "Account not found")
+    assert(account.type === "keypair", "Only keypair accounts can be imported")
+    assert(account.curve === "sr25519", "Only sr25519 accounts can be imported")
+
+    const secretKey = await keyringStore.getAccountSecretKey(address, passwordHash)
+    try {
+      const qrPayload = encryptTaostatsAppImport({
+        pin,
+        plaintext: {
+          curve: "sr25519",
+          address: account.address,
+          name: account.name,
+          secretKey: u8aToHex(secretKey),
+        },
+      })
+
+      walletAnalytics.capture("account export", { type: "sr25519", mode: "taostats-app-import" })
+
+      return { qrPayload }
+    } finally {
+      secretKey.fill(0)
+    }
   }
 
   /**
@@ -324,6 +363,8 @@ export default class AccountsHandler extends ExtensionHandler {
         return this.accountExport(request as RequestAccountExport)
       case "pri(accounts.export.all)":
         return this.accountExportAll(request as RequestAccountExportAll)
+      case "pri(accounts.taostatsAppImport)":
+        return this.accountTaostatsAppImport(request as RequestAccountTaostatsAppImport)
       case "pri(accounts.rename)":
         return this.accountRename(request as RequestAccountRename)
       case "pri(accounts.update.contact)":

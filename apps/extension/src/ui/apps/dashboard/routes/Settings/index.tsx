@@ -18,6 +18,7 @@ import { LanguagePage } from "./LanguagePage"
 import { MnemonicsPage } from "./Mnemonics/MnemonicsPage"
 import { NetworksTokensPage } from "./NetworksTokensPage"
 import { SecurityPrivacyPage } from "./SecurityPrivacyPage"
+import { TaostatsAppImportPage } from "./TaostatsAppImportPage"
 
 /** Persistent layout so the settings sidebar stays mounted across page changes (enables nav transitions). */
 export const SettingsRoutes = () => (
@@ -32,6 +33,7 @@ export const SettingsRoutes = () => (
       <Route path="address-book" element={<AddressBookPage />} />
       <Route path="connected-sites" element={<ConnectedSitesPage />} />
       <Route path="mnemonics" element={<MnemonicsPage />} />
+      <Route path="taostats-app-import" element={<TaostatsAppImportPage />} />
       <Route path="accounts" element={<AccountsPage />} />
       <Route path="security-privacy-settings">
         <Route path="" element={<SecurityPrivacyPage />} />

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 
-import { FRAME_SIZE, taostatsRedHandSvg } from "./constants"
+import { FRAME_SIZE, taostatsLogoSvg } from "./constants"
 
 type Props = {
   data?: Uint8Array
@@ -69,7 +69,7 @@ const QrCodeInner = ({ data, image, imageOptions }: Props) => {
           dotsOptions: { type: "square" },
           cornersSquareOptions: { type: "square" },
           cornersDotOptions: { type: "square" },
-          image: image ?? taostatsRedHandSvg,
+          image: image ?? taostatsLogoSvg,
           imageOptions: {
             hideBackgroundDots: true,
             imageSize: 0.7,

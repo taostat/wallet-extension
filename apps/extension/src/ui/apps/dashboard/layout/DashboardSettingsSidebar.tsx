@@ -5,6 +5,7 @@ import { Globe01 } from "@untitledui/icons/Globe01"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { Link01 } from "@untitledui/icons/Link01"
 import { Passcode } from "@untitledui/icons/Passcode"
+import { QrCode01 } from "@untitledui/icons/QrCode01"
 import { Shield03 } from "@untitledui/icons/Shield03"
 import { Sliders01 } from "@untitledui/icons/Sliders01"
 import { Wallet01 } from "@untitledui/icons/Wallet01"
@@ -41,6 +42,11 @@ export const DashboardSettingsSidebar = () => {
           }
           to="/settings/mnemonics"
           icon={<Passcode />}
+        />
+        <SidebarNavItem
+          label={t("Generate QR code for Taostats App Import")}
+          to="/settings/taostats-app-import"
+          icon={<QrCode01 />}
         />
         <SidebarNavItem
           to="/settings/address-book"

@@ -6,6 +6,7 @@ import { Globe01 } from "@untitledui/icons/Globe01"
 import { Key01 } from "@untitledui/icons/Key01"
 import { Lock01 } from "@untitledui/icons/Lock01"
 import { Plus } from "@untitledui/icons/Plus"
+import { QrCode01 } from "@untitledui/icons/QrCode01"
 import { Settings01 } from "@untitledui/icons/Settings01"
 import { FC, ReactNode, SVGProps, useCallback } from "react"
 import { useTranslation } from "react-i18next"
@@ -118,6 +119,16 @@ export const SettingsMenu: FC = () => {
     void closeWalletSurface()
   }, [])
 
+  const handleTaostatsAppImportClick = useCallback(() => {
+    sendAnalyticsEvent({
+      ...ANALYTICS_PAGE,
+      name: "Goto",
+      action: "Taostats App Import button",
+    })
+    api.dashboardOpen("/settings/taostats-app-import")
+    void closeWalletSurface()
+  }, [])
+
   const handleSettingsClick = useCallback(() => {
     sendAnalyticsEvent({
       ...ANALYTICS_PAGE,
@@ -154,6 +165,9 @@ export const SettingsMenu: FC = () => {
           {t("Backup Wallet")}
           {!allBackedUp && <AlertCircle className="text-fg-brand ml-1 inline size-4" />}
         </span>
+      </SettingsNavItem>
+      <SettingsNavItem icon={QrCode01} onClick={handleTaostatsAppImportClick}>
+        {t("Generate QR code for Taostats App Import")}
       </SettingsNavItem>
       <SettingsNavItem icon={Settings01} onClick={handleSettingsClick}>
         {t("All Settings")}

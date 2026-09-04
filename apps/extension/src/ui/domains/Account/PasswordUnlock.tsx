@@ -3,7 +3,7 @@ import { Key01 } from "@untitledui/icons/Key01"
 import { ReactNode, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText, useOpenCloseStatus } from "taostats-ui"
+import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
@@ -82,10 +82,10 @@ const BasePasswordUnlock = ({ className, children, buttonText, title }: Password
     [checkPassword, setError],
   )
 
-  const status = useOpenCloseStatus()
+  // Focus on mount so this works both inside modals (OpenCloseStatus) and on full pages.
   useEffect(() => {
-    if (status === "open") setFocus("password")
-  }, [setFocus, status])
+    setFocus("password")
+  }, [setFocus])
 
   useEffect(() => {
     return () => {

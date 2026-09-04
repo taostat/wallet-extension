@@ -158,6 +158,16 @@ export interface RequestAccountExportAll {
   exportPw: string
 }
 
+export interface RequestAccountTaostatsAppImport {
+  address: string
+  password: string
+  pin: string
+}
+
+export interface ResponseAccountTaostatsAppImport {
+  qrPayload: string
+}
+
 export interface RequestAccountRename {
   address: string
   name: string
@@ -205,6 +215,10 @@ export interface AccountsMessages {
   "pri(accounts.forget)": [RequestAccountForget, boolean]
   "pri(accounts.export)": [RequestAccountExport, ResponseAccountExport]
   "pri(accounts.export.all)": [RequestAccountExportAll, ResponseAccountsExport]
+  "pri(accounts.taostatsAppImport)": [
+    RequestAccountTaostatsAppImport,
+    ResponseAccountTaostatsAppImport,
+  ]
   "pri(accounts.rename)": [RequestAccountRename, boolean]
   "pri(accounts.update.contact)": [RequestAccountContactUpdate, boolean]
   "pri(accounts.external.setIsPortfolio)": [RequestAccountExternalSetIsPortfolio, boolean]

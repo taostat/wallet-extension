@@ -105,6 +105,8 @@ export const api: MessageTypes = {
     messageService.sendMessage("pri(accounts.export)", { address, password, exportPw }),
   accountExportAll: (password, exportPw) =>
     messageService.sendMessage("pri(accounts.export.all)", { password, exportPw }),
+  accountTaostatsAppImport: (address, password, pin) =>
+    messageService.sendMessage("pri(accounts.taostatsAppImport)", { address, password, pin }),
   accountRename: (address, name) =>
     messageService.sendMessage("pri(accounts.rename)", { address, name }),
   accountUpdateContact: (options) =>

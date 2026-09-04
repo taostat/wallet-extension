@@ -130,6 +130,11 @@ export default interface MessageTypes {
     password: string,
     exportPw: string,
   ) => Promise<{ exportedJson: KeyringPairs$Json }>
+  accountTaostatsAppImport: (
+    address: string,
+    password: string,
+    pin: string,
+  ) => Promise<{ qrPayload: string }>
   accountRename: (address: string, name: string) => Promise<boolean>
   accountUpdateContact: (options: RequestAccountContactUpdate) => Promise<boolean>
   addressLookup: (lookup: RequestAddressLookup) => Promise<string>

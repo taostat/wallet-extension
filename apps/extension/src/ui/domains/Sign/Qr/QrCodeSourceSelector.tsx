@@ -9,7 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "taostats-ui"
 import { useHasVerifierCertificateMnemonic } from "@ui/hooks/useHasVerifierCertificateMnemonic"
 import { useNetworkByGenesisHash, useNetworkById } from "@ui/state"
 
-import { novaLogoSvg, parityLogoSvg, taostatsRedHandSvg } from "./constants"
+import { novaLogoSvg, parityLogoSvg, taostatsLogoSvg } from "./constants"
 
 export type QrCodeSource = "taostats" | "parity" | "novasama" | "other"
 
@@ -27,7 +27,7 @@ const lastSelected = new (class {
 
 export const qrCodeLogoForSource = (source: QrCodeSource) =>
   source === "taostats"
-    ? taostatsRedHandSvg
+    ? taostatsLogoSvg
     : source === "parity"
       ? parityLogoSvg
       : source === "novasama"
