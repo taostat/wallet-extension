@@ -1,4 +1,3 @@
-import { useVirtualizer } from "@tanstack/react-virtual"
 import { isNetworkCustom, Network } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
 import { ChevronRight } from "@untitledui/icons/ChevronRight"
@@ -143,42 +142,13 @@ export const NetworksList: FC<{
           />
         </Modal>
       </div>
-      <VirtualizedRows networks={displayedNetworks} activeNetworksState={networksActiveState} />
-    </div>
-  )
-}
-
-const VirtualizedRows: FC<{
-  networks: Network[]
-  activeNetworksState: ActiveNetworks
-}> = ({ networks, activeNetworksState }) => {
-  const virtualizer = useVirtualizer({
-    count: networks.length,
-    overscan: 6,
-    gap: 8,
-    estimateSize: () => 56,
-    getScrollElement: () => document.getElementById("main"),
-  })
-
-  return (
-    <div>
-      <div
-        className="relative w-full"
-        style={{
-          height: `${virtualizer.getTotalSize()}px`,
-        }}
-      >
-        {virtualizer.getVirtualItems().map((item) => (
-          <div
-            key={item.key}
-            className="absolute left-0 top-0 w-full"
-            style={{
-              height: `${item.size}px`,
-              transform: `translateY(${item.start}px)`,
-            }}
-          >
-            <NetworkRow network={networks[item.index]} activeNetworksState={activeNetworksState} />
-          </div>
+      <div className="flex flex-col gap-2">
+        {displayedNetworks.map((network) => (
+          <NetworkRow
+            key={network.id}
+            network={network}
+            activeNetworksState={networksActiveState}
+          />
         ))}
       </div>
     </div>
@@ -215,7 +185,7 @@ const NetworkRow: FC<{
   )
 
   return (
-    <div className="relative h-14" data-testid="network-list-row">
+    <div className="relative" data-testid="network-list-row">
       <ListButton key={network.id} role="button" onClick={handleNetworkClick}>
         <NetworkLogo className="rounded-full text-xl" networkId={network.id} />
         <div className="text-fg-primary flex flex-col justify-center gap-0.5 overflow-hidden">
@@ -229,10 +199,10 @@ const NetworkRow: FC<{
         {network.isTestnet && <TestnetPill />}
         {isNetworkCustom(network) && <CustomPill />}
         <div className="min-w-[44px] shrink-0 grow"></div>
-        <ChevronRight className="transition-noneshrink-0 text-lg" />
+        <ChevronRight className="transition-none shrink-0 text-lg" />
       </ListButton>
       <Toggle
-        className="absolute right-10 top-2 p-2"
+        className="absolute right-10 top-1/2 -translate-y-1/2 p-2"
         checked={!!isActive}
         onChange={handleEnableChanged}
       />
