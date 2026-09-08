@@ -57,6 +57,33 @@
       "topology": {
         "type": "standalone"
       }
+    },
+    {
+      "id": "hippius",
+      "isDefault": true,
+      "name": "Hippius Mainnet",
+      "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/hippius.webp",
+      "nativeTokenId": "hippius:substrate-native",
+      "nativeCurrency": {
+        "decimals": 18,
+        "symbol": "hALPHA",
+        "name": "hALPHA",
+        "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/hippius.webp"
+      },
+      "themeColor": "#242423",
+      "blockExplorerUrls": ["https://hipstats.com"],
+      "genesisHash": "0x28a6b54823f786c5dd8520ef7bdb0ee2639173815bfbb7719bcf58ef9eb5e1f9",
+      "platform": "polkadot",
+      "chainName": "Hippius Mainnet",
+      "specName": "hippius",
+      "specVersion": 92014,
+      "account": "*25519",
+      "prefix": 42,
+      "rpcs": ["wss://rpc.hippius.network"],
+      "hasCheckMetadataHash": false,
+      "topology": {
+        "type": "standalone"
+      }
     }
   ],
   "tokens": [
@@ -8314,6 +8341,18 @@
       "name": "Bittensor",
       "coingeckoId": "bittensor",
       "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/bittensor.webp",
+      "isDefault": true,
+      "existentialDeposit": "500"
+    },
+    {
+      "id": "hippius:substrate-native",
+      "platform": "polkadot",
+      "networkId": "hippius",
+      "type": "substrate-native",
+      "symbol": "hALPHA",
+      "decimals": 18,
+      "name": "hALPHA",
+      "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/hippius.webp",
       "isDefault": true,
       "existentialDeposit": "500"
     }
