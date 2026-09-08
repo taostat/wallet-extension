@@ -118,7 +118,7 @@ export class RequestStore {
             reject(new Error("Cancelled"))
           },
           {
-            allowPopupFallback: false,
+            allowPopupFallback: true,
             mode: "approval",
             approvalSiteUrl: "url" in requestOptions ? requestOptions.url : undefined,
           },

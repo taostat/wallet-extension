@@ -25,10 +25,13 @@ import {
 export const SIDE_PANEL_SURFACE_ID = -1
 
 export type PopupOpenOptions = {
-  /** When false on Chrome, never opens a floating popup (side panel only). */
+  /**
+   * When true (default), if the side panel is unavailable or not open for an approval,
+   * open a floating popup window instead. Approvals need this for chained signs without a gesture.
+   */
   allowPopupFallback?: boolean
   /**
-   * `approval` — dapp connect/sign/metadata (tab-scoped panel, must stay enabled on dapp tabs).
+   * `approval` — dapp connect/sign/metadata (tab-scoped panel when open; floating popup if not).
    * `navigation` — in-app routes e.g. send from desktop (window-scoped, clears tab bindings).
    */
   mode?: "approval" | "navigation"
@@ -72,6 +75,28 @@ class WindowManager {
 
   private canUseSidePanel() {
     return IS_CHROME && Boolean(chrome.sidePanel?.setOptions)
+  }
+
+  /** True if the side panel document is visible / known open. No user gesture required. */
+  private async isSidePanelOpen(): Promise<boolean> {
+    // Trust in-memory flag when set (includes optimistic set after sidePanel.open).
+    if (this.#sidePanelKnownOpen) return true
+
+    try {
+      if (typeof chrome.runtime.getContexts === "function") {
+        const contexts = await chrome.runtime.getContexts({
+          contextTypes: ["SIDE_PANEL" as chrome.runtime.ContextType],
+        })
+        if (contexts.length > 0) {
+          this.#sidePanelKnownOpen = true
+          return true
+        }
+      }
+    } catch (err) {
+      log.warn("Failed to query side panel contexts", err)
+    }
+
+    return false
   }
 
   private resetSidePanelApprovalTracking() {
@@ -184,7 +209,7 @@ class WindowManager {
 
   /**
    * Opens the side panel during a user gesture when needed.
-   * Skips open if the panel is already visible so post-approval close can restore prior state.
+   * Skips open if the panel is already visible (in-place navigation is enough).
    */
   private openSidePanelDuringGesture(
     tabId?: number,
@@ -194,7 +219,7 @@ class WindowManager {
     const forNavigation = options?.forApproval === false
 
     if (!forNavigation) {
-      // Skip open when already visible so post-approval close can restore prior state.
+      // Already visible — popupOpen / navigateSidePanel will route to the approval.
       if (this.#sidePanelKnownOpen) return
 
       this.recordSidePanelStateBeforeApproval()
@@ -209,11 +234,21 @@ class WindowManager {
             path: DEFAULT_SIDE_PANEL_PORTFOLIO_PATH,
             enabled: true,
           })
-          chrome.sidePanel.open({ tabId })
+          // Optimistic: onOpened/visibility can lag; avoid false popup fallback on first request.
+          this.#sidePanelKnownOpen = true
+          void chrome.sidePanel.open({ tabId }).catch((err) => {
+            this.#sidePanelKnownOpen = false
+            log.error("Failed to open side panel during user gesture", err)
+          })
         } else if (windowId !== undefined) {
-          chrome.sidePanel.open({ windowId })
+          this.#sidePanelKnownOpen = true
+          void chrome.sidePanel.open({ windowId }).catch((err) => {
+            this.#sidePanelKnownOpen = false
+            log.error("Failed to open side panel during user gesture", err)
+          })
         }
       } catch (err) {
+        this.#sidePanelKnownOpen = false
         log.error("Failed to open side panel during user gesture", err)
       }
       return
@@ -227,11 +262,20 @@ class WindowManager {
 
     try {
       if (windowId !== undefined) {
-        chrome.sidePanel.open({ windowId })
+        this.#sidePanelKnownOpen = true
+        void chrome.sidePanel.open({ windowId }).catch((err) => {
+          this.#sidePanelKnownOpen = false
+          log.error("Failed to open side panel during user gesture", err)
+        })
       } else if (tabId !== undefined) {
-        chrome.sidePanel.open({ tabId })
+        this.#sidePanelKnownOpen = true
+        void chrome.sidePanel.open({ tabId }).catch((err) => {
+          this.#sidePanelKnownOpen = false
+          log.error("Failed to open side panel during user gesture", err)
+        })
       }
     } catch (err) {
+      this.#sidePanelKnownOpen = false
       log.error("Failed to open side panel during user gesture", err)
     }
   }
@@ -298,33 +342,22 @@ class WindowManager {
     await this.notifySidePanelNavigation("#/portfolio")
   }
 
-  async handleSidePanelAfterApproval(windowId?: number) {
-    const stored = await chrome.storage.session.get(SIDE_PANEL_WAS_OPEN_KEY)
-    const hasSnapshot =
-      this.#sidePanelWasOpenBeforeCurrentApproval !== undefined ||
-      stored[SIDE_PANEL_WAS_OPEN_KEY] !== undefined
-
-    if (!hasSnapshot) return
-
-    const wasOpenBeforeApproval =
-      this.#sidePanelWasOpenBeforeCurrentApproval ?? stored[SIDE_PANEL_WAS_OPEN_KEY] === true
-
+  /**
+   * After a dapp approval: keep the side panel open and return to portfolio.
+   * Closing would block the next approval (Chrome requires a user gesture for
+   * sidePanel.open; chained signs after on-chain waits have no gesture).
+   * Floating notification popups still close via closeWalletSurfaceAfterApproval.
+   */
+  async handleSidePanelAfterApproval(_windowId?: number) {
     const tabId = this.#approvalTabId ?? (await this.resolveApprovalTabId())
-    const approvalWindowId = windowId ?? this.#approvalWindowId
 
     this.resetSidePanelApprovalTracking()
     this.clearApprovalSidePanelContext()
     this.clearApprovalNotificationState()
 
-    // Clear tab-specific approval URL so the next toolbar open loads portfolio.
+    // Clear tab-specific approval URL so toolbar / later opens load portfolio by default.
     await this.resetSidePanelPath(tabId)
-
-    if (wasOpenBeforeApproval) {
-      await this.notifySidePanelNavigation("#/portfolio")
-      return
-    }
-
-    await this.closeSidePanel(approvalWindowId, tabId)
+    await this.notifySidePanelNavigation("#/portfolio")
   }
 
   /** Called during a dapp user gesture to open the side panel before async approval handling. */
@@ -704,7 +737,7 @@ class WindowManager {
   private async navigateSidePanel(
     hashRoute?: string,
     mode: PopupOpenOptions["mode"] = "approval",
-    meta?: { approvalSiteUrl?: string },
+    _meta?: { approvalSiteUrl?: string },
   ): Promise<boolean> {
     if (!this.canUseSidePanel()) return false
 
@@ -730,6 +763,13 @@ class WindowManager {
         : "popup.html"
 
       if (mode === "approval") {
+        // Only treat side panel as success when it is actually open. setOptions alone
+        // does not open it; without a gesture Chrome cannot open it either.
+        // Returning false lets popupOpen fall back to a floating window.
+        if (!(await this.isSidePanelOpen())) {
+          return false
+        }
+
         if (tabId !== undefined) {
           this.persistApprovalSidePanelContext(tabId, windowId)
 
@@ -742,13 +782,6 @@ class WindowManager {
 
         await chrome.sidePanel.setOptions({ path, enabled: true })
         await this.notifySidePanelNavigation(hashRoute)
-
-        void this.maybeNotifyApprovalSidePanelRequired({
-          tabId,
-          path,
-          hashRoute,
-          siteUrl: meta?.approvalSiteUrl,
-        })
 
         return true
       }

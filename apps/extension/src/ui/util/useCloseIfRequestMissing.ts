@@ -5,7 +5,7 @@ import { useRequest, useRequests } from "@ui/state"
 
 import { closeWalletSurfaceAfterApproval } from "./closeWalletSurface"
 
-/** Close the wallet surface only once a request is confirmed absent (avoids side-panel navigation races). */
+/** After a dapp approval resolves, leave the side panel open (or close floating popups). */
 export const useCloseIfRequestMissing = <T extends KnownRequestTypes>(id: KnownRequestId<T>) => {
   const request = useRequest(id)
   const requests = useRequests()

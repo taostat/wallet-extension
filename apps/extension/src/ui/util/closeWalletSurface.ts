@@ -1,4 +1,4 @@
-import { CLOSE_SIDE_PANEL_MESSAGE, SIDE_PANEL_AFTER_APPROVAL_MESSAGE, SIDE_PANEL_WAS_OPEN_KEY } from "extension-shared"
+import { CLOSE_SIDE_PANEL_MESSAGE, SIDE_PANEL_AFTER_APPROVAL_MESSAGE } from "extension-shared"
 
 import { IS_EMBEDDED_POPUP, IS_POPUP } from "./constants"
 
@@ -53,7 +53,11 @@ export async function closeWalletSurface() {
   }
 }
 
-/** Close after a dapp approval, restoring the side panel open/closed state from before the request. */
+/**
+ * Finish a dapp approval on the current wallet surface.
+ * - Floating / embedded popup: close the window.
+ * - Side panel: keep open and return to portfolio (next approval can navigate in-place).
+ */
 export async function closeWalletSurfaceAfterApproval() {
   if (!IS_POPUP) {
     window.close()
@@ -74,21 +78,15 @@ export async function closeWalletSurfaceAfterApproval() {
     }
 
     if (isSidePanelSurface()) {
-      const stored = await chrome.storage.session.get(SIDE_PANEL_WAS_OPEN_KEY)
-      const wasOpenBeforeApproval = stored[SIDE_PANEL_WAS_OPEN_KEY] === true
-
       // Notify background first — a page navigation aborts in-flight messages.
       await chrome.runtime.sendMessage({
         type: SIDE_PANEL_AFTER_APPROVAL_MESSAGE,
         windowId: win.id,
       })
 
-      // Only navigate locally when the panel should stay open (avoids a blank flash).
-      if (wasOpenBeforeApproval) {
-        const { pathname, search } = window.location
-        if (window.location.hash !== "#/portfolio") {
-          window.location.replace(`${pathname}${search}#/portfolio`)
-        }
+      const { pathname, search } = window.location
+      if (window.location.hash !== "#/portfolio") {
+        window.location.replace(`${pathname}${search}#/portfolio`)
       }
       return
     }
