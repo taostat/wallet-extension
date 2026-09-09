@@ -15,10 +15,14 @@ const EslintWebpackPlugin = require("eslint-webpack-plugin")
 const {
   browser,
   srcDir,
-  distDir,
+  getDistDir,
   getRelease,
   getGitShortHash,
   getSupportedLanguages,
+  getInjectedWeb3Name,
+  getMsgOriginPage,
+  getMsgOriginContent,
+  packageVersion,
 } = require("./utils")
 
 const getTaostatsApiUrl = (env) => {
@@ -66,7 +70,8 @@ const config = (env) => ({
   },
   // target: browser === "firefox" ? "web" : "webworker",
   output: {
-    path: distDir,
+    path: getDistDir(env),
+    clean: true,
     filename: "[name].js",
     chunkFilename: "chunk.[name].js",
     assetModuleFilename: "assets/[hash][ext]", // removes query string if there are any in our import strings (we use ?url for svgs)
@@ -196,7 +201,7 @@ const config = (env) => ({
       ),
       "process.env.TAOSTATS_API_URL": JSON.stringify(getTaostatsApiUrl(env)),
       "process.env.LOG_SUBSCRIPTION_CALLBACKS": JSON.stringify(
-        env.build === "dev" || ["canary", "ci", "qa"].includes(env.build)
+        env.build === "dev" || ["internal", "ci", "qa"].includes(env.build)
           ? process.env.LOG_SUBSCRIPTION_CALLBACKS || ""
           : "",
       ),
@@ -204,8 +209,8 @@ const config = (env) => ({
       "process.env.DEBUG": JSON.stringify(
         String(
           // DEBUG is true when:
-          // 1. env.build is neither production nor canary, or
-          !["production", "canary"].includes(env.build) ||
+          // 1. env.build is neither production nor internal, or
+          !["production", "internal"].includes(env.build) ||
             // 2. when NODE_ENV is TEST
             process.env.NODE_ENV === "TEST",
         ),
@@ -213,9 +218,12 @@ const config = (env) => ({
       "process.env.BUILD": JSON.stringify(env.build),
       "process.env.COMMIT_SHA_SHORT": JSON.stringify(getGitShortHash()),
       "process.env.RELEASE": JSON.stringify(getRelease(env)),
-      "process.env.VERSION": JSON.stringify(process.env.npm_package_version),
+      "process.env.VERSION": JSON.stringify(packageVersion),
       "process.env.BROWSER": JSON.stringify(browser),
       "process.env.SUPPORTED_LANGUAGES": JSON.stringify(getSupportedLanguages()),
+      "process.env.INJECTED_WEB3_NAME": JSON.stringify(getInjectedWeb3Name(env.build)),
+      "process.env.MSG_ORIGIN_PAGE": JSON.stringify(getMsgOriginPage(env.build)),
+      "process.env.MSG_ORIGIN_CONTENT": JSON.stringify(getMsgOriginContent(env.build)),
     }),
     ...[
       { title: "Taostats", entrypoint: "popup" },

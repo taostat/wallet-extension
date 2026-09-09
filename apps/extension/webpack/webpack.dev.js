@@ -6,13 +6,16 @@ const path = require("path")
 const CopyPlugin = require("copy-webpack-plugin")
 const { SourceMapDevToolPlugin } = require("webpack")
 
-const { updateManifestDetails, browser, distDir, manifestDir } = require("./utils.js")
+const { updateManifestDetails, browser, getDistDir, manifestDir } = require("./utils.js")
+const { BadgeIconsPlugin } = require("./badgeIcons.js")
 
 console.log(`Building for ${browser} with dev config `)
 
 /** @type { import('webpack').Configuration } */
-const config = (env) =>
-  merge(common(env), {
+const config = (env) => {
+  const distDir = getDistDir(env)
+
+  return merge(common(env), {
     devtool: false,
     mode: "development",
     watchOptions: {
@@ -51,19 +54,9 @@ const config = (env) =>
           },
         ],
       }),
-
-      // new ExtensionReloader({
-      //   // avoid reloading every browser tab
-      //   // extension pages (dashboard.html, popup.html) are always reloaded
-      //   reloadPage: false,
-      //   entries: {
-      //     // The entries used for the content/background scripts
-      //     contentScript: "content_script", // Use the entry names, not the file name or the path
-      //     background: "background", // *REQUIRED
-      //     extensionPage: ["popup", "onboarding", "dashboard"],
-      //   },
-      // }),
+      new BadgeIconsPlugin({ build: env.build, outputPath: distDir }),
     ],
   })
+}
 
 module.exports = config

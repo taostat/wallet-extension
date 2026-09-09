@@ -2,6 +2,14 @@ const PORT_SUFFIX =
   process.env.BUILD !== "production" ? `-${process.env.BUILD}-${process.env.RELEASE}` : ""
 export const PORT_EXTENSION = `taostats-extension${PORT_SUFFIX}`
 export const PORT_CONTENT = `taostats-content${PORT_SUFFIX}`
+
+/** injectedWeb3 provider name — must differ per build so prod/dev/internal can coexist on a page. */
+export const INJECTED_WEB3_NAME = process.env.INJECTED_WEB3_NAME || "taostats"
+/** Page → content script postMessage origin (window channel; must be unique per build). */
+export const MSG_ORIGIN_PAGE = process.env.MSG_ORIGIN_PAGE || "taostats-page"
+/** Content script → page postMessage origin (window channel; must be unique per build). */
+export const MSG_ORIGIN_CONTENT = process.env.MSG_ORIGIN_CONTENT || "taostats-content"
+
 export const OPEN_SIDEPANEL_MESSAGE = "taostats.openSidePanel"
 export const NAVIGATE_SIDE_PANEL_MESSAGE = "taostats.navigateSidePanel"
 export const SIDE_PANEL_MOUNTED_MESSAGE = "taostats.sidePanelMounted"

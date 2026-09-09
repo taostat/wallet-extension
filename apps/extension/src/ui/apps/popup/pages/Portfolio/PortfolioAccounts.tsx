@@ -450,14 +450,20 @@ export const PortfolioAccounts = () => {
 
   return (
     <>
-      <Accounts
-        accounts={accounts}
-        folder={folder}
-        folderTotal={folderTotal}
-        portfolioOptions={portfolioOptions}
-        watchedOptions={watchedOptions}
-      />
-      {!search && <GetStarted />}
+      <div className="flex w-full flex-col gap-4">
+        <Accounts
+          accounts={accounts}
+          folder={folder}
+          folderTotal={folderTotal}
+          portfolioOptions={portfolioOptions}
+          watchedOptions={watchedOptions}
+        />
+        {!search && (
+          <div className="px-2">
+            <GetStarted />
+          </div>
+        )}
+      </div>
       {fetchBalances && (
         <Suspense fallback={<SuspenseTracker name="BalancesLoader" />}>
           <BalancesLoader />

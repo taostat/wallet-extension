@@ -7,7 +7,7 @@ import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
 import { FC, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { IconButton } from "taostats-ui"
+import { IconButton, SurfaceCard } from "taostats-ui"
 
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
@@ -44,7 +44,7 @@ export const GetStarted = () => {
   if (hasAccounts && isHidden) return null
 
   return (
-    <div className="@container bg-secondary relative flex w-full flex-col gap-4 rounded-sm p-4">
+    <SurfaceCard className="@container gap-lg p-xl relative flex w-full flex-col">
       {hasAccounts && (
         <IconButton
           className="text-fg-disabled enabled:hover:text-fg-secondary enabled:focus-visible:text-fg-secondary absolute right-3 top-3"
@@ -96,7 +96,7 @@ export const GetStarted = () => {
           />
         </div>
       )}
-    </div>
+    </SurfaceCard>
   )
 }
 

@@ -9,7 +9,10 @@ declare namespace NodeJS {
     readonly POSTHOG_AUTH_TOKEN?: string
     readonly SENTRY_DSN?: string
     readonly SENTRY_AUTH_TOKEN?: string
-    readonly BUILD?: "production" | "canary" | "ci" | "qa" | "dev"
+    readonly BUILD?: "production" | "internal" | "ci" | "qa" | "dev"
+    readonly INJECTED_WEB3_NAME?: string
+    readonly MSG_ORIGIN_PAGE?: string
+    readonly MSG_ORIGIN_CONTENT?: string
 
     // dev utilities
     readonly PASSWORD?: string

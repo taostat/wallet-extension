@@ -16,7 +16,7 @@ import type {
   TransportResponseMessage,
   UnsubscribeFn,
 } from "extension-core"
-import { log } from "extension-shared"
+import { log, MSG_ORIGIN_PAGE } from "extension-shared"
 
 export interface Handler {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,7 +31,7 @@ export type Handlers = Record<string, Handler>
 export default class WindowMessageService {
   handlers: Handlers = {}
   idCounter = 0
-  origin = "taostats-page"
+  origin = MSG_ORIGIN_PAGE
 
   constructor() {
     this.handleResponse = this.handleResponse.bind(this)
