@@ -1291,7 +1291,6 @@
   "Please back up your recovery phrase before you change your password.": "Please back up your recovery phrase before you change your password.",
   "Please backup your account.": "Please backup your account.",
   "Please backup your recovery phrases.": "Please backup your recovery phrases.",
-  "Please choose the json file you exported from Polkadot.js or Taostats": "Please choose the json file you exported from Polkadot.js or Taostats",
   "Please confirm your password to export your account.": "Please confirm your password to export your account.",
   "Please confirm your password to export your accounts.": "Please confirm your password to export your accounts.",
   "Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>": "Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>",
@@ -2240,5 +2239,6 @@
   "24hr Change": "24hr Change",
   "Realised": "Realised",
   "Unrealised": "Unrealised",
-  "30 days APY": "30 days APY"
+  "30 days APY": "30 days APY",
+  "Please choose the json file you exported from Taostats": "Please choose the json file you exported from Taostats"
 }

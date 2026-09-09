@@ -1289,7 +1289,6 @@
   "Please back up your recovery phrase before you change your password.": "Vă rugăm să faceți o copie de siguranță a frazei de recuperare înainte de a vă schimba parola.",
   "Please backup your account.": "Vă rugăm să faceți o copie de rezervă a contului dumneavoastră.",
   "Please backup your recovery phrases.": "Vă rugăm să faceți o copie de siguranță a frazelor de recuperare.",
-  "Please choose the json file you exported from Polkadot.js or Taostats": "Vă rugăm să alegeți fișierul json pe care l-ați exportat din Polkadot.js sau Taostats",
   "Please confirm your password to export your account.": "Vă rugăm să confirmați parola pentru a exporta contul dumneavoastră.",
   "Please confirm your password to export your accounts.": "Vă rugăm să confirmați parola pentru a exporta conturile dumneavoastră.",
   "Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>": "Vă rugăm să vă asigurați că Ledger este autorizat în browserul dumneavoastră, folosind instrumentul de verificare din <Link>setările Taostats</Link>",
@@ -2230,5 +2229,6 @@
   "2. Choose Ledger App": "2. Alege aplicația Ledger",
   "12-word": "12 cuvinte",
   "24-word": "24 cuvinte",
-  "30 days APY": "APY pe 30 de zile"
+  "30 days APY": "APY pe 30 de zile",
+  "Please choose the json file you exported from Taostats": "Vă rugăm să alegeți fișierul json pe care l-ați exportat din Taostats"
 }
