@@ -15,8 +15,9 @@ const FAVICON_SIZES = [16, 24, 32, 48, 64, 128]
 const paintBadge = (png, color) => {
   const size = Math.max(4, Math.round(png.width * 0.32))
   const margin = Math.max(1, Math.round(png.width * 0.06))
+  // Top-right: Chrome action badges sit bottom-right and would hide a corner pip there.
   const x0 = png.width - size - margin
-  const y0 = png.height - size - margin
+  const y0 = margin
 
   for (let y = y0; y < y0 + size; y++) {
     for (let x = x0; x < x0 + size; x++) {
