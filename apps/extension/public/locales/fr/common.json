@@ -1289,7 +1289,6 @@
   "Please back up your recovery phrase before you change your password.": "Veuillez sauvegarder votre phrase de récupération avant de changer votre mot de passe.",
   "Please backup your account.": "Veuillez sauvegarder votre compte.",
   "Please backup your recovery phrases.": "Veuillez sauvegarder vos phrases de récupération.",
-  "Please choose the json file you exported from Polkadot.js or Taostats": "Veuillez choisir le fichier json que vous avez exporté depuis Polkadot.js ou Taostats",
   "Please confirm your password to export your account.": "Veuillez confirmer votre mot de passe pour exporter votre compte.",
   "Please confirm your password to export your accounts.": "Veuillez confirmer votre mot de passe pour exporter vos comptes.",
   "Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>": "Veuillez vous assurer que Ledger est autorisé dans votre navigateur, en utilisant l'outil de vérification dans <Link>les paramètres Taostats</Link>",
@@ -2230,5 +2229,6 @@
   "2. Choose Ledger App": "2. Choisissez l'application Ledger",
   "12-word": "12 mots",
   "24-word": "Texte de 24 mots",
-  "30 days APY": "APY sur 30 jours"
+  "30 days APY": "APY sur 30 jours",
+  "Please choose the json file you exported from Taostats": "Veuillez choisir le fichier json que vous avez exporté depuis Taostats"
 }

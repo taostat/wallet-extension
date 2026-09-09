@@ -50,6 +50,11 @@ function NewAccountMethodButtons() {
         subtitle={t("Import your Bittensor account")}
         to={`/accounts/add/mnemonic`}
       />
+      <AccountCreateMethodButton
+        title={t("Import via JSON")}
+        subtitle={t("Import your Taostats Wallet file")}
+        to={`/accounts/add/json`}
+      />
       <AccountTypeMethodButton
         title={
           <SelectAccountTypeButtonHeader

@@ -1289,7 +1289,6 @@
   "Please back up your recovery phrase before you change your password.": "Vui lòng sao lưu cụm từ khôi phục của bạn trước khi bạn thay đổi mật khẩu.",
   "Please backup your account.": "Vui lòng sao lưu tài khoản của bạn.",
   "Please backup your recovery phrases.": "Vui lòng sao lưu cụm từ khôi phục của bạn.",
-  "Please choose the json file you exported from Polkadot.js or Taostats": "Vui lòng chọn tệp json bạn đã xuất từ Polkadot.js hoặc Taostats",
   "Please confirm your password to export your account.": "Vui lòng xác nhận mật khẩu của bạn để xuất tài khoản.",
   "Please confirm your password to export your accounts.": "Vui lòng xác nhận mật khẩu của bạn để xuất tài khoản.",
   "Please ensure that Ledger is authorized in your browser, using the Check tool in <Link>Taostats settings</Link>": "Vui lòng đảm bảo rằng Ledger được ủy quyền trong trình duyệt của bạn, bằng cách sử dụng công cụ Kiểm tra trong <Link>cài đặt Taostats</Link>",
@@ -2230,5 +2229,6 @@
   "2. Choose Ledger App": "2. Chọn ứng dụng Ledger",
   "12-word": "12 từ",
   "24-word": "24 từ",
-  "30 days APY": "Lợi suất hàng năm trong 30 ngày"
+  "30 days APY": "Lợi suất hàng năm trong 30 ngày",
+  "Please choose the json file you exported from Taostats": "Vui lòng chọn tệp json bạn đã xuất từ Taostats"
 }
