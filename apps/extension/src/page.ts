@@ -1,9 +1,9 @@
 // Copyright 2019-2021 @polkadot/extension authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// Adapted from https://github.com/polkadot-js/extension/packages/extension-base/src/page.ts
+// Adapted from https://github.com/polkadot/extension/packages/extension-base/src/page.ts
 import type { Message } from "@polkadot/extension-base/types"
-import { DEBUG, isInternalHostname } from "extension-shared"
+import { DEBUG, INJECTED_WEB3_NAME, MSG_ORIGIN_CONTENT, isInternalHostname } from "extension-shared"
 
 import type { Injected } from "./inject/substrate/types"
 import WindowMessageService from "./common/WindowMessageService"
@@ -16,7 +16,7 @@ const messageService = new WindowMessageService()
 // setup a response listener (events created by the loader for extension responses)
 window.addEventListener("message", ({ data, source }: Message): void => {
   // only allow messages from our window, by the loader
-  if (source !== window || data.origin !== "taostats-content") return
+  if (source !== window || data.origin !== MSG_ORIGIN_CONTENT) return
 
   if (data.id) messageService.handleResponse(data)
   // eslint-disable-next-line no-console
@@ -39,7 +39,7 @@ const enable = async (origin: string): Promise<Injected> => {
 function inject() {
   // inject substrate wallet provider
   injectExtension(enable, {
-    name: "taostats",
+    name: INJECTED_WEB3_NAME,
     version: process.env.VERSION ?? "",
   })
 

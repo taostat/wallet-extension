@@ -15,9 +15,10 @@ pnpm dev:extension        # Start Chrome extension dev server with hot reload
 pnpm dev:extension:firefox # Start Firefox extension dev server
 
 # Building
-pnpm build:extension      # Build for Chrome (QA/dev)
+pnpm build:extension      # Build QA chrome build → dist/chrome-qa
 pnpm build:extension:firefox # Build for Firefox
-pnpm build:extension:prod # Production build (requires Sentry keys)
+pnpm build:extension:internal # Team preview build (stable ID) → dist/chrome-internal
+pnpm build:extension:prod # Production / store build → dist/chrome
 
 # Testing
 pnpm test                 # Run Jest tests (workspace-wide)
