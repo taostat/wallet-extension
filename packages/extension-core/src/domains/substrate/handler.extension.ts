@@ -160,11 +160,24 @@ export class SubHandler extends ExtensionHandler {
             }
       const method = Binary.fromBytes(mergeUint8([new Uint8Array(location), codec.enc(args)]))
 
+      // Subtensor CheckMortality rejects submitEncrypted with immortal era or period > 8
+      // (InvalidTransaction::Stale → "Transaction is outdated"). Stake payloads use period 64;
+      // rebuild a period-8 mortal era from the same birth block as the inner payload.
+      const submitEncryptedEraPeriod = 8
+      const blockNumber = Number(BigInt(payload.blockNumber))
+      const era = registry
+        .createType("ExtrinsicEra", {
+          current: blockNumber,
+          period: submitEncryptedEraPeriod,
+        })
+        .toHex()
+
       const outerPayload: SignerPayloadJSON = {
         ...payload,
         method: method.asHex(),
         mode: 0,
         metadataHash: undefined,
+        era,
       }
 
       // sign the outer tx payload
