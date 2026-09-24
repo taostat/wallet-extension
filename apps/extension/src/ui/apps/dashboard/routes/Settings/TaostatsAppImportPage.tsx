@@ -1,8 +1,11 @@
 import { classNames } from "@taostats-wallet/util"
 import { Account, isAccountOfType } from "extension-core"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Button, FormFieldContainer, FormFieldInputText } from "taostats-ui"
+import { useNavigate } from "react-router-dom"
+import { Button, FormFieldContainer, FormFieldInputText, IconButton } from "taostats-ui"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
@@ -12,7 +15,18 @@ import { PasswordUnlock, usePasswordUnlock } from "@ui/domains/Account/PasswordU
 import { QR_BRAND_COLOR, TextQrCode } from "@ui/domains/CopyAddress/TextQrCode"
 import { useAccounts } from "@ui/state"
 
-type Step = "explainer" | "pin1" | "pin2" | "pin3" | "account" | "unlock" | "qr"
+type Step =
+  | "explainer"
+  | "pin1"
+  | "pin2"
+  | "pin3"
+  | "account"
+  | "unlock"
+  | "safety"
+  | "qr"
+  | "confirm"
+
+type ConfirmReason = "finished" | "expired"
 
 const GROUP_COUNT = 3
 const TTL_MS = 5 * 60 * 1000
@@ -66,6 +80,7 @@ const PinGroupStep: FC<{
   onContinue: () => void
 }> = ({ groupIndex, value, onChange, onBack, onContinue }) => {
   const { t } = useTranslation()
+  const [showPin, setShowPin] = useState(false)
   const canContinue =
     value.replace(/[^23456789ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz]/g, "").length === 3
 
@@ -86,14 +101,25 @@ const PinGroupStep: FC<{
           autoFocus
           autoComplete="off"
           spellCheck={false}
-          maxLength={5}
+          data-lpignore
+          maxLength={3}
           placeholder="XXX"
+          type={showPin ? "text" : "password"}
           className="text-center font-mono text-2xl tracking-[0.35em]"
           value={value}
           onChange={(e) => onChange(e.target.value.toUpperCase())}
           onKeyDown={(e) => {
             if (e.key === "Enter" && canContinue) onContinue()
           }}
+          after={
+            <IconButton
+              type="button"
+              aria-label={showPin ? t("Hide import code") : t("Show import code")}
+              onClick={() => setShowPin((prev) => !prev)}
+            >
+              {showPin ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
+            </IconButton>
+          }
         />
       </FormFieldContainer>
       <Spacer />
@@ -233,12 +259,49 @@ const UnlockAndGenerate: FC<{
   )
 }
 
+const SafetyStep: FC<{ onContinue: () => void; onBack: () => void }> = ({
+  onContinue,
+  onBack,
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <>
+      <HeaderBlock
+        title={t("Before you show the QR code")}
+        text={t(
+          "This QR code contains an encrypted copy of a private key. Only show it when you are ready to scan it with your own phone.",
+        )}
+      />
+      <Spacer />
+      <div className="bg-secondary text-fg-secondary flex flex-col gap-3 rounded-md p-4 text-sm">
+        <p>{t("Make sure you are not in a public place where others can see your screen.")}</p>
+        <p>
+          {t(
+            "As soon as the Taostats app has scanned the code, tap Finish so the QR is no longer displayed.",
+          )}
+        </p>
+      </div>
+      <Spacer />
+      <div className="flex gap-2">
+        <Button className="w-full" onClick={onBack}>
+          {t("Back")}
+        </Button>
+        <Button className="w-full" primary onClick={onContinue}>
+          {t("Show QR code")}
+        </Button>
+      </div>
+    </>
+  )
+}
+
 const QrStep: FC<{
   qrPayload: string
   createdAt: number
-  onDone: () => void
+  onFinish: () => void
+  onExpired: () => void
   onRestart: () => void
-}> = ({ qrPayload, createdAt, onDone, onRestart }) => {
+}> = ({ qrPayload, createdAt, onFinish, onExpired, onRestart }) => {
   const { t } = useTranslation()
   const [now, setNow] = useState(Date.now())
 
@@ -253,43 +316,78 @@ const QrStep: FC<{
   const seconds = Math.floor((remainingMs % 60_000) / 1000)
   const countdown = `${minutes}:${seconds.toString().padStart(2, "0")}`
 
+  useEffect(() => {
+    if (expired) onExpired()
+  }, [expired, onExpired])
+
+  if (expired) return null
+
   return (
     <>
       <HeaderBlock
         title={t("Scan with the Taostats app")}
-        text={
-          expired
-            ? t("This QR code has expired. Generate a new one to continue.")
-            : t("Scan this QR code with the Taostats Mobile App. Expires in {{time}}.", {
-                time: countdown,
-              })
-        }
+        text={t("Scan this QR code with the Taostats Mobile App. Expires in {{time}}.", {
+          time: countdown,
+        })}
       />
       <Spacer />
       <div className="mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-xl bg-white p-4">
-        {expired ? (
-          <div className="text-fg-error flex h-full items-center justify-center text-center text-sm">
-            {t("QR code expired")}
-          </div>
-        ) : (
-          <TextQrCode
-            data={qrPayload}
-            moduleStyle="square"
-            cornersColor={QR_BRAND_COLOR}
-            // Dense import payloads scan faster with medium EC + quiet zone + small logo.
-            errorCorrectionLevel="M"
-            quietZone={0}
-            imageOptions={{ imageSize: 0.12, margin: 1 }}
-          />
-        )}
+        <TextQrCode
+          data={qrPayload}
+          moduleStyle="square"
+          cornersColor={QR_BRAND_COLOR}
+          // Dense import payloads scan faster with medium EC + quiet zone + small logo.
+          errorCorrectionLevel="M"
+          quietZone={0}
+          imageOptions={{ imageSize: 0.12, margin: 1 }}
+        />
       </div>
       <Spacer />
       <div className="flex gap-2">
         <Button className="w-full" onClick={onRestart}>
           {t("Start over")}
         </Button>
-        <Button className="w-full" primary onClick={onDone} disabled={expired}>
-          {t("Done")}
+        <Button className="w-full" primary onClick={onFinish}>
+          {t("Finish")}
+        </Button>
+      </div>
+    </>
+  )
+}
+
+const ConfirmStep: FC<{
+  reason: ConfirmReason
+  onHome: () => void
+  onRestart: () => void
+}> = ({ reason, onHome, onRestart }) => {
+  const { t } = useTranslation()
+  const expired = reason === "expired"
+
+  return (
+    <>
+      <HeaderBlock
+        title={expired ? t("QR code expired") : t("Import finished")}
+        text={
+          expired
+            ? t(
+                "This QR code is no longer valid. If the app did not finish importing, start again to generate a new code.",
+              )
+            : t(
+                "You can close this page. If the app still needs the QR code, start again to generate a new one.",
+              )
+        }
+      />
+      <Spacer />
+      <div className="bg-secondary text-fg-secondary rounded-md p-4 text-sm">
+        {t("For your security, do not leave import QR codes visible on screen longer than needed.")}
+      </div>
+      <Spacer />
+      <div className="flex gap-2">
+        <Button className="w-full" onClick={onRestart}>
+          {t("Start over")}
+        </Button>
+        <Button className="w-full" primary onClick={onHome}>
+          {t("Back to portfolio")}
         </Button>
       </div>
     </>
@@ -298,12 +396,14 @@ const QrStep: FC<{
 
 const Content = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const accounts = useAccounts("owned")
   const [step, setStep] = useState<Step>("explainer")
   const [groups, setGroups] = useState<[string, string, string]>(["", "", ""])
   const [selectedAddress, setSelectedAddress] = useState<string>()
   const [qrPayload, setQrPayload] = useState<string>()
   const [qrCreatedAt, setQrCreatedAt] = useState<number>()
+  const [confirmReason, setConfirmReason] = useState<ConfirmReason>("finished")
 
   const eligibleAccounts = useMemo(
     () =>
@@ -321,13 +421,27 @@ const Content = () => {
     [groups],
   )
 
+  const clearQr = useCallback(() => {
+    setQrPayload(undefined)
+    setQrCreatedAt(undefined)
+  }, [])
+
   const reset = useCallback(() => {
     setStep("explainer")
     setGroups(["", "", ""])
     setSelectedAddress(undefined)
-    setQrPayload(undefined)
-    setQrCreatedAt(undefined)
-  }, [])
+    clearQr()
+    setConfirmReason("finished")
+  }, [clearQr])
+
+  const goToConfirm = useCallback(
+    (reason: ConfirmReason) => {
+      setConfirmReason(reason)
+      clearQr()
+      setStep("confirm")
+    },
+    [clearQr],
+  )
 
   const setGroup = (index: 0 | 1 | 2, value: string) => {
     setGroups((prev) => {
@@ -384,12 +498,34 @@ const Content = () => {
           onGenerated={(payload) => {
             setQrPayload(payload)
             setQrCreatedAt(Date.now())
-            setStep("qr")
+            setStep("safety")
           }}
         />
       ) : null}
+      {step === "safety" ? (
+        <SafetyStep
+          onBack={() => {
+            clearQr()
+            setStep("account")
+          }}
+          onContinue={() => setStep("qr")}
+        />
+      ) : null}
       {step === "qr" && qrPayload && qrCreatedAt ? (
-        <QrStep qrPayload={qrPayload} createdAt={qrCreatedAt} onDone={reset} onRestart={reset} />
+        <QrStep
+          qrPayload={qrPayload}
+          createdAt={qrCreatedAt}
+          onFinish={() => goToConfirm("finished")}
+          onExpired={() => goToConfirm("expired")}
+          onRestart={reset}
+        />
+      ) : null}
+      {step === "confirm" ? (
+        <ConfirmStep
+          reason={confirmReason}
+          onHome={() => navigate("/portfolio")}
+          onRestart={reset}
+        />
       ) : null}
       {step === "unlock" && !selectedAddress ? (
         <div className="text-fg-error text-sm">{t("Select an account first.")}</div>

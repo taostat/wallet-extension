@@ -22,7 +22,8 @@ export const TAOSTATS_APP_IMPORT_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
 
 export const TAOSTATS_APP_IMPORT_ARGON2 = {
   t: 2,
-  m: 4_096,
+  // OWASP interactive minimum (~19 MiB)
+  m: 19_456,
   p: 1,
   dkLen: 32,
 } as const

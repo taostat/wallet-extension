@@ -19,6 +19,7 @@ const OBFUSCATE_LOG_MESSAGES: MessageTypes[] = [
   "pri(app.changePassword.subscribe)",
   "pri(accounts.export)",
   "pri(accounts.export.all)",
+  "pri(accounts.taostatsAppImport)",
   "pri(accounts.add.derive)",
   "pri(accounts.add.keypair)",
   "pri(accounts.create.json)",
