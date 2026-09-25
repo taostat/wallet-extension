@@ -27,6 +27,6 @@ export const useBittensorSimulateSwap = ({
       if (!sapi || typeof amountIn !== "bigint" || typeof netuid !== "number") return null
       return getSwapSimulation(sapi, netuid, direction, amountIn)
     },
-    refetchInterval: 2_000, // refresh often to account for changes in mempool
+    refetchInterval: 12_000, // refresh for pool/mempool changes without saturating RPC rate limits
   })
 }
