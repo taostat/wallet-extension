@@ -14,6 +14,9 @@ const BAD_RPC_ERRORS: Record<string, string> = {
   "-32098": "Capacity exceeded",
 }
 
+// Idle sockets get closed by public RPCs. Ping only when nothing else has used the socket recently.
+const SOCKET_KEEPALIVE_MS = 45_000
+
 export class ChainConnectionError extends Error {
   type: "CHAIN_CONNECTION_ERROR"
   chainId: string
@@ -85,6 +88,8 @@ export class ChainConnectorDot implements IChainConnectorDot {
   #socketConnections: Record<DotNetworkId, Websocket> = {}
   #socketKeepAliveIntervals: Record<DotNetworkId, ReturnType<typeof setInterval>> = {}
   #socketUsers: Record<DotNetworkId, SocketUserId[]> = {}
+  /** Last real RPC on this chain. The system_health ping does not update it. */
+  #lastRpcAt: Record<DotNetworkId, number> = {}
 
   constructor(
     chaindataChainProvider: IChaindataNetworkProvider,
@@ -207,6 +212,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
 
     try {
       const timeout = 30_000 // throw after 30 seconds if no response
+      this.noteRpcActivity(chainId)
       // eslint-disable-next-line no-var
       var response = await Promise.race([
         ws.send(method, params, isCacheable),
@@ -364,6 +370,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
       let disconnected = false
       let unsubscribeMethod: string | undefined = undefined
       try {
+        this.noteRpcActivity(chainId)
         await Promise.race([
           ws.subscribe(responseMethod, subscribeMethod, params, callback).then((id) => {
             if (disconnected) {
@@ -417,6 +424,7 @@ export class ChainConnectorDot implements IChainConnectorDot {
       clearTimeout(this.#socketKeepAliveIntervals[chainId])
       delete this.#socketConnections[chainId]
       delete this.#socketUsers[chainId]
+      delete this.#lastRpcAt[chainId]
       await ws.disconnect()
     } catch (error) {
       log.warn(`Error occurred reseting socket ${chainId}`, error)
@@ -498,7 +506,6 @@ export class ChainConnectorDot implements IChainConnectorDot {
       if (this.#socketKeepAliveIntervals[chainId])
         clearInterval(this.#socketKeepAliveIntervals[chainId])
 
-      const intervalMs = 10_000 // 10,000ms = 10s
       this.#socketKeepAliveIntervals[chainId] = setInterval(() => {
         if (!this.#socketConnections[chainId])
           return log.warn(`skipping ${chainId} rpc ws healthcheck: ws is not defined`)
@@ -506,10 +513,14 @@ export class ChainConnectorDot implements IChainConnectorDot {
         if (!this.#socketConnections[chainId].isConnected)
           return log.warn(`skipping ${chainId} rpc ws healthcheck: ws is not connected`)
 
+        // Unstake (and any other screen already polling) keeps the socket busy. Skip the ping.
+        const lastRpcAt = this.#lastRpcAt[chainId] ?? 0
+        if (Date.now() - lastRpcAt < SOCKET_KEEPALIVE_MS) return
+
         this.#socketConnections[chainId]
           .send("system_health", [])
           .catch((error) => log.warn(`Failed keep-alive for socket ${chainId}`, error))
-      }, intervalMs)
+      }, SOCKET_KEEPALIVE_MS)
     })()
 
     return [socketUserId, this.#socketConnections[chainId]]
@@ -534,6 +545,11 @@ export class ChainConnectorDot implements IChainConnectorDot {
     delete this.#socketConnections[chainId]
     clearInterval(this.#socketKeepAliveIntervals[chainId])
     delete this.#socketKeepAliveIntervals[chainId]
+    delete this.#lastRpcAt[chainId]
+  }
+
+  private noteRpcActivity(chainId: DotNetworkId) {
+    this.#lastRpcAt[chainId] = Date.now()
   }
 
   private addSocketUser(chainId: DotNetworkId): SocketUserId {

@@ -2,7 +2,7 @@ import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import { ScaleApi } from "@taostats-wallet/sapi"
 
 import { useBittensorCurrentHotkey } from "../../hooks/bittensor/useGetBittensorStakeHotkeys"
-import { useGetFeeEstimate } from "../../shared/useGetFeeEstimate"
+import { useBittensorInclusionFee } from "./useBittensorInclusionFee"
 import { type StakeDirection } from "./useBittensorStakeWizard"
 import { useBittensorStakingPayload } from "./useBittensorStakingPayload"
 
@@ -16,6 +16,8 @@ type GetStakeInfo = {
   stakeDirection: StakeDirection
   /** When true, payload includes MevShield server fee transfer (Taostats Shield). */
   forTaostatsShield?: boolean
+  /** When false, skip the fee RPC. The entry form never prices a fee. */
+  estimateFee?: boolean
 }
 
 export const useGetBittensorStakeInfo = ({
@@ -27,27 +29,29 @@ export const useGetBittensorStakeInfo = ({
   networkId,
   stakeDirection,
   forTaostatsShield,
+  estimateFee = false,
 }: GetStakeInfo) => {
+  const direction = stakeDirection === "stake" ? "taoToAlpha" : "alphaToTao"
+
   const {
     alphaPrice,
-    payload,
-    feeEstimatePayload,
-    txMetadata,
     minJoinTaoStake,
     minAlphaStake,
     minTaoStake,
     minAlphaUnstake,
     amountOut,
     taostatsFee,
-    errorPayload,
     swapPrice,
     priceImpact,
     isLoading: isLoadingPayload,
+    isQuoteReady,
+    quoteError,
+    prepareSignerPayload,
     slippage,
   } = useBittensorStakingPayload({
     netuid,
     amountIn,
-    direction: stakeDirection === "stake" ? "taoToAlpha" : "alphaToTao",
+    direction,
     hotkey,
     address,
     networkId,
@@ -60,15 +64,25 @@ export const useGetBittensorStakeInfo = ({
     data: feeEstimate,
     isLoading: isLoadingFeeEstimate,
     error: errorFeeEstimate,
-  } = useGetFeeEstimate({ sapi, payload: feeEstimatePayload })
+  } = useBittensorInclusionFee({
+    sapi,
+    address,
+    hotkey,
+    netuid,
+    networkId,
+    direction,
+    forTaostatsShield,
+    hasTaostatsFee: (taostatsFee ?? 0n) > 0n,
+    enabled: estimateFee,
+  })
 
   return {
     alphaPrice,
     swapPrice,
-    payload,
-    txMetadata,
     isLoadingPayload,
-    errorPayload,
+    isQuoteReady,
+    quoteError,
+    prepareSignerPayload,
     feeEstimate,
     isLoadingFeeEstimate,
     errorFeeEstimate,

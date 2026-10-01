@@ -132,6 +132,57 @@ const getSubtensorCallConfig = (
   return { method, args }
 }
 
+type BittensorCallTarget = {
+  pallet: string
+  method: string
+  args: unknown
+}
+
+const getBittensorCallTarget = ({
+  sapi,
+  taostatsFee,
+  serverFeeForShieldRao,
+  isRootSubnet,
+  callConfig,
+}: {
+  sapi: ScaleApi
+  taostatsFee: bigint
+  serverFeeForShieldRao?: bigint
+  isRootSubnet: boolean
+  callConfig: SubtensorCallConfig
+}): BittensorCallTarget => {
+  const hasTaostatsFee = withFeeTransfer(taostatsFee)
+  const shouldAddTaostatsShieldFee = withServerFeeTransfer(serverFeeForShieldRao)
+  const taostatsShieldFeeRao = serverFeeForShieldRao ?? 0n
+
+  const getMainDecodedCall = () =>
+    sapi.getDecodedCall("SubtensorModule", callConfig.method, callConfig.args)
+
+  if (!hasTaostatsFee) {
+    if (!shouldAddTaostatsShieldFee) {
+      return { pallet: "SubtensorModule", method: callConfig.method, args: callConfig.args }
+    }
+
+    return {
+      pallet: "Utility",
+      method: "batch_all",
+      args: { calls: [getMainDecodedCall(), serverFeeTransferCall(sapi, taostatsShieldFeeRao)] },
+    }
+  }
+
+  return {
+    pallet: "Utility",
+    method: "batch_all",
+    args: {
+      calls: [
+        getMainDecodedCall(),
+        ...(isRootSubnet ? [] : [taostatsFeeTransferCall(sapi, taostatsFee)]),
+        ...(shouldAddTaostatsShieldFee ? [serverFeeTransferCall(sapi, taostatsShieldFeeRao)] : []),
+      ],
+    },
+  }
+}
+
 const buildBittensorPayload = ({
   sapi,
   address,
@@ -147,31 +198,15 @@ const buildBittensorPayload = ({
   isRootSubnet: boolean
   callConfig: SubtensorCallConfig
 }) => {
-  const hasTaostatsFee = withFeeTransfer(taostatsFee)
-  const shouldAddTaostatsShieldFee = withServerFeeTransfer(serverFeeForShieldRao)
-  const taostatsShieldFeeRao = serverFeeForShieldRao ?? 0n
+  const call = getBittensorCallTarget({
+    sapi,
+    taostatsFee,
+    serverFeeForShieldRao,
+    isRootSubnet,
+    callConfig,
+  })
 
-  const getMainDecodedCall = () =>
-    sapi.getDecodedCall("SubtensorModule", callConfig.method, callConfig.args)
-
-  if (!hasTaostatsFee) {
-    if (!shouldAddTaostatsShieldFee) {
-      return sapi.getExtrinsicPayload("SubtensorModule", callConfig.method, callConfig.args, {
-        address,
-      })
-    }
-
-    const calls = [getMainDecodedCall(), serverFeeTransferCall(sapi, taostatsShieldFeeRao)]
-    return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
-  }
-
-  const calls = [
-    getMainDecodedCall(),
-    ...(isRootSubnet ? [] : [taostatsFeeTransferCall(sapi, taostatsFee)]),
-    ...(shouldAddTaostatsShieldFee ? [serverFeeTransferCall(sapi, taostatsShieldFeeRao)] : []),
-  ]
-
-  return sapi.getExtrinsicPayload("Utility", "batch_all", { calls }, { address })
+  return sapi.getExtrinsicPayload(call.pallet, call.method, call.args, { address })
 }
 
 export const getBittensorStakingPayload = async ({
@@ -250,4 +285,48 @@ export const getBittensorUnstakePayload = ({
     isRootSubnet,
     callConfig,
   })
+}
+
+type BittensorCallArgs = {
+  sapi: ScaleApi
+  address: string
+  hotkey: string
+  amount: bigint
+  priceLimit: bigint
+  netuid: number
+  taostatsFee: bigint
+  serverFeeForShieldRao?: bigint
+  action: StakeAction
+  genesisHash: `0x${string}`
+}
+
+/** One query_info on a locally fake-signed extrinsic. Does not read nonce or block hashes. */
+export const getBittensorInclusionFee = ({
+  sapi,
+  address,
+  hotkey,
+  amount,
+  priceLimit,
+  netuid,
+  taostatsFee,
+  serverFeeForShieldRao,
+  action,
+  genesisHash,
+}: BittensorCallArgs) => {
+  const isRootSubnet = netuid === ROOT_NETUID
+  const callConfig = getSubtensorCallConfig(action, isRootSubnet, {
+    hotkey,
+    netuid,
+    amount,
+    priceLimit,
+  })
+  const call = getBittensorCallTarget({
+    sapi,
+    taostatsFee,
+    serverFeeForShieldRao,
+    isRootSubnet,
+    callConfig,
+  })
+
+  return sapi.getInclusionFee(call.pallet, call.method, call.args, address, genesisHash)
 }

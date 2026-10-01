@@ -19,7 +19,6 @@ import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/M
 import { Fiat } from "../../../../Asset/Fiat"
 import { TokenLogo } from "../../../../Asset/TokenLogo"
 import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
-import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
 import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
@@ -28,6 +27,7 @@ import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
 import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
+import { BittensorConfirmSignButton } from "../BittensorConfirmSignButton"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
 
 export const BittensorSubnetStakeReview = () => {
@@ -38,10 +38,8 @@ export const BittensorSubnetStakeReview = () => {
     nativeToken,
     dtaoToken,
     account,
-    payload,
     amountIn,
     amountTao,
-    txMetadata,
     hotkey,
     netuid,
     slippageDrawer,
@@ -55,9 +53,6 @@ export const BittensorSubnetStakeReview = () => {
     isHardwareWallet,
     mevShieldOption,
     setMevShieldOption,
-    onSubmitted,
-    startSubmittingStakeTx,
-    endSubmittingStakeTx,
     setStep,
   } = useBittensorStakeWizard()
   const { t } = useTranslation()
@@ -273,27 +268,9 @@ export const BittensorSubnetStakeReview = () => {
           </div>
         </div>
       </div>
-      {payload && (
-        <div className="shrink-0 pt-4">
-          <SapiSendButton
-            containerId="StakingModalDialog"
-            label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
-            payload={payload}
-            onSubmitted={onSubmitted}
-            onSubmitStart={startSubmittingStakeTx}
-            onSubmitEnd={endSubmittingStakeTx}
-            txMetadata={txMetadata}
-            disabled={isDisabled}
-            mode={
-              mevShieldOption === "taostats"
-                ? "bittensor-taostats-shield"
-                : mevShieldOption === "on-chain"
-                  ? "bittensor-mev-shield"
-                  : "default"
-            }
-          />
-        </div>
-      )}
+      <div className="shrink-0 pt-4">
+        <BittensorConfirmSignButton disabled={isDisabled} />
+      </div>
       <BittensorSlippageDrawer />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />
     </BittensorModalLayout>

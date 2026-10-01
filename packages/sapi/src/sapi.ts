@@ -8,6 +8,7 @@ import { getConstantValue } from "./helpers/getConstantValue"
 import { getDecodedCall, getDecodedCallFromPayload } from "./helpers/getDecodedCall"
 import { getDryRunCall } from "./helpers/getDryRunCall"
 import { getFeeEstimate } from "./helpers/getFeeEstimate"
+import { getInclusionFee } from "./helpers/getInclusionFee"
 import { getRuntimeCallResult } from "./helpers/getRuntimeCallResult"
 import { getSapiConnector } from "./helpers/getSapiConnector"
 import { getSignerPayloadJSON } from "./helpers/getSignerPayloadJSON"
@@ -80,6 +81,14 @@ export const getScaleApi = (
     ) => getSignerPayloadJSON(chain, pallet, method, args, config, chainInfo),
 
     getFeeEstimate: (payload: SignerPayloadJSON) => getFeeEstimate(chain, payload, chainInfo),
+
+    getInclusionFee: (
+      pallet: string,
+      method: string,
+      args: unknown,
+      address: string,
+      genesisHash: `0x${string}`,
+    ) => getInclusionFee(chain, chainInfo, pallet, method, args, address, genesisHash),
 
     getRuntimeCallValue: <T>(apiName: string, method: string, args: unknown[]) =>
       getRuntimeCallResult<T>(chain, apiName, method, args),

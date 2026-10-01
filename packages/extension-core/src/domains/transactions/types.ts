@@ -100,6 +100,13 @@ export type WalletTransactionDot = {
   txInfo?: WalletTransactionInfo
   blockNumber?: string
   extrinsicIndex?: number
+  /**
+   * Taostats Shield: hide the explorer link until the submit API returns the indexed hash.
+   * The local `hash` is the inner extrinsic and is not what Taostats lists.
+   */
+  hideExplorerLink?: boolean
+  /** Hash returned by the Taostats Shield API, used for the explorer link. */
+  explorerId?: string
 }
 
 export type WalletTransaction = WalletTransactionDot
