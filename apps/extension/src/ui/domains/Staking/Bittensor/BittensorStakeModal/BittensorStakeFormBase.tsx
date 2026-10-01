@@ -29,7 +29,6 @@ import { BittensorModalLayout } from "../components/BittensorModalLayout"
 import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { ROOT_NETUID } from "../utils/constants"
-import { StakingFeeEstimate } from "./../../shared/StakingFeeEstimate"
 import { BittensorAvailableToUnstake } from "./BittensorAvailableToUnstake"
 import { BittensorDelegatorNameButton } from "./BittensorDelegatorNameButton"
 import { BittensorSelectStakeDrawer } from "./Drawers/BittensorSelectStakeDrawer"
@@ -408,20 +407,6 @@ export const AmountEdit = () => {
   )
 }
 
-const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } =
-    useBittensorStakeWizard()
-
-  return (
-    <StakingFeeEstimate
-      plancks={feeEstimate}
-      tokenId={feeToken?.id}
-      isLoading={isLoadingFeeEstimate}
-      error={errorFeeEstimate}
-    />
-  )
-}
-
 type BittensorStakeFormBaseProps = {
   StakeTypeDetails: React.ComponentType
 }
@@ -433,8 +418,10 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
     accountPicker,
     nativeToken,
     dtaoToken,
-    payload,
-    errorPayload,
+    isFormValid,
+    isQuoteReady,
+    quoteError,
+    inputErrorMessage,
     hotkey,
     stakeType,
     stakeDirection,
@@ -528,28 +515,23 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
               )}
             </div>
           </div>
-          {!isSubnetUnstake && (
-            <>
-              <div className="flex items-center justify-between gap-4">
-                <div className="whitespace-nowrap">{t("Estimated Fee")}</div>
-                <div className="overflow-hidden">
-                  <FeeEstimate />
-                </div>
-              </div>
-            </>
-          )}
         </div>
       </div>
 
       <div className="shrink-0 pt-3">
-        <Button primary fullWidth disabled={!payload} onClick={() => setStep("review")}>
+        <Button
+          primary
+          fullWidth
+          disabled={!isFormValid || !!inputErrorMessage || !isQuoteReady}
+          onClick={() => setStep("review")}
+        >
           {t("Review")}
         </Button>
-        {!!errorPayload && !payload && (
+        {!!quoteError && !isQuoteReady && (
           <div className="text-brand-orange line-clamp-3 pt-2 text-center text-xs">
-            {errorPayload instanceof Error
-              ? errorPayload.message
-              : t("Could not prepare this transaction. Check your connection and try again.")}
+            {quoteError instanceof Error
+              ? quoteError.message
+              : t("Could not price this swap. Check your connection and try again.")}
           </div>
         )}
       </div>

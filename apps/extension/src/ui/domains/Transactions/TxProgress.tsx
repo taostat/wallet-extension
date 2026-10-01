@@ -8,11 +8,21 @@ import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { useAnyNetwork, useNetworkById, useTransaction } from "@ui/state"
+import { useNetworkById, useTransaction } from "@ui/state"
 
 const getBlockExplorerUrl = (network: Network | undefined | null, hash: string) => {
   if (!network) return null
   return getBlockExplorerUrls(network, { type: "transaction", id: hash })[0] ?? null
+}
+
+/** Shield API hashes are indexed at /extrinsic/{id}, the same path the web app uses. */
+const getTaostatsExtrinsicUrl = (network: Network | undefined | null, id: string) => {
+  const base = network?.blockExplorerUrls?.find((url) => url.includes("taostats.io"))
+  if (!base) return getBlockExplorerUrl(network, id)
+
+  const url = new URL(base)
+  url.pathname = `/extrinsic/${encodeURIComponent(id)}`
+  return url.toString()
 }
 
 const useTxStatusDetails = (tx?: WalletTransaction) => {
@@ -147,7 +157,15 @@ type TxProgressDotProps = {
 
 const TxProgressDot: FC<TxProgressDotProps> = ({ tx, onClose, className }) => {
   const chain = useNetworkById(tx.networkId)
-  const href = useMemo(() => getBlockExplorerUrl(chain, tx.hash), [chain, tx.hash])
+  const href = useMemo(() => {
+    if (tx.explorerId) return getTaostatsExtrinsicUrl(chain, tx.explorerId)
+    if (tx.hideExplorerLink) return null
+    // A locally signed hash is not on Taostats until the extrinsic is included.
+    if (tx.status === "pending" || tx.status === "unknown") return null
+    if (chain?.blockExplorerUrls?.some((url) => url.includes("taostats.io")))
+      return getTaostatsExtrinsicUrl(chain, tx.hash)
+    return getBlockExplorerUrl(chain, tx.hash)
+  }, [chain, tx.explorerId, tx.hash, tx.hideExplorerLink, tx.status])
 
   return (
     <TxProgressBase
@@ -167,14 +185,12 @@ type TxProgressProps = {
   className?: string
 }
 
-export const TxProgress: FC<TxProgressProps> = ({ hash, networkIdOrHash, onClose, className }) => {
+export const TxProgress: FC<TxProgressProps> = ({ hash, onClose, className }) => {
   const tx = useTransaction(hash)
-  const network = useAnyNetwork(networkIdOrHash)
 
-  // tx is null if not found in db
+  // tx is null if not found in db. Don't link a hash Taostats has not indexed yet.
   if (tx === null) {
-    const href = getBlockExplorerUrl(network, hash)
-    return <TxProgressBase href={href} className={className} onClose={onClose} />
+    return <TxProgressBase className={className} onClose={onClose} />
   }
 
   switch (tx?.platform) {

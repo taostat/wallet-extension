@@ -1,9 +1,7 @@
 import { taoToAlpha } from "@taostats-wallet/balances"
-import { ScaleApi } from "@taostats-wallet/sapi"
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
-import { useSignerPayloadQuery } from "@ui/hooks/sapi/useSignerPayloadQuery"
 
 import { useGetBittensorMinJoinStake } from "../../hooks/bittensor/useGetBittensorMinJoinStake"
 import { useGetBittensorDefaultMinStake } from "../../hooks/bittensor/useGetBittensorMinStake"
@@ -106,6 +104,7 @@ export const useBittensorStakingPayload = ({
     data: simulation,
     isLoading: isLoadingSimulation,
     isError: isErrorSimulation,
+    error: quoteError,
   } = useBittensorSimulateSwap({
     networkId: "bittensor",
     direction,
@@ -158,27 +157,54 @@ export const useBittensorStakingPayload = ({
     return MEVSHIELD_SERVER_FEE_RAO
   }, [forTaostatsShield])
 
-  const {
-    data: swapPayload,
-    isLoading: isLoadingPayload,
-    isPlaceholderData,
-    isError: isErrorPayload,
-    error: errorPayload,
-  } = useBittensorAnyStakingPayload({
-    sapi,
-    direction,
-    address,
-    netuid,
-    hotkey,
-    amount,
-    priceLimit,
-    taostatsFee,
-    serverFeeForShieldRao,
-  })
+  const isQuoteReady =
+    !amountPending &&
+    !isErrorSimulation &&
+    typeof amount === "bigint" &&
+    !!simulation &&
+    typeof priceLimit === "bigint" &&
+    typeof taostatsFee === "bigint"
 
-  // A payload built for a previous amount, or still refreshing after a keystroke, is not signable.
-  const signablePayload =
-    !amountPending && !isPlaceholderData && swapPayload ? swapPayload : undefined
+  const prepareSignerPayload = useCallback(async () => {
+    if (
+      !sapi ||
+      !address ||
+      !hotkey ||
+      typeof amount !== "bigint" ||
+      typeof priceLimit !== "bigint" ||
+      typeof taostatsFee !== "bigint" ||
+      typeof netuid !== "number"
+    )
+      throw new Error("Stake details are not ready")
+
+    const args = {
+      sapi,
+      address,
+      hotkey,
+      amount,
+      priceLimit,
+      netuid,
+      taostatsFee,
+      serverFeeForShieldRao,
+    }
+
+    switch (direction) {
+      case "taoToAlpha":
+        return getBittensorStakingPayload(args)
+      case "alphaToTao":
+        return getBittensorUnstakePayload(args)
+    }
+  }, [
+    address,
+    amount,
+    direction,
+    hotkey,
+    netuid,
+    priceLimit,
+    sapi,
+    serverFeeForShieldRao,
+    taostatsFee,
+  ])
 
   return {
     isLoading:
@@ -186,20 +212,13 @@ export const useBittensorStakingPayload = ({
       isLoadingSapi ||
       isLoadingSimulation ||
       isLoadingMinJoinTaoStake ||
-      isLoadingPayload ||
-      isLoadingAlphaPrice ||
-      isPlaceholderData,
-    isError:
-      isErrorSapi ||
-      isErrorSimulation ||
-      isErrorMinJoinTaoStake ||
-      isErrorPayload ||
-      isErrorAlphaPrice,
-    errorPayload: amountPending ? null : errorPayload,
+      isLoadingAlphaPrice,
+    isError: isErrorSapi || isErrorSimulation || isErrorMinJoinTaoStake || isErrorAlphaPrice,
+    isQuoteReady,
+    quoteError: amountPending ? null : quoteError,
+    prepareSignerPayload,
     amountOut: amountPending ? 0n : amountOut,
     taostatsFee,
-    payload: signablePayload?.payload,
-    txMetadata: signablePayload?.txMetadata,
     alphaPrice,
     swapPrice: amountPending ? null : swapPrice,
 
@@ -221,89 +240,4 @@ const calculateFee = ({ amount, fee }: { amount: bigint | null; fee: number }): 
   const discountedFee = fee
 
   return (amount * BigInt(Math.round(discountedFee * 100))) / BigInt(10000)
-}
-
-type useBittensorAnyStakingPayloadProps = {
-  direction: StakeDirection
-  sapi: ScaleApi | undefined | null
-  address: string | null
-  hotkey: string | null | undefined
-  netuid: number | null
-  amount: bigint | null | undefined
-  priceLimit: bigint | null
-  taostatsFee: bigint | null
-  serverFeeForShieldRao?: bigint
-}
-
-const useBittensorAnyStakingPayload = ({
-  sapi,
-  direction,
-  address,
-  netuid,
-  hotkey,
-  amount,
-  priceLimit,
-  taostatsFee,
-  serverFeeForShieldRao,
-}: useBittensorAnyStakingPayloadProps) => {
-  return useSignerPayloadQuery({
-    sapi,
-    queryKey: [
-      "useBittensorAnyStakingPayload",
-      sapi?.id,
-      direction,
-      address,
-      netuid,
-      hotkey,
-      amount?.toString(),
-      priceLimit?.toString(),
-      taostatsFee?.toString(),
-      serverFeeForShieldRao?.toString(),
-    ],
-    enabled:
-      !!sapi &&
-      !!address &&
-      !!hotkey &&
-      typeof amount === "bigint" &&
-      typeof priceLimit === "bigint" &&
-      typeof taostatsFee === "bigint" &&
-      typeof netuid === "number",
-    queryFn: async () => {
-      if (
-        !sapi ||
-        !address ||
-        !hotkey ||
-        typeof amount !== "bigint" ||
-        typeof priceLimit !== "bigint" ||
-        typeof taostatsFee !== "bigint" ||
-        typeof netuid !== "number"
-      )
-        return null
-
-      switch (direction) {
-        case "taoToAlpha":
-          return getBittensorStakingPayload({
-            sapi,
-            address,
-            hotkey,
-            amount,
-            priceLimit,
-            netuid,
-            taostatsFee,
-            serverFeeForShieldRao,
-          })
-        case "alphaToTao":
-          return getBittensorUnstakePayload({
-            sapi,
-            address,
-            hotkey,
-            amount,
-            priceLimit,
-            netuid,
-            taostatsFee,
-            serverFeeForShieldRao,
-          })
-      }
-    },
-  })
 }

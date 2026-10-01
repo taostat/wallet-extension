@@ -8,7 +8,6 @@ import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/Dashb
 import { Fiat } from "../../../../Asset/Fiat"
 import { TokenLogo } from "../../../../Asset/TokenLogo"
 import { TokensAndFiat } from "../../../../Asset/TokensAndFiat"
-import { SapiSendButton } from "../../../../Transactions/SapiSendButton"
 import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
@@ -16,23 +15,12 @@ import { BittensorModalLayout } from "../../components/BittensorModalLayout"
 import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
+import { BittensorConfirmSignButton } from "../BittensorConfirmSignButton"
 
 export const BittensorRootStakeReview = () => {
   const { t } = useTranslation()
-  const {
-    nativeToken,
-    amountIn,
-    amountTao,
-    account,
-    onSubmitted,
-    startSubmittingStakeTx,
-    endSubmittingStakeTx,
-    payload,
-    txMetadata,
-    hotkey,
-    stakeDirection,
-    setStep,
-  } = useBittensorStakeWizard()
+  const { nativeToken, amountIn, amountTao, account, hotkey, stakeDirection, setStep } =
+    useBittensorStakeWizard()
   const { close } = useBittensorStakeModal()
 
   const [isDisabled, setIsDisabled] = useState(true)
@@ -121,20 +109,9 @@ export const BittensorRootStakeReview = () => {
           </div>
         </div>
       </div>
-      {payload && (
-        <div className="shrink-0 pt-4">
-          <SapiSendButton
-            containerId="StakingModalDialog"
-            label={stakeDirection === "stake" ? t("Stake") : t("Unstake")}
-            payload={payload}
-            onSubmitted={onSubmitted}
-            onSubmitStart={startSubmittingStakeTx}
-            onSubmitEnd={endSubmittingStakeTx}
-            txMetadata={txMetadata}
-            disabled={isDisabled}
-          />
-        </div>
-      )}
+      <div className="shrink-0 pt-4">
+        <BittensorConfirmSignButton disabled={isDisabled} />
+      </div>
     </BittensorModalLayout>
   )
 }

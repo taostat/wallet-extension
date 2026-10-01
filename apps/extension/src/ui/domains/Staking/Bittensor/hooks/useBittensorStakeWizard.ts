@@ -6,7 +6,7 @@ import {
   TokenId,
 } from "@taostats-wallet/chaindata-provider"
 import { Address, isAccountOfType } from "extension-core"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { BehaviorSubject } from "rxjs"
 import { useOpenClose } from "taostats-ui"
@@ -167,16 +167,12 @@ const useBittensorStakeWizardProvider = () => {
     [isMevShieldDisabled, mevShieldOption],
   )
 
-  // Subnet unstake does not show a fee on the entry form. Price it on review from the real payload.
-  const estimateFee = step === "review" || !(stakeDirection === "unstake" && netuid !== ROOT_NETUID)
+  // The entry form only quotes the swap. The fee is priced once, when confirm opens.
+  const estimateFee = step === "review"
 
   const {
     alphaPrice,
     swapPrice,
-    payload,
-    txMetadata,
-    isLoadingPayload,
-    errorPayload,
     feeEstimate,
     errorFeeEstimate,
     isLoadingFeeEstimate,
@@ -187,8 +183,11 @@ const useBittensorStakeWizardProvider = () => {
     minAlphaUnstake,
     priceImpact,
     taostatsFee,
-    slippage,
     amountOut,
+    slippage,
+    isQuoteReady,
+    quoteError,
+    prepareSignerPayload,
   } = useGetBittensorStakeInfo({
     sapi,
     address,
@@ -197,7 +196,7 @@ const useBittensorStakeWizardProvider = () => {
     amountIn,
     networkId: nativeToken?.networkId,
     stakeDirection,
-    forTaostatsShield: mevShieldOption === "taostats",
+    forTaostatsShield: !isMevShieldDisabled && mevShieldOption === "taostats",
     estimateFee,
   })
 
@@ -339,13 +338,11 @@ const useBittensorStakeWizardProvider = () => {
     if (stakeDirection === "unstake") {
       return totalStakedPlancks
     }
-    if (!nativeBalance || !existentialDeposit || !feeEstimate) return null
-    if (existentialDeposit.planck + feeEstimate * 11n > nativeBalance.transferable.planck)
-      return null
-    const maxRootStake =
-      nativeBalance.transferable.planck - existentialDeposit.planck - feeEstimate * 11n
-    return maxRootStake
-  }, [stakeDirection, nativeBalance, existentialDeposit, feeEstimate, totalStakedPlancks])
+    if (!nativeBalance || !existentialDeposit) return null
+    const max = nativeBalance.transferable.planck - existentialDeposit.planck
+    if (max <= 0n) return null
+    return max
+  }, [stakeDirection, nativeBalance, existentialDeposit, totalStakedPlancks])
 
   const newStakeTotal = useMemo(() => {
     if (stakeDirection === "unstake") {
@@ -367,35 +364,6 @@ const useBittensorStakeWizardProvider = () => {
     )
       return t("Insufficient balance")
 
-    if (
-      !!nativeBalance &&
-      !!feeEstimate &&
-      !!amountTao.planck &&
-      amountTao.planck + feeEstimate > nativeBalance.transferable.planck
-    )
-      return t("Insufficient balance to cover fee")
-
-    if (
-      !!nativeBalance &&
-      !!feeEstimate &&
-      !!existentialDeposit?.planck &&
-      !!amountTao.planck &&
-      existentialDeposit.planck + amountTao.planck + feeEstimate > nativeBalance.transferable.planck
-    )
-      return t("Insufficient balance to cover fee and keep account alive")
-
-    if (
-      !!nativeBalance &&
-      !!feeEstimate &&
-      !!existentialDeposit?.planck &&
-      !!amountTao.planck &&
-      existentialDeposit.planck + amountTao.planck + feeEstimate * 10n >
-        nativeBalance.transferable.planck // 10x fee for future unstakeing, as max button accounts for 11x with a fake fee estimate
-    )
-      return t(
-        "Insufficient balance to cover staking, the existential deposit, and the future unstakeing and withdrawal fees",
-      )
-
     // if not staking yet, need minTaoStake or more
     if (!dtaoBalance?.free.planck && amountTao.planck < minJoinTaoStake)
       return t("Minimum stake is {{amount}} {{symbol}}", {
@@ -416,8 +384,6 @@ const useBittensorStakeWizardProvider = () => {
     minJoinTaoStake,
     nativeBalance,
     t,
-    feeEstimate,
-    existentialDeposit?.planck,
     dtaoBalance?.free.planck,
     nativeToken?.decimals,
     nativeToken?.symbol,
@@ -425,14 +391,6 @@ const useBittensorStakeWizardProvider = () => {
   ])
 
   const unstakeInputErrorMessage = useMemo(() => {
-    if (
-      !!nativeBalance &&
-      !!feeEstimate &&
-      !!existentialDeposit?.planck &&
-      existentialDeposit.planck + feeEstimate > nativeBalance.transferable.planck
-    ) {
-      return t("Insufficient balance to cover fee and keep account alive")
-    }
     if ((amountIn || 0n) > totalStakedPlancks) {
       return t("Insufficient balance")
     }
@@ -454,9 +412,6 @@ const useBittensorStakeWizardProvider = () => {
 
     return null
   }, [
-    nativeBalance,
-    feeEstimate,
-    existentialDeposit?.planck,
     amountIn,
     totalStakedPlancks,
     newStakeTotal,
@@ -474,27 +429,61 @@ const useBittensorStakeWizardProvider = () => {
     [stakeDirection, stakeInputErrorMessage, unstakeInputErrorMessage],
   )
 
-  const computedPayload = useMemo(
-    () => (!inputErrorMessage && isFormValid && payload ? payload : null),
-    [inputErrorMessage, isFormValid, payload],
-  )
+  const confirmFeeError = useMemo(() => {
+    if (step !== "review" || typeof feeEstimate !== "bigint") return null
 
-  // While the user submits the stake/unstake tx, other async effects (fee estimate loading)
-  // may temporarily make `computedPayload` null, which would unmount the submit button.
-  // Freeze the last known-good payload until the submission flow completes.
-  const lastValidPayloadRef = useRef<typeof payload | null>(null)
-  useEffect(() => {
-    if (!isSubmittingStakeTx && computedPayload) {
-      lastValidPayloadRef.current = computedPayload
+    if (stakeDirection === "stake") {
+      if (
+        !!nativeBalance &&
+        !!amountTao?.planck &&
+        amountTao.planck + feeEstimate > nativeBalance.transferable.planck
+      )
+        return t("Insufficient balance to cover fee")
+
+      if (
+        !!nativeBalance &&
+        !!existentialDeposit?.planck &&
+        !!amountTao?.planck &&
+        existentialDeposit.planck + amountTao.planck + feeEstimate >
+          nativeBalance.transferable.planck
+      )
+        return t("Insufficient balance to cover fee and keep account alive")
+
+      if (
+        !!nativeBalance &&
+        !!existentialDeposit?.planck &&
+        !!amountTao?.planck &&
+        existentialDeposit.planck + amountTao.planck + feeEstimate * 10n >
+          nativeBalance.transferable.planck
+      )
+        return t(
+          "Insufficient balance to cover staking, the existential deposit, and the future unstakeing and withdrawal fees",
+        )
+
+      return null
     }
-  }, [computedPayload, isSubmittingStakeTx])
 
-  const frozenPayload = isSubmittingStakeTx ? lastValidPayloadRef.current : computedPayload
+    if (
+      !!nativeBalance &&
+      !!existentialDeposit?.planck &&
+      existentialDeposit.planck + feeEstimate > nativeBalance.transferable.planck
+    )
+      return t("Insufficient balance to cover fee and keep account alive")
+
+    return null
+  }, [
+    amountTao?.planck,
+    existentialDeposit?.planck,
+    feeEstimate,
+    nativeBalance,
+    stakeDirection,
+    step,
+    t,
+  ])
 
   const startSubmittingStakeTx = useCallback(() => {
-    if (computedPayload) lastValidPayloadRef.current = computedPayload
     setIsSubmittingStakeTx(true)
-  }, [computedPayload])
+  }, [])
 
   const endSubmittingStakeTx = useCallback(() => setIsSubmittingStakeTx(false), [])
 
@@ -537,6 +526,10 @@ const useBittensorStakeWizardProvider = () => {
     slippageDrawer,
     warningDrawer,
     isFormValid,
+    isQuoteReady,
+    quoteError,
+    prepareSignerPayload,
+    confirmFeeError,
     step,
     hash,
     feeToken,
@@ -548,10 +541,6 @@ const useBittensorStakeWizardProvider = () => {
     isSubnetUnstake,
     position,
     slippage,
-    payload: frozenPayload,
-    txMetadata,
-    isLoadingPayload: isLoadingPayload,
-    errorPayload,
     feeEstimate,
     isLoadingFeeEstimate,
     errorFeeEstimate,
