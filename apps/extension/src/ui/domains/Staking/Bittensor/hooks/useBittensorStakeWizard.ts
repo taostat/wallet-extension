@@ -149,10 +149,7 @@ const useBittensorStakeWizardProvider = () => {
 
   const { data: sapi } = useScaleApi(nativeToken?.networkId)
 
-  const isHardwareWallet = useMemo(
-    () => isAccountOfType(account, "ledger-polkadot"),
-    [account],
-  )
+  const isHardwareWallet = useMemo(() => isAccountOfType(account, "ledger-polkadot"), [account])
 
   const isMevShieldDisabled = useMemo(() => {
     // Root staking is not subject to the same MEV attacks as subnet swaps.
@@ -169,6 +166,9 @@ const useBittensorStakeWizardProvider = () => {
     () => !isMevShieldDisabled && mevShieldOption !== "off",
     [isMevShieldDisabled, mevShieldOption],
   )
+
+  // Subnet unstake does not show a fee on the entry form. Price it on review from the real payload.
+  const estimateFee = step === "review" || !(stakeDirection === "unstake" && netuid !== ROOT_NETUID)
 
   const {
     alphaPrice,
@@ -198,6 +198,7 @@ const useBittensorStakeWizardProvider = () => {
     networkId: nativeToken?.networkId,
     stakeDirection,
     forTaostatsShield: mevShieldOption === "taostats",
+    estimateFee,
   })
 
   const isSubnetUnstake = useMemo(

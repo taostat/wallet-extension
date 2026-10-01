@@ -59,6 +59,8 @@ export const BittensorSubnetStakeReview = () => {
     startSubmittingStakeTx,
     endSubmittingStakeTx,
     setStep,
+    inputErrorMessage,
+    errorPayload,
   } = useBittensorStakeWizard()
   const { t } = useTranslation()
   const { close } = useBittensorStakeModal()
@@ -273,7 +275,7 @@ export const BittensorSubnetStakeReview = () => {
           </div>
         </div>
       </div>
-      {payload && (
+      {payload ? (
         <div className="shrink-0 pt-4">
           <SapiSendButton
             containerId="StakingModalDialog"
@@ -293,6 +295,15 @@ export const BittensorSubnetStakeReview = () => {
             }
           />
         </div>
+      ) : (
+        (inputErrorMessage || errorPayload) && (
+          <div className="text-brand-orange shrink-0 pt-4 text-center text-xs">
+            {inputErrorMessage ??
+              (errorPayload instanceof Error
+                ? errorPayload.message
+                : t("Could not prepare this transaction. Check your connection and try again."))}
+          </div>
+        )
       )}
       <BittensorSlippageDrawer />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />

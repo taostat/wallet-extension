@@ -434,6 +434,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
     nativeToken,
     dtaoToken,
     payload,
+    errorPayload,
     hotkey,
     stakeType,
     stakeDirection,
@@ -547,6 +548,13 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
       >
         {t("Review")}
       </Button>
+      {!!errorPayload && !payload && (
+        <div className="text-brand-orange line-clamp-3 text-center text-xs">
+          {errorPayload instanceof Error
+            ? errorPayload.message
+            : t("Could not prepare this transaction. Check your connection and try again.")}
+        </div>
+      )}
 
       <StakeAccountPicker
         containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}

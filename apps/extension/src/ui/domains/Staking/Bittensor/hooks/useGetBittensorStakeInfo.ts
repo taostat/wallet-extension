@@ -16,6 +16,8 @@ type GetStakeInfo = {
   stakeDirection: StakeDirection
   /** When true, payload includes MevShield server fee transfer (Taostats Shield). */
   forTaostatsShield?: boolean
+  /** When false, skip the fee RPC. Subnet unstake defers this until review. */
+  estimateFee?: boolean
 }
 
 export const useGetBittensorStakeInfo = ({
@@ -27,11 +29,11 @@ export const useGetBittensorStakeInfo = ({
   networkId,
   stakeDirection,
   forTaostatsShield,
+  estimateFee = true,
 }: GetStakeInfo) => {
   const {
     alphaPrice,
     payload,
-    feeEstimatePayload,
     txMetadata,
     minJoinTaoStake,
     minAlphaStake,
@@ -60,7 +62,11 @@ export const useGetBittensorStakeInfo = ({
     data: feeEstimate,
     isLoading: isLoadingFeeEstimate,
     error: errorFeeEstimate,
-  } = useGetFeeEstimate({ sapi, payload: feeEstimatePayload })
+  } = useGetFeeEstimate({
+    sapi,
+    payload: estimateFee ? payload : undefined,
+    retry: false,
+  })
 
   return {
     alphaPrice,
