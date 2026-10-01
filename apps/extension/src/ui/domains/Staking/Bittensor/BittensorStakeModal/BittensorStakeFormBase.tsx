@@ -372,7 +372,7 @@ export const AmountEdit = () => {
   }, [maxPlancks, setPlancks])
 
   return (
-    <div className="flex w-full grow flex-col justify-center gap-2">
+    <div className="flex w-full shrink-0 flex-col gap-2">
       {!!nativeToken && (
         <>
           <div className="h-8">{/* mirrors the height of error message reserved space */}</div>
@@ -467,94 +467,92 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
           onCloseModal={close}
         />
       }
-      contentClassName="text-fg-secondary flex size-full flex-col gap-2 p-6 pt-0"
+      contentClassName="text-fg-secondary flex size-full flex-col p-6 pt-0"
     >
-      <BittensorAssetAccountSummary
-        token={nativeToken}
-        accountAddress={account?.address}
-        onAccountClick={() => {
-          stakeDirection === "stake" ? accountPicker.open() : setStep("select-position")
-        }}
-        assetLabel={t("Asset")}
-        accountLabel={t("Account")}
-      />
-      <AmountEdit />
-      <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-2 text-xs">
-        <div className="flex items-center justify-between">
-          <div className="whitespace-nowrap">
-            {stakeDirection === "stake" ? t("Available Balance") : t("Available to unstake")}
-          </div>
-          {stakeDirection === "stake" ? (
-            <div>
-              {!!nativeToken && !!account && (
-                <AvailableBalance token={nativeToken} account={account} />
-              )}
+      <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
+        <BittensorAssetAccountSummary
+          token={nativeToken}
+          accountAddress={account?.address}
+          onAccountClick={() => {
+            stakeDirection === "stake" ? accountPicker.open() : setStep("select-position")
+          }}
+          assetLabel={t("Asset")}
+          accountLabel={t("Account")}
+        />
+        <AmountEdit />
+        <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-2 text-xs">
+          <div className="flex items-center justify-between">
+            <div className="whitespace-nowrap">
+              {stakeDirection === "stake" ? t("Available Balance") : t("Available to unstake")}
             </div>
-          ) : (
-            <BittensorAvailableToUnstake />
-          )}
-        </div>
-      </div>
-
-      <div className="bg-app-bg leading-paragraph flex flex-col gap-1 rounded p-2 text-xs">
-        <StakeTypeDetails />
-        <div
-          className={classNames(
-            "flex gap-4",
-            stakeType === "subnet" ? "flex-col-reverse" : "flex-col",
-          )}
-        >
-          <div className="flex items-center justify-between gap-3">
-            <div className="whitespace-nowrap">{t("Select Validator")}</div>
-            <div className="text-fg-primary truncate">
-              <BittensorDelegatorNameButton
-                hotkey={hotkey}
-                isDisabled={stakeType === "subnet" && !netuid}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-between gap-4 pb-1 text-xs">
-          <div className="whitespace-nowrap">{t("Estimated Amount")} </div>
-          <div className="text-fg-secondary flex items-center gap-1 truncate">
-            {!!amountOut && (
-              <TokensAndFiat
-                planck={amountOut}
-                tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
-                noCountUp
-                tokensClassName="text-fg-primary"
-              />
+            {stakeDirection === "stake" ? (
+              <div>
+                {!!nativeToken && !!account && (
+                  <AvailableBalance token={nativeToken} account={account} />
+                )}
+              </div>
+            ) : (
+              <BittensorAvailableToUnstake />
             )}
           </div>
         </div>
-        {!isSubnetUnstake && (
-          <>
-            <div className="flex items-center justify-between gap-4">
-              <div className="whitespace-nowrap">{t("Estimated Fee")}</div>
-              <div className="overflow-hidden">
-                <FeeEstimate />
+
+        <div className="bg-app-bg leading-paragraph flex flex-col gap-1 rounded p-2 text-xs">
+          <StakeTypeDetails />
+          <div
+            className={classNames(
+              "flex gap-4",
+              stakeType === "subnet" ? "flex-col-reverse" : "flex-col",
+            )}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="whitespace-nowrap">{t("Select Validator")}</div>
+              <div className="text-fg-primary truncate">
+                <BittensorDelegatorNameButton
+                  hotkey={hotkey}
+                  isDisabled={stakeType === "subnet" && !netuid}
+                />
               </div>
             </div>
-          </>
-        )}
+          </div>
+          <div className="flex items-center justify-between gap-4 pb-1 text-xs">
+            <div className="whitespace-nowrap">{t("Estimated Amount")} </div>
+            <div className="text-fg-secondary flex items-center gap-1 truncate">
+              {!!amountOut && (
+                <TokensAndFiat
+                  planck={amountOut}
+                  tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
+                  noCountUp
+                  tokensClassName="text-fg-primary"
+                />
+              )}
+            </div>
+          </div>
+          {!isSubnetUnstake && (
+            <>
+              <div className="flex items-center justify-between gap-4">
+                <div className="whitespace-nowrap">{t("Estimated Fee")}</div>
+                <div className="overflow-hidden">
+                  <FeeEstimate />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
-      <Button
-        primary
-        fullWidth
-        className="mt-3"
-        disabled={!payload}
-        onClick={() => setStep("review")}
-      >
-        {t("Review")}
-      </Button>
-      {!!errorPayload && !payload && (
-        <div className="text-brand-orange line-clamp-3 text-center text-xs">
-          {errorPayload instanceof Error
-            ? errorPayload.message
-            : t("Could not prepare this transaction. Check your connection and try again.")}
-        </div>
-      )}
+      <div className="shrink-0 pt-3">
+        <Button primary fullWidth disabled={!payload} onClick={() => setStep("review")}>
+          {t("Review")}
+        </Button>
+        {!!errorPayload && !payload && (
+          <div className="text-brand-orange line-clamp-3 pt-2 text-center text-xs">
+            {errorPayload instanceof Error
+              ? errorPayload.message
+              : t("Could not prepare this transaction. Check your connection and try again.")}
+          </div>
+        )}
+      </div>
 
       <StakeAccountPicker
         containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
