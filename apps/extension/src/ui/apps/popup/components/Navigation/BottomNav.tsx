@@ -8,6 +8,7 @@ import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useMatch, useNavigate } from "react-router-dom"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { TaostatsIcon } from "@taostats/theme/logos"
 import { api } from "@ui/api"
@@ -192,28 +193,33 @@ const NavButton: FC<{
   const routeMatch = useMatch(route ?? "")
 
   return (
-    <button
-      type="button"
-      aria-label={typeof label === "string" ? label : undefined}
-      className={classNames(
-        "relative flex h-10 shrink-0 items-center justify-center rounded-full transition-colors duration-500",
-        compact ? "w-[52px]" : "w-[60px]",
-        routeMatch || isActive
-          ? "text-fg-brand bg-white/10 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.08)]"
-          : variant === "negative"
-            ? "bg-accent-2/10 text-accent-2 hover:bg-accent-2/15"
-            : "text-grayish hover:text-label-secondary hover:bg-white/[0.06]",
-      )}
-      onClick={onClick}
-    >
-      {withBadge ? (
-        <div className="relative size-5 shrink-0">
-          <Icon className={classNames("size-5", iconClassName)} />
-          <div className="bg-fg-brand absolute -right-0.5 -top-0.5 size-1.5 rounded-full" />
-        </div>
-      ) : (
-        <Icon className={classNames("size-5 shrink-0", iconClassName)} />
-      )}
-    </button>
+    <Tooltip placement="top" offset={10} delay={0}>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label={typeof label === "string" ? label : undefined}
+          className={classNames(
+            "relative flex h-10 shrink-0 items-center justify-center rounded-full transition-colors duration-500",
+            compact ? "w-[52px]" : "w-[60px]",
+            routeMatch || isActive
+              ? "text-fg-brand bg-white/10 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.08)]"
+              : variant === "negative"
+                ? "bg-accent-2/10 text-accent-2 hover:bg-accent-2/15"
+                : "text-grayish hover:text-label-secondary hover:bg-white/[0.06]",
+          )}
+          onClick={onClick}
+        >
+          {withBadge ? (
+            <div className="relative size-5 shrink-0">
+              <Icon className={classNames("size-5", iconClassName)} />
+              <div className="bg-fg-brand absolute -right-0.5 -top-0.5 size-1.5 rounded-full" />
+            </div>
+          ) : (
+            <Icon className={classNames("size-5 shrink-0", iconClassName)} />
+          )}
+        </button>
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
   )
 }
