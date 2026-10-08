@@ -7,7 +7,7 @@ const { compilerOptions } = require("./tsconfig.json")
 module.exports = {
   transformIgnorePatterns: [],
   transform: {
-    "^.+\\.(t|j)sx?$": ["@swc/jest"],
+    "^.+\\.(t|j)sx?$": ["@swc/jest", { jsc: { transform: { react: { runtime: "automatic" } } } }],
   },
   extensionsToTreatAsEsm: [".ts", ".tsx", ".jsx"],
   moduleNameMapper: {
@@ -20,12 +20,6 @@ module.exports = {
   },
   sandboxInjectedGlobals: ["Math"],
   moduleFileExtensions: [...defaults.moduleFileExtensions, "ts", "tsx", "mjs"],
-  setupFiles: [
-    "jest-webextension-mock",
-    "fake-indexeddb/auto",
-    "jest-fetch-mock/setupJest",
-    "<rootDir>/tests/setup",
-  ],
-  setupFilesAfterEnv: ["<rootDir>/tests/mocks/index.ts"],
-  testEnvironment: "<rootDir>/tests/env.js",
+  setupFiles: ["jest-webextension-mock", "fake-indexeddb/auto", "jest-fetch-mock/setupJest"],
+  testEnvironment: "jsdom",
 }

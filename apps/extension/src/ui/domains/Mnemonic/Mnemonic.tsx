@@ -81,6 +81,8 @@ export const Mnemonic: FC<MnemonicProps> = ({ onReveal, mnemonic }) => {
         </div>
         <button
           type="button"
+          aria-label={t("Reveal recovery phrase")}
+          aria-pressed={isRevealed}
           onClick={() => {
             setIsRevealed((isRevealed) => !isRevealed)
             setBlurOnHover(isRevealed)

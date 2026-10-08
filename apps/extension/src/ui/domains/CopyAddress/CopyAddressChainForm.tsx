@@ -32,7 +32,7 @@ import {
 import { CopyAddressLayout } from "./CopyAddressLayout"
 import { useCopyAddressWizard } from "./useCopyAddressWizard"
 
-const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
+export const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
   const { t } = useTranslation()
   const { setChainId, copySpecific } = useCopyAddressWizard()
   const { open: openWarning, isOpen: isWarningOpen, close: closeWarning } = useOpenClose()
@@ -107,7 +107,7 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
       <div className="flex gap-3">
         <Tooltip>
           <TooltipTrigger asChild>
-            <IconButton className="text-md" onClick={handleQrClick}>
+            <IconButton className="text-md" onClick={handleQrClick} aria-label={t("Show QR code")}>
               <QrIcon />
             </IconButton>
           </TooltipTrigger>
@@ -115,7 +115,11 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
-            <IconButton className="text-md" onClick={handleCopyClick}>
+            <IconButton
+              className="text-md"
+              onClick={handleCopyClick}
+              aria-label={t("Copy to clipboard")}
+            >
               <Copy01 />
             </IconButton>
           </TooltipTrigger>
