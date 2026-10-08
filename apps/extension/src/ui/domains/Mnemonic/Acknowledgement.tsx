@@ -27,11 +27,9 @@ export const Acknowledgement = ({ onContinueClick }: { onContinueClick: () => vo
           className="h-[128px] w-auto select-none object-contain"
         />
         <div className="flex flex-col gap-2">
-          <h2 className="text-fg-primary text-xl font-semibold">
-            {t("Protect Your Recovery Phrase")}
-          </h2>
+          <h2 className="text-fg-primary text-xl font-semibold">{t("Protect Your Seed Phrase")}</h2>
           <p className="text-fg-secondary text-sm">
-            {t("Never pass the recovery phrase from your wallet to anyone")}
+            {t("Never pass the seed phrase from your wallet to anyone")}
           </p>
         </div>
       </div>
@@ -39,17 +37,17 @@ export const Acknowledgement = ({ onContinueClick }: { onContinueClick: () => vo
       <div className="flex w-full flex-col gap-5">
         <TipRow icon={Key01}>
           {t(
-            "Your recovery phrase is the key to your account — it grants full access, just like your password and login combined. Keep it secure.",
+            "Your seed phrase is the key to your account — it grants full access, just like your password and login combined. Keep it secure.",
           )}
         </TipRow>
         <TipRow icon={EyeOff}>
           {t(
-            "Anyone with access to this recovery phrase can control your funds. Taostats cannot recover your assets if it's lost or stolen.",
+            "Anyone with access to this seed phrase can control your funds. Taostats cannot recover your assets if it's lost or stolen.",
           )}
         </TipRow>
         <TipRow icon={AlertTriangle}>
           {t(
-            "Never share your recovery phrase with anyone — including websites, apps, or individuals. Taostats will never ask for it.",
+            "Never share your seed phrase with anyone — including websites, apps, or individuals. Taostats will never ask for it.",
           )}
         </TipRow>
       </div>

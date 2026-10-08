@@ -11,7 +11,7 @@ describe("Mnemonic", () => {
   it("exposes the reveal control by name and updates its pressed state", () => {
     render(<Mnemonic mnemonic="one two three" />)
 
-    const revealButton = screen.getByRole("button", { name: "Reveal recovery phrase" })
+    const revealButton = screen.getByRole("button", { name: "Reveal seed phrase" })
     expect(revealButton.getAttribute("aria-pressed")).toBe("false")
 
     fireEvent.click(revealButton)
