@@ -1,5 +1,6 @@
 import { X } from "@untitledui/icons/X"
 import { FC, PropsWithChildren } from "react"
+import { useTranslation } from "react-i18next"
 import { IconButton } from "taostats-ui"
 
 import { useCopyAddressModal } from "./useCopyAddressModal"
@@ -9,6 +10,7 @@ type CopyAddressLayoutProps = PropsWithChildren & {
 }
 
 export const CopyAddressLayout: FC<CopyAddressLayoutProps> = ({ title, children }) => {
+  const { t } = useTranslation()
   const { close } = useCopyAddressModal()
 
   return (
@@ -19,7 +21,7 @@ export const CopyAddressLayout: FC<CopyAddressLayoutProps> = ({ title, children 
       <div className="flex h-16 w-full shrink-0 items-center px-6">
         <div className="w-6"></div>
         <div className="text-fg-secondary grow text-center">{title}</div>
-        <IconButton onClick={close}>
+        <IconButton onClick={close} aria-label={t("Close")}>
           <X />
         </IconButton>
       </div>

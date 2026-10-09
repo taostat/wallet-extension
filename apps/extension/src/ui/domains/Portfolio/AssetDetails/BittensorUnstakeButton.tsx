@@ -82,6 +82,7 @@ export const BittensorUnstakeButton: FC<{
         <button
           type="button"
           onClick={handleClick}
+          aria-label={t("Unstake")}
           className={classNames(
             "text-fg-secondary hover:text-fg-primary focus:text-fg-primary focus:bg-tertiary hover:bg-tertiary rounded-xs inline-flex h-[18px] w-[18px] items-center justify-center text-xs",
             className,

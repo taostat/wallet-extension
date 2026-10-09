@@ -21,6 +21,7 @@ export const StakeButton: FC<{
         <button
           type="button"
           onClick={onClick}
+          aria-label={t("Stake")}
           className="text-fg-brand bg-fg-brand/10 hover:bg-fg-brand/20 flex shrink-0 items-center justify-center rounded-full p-1.5"
         >
           {isStaking ? <Link02 className="-rotate-45" /> : <Database01 />}
