@@ -198,3 +198,10 @@ export async function fetchCrossChainConfig(
     clearTimeout(timer)
   }
 }
+
+// The SDK-free entry (`@taostats-wallet/cross-chain/config`) also carries what the pages' first
+// load needs to know about saved sells (their store, the trackers' host, the "needs attention"
+// notice) and the analytics events: no SDK or viem at runtime in any of them.
+export * from "./sell-records"
+export * from "./sell-records-store"
+export * from "./analytics"

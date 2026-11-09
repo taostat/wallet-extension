@@ -6,14 +6,17 @@ import {
   isAwaitingMovedPrice,
   maxSellRaw,
   parseAmountToRaw,
+  parseUsd,
   Quote,
   resolveReviewCta,
   resolveSellCta,
+  reviewOpenedEvent,
   reviewPrice,
   SellInput,
   SellOutput,
   SellQuoteParamsResult,
   sellShortfall,
+  usdBucket,
 } from "@taostats-wallet/cross-chain"
 import { useCallback, useMemo, useState } from "react"
 
@@ -21,6 +24,7 @@ import { provideContext } from "@taostats/util/provideContext"
 import { useAccountByAddress, useBalance, useNetworkById, useToken } from "@ui/state"
 
 import { BITTENSOR_MAINNET_ID } from "../constants"
+import { captureCrossChainEvent } from "../crossChainAnalytics"
 import { useCrossChainConfig } from "../crossChainSellGate"
 import { getCrossChainSellOpenOptions } from "../useCrossChainSellModal"
 import { useCrossChainSigner } from "../useCrossChainSigner"
@@ -135,7 +139,15 @@ const useCrossChainSellProvider = () => {
       return
     execution.clearFeedback()
     setReview({ request, accepted: quote })
-  }, [cta.kind, execution, formQuote])
+    if (input)
+      captureCrossChainEvent(
+        reviewOpenedEvent({
+          from: input.kind,
+          to: output,
+          usdBucket: usdBucket(parseUsd(quote.inputUsd)),
+        }),
+      )
+  }, [cta.kind, execution, formQuote, input, output])
 
   const closeReview = useCallback(() => {
     if (execution.state.status !== "idle") return
@@ -185,17 +197,39 @@ const useCrossChainSellProvider = () => {
     enabled: isReviewing,
   })
 
+  const symbol = assetToken?.symbol
+
   /** Confirm: only from the button, and only while it says so. */
   const confirm = useCallback(() => {
-    if (reviewCta.kind !== "confirm" || !review || !latest || !price || !signer) return
+    if (reviewCta.kind !== "confirm" || !review || !latest || !price || !signer || !input) return
     void execution.start({
       params: review.request.params,
       minOutputAmount: price.minOutput,
       slippageBps,
       signer,
       onPriceMoved: reviewQuote.refetch,
+      record: {
+        address: signer.address,
+        input,
+        output,
+        ...(symbol && { symbol }),
+        expectedOutputRaw: latest.outputAmount,
+        usdBucket: usdBucket(parseUsd(latest.inputUsd)),
+      },
     })
-  }, [execution, latest, price, review, reviewCta.kind, reviewQuote.refetch, signer, slippageBps])
+  }, [
+    execution,
+    input,
+    latest,
+    output,
+    price,
+    review,
+    reviewCta.kind,
+    reviewQuote.refetch,
+    signer,
+    slippageBps,
+    symbol,
+  ])
 
   /** "Accept new price": the latest quote becomes the accepted one. */
   const acceptPrice = useCallback(() => {

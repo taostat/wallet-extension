@@ -33,7 +33,7 @@ import { useCrossChainSell } from "./useCrossChainSell"
  * The sell form: from the account's TAO or alpha position (fixed by the entry point), to USDC or
  * ETH at an Ethereum address, with a live quote. "Review swap" opens the review.
  */
-export const SellForm = () => {
+export const SellForm: FC<{ onOpenRecent: () => void }> = ({ onOpenRecent }) => {
   const { t } = useTranslation()
   const { close } = useCrossChainSellModal()
   const { cta, openReview, formQuote } = useCrossChainSell()
@@ -73,6 +73,13 @@ export const SellForm = () => {
         </Notice>
       ) : null}
       <QuoteDetails onEditSlippage={slippageDrawer.open} />
+      <button
+        type="button"
+        onClick={onOpenRecent}
+        className="text-fg-secondary hover:text-fg-primary self-center text-xs underline"
+      >
+        {t("Recent cross-chain swaps")}
+      </button>
       <SellSlippageDrawer isOpen={slippageDrawer.isOpen} onDismiss={slippageDrawer.close} />
     </SellLayout>
   )
@@ -227,7 +234,8 @@ const ReceiveSection = () => {
   )
 }
 
-const useRecipientProblemText = (problem: EvmRecipientProblem): string => {
+/** Why a typed Ethereum address can't receive, in words. Recent swaps' refund move uses it too. */
+export const useRecipientProblemText = (problem: EvmRecipientProblem): string => {
   const { t } = useTranslation()
   switch (problem) {
     case "tooShort":

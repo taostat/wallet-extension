@@ -37,21 +37,35 @@ import { useOrderState } from "./useOrderState"
  * order's delivery or refund while this screen is open; or where a run that didn't open an order
  * left things (the swap didn't open, or the batch was sent but isn't confirmed yet).
  */
-export const SellProgress = () => {
+export const SellProgress: FC<{ onOpenRecent: () => void }> = ({ onOpenRecent }) => {
   const { execution } = useCrossChainSell()
   const { state } = execution
   switch (state.status) {
     case "running":
       return <Running progress={state.progress} />
     case "submitted":
-      return <Submitted progress={state.progress} quote={state.quote} />
+      return <Submitted progress={state.progress} quote={state.quote} onOpenRecent={onOpenRecent} />
     case "unconfirmed":
       return <Unconfirmed progress={state.progress} txHash={state.txHash} />
     case "failed":
-      return <Failed />
+      return <Failed onOpenRecent={onOpenRecent} />
     case "idle":
       return null
   }
+}
+
+/** "Recent cross-chain swaps", where a sell's funds are moved on from. */
+const RecentSwapsLink: FC<{ onClick: () => void }> = ({ onClick }) => {
+  const { t } = useTranslation()
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="text-fg-primary self-start text-left underline"
+    >
+      {t("Recent cross-chain swaps")}
+    </button>
+  )
 }
 
 /** The hero from the review's quote, or from the quote the order was opened with. */
@@ -83,7 +97,8 @@ const Running: FC<{ progress: ExecutionProgress }> = ({ progress }) => {
   return (
     <SellLayout
       title={t("Swap in progress")}
-      // Closing before signing cancels the run (the modal's content unmounts); after, it carries on.
+      // Closing before signing cancels the run (the modal's content unmounts); after, it carries on
+      // in this page and the trackers follow the order.
       onClose={close}
       footer={
         execution.canCancel ? (
@@ -104,24 +119,28 @@ const Running: FC<{ progress: ExecutionProgress }> = ({ progress }) => {
   )
 }
 
-/** Wherever closing the modal stops the live status. True: the swap needs nothing more from here. */
+/** Closing the modal is safe: the page's trackers follow the swap on, and Recent swaps shows it. */
 const ClosingNote = () => {
   const { t } = useTranslation()
   return (
     <Notice tone="info">
       {t(
-        "Closing this window stops the live status here. Your swap still completes on its own: it's delivered, or refunded if it isn't filled in time.",
+        "You can close this window: the swap carries on, and Recent cross-chain swaps shows when it lands.",
       )}
     </Notice>
   )
 }
 
-const Submitted: FC<{ progress: ExecutionProgress; quote: Quote }> = ({ progress, quote }) => {
+const Submitted: FC<{ progress: ExecutionProgress; quote: Quote; onOpenRecent: () => void }> = ({
+  progress,
+  quote,
+  onOpenRecent,
+}) => {
   const { t } = useTranslation()
   const { close } = useCrossChainSellModal()
   const { execution, config } = useCrossChainSell()
-  const order = execution.state.status === "submitted" ? execution.state.order : undefined
-  const orderState = useOrderState(order, config)
+  const submitted = execution.state.status === "submitted" ? execution.state : undefined
+  const orderState = useOrderState(submitted?.recordId, submitted?.order, config)
 
   return (
     <SellLayout
@@ -135,13 +154,17 @@ const Submitted: FC<{ progress: ExecutionProgress; quote: Quote }> = ({ progress
     >
       <Hero quote={quote} />
       <SellStepper steps={[...progress.steps, ...trackingSteps(orderState)]} />
-      <OrderResult state={orderState} quote={quote} />
+      <OrderResult state={orderState} quote={quote} onOpenRecent={onOpenRecent} />
     </SellLayout>
   )
 }
 
 /** Where the order stands: delivering, delivered, or refunded to the account's EVM address. */
-const OrderResult: FC<{ state: OrderState; quote: Quote }> = ({ state, quote }) => {
+const OrderResult: FC<{ state: OrderState; quote: Quote; onOpenRecent: () => void }> = ({
+  state,
+  quote,
+  onOpenRecent,
+}) => {
   const { t } = useTranslation()
   const { output, review } = useCrossChainSell()
   const recipient = review?.request.params.recipient ?? ""
@@ -185,7 +208,10 @@ const OrderResult: FC<{ state: OrderState; quote: Quote }> = ({ state, quote }) 
     case "refunded":
       return (
         <Notice tone="info" title={t("Refunded")}>
-          {t("Your swap wasn't filled in time and was refunded as USDC to {{where}}.", { where })}
+          <span>
+            {t("Your swap wasn't filled in time and was refunded as USDC to {{where}}.", { where })}
+          </span>
+          <RecentSwapsLink onClick={onOpenRecent} />
         </Notice>
       )
   }
@@ -238,7 +264,7 @@ const Unconfirmed: FC<{ progress: ExecutionProgress; txHash: `0x${string}` }> = 
 }
 
 /** The batch is in a block but the swap didn't open. For alpha, where the stake is now. */
-const Failed = () => {
+const Failed: FC<{ onOpenRecent: () => void }> = ({ onOpenRecent }) => {
   const { t } = useTranslation()
   const { close } = useCrossChainSellModal()
   const { execution, input } = useCrossChainSell()
@@ -262,12 +288,15 @@ const Failed = () => {
       <Notice tone="error" title={t("The swap didn't open")}>
         <span>{errorMessage(failure.code)}</span>
         {failure.strandedAlpha ? (
-          <span>
-            {t(
-              "Your {{symbol}} left this account but wasn't swapped: it's staked at your account's EVM address. It can be moved back to this account, though not from the wallet yet.",
-              { symbol: asset.symbol },
-            )}
-          </span>
+          <>
+            <span>
+              {t(
+                "Your {{symbol}} left this account but wasn't swapped: it's staked at your account's EVM address. Move it back to this account from Recent cross-chain swaps.",
+                { symbol: asset.symbol },
+              )}
+            </span>
+            <RecentSwapsLink onClick={onOpenRecent} />
+          </>
         ) : input?.kind === "tao" ? (
           <span>
             {t(

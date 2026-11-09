@@ -5,6 +5,7 @@ import { AccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
+import { CrossChainOrderTrackers } from "@ui/domains/CrossChain/CrossChainOrderTrackers"
 import { CrossChainSellModal } from "@ui/domains/CrossChain/CrossChainSellModal"
 import { GetStartedModals } from "@ui/domains/Portfolio/GetStarted/GetStartedModals"
 import { MigratePasswordModal } from "@ui/domains/Settings/MigratePassword/MigratePasswordModal"
@@ -47,6 +48,7 @@ export const DashboardNotificationsAndModals = () => {
       <BittensorClaimSettingsModal />
       <CopyAddressModal />
       <CrossChainSellModal />
+      <CrossChainOrderTrackers />
       <ExplorerNetworkPickerModal />
       <GetStartedModals />
       <MigratePasswordModal />

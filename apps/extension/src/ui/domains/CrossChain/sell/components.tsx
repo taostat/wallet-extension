@@ -14,7 +14,9 @@ import { FC, PropsWithChildren, ReactNode, useCallback, useEffect, useState } fr
 import { useTranslation } from "react-i18next"
 import { IconButton } from "taostats-ui"
 
-import { useCrossChainSell } from "./useCrossChainSell"
+import { useNetworkById } from "@ui/state"
+
+import { BITTENSOR_MAINNET_ID } from "../constants"
 
 /** The modal's frame: a header, a scrolling body and a fixed footer. */
 export const SellLayout: FC<{
@@ -151,10 +153,10 @@ const taostatsExtrinsicUrl = (network: Network | null | undefined, hash: string)
   return getBlockExplorerUrls(network, { type: "transaction", id: hash })[0] ?? null
 }
 
-/** "View the transaction": the sell's extrinsic on the Taostats explorer. */
+/** "View the transaction": a sell's (or a recovery's) extrinsic on the Taostats explorer. */
 export const ExtrinsicLink: FC<{ hash: string; className?: string }> = ({ hash, className }) => {
   const { t } = useTranslation()
-  const { network } = useCrossChainSell()
+  const network = useNetworkById(BITTENSOR_MAINNET_ID, "polkadot")
   const href = taostatsExtrinsicUrl(network, hash)
   if (!href) return null
   return (

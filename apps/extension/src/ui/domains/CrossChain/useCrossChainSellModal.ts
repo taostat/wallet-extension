@@ -1,9 +1,12 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
+import { entryOpenedEvent } from "@taostats-wallet/cross-chain/config"
 import { log } from "extension-shared"
 import { useCallback } from "react"
 import { BehaviorSubject } from "rxjs"
 
 import { useGlobalOpenClose } from "@taostats/hooks/useGlobalOpenClose"
+
+import { captureCrossChainEvent } from "./crossChainAnalytics"
 
 /**
  * What a sell is opened with, fixed by the entry point: the account that pays, and what it sells
@@ -17,10 +20,21 @@ export type CrossChainSellOpenOptions = {
   asset: { kind: "tao" } | { kind: "alpha"; netuid: number; hotkey: string }
 }
 
-const openOptions$ = new BehaviorSubject<CrossChainSellOpenOptions | null>(null)
+/** What the modal shows when it opens: a sell, or Recent cross-chain swaps. */
+export type CrossChainModalView =
+  | { kind: "sell"; options: CrossChainSellOpenOptions }
+  | { kind: "recent" }
+
+const view$ = new BehaviorSubject<CrossChainModalView | null>(null)
+
+/** What the modal was opened to show, read once when its content mounts. */
+export const getCrossChainModalView = () => view$.getValue()
 
 /** The options of the sell being opened, read once when the modal's content mounts. */
-export const getCrossChainSellOpenOptions = () => openOptions$.getValue()
+export const getCrossChainSellOpenOptions = () => {
+  const view = view$.getValue()
+  return view?.kind === "sell" ? view.options : null
+}
 
 export const useCrossChainSellModal = () => {
   const { isOpen, open: innerOpen, close } = useGlobalOpenClose("CrossChainSellModal")
@@ -28,11 +42,18 @@ export const useCrossChainSellModal = () => {
   const open = useCallback(
     (options: CrossChainSellOpenOptions) => {
       log.debug("[cross-chain] Opening a sell", options)
-      openOptions$.next(options)
+      view$.next({ kind: "sell", options })
       innerOpen()
+      captureCrossChainEvent(entryOpenedEvent())
     },
     [innerOpen],
   )
 
-  return { isOpen, open, close }
+  /** Recent cross-chain swaps, with their recovery. */
+  const openRecent = useCallback(() => {
+    view$.next({ kind: "recent" })
+    innerOpen()
+  }, [innerOpen])
+
+  return { isOpen, open, openRecent, close }
 }

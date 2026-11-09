@@ -1,5 +1,6 @@
 import {
   CrossChainConfig,
+  isSettledOrderState,
   Order,
   OrderState,
   orderWatchOptions,
@@ -7,22 +8,35 @@ import {
 import { log } from "extension-shared"
 import { useEffect, useState } from "react"
 
-/**
- * The open order's state while this screen is open: `order.watch` polls the chains (two reads a
- * check, at the config's interval) and stops by itself once the order is filled or refunded.
- * Nothing follows it after the modal closes; the order is delivered or refunded on its own anyway.
- */
-export const useOrderState = (order: Order | undefined, config: CrossChainConfig): OrderState => {
-  const [state, setState] = useState<OrderState>("open")
+import { useCrossChainSellRecord } from "../records/sellRecordsStore"
 
-  // A subscription to the chains, outside React: started for an order, stopped on unmount.
+/**
+ * The open order's state. From its saved record when there is one: the page's
+ * `CrossChainOrderTrackers` follows it (`order.watch`, two reads a check at the config's interval)
+ * and writes each state there, so this screen and Recent swaps agree, and the order is followed on
+ * after the modal closes. Without a record (it couldn't be saved), this screen watches the order
+ * itself while it is open.
+ */
+export const useOrderState = (
+  recordId: string | undefined,
+  order: Order | undefined,
+  config: CrossChainConfig,
+): OrderState => {
+  const record = useCrossChainSellRecord(recordId)
+  const [watched, setWatched] = useState<OrderState>("open")
+
+  // A subscription to the chains, outside React: only without a record, stopped on unmount.
   useEffect(() => {
-    if (!order) return
-    return order.watch((status) => setState(status.state), {
+    if (recordId !== undefined || !order) return
+    return order.watch((status) => setWatched(status.state), {
       ...orderWatchOptions(config),
       onError: (error) => log.debug("[cross-chain] Order status check failed", { error }),
     })
-  }, [order, config])
+  }, [config, order, recordId])
 
-  return state
+  if (recordId === undefined) return watched
+  const status = record?.status
+  if (status === "awaiting-refund" || (status !== undefined && isSettledOrderState(status)))
+    return status
+  return "open"
 }
