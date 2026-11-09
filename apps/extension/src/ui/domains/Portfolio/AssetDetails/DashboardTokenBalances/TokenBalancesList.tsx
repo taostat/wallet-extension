@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
+import { CrossChainSellButton } from "@ui/domains/CrossChain/CrossChainSellButton"
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
 import { isRootTaoHolding } from "@ui/domains/Portfolio/isRootTaoHolding"
 import { StakeButton } from "@ui/domains/Staking/Stake/StakeButton"
@@ -64,6 +65,7 @@ export const TokenBalancesList = ({
               <div className="text-fg-primary flex shrink-0 items-center text-base font-bold">
                 <CopyAddressButton networkId={chainOrNetworkId} />
                 <BittensorUnstakeButton balances={balances} />
+                <CrossChainSellButton balances={balances} />
                 <Suspense fallback={<SuspenseTracker name="ChainTokenBalances.Buttons" />}>
                   {/* <SendFundsTokenButton tokenId={tokenId} /> */}
                   {tokenId && (

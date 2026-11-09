@@ -13,6 +13,12 @@ import { crossChainUrlProblem } from "./config"
  */
 export const FILL_WINDOW_SECONDS = 300
 
+/**
+ * Our partner code with TAO.com: `execute`'s `partnerId`, an ERC-8021 attribution suffix on
+ * `open`. Public: it is written into every order's calldata.
+ */
+export const INTENTS_PARTNER_ID = "c36059"
+
 /** EVM read timeout: viem's default 10 s. The RPCs are called directly, with no proxy in between. */
 export const EVM_RPC_TIMEOUT_MS = 10_000
 

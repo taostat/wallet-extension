@@ -5,6 +5,7 @@ import { ReactNode, Suspense } from "react"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
+import { CrossChainSellButton } from "@ui/domains/CrossChain/CrossChainSellButton"
 import { StakeButton } from "@ui/domains/Staking/Stake/StakeButton"
 import { useToken } from "@ui/state"
 import { getTokenName } from "@ui/util/getTokenName"
@@ -51,6 +52,7 @@ export const TokenBalancesList = ({
             <div className="flex items-center">
               <CopyAddressButton networkId={chainOrNetworkId} />
               <BittensorUnstakeButton balances={balances} />
+              <CrossChainSellButton balances={balances} />
               <Suspense fallback={<SuspenseTracker name="ChainTokenBalances.Buttons" />}>
                 <SendFundsTokenButton tokenId={tokenId} />
               </Suspense>
