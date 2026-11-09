@@ -62,6 +62,14 @@ export { isJsonPayload, isRawPayload } from "./util/isJsonPayload"
 export { privacyRoundCurrency } from "./util/privacyRoundCurrency"
 
 export * from "./domains/keyring/exports"
+export type {
+  SubstrateExtrinsicEvent,
+  SubstrateExtrinsicOutcome,
+} from "./domains/substrate/extrinsicEvents"
+export type {
+  SubstrateResponseSign,
+  SubstrateResponseSubmitAndWatch,
+} from "./domains/substrate/types"
 export * from "./domains/transactions/exports"
 export * from "./domains/metadata/helpers"
 export * from "./domains/defi/exports"

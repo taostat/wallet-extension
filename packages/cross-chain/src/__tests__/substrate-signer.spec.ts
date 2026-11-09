@@ -5,6 +5,7 @@ import {
   intentsAbi,
   InvalidParamsError,
   SubstrateError,
+  TaoIntentsError,
   UserRejectedError,
 } from "@tao.com/intents-sdk"
 import { getAbiItem, toEventSelector } from "viem"
@@ -156,23 +157,29 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
     expect(deps.sign).not.toHaveBeenCalled()
   })
 
-  it("turns the user declining into UserRejectedError, and other signing failures into SubstrateError", async () => {
-    for (const message of ["Cancelled", "User rejected the request", "Request denied"]) {
+  it("turns any signing failure into SubstrateError: a local keypair never asks the user, so it is never a rejection", async () => {
+    for (const message of ["Can't sign: Unauthorised", "Cancelled", "User rejected the request"]) {
       const { deps, signer } = setup({
         sign: jest.fn(async () => Promise.reject(new Error(message))),
       })
       const error = await rejection(signer.signAndSendBatch(taoSellBatch()))
-      expect(error).toBeInstanceOf(UserRejectedError)
+      expect(error).toBeInstanceOf(SubstrateError)
+      expect(error).not.toBeInstanceOf(UserRejectedError)
+      expect(error.message).toBe(`Couldn't sign the batch: ${message}`)
+      expect(error.cause).toBeInstanceOf(Error)
+      expect(error.extrinsicHash).toBeUndefined()
       expect(deps.submitAndWatch).not.toHaveBeenCalled()
     }
+  })
 
-    const { signer } = setup({
-      sign: jest.fn(async () => Promise.reject(new Error("Ledger locked"))),
-    })
-    const error = await rejection(signer.signAndSendBatch(taoSellBatch()))
-    expect(error).toBeInstanceOf(SubstrateError)
-    expect(error.message).toBe("Couldn't sign the batch: Ledger locked")
-    expect(error.extrinsicHash).toBeUndefined()
+  it("lets an SDK error thrown while signing through unchanged", async () => {
+    for (const thrown of [new UserRejectedError(), new InvalidParamsError("bad")]) {
+      const { deps, signer } = setup({ sign: jest.fn(async () => Promise.reject(thrown)) })
+      const error = await rejection(signer.signAndSendBatch(taoSellBatch()))
+      expect(error).toBe(thrown)
+      expect(error).toBeInstanceOf(TaoIntentsError)
+      expect(deps.submitAndWatch).not.toHaveBeenCalled()
+    }
   })
 
   it("rejects with the hash when the batch can't be submitted (dropped, invalid, network)", async () => {

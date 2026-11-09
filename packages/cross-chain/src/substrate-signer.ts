@@ -5,12 +5,7 @@ import type {
   SubstrateSigner,
   SubstrateSignOptions,
 } from "@tao.com/intents-sdk"
-import {
-  parseSubstrateAddress,
-  SubstrateError,
-  TaoIntentsError,
-  UserRejectedError,
-} from "@tao.com/intents-sdk"
+import { parseSubstrateAddress, SubstrateError, TaoIntentsError } from "@tao.com/intents-sdk"
 
 import type { Hex, SapiCall } from "./calls"
 import { BATCH_METHOD, BATCH_PALLET, toBatchAllArgs, toSapiCalls } from "./calls"
@@ -57,7 +52,11 @@ export type SapiSubstrateSignerDeps<TPayload> = {
   address: string
   /** A payload for `Utility.batch_all` of these calls (`buildSapiBatchPayload`). */
   buildBatchPayload: (calls: SapiCall[]) => Promise<TPayload>
-  /** Ask the user to sign. A rejection whose message says cancel / reject / denied / declined is the user saying no. */
+  /**
+   * Sign the payload, without broadcasting it. With a local keypair this asks the user nothing: their
+   * consent is the review's Confirm, given before `signAndSendBatch` runs. So a failure here is never
+   * the user declining: it becomes a `SubstrateError` (a `TaoIntentsError` passes through as is).
+   */
   sign: (payload: TPayload) => Promise<SignedBatch>
   /** Broadcast the signed payload and resolve once it is in a block. Reject if it is dropped, invalid or usurped. */
   submitAndWatch: (payload: TPayload, signature: Hex) => Promise<SubmitAndWatchResult>
@@ -84,14 +83,12 @@ export const buildSapiBatchPayload = <TPayload>(
 
 const messageOf = (error: unknown) => (error instanceof Error ? error.message : String(error))
 
-const isRejection = (error: unknown) => /cancel|reject|denied|declin/i.test(messageOf(error))
-
 /**
  * The SDK's `SubstrateSigner` for a coldkey in this wallet, with payloads built by sapi.
  *
  * `signAndSendBatch(calls, { onSigned, beforeSubmit })`:
  * 1. maps the SDK's calls to sapi call values and builds the `Utility.batch_all` payload;
- * 2. signs it;
+ * 2. signs it (a failure is a `SubstrateError`, never a `UserRejectedError`: see `sign`);
  * 3. runs `beforeSubmit()`, the SDK's last veto: if it throws, nothing is submitted and the error
  *    propagates;
  * 4. calls `onSigned(extrinsicHash)` (the SDK reports `substrate-submitted`);
@@ -122,9 +119,7 @@ export const createSapiSubstrateSigner = <TPayload>(
       signed = await sign(payload)
     } catch (cause) {
       if (cause instanceof TaoIntentsError) throw cause
-      throw isRejection(cause)
-        ? new UserRejectedError(cause)
-        : new SubstrateError(`Couldn't sign the batch: ${messageOf(cause)}`, { cause })
+      throw new SubstrateError(`Couldn't sign the batch: ${messageOf(cause)}`, { cause })
     }
     const { signature, extrinsicHash } = signed
 

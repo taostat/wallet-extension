@@ -1,6 +1,7 @@
 import { Address } from "@taostats-wallet/balances"
 import { DotNetworkId, TokenId } from "@taostats-wallet/chaindata-provider"
 
+import type { ExtrinsicEventRecord } from "../substrate/extrinsicEvents"
 import { SignerPayloadJSON } from "../signing/types"
 
 // unknown for substrate txs from dapps
@@ -15,6 +16,23 @@ export type WatchTransactionOptions = {
    * In the future we should migrate transferInfo into this.
    */
   txInfo?: WalletTransactionInfo
+  /**
+   * Called once: with the first block found to include the extrinsic (best or finalized), or with
+   * `null` when the watch stops (after 90 s) without having found one.
+   */
+  onInBlock?: (inBlock: ExtrinsicInBlock | null) => void
+}
+
+/** A block that includes the watched extrinsic. */
+export type ExtrinsicInBlock = {
+  blockHash: `0x${string}`
+  blockNumber: number
+  /** The extrinsic's index in the block. */
+  extrinsicIndex: number
+  /** `error` when the extrinsic failed on chain (`System.ExtrinsicFailed`). */
+  result: "success" | "error"
+  /** The block's `System.Events`, decoded: every extrinsic's, not only this one's. */
+  events: ExtrinsicEventRecord[]
 }
 
 /** @deprecated */

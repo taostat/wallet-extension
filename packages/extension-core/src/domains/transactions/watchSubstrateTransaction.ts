@@ -18,7 +18,7 @@ import {
   getTransactionStatus,
   updateTransactionStatus,
 } from "./helpers"
-import { WatchTransactionOptions } from "./types"
+import { ExtrinsicInBlock, WatchTransactionOptions } from "./types"
 
 const TX_WATCH_TIMEOUT = 90_000 // 90 seconds in milliseconds
 
@@ -26,6 +26,9 @@ type ExtrinsicResult = {
   result: "error" | "success"
   blockNumber: number
   extIndex: number
+  blockHash: HexString
+  /** The block's decoded `System.Events`. */
+  events: ExtrinsicInBlock["events"]
 }
 
 type ExtrinsicStatusChangeHandler = (
@@ -84,6 +87,8 @@ const getExtrinsincResult = async (
               result: "success",
               blockNumber: block.block.header.number.toNumber(),
               extIndex: txIndex,
+              blockHash: blockHash.toHex(),
+              events,
             })
           } else if (relevantEvent?.event.method === "ExtrinsicFailed") {
             // from our tests this DispatchError object doesn't provide any relevant information for a user
@@ -93,6 +98,8 @@ const getExtrinsincResult = async (
               result: "error",
               blockNumber: block.block.header.number.toNumber(),
               extIndex: txIndex,
+              blockHash: blockHash.toHex(),
+              events,
             })
           }
       }
@@ -112,9 +119,30 @@ const watchExtrinsicStatus = async (
   registry: TypeRegistry,
   extrinsicHash: string,
   cb: ExtrinsicStatusChangeHandler,
+  onInBlock?: WatchTransactionOptions["onInBlock"],
 ) => {
   let foundInBlockHash: IU8a
   let timeout: NodeJS.Timeout | null = null
+
+  // report the first block found to include the extrinsic (or that none was), once
+  let isInBlockReported = false
+  const reportInBlock = (extResult: ExtrinsicResult | null) => {
+    if (!onInBlock || isInBlockReported) return
+    isInBlockReported = true
+    try {
+      onInBlock(
+        extResult && {
+          blockHash: extResult.blockHash,
+          blockNumber: extResult.blockNumber,
+          extrinsicIndex: extResult.extIndex,
+          result: extResult.result,
+          events: extResult.events,
+        },
+      )
+    } catch (error) {
+      log.error("Failed to report the block of an extrinsic", { error, extrinsicHash })
+    }
+  }
 
   // keep track of subscriptions state because it raises errors when calling unsubscribe multiple times
   const subscriptions = {
@@ -159,6 +187,7 @@ const watchExtrinsicStatus = async (
         if (err) return // err is true if extrinsic is not found in this block
 
         const { result, blockNumber, extIndex } = extResult
+        reportInBlock(extResult)
         cb(result, blockNumber, extIndex, true)
 
         await unsubscribe("finalizedHeads", () =>
@@ -202,6 +231,7 @@ const watchExtrinsicStatus = async (
         const { result, blockNumber, extIndex } = extResult
 
         if (result === "success") foundInBlockHash = blockHash
+        reportInBlock(extResult)
         cb(result, blockNumber, extIndex, false)
 
         await unsubscribe("allHeads", () => unsubscribeAllHeads("chain_subscribeAllHeads"))
@@ -221,6 +251,9 @@ const watchExtrinsicStatus = async (
 
   // the transaction may never be submitted by the dapp, so we stop watching after {TX_WATCH_TIMEOUT}
   timeout = setTimeout(async () => {
+    // not found in a block by now (the checks below only confirm a block already reported)
+    reportInBlock(null)
+
     await unsubscribe("allHeads", () => unsubscribeAllHeads("chain_subscribeAllHeads"))
     if (subscriptions.finalizedHeads) {
       await unsubscribe("finalizedHeads", () =>
@@ -254,7 +287,7 @@ export const watchSubstrateTransaction = async (
   signature: HexString,
   options: WatchTransactionOptions = {},
 ) => {
-  const { siteUrl, notifications, txInfo } = options
+  const { siteUrl, notifications, txInfo, onInBlock } = options
   const withNotifications = !!(notifications && (await settingsStore.get("allowNotifications")))
 
   assert(chain.genesisHash === payload.genesisHash, "Genesis hash mismatch")
@@ -279,6 +312,7 @@ export const watchSubstrateTransaction = async (
         if (result !== "included")
           await updateTransactionStatus(hash, result, blockNumber, finalized)
       },
+      onInBlock,
     )
 
     return hash

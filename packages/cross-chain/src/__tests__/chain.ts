@@ -32,7 +32,10 @@ export const GENESIS_HASH =
 export const BLOCK_NUMBER = 4_000_000
 export const NONCE = 7
 
-export const createTestSapi = () => {
+/** A storage value to seed: `[pallet, entry, keys, value]`, encoded with sapi's own codecs. */
+export type TestStorageEntry = [pallet: string, entry: string, keys: unknown[], value: unknown]
+
+export const createTestSapi = (extraStorage: TestStorageEntry[] = []) => {
   const storage: Record<string, string> = {}
   const send = async (method: string, params: unknown[]) => {
     switch (method) {
@@ -60,6 +63,10 @@ export const createTestSapi = () => {
   const number = builder.buildStorage("System", "Number")
   storage[number.keys.enc()] = Binary.fromBytes(number.value.enc(BLOCK_NUMBER)).asHex()
   storage[builder.buildStorage("System", "BlockHash").keys.enc(0)] = GENESIS_HASH
+  for (const [pallet, entry, keys, value] of extraStorage) {
+    const codec = builder.buildStorage(pallet, entry)
+    storage[codec.keys.enc(...keys)] = Binary.fromBytes(codec.value.enc(value)).asHex()
+  }
 
   return sapi
 }

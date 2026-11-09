@@ -47,6 +47,7 @@
     "@tanstack/react-virtual": "^3.11.1",
     "@taostats-wallet/balances": "workspace:*",
     "@taostats-wallet/chaindata-provider": "workspace:*",
+    "@taostats-wallet/cross-chain": "workspace:*",
     "@taostats-wallet/crypto": "workspace:*",
     "@taostats-wallet/icons": "workspace:*",
     "@taostats-wallet/sapi": "workspace:*",

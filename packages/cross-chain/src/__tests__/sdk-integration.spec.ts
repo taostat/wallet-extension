@@ -212,9 +212,20 @@ describe("the SDK's recoverRefund through our signer", () => {
     })
   })
 
-  it("reports the user declining as UserRejectedError", async () => {
+  it("reports a signing failure as SubstrateError, never as the user declining", async () => {
     const { recover, progress } = run({
       sign: jest.fn(async () => Promise.reject(new Error("Cancelled"))),
+    })
+    const error = await recover().catch((e: unknown) => e)
+    expect(error).toBeInstanceOf(SubstrateError)
+    expect(error).not.toBeInstanceOf(UserRejectedError)
+    expect(error).toMatchObject({ message: "Couldn't sign the batch: Cancelled" })
+    expect(progress).toEqual(["awaiting-signature"])
+  })
+
+  it("passes a UserRejectedError thrown by the wallet through", async () => {
+    const { recover, progress } = run({
+      sign: jest.fn(async () => Promise.reject(new UserRejectedError())),
     })
     await expect(recover()).rejects.toBeInstanceOf(UserRejectedError)
     expect(progress).toEqual(["awaiting-signature"])

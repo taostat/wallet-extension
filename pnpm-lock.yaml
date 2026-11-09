@@ -318,6 +318,9 @@ importers:
       '@taostats-wallet/chaindata-provider':
         specifier: workspace:*
         version: link:../../packages/chaindata-provider
+      '@taostats-wallet/cross-chain':
+        specifier: workspace:*
+        version: link:../../packages/cross-chain
       '@taostats-wallet/crypto':
         specifier: workspace:*
         version: link:../../packages/crypto
