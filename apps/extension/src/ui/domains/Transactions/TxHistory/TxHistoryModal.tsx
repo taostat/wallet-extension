@@ -1,6 +1,6 @@
 import { getBlockExplorerLabel, getBlockExplorerUrls } from "@taostats-wallet/chaindata-provider"
-import { ExternalLinkIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { isTxInfoSwap, WalletTransaction } from "extension-core"
 import { log } from "extension-shared"
 import { t } from "i18next"
@@ -61,7 +61,7 @@ const DialogWrapper: FC<{ tx: WalletTransaction; onClose: () => void; children: 
   return (
     <ModalDialog
       title={t("Transaction Details")}
-      className={cn("h-[60rem] w-[40rem]", tx.status === "pending" && "[&_header]:invisible")}
+      className={cn("h-[600px] w-[400px]", tx.status === "pending" && "[&_header]:invisible")}
       onClose={onClose}
     >
       {children}
@@ -84,7 +84,7 @@ const ModalContent: FC<{
 }
 
 const TxHistoryDetailsContent: FC<{ tx: WalletTransaction }> = ({ tx }) => (
-  <div className="flex size-full flex-col gap-8 overflow-hidden">
+  <div className="flex size-full flex-col gap-4 overflow-hidden">
     <div className="grow overflow-y-auto">
       <TxHistoryDetails tx={tx} />
     </div>
@@ -131,15 +131,15 @@ const TxHistoryActions: FC<TxHistoryActionsProps> = ({ tx }) => {
     <div
       className={cn(
         buttonsCount === 1 && "grid grid-cols-1",
-        buttonsCount === 2 && "grid grid-cols-2 gap-4",
+        buttonsCount === 2 && "grid grid-cols-2 gap-2",
       )}
     >
       {swapHref && tx.status === "success" && (
         <Button
           primary
-          iconLeft={ExternalLinkIcon}
+          iconLeft={LinkExternal01}
           small
-          className="h-28 text-sm"
+          className="h-14 text-sm"
           onClick={() => handleExternal(swapHref)}
         >
           {t("View swap status")}
@@ -149,9 +149,9 @@ const TxHistoryActions: FC<TxHistoryActionsProps> = ({ tx }) => {
         <Button
           primary
           key={url}
-          className={cn("h-28", buttonsCount > 1 && "text-sm")}
+          className={cn("h-14", buttonsCount > 1 && "text-sm")}
           small={buttonsCount > 1}
-          iconLeft={ExternalLinkIcon}
+          iconLeft={LinkExternal01}
           onClick={() => handleExternal(url)}
         >
           {t("View on {{label}}", { label: getBlockExplorerLabel(url) })}
@@ -167,7 +167,7 @@ type TxHistoryDetailsProps = {
 
 const TxHistoryDetails: FC<TxHistoryDetailsProps> = ({ tx }) => {
   return (
-    <div className="flex w-full flex-col gap-4 overflow-hidden">
+    <div className="flex w-full flex-col gap-2 overflow-hidden">
       <TxHistoryDetailsRow title={t("Network")}>
         <TxHistoryDetailsNetwork networkId={tx.networkId} />
       </TxHistoryDetailsRow>
@@ -209,12 +209,12 @@ const TxHistoryDetailsRow: FC<{ title: ReactNode; extra?: ReactNode; children: R
   children,
 }) => {
   return (
-    <div className="flex shrink-0 flex-col gap-2">
-      <div className="text-body-secondary flex w-full justify-between">
+    <div className="flex shrink-0 flex-col gap-1">
+      <div className="text-fg-secondary flex w-full justify-between">
         <div>{title}</div>
         <div>{extra}</div>
       </div>
-      <div className="text-body">{children}</div>
+      <div className="text-fg-primary">{children}</div>
     </div>
   )
 }

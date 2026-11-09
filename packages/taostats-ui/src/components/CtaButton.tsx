@@ -10,6 +10,8 @@ import {
 } from "react"
 import { useNavigate } from "react-router-dom"
 
+import { IconTile } from "./IconTile"
+
 export type CtaButtonSize = "large" | "small"
 
 type CtaButton = DetailedHTMLProps<
@@ -28,19 +30,19 @@ export const getContainerClassName = (size: CtaButtonSize) => {
   switch (size) {
     case "large":
       return {
-        iconLeftClassName: "text-lg",
-        containerClassName: "h-40",
-        contentClassName: "gap-4",
-        titleClassName: "text-base",
-        subtitleClassName: "text-sm",
+        containerClassName: "min-h-[72px] py-4",
+        contentClassName: "gap-1",
+        titleClassName: "text-sm",
+        subtitleClassName: "text-xs",
+        iconTileSize: "md" as const,
       }
     case "small":
       return {
-        iconLeftClassName: "text-[20px]",
-        containerClassName: "h-32",
-        contentClassName: "gap-2",
+        containerClassName: "min-h-14 py-3",
+        contentClassName: "gap-0.5",
         titleClassName: "text-sm",
         subtitleClassName: "text-xs",
+        iconTileSize: "sm" as const,
       }
   }
 }
@@ -66,33 +68,28 @@ export const CtaButton: FC<CtaButton> = ({
     [navigate, onClick, to],
   )
 
-  const {
-    containerClassName,
-    iconLeftClassName,
-    contentClassName,
-    titleClassName,
-    subtitleClassName,
-  } = useMemo(() => getContainerClassName(size), [size])
+  const { containerClassName, contentClassName, titleClassName, subtitleClassName, iconTileSize } =
+    useMemo(() => getContainerClassName(size), [size])
 
   return (
     <button
       type="button"
       {...props}
       className={classNames(
-        "bg-grey-850 enabled:hover:bg-grey-800 text-body-disabled enabled:hover:text-body flex w-full cursor-pointer items-center gap-8 rounded-sm px-8 disabled:cursor-not-allowed disabled:opacity-50",
+        "border-primary bg-secondary-solid text-fg-disabled enabled:hover:bg-tertiary/50 enabled:hover:text-fg-primary gap-md px-lg flex w-full cursor-pointer items-center rounded-lg border disabled:cursor-not-allowed disabled:opacity-50",
         containerClassName,
         className,
       )}
       onClick={handleClick}
     >
-      {IconLeft && <IconLeft className={classNames("text-body shrink-0", iconLeftClassName)} />}
+      {IconLeft && <IconTile icon={IconLeft} size={iconTileSize} />}
       <div className={classNames("flex grow flex-col items-start", contentClassName)}>
-        <div className={classNames("text-body", titleClassName)}>{title}</div>
-        <div className={classNames("text-body-secondary text-left", subtitleClassName)}>
+        <div className={classNames("text-fg-primary font-medium", titleClassName)}>{title}</div>
+        <div className={classNames("text-fg-secondary text-left", subtitleClassName)}>
           {subtitle}
         </div>
       </div>
-      {IconRight && <IconRight className="shrink-0 text-lg" />}
+      {IconRight && <IconRight className="text-fg-tertiary shrink-0 text-lg" />}
     </button>
   )
 }

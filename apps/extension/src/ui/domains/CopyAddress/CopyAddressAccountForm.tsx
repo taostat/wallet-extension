@@ -1,6 +1,9 @@
 import { encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
-import { CheckCircleIcon, ChevronRightIcon, CopyIcon, QrIcon } from "@taostats-wallet/icons"
+import { QrIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import {
   Account,
   getAccountGenesisHash,
@@ -34,9 +37,9 @@ const AccountRowContainer: FC<
   const className = useMemo(
     () =>
       classNames(
-        "hover:bg-grey-750 focus:bg-grey-700 flex h-[5.8rem] w-full items-center gap-4 px-12 text-left",
-        isSelected && "bg-grey-800 ",
-        "text-body-secondary hover:text-body",
+        "hover:bg-tertiary focus:bg-tertiary flex h-[58px] w-full items-center gap-2 px-6 text-left",
+        isSelected && "bg-secondary ",
+        "text-fg-secondary hover:text-fg-primary",
       ),
 
     [isSelected],
@@ -80,24 +83,24 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
         genesisHash={getAccountGenesisHash(account)}
         className="text-xl"
       />
-      <div className="mr-2 flex grow flex-col items-start gap-2 overflow-hidden">
-        <div className="text-body flex w-full items-center gap-3 overflow-hidden">
-          <div className="text-body truncate">
+      <div className="mr-1 flex grow flex-col items-start gap-1 overflow-hidden">
+        <div className="text-fg-primary flex w-full items-center gap-1.5 overflow-hidden">
+          <div className="text-fg-primary truncate">
             {account.name ?? shortenAddress(formatted, 6, 6)}
           </div>
-          <AccountTypeIcon className="text-primary inline-block" type={account.type} />
-          {selected && <CheckCircleIcon />}
+          <AccountTypeIcon className="text-fg-brand inline-block" type={account.type} />
+          {selected && <CheckCircle />}
         </div>
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="text-body-secondary text-left text-xs">
+            <div className="text-fg-secondary text-left text-xs">
               {shortenAddress(formatted, 10, 10)}
             </div>
           </TooltipTrigger>
           <TooltipContent>{formatted}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="flex gap-6">
+      <div className="flex gap-3">
         {isCopiable ? (
           <>
             <Tooltip>
@@ -110,15 +113,15 @@ const AccountRow: FC<AccountRowProps> = ({ account, selected }) => {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <IconButton className="text-md mr-2" onClick={handleCopyClick}>
-                  <CopyIcon />
+                <IconButton className="text-md mr-1" onClick={handleCopyClick}>
+                  <Copy01 />
                 </IconButton>
               </TooltipTrigger>
               <TooltipContent>{t("Copy to clipboard")}</TooltipContent>
             </Tooltip>
           </>
         ) : (
-          <ChevronRightIcon className="text-lg" />
+          <ChevronRight className="text-lg" />
         )}
       </div>
     </AccountRowContainer>
@@ -143,7 +146,7 @@ export const AccountsList: FC<AccountsListProps> = ({ selected, accounts, onSele
 
   return (
     <div>
-      {!!header && <div className="text-body-secondary mb-4 mt-8 px-12 font-bold">{header}</div>}
+      {!!header && <div className="text-fg-secondary mb-2 mt-4 px-6 font-bold">{header}</div>}
       {accounts?.map((account) => (
         <AccountRow
           selected={account.address === selected}
@@ -153,7 +156,7 @@ export const AccountsList: FC<AccountsListProps> = ({ selected, accounts, onSele
         />
       ))}
       {!accounts?.length && (
-        <div className="text-body-secondary flex h-[5.8rem] w-full items-center px-12 text-left">
+        <div className="text-fg-secondary flex h-[58px] w-full items-center px-6 text-left">
           {t("No account matches your search")}
         </div>
       )}
@@ -185,12 +188,12 @@ export const CopyAddressAccountForm = () => {
   return (
     <CopyAddressLayout title={t("Select account")}>
       <div className="flex h-full min-h-full w-full flex-col overflow-hidden">
-        <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+        <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
           <div className="grow">
             <SearchInput onChange={setSearch} placeholder={t("Search by account name")} />
           </div>
         </div>
-        <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+        <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
           <AccountsList accounts={accounts} selected={address} onSelect={setAddress} />
         </ScrollContainer>
       </div>

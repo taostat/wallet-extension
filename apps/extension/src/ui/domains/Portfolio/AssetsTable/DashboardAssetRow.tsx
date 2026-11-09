@@ -3,20 +3,23 @@ import { classNames } from "@taostats-wallet/util"
 import { FC, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
-import { AssetPrice } from "@ui/domains/Asset/AssetPrice"
+import { AssetPrice, useDisplayAssetPrice } from "@ui/domains/Asset/AssetPrice"
+import { BalanceSeparator } from "@ui/domains/Asset/BalanceSeparator"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
-import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
+import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useBalancesStatus } from "@ui/hooks/useBalancesStatus"
 import { useNavigateWithQuery } from "@ui/hooks/useNavigateWithQuery"
 import { useUniswapV2LpTokenTotalValueLocked } from "@ui/hooks/useUniswapV2LpTokenTotalValueLocked"
 import { useNetworkById } from "@ui/state"
+import { IS_POPUP } from "@ui/util/constants"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
 import { AssetBalanceCellValue } from "../AssetBalanceCellValue"
 import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
+import { isRootTaoHolding } from "../isRootTaoHolding"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
 
 export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
@@ -28,6 +31,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
 
   const status = useBalancesStatus(balances)
   const { token, rate, summary } = useTokenBalancesSummary(balances)
+  const displayPrice = useDisplayAssetPrice(token?.id, balances)
   const network = useNetworkById(token?.networkId)
 
   const navigate = useNavigateWithQuery()
@@ -39,7 +43,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
       const netuid = token.netuid
       navigate(`/portfolio/tokens/${netuid}`)
       genericEvent("goto portfolio asset", {
-        from: "dashboard",
+        from: IS_POPUP ? "popup" : "dashboard",
         symbol: token.symbol,
         netuid,
       })
@@ -49,7 +53,7 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
     // Fallback: use symbol for non-dTAO tokens.
     navigate(`/portfolio/tokens/${encodeURIComponent(token.symbol)}`)
     genericEvent("goto portfolio asset", {
-      from: "dashboard",
+      from: IS_POPUP ? "popup" : "dashboard",
       symbol: token.symbol,
     })
   }, [genericEvent, navigate, token])
@@ -62,75 +66,76 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
   if (!token || !network || !summary) return null
 
   return (
-    <div className="group relative h-[6.6rem] w-full">
+    <div className="group relative h-[66px] w-full">
       <button
         type="button"
         className={classNames(
-          "text-body-secondary bg-grey-850 hover:bg-grey-800 grid h-[6.6rem] w-full grid-cols-[40%_30%_30%] overflow-hidden rounded text-left text-base",
+          "text-fg-secondary border-primary grid h-[66px] w-full grid-cols-[40%_30%_30%] overflow-hidden border-b text-left text-base",
+          "transition-colors duration-700 ease-out hover:bg-white/[0.06] active:bg-white/[0.08]",
+          IS_POPUP && "px-2",
         )}
         onClick={handleClick}
       >
         <div className="flex h-full">
-          <div className="shrink-0 p-8 text-xl">
+          <div className="flex shrink-0 items-center justify-center py-4 pr-4 text-3xl">
             <TokenLogo tokenId={token.id} />
           </div>
-          <div className="flex grow flex-col justify-center gap-2">
-            <div className="flex items-center gap-3">
-              <div className="text-body flex items-center gap-4 text-base font-bold">
+          <div className="flex grow flex-col justify-center gap-0">
+            <div className="flex items-center gap-1.5">
+              <div
+                className={classNames(
+                  "text-fg-primary flex items-center gap-2 font-bold",
+                  IS_POPUP ? "text-sm" : "text-base",
+                )}
+              >
                 <TokenDisplaySymbol tokenId={token.id} />
                 {!!network.isTestnet && (
-                  <span className="text-tiny bg-alert-warn/10 text-alert-warn rounded px-3 py-1 font-light">
+                  <span className="text-tiny bg-orange-secondary/10 text-fg-orange rounded px-1.5 py-0.5 font-light">
                     {t("Testnet")}
                   </span>
                 )}
               </div>
             </div>
             {isUniswapV2LpToken && typeof tvl === "number" && (
-              <div className="text-body-secondary whitespace-nowrap">
+              <div className="text-fg-secondary whitespace-nowrap">
                 <Fiat amount={tvl} noCountUp={noCountUp} /> <span className="text-tiny">TVL</span>
               </div>
             )}
-            {!isUniswapV2LpToken && !!rate && (
-              <AssetPrice tokenId={token.id} className="text-body-secondary" balances={balances} />
+            {!isUniswapV2LpToken && !!rate && token.type === "substrate-dtao" && (
+              <div className="text-fg-secondary flex items-center gap-1 whitespace-nowrap text-xs">
+                <span>{`SN${token.netuid}`}</span>
+                <BalanceSeparator />
+                <AssetPrice
+                  tokenId={token.id}
+                  balances={balances}
+                  noChange
+                  as="span"
+                  tooltipLabel={t("Alpha Price")}
+                />
+              </div>
+            )}
+            {!isUniswapV2LpToken && !!rate && token.type !== "substrate-dtao" && (
+              <AssetPrice
+                tokenId={token.id}
+                balances={balances}
+                noChange
+                tooltipLabel={t("Alpha Price")}
+                className="text-fg-secondary text-xs"
+              />
             )}
           </div>
         </div>
-        <div className="h-[6.6rem] text-right">
-          {/* <AssetBalanceCellValue
-            locked
-            render={summary.lockedTokens.gt(0)}
-            tokens={summary.lockedTokens}
-            fiat={summary.lockedFiat}
-            symbol={isUniswapV2LpToken ? "" : token.symbol}
-            balancesStatus={status}
-            className={classNames(
-              "noPadRight",
-              status.status === "fetching" && "animate-pulse transition-opacity",
-            )}
-            noCountUp={noCountUp}
-          /> */}
-        </div>
-        {/* <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 text-right">
-          <AssetBalanceCellValue
-            render
-            tokens={summary.availableTokens}
-            fiat={summary.availableFiat}
-            symbol={isUniswapV2LpToken ? "" : token.symbol}
-            balancesStatus={status}
-            className={classNames(
-              canStake && "group-hover:hidden",
-              status.status === "fetching" && "animate-pulse transition-opacity",
-            )}
-            noCountUp={noCountUp}
-          />
-        </div> */}
-        <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 text-right">
+        <div className="h-[66px] text-right" />
+        <div className="flex h-[66px] flex-col items-end justify-center gap-1 text-right">
           <AssetBalanceCellValue
             render
             tokens={summary.totalTokens}
             fiat={summary.totalFiat}
             symbol={isUniswapV2LpToken ? "" : token.symbol}
+            isRootTao={isRootTaoHolding(token)}
+            change24hPct={displayPrice?.change24hValue ?? null}
             balancesStatus={status}
+            amountClassName="text-sm"
             className={classNames(
               canStake && "group-hover:hidden",
               status.status === "fetching" && "animate-pulse transition-opacity",
@@ -140,17 +145,17 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
         </div>
       </button>
       {canStake && (
-        <div className="absolute right-8 top-0 hidden h-[6.6rem] flex-col justify-center group-hover:flex">
-          <div className="flex items-center gap-3">
+        <div className={classNames("absolute right-0 top-0 hidden h-[66px] flex-col justify-center group-hover:flex", IS_POPUP && "pr-2")}>
+          <div className="flex items-center gap-1.5">
             <StakePillButton
               balances={balances}
               isPortfolio
-              className="[>svg]:text-[2rem] text-sm"
+              className="[>svg]:text-[20px] text-sm"
             />
             <BittensorUnstakeButton
               balances={balances}
               variant="pill"
-              className="[>svg]:text-[2rem] text-sm"
+              className="[>svg]:text-[20px] text-sm"
             />
           </div>
         </div>

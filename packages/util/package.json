@@ -23,7 +23,8 @@
     "bignumber.js": "^9.1.2",
     "rxjs": "^7.8.1",
     "tailwind-merge": "^2.5.4",
-    "lodash-es": "4.17.21"
+    "lodash-es": "4.17.21",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@taostats-wallet/eslint-config": "workspace:*",

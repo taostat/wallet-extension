@@ -1,5 +1,5 @@
-import { ChevronDownIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
 import { motion, TargetAndTransition, Transition } from "framer-motion"
 import throttle from "lodash-es/throttle"
 import { CSSProperties, FC, ReactNode, useEffect, useMemo, useRef, useState } from "react"
@@ -20,7 +20,7 @@ export const AccordionIcon: FC<{ isOpen: boolean; className?: string }> = ({
       className,
     )}
   >
-    <ChevronDownIcon />
+    <ChevronDown />
   </div>
 )
 

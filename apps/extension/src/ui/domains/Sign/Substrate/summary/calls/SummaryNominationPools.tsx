@@ -238,7 +238,7 @@ const WithdrawUnbonded: DecodedCallSummaryComponent<
 const NomPoolName: FC<{ sapi: ScaleApi; poolId: number }> = ({ sapi, poolId }) => {
   const { data: poolName } = useNomPoolName(sapi, poolId)
 
-  return <span className="text-body inline-block">{poolName ?? `Pool ${poolId}`}</span>
+  return <span className="text-fg-primary inline-block">{poolName ?? `Pool ${poolId}`}</span>
 }
 
 // do not reuse staking module's useNomPoolName, we need suspense here

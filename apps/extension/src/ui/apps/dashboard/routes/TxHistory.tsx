@@ -1,5 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { ChevronDownIcon, GlobeIcon } from "@taostats-wallet/icons"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
+import { Globe01 } from "@untitledui/icons/Globe01"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useOpenClose } from "taostats-ui"
@@ -30,18 +31,18 @@ const NetworkFilterButton = () => {
       <button
         type="button"
         onClick={open}
-        className="bg-grey-850 hover:bg-grey-800 text-body-secondary hover:text-body h-16 overflow-hidden rounded-sm text-left text-xs"
+        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary h-8 overflow-hidden rounded-sm text-left text-xs"
       >
-        <div className="flex size-full items-center gap-4 overflow-hidden px-4">
+        <div className="flex size-full items-center gap-2 overflow-hidden px-2">
           {network ? (
             <NetworkLogo networkId={network.id} className="text-md shrink-0" />
           ) : (
-            <GlobeIcon className="text-md shrink-0" />
+            <Globe01 className="text-md shrink-0" />
           )}
           <div className="grow truncate">
             {network ? (network?.name ?? t("Unknown Network")) : t("All Networks")}
           </div>
-          <ChevronDownIcon className="shrink-0 text-base" />
+          <ChevronDown className="shrink-0 text-base" />
         </div>
       </button>
       <TxHistoryNetworkPicker
@@ -59,10 +60,10 @@ const Header = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex w-full items-end justify-between gap-8">
-      <div className="flex flex-col gap-2">
-        <div className="text-body text-bold text-lg">{t("Recent Activity")}</div>
-        <div className="text-body-secondary text-sm">{t("Review your latest transactions.")}</div>
+    <div className="flex w-full items-end justify-between gap-4">
+      <div className="flex flex-col gap-1">
+        <div className="text-fg-primary text-bold text-lg">{t("Recent Activity")}</div>
+        <div className="text-fg-secondary text-sm">{t("Review your latest transactions.")}</div>
       </div>
       <div>
         <NetworkFilterButton />
@@ -89,9 +90,9 @@ export const TxHistory = () => {
       <DashboardLayout sidebar="accounts">
         <TxHistoryProvider>
           <TxHistoryAccountFilter />
-          <div className="min-w-[60rem]">
+          <div className="min-w-[600px]">
             <Header />
-            <div className="h-8"></div>
+            <div className="h-4"></div>
             <TxHistoryList />
           </div>
         </TxHistoryProvider>

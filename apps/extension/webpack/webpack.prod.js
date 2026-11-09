@@ -11,12 +11,13 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const common = require("./webpack.common.js")
 const {
   browser,
-  distDir,
+  getDistDir,
   updateManifestDetails,
   getArchiveFileName,
   manifestDir,
   getSentryPlugin,
 } = require("./utils")
+const { BadgeIconsPlugin } = require("./badgeIcons")
 const { SourceMapDevToolPlugin } = require("webpack")
 
 /** @type { import('webpack').Configuration } */
@@ -27,6 +28,8 @@ const config = (env) => {
     //   throw new Error("Missing POSTHOG_AUTH_TOKEN env variable")
     // }
   }
+
+  const distDir = getDistDir(env)
 
   return merge(common(env), {
     devtool: false,
@@ -63,6 +66,7 @@ const config = (env) => {
           },
         ],
       }),
+      new BadgeIconsPlugin({ build: env.build, outputPath: distDir }),
       new CircularDependencyPlugin({
         // exclude detection of files based on a RegExp
         exclude: /node_modules/,

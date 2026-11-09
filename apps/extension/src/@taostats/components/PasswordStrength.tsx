@@ -4,11 +4,11 @@ import { useMemo } from "react"
 const getColorClassName = (strength: number) => {
   switch (strength) {
     case 1:
-      return "text-alert-error"
+      return "text-fg-error"
     case 2:
-      return "text-alert-warn"
+      return "text-fg-orange"
     case 3:
-      return "text-alert-success"
+      return "text-fg-success"
     default:
       return ""
   }

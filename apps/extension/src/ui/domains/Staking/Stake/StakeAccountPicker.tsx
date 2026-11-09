@@ -1,6 +1,7 @@
 import { Token } from "@taostats-wallet/chaindata-provider"
-import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { X } from "@untitledui/icons/X"
 import { Account, Address, getAccountGenesisHash } from "extension-core"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -70,22 +71,22 @@ export const StakeAccountPicker = ({
       className="relative z-50 size-full"
     >
       <div className="flex size-full flex-grow flex-col bg-black">
-        <header className="flex items-center justify-between p-10">
+        <header className="flex items-center justify-between p-5">
           <IconButton onClick={onBackClick} className={cn(!onBackClick && "invisible")}>
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </IconButton>
           <div>{t("Select account")}</div>
           <IconButton onClick={onCloseClick} className={cn(!onCloseClick && "invisible")}>
-            <XIcon />
+            <X />
           </IconButton>
         </header>
         <div className="flex grow flex-col">
-          <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
-            <div className="mx-1 grow overflow-hidden px-1">
+          <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
+            <div className="mx-0.5 grow overflow-hidden px-0.5">
               <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
             </div>
           </div>
-          <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+          <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
             <StakeAccountsList
               accounts={accounts}
               genesisHash={chain?.genesisHash}

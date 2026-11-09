@@ -10,19 +10,19 @@ export const ConnectedSiteIndicator: FC<{
   return (
     <div
       className={classNames(
-        "flex h-8 w-8 items-center justify-center rounded-full border-2",
-        status === "connected" && "border-green-500/20",
-        status === "disconnected" && "border-brand-orange/20",
-        status === "disabled" && "border-grey-500/20",
+        "flex h-4 w-4 items-center justify-center rounded-full border-2",
+        status === "connected" && "border-fg-brand/30",
+        status === "disconnected" && "border-brand-orange/30",
+        status === "disabled" && "border-primary/20",
         className,
       )}
     >
       <div
         className={classNames(
-          "h-4 w-4 rounded-full",
-          status === "connected" && "bg-green-500",
+          "h-2 w-2 rounded-full",
+          status === "connected" && "bg-fg-brand",
           status === "disconnected" && "bg-brand-orange",
-          status === "disabled" && "bg-grey-500",
+          status === "disabled" && "bg-disabled",
         )}
       ></div>
     </div>

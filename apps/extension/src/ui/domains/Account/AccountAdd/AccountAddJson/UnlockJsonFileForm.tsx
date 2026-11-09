@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { KeyIcon } from "@taostats-wallet/icons"
+import { Key01 } from "@untitledui/icons/Key01"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
@@ -73,12 +73,12 @@ export const UnlockJsonFileForm: FC = () => {
   return (
     <FadeIn>
       <form onSubmit={handleSubmit(submit)} autoComplete="off">
-        <div className="text-body-secondary mb-8">
+        <div className="text-fg-secondary mb-4">
           {t("Enter the password that was used to encrypt this JSON file.")}
         </div>
         <FormFieldContainer error={errors.password?.message}>
           <FormFieldInputText
-            before={<KeyIcon className="opacity-50" />}
+            before={<Key01 className="opacity-50" />}
             {...register("password")}
             type="password"
             placeholder={t("Enter password")}
@@ -87,7 +87,7 @@ export const UnlockJsonFileForm: FC = () => {
             after={<CapsLockWarningIcon />}
           />
         </FormFieldContainer>
-        <div className="mt-8 flex w-full justify-between">
+        <div className="mt-4 flex w-full justify-between">
           <BackToAddAccountButton methodType="new" />
           <Button type="submit" primary disabled={!isValid} processing={isSubmitting}>
             {t("Unlock JSON file")}

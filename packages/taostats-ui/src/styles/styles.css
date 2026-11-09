@@ -1,21 +1,19 @@
+@import "./theme.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* The base layer is for things like reset rules or default styles applied to plain HTML elements. */
 @layer base {
   html {
-    /* this defines the root font size, on which 'rem' units are based */
-    font-size: 10px;
-    scrollbar-color: theme(colors.grey.700) transparent;
+    scrollbar-color: rgb(var(--fg-tertiary) / 0.4) transparent;
     @apply min-h-screen;
   }
 
   body {
-    @apply leading-base text-body bg-black-primary font-sans text-base antialiased;
+    @apply bg-app-bg text-fg-primary font-sans text-base antialiased;
   }
 
-  /* hides the content of the page while fonts are preloading (using webfontloader) */
   #root.wf-loading {
     @apply hidden;
   }
@@ -31,21 +29,19 @@
   }
 
   p {
-    @apply leading-paragraph;
+    @apply leading-relaxed;
   }
 
   svg {
     @apply h-[1em] w-[1em];
   }
 
-  /* visx chart crosshair/glyph SVGs must not be constrained - they use explicit dimensions */
   .visx-crosshair svg,
   .visx-tooltip-glyph svg {
     height: unset !important;
     width: unset !important;
   }
 
-  /* visx crosshair vertical line: ensure it renders on top of chart series (z-index fix) */
   .visx-crosshair {
     position: relative;
     z-index: 10;
@@ -54,7 +50,6 @@
     isolation: isolate;
   }
 
-  /* visx tooltip glyphs (circles on data points): ensure they render on top of chart series */
   .visx-tooltip-glyph {
     position: relative;
     z-index: 11;
@@ -65,20 +60,17 @@
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-body-disabled;
+    @apply text-fg-disabled;
   }
 
-  /* hides password reveal in Edge */
   input[type="password"]::-ms-reveal {
     display: none;
   }
 
-  /* popup borders */
   .popup #root {
-    @apply border-grey-750 box-border border;
+    @apply border-primary box-border border;
   }
 
-  /* number inputs */
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -88,40 +80,34 @@
     -moz-appearance: textfield;
   }
 
-  /* hide dcent iframe */
   #dcent-connect {
     display: none;
   }
 
-  /* Would be great to remove this at some point */
   *:not(.allow-focus):focus {
     outline: none;
   }
 }
 
-/* The components layer is for class-based styles that you want to be able to override with utilities. */
-/* Access to the (tailwind) theme is provided by theme() function if needed */
 @layer components {
   input[type="checkbox"].form-checkbox:checked {
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M14.6667 6.5L8.25001 12.9167L5.33334 10' stroke='%23D5FF5C' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round' /%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M14.6667 6.5L8.25001 12.9167L5.33334 10' stroke='%2300DBBC' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round' /%3e%3c/svg%3e");
   }
 
-  /* we want focus state only for keyboard nav, so we disable :focus and use only :focus-visible */
   input[type="checkbox"].form-checkbox:focus:not(:focus-visible) {
     box-shadow: none;
   }
 }
 
-/* The utilities layer is for small, single-purpose classes that should always take precedence over any other styles. */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     background-color: transparent;
-    display: none; /* chrome, safari, opera */
+    display: none;
   }
   .no-scrollbar {
     scrollbar-color: transparent transparent;
-    -ms-overflow-style: none; /* Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   .scrollable::-webkit-scrollbar {
@@ -146,36 +132,40 @@
   }
 
   .scrollable-500::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 10px 10px theme(colors.grey.500);
+    box-shadow: inset 0 0 10px 10px rgb(var(--fg-tertiary) / 0.25);
   }
   .scrollable-500 {
-    scrollbar-color: theme(colors.grey.500) transparent;
+    scrollbar-color: rgb(var(--fg-tertiary) / 0.25) transparent;
   }
 
   .scrollable-600::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 10px 10px theme(colors.grey.600);
+    box-shadow: inset 0 0 10px 10px rgb(var(--fg-tertiary) / 0.35);
   }
   .scrollable-600 {
-    scrollbar-color: theme(colors.grey.600) transparent;
+    scrollbar-color: rgb(var(--fg-tertiary) / 0.35) transparent;
   }
 
   .scrollable-700::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 10px 10px theme(colors.grey.700);
+    box-shadow: inset 0 0 10px 10px rgb(var(--fg-tertiary) / 0.5);
   }
   .scrollable-700 {
-    scrollbar-color: theme(colors.grey.700) transparent;
+    scrollbar-color: rgb(var(--fg-tertiary) / 0.5) transparent;
   }
 
   .scrollable-800::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 10px 10px theme(colors.grey.800);
+    box-shadow: inset 0 0 10px 10px rgb(var(--fg-tertiary) / 0.65);
   }
   .scrollable-800 {
-    scrollbar-color: theme(colors.grey.800) transparent;
+    scrollbar-color: rgb(var(--fg-tertiary) / 0.65) transparent;
   }
 
-  /*****************************************************************************
-   *                                Balances
-   ****************************************************************************/
+  .scrollable-muted::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 10px 10px rgb(var(--fg-tertiary) / 0.4);
+  }
+  .scrollable-muted {
+    scrollbar-color: rgb(var(--fg-tertiary) / 0.4) transparent;
+  }
+
   .balance-revealable {
     @apply rounded-xs relative cursor-pointer overflow-hidden text-transparent;
   }
@@ -187,7 +177,6 @@
   .balance-revealable::after {
     @apply rounded-xs absolute left-0 top-0 h-full w-full overflow-hidden bg-cover bg-no-repeat opacity-[15%];
     content: "";
-    /* ./blur.svg */
     background-image: url("data:image/svg+xml;base64,IDxzdmcgaGVpZ2h0PSIxMDAiIHdpZHRoPSIxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8ZmlsdGVyIGlkPSJmMSIgeD0iMCIgeT0iMCI+CiAgICAgIDxmZUdhdXNzaWFuQmx1ciBpbj0iU291cmNlR3JhcGhpYyIgc3RkRGV2aWF0aW9uPSIxNSIgLz4KICAgIDwvZmlsdGVyPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgc3Ryb2tlLXdpZHRoPSIzIiAKICBmaWxsPSJ3aGl0ZSIgZmlsdGVyPSJ1cmwoI2YxKSIgLz4KPC9zdmc+IA==");
   }
 

@@ -94,15 +94,15 @@ const DeleteFolder = ({
 
   return (
     <div className={className}>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         <Trans
           t={t}
           defaults="Confirm to delete folder <Highlight>{{name}}</Highlight>."
-          components={{ Highlight: <span className="text-body" /> }}
+          components={{ Highlight: <span className="text-fg-primary" /> }}
           values={{ name }}
         />
       </p>
-      <div className="mt-8 grid grid-cols-2 gap-8">
+      <div className="mt-4 grid grid-cols-2 gap-4">
         <Button type="button" onClick={onCancel}>
           {t("Cancel")}
         </Button>

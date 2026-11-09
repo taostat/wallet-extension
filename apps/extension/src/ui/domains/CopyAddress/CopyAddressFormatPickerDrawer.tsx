@@ -1,5 +1,5 @@
 import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { log } from "extension-shared"
 import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -75,9 +75,9 @@ const DrawerContent: FC<{
   )
 
   return (
-    <div className="bg-grey-800 flex w-full flex-col items-center gap-6 rounded-t-xl p-12">
-      <div className="text-md text-body font-bold">{t("Select Address Format")}</div>
-      <div className="text-body-secondary text-center text-sm">
+    <div className="bg-secondary flex w-full flex-col items-center gap-3 rounded-t-xl p-6">
+      <div className="text-md text-fg-primary font-bold">{t("Select Address Format")}</div>
+      <div className="text-fg-secondary text-center text-sm">
         {t("Legacy format may be needed when sending from some exchanges.")} <LearnMore />
       </div>
       <div></div>
@@ -118,10 +118,10 @@ const LearnMore = () => {
   return (
     <button
       type="button"
-      className="text-body bg-grey-750 hover:bg-grey-700 inline-flex h-10 items-center gap-2 rounded-full px-3 text-xs"
+      className="text-fg-primary bg-tertiary hover:bg-tertiary inline-flex h-5 items-center gap-1 rounded-full px-1.5 text-xs"
       onClick={handleClick}
     >
-      <InfoIcon />
+      <InfoCircle />
       <span>{t("Learn more")}</span>
     </button>
   )
@@ -137,18 +137,18 @@ const FormatRow: FC<{
   const { t } = useTranslation()
 
   return (
-    <div className="border-grey-700 flex h-[6.8rem] w-full items-center gap-6 rounded-lg border px-8">
-      <div className="size-16 shrink-0">
+    <div className="border-primary flex h-[68px] w-full items-center gap-3 rounded-lg border px-4">
+      <div className="size-8 shrink-0">
         <NetworkLogo networkId={chainId} className="shrink-0 text-xl" />
       </div>
-      <div className="flex grow flex-col gap-2 overflow-hidden">
-        <div className="flex items-center gap-4 overflow-hidden">
-          <div className="text-body truncate text-sm">{chainName}</div>
-          <div className="text-body-inactive text-tiny rounded-xs border-body-inactive shrink-0 border px-2 py-1">
+      <div className="flex grow flex-col gap-1 overflow-hidden">
+        <div className="flex items-center gap-2 overflow-hidden">
+          <div className="text-fg-primary truncate text-sm">{chainName}</div>
+          <div className="text-fg-tertiary text-tiny rounded-xs border-primary shrink-0 border px-1 py-0.5">
             {label}
           </div>
         </div>
-        <div className="text-body-secondary text-xs">{shortenAddress(address, 8, 8)}</div>
+        <div className="text-fg-secondary text-xs">{shortenAddress(address, 8, 8)}</div>
       </div>
       <Button primary small onClick={onSelect}>
         {t("Select")}

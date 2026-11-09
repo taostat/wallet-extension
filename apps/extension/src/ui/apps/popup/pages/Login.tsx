@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
 import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import {
   SubmitHandler,
@@ -10,14 +11,7 @@ import {
   UseFormWatch,
 } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import {
-  Button,
-  FormFieldInputText,
-  StarryBackground,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "taostats-ui"
+import { Button, FormFieldInputText, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 import * as yup from "yup"
 
 import { CapsLockWarningIcon } from "@taostats/components/CapsLockWarningIcon"
@@ -26,6 +20,7 @@ import { TaostatsLogo } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useSetting } from "@ui/state"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import { PopupContent, PopupFooter, PopupLayout } from "../Layout/PopupLayout"
 import { ResetWallet } from "./ResetWallet"
@@ -40,7 +35,7 @@ const HideBalancesToggle = () => {
         <label
           htmlFor="showBalances"
           className={classNames(
-            "absolute right-10 top-10 z-20",
+            "absolute right-5 top-5 z-20",
             "inline-flex cursor-pointer items-center",
           )}
         >
@@ -53,28 +48,28 @@ const HideBalancesToggle = () => {
           />
           <div
             className={classNames(
-              "bg-grey-600 peer h-14 w-28 shrink-0 rounded-full",
+              "bg-tertiary peer h-7 w-14 shrink-0 rounded-full",
               "peer-focus-visible:ring-body peer-focus:outline-none peer-focus-visible:ring-2",
             )}
           ></div>
           <div
             className={classNames(
-              "absolute left-1 top-1 flex h-12 w-12",
-              "bg-grey-800 rounded-full",
-              "peer-checked:bg-primary transition peer-checked:translate-x-14",
+              "absolute left-0.5 top-0.5 flex h-6 w-6",
+              "bg-secondary rounded-full",
+              "peer-checked:bg-fg-brand transition peer-checked:translate-x-7",
             )}
           >
-            <EyeIcon
+            <Eye
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
-                "text-body-black transition-opacity",
+                "absolute left-1 top-1 h-4 w-4",
+                "text-fg-primary-alt transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
-            <EyeOffIcon
+            <EyeOff
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
-                "text-body transition-opacity",
+                "absolute left-1 top-1 h-4 w-4",
+                "text-fg-primary transition-opacity",
                 !hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
@@ -125,7 +120,7 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
         const result = await api.authenticate(password)
         if (result) {
           const qs = new URLSearchParams(window.location.search)
-          if (qs.get("closeAfterLogin") === "true") window.close()
+          if (qs.get("closeAfterLogin") === "true") void closeWalletSurface()
         } else throw new Error(t("Taostats access denied"))
       } catch (err) {
         setError("password", { message: (err as Error)?.message ?? t("Unknown error") })
@@ -149,58 +144,61 @@ const Login = ({ setShowResetWallet }: { setShowResetWallet: () => void }) => {
 
   return (
     <PopupLayout>
-      <StarryBackground>
-        <Suspense fallback={<SuspenseTracker name="Background" />}>
-          <HideBalancesToggle />
-          <VersionInfo />
-        </Suspense>
-        <PopupContent
-          className={classNames(
-            "z-10 select-none pt-32 text-center",
-            isSubmitting && "animate-pulse",
-          )}
-        >
-          <div className="mt-[60px]">
-            <TaostatsLogo className="inline-block text-[128px]" />
-          </div>
-          <h1 className="mt-[34px] text-lg">{t("Unlock Taostats Wallet")}</h1>
-          {errors.password?.message && (
-            <div className="text-alert-warn mt-8">{errors.password?.message}</div>
-          )}
-        </PopupContent>
-        <PopupFooter className="z-10">
-          <form className="flex flex-col items-center gap-6" onSubmit={handleSubmit(submit)}>
-            <FormFieldInputText
-              {...register("password")}
-              type="password"
-              placeholder={t("Enter password")}
-              spellCheck={false}
-              autoComplete="off"
-              data-lpignore
-              // containerProps={INPUT_CONTAINER_PROPS}
-              className="placeholder:text-grey-500"
-              after={<CapsLockWarningIcon />}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              primary
-              disabled={!isValid}
-              processing={isSubmitting}
-              className={classNames(!isValid && "bg-field")}
-            >
-              {t("Unlock")}
-            </Button>
-            <button
-              type="button"
-              className="text-body-disabled mt-2 cursor-pointer text-sm transition-colors hover:text-white"
-              onClick={setShowResetWallet}
-            >
-              {t("Forgot Password?")}
-            </button>
-          </form>
-        </PopupFooter>
-      </StarryBackground>
+      <Suspense fallback={<SuspenseTracker name="Background" />}>
+        <HideBalancesToggle />
+        <VersionInfo />
+      </Suspense>
+      <PopupContent
+        className={classNames(
+          "z-10 select-none pt-16 text-center",
+          isSubmitting && "animate-pulse",
+        )}
+      >
+        <div className="relative mt-[20px] flex flex-col items-center">
+          <TaostatsLogo className="relative z-10 h-[29px] w-[153px]" />
+          <img
+            src="/images/lock/lock.png"
+            alt="Login hero"
+            className="relative z-[-1] -mt-10 h-[350px] w-auto select-none object-contain"
+          />
+        </div>
+        <h1 className="text-display-xs -mt-12">{t("Unlock Taostats Wallet")}</h1>
+        {errors.password?.message && (
+          <div className="text-fg-orange mt-4">{errors.password?.message}</div>
+        )}
+      </PopupContent>
+      <PopupFooter className="z-10">
+        <form className="flex flex-col items-center gap-3" onSubmit={handleSubmit(submit)}>
+          <FormFieldInputText
+            {...register("password")}
+            type="password"
+            placeholder={t("Enter password")}
+            spellCheck={false}
+            autoComplete="off"
+            data-lpignore
+            // containerProps={INPUT_CONTAINER_PROPS}
+            className="placeholder:text-fg-disabled"
+            after={<CapsLockWarningIcon />}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            primary
+            disabled={!isValid}
+            processing={isSubmitting}
+            className={classNames(!isValid && "bg-secondary")}
+          >
+            {t("Unlock")}
+          </Button>
+          <button
+            type="button"
+            className="text-fg-disabled hover:text-fg-primary mt-1 cursor-pointer text-sm transition-colors"
+            onClick={setShowResetWallet}
+          >
+            {t("Forgot Password?")}
+          </button>
+        </form>
+      </PopupFooter>
     </PopupLayout>
   )
 }
@@ -264,7 +262,7 @@ const VersionInfo = () => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={handleClick}
-      className="bg-primary/10 text-primary/80 absolute left-10 top-10 z-20 flex h-14 select-none items-center justify-center rounded-full px-4 text-sm"
+      className="bg-fg-brand/10 text-fg-brand/80 absolute left-5 top-5 z-20 flex h-7 select-none items-center justify-center rounded-full px-2 text-sm"
     >
       v{process.env.VERSION}
     </div>

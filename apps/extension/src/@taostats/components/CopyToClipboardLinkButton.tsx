@@ -1,5 +1,6 @@
-import { CheckIcon, CopyIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -21,16 +22,16 @@ export const CopyToClipboardLinkButton: FC<{ data: string; className?: string }>
     <button
       type="button"
       onClick={handleCopy}
-      className={cn("text-body-secondary hover:text-body inline-flex items-center", className)}
+      className={cn("text-fg-secondary hover:text-fg-primary inline-flex items-center", className)}
     >
       {isCopied ? (
         <>
-          <CheckIcon className="text-primary mr-2 inline" />
-          <span className="text-primary">{t("Copied successfully")}</span>
+          <Check className="text-fg-brand mr-xxs inline" />
+          <span className="text-fg-brand">{t("Copied successfully")}</span>
         </>
       ) : (
         <>
-          <CopyIcon className="mr-2 inline" />
+          <Copy01 className="mr-1 inline" />
           <span>{t("Copy to clipboard")}</span>
         </>
       )}

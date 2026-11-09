@@ -44,9 +44,9 @@ const Vote: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["vote"
       <Trans
         t={t}
         components={{
-          Vote: <span className="text-body">{props.vote}</span>,
-          Referenda: <span className="text-body">#{props.referenda}</span>,
-          Conviction: <span className="text-body">{props.conviction}</span>,
+          Vote: <span className="text-fg-primary">{props.vote}</span>,
+          Referenda: <span className="text-fg-primary">#{props.referenda}</span>,
+          Conviction: <span className="text-fg-primary">{props.conviction}</span>,
           Tokens: (
             <SummaryTokensAndFiat
               planck={props.voteAmount}
@@ -64,9 +64,9 @@ const Vote: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["vote"
       <Trans
         t={t}
         components={{
-          Vote: <span className="text-body">{props.vote}</span>,
-          Referenda: <span className="text-body">#{props.referenda}</span>,
-          Conviction: <span className="text-body">{props.conviction}</span>,
+          Vote: <span className="text-fg-primary">{props.vote}</span>,
+          Referenda: <span className="text-fg-primary">#{props.referenda}</span>,
+          Conviction: <span className="text-fg-primary">{props.conviction}</span>,
           Tokens: (
             <SummaryTokensAndFiat
               planck={props.voteAmount}
@@ -85,9 +85,9 @@ const Vote: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["vote"
         <Trans
           t={t}
           components={{
-            Vote: <span className="text-body">{props.vote}</span>,
-            Referenda: <span className="text-body">#{props.referenda}</span>,
-            Conviction: <span className="text-body">{props.conviction}</span>,
+            Vote: <span className="text-fg-primary">{props.vote}</span>,
+            Referenda: <span className="text-fg-primary">#{props.referenda}</span>,
+            Conviction: <span className="text-fg-primary">{props.conviction}</span>,
             Tokens: (
               <SummaryTokensAndFiat
                 planck={props.voteAmount}
@@ -119,7 +119,9 @@ const Unlock: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["unl
         t={t}
         components={{
           Track: (
-            <span className="text-body">{getConvictionVotingTrackName(sapi, args.class)}</span>
+            <span className="text-fg-primary">
+              {getConvictionVotingTrackName(sapi, args.class)}
+            </span>
           ),
         }}
         defaults="Unlock tokens from track <Track />"
@@ -133,7 +135,9 @@ const Unlock: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["unl
           t={t}
           components={{
             Track: (
-              <span className="text-body">{getConvictionVotingTrackName(sapi, args.class)}</span>
+              <span className="text-fg-primary">
+                {getConvictionVotingTrackName(sapi, args.class)}
+              </span>
             ),
           }}
           defaults="Unlock tokens locked in governance<br/> for track <Track />"
@@ -166,9 +170,11 @@ const Delegate: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["d
             />
           ),
           Track: (
-            <span className="text-body">{getConvictionVotingTrackName(sapi, args.class)}</span>
+            <span className="text-fg-primary">
+              {getConvictionVotingTrackName(sapi, args.class)}
+            </span>
           ),
-          Conviction: <span className="text-body">{getConviction(args.conviction)}</span>,
+          Conviction: <span className="text-fg-primary">{getConviction(args.conviction)}</span>,
           Tokens: (
             <SummaryTokensAndFiat planck={args.balance} tokenId={chain.nativeTokenId} mode={mode} />
           ),
@@ -190,9 +196,11 @@ const Delegate: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["d
             />
           ),
           Track: (
-            <span className="text-body">{getConvictionVotingTrackName(sapi, args.class)}</span>
+            <span className="text-fg-primary">
+              {getConvictionVotingTrackName(sapi, args.class)}
+            </span>
           ),
-          Conviction: <span className="text-body">{getConviction(args.conviction)}</span>,
+          Conviction: <span className="text-fg-primary">{getConviction(args.conviction)}</span>,
           Tokens: (
             <SummaryTokensAndFiat planck={args.balance} tokenId={chain.nativeTokenId} mode={mode} />
           ),
@@ -215,9 +223,11 @@ const Delegate: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"]["d
               />
             ),
             Track: (
-              <span className="text-body">{getConvictionVotingTrackName(sapi, args.class)}</span>
+              <span className="text-fg-primary">
+                {getConvictionVotingTrackName(sapi, args.class)}
+              </span>
             ),
-            Conviction: <span className="text-body">{getConviction(args.conviction)}</span>,
+            Conviction: <span className="text-fg-primary">{getConviction(args.conviction)}</span>,
             Tokens: (
               <SummaryTokensAndFiat
                 planck={args.balance}
@@ -249,7 +259,9 @@ const Undelegate: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"][
         t={t}
         components={{
           Track: (
-            <span className="text-body">{getConvictionVotingTrackName(sapi, args.class)}</span>
+            <span className="text-fg-primary">
+              {getConvictionVotingTrackName(sapi, args.class)}
+            </span>
           ),
         }}
         defaults="Undelegate voting power for track <Track />"
@@ -262,7 +274,7 @@ const Undelegate: DecodedCallSummaryComponent<PolkadotCalls["ConvictionVoting"][
         <Trans
           t={t}
           components={{
-            Track: <span className="text-body">{args.class.toString()}</span>,
+            Track: <span className="text-fg-primary">{args.class.toString()}</span>,
           }}
           defaults="Undelegate voting power for track <Track />"
         />

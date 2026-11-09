@@ -1,12 +1,13 @@
-import { HistoryIcon, HomeIcon, SettingsIcon } from "@taostats-wallet/icons"
 import { classNames, isTruthy } from "@taostats-wallet/util"
+import { Calendar } from "@untitledui/icons/Calendar"
+import { Settings01 } from "@untitledui/icons/Settings01"
 import { FC, ReactNode, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { matchPath, useLocation, useNavigate, useSearchParams } from "react-router-dom"
 import { PillButton } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TaostatsLogo } from "@taostats/theme/logos"
+import { TaostatsIcon, TaostatsLogo } from "@taostats/theme/logos"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 
 import { DashboardAccountsSidebar } from "./DashboardAccountsSidebar"
@@ -19,43 +20,48 @@ export const DashboardLayout: FC<{
   children?: ReactNode
   sidebar: "accounts" | "settings"
 }> = ({ children, sidebar }) => {
+  const sidebarWidth = sidebar === "settings" ? SETTINGS_SIDEBAR_WIDTH : ACCOUNTS_SIDEBAR_WIDTH
+
   return (
     <div id="main" className="h-dvh w-dvw overflow-x-auto overflow-y-scroll">
-      <div className="relative mx-auto w-full max-w-[144rem]">
-        <div className={classNames("flex w-full", RESPONSIVE_FLEX_SPACING)}>
+      <div className="relative mx-auto w-full max-w-[1440px]">
+        <div className={classNames("flex w-full items-center py-2", RESPONSIVE_FLEX_SPACING)}>
+          <div className={classNames("hidden shrink-0 items-center gap-2 sm:flex", sidebarWidth)}>
+            <TaostatsLogo className="h-[30px] w-[147.172px]" />
+            <PillButton className="bg-fg-brand/5 text-fg-brand hover:bg-fg-brand/20 rounded-3xl">
+              <div className="flex items-center gap-1">
+                <span>Wallet</span>
+              </div>
+            </PillButton>
+          </div>
+          <div className="flex w-full grow items-center justify-end px-4">
+            <HorizontalNav />
+          </div>
+        </div>
+      </div>
+      <div className="border-primary h-px w-full shrink-0 border-b" />
+      <div className="relative mx-auto w-full max-w-[1440px]">
+        <div className={classNames("flex w-full pt-8", RESPONSIVE_FLEX_SPACING)}>
           {/* Sidebar */}
-          <div className="w-[29.6rem] shrink-0 pb-20">
-            <div className="hidden h-48 w-[29.6rem] shrink-0 items-center gap-4 sm:flex">
-              <TaostatsLogo className="h-[3rem] w-[14.7172rem]" />
-              <PillButton className="bg-primary/5 text-primary hover:bg-primary/20 rounded-3xl">
-                <div className="flex items-center gap-2">
-                  <span>Wallet</span>
-                </div>
-              </PillButton>
-            </div>
+          <div className={classNames("shrink-0 pb-10", sidebarWidth)}>
             <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Sidebar" />}>
               {sidebar === "accounts" && <DashboardAccountsSidebar />}
               {sidebar === "settings" && <DashboardSettingsSidebar />}
             </Suspense>
           </div>
           {/* Main area */}
-          <div className="grow pb-20">
-            <div className="flex w-full flex-col items-center">
-              <div className="flex h-48 w-full shrink-0 items-center justify-end px-8">
-                <HorizontalNav />
+          <div className="min-w-0 grow pb-10">
+            <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Content" />}>
+              <div
+                className={classNames(
+                  // minimum width is automatically set by the horizontal nav bar which never shrinks
+                  "animate-fade-in w-full grow",
+                )}
+              >
+                {sidebar !== "settings" && <LayoutBreadcrumb />}
+                {children}
               </div>
-              <Suspense fallback={<SuspenseTracker name="DashboardMainLayout.Content" />}>
-                <div
-                  className={classNames(
-                    // minimum width is automatically set by the horizontal nav bar which never shrinks
-                    "animate-fade-in w-full grow",
-                  )}
-                >
-                  <LayoutBreadcrumb />
-                  {children}
-                </div>
-              </Suspense>
-            </div>
+            </Suspense>
           </div>
         </div>
       </div>
@@ -64,7 +70,11 @@ export const DashboardLayout: FC<{
   )
 }
 
-const RESPONSIVE_FLEX_SPACING = classNames("gap-8 px-5", "md:px-10", "lg:px-20", "xl:px-32")
+const RESPONSIVE_FLEX_SPACING = classNames("gap-4 px-2.5", "md:px-5", "lg:px-10", "xl:px-16")
+
+// Golden ratio split: sidebar ≈ 38.2% of the content row (1 : 1.618 vs main area)
+const ACCOUNTS_SIDEBAR_WIDTH = "w-[38.2%] min-w-[296px] max-w-[440px]"
+const SETTINGS_SIDEBAR_WIDTH = "w-[370px]"
 
 const NavButton: FC<{
   label: ReactNode
@@ -83,13 +93,23 @@ const NavButton: FC<{
     <button
       type="button"
       className={classNames(
-        "text-body-inactive hover:text-body-secondary flex items-center gap-4",
-        routeMatch && "!text-primary",
+        "font-mono-num group inline-flex shrink-0 cursor-pointer items-center justify-center overflow-hidden font-medium uppercase no-underline transition-colors",
+        "focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        "h-4xl px-lg py-md gap-md rounded-sm text-sm leading-5",
+        "border",
+        routeMatch
+          ? "border-fg-brand bg-brand-secondary text-fg-brand"
+          : "text-fg-tertiary hover:text-fg-primary border-transparent bg-transparent",
         className,
       )}
       onClick={onClick}
     >
-      <Icon className="shrink-0 text-[2rem]" />
+      <Icon
+        className={classNames(
+          "h-[12px] w-[12px] shrink-0 transition-colors",
+          routeMatch ? "text-fg-brand" : "text-fg-tertiary group-hover:text-fg-primary",
+        )}
+      />
       <div>{label}</div>
     </button>
   )
@@ -135,23 +155,23 @@ const HorizontalNav = () => {
   }, [navigate])
 
   return (
-    <div className="border-grey-700 flex h-24 gap-16 rounded-lg border px-8">
+    <div className="gap-md flex items-center">
       <NavButton
         label={t("Home")}
         onClick={handlePortfolioClick}
-        icon={HomeIcon}
+        icon={TaostatsIcon}
         route="/portfolio/*"
       />
       <NavButton
         label={t("History")}
         onClick={handleActivityClick}
-        icon={HistoryIcon}
+        icon={Calendar}
         route="/tx-history"
       />
       <NavButton
         label={t("Settings")}
         onClick={handleSettingsClick}
-        icon={SettingsIcon}
+        icon={Settings01}
         route={["/settings/*", "/accounts/*"]}
       />
     </div>

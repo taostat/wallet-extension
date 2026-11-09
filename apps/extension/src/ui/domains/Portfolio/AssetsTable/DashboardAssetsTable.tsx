@@ -1,14 +1,14 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Balances } from "@taostats-wallet/balances"
 import { classNames } from "@taostats-wallet/util"
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 
-import { usePortfolioGlobalData, useSelectedCurrency } from "@ui/state"
+import { useScrollContainer } from "@taostats/components/ScrollContainer"
+import { usePortfolioGlobalData } from "@ui/state"
+import { IS_POPUP } from "@ui/util/constants"
 
-import { Statistics } from "../Statistics"
-import { usePortfolioDisplayBalances } from "../useDisplayBalances"
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
 import { AssetRow } from "./DashboardAssetRow"
 import { usePortfolioSymbolBalancesByFilter } from "./usePortfolioSymbolBalances"
@@ -17,65 +17,27 @@ const AssetRowSkeleton: FC<{ className?: string }> = ({ className }) => {
   return (
     <div
       className={classNames(
-        "text-body-secondary bg-grey-850 mb-4 mt-4 grid w-full grid-cols-[40%_30%_30%] rounded text-left text-base",
+        "text-fg-secondary mb-2 mt-2 grid w-full grid-cols-[40%_30%_30%] border-b border-primary text-left text-base",
         className,
       )}
     >
       <div>
-        <div className="flex h-[6.6rem]">
-          <div className="p-8 text-xl">
-            <div className="bg-grey-700 h-16 w-16 animate-pulse rounded-full"></div>
+        <div className="flex h-[66px]">
+          <div className="p-4 text-xl">
+            <div className="bg-tertiary h-8 w-8 animate-pulse rounded-full"></div>
           </div>
-          <div className="flex grow flex-col justify-center gap-2">
-            <div className="bg-grey-700 rounded-xs h-8 w-20 animate-pulse"></div>
+          <div className="flex grow flex-col justify-center gap-1">
+            <div className="bg-tertiary rounded-xs h-4 w-10 animate-pulse"></div>
           </div>
         </div>
       </div>
       <div></div>
       <div>
-        <div className="flex h-full flex-col items-end justify-center gap-2 px-8">
-          <div className="bg-grey-700 rounded-xs h-8 w-[10rem] animate-pulse"></div>
-          <div className="bg-grey-700 rounded-xs h-8 w-[6rem] animate-pulse"></div>
+        <div className="flex h-full flex-col items-end justify-center gap-1 px-4">
+          <div className="bg-tertiary rounded-xs h-4 w-[100px] animate-pulse"></div>
+          <div className="bg-tertiary rounded-xs h-4 w-[60px] animate-pulse"></div>
         </div>
       </div>
-    </div>
-  )
-}
-
-const HeaderRow = () => {
-  const balances = usePortfolioDisplayBalances("network")
-  const { t } = useTranslation()
-
-  const currency = useSelectedCurrency()
-
-  const { total } = useMemo(() => balances.sum.fiat(currency), [balances.sum, currency])
-
-  if (!balances.count) return null
-
-  return (
-    <div className="text-body-secondary bg-grey-850 mb-4 grid h-40 grid-cols-[40%_30%_30%] items-center rounded px-8 text-left text-base">
-      <div className="h-auto w-auto p-0" />
-      {/* <Statistics
-        className="h-auto w-auto p-0"
-        title={t("Total Value")}
-        fiat={total}
-        showCurrencyToggle
-        align="left"
-      /> */}
-      <div className="className=h-auto w-auto items-end p-0 pr-8" />
-      {/* <Statistics
-        className="h-auto w-auto items-end p-0 pr-8"
-        title={t("Locked")}
-        fiat={locked}
-        locked
-        align="right"
-      /> */}
-      <Statistics
-        className="h-auto w-auto items-end p-0"
-        title={t("Total")}
-        fiat={total}
-        align="right"
-      />
     </div>
   )
 }
@@ -85,7 +47,7 @@ const NoAssetsFound = () => {
   const { selectedAccount, selectedFolder } = usePortfolioNavigation()
 
   return (
-    <div className="text-body-secondary bg-grey-850 mb-4 flex h-[6.6rem] flex-col justify-center rounded-sm p-8">
+    <div className="text-fg-secondary mb-2 flex h-[66px] flex-col justify-center border-b border-primary p-4">
       {selectedAccount
         ? t("No assets were found on this account.")
         : selectedFolder
@@ -101,9 +63,11 @@ export const DashboardAssetsTable = () => {
   const location = useLocation()
 
   return (
-    <div key={location.key} className="text-body-secondary min-w-[45rem] text-left text-base">
+    <div
+      key={location.key}
+      className={classNames("text-fg-secondary text-left text-base", !IS_POPUP && "min-w-[450px]")}
+    >
       {!symbolBalances.length && !isInitialising && <NoAssetsFound />}
-      {!!symbolBalances.length && <HeaderRow />}
       <VirtualizedRows symbolBalances={symbolBalances} />
       {isInitialising && <AssetRowSkeleton />}
     </div>
@@ -112,6 +76,20 @@ export const DashboardAssetsTable = () => {
 
 const VirtualizedRows: FC<{ symbolBalances: [string, Balances][] }> = ({ symbolBalances }) => {
   const [noCountUp, setNoCountUp] = useState(false)
+  const scrollContainer = useScrollContainer()
+
+  const getScrollElement = useCallback(() => {
+    if (
+      scrollContainer &&
+      typeof scrollContainer === "object" &&
+      "ref" in scrollContainer &&
+      scrollContainer.ref.current
+    ) {
+      return scrollContainer.ref.current
+    }
+
+    return document.getElementById("main")
+  }, [scrollContainer])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -126,9 +104,9 @@ const VirtualizedRows: FC<{ symbolBalances: [string, Balances][] }> = ({ symbolB
   const virtualizer = useVirtualizer({
     count: symbolBalances.length,
     overscan: 6,
-    gap: 8,
+    gap: 0,
     estimateSize: () => 66,
-    getScrollElement: () => document.getElementById("main"),
+    getScrollElement,
   })
 
   return (

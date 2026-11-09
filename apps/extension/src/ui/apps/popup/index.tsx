@@ -24,7 +24,9 @@ import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { MigrationProgress } from "@ui/domains/System/MigrationProgress"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 import { useLoginCheck } from "@ui/hooks/useLoginCheck"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
+import { SidePanelNavigationListener } from "./components/SidePanelNavigationListener"
 import { LedgerPolkadotUpgradeAlertDrawer } from "./components/LedgerPolkadotUpgradeDrawer"
 import { Connect } from "./pages/Connect"
 import { Encrypt } from "./pages/Encrypt"
@@ -33,6 +35,7 @@ import { ManageAccountsPage } from "./pages/ManageAccounts"
 import { Metadata } from "./pages/Metadata"
 import { Portfolio } from "./pages/Portfolio"
 import { SendFundsPage } from "./pages/SendFunds"
+import { SettingsPage } from "./pages/Settings"
 import { SubstrateSignRequest } from "./pages/Sign/substrate"
 import { TryPage } from "./pages/TryPage"
 import { TxHistoryPage } from "./pages/TxHistory"
@@ -47,7 +50,7 @@ const Popup = () => {
       api.onboardOpen()
       // most browsers automatically close the extension popup when giving focus to the onboarding tab
       // but on firefox, we need to close the window explicitely
-      window.close()
+      void closeWalletSurface()
     }
   }, [isOnboarded])
 
@@ -57,6 +60,7 @@ const Popup = () => {
 
   return (
     <FadeIn className="h-full w-full">
+      <SidePanelNavigationListener />
       <Suspense fallback={<SuspenseTracker name="Routes" />}>
         <Routes>
           <Route path="portfolio/*" element={<Portfolio />} />
@@ -68,6 +72,7 @@ const Popup = () => {
           <Route path="try-page" element={<TryPage />} />
           <Route path="manage-accounts" element={<ManageAccountsPage />} />
           <Route path="tx-history" element={<TxHistoryPage />} />
+          <Route path="settings" element={<SettingsPage />} />
           <Route path="send/*" element={<SendFundsPage />} />
           <Route path="*" element={<Navigate to="/portfolio" replace />} />
         </Routes>

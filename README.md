@@ -165,8 +165,9 @@ When building UI features, please follow the following spec to ensure they're tr
 - `dev:extension` : when working on extension only, for better color output
 - `build`: builds the wallet in `packages/apps/extension/dist/chrome` folder, without sentry keys
 - `build:firefox`: builds the wallet in `packages/apps/extension/dist/firefox` folder, without sentry keys
-- `build:extension:prod` builds the Taostats browser extension (requires sentry settings, Taostats team only)
-- `build:extension:canary` : builds the Taostats browser extension test version, with different ID and icon than prod
+- `build:extension:prod` builds the Taostats browser extension for Chrome Web Store release
+- `build:extension:internal` : builds a team-preview extension (stable ID, `[internal]` name, yellow icon badge, injects as `taostats-internal`) that can sit alongside the store install
+- `dev` / `dev:extension` : local watch build (`[dev]` name, red icon badge, injects as `taostats-dev`) → `apps/extension/dist/chrome-dev`
 
 ### Build the wallet browser extension using Docker
 

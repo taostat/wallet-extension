@@ -1,10 +1,11 @@
-import { ChevronRightIcon, ClockIcon, LockIcon } from "@taostats-wallet/icons"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Clock } from "@untitledui/icons/Clock"
+import { Lock01 } from "@untitledui/icons/Lock01"
 import { useTranslation } from "react-i18next"
 import { CtaButton } from "taostats-ui"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 
 const Content = () => {
@@ -19,10 +20,10 @@ const Content = () => {
         text={t("Control security and privacy preferences")}
       />
       <Spacer large />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <CtaButton
-          iconLeft={LockIcon}
-          iconRight={ChevronRightIcon}
+          iconLeft={Lock01}
+          iconRight={ChevronRight}
           title={t("Change password")}
           subtitle={
             allBackedUp
@@ -33,8 +34,8 @@ const Content = () => {
           disabled={!allBackedUp}
         />
         <CtaButton
-          iconLeft={ClockIcon}
-          iconRight={ChevronRightIcon}
+          iconLeft={Clock}
+          iconRight={ChevronRight}
           title={t("Auto-lock timer")}
           subtitle={t("Set a timer to automatically lock your Taostats wallet")}
           to={`/settings/security-privacy-settings/autolock`}
@@ -44,8 +45,4 @@ const Content = () => {
   )
 }
 
-export const SecurityPrivacyPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const SecurityPrivacyPage = () => <Content />

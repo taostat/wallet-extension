@@ -1,14 +1,12 @@
 import { isEthereumAddress } from "@polkadot/util-crypto"
 import { bind } from "@react-rxjs/core"
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  EyeIcon,
-  PencilIcon,
-  PlusIcon,
-  SettingsIcon,
-} from "@taostats-wallet/icons"
+import { PencilIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Eye } from "@untitledui/icons/Eye"
+import { Plus } from "@untitledui/icons/Plus"
+import { Settings01 } from "@untitledui/icons/Settings01"
 import {
   Account,
   AccountsCatalogTree,
@@ -29,20 +27,21 @@ import { SearchInput } from "@taostats/components/SearchInput"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
-import { AllAccountsHeader } from "@ui/apps/popup/components/AllAccountsHeader"
+import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { AccountFolderIcon } from "@ui/domains/Account/AccountFolderIcon"
 import { AccountIconCopyAddressButton } from "@ui/domains/Account/AccountIconCopyAddressButton"
-import { AccountsLogoStack } from "@ui/domains/Account/AccountsLogoStack"
 import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { CurrentAccountAvatar } from "@ui/domains/Account/CurrentAccountAvatar"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { GetStarted } from "@ui/domains/Portfolio/GetStarted/GetStarted"
+import { PortfolioAccountRow } from "@ui/domains/Portfolio/PortfolioAccountRow"
 import { PortfolioToolbarButton } from "@ui/domains/Portfolio/PortfolioToolbarButton"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioAccounts } from "@ui/hooks/usePortfolioAccounts"
 import { useBalances } from "@ui/state"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 import { AuthorisedSiteToolbar } from "../../components/AuthorisedSiteToolbar"
 import { PopupHomeBanners } from "../../components/banners/PopupHomeBanners"
@@ -95,27 +94,17 @@ const FolderButton: FC<{ option: FolderAccountOption }> = ({ option }) => {
   }, [navigate, option])
 
   return (
-    <button
-      type="button"
-      tabIndex={0}
-      className={classNames(
-        "text-body-secondary bg-black-secondary hover:bg-grey-800 flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
-      )}
+    <PortfolioAccountRow
+      label={
+        <div className="flex items-center gap-1">
+          <span className="truncate">{option.name}</span>
+        </div>
+      }
+      logo={<AccountFolderIcon className="text-[40px]" />}
+      fiat={<Fiat amount={option.total} isBalance noCountUp />}
       onClick={handleClick}
-    >
-      <div className="flex flex-col justify-center text-xl">
-        <AccountFolderIcon />
-      </div>
-      <div className="flex grow flex-col items-start justify-center gap-1 overflow-hidden">
-        <div className="text-body flex w-full items-center gap-3 text-base">
-          <div className="truncate">{option.name}</div>
-        </div>
-        <div className="text-body-secondary flex w-full truncate text-left text-sm">
-          <Fiat amount={option.total} isBalance />
-        </div>
-      </div>
-      <AccountsLogoStack className="text-sm" addresses={option.addresses} />
-    </button>
+      right={<ChevronRight className="text-fg-tertiary size-4" />}
+    />
   )
 }
 
@@ -132,55 +121,41 @@ const AccountButton: FC<{ option: AccountAccountOption }> = ({ option }) => {
   }, [genericEvent, navigate, option])
 
   return (
-    <div
-      className={classNames(
-        "group",
-        "bg-black-secondary hover:bg-grey-800 relative h-[5.9rem] w-full rounded-sm",
-      )}
-    >
-      <button
-        type="button"
-        tabIndex={0}
-        className={classNames(
-          "text-body-secondary flex h-[5.9rem] w-full cursor-pointer items-center gap-6 overflow-hidden rounded-sm px-6 hover:text-white",
-        )}
-        onClick={handleClick}
-      >
-        <div className="flex flex-col justify-center text-xl">
-          <div className="size-[3.2rem]"></div>
-        </div>
-        <div className="flex grow flex-col items-start justify-center gap-1 overflow-hidden">
-          <div className="text-body flex w-full items-center gap-3 text-base">
+    <div className="group relative w-full">
+      <PortfolioAccountRow
+        label={
+          <div className="flex w-full items-center gap-1">
             <div className="truncate">{option.name}</div>
             <AccountTypeIcon
-              className="text-primary"
+              className="text-fg-brand shrink-0"
               type={option.accountType}
               signetUrl={option.signetUrl}
             />
           </div>
-          <div className="text-body-secondary flex w-full truncate text-left text-sm">
-            <Fiat amount={option.total} isBalance className="group-hover:hidden" />
+        }
+        logo={<div className="size-10 shrink-0" />}
+        fiat={
+          <>
+            <Fiat amount={option.total} isBalance noCountUp className="group-hover:hidden" />
             <Address
-              className="hidden truncate group-hover:block"
+              className="hidden group-hover:block"
               address={option.address}
               genesisHash={option.genesisHash}
               noTooltip
               startCharCount={6}
               endCharCount={6}
             />
-          </div>
-        </div>
-
-        <div className="text-lg">
-          <ChevronRightIcon />
-        </div>
-      </button>
-      {/* Absolute positioning based on parent, to prevent a "button inside a button" situation */}
-      <div className="absolute left-6 top-0 flex h-[5.9rem] flex-col justify-center">
-        <div className="relative size-[3.2rem] text-xl">
-          <AccountIconCopyAddressButton address={option.address} genesisHash={option.genesisHash} />
-        </div>
-      </div>
+          </>
+        }
+        onClick={handleClick}
+        right={<ChevronRight className="text-fg-tertiary size-4" />}
+      />
+      <AccountIconCopyAddressButton
+        address={option.address}
+        genesisHash={option.genesisHash}
+        className="absolute left-2 top-1/2 -translate-y-1/2 text-[40px]"
+        tooltipPlacement="bottom"
+      />
     </div>
   )
 }
@@ -197,7 +172,7 @@ const AccountsToolbar = () => {
       action: "Add account button",
     })
     api.dashboardOpen("/accounts/add")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleManageAccountsClick = useCallback(() => {
@@ -219,12 +194,12 @@ const AccountsToolbar = () => {
   const { open: openSettings } = useQuickSettingsOpenClose()
 
   return (
-    <div className="flex w-full items-center justify-between gap-4 overflow-hidden">
+    <div className="flex w-full items-center justify-between gap-2 overflow-hidden">
       <div className="flex grow items-center overflow-hidden">
         <SearchInput
           containerClassName={classNames(
-            "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-[3.2rem] w-full border border-field text-sm !px-4",
-            "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
+            "!bg-tertiary ring-transparent focus-within:border-primary h-9 w-full rounded-md border border-transparent text-sm !px-2",
+            "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-4",
           )}
           placeholder={t("Search account or folder")}
           onChange={setPortfolioAccountsSearch}
@@ -234,7 +209,7 @@ const AccountsToolbar = () => {
       <Tooltip placement="bottom">
         <TooltipTrigger asChild>
           <PortfolioToolbarButton onClick={handleAddAccountClick}>
-            <PlusIcon />
+            <Plus />
           </PortfolioToolbarButton>
         </TooltipTrigger>
         <TooltipContent>{t("Add account")}</TooltipContent>
@@ -250,7 +225,7 @@ const AccountsToolbar = () => {
       <Tooltip placement="bottom-end">
         <TooltipTrigger asChild>
           <PortfolioToolbarButton onClick={openSettings}>
-            <SettingsIcon />
+            <Settings01 />
           </PortfolioToolbarButton>
         </TooltipTrigger>
         <TooltipContent>{t("Settings")}</TooltipContent>
@@ -261,7 +236,7 @@ const AccountsToolbar = () => {
 
 const AccountsList = ({ className, options }: { className?: string; options: AccountOption[] }) => {
   return (
-    <div className={classNames("flex w-full flex-col gap-4", className)}>
+    <div className={classNames("flex w-full flex-col gap-2", className)}>
       {options.map((option) =>
         option.type === "folder" ? (
           <FolderButton key={option.id} option={option} />
@@ -287,36 +262,51 @@ const Accounts = ({
   watchedOptions: AccountOption[]
 }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+
+  const handlePortfolioNavigate = useCallback(() => {
+    navigate("/portfolio/tokens")
+  }, [navigate])
 
   const hasPortfolioOptions = portfolioOptions.length > 0
   const hasWatchedOptions = watchedOptions.length > 0
   const hasAnyAccount = accounts.length > 0
+  const disabled = !accounts.length
 
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col gap-4 px-2">
+      {!folder && <AuthorisedSiteToolbar />}
       {folder ? (
         <FolderHeader folder={folder} folderTotal={folderTotal} />
       ) : (
         <>
-          <AllAccountsHeader accounts={accounts} />
+          <DashboardPortfolioHeader
+            variant="popup"
+            disabled={disabled}
+            onNavigate={handlePortfolioNavigate}
+          />
           <PopupHomeBanners />
         </>
       )}
 
       {hasAnyAccount && <AccountsToolbar />}
 
+      {hasAnyAccount && !folder && (
+        <div className="text-fg-primary text-md font-bold">{t("Accounts")}</div>
+      )}
+
       {hasPortfolioOptions && <AccountsList options={portfolioOptions} />}
 
       {hasWatchedOptions && (
-        <div className={classNames("text-body-secondary flex items-center gap-2 font-bold")}>
-          <EyeIcon />
+        <div className={classNames("text-fg-secondary flex items-center gap-1 font-bold")}>
+          <Eye />
           <div>{t("Followed only")}</div>
         </div>
       )}
       {hasWatchedOptions && <AccountsList options={watchedOptions} />}
 
       {hasAnyAccount && !portfolioOptions.length && !watchedOptions.length && (
-        <div className="bg-grey-900 text-body-disabled flex h-[10rem] items-center justify-center rounded-sm text-xs opacity-50">
+        <div className="bg-app-bg text-fg-disabled flex h-[100px] items-center justify-center rounded-sm text-xs opacity-50">
           {t("No accounts found")}
         </div>
       )}
@@ -328,16 +318,16 @@ const FolderHeader = ({ folder, folderTotal }: { folder: TreeFolder; folderTotal
   const navigate = useNavigate()
 
   return (
-    <div className={"mb-6 flex w-full items-center gap-4 overflow-hidden"}>
+    <div className={"mb-3 flex w-full items-center gap-2 overflow-hidden"}>
       <IconButton onClick={() => navigate(-1)}>
-        <ChevronLeftIcon />
+        <ChevronLeft />
       </IconButton>
       <div className="flex flex-col justify-center">
         <CurrentAccountAvatar className="!text-2xl" />
       </div>
-      <div className="flex grow flex-col gap-1 overflow-hidden pl-2 text-sm">
-        <div className="flex items-center gap-3">
-          <div className="text-body-secondary truncate">{folder.name}</div>
+      <div className="flex grow flex-col gap-0.5 overflow-hidden pl-1 text-sm">
+        <div className="flex items-center gap-1.5">
+          <div className="text-fg-secondary truncate">{folder.name}</div>
         </div>
         <div className="truncate">
           <Fiat amount={folderTotal} isBalance />
@@ -460,15 +450,20 @@ export const PortfolioAccounts = () => {
 
   return (
     <>
-      {!folder && <AuthorisedSiteToolbar />}
-      <Accounts
-        accounts={accounts}
-        folder={folder}
-        folderTotal={folderTotal}
-        portfolioOptions={portfolioOptions}
-        watchedOptions={watchedOptions}
-      />
-      {!search && <GetStarted />}
+      <div className="flex w-full flex-col gap-4">
+        <Accounts
+          accounts={accounts}
+          folder={folder}
+          folderTotal={folderTotal}
+          portfolioOptions={portfolioOptions}
+          watchedOptions={watchedOptions}
+        />
+        {!search && (
+          <div className="px-2">
+            <GetStarted />
+          </div>
+        )}
+      </div>
       {fetchBalances && (
         <Suspense fallback={<SuspenseTracker name="BalancesLoader" />}>
           <BalancesLoader />

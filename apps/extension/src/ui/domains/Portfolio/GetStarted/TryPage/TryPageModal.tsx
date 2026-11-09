@@ -24,7 +24,7 @@ export const TryPageModal = () => {
         centerTitle
         title={<>{t("Try Taostats Wallet")}</>}
         onClose={close}
-        className="h-[60rem] w-[40rem]"
+        className="h-[600px] w-[400px]"
       >
         <ScrollContainer className="h-full w-full">
           <TryPageContent analytics={ANALYTICS_PAGE} />

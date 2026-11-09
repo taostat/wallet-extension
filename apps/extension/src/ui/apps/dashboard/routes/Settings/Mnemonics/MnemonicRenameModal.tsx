@@ -108,7 +108,7 @@ const MnemonicRenameForm: FC<{
           data-lpignore
         />
       </FormFieldContainer>
-      <div className="mt-12 grid grid-cols-2 gap-8">
+      <div className="mt-6 grid grid-cols-2 gap-4">
         <Button onClick={onCancel}>{t("Cancel")}</Button>
         <Button type="submit" primary disabled={!isValid}>
           {t("Rename")}

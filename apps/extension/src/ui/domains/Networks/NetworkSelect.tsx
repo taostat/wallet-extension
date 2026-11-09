@@ -7,7 +7,7 @@ import { NetworkLogo } from "./NetworkLogo"
 
 const renderNetwork = (network: Network) => {
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-2.5">
       <NetworkLogo networkId={network.id} className="text-[1.25em]" />
       <span>{network.name}</span>
     </div>
@@ -59,7 +59,7 @@ export const NetworkSelect: FC<{
       renderItem={renderNetwork}
       value={selected}
       onChange={handleChange}
-      className={classNames("[&>div>button]:h-[4.6rem]", className)}
+      className={classNames("[&>div>button]:h-[46px]", className)}
     />
   )
 }

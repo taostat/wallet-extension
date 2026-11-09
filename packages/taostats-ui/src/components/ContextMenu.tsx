@@ -1,5 +1,5 @@
-import { CheckIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
 import {
   ButtonHTMLAttributes,
   FC,
@@ -7,6 +7,7 @@ import {
   HTMLAttributes,
   MouseEvent,
   ReactNode,
+  SVGProps,
   useCallback,
 } from "react"
 
@@ -33,7 +34,7 @@ export const ContextMenuContent: FC<HTMLAttributes<HTMLDivElement>> = (props) =>
   return (
     <PopoverContent
       {...props}
-      className="border-grey-800 z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg"
+      className="border-primary bg-menu-bg text-fg-primary shadow-menu-dropdown px-xs py-xs gap-xxs z-50 flex w-min flex-col whitespace-nowrap rounded-md border text-left text-sm backdrop-blur-md"
     />
   )
 }
@@ -59,7 +60,7 @@ export const ContextMenuItem: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
       {...props}
       onClick={handleClick}
       className={classNames(
-        "enabled:hover:bg-grey-800 focus-visible:bg-grey-800 disabled:text-body-disabled rounded-xs h-20 p-6 text-left",
+        "enabled:hover:bg-tertiary focus-visible:bg-tertiary disabled:text-fg-disabled text-fg-primary px-md py-sm flex min-h-8 items-center rounded-sm text-left",
         className,
       )}
     />
@@ -73,12 +74,36 @@ export const ContextMenuOptionItem: FC<{
 }> = ({ label, selected, onClick }) => (
   <ContextMenuItem
     className={classNames(
-      "flex items-center justify-between gap-16",
-      selected ? "text-body" : "text-body-secondary",
+      "gap-xl flex items-center justify-between",
+      selected ? "text-fg-brand" : "text-fg-secondary",
     )}
     onClick={onClick}
   >
     <div>{label}</div>
-    <CheckIcon className={classNames(selected ? "visible" : "invisible")} />
+    <Check className={classNames(selected ? "visible" : "invisible")} />
+  </ContextMenuItem>
+)
+
+/**
+ * Styled context menu row with a left-aligned mono/uppercase label and a
+ * right-aligned icon. Shared across the account and recovery-phrase menus.
+ */
+export const ContextMenuActionItem: FC<
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    label: ReactNode
+    icon: FC<SVGProps<SVGSVGElement>>
+    destructive?: boolean
+  }
+> = ({ label, icon: Icon, destructive, className, ...props }) => (
+  <ContextMenuItem
+    {...props}
+    className={classNames(
+      "gap-xl min-w-[220px] justify-between font-mono text-xs uppercase tracking-wide transition-colors duration-300",
+      destructive ? "text-fg-error hover:text-fg-error" : "text-fg-primary",
+      className,
+    )}
+  >
+    <span>{label}</span>
+    <Icon className="size-4 shrink-0" />
   </ContextMenuItem>
 )

@@ -44,11 +44,11 @@
       "dependsOn": ["//#build:packages"],
       "outputs": ["dist/**"]
     },
-    "build:extension:canary": {
+    "build:extension:internal": {
       "dependsOn": ["//#build:packages"],
       "outputs": ["dist/**"]
     },
-    "build:extension:canary:firefox": {
+    "build:extension:internal:firefox": {
       "dependsOn": ["//#build:packages"],
       "outputs": ["dist/**"]
     },

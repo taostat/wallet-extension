@@ -23,7 +23,7 @@ const ObjectLabel: FC<ObjectLabelProps> = ({ label, displayAsJson, setDisplayAsJ
         onClick={() => setDisplayAsJson(false)}
         className={classNames(
           "cursor-pointer",
-          !displayAsJson ? "text-body" : "hover:text-grey-300 underline",
+          !displayAsJson ? "text-fg-primary" : "hover:text-fg-tertiary underline",
         )}
       >
         YAML
@@ -34,7 +34,7 @@ const ObjectLabel: FC<ObjectLabelProps> = ({ label, displayAsJson, setDisplayAsJ
         onClick={() => setDisplayAsJson(true)}
         className={classNames(
           "cursor-pointer",
-          displayAsJson ? "text-body" : "hover:text-grey-300 underline",
+          displayAsJson ? "text-fg-primary" : "hover:text-fg-tertiary underline",
         )}
       >
         JSON
@@ -70,7 +70,7 @@ export const ViewDetailsTxObject: FC<ViewDetailsTxObjectProps> = ({ label, obj }
         />
       }
     >
-      <CodeBlock className="mt-2" code={code} />
+      <CodeBlock className="mt-1" code={code} />
     </ViewDetailsField>
   )
 }

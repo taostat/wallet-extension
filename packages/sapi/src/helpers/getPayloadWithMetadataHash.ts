@@ -6,6 +6,32 @@ import log from "../log"
 import { getTypeRegistry } from "./getTypeRegistry"
 import { Chain, ChainInfo } from "./types"
 
+type MerkleizedMetadata = ReturnType<typeof merkleizeMetadata>
+
+// The Merkle tree and its digest depend on metadata and spec identity, not on the extrinsic.
+// Building the tree is the slow part; proofs are taken from the cached tree per payload.
+const merkleCache = new WeakMap<
+  Chain,
+  { cacheKey: string; merkleized: MerkleizedMetadata; metadataHash: `0x${string}` }
+>()
+
+const getMerkleizedMetadata = (chain: Chain, chainInfo: ChainInfo) => {
+  const { decimals, symbol: tokenSymbol } = chain.token
+  const { base58Prefix, specName, specVersion } = chainInfo
+  const cacheKey = `${specName}:${specVersion}:${tokenSymbol}:${decimals}:${base58Prefix}`
+  const cached = merkleCache.get(chain)
+  if (cached?.cacheKey === cacheKey) return cached
+
+  const metadataHashInputs = { tokenSymbol, decimals, base58Prefix, specName, specVersion }
+  const merkleized = merkleizeMetadata(chain.hexMetadata, metadataHashInputs)
+  const metadataHash = toHex(merkleized.digest()) as `0x${string}`
+  log.log("metadataHash", metadataHash, metadataHashInputs)
+
+  const entry = { cacheKey, merkleized, metadataHash }
+  merkleCache.set(chain, entry)
+  return entry
+}
+
 export const getPayloadWithMetadataHash = (
   chain: Chain,
   chainInfo: ChainInfo,
@@ -18,14 +44,7 @@ export const getPayloadWithMetadataHash = (
     }
 
   try {
-    const { decimals, symbol: tokenSymbol } = chain.token
-    const { base58Prefix, specName, specVersion } = chainInfo
-    const metadataHashInputs = { tokenSymbol, decimals, base58Prefix, specName, specVersion }
-
-    // since ultimately this needs a V15 object, would be nice if this accepted one directly as input
-    const merkleizedMetadata = merkleizeMetadata(chain.hexMetadata, metadataHashInputs)
-    const metadataHash = toHex(merkleizedMetadata.digest()) as `0x${string}`
-    log.log("metadataHash", metadataHash, metadataHashInputs)
+    const { merkleized: merkleizedMetadata, metadataHash } = getMerkleizedMetadata(chain, chainInfo)
 
     const payloadWithMetadataHash = {
       ...payload,

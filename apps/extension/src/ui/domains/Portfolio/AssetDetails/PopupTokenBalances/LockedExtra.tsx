@@ -1,6 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { ZapOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ZapOff } from "@untitledui/icons/ZapOff"
 import { formatDuration, intervalToDuration } from "date-fns"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -63,12 +63,12 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
           <Tooltip>
             <TooltipTrigger
               className={classNames(
-                "text-body-secondary bg-body/10 h-10 rounded-sm px-3 text-xs opacity-60",
+                "text-fg-secondary bg-fg-primary/10 h-5 rounded-sm px-1.5 text-xs opacity-60",
                 isLoading && "animate-pulse",
               )}
             >
-              <div className="flex items-center gap-2">
-                <ZapOffIcon className="shrink-0 text-xs" />
+              <div className="flex items-center gap-1">
+                <ZapOff className="shrink-0 text-xs" />
                 <div>{t("Unstaking")}</div>
               </div>
             </TooltipTrigger>

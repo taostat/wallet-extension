@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/browser"
 import { FC, useMemo } from "react"
-import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
+import { Pill, Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
 import { Favicon } from "./Favicon"
 
@@ -21,10 +21,16 @@ export const AppPill: FC<{ url?: string }> = ({ url }) => {
   return (
     <Tooltip>
       <TooltipTrigger>
-        <div className="text-body-secondary bg-grey-800 flex max-w-[22rem] items-center gap-2 rounded-3xl px-4 py-2 text-sm font-light">
+        <Pill
+          as="div"
+          variant="bordered"
+          shape="soft"
+          size="xs"
+          className="gap-xxs max-w-[220px] text-sm font-light"
+        >
           <Favicon url={url} className="text-base" />
           <span className="overflow-hidden text-ellipsis whitespace-nowrap">{host}</span>
-        </div>
+        </Pill>
       </TooltipTrigger>
       <TooltipContent>{url}</TooltipContent>
     </Tooltip>

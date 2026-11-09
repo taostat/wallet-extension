@@ -1,13 +1,12 @@
-import { InfoIcon } from "@taostats-wallet/icons"
-import { classNames } from "@taostats-wallet/util"
-import { isAccountPlatformCompatibleWithNetwork } from "extension-core"
-import { ReactNode, useCallback, useMemo } from "react"
+import { AnnotationDots } from "@untitledui/icons/AnnotationDots"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Eye } from "@untitledui/icons/Eye"
+import { FilePlus01 } from "@untitledui/icons/FilePlus01"
+import { Link01 } from "@untitledui/icons/Link01"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
+import { CtaButton } from "taostats-ui"
 
-import { AllNetworksLogoStack } from "@ui/domains/Account/AllNetworksLogoStack"
-import { useNetworks } from "@ui/state"
+import { TaostatsIcon } from "@taostats/theme/logos"
 import { getIsLedgerCapable } from "@ui/util/getIsLedgerCapable"
 
 import { useAccountCreateContext } from "./context"
@@ -22,8 +21,8 @@ export const AccountCreateContainer = ({ className }: { className?: string }) =>
   const MethodButtonsComponent = methodButtonsFromMethodType[methodType] ?? null
 
   return (
-    <div className={classNames("justify-left flex flex-col gap-8", className)}>
-      <div className="border-grey-750 -mt-8 grid grid-cols-2 items-start gap-8 rounded border p-10">
+    <div className={className}>
+      <div className="flex flex-col gap-2">
         <MethodButtonsComponent />
       </div>
     </div>
@@ -36,44 +35,41 @@ function NewAccountMethodButtons() {
 
   return (
     <>
-      <AccountTypeMethodButton
-        title={
-          <SelectAccountTypeButtonHeader
-            title={t("New Bittensor Account")}
-            tooltip={t("Continue to create your new Bittensor account")}
-          />
-        }
-        to={`/accounts/add/derived?platform=polkadot`}
+      <CtaButton
+        iconLeft={TaostatsIcon}
+        iconRight={ChevronRight}
+        title={t("New Bittensor Account")}
+        subtitle={t("New Bittensor Account")}
+        to="/accounts/add/derived?platform=polkadot"
       />
-      <AccountCreateMethodButton
+      <CtaButton
+        iconLeft={AnnotationDots}
+        iconRight={ChevronRight}
         title={t("Import via Recovery Phrase")}
-        subtitle={t("Import your Bittensor account")}
-        to={`/accounts/add/mnemonic`}
+        subtitle={t("Import with 12 or 24 word recovery phrase")}
+        to="/accounts/add/mnemonic"
       />
-      <AccountCreateMethodButton
+      <CtaButton
+        iconLeft={FilePlus01}
+        iconRight={ChevronRight}
         title={t("Import via JSON")}
         subtitle={t("Import your Taostats Wallet file")}
-        to={`/accounts/add/json`}
+        to="/accounts/add/json"
       />
-      <AccountTypeMethodButton
-        title={
-          <SelectAccountTypeButtonHeader
-            title={t("Watch Bittensor Account")}
-            tooltip={t("Continue to watch an existing Bittensor account")}
-          />
-        }
-        to={`/accounts/add/watched?platform=polkadot`}
-        isWatchSection
+      <CtaButton
+        iconLeft={Eye}
+        iconRight={ChevronRight}
+        title={t("Import Read-only Wallet")}
+        subtitle={t("Watch an existing Bittensor account")}
+        to="/accounts/add/watched?platform=polkadot"
       />
-      <AccountCreateMethodButton
+      <CtaButton
+        iconLeft={Link01}
+        iconRight={ChevronRight}
         title={t("Connect Ledger")}
-        subtitle={
-          isLedgerCapable
-            ? t("Connect your ledger to your Bittensor account")
-            : t("Not supported on this browser")
-        }
+        subtitle={isLedgerCapable ? t("Connect your ledger") : t("Not supported on this browser")}
         disabled={!isLedgerCapable}
-        to={`/accounts/add/ledger`}
+        to="/accounts/add/ledger"
       />
     </>
   )
@@ -84,116 +80,13 @@ function ConnectAccountMethodButtons() {
   const isLedgerCapable = getIsLedgerCapable()
 
   return (
-    <>
-      <AccountCreateMethodButton
-        title={t("Connect Ledger")}
-        subtitle={
-          isLedgerCapable
-            ? t("Connect your ledger to your Bittensor account")
-            : t("Not supported on this browser")
-        }
-        disabled={!isLedgerCapable}
-        to={`/accounts/add/ledger`}
-      />
-    </>
-  )
-}
-
-function SelectAccountTypeButtonHeader({ title, tooltip }: { title: string; tooltip?: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      {title}
-      <Tooltip placement="bottom">
-        <TooltipTrigger asChild>
-          <div>
-            <InfoIcon className="text-sm" />
-          </div>
-        </TooltipTrigger>
-        {!!tooltip && (
-          <TooltipContent>
-            <div>{tooltip}</div>
-          </TooltipContent>
-        )}
-      </Tooltip>
-    </div>
-  )
-}
-
-function AccountTypeMethodButton({
-  title,
-  disabled,
-  to,
-  supportedNetworks,
-  isWatchSection = false,
-}: {
-  title: ReactNode
-  disabled?: boolean
-  to?: string
-  supportedNetworks?: ReactNode
-  isWatchSection?: boolean
-}) {
-  const { t } = useTranslation()
-
-  return (
-    <AccountCreateMethodButton
-      title={title}
-      subtitle={
-        supportedNetworks ?? (
-          <div className="flex items-center gap-2">
-            <div>
-              {isWatchSection
-                ? t("Click here to watch en existing Bittensor account")
-                : t("Click here to create your new Bittensor account")}
-            </div>
-          </div>
-        )
-      }
-      to={to}
-      disabled={disabled}
+    <CtaButton
+      iconLeft={Link01}
+      iconRight={ChevronRight}
+      title={t("Connect Ledger")}
+      subtitle={isLedgerCapable ? t("Connect your ledger") : t("Not supported on this browser")}
+      disabled={!isLedgerCapable}
+      to="/accounts/add/ledger"
     />
-  )
-}
-
-function AccountCreateMethodButton({
-  title,
-  subtitle,
-  disabled,
-  to,
-}: {
-  title: ReactNode
-  subtitle: ReactNode
-  disabled?: boolean
-  to?: string
-}) {
-  const navigate = useNavigate()
-  const handleClick = useCallback(() => to !== undefined && navigate(to), [navigate, to])
-
-  const getNetworks = useNetworks()
-
-  const supportedChainIds = useMemo(
-    () =>
-      getNetworks
-        .filter((n) => isAccountPlatformCompatibleWithNetwork(n, "polkadot"))
-        .map((n) => n.id),
-    [getNetworks],
-  )
-
-  return (
-    <button
-      type="button"
-      disabled={disabled}
-      onClick={handleClick}
-      className={classNames(
-        "relative flex flex-col gap-12 rounded bg-[#1e1e1e] p-10",
-        disabled && "text-body-secondary opacity-40",
-        !disabled && "text-body cursor-pointer hover:bg-[#292929] focus:bg-[#292929]",
-      )}
-    >
-      <span className="w-full pb-3 text-start">{title}</span>
-      <span className="text-body-secondary flex items-center gap-2 pr-8 text-sm">
-        <AllNetworksLogoStack className="text-md" ids={supportedChainIds} max={5} />
-        <span className="text-xs">{subtitle}</span>
-      </span>
-    </button>
   )
 }

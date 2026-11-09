@@ -1,5 +1,6 @@
-import { InfoIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { FC, PropsWithChildren } from "react"
 
 type IconSize = "xl" | "lg" | "md" | "base" | "sm"
@@ -36,26 +37,26 @@ export const SignAlertMessage: FC<SignAlertMessageProps> = ({
   return (
     <div
       className={classNames(
-        "bg-alert-warn/10 flex w-full items-center gap-4 rounded-sm p-5",
+        "bg-orange-secondary/10 flex w-full items-center gap-2 rounded-sm p-2.5",
         className,
       )}
     >
       <div
         className={classNames(
-          type === "error" ? "text-alert-warn" : "text-body-secondary",
+          type === "error" ? "text-fg-orange" : "text-fg-secondary",
           getIconSizeClass(iconSize),
         )}
       >
         {processing ? (
-          <LoaderIcon className="animate-spin-slow transition-none" />
+          <Loading01 className="animate-spin-slow transition-none" />
         ) : (
-          <InfoIcon className="transition-none" />
+          <InfoCircle className="transition-none" />
         )}
       </div>
       <div
         className={classNames(
           "scrollable scrollable-700 grow overflow-y-auto text-left text-xs leading-[140%]",
-          type === "error" ? "text-alert-warn" : "text-body-secondary",
+          type === "error" ? "text-fg-orange" : "text-fg-secondary",
         )}
       >
         {children}

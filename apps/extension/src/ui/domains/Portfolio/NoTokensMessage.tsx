@@ -1,4 +1,4 @@
-import { CopyIcon } from "@taostats-wallet/icons"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton } from "taostats-ui"
@@ -24,7 +24,7 @@ export const NoTokensMessage = ({ symbol }: NoTokensMessageProps) => {
   }, [selectedAccount?.address, genericEvent, open])
 
   return (
-    <div className="bg-field text-body-secondary flex flex-col items-center justify-center rounded py-36">
+    <div className="bg-secondary text-fg-secondary flex flex-col items-center justify-center rounded py-[72px]">
       <div>
         {selectedAccount
           ? t("You don't have any {{symbol}} in this account", { symbol })
@@ -32,8 +32,8 @@ export const NoTokensMessage = ({ symbol }: NoTokensMessageProps) => {
             ? t("You don't have any {{symbol}} in this folder", { symbol })
             : t("You don't have any {{symbol}} in Taostats", { symbol })}
       </div>
-      <div className="mt-12 flex justify-center gap-4">
-        <PillButton size="sm" icon={CopyIcon} onClick={handleCopy}>
+      <div className="mt-6 flex justify-center gap-2">
+        <PillButton size="sm" icon={Copy01} onClick={handleCopy}>
           {t("Copy Address")}
         </PillButton>
       </div>

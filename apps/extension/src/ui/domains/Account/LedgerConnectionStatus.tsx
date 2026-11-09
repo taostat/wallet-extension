@@ -1,5 +1,7 @@
-import { CheckCircleIcon, LoaderIcon, XCircleIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
+import { XCircle } from "@untitledui/icons/XCircle"
 import { useTranslation } from "react-i18next"
 
 import { LedgerStatus } from "@ui/hooks/ledger/common"
@@ -20,7 +22,7 @@ const wrapStrong = (text: string) => {
   return text.split(splitter).map((str, i) => {
     const match = extractor.exec(str)
     return match ? (
-      <strong key={i} className="text-grey-300 p-0 capitalize">
+      <strong key={i} className="text-fg-tertiary p-0 capitalize">
         {match[1]}
       </strong>
     ) : (
@@ -42,28 +44,26 @@ export const LedgerConnectionStatus = ({
   return (
     <div
       className={classNames(
-        "text-body-secondary bg-grey-850 flex h-28 w-full items-center gap-4 rounded-sm p-8",
+        "text-fg-secondary bg-secondary flex h-14 w-full items-center gap-2 rounded-sm p-4",
         className,
       )}
     >
       {status === "ready" && (
-        <CheckCircleIcon className="text-alert-success min-w-[1em] shrink-0 text-[2rem]" />
+        <CheckCircle className="text-fg-success min-w-[1em] shrink-0 text-[20px]" />
       )}
       {status === "warning" && (
-        <XCircleIcon className="text-alert-warn min-w-[1em] shrink-0 text-[2rem]" />
+        <XCircle className="text-fg-orange min-w-[1em] shrink-0 text-[20px]" />
       )}
-      {status === "error" && (
-        <XCircleIcon className="text-alert-error min-w-[1em] shrink-0 text-[2rem]" />
-      )}
+      {status === "error" && <XCircle className="text-fg-error min-w-[1em] shrink-0 text-[20px]" />}
       {status === "connecting" && (
-        <LoaderIcon className="animate-spin-slow min-w-[1em] shrink-0 text-[2rem] text-white" />
+        <Loading01 className="animate-spin-slow min-w-[1em] shrink-0 text-[20px] text-white" />
       )}
-      <div className="grow text-left leading-[2rem]">{wrapStrong(message)}</div>
+      <div className="grow text-left leading-[20px]">{wrapStrong(message)}</div>
       {!!onRetryClick && (
         <button
           type="button"
           onClick={onRetryClick}
-          className="bg-grey-800 hover:bg-grey-750 text-body border-body-disabled hover:border-body-inactive h-20 rounded border px-8"
+          className="bg-secondary hover:bg-tertiary text-fg-primary border-primary hover:border-primary h-10 rounded border px-4"
         >
           {t("Retry")}
         </button>

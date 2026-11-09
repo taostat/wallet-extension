@@ -65,14 +65,14 @@ export const AccountPlatformDropdown: FC<{
       renderItem={renderPlatform}
       className={className}
       placeholder={t("Select account platform")}
-      buttonClassName="px-12"
-      optionClassName="px-12"
+      buttonClassName="px-6"
+      optionClassName="px-6"
     />
   )
 }
 
 const renderPlatform = (item: AccountPlatformOption) => (
-  <div className="flex items-center gap-5">
+  <div className="flex items-center gap-2.5">
     {item.icon}
     <span>{item.title}</span>
   </div>

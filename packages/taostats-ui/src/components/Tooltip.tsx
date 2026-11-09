@@ -3,7 +3,7 @@ import {
   autoUpdate,
   flip,
   FloatingPortal,
-  offset,
+  offset as offsetMiddleware,
   shift,
   useDismiss,
   useFloating,
@@ -31,6 +31,7 @@ interface TooltipOptions {
   open?: boolean
   onOpenChange?: (open: boolean) => void
   delay?: number
+  offset?: number
 }
 
 /** Needed because of https://github.com/microsoft/TypeScript/issues/47663#issuecomment-1519138189 */
@@ -46,6 +47,7 @@ export function useTooltip({
   open: controlledOpen,
   onOpenChange: setControlledOpen,
   delay = 250,
+  offset = 5,
 }: TooltipOptions = {}): UseTooltipReturnType {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
 
@@ -58,7 +60,7 @@ export function useTooltip({
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(5),
+      offsetMiddleware(offset),
       flip({
         fallbackAxisSideDirection: "start",
       }),
@@ -154,7 +156,7 @@ export const TooltipTrigger = forwardRef<
 export const TooltipContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
   function TooltipContent(
     {
-      className = "rounded-xs text-body-secondary border-grey-700 z-20 border-[0.5px] bg-black p-3 text-xs shadow",
+      className = "rounded-md text-fg-secondary border-primary bg-tooltip-bg z-20 border p-xs text-xs shadow-menu-dropdown",
       ...props
     },
     propRef,

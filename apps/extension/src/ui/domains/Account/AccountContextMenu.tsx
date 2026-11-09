@@ -1,12 +1,20 @@
-import { MoreHorizontalIcon } from "@taostats-wallet/icons"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Download01 } from "@untitledui/icons/Download01"
+import { Edit01 } from "@untitledui/icons/Edit01"
+import { Eye } from "@untitledui/icons/Eye"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { Send01 } from "@untitledui/icons/Send01"
+import { Settings01 } from "@untitledui/icons/Settings01"
+import { XClose } from "@untitledui/icons/XClose"
 import { Account, getAccountGenesisHash } from "extension-core"
 import React, { FC, forwardRef, Suspense, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import {
   ContextMenu,
+  ContextMenuActionItem,
   ContextMenuContent,
-  ContextMenuItem,
   ContextMenuTrigger,
   PopoverOptions,
 } from "taostats-ui"
@@ -19,6 +27,7 @@ import { useCopyAddressModal } from "@ui/domains/CopyAddress"
 import { useViewOnExplorer } from "@ui/domains/ViewOnExplorer"
 import { useAccountToggleIsPortfolio } from "@ui/hooks/useAccountToggleIsPortfolio"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
+import { useSendFundsPopup } from "@ui/hooks/useSendFundsPopup"
 import { useAccountByAddress, useNetworkByGenesisHash } from "@ui/state"
 
 import { usePortfolioNavigation } from "../Portfolio/usePortfolioNavigation"
@@ -35,7 +44,13 @@ const ViewOnExplorerMenuItem: FC<{ account: Account }> = ({ account }) => {
 
   if (!canOpen) return null
 
-  return <ContextMenuItem onClick={handleClick}>{t("View on Taostats")}</ContextMenuItem>
+  return (
+    <ContextMenuActionItem
+      label={t("View on Taostats")}
+      icon={LinkExternal01}
+      onClick={handleClick}
+    />
+  )
 }
 
 type Props = {
@@ -91,6 +106,12 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
     openCopyAddressModal({ address: account.address, networkId: chain?.id })
   }, [account, analyticsFrom, chain?.id, genericEvent, openCopyAddressModal])
 
+  const { canSendFunds, openSendFundsPopup } = useSendFundsPopup(account)
+  const sendFunds = useCallback(() => {
+    genericEvent("open send funds", { from: analyticsFrom })
+    openSendFundsPopup()
+  }, [analyticsFrom, genericEvent, openSendFundsPopup])
+
   const { open: _openAccountRenameModal } = useAccountRenameModal()
   const canRename = !!account
   const openAccountRenameModal = useCallback(
@@ -117,38 +138,58 @@ export const AccountContextMenu = forwardRef<HTMLElement, Props>(function Accoun
     <ContextMenu placement={placement ?? "bottom-end"}>
       <ContextMenuTrigger
         ref={ref}
-        className="enabled:hover:bg-grey-800 text-body-secondary enabled:hover:text-body disabled:text-body-disabled rounded p-6 disabled:cursor-[inherit]"
+        className="enabled:hover:bg-secondary text-fg-secondary enabled:hover:text-fg-primary disabled:text-fg-disabled rounded p-3 disabled:cursor-[inherit]"
         asChild={!!trigger}
         disabled={disabled}
       >
-        {trigger ? trigger : <MoreHorizontalIcon className="shrink-0" />}
+        {trigger ? trigger : <DotsHorizontal className="shrink-0" />}
       </ContextMenuTrigger>
-      <ContextMenuContent className="border-grey-800 z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left text-sm shadow-lg">
+      <ContextMenuContent>
         <Suspense fallback={<SuspenseTracker name="AccountContextMenu" />}>
           {account && (
             <>
               {canToggleIsPortfolio && (
-                <ContextMenuItem onClick={toggleIsPortfolio}>{toggleLabel}</ContextMenuItem>
+                <ContextMenuActionItem label={toggleLabel} icon={Eye} onClick={toggleIsPortfolio} />
               )}
               {canCopyAddress && (
-                <ContextMenuItem onClick={copyAddress}>{t("Copy address")}</ContextMenuItem>
+                <ContextMenuActionItem
+                  label={t("Copy address")}
+                  icon={Copy01}
+                  onClick={copyAddress}
+                />
+              )}
+              {canSendFunds && (
+                <ContextMenuActionItem label={t("Send funds")} icon={Send01} onClick={sendFunds} />
               )}
               <ViewOnExplorerMenuItem account={account} />
               {canRename && (
-                <ContextMenuItem onClick={openAccountRenameModal}>{t("Rename")}</ContextMenuItem>
+                <ContextMenuActionItem
+                  label={t("Rename")}
+                  icon={Edit01}
+                  onClick={openAccountRenameModal}
+                />
               )}
               {canExport && (
-                <ContextMenuItem onClick={openAccountExportModal}>
-                  {t("Export as JSON")}
-                </ContextMenuItem>
+                <ContextMenuActionItem
+                  label={t("Export as JSON")}
+                  icon={Download01}
+                  onClick={openAccountExportModal}
+                />
               )}
-              <ContextMenuItem onClick={openAccountRemoveModal}>
-                {t("Remove account")}
-              </ContextMenuItem>
+              <ContextMenuActionItem
+                label={t("Remove account")}
+                icon={XClose}
+                destructive
+                onClick={openAccountRemoveModal}
+              />
             </>
           )}
           {!hideManageAccounts && (
-            <ContextMenuItem onClick={goToManageAccounts}>{t("Manage accounts")}</ContextMenuItem>
+            <ContextMenuActionItem
+              label={t("Manage accounts")}
+              icon={Settings01}
+              onClick={goToManageAccounts}
+            />
           )}
         </Suspense>
       </ContextMenuContent>

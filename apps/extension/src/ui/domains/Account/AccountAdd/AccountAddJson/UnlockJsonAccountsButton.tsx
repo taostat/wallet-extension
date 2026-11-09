@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { KeyIcon } from "@taostats-wallet/icons"
+import { Key01 } from "@untitledui/icons/Key01"
 import { log } from "extension-shared"
 import { CSSProperties, FC, useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
@@ -123,28 +123,28 @@ export const UnlockJsonAccountsButton: FC = () => {
       </Button>
       <Modal isOpen={isOpen} onDismiss={close}>
         <ModalDialog title={t("Unlock accounts")} onClose={close}>
-          <div className="text-body-secondary w-full text-right">
+          <div className="text-fg-secondary w-full text-right">
             <Trans
               t={t}
               defaults="<Unlocked>{{unlockedCount}}</Unlocked>/<Selected>{{selectedCount}}</Selected> unlocked"
               values={{ unlockedCount, selectedCount }}
               components={{
-                Unlocked: <span className="text-primary"></span>,
+                Unlocked: <span className="text-fg-brand"></span>,
                 Selected: <span></span>,
               }}
             />
           </div>
-          <div className="bg-grey-800 relative my-4 flex h-5 overflow-hidden rounded-lg">
+          <div className="bg-secondary relative my-2 flex h-2.5 overflow-hidden rounded-lg">
             <div
-              className="bg-grey-700 absolute left-0 top-0 h-5 w-full rounded-lg transition-transform ease-out"
+              className="bg-tertiary absolute left-0 top-0 h-2.5 w-full rounded-lg transition-transform ease-out"
               style={unlockAttemptProgressStyle}
             ></div>
             <div
-              className="bg-primary-500 absolute left-0 top-0 h-5 w-full rounded-lg transition-transform duration-300 ease-out"
+              className="bg-fg-brand absolute left-0 top-0 h-2.5 w-full rounded-lg transition-transform duration-300 ease-out"
               style={progressStyle}
             ></div>
           </div>
-          <div className="text-body-secondary my-16">
+          <div className="text-fg-secondary my-8">
             {t(
               "Enter the passwords for each of the selected accounts, until all accounts unlocked.",
             )}
@@ -152,7 +152,7 @@ export const UnlockJsonAccountsButton: FC = () => {
           <form onSubmit={handleSubmit(submit)} autoComplete="off">
             <FormFieldContainer error={errors.password?.message}>
               <FormFieldInputText
-                before={<KeyIcon className="opacity-50" />}
+                before={<Key01 className="opacity-50" />}
                 {...register("password")}
                 type="password"
                 placeholder={t("Enter password")}
@@ -162,7 +162,7 @@ export const UnlockJsonAccountsButton: FC = () => {
                 after={<CapsLockWarningIcon />}
               />
             </FormFieldContainer>
-            <div className="mt-8">
+            <div className="mt-4">
               <Button type="submit" fullWidth primary disabled={!isValid} processing={isSubmitting}>
                 {t("Unlock")}
               </Button>

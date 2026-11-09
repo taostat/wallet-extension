@@ -25,9 +25,9 @@
       "latestMetadataQrUrl": "https://metadata.novasama.io/qr/node-subtensor_metadata_latest.apng",
       "prefix": 42,
       "rpcs": [
-        "wss://lite.sub.latent.to",
-        "wss://entrypoint-finney.opentensor.ai",
-        "wss://bittensor-finney.api.onfinality.io/ws?apikey=15b864be-512b-4391-aea6-d7a583a9a7e1"
+        "wss://openrpc.taostats.io:443",
+        "wss://rpc.blockmachine.io",
+        "wss://entrypoint-finney.opentensor.ai"
       ],
       "hasCheckMetadataHash": true,
       "topology": {
@@ -54,6 +54,33 @@
       "account": "*25519",
       "prefix": 42,
       "rpcs": ["wss://test.chain.opentensor.ai"],
+      "topology": {
+        "type": "standalone"
+      }
+    },
+    {
+      "id": "hippius",
+      "isDefault": true,
+      "name": "Hippius Mainnet",
+      "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/hippius.webp",
+      "nativeTokenId": "hippius:substrate-native",
+      "nativeCurrency": {
+        "decimals": 18,
+        "symbol": "hALPHA",
+        "name": "hALPHA",
+        "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/hippius.webp"
+      },
+      "themeColor": "#242423",
+      "blockExplorerUrls": ["https://hipstats.com"],
+      "genesisHash": "0x28a6b54823f786c5dd8520ef7bdb0ee2639173815bfbb7719bcf58ef9eb5e1f9",
+      "platform": "polkadot",
+      "chainName": "Hippius Mainnet",
+      "specName": "hippius",
+      "specVersion": 92014,
+      "account": "*25519",
+      "prefix": 42,
+      "rpcs": ["wss://rpc.hippius.network"],
+      "hasCheckMetadataHash": false,
       "topology": {
         "type": "standalone"
       }
@@ -8314,6 +8341,18 @@
       "name": "Bittensor",
       "coingeckoId": "bittensor",
       "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/bittensor.webp",
+      "isDefault": true,
+      "existentialDeposit": "500"
+    },
+    {
+      "id": "hippius:substrate-native",
+      "platform": "polkadot",
+      "networkId": "hippius",
+      "type": "substrate-native",
+      "symbol": "hALPHA",
+      "decimals": 18,
+      "name": "hALPHA",
+      "logo": "https://raw.githubusercontent.com/TalismanSociety/chaindata/main/assets/tokens/coingecko/hippius.webp",
       "isDefault": true,
       "existentialDeposit": "500"
     }

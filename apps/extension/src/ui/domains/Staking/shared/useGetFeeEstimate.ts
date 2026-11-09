@@ -5,9 +5,10 @@ import { ScaleApi } from "@taostats-wallet/sapi"
 type GetNomPoolFeeEstimate = {
   sapi: ScaleApi | undefined | null
   payload: SignerPayloadJSON | undefined
+  retry?: boolean | number
 }
 
-export const useGetFeeEstimate = ({ sapi, payload }: GetNomPoolFeeEstimate) => {
+export const useGetFeeEstimate = ({ sapi, payload, retry }: GetNomPoolFeeEstimate) => {
   return useQuery({
     queryKey: ["feeEstimate", sapi?.id, payload],
     queryFn: () => {
@@ -15,5 +16,6 @@ export const useGetFeeEstimate = ({ sapi, payload }: GetNomPoolFeeEstimate) => {
       return sapi.getFeeEstimate(payload)
     },
     enabled: !!sapi && !!payload,
+    retry,
   })
 }

@@ -39,32 +39,33 @@ export const ViewMnemonic: FC<ShowMnemonicProps> = ({ handleComplete }) => {
   }, [])
 
   return (
-    <div className="flex min-w-[58rem] flex-col gap-6">
-      <span className="text-body-secondary text-sm">
+    <div className="flex w-full flex-col gap-3">
+      <span className="text-fg-secondary text-sm">
         {t("Only reveal your recovery phrase when in a secure location")}
       </span>
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-4">
         <Mnemonic onReveal={handleMnemonicReveal} mnemonic={mnemonic ?? ""} />
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4">
           <Checkbox
             disabled={!canConfirm}
             onChange={handleConfirmToggle}
             checked={mnemonicInfo?.confirmed}
-            className="text-body-secondary hover:text-body gap-8!"
+            className="gap-4"
+            childProps={{ className: "text-fg-tertiary text-sm" }}
           >
             {t("I have backed up my recovery phrase, don't remind me again")}
           </Checkbox>
           <Button
-            primary
             onClick={handleComplete}
             disabled={!mnemonicInfo?.confirmed || !canConfirm}
+            className="!border-0 !bg-fg-brand shadow-none hover:!bg-fg-brand/90 !text-black focus-visible:ring-0"
           >
             {t("Verify my recovery phrase")}
           </Button>
         </div>
       </div>
       <button
-        className="text-grey-300 hover:text-body flex cursor-pointer gap-5 self-center font-bold"
+        className="text-fg-tertiary hover:text-fg-primary flex cursor-pointer gap-2.5 self-center font-bold"
         onClick={close}
         type="button"
       >

@@ -1,6 +1,8 @@
 import { isAddressEqual, normalizeAddress } from "@taostats-wallet/crypto"
-import { ArrowUpLeftIcon, CheckCircleIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ArrowUpLeft } from "@untitledui/icons/ArrowUpLeft"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import {
   ChangeEventHandler,
   FC,
@@ -102,18 +104,18 @@ export const TryPageContent: FC<{
   }, [analytics, close, navigate])
 
   return (
-    <div className="text-body-secondary flex flex-col gap-12 pb-12 text-sm">
-      <div className="flex flex-col gap-8">
-        <div className="leading-paragraph px-16 text-center text-xs">
+    <div className="text-fg-secondary flex flex-col gap-6 pb-6 text-sm">
+      <div className="flex flex-col gap-4">
+        <div className="leading-paragraph px-8 text-center text-xs">
           {t("Explore our features without importing a recovery phrase")}
         </div>
-        <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-          <div className="flex gap-4">
+        <form className="flex flex-col gap-2" onSubmit={onSubmit}>
+          <div className="flex gap-2">
             <div className="relative w-full">
               <input
                 type="text"
                 className={classNames(
-                  "bg-black-secondary text-body placeholder:text-body-disabled w-full rounded px-8 py-6",
+                  "bg-secondary text-fg-primary placeholder:text-fg-disabled w-full rounded px-4 py-3",
                 )}
                 placeholder={t("Enter any wallet address")}
                 value={searchAddress}
@@ -123,29 +125,29 @@ export const TryPageContent: FC<{
 
             <button
               className={classNames(
-                "text-body-disabled border-body-disabled rounded border px-8 py-6",
-                address.length && "bg-primary border-primary hover:bg-primary/95 text-black",
+                "text-fg-disabled border-primary rounded border px-4 py-3",
+                address.length && "bg-fg-brand border-primary hover:bg-fg-brand/95 text-black",
               )}
               disabled={!address.length}
             >
-              {pending ? <LoaderIcon className="animate-spin-slow" /> : t("Add")}
+              {pending ? <Loading01 className="animate-spin-slow" /> : t("Add")}
             </button>
           </div>
-          {error && <div className="text-alert-error text-tiny text-center">{error}</div>}
+          {error && <div className="text-fg-error text-tiny text-center">{error}</div>}
         </form>
       </div>
 
       {SHOW_POPULAR_ACCOUNTS ? (
         <>
-          <div className="flex w-full items-center gap-10">
-            <div className="bg-grey-700 h-[1px] flex-1" />
-            <div className="text-grey-500 text-tiny">
+          <div className="flex w-full items-center gap-5">
+            <div className="bg-tertiary h-[1px] flex-1" />
+            <div className="text-fg-disabled text-tiny">
               {t("Or follow some of the most popular accounts")}
             </div>
-            <div className="bg-grey-700 h-[1px] flex-1" />
+            <div className="bg-tertiary h-[1px] flex-1" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             {POPULAR_ACCOUNTS.map((account, index) => (
               <FollowAccountButton
                 key={index}
@@ -160,14 +162,14 @@ export const TryPageContent: FC<{
       ) : null}
 
       {allAccounts.length > 0 && (
-        <button type="button" className="flex flex-col items-center gap-3" onClick={goToPortfolio}>
-          <div className="text-body-secondary text-xs">
+        <button type="button" className="flex flex-col items-center gap-1.5" onClick={goToPortfolio}>
+          <div className="text-fg-secondary text-xs">
             {allAccounts.length === 1
               ? t("{{number}} Account Added", { number: allAccounts.length })
               : t("{{number}} Accounts Added", { number: allAccounts.length })}
           </div>
-          <div className="text-primary flex items-center gap-2 text-base font-bold">
-            <ArrowUpLeftIcon className="text-lg" /> {t("View in Portfolio")}
+          <div className="text-fg-brand flex items-center gap-1 text-base font-bold">
+            <ArrowUpLeft className="text-lg" /> {t("View in Portfolio")}
           </div>
         </button>
       )}
@@ -214,9 +216,11 @@ const FollowAccountButton = ({
   const content = (
     <>
       <AccountIcon className="text-xl" address={address} />
-      <div className="flex flex-col gap-2">
-        <div className="text-body text-sm">{name ?? <Address address={address} noTooltip />}</div>
-        <div className="text-body-secondary text-xs">
+      <div className="flex flex-col gap-1">
+        <div className="text-fg-primary text-sm">
+          {name ?? <Address address={address} noTooltip />}
+        </div>
+        <div className="text-fg-secondary text-xs">
           {description ?? <Address address={address} noTooltip />}
         </div>
       </div>
@@ -225,10 +229,10 @@ const FollowAccountButton = ({
 
   if (isAdded)
     return (
-      <div className="bg-grey-900 pointer-events-none relative flex items-center gap-4 rounded border border-[#131313] p-8 text-start">
+      <div className="bg-app-bg pointer-events-none relative flex items-center gap-2 rounded border border-[#131313] p-4 text-start">
         {content}
-        <div className="text-primary absolute left-0 top-0 flex h-full w-full items-center justify-center gap-6 rounded bg-[#131313] p-8 text-xs">
-          <CheckCircleIcon className="text-sm" /> {t("Account Added")}
+        <div className="text-fg-brand absolute left-0 top-0 flex h-full w-full items-center justify-center gap-3 rounded bg-[#131313] p-4 text-xs">
+          <CheckCircle className="text-sm" /> {t("Account Added")}
         </div>
       </div>
     )
@@ -236,7 +240,7 @@ const FollowAccountButton = ({
   return (
     <button
       type="button"
-      className="bg-grey-900 hover:bg-grey-800 hover:border-grey-800 focus:border-grey-800 border-grey-900 flex items-center gap-4 rounded border p-8 text-start"
+      className="bg-app-bg hover:bg-secondary hover:border-primary focus:border-primary border-primary flex items-center gap-2 rounded border p-4 text-start"
       onClick={onClick}
     >
       {content}

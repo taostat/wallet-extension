@@ -1,5 +1,5 @@
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
-import { CopyIcon } from "@taostats-wallet/icons"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { FC, Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -34,9 +34,9 @@ const CopyAddressButtonInner: FC<CopyAddressButtonProps> = ({ networkId }) => {
         <button
           type="button"
           onClick={handleClick}
-          className="text-body-secondary hover:text-body focus:text-body focus:bg-grey-700 hover:bg-grey-700 rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs"
+          className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary focus:bg-tertiary hover:bg-tertiary rounded-xs inline-flex h-[18px] w-[18px] items-center justify-center text-xs"
         >
-          <CopyIcon />
+          <Copy01 />
         </button>
       </TooltipTrigger>
       <TooltipContent>{t("Copy Address")}</TooltipContent>
@@ -48,7 +48,7 @@ export const CopyAddressButton: FC<CopyAddressButtonProps> = ({ networkId }) => 
   <Suspense
     fallback={
       <>
-        <div className="inline-block h-9 w-9"></div>
+        <div className="inline-block h-[18px] w-[18px]"></div>
         <SuspenseTracker name="CopyAddressButton" />
       </>
     }

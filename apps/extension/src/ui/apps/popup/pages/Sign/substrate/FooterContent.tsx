@@ -1,6 +1,7 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { InfoIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { isTruthy } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { uniq } from "lodash-es"
 import { FC, Suspense, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -41,7 +42,7 @@ export const FooterContent = ({ isTransaction = false }: { isTransaction?: boole
   return (
     <>
       {account.type === "watch-only" && (
-        <SignAlertMessage className="mb-6" type="error">
+        <SignAlertMessage className="mb-3" type="error">
           {t("Cannot sign with a watch-only account.")}
         </SignAlertMessage>
       )}
@@ -94,7 +95,7 @@ export const FooterContent = ({ isTransaction = false }: { isTransaction?: boole
           case "keypair":
           case "watch-only":
             return (
-              <div className="grid w-full grid-cols-2 gap-12">
+              <div className="grid w-full grid-cols-2 gap-6">
                 <Button disabled={processing} onClick={reject}>
                   {t("Cancel")}
                 </Button>
@@ -124,7 +125,7 @@ const DryRunError: FC = () => {
   if (!dryRun?.errorMessage) return null
 
   return (
-    <SignAlertMessage className="mb-6" type="error">
+    <SignAlertMessage className="mb-3" type="error">
       {t("This transaction is likely to fail:")}
       <br />
       {dryRun.errorMessage}
@@ -237,12 +238,13 @@ const EstimatedFeesRow: FC = () => {
   )
 
   return (
-    <div className="text-body-secondary mb-8 flex w-full items-center justify-between text-sm">
-      <div className="flex items-center gap-2">
+    <div className="text-fg-secondary mb-4 flex w-full items-center justify-between text-sm">
+      <div className="flex items-center gap-1">
         <Tooltip placement="top-start">
           <TooltipTrigger asChild>
             <div>
-              {t("Estimated Fee")} <InfoIcon className="inline-block align-text-top text-[1.1em]" />
+              {t("Estimated Fee")}{" "}
+              <InfoCircle className="inline-block align-text-top text-[1.1em]" />
             </div>
           </TooltipTrigger>
           {(!!fees.length || !!chain?.isUnknownFeeToken) && (
@@ -254,7 +256,7 @@ const EstimatedFeesRow: FC = () => {
       </div>
       <div>
         {isLoadingFee || dryRunIsLoading ? (
-          <LoaderIcon className="animate-spin-slow inline-block" />
+          <Loading01 className="animate-spin-slow inline-block" />
         ) : errorFee || errorDecodingExtrinsic ? (
           <Tooltip placement="bottom-end">
             <TooltipTrigger type="button">{t("Unknown")}</TooltipTrigger>
@@ -297,9 +299,9 @@ const FeeInfo = ({
 
   return (
     <TooltipContent>
-      <div className="flex flex-col gap-2 whitespace-nowrap text-sm">
+      <div className="flex flex-col gap-1 whitespace-nowrap text-sm">
         {feeRows.map((row, idx) => (
-          <div key={`${row.tokenId}-${idx}`} className="flex w-full justify-between gap-8">
+          <div key={`${row.tokenId}-${idx}`} className="flex w-full justify-between gap-4">
             <div>{row.label}</div>
             <div>
               <TokensAndFiat tokenId={row.tokenId} planck={row.plancks} noTooltip noCountUp />

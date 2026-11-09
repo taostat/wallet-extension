@@ -10,7 +10,7 @@ export const SummaryNetworkDisplay: FC<{ networkId: NetworkId }> = ({ networkId 
   const network = useNetworkById(networkId)
 
   return (
-    <span className="text-body truncate whitespace-nowrap">
+    <span className="text-fg-primary truncate whitespace-nowrap">
       <NetworkLogo networkId={networkId} className="inline-block size-[1.2em] align-sub" />
       <span className="ml-[0.3em] truncate">{network?.name ?? t("Unknown network")}</span>
     </span>

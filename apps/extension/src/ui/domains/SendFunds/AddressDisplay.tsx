@@ -1,8 +1,9 @@
 import { Address as TAddress } from "@taostats-wallet/balances"
 import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-provider"
 import { encodeAddressSs58, encodeAnyAddress, normalizeAddress } from "@taostats-wallet/crypto"
-import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { getAccountGenesisHash, getAccountSignetUrl } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -44,9 +45,9 @@ const AddressTooltip: FC<{
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {typeof onChainId === "string" && (
-        <div className="flex gap-1">
+        <div className="flex gap-0.5">
           <div>{t("Domain:")}</div>
           <div>{onChainId}</div>
         </div>
@@ -55,13 +56,13 @@ const AddressTooltip: FC<{
       {address === resolvedAddress && <>{resolvedAddress}</>}
 
       {address !== resolvedAddress && (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <div>{t("Original address:")}</div>
           <div>{address}</div>
         </div>
       )}
       {address !== resolvedAddress && (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <div>{t("{{chainName}} format:", { chainName: chainName || "Generic" })}</div>
           <div>{resolvedAddress}</div>
         </div>
@@ -109,7 +110,7 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
       </TooltipContent>
       <TooltipTrigger
         className={classNames(
-          "text-body inline-flex max-w-full flex-nowrap items-center gap-4 overflow-hidden text-base",
+          "text-fg-primary inline-flex max-w-full flex-nowrap items-center gap-2 overflow-hidden text-base",
           className,
         )}
       >
@@ -121,20 +122,24 @@ export const AddressDisplay: FC<AddressDisplayProps> = ({ address, networkId, cl
         <div className="leading-base grow truncate">{text}</div>
         <AccountTypeIcon
           type={account?.type}
-          className="text-primary"
+          className="text-fg-brand"
           signetUrl={getAccountSignetUrl(account)}
         />
         {blockExplorerUrl ? (
-          <a href={blockExplorerUrl} target="_blank" className="text-grey-300 hover:text-white">
-            <ExternalLinkIcon />
+          <a
+            href={blockExplorerUrl}
+            target="_blank"
+            className="text-fg-tertiary hover:text-fg-primary"
+          >
+            <LinkExternal01 />
           </a>
         ) : (
           <button
             onClick={handleCopyAddress}
             type="button"
-            className="text-md text-grey-300 hover:text-white"
+            className="text-md text-fg-tertiary hover:text-fg-primary"
           >
-            <CopyIcon />
+            <Copy01 />
           </button>
         )}
       </TooltipTrigger>

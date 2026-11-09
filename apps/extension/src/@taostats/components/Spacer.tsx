@@ -6,5 +6,5 @@ export const Spacer: FC<{
   small?: boolean
   className?: string
 }> = ({ large, small, className }) => (
-  <div className={classNames(large ? "h-16" : small ? "h-8" : "h-12", className)} />
+  <div className={classNames(large ? "h-8" : small ? "h-4" : "h-6", className)} />
 )

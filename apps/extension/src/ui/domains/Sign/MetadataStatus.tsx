@@ -1,5 +1,5 @@
 import { HexString } from "@polkadot/util/types"
-import { ExternalLinkIcon } from "@taostats-wallet/icons"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { ReactNode } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
@@ -31,10 +31,10 @@ export const MetadataStatus = ({ genesisHash, specVersion }: Props) => {
             href={updateUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="text-grey-200 hover:text-white"
+            className="text-fg-tertiary hover:text-fg-primary"
           >
             Polkadot.js portal&nbsp;
-            <ExternalLinkIcon className="inline" />
+            <LinkExternal01 className="inline" />
           </a>{" "}
           or your transaction may fail.
         </Trans>
@@ -61,10 +61,10 @@ export const MetadataStatus = ({ genesisHash, specVersion }: Props) => {
             href={`${window.location.origin}/dashboard.html#/settings/networks-tokens/networks/add`}
             target="_blank"
             rel="noreferrer noopener"
-            className="text-grey-200 hover:text-white"
+            className="text-fg-tertiary hover:text-fg-primary"
           >
             add this chain to Taostats&nbsp;
-            <ExternalLinkIcon className="inline" />
+            <LinkExternal01 className="inline" />
           </a>{" "}
           in order to update the metadata or your transaction may fail.
         </Trans>
@@ -84,13 +84,13 @@ export const MetadataStatus = ({ genesisHash, specVersion }: Props) => {
 }
 
 const LoadingAlert = ({ children }: { children: ReactNode }) => (
-  <SignAlertMessage className="!my-6" type="warning" iconSize="base" processing>
+  <SignAlertMessage className="!my-3" type="warning" iconSize="base" processing>
     {children}
   </SignAlertMessage>
 )
 
 const ErrorAlert = ({ children }: { children: ReactNode }) => (
-  <SignAlertMessage className="!my-6" type="error" iconSize="base">
+  <SignAlertMessage className="!my-3" type="error" iconSize="base">
     {children}
   </SignAlertMessage>
 )

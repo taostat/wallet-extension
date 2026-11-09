@@ -6,7 +6,9 @@ import { ParentSize } from "@visx/responsive"
 import { scaleLinear } from "@visx/scale"
 import { defaultStyles as tooltipDefaultStyles } from "@visx/tooltip"
 import { AreaSeries, Axis, Grid, LineSeries, Tooltip, XYChart } from "@visx/xychart"
+import { classNames } from "@taostats-wallet/util"
 import { memo, useCallback } from "react"
+import { CHART_COLORS } from "taostats-ui"
 
 import { useTokenRatesMap } from "@ui/state"
 
@@ -40,22 +42,24 @@ const useTooltipRenderer = () =>
     if (!date || leftValue == null || rightValue == null) return null
 
     return (
-      <div className="min-w-[15rem] rounded-lg bg-[#1d1d1d] px-5 py-3">
-        <div className="flex flex-col gap-2">
-          <div className="text-body-secondary text-sm">
-            {date.toLocaleDateString("en-US", {
+      <div className="bg-tooltip-bg min-w-[150px] rounded-lg px-2.5 py-1.5">
+        <div className="flex flex-col gap-1">
+          <div className="flex flex-row items-center gap-1">
+            <div className="bg-accent-1 h-1.5 w-1.5 rounded-sm" />
+            <span className="text-fg-secondary text-sm">τ{formatNumber(rightValue)}</span>
+          </div>
+          <div className="flex flex-row items-center gap-1">
+            <div className="bg-accent-2 h-1.5 w-1.5 rounded-sm" />
+            <span className="text-fg-secondary text-sm">${formatNumber(leftValue)}</span>
+          </div>
+          <div className="text-fg-tertiary text-xs">
+            {date.toLocaleString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
             })}
-          </div>
-          <div className="flex flex-row items-center gap-2">
-            <div className="bg-accent-1 h-3 w-3 rounded-sm" />
-            <span className="text-body-secondary text-sm">{formatNumber(rightValue)} t</span>
-          </div>
-          <div className="flex flex-row items-center gap-2">
-            <div className="bg-accent-2 h-3 w-3 rounded-sm" />
-            <span className="text-body-secondary text-sm">${formatNumber(leftValue)}</span>
           </div>
         </div>
       </div>
@@ -67,6 +71,8 @@ type EarningsChartProps = {
   balanceTotalTao: number
   isLoading: boolean
   isError: boolean
+  /** When true, omit outer card chrome (parent SurfaceCard provides it). */
+  embedded?: boolean
 }
 
 export const EarningsChart = memo(function EarningsChart({
@@ -74,6 +80,7 @@ export const EarningsChart = memo(function EarningsChart({
   balanceTotalTao,
   isLoading,
   isError,
+  embedded = false,
 }: EarningsChartProps) {
   const tokenRates = useTokenRatesMap()
   const taoUsdPrice = tokenRates?.[TAO_TOKEN_ID]?.usd?.price ?? 0
@@ -81,14 +88,24 @@ export const EarningsChart = memo(function EarningsChart({
 
   if (isLoading) {
     return (
-      <div className="bg-grey-850 flex min-h-[200px] w-full animate-pulse items-center justify-center rounded-lg" />
+      <div
+        className={classNames(
+          "flex min-h-[200px] w-full animate-pulse items-center justify-center",
+          !embedded && "bg-secondary rounded-lg",
+        )}
+      />
     )
   }
 
   if (isError) {
     return (
-      <div className="bg-grey-850 flex min-h-[200px] w-full flex-col items-center justify-center gap-4 rounded-lg p-8">
-        <p className="text-body-secondary text-center text-sm">
+      <div
+        className={classNames(
+          "flex min-h-[200px] w-full flex-col items-center justify-center gap-2 p-4",
+          !embedded && "bg-secondary rounded-lg",
+        )}
+      >
+        <p className="text-fg-secondary text-center text-sm">
           An error occurred while loading the earnings chart.
         </p>
       </div>
@@ -96,7 +113,13 @@ export const EarningsChart = memo(function EarningsChart({
   }
 
   return (
-    <div className="bg-grey-850 h-[250px] w-full overflow-hidden rounded-lg p-0 [&_svg]:!h-full [&_svg]:!w-full">
+    <div
+      className={classNames(
+        "h-full min-h-[220px] w-full overflow-hidden p-0 [&_svg]:!h-full [&_svg]:!w-full",
+        !embedded && "bg-secondary rounded-lg",
+        embedded && "h-[260px]",
+      )}
+    >
       <ParentSize>
         {({ width, height }) =>
           width > 0 && height > 0 ? (
@@ -154,13 +177,13 @@ const ChartInner = memo(function ChartInner({
           lineStyle={{
             strokeOpacity: 0.1,
             strokeWidth: 0.5,
-            stroke: "#FFFFFF",
+            stroke: CHART_COLORS.gridLine,
           }}
         />
         <Axis
           orientation="bottom"
           hideAxisLine={false}
-          axisLineClassName="stroke-[#ffffff]/10"
+          axisLineClassName="stroke-fg-primary/10"
           hideTicks
           numTicks={5}
           tickFormat={(date) =>
@@ -174,7 +197,7 @@ const ChartInner = memo(function ChartInner({
           hideAxisLine
           hideTicks
           orientation="left"
-          tickLabelProps={{ fill: "#888", fontSize: 11 }}
+          tickLabelProps={{ fill: CHART_COLORS.foreground, fontSize: 11, opacity: 0.5 }}
           tickFormat={(value) =>
             showTicks
               ? `$${(value as number).toLocaleString("en-US", {
@@ -203,7 +226,7 @@ const ChartInner = memo(function ChartInner({
               : ""
           }
           hideTicks
-          tickLabelProps={{ fill: "#888", fontSize: 11 }}
+          tickLabelProps={{ fill: CHART_COLORS.foreground, fontSize: 11, opacity: 0.5 }}
         />
 
         <LinearGradient
@@ -302,12 +325,14 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? width - defaultMargin.right - 85 : width - 90}, ${chartConfig.rightValMaxBadgePosition})`}
         >
           <foreignObject width={100} height={24}>
-            <span className="bg-accent-1/20 text-accent-1 inline-block rounded px-2 py-0.5 text-xs">
-              {chartConfig.rightAxisMax.toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-              t
+            <span className="bg-app-bg inline-block rounded">
+              <span className="bg-accent-1/20 text-accent-1 inline-block rounded px-1 py-px text-xs">
+                τ
+                {chartConfig.rightAxisMax.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span>
             </span>
           </foreignObject>
         </g>
@@ -315,12 +340,14 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? width - defaultMargin.right - 85 : width - 90}, ${chartConfig.rightValMinBadgePosition})`}
         >
           <foreignObject width={100} height={24}>
-            <span className="bg-accent-1/10 text-accent-1 inline-block rounded px-2 py-0.5 text-xs opacity-60">
-              {chartConfig.rightAxisMin.toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-              t
+            <span className="bg-app-bg inline-block rounded">
+              <span className="bg-accent-1/10 text-accent-1 inline-block rounded px-1 py-px text-xs">
+                τ
+                {chartConfig.rightAxisMin.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span>
             </span>
           </foreignObject>
         </g>
@@ -328,12 +355,14 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? defaultMargin.left + 20 : 10}, ${chartConfig.leftValMaxBadgePosition})`}
         >
           <foreignObject width={200} height={24}>
-            <span className="bg-accent-2/20 text-accent-2 inline-block rounded px-2 py-0.5 text-xs">
-              $
-              {chartConfig.leftAxisMax.toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+            <span className="bg-app-bg inline-block rounded">
+              <span className="bg-accent-2/20 text-accent-2 inline-block rounded px-1 py-px text-xs">
+                $
+                {chartConfig.leftAxisMax.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span>
             </span>
           </foreignObject>
         </g>
@@ -341,12 +370,14 @@ const ChartInner = memo(function ChartInner({
           transform={`translate(${showTicks ? defaultMargin.left + 20 : 10}, ${chartConfig.leftValMinBadgePosition})`}
         >
           <foreignObject width={200} height={24}>
-            <span className="bg-accent-2/10 text-accent-2 inline-block rounded px-2 py-0.5 text-xs opacity-60">
-              $
-              {chartConfig.leftAxisMin.toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+            <span className="bg-app-bg inline-block rounded">
+              <span className="bg-accent-2/10 text-accent-2 inline-block rounded px-1 py-px text-xs">
+                $
+                {chartConfig.leftAxisMin.toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </span>
             </span>
           </foreignObject>
         </g>
@@ -356,7 +387,7 @@ const ChartInner = memo(function ChartInner({
             ...tooltipDefaultStyles,
             opacity: 0.8,
             backdropFilter: "blur(23.8px)",
-            backgroundColor: "#1d1d1d",
+            backgroundColor: CHART_COLORS.tooltipBackground,
             borderRadius: "8px",
             padding: "10px",
             zIndex: 9999,
@@ -375,7 +406,7 @@ const ChartInner = memo(function ChartInner({
                 <circle
                   r={4}
                   fill={key === dataKeys.leftValueArea ? colours.red : colours.green}
-                  stroke="white"
+                  stroke={CHART_COLORS.foreground}
                   strokeWidth={2}
                 />
               )

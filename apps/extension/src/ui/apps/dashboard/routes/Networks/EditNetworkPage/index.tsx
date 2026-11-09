@@ -8,7 +8,7 @@ import {
   Network,
   NetworkBaseSchema,
 } from "@taostats-wallet/chaindata-provider"
-import { RotateCcwIcon } from "@taostats-wallet/icons"
+import { RefreshCcw01 } from "@untitledui/icons/RefreshCcw01"
 import { FC, useCallback, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
@@ -31,7 +31,6 @@ import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AssetLogo } from "@ui/domains/Asset/AssetLogo"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { useActivableNetwork } from "@ui/hooks/useActivableNetwork"
@@ -62,7 +61,7 @@ export const EditNetworkPage = () => {
   if (!network) return null
 
   return (
-    <DashboardLayout sidebar="settings">
+    <>
       <HeaderBlock
         title={t("Network settings for {{name}}", { name: network.name })}
         text={
@@ -75,7 +74,7 @@ export const EditNetworkPage = () => {
       <NetworkFormProvider network={network}>
         <NetworkForm />
       </NetworkFormProvider>
-    </DashboardLayout>
+    </>
   )
 }
 
@@ -91,14 +90,14 @@ const NetworkForm: FC = () => {
   return (
     <>
       <form
-        className="my-20"
+        className="my-10"
         onSubmit={(e) => {
           e.preventDefault()
           e.stopPropagation()
           form.handleSubmit()
         }}
       >
-        <div className="grid grid-cols-3 gap-12">
+        <div className="grid grid-cols-3 gap-6">
           <div className={"col-span-3"}>
             <form.Field
               name="name"
@@ -113,7 +112,7 @@ const NetworkForm: FC = () => {
                     data-lpignore
                     autoComplete="off"
                     small
-                    before={<NetworkLogo networkId={network.id} className="size-12" />}
+                    before={<NetworkLogo networkId={network.id} className="size-6" />}
                   />
                 </FormFieldContainer>
               )}
@@ -123,7 +122,7 @@ const NetworkForm: FC = () => {
 
         {/* <NetworkRpcsField /> */}
 
-        <div className="grid grid-cols-2 gap-x-12">
+        <div className="grid grid-cols-2 gap-x-6">
           <form.Field
             name="nativeCurrency.symbol"
             validators={{
@@ -210,7 +209,7 @@ const NetworkForm: FC = () => {
                   small
                   before={
                     <AssetLogo
-                      className="mr-2 rounded-full text-[3rem]"
+                      className="mr-1 rounded-full text-[30px]"
                       url={
                         field.state.value
                           ? getGithubTokenLogoUrlByCoingeckoId(field.state.value)
@@ -277,7 +276,7 @@ const NetworkForm: FC = () => {
             },
           }}
         />
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-2">
           <div>
             <form.Field
               name="isTestnet"
@@ -287,7 +286,7 @@ const NetworkForm: FC = () => {
                   checked={field.state.value}
                   onChange={(e) => field.handleChange(e.target.checked)}
                 >
-                  <span className="text-body-secondary">{t("This is a testnet")}</span>
+                  <span className="text-fg-secondary">{t("This is a testnet")}</span>
                 </Checkbox>
               )}
             />
@@ -302,7 +301,7 @@ const NetworkForm: FC = () => {
                     checked={field.state.value}
                     onChange={(e) => field.handleChange(e.target.checked)}
                   >
-                    <span className="text-body-secondary">
+                    <span className="text-fg-secondary">
                       {t("This network supports CheckMetadataHash sign extension")}
                     </span>
                   </Checkbox>
@@ -312,20 +311,20 @@ const NetworkForm: FC = () => {
           )}
         </div>
         <div>
-          <div className="mt-8">
+          <div className="mt-4">
             <FormFieldContainer label={t("Display balances")}>
-              <div className="flex gap-3">
+              <div className="flex gap-1.5">
                 <Toggle checked={isActive} onChange={(e) => setActive(e.target.checked)}>
-                  <span className={"text-grey-300"}>{isActive ? t("Yes") : t("No")}</span>
+                  <span className={"text-fg-tertiary"}>{isActive ? t("Yes") : t("No")}</span>
                 </Toggle>
                 {isActiveSetByUser && (
                   <Tooltip>
                     <TooltipTrigger
-                      className="text-primary text-xs"
+                      className="text-fg-brand text-xs"
                       type="button"
                       onClick={resetToTaostatsDefault}
                     >
-                      <RotateCcwIcon />
+                      <RefreshCcw01 />
                     </TooltipTrigger>
                     <TooltipContent>
                       <div>{t("Reset to default")}</div>
@@ -335,10 +334,10 @@ const NetworkForm: FC = () => {
               </div>
             </FormFieldContainer>
           </div>
-          <div className="flex justify-end gap-8 py-8">
+          <div className="flex justify-end gap-4 py-4">
             {isNetworkCustom(network) && (
               <Button
-                className="h-24 w-[24rem] text-base"
+                className="h-12 w-[240px] text-base"
                 type="button"
                 onClick={ocConfirmRemove.open}
               >
@@ -352,7 +351,7 @@ const NetworkForm: FC = () => {
                 <Button
                   primary
                   icon={SaveIcon}
-                  className="h-24 w-[24rem] text-base"
+                  className="h-12 w-[240px] text-base"
                   type="submit"
                   processing={isSubmitting}
                   disabled={!isSubmitting && (!canSubmit || !isDirty)}
@@ -405,21 +404,21 @@ const ConfirmRemove: FC<{
       title={isNetworkKnown(saved) ? t("Reset Token") : t("Remove Token")}
       onClose={onClose}
     >
-      <div className="text-body-secondary mt-4 space-y-16">
+      <div className="text-fg-secondary mt-2 space-y-8">
         <div className="text-base">
           {isNetworkKnown(saved) ? (
             <Trans t={t}>
-              This will reset <span className="text-body">{saved?.name}</span> to its default state.
-              Are you sure you want to continue ?
+              This will reset <span className="text-fg-primary">{saved?.name}</span> to its default
+              state. Are you sure you want to continue ?
             </Trans>
           ) : (
             <Trans t={t}>
-              Are you sure you want to remove <span className="text-body">{saved?.name}</span> from
-              your token list ?
+              Are you sure you want to remove <span className="text-fg-primary">{saved?.name}</span>{" "}
+              from your token list ?
             </Trans>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-4">
           <Button onClick={onClose}>{t("Cancel")}</Button>
           <Button primary onClick={handleRemove} processing={confirming}>
             {isNetworkKnown(saved) ? t("Reset") : t("Remove")}

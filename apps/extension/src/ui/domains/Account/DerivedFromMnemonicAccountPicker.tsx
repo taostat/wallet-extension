@@ -203,7 +203,7 @@ export const DerivedFromMnemonicAccountPicker: FC<DerivedAccountPickerProps> = (
         onPagerPrevClick={handlePagePrev}
         onPagerNextClick={handlePageNext}
       />
-      <p className="text-alert-error">{error}</p>
+      <p className="text-fg-error">{error}</p>
     </>
   )
 }

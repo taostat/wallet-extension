@@ -1,6 +1,6 @@
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { UserPlusIcon } from "@taostats-wallet/icons"
 import { HexString } from "@taostats-wallet/util"
+import { UserPlus01 } from "@untitledui/icons/UserPlus01"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { PillButton, useOpenClose } from "taostats-ui"
@@ -29,8 +29,8 @@ export const AddContact = ({ tokenGenesisHash }: { tokenGenesisHash?: HexString 
       <PillButton
         onClick={addressBookContactDrawer.open}
         size={"base"}
-        className="h-16 !rounded !px-4"
-        icon={UserPlusIcon}
+        className="h-8 !rounded !px-2"
+        icon={UserPlus01}
       >
         {t("Add")}
       </PillButton>

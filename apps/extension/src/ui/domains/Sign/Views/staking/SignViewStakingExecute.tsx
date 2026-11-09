@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 export const SignViewStakingExecute: FC = () => {
   const { t } = useTranslation()
   return (
-    <div className="flex w-full flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-2">
       <div>{t("You are executing your delegation activity")}</div>
     </div>
   )

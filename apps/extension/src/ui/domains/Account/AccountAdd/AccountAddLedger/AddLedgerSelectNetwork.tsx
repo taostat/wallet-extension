@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { AccountPlatform } from "@taostats-wallet/crypto"
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { t } from "i18next"
 import { FC, ReactNode, useCallback, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -39,18 +39,18 @@ const AppVersionButton: FC<{
       type="button"
       onClick={onClick}
       className={classNames(
-        "bg-field text-body-secondary group flex min-h-60 flex-col gap-5 rounded border p-8 text-left",
+        "bg-secondary text-fg-secondary group flex min-h-[120px] flex-col gap-2.5 rounded border p-4 text-left",
         "disabled:cursor-not-allowed disabled:opacity-50",
         selected
-          ? "border-body bg-grey-800"
-          : "border-body-disabled enabled:hover:border-body-secondary enabled:hover:bg-grey-800",
+          ? "border-primary bg-secondary"
+          : "border-primary enabled:hover:border-primary enabled:hover:bg-secondary",
       )}
       disabled={disabled}
     >
       <div
         className={classNames(
-          "group-enabled:group-hover:text-body text-base",
-          selected && "text-body",
+          "group-enabled:group-hover:text-fg-primary text-base",
+          selected && "text-fg-primary",
         )}
       >
         {title}
@@ -62,7 +62,7 @@ const AppVersionButton: FC<{
 }
 
 const renderSubstratNetworkOption = (chain: DotNetwork) => (
-  <div className="flex max-w-full items-center gap-5 overflow-hidden">
+  <div className="flex max-w-full items-center gap-2.5 overflow-hidden">
     <NetworkLogo networkId={chain?.id} className="text-[1.25em]" />
     <span className="overflow-hidden text-ellipsis whitespace-nowrap">{chain.name}</span>
   </div>
@@ -203,39 +203,39 @@ export const AddLedgerSelectNetwork = () => {
         <AccountPlatformSelector defaultValue={platform} onChange={handlePlatformChange} />
         {platform === "polkadot" && (
           <>
-            <div className="bg-black-secondary mt-12 rounded p-12">
-              <h2 className="text-body-secondary leading-paragraph text-base">
+            <div className="bg-secondary mt-6 rounded p-6">
+              <h2 className="text-fg-secondary leading-paragraph text-base">
                 {t("1. Choose Network")}
               </h2>
-              <div className="mt-6">
+              <div className="mt-3">
                 <SubstrateNetworkSelect chain={chain} onSelect={handleNetworkChange} />
               </div>
             </div>
             {!!chain && (
-              <div className="bg-black-secondary mt-12 rounded p-12">
+              <div className="bg-secondary mt-6 rounded p-6">
                 <div className="flex justify-between">
-                  <h2 className="text-body-secondary leading-paragraph text-base">
+                  <h2 className="text-fg-secondary leading-paragraph text-base">
                     {t("2. Choose Ledger App")}
                   </h2>
 
                   {chain.supportedLedgerApps.length > 1 && (
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className="text-body-secondary flex items-center gap-2 align-middle text-xs">
-                          <InfoIcon />
+                        <div className="text-fg-secondary flex items-center gap-1 align-middle text-xs">
+                          <InfoCircle />
                           <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                             Which one should I choose?
                           </span>
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent className="rounded-xs text-body-secondary border-grey-700 z-20 max-w-[32rem] border-[0.5px] bg-black p-3 text-xs shadow">
+                      <TooltipContent className="rounded-xs text-fg-secondary border-primary z-20 max-w-[320px] border-[0.5px] bg-black p-1.5 text-xs shadow">
                         <Trans
                           t={t}
                           defaults={
                             "<P><bold>Choose the Polkadot App</bold> if you want to create a new account on {{chainName}}, or want to access an existing account that was created with the Polkadot App.</P><P><bold>Choose the Migration App</bold> if you want to access an existing account that was previously created with the chain-specific {{chainName}} app. The purpose of the Migration app is to allow you to migrate your funds to the new generic Polkadot App.</P>"
                           }
                           components={{
-                            P: <div className="mb-2"></div>,
+                            P: <div className="mb-1"></div>,
                             bold: <span className="font-bold"></span>,
                           }}
                           values={{ chainName: chain.name }}
@@ -244,7 +244,7 @@ export const AddLedgerSelectNetwork = () => {
                     </Tooltip>
                   )}
                 </div>
-                <div className="mt-6 grid grid-cols-3 gap-8">
+                <div className="mt-3 grid grid-cols-3 gap-4">
                   {chain.supportedLedgerApps.includes(AddSubstrateLedgerAppType.Generic) && (
                     <AppVersionButton
                       title={t("Polkadot App")}
@@ -252,7 +252,7 @@ export const AddLedgerSelectNetwork = () => {
                       extra={
                         <span
                           className={classNames(
-                            "bg-green/10 text-green rounded-[1.2rem] px-4 py-1",
+                            "bg-green/10 text-green rounded-[12px] px-2 py-0.5",
                             chain?.hasCheckMetadataHash ? "visible" : "invisible",
                           )}
                         >
@@ -286,12 +286,12 @@ export const AddLedgerSelectNetwork = () => {
             )}
           </>
         )}
-        <div className={classNames("mt-16 h-[12rem]", showConnect ? "visible" : "invisible")}>
+        <div className={classNames("mt-8 h-[120px]", showConnect ? "visible" : "invisible")}>
           {showConnect && platform === "polkadot" && chainId && (
             <>
               {substrateAppType === AddSubstrateLedgerAppType.Legacy && (
                 <ConnectLedgerSubstrateLegacy
-                  className="min-h-[11rem]"
+                  className="min-h-[110px]"
                   onReadyChanged={setIsLedgerReady}
                   chainId={chainId}
                 />
@@ -300,14 +300,14 @@ export const AddLedgerSelectNetwork = () => {
               {substrateAppType === AddSubstrateLedgerAppType.Generic && (
                 <ConnectLedgerSubstrateGeneric
                   curve={curve}
-                  className="min-h-[11rem]"
+                  className="min-h-[110px]"
                   onReadyChanged={setIsLedgerReady}
                 />
               )}
               {substrateAppType === AddSubstrateLedgerAppType.Migration && (
                 <ConnectLedgerSubstrateGeneric
                   curve={curve}
-                  className="min-h-[11rem]"
+                  className="min-h-[110px]"
                   onReadyChanged={setIsLedgerReady}
                   legacyAppName={chain?.ledgerAppName}
                 />
@@ -319,7 +319,7 @@ export const AddLedgerSelectNetwork = () => {
       {!!platform && (
         <div className="flex justify-end">
           <Button
-            className="w-[24rem]"
+            className="w-[240px]"
             type="submit"
             primary
             disabled={!isLedgerReady || !isValid}

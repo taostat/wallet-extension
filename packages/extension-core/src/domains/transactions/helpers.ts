@@ -160,6 +160,20 @@ export const getExtrinsicHash = (
 
 export const dismissTransaction = (hash: string) => db.transactionsV2.delete(hash)
 
+/** Withhold the explorer link until the Taostats Shield API returns an indexed hash. */
+export const deferTransactionExplorerLink = async (id: string) => {
+  const existing = await db.transactionsV2.get(id)
+  if (!existing) return
+  await db.transactionsV2.update(id, { hideExplorerLink: true })
+}
+
+/** Store the hash returned by the Taostats Shield API and allow the explorer link. */
+export const setTransactionExplorerId = async (id: string, explorerId: string) => {
+  const existing = await db.transactionsV2.get(id)
+  if (!existing) return
+  await db.transactionsV2.update(id, { explorerId, hideExplorerLink: false })
+}
+
 export const isTxInfoOfType = <T extends WalletTransactionInfo["type"]>(
   txInfo: WalletTransactionInfo | undefined | null,
   type: T,

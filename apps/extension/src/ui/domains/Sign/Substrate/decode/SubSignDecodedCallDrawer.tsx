@@ -1,5 +1,5 @@
-import { XIcon } from "@taostats-wallet/icons"
 import { DecodedCall, ScaleApi } from "@taostats-wallet/sapi"
+import { X } from "@untitledui/icons/X"
 import { SignerPayloadJSON } from "extension-core"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
@@ -24,20 +24,20 @@ export const SubSignDecodedCallDrawer: FC<{
       isOpen={isOpen && !!decodedCall}
       containerId="main"
       onDismiss={onClose}
-      className="bg-black-primary text-body-secondary flex h-full w-full flex-col"
+      className="bg-black-primary text-fg-secondary flex h-full w-full flex-col"
     >
-      <div className="flex w-full items-center gap-4 px-12 py-8">
-        <div className="text-body grow truncate tabular-nums">{t("Request content")}</div>
+      <div className="flex w-full items-center gap-2 px-6 py-4">
+        <div className="text-fg-primary grow truncate tabular-nums">{t("Request content")}</div>
         <IconButton onClick={onClose}>
-          <XIcon />
+          <X />
         </IconButton>
       </div>
-      <ScrollContainer className="grow px-12">
+      <ScrollContainer className="grow px-6">
         {!!decodedCall && (
           <SubSignDecodedCallContent decodedCall={decodedCall} sapi={sapi} payload={payload} />
         )}
       </ScrollContainer>
-      <div className="px-12 pb-10 pt-8">
+      <div className="px-6 pb-5 pt-4">
         <Button fullWidth onClick={onClose}>
           {t("Close")}
         </Button>

@@ -1,6 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { ChevronDownIcon } from "@taostats-wallet/icons"
 import { classNames, isHexString } from "@taostats-wallet/util"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
 import { startCase } from "lodash-es"
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -9,7 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "taostats-ui"
 import { useHasVerifierCertificateMnemonic } from "@ui/hooks/useHasVerifierCertificateMnemonic"
 import { useNetworkByGenesisHash, useNetworkById } from "@ui/state"
 
-import { novaLogoSvg, parityLogoSvg, taostatsRedHandSvg } from "./constants"
+import { novaLogoSvg, parityLogoSvg, taostatsLogoSvg } from "./constants"
 
 export type QrCodeSource = "taostats" | "parity" | "novasama" | "other"
 
@@ -27,7 +27,7 @@ const lastSelected = new (class {
 
 export const qrCodeLogoForSource = (source: QrCodeSource) =>
   source === "taostats"
-    ? taostatsRedHandSvg
+    ? taostatsLogoSvg
     : source === "parity"
       ? parityLogoSvg
       : source === "novasama"
@@ -116,23 +116,21 @@ export const QrCodeSourceSelector = ({
   return sources.length > 1 ? (
     <Popover placement="bottom-end" open={showPopover} onOpenChange={togglePopover}>
       <PopoverTrigger asChild>
-        <div
-          className={classNames("text-body-secondary flex items-center gap-3 text-sm", className)}
-        >
+        <div className={classNames("text-fg-secondary flex items-center gap-1.5 text-sm", className)}>
           {t("QR Source:")}{" "}
           <button
             type="button"
-            className="text-body hover:bg-grey-750 flex cursor-pointer items-center gap-2 rounded-sm p-3"
+            className="text-fg-primary hover:bg-tertiary flex cursor-pointer items-center gap-1 rounded-sm p-1.5"
             onClick={togglePopover}
           >
             {startCase(qrCodeSource)}
-            <ChevronDownIcon />
+            <ChevronDown />
           </button>
         </div>
       </PopoverTrigger>
       <PopoverContent
         className={classNames(
-          "border-grey-800 z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-2 py-3 text-left shadow-lg",
+          "border-primary z-50 flex w-min flex-col whitespace-nowrap rounded-sm border bg-black px-1 py-1.5 text-left shadow-lg",
           showPopover ? "visible opacity-100" : "invisible opacity-0",
         )}
       >
@@ -141,7 +139,7 @@ export const QrCodeSourceSelector = ({
             type="button"
             key={source}
             onClick={() => setSource(source)}
-            className="hover:bg-grey-800 rounded-xs h-20 p-6 text-left"
+            className="hover:bg-secondary rounded-xs h-10 p-3 text-left"
           >
             {startCase(source)}
           </button>

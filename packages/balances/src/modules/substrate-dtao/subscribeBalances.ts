@@ -6,7 +6,7 @@ import { IBalanceModule } from "../../types/IBalanceModule"
 import { MODULE_TYPE } from "./config"
 import { fetchBalances } from "./fetchBalances"
 
-const SUBSCRIPTION_INTERVAL = 6_000
+const SUBSCRIPTION_INTERVAL = 12_000
 
 export const subscribeBalances: IBalanceModule<typeof MODULE_TYPE>["subscribeBalances"] = ({
   networkId,

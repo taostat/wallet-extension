@@ -1,5 +1,6 @@
 import { HexString } from "@polkadot/util/types"
-import { ChevronDownIcon, GlobeIcon } from "@taostats-wallet/icons"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
+import { Globe01 } from "@untitledui/icons/Globe01"
 import { getAccountGenesisHash } from "extension-core"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
@@ -16,7 +17,7 @@ import { TxHistoryNetworkPicker } from "./TxHistoryNetworkPicker"
 
 export const TxHistoryToolbar = () => {
   return (
-    <div className="mb-4 grid h-16 shrink-0 grid-cols-2 gap-4 px-8">
+    <div className="mb-2 grid h-8 shrink-0 grid-cols-2 gap-2 px-4">
       <AccountFilterButton />
       <NetworkFilterButton />
     </div>
@@ -41,9 +42,9 @@ const AccountFilterButton = () => {
       <button
         type="button"
         onClick={open}
-        className="bg-grey-850 hover:bg-grey-800 text-body-secondary hover:text-body overflow-hidden rounded-sm text-left text-xs"
+        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary overflow-hidden rounded-sm text-left text-xs"
       >
-        <div className="flex size-full items-center gap-4 overflow-hidden px-4">
+        <div className="flex size-full items-center gap-2 overflow-hidden px-2">
           {account ? (
             <AccountIcon
               address={account.address}
@@ -56,7 +57,7 @@ const AccountFilterButton = () => {
           <div className="grow truncate">
             {account ? (account?.name ?? shortenAddress(account.address)) : t("All Accounts")}
           </div>
-          <ChevronDownIcon className="shrink-0 text-base" />
+          <ChevronDown className="shrink-0 text-base" />
         </div>
       </button>
       <TxHistoryAccountPicker
@@ -88,18 +89,18 @@ const NetworkFilterButton = () => {
       <button
         type="button"
         onClick={open}
-        className="bg-grey-850 hover:bg-grey-800 text-body-secondary hover:text-body overflow-hidden rounded-sm text-left text-xs"
+        className="bg-secondary hover:bg-secondary text-fg-secondary hover:text-fg-primary overflow-hidden rounded-sm text-left text-xs"
       >
-        <div className="flex size-full items-center gap-4 overflow-hidden px-4">
+        <div className="flex size-full items-center gap-2 overflow-hidden px-2">
           {network ? (
             <NetworkLogo networkId={network.id} className="text-md shrink-0" />
           ) : (
-            <GlobeIcon className="text-md shrink-0" />
+            <Globe01 className="text-md shrink-0" />
           )}
           <div className="grow truncate">
             {network ? (network?.name ?? t("Unknown Network")) : t("All Networks")}
           </div>
-          <ChevronDownIcon className="shrink-0 text-base" />
+          <ChevronDown className="shrink-0 text-base" />
         </div>
       </button>
       <TxHistoryNetworkPicker

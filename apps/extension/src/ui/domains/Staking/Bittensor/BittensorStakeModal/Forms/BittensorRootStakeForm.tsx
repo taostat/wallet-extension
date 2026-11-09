@@ -1,5 +1,5 @@
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { FC, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -19,18 +19,16 @@ const StakeAprBase: FC<{
   const display = useMemo(() => (apr ? `${(apr * 100).toFixed(2)}%` : "N/A"), [apr])
 
   if (isLoading)
-    return <div className="text-grey-700 bg-grey-700 rounded-xs animate-pulse">15.00%</div>
+    return <div className="text-fg-disabled bg-tertiary rounded-xs animate-pulse">15.00%</div>
 
   if (isError) {
     if (error?.message === STAKING_APR_UNAVAILABLE) return t("APR Unavailable")
 
-    return <div className="text-alert-warn">{t("Unable to fetch APR data")}</div>
+    return <div className="text-fg-orange">{t("Unable to fetch APR data")}</div>
   }
 
   return (
-    <span className={classNames(apr ? "text-alert-success" : "text-body-secondary")}>
-      {display}
-    </span>
+    <span className={classNames(apr ? "text-fg-success" : "text-fg-secondary")}>{display}</span>
   )
 }
 
@@ -54,13 +52,13 @@ export const BittensorRootStakeForm = () => {
     if (stakeDirection === "unstake") return null
 
     return (
-      <div className="flex items-center justify-between gap-8">
+      <div className="flex items-center justify-between gap-4">
         <div>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="flex items-center gap-1 whitespace-nowrap leading-none">
+              <div className="flex items-center gap-0.5 whitespace-nowrap leading-none">
                 {t("APY")}
-                <InfoIcon />
+                <InfoCircle />
               </div>
             </TooltipTrigger>
             <TooltipContent>{t("Estimated Annual Percentage Yield (APY)")}</TooltipContent>

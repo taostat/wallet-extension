@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, ModalDialog } from "taostats-ui"
@@ -16,11 +16,11 @@ const ShowMnemonic = () => {
 
   return (
     <ModalDialog title="Secret recovery phrase">
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {t("Your secret phrase protects your account. If you share it you may lose your funds.")}
       </p>
 
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {t(
           "We strongly encourage you to back up your recovery phrase by writing it down and storing it in a secure location.",
         )}
@@ -28,12 +28,12 @@ const ShowMnemonic = () => {
 
       <Mnemonic mnemonic={mnemonic} onReveal={() => setHasHovered(true)} />
 
-      <div className="mt-20 flex justify-end">
+      <div className="mt-10 flex justify-end">
         <Button
           primary={hasHovered}
           onClick={setMnemonicBackupConfirmed}
           disabled={!hasHovered}
-          icon={ArrowRightIcon}
+          icon={ArrowRight}
         >
           {t("I've backed it up")}
         </Button>
@@ -50,19 +50,19 @@ export const BackUpMnemonicDialog = () => {
   if (showMnemonic) return <ShowMnemonic />
   return (
     <ModalDialog title="Don't lose access to your wallet">
-      <p className="text-body-secondary text-sm">{t("Have you backed up your recovery phrase?")}</p>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">{t("Have you backed up your recovery phrase?")}</p>
+      <p className="text-fg-secondary text-sm">
         {t(
           "Your recovery phrase is used to restore your Taostats accounts if you forget your password or lose access to your device.",
         )}
       </p>
-      <p className="text-body-secondary text-sm">
+      <p className="text-fg-secondary text-sm">
         {t(
           "We strongly encourage you to back up your recovery phrase by writing it down and storing it in a secure location.",
         )}
       </p>
-      <div className="mt-20 flex justify-between">
-        <Button className="mr-4 px-4" onClick={setMnemonicBackupConfirmed} fullWidth>
+      <div className="mt-10 flex justify-between">
+        <Button className="mr-2 px-2" onClick={setMnemonicBackupConfirmed} fullWidth>
           {t("I've already backed up")}
         </Button>
         <Button onClick={() => setShowMnemonic(true)} primary fullWidth>

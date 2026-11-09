@@ -1,5 +1,6 @@
-import { ChevronLeftIcon, XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { X } from "@untitledui/icons/X"
 import { Suspense, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
@@ -7,11 +8,11 @@ import { IconButton, Modal } from "taostats-ui"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 
 import { ModalContent } from "../shared/ModalContent"
+import { useStakeModal } from "./hooks/useStakeModal"
+import { useStakeWizard } from "./hooks/useStakeWizard"
 import { StakeFollowUp } from "./StakeFollowUp"
 import { StakeForm } from "./StakeForm"
 import { StakeReview } from "./StakeReview"
-import { useStakeModal } from "./hooks/useStakeModal"
-import { useStakeWizard } from "./hooks/useStakeWizard"
 
 const ModalHeader = () => {
   const { t } = useTranslation()
@@ -23,7 +24,7 @@ const ModalHeader = () => {
   return (
     <div
       className={classNames(
-        "text-body-secondary flex min-h-32 w-full shrink-0 items-center justify-between px-10",
+        "text-fg-secondary flex min-h-16 w-full shrink-0 items-center justify-between px-5",
         step === "follow-up" ? "invisible" : "visible",
       )}
     >
@@ -31,14 +32,14 @@ const ModalHeader = () => {
         onClick={handleBackClick}
         className={classNames(step === "review" ? "block" : "hidden")}
       >
-        <ChevronLeftIcon />
+        <ChevronLeft />
       </IconButton>
       <div>
-        {step === "form" && <span className="text-body font-bold">{t("Staking")}</span>}
+        {step === "form" && <span className="text-fg-primary font-bold">{t("Staking")}</span>}
         {step === "review" && t("Confirm")}
       </div>
       <IconButton onClick={close}>
-        <XIcon />
+        <X />
       </IconButton>
     </div>
   )

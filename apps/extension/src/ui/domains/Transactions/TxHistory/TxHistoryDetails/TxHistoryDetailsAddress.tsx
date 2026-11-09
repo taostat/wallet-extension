@@ -1,7 +1,8 @@
 import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-provider"
 import { encodeAnyAddress } from "@taostats-wallet/crypto"
-import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { cn } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { getAccountGenesisHash } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -50,7 +51,7 @@ export const TxHistoryDetailsAddress: FC<{
           type="button"
           onClick={handleClick}
           className={cn(
-            "text-body inline-flex max-w-full items-center gap-2 overflow-hidden align-sub",
+            "text-fg-primary inline-flex max-w-full items-center gap-1 overflow-hidden align-sub",
             className,
           )}
         >
@@ -71,9 +72,9 @@ export const TxHistoryDetailsAddress: FC<{
             />
           )}
           {blockExplorerUrl ? (
-            <ExternalLinkIcon className="shrink-0 text-base" />
+            <LinkExternal01 className="shrink-0 text-base" />
           ) : (
-            <CopyIcon className="shrink-0 text-base" />
+            <Copy01 className="shrink-0 text-base" />
           )}
         </button>
       </TooltipTrigger>

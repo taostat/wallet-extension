@@ -1,6 +1,7 @@
 import { getBlockExplorerUrls, NetworkId } from "@taostats-wallet/chaindata-provider"
-import { CopyIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { FC, useCallback, useMemo } from "react"
 
 import { useAnyNetwork } from "@ui/state"
@@ -58,7 +59,7 @@ export const NetworkAddress: FC<NetworkAddressProps> = ({
           rel="noopener noreferrer"
           className="shrink-0 opacity-80 hover:opacity-100"
         >
-          <ExternalLinkIcon />
+          <LinkExternal01 />
         </a>
       )}
       {effectiveMode === "copy" && (
@@ -67,7 +68,7 @@ export const NetworkAddress: FC<NetworkAddressProps> = ({
           onClick={handleClick}
           className="shrink-0 opacity-80 hover:opacity-100"
         >
-          <CopyIcon />
+          <Copy01 />
         </button>
       )}
     </span>

@@ -1,5 +1,7 @@
 import { encodeAnyAddress, isEthereumAddress, normalizeAddress } from "@taostats-wallet/crypto"
-import { ArrowUpRightIcon, CopyIcon, PolkadotIcon, QrIcon } from "@taostats-wallet/icons"
+import { PolkadotIcon, QrIcon } from "@taostats-wallet/icons"
+import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
+import { Copy01 } from "@untitledui/icons/Copy01"
 import { getAccountGenesisHash, isAccountLedgerPolkadotGeneric } from "extension-core"
 import { log } from "extension-shared"
 import { FC, useCallback, useMemo, useState } from "react"
@@ -81,7 +83,7 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
   )
 
   return (
-    <div className="text-body-secondary hover:text-body hover:bg-grey-800 flex h-32 w-full items-center gap-6 px-12">
+    <div className="text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-16 w-full items-center gap-3 px-6">
       {format.chainId ? (
         <NetworkLogo className="shrink-0 text-xl" networkId={format.chainId} />
       ) : (
@@ -91,9 +93,9 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
           type="polkadot-identicon"
         />
       )}
-      <div className="flex grow flex-col gap-2 overflow-hidden text-left">
-        <div className="text-body truncate">{format.name}</div>
-        <div className="text-body-secondary truncate text-xs">
+      <div className="flex grow flex-col gap-1 overflow-hidden text-left">
+        <div className="text-fg-primary truncate">{format.name}</div>
+        <div className="text-fg-secondary truncate text-xs">
           <Tooltip>
             <TooltipTrigger asChild>
               <div>{shortenAddress(format.address, 10, 10)}</div>
@@ -102,7 +104,7 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
           </Tooltip>
         </div>
       </div>
-      <div className="flex gap-6">
+      <div className="flex gap-3">
         <Tooltip>
           <TooltipTrigger asChild>
             <IconButton className="text-md" onClick={handleQrClick}>
@@ -114,7 +116,7 @@ const ChainFormatButton = ({ format }: { format: ChainFormat }) => {
         <Tooltip>
           <TooltipTrigger asChild>
             <IconButton className="text-md" onClick={handleCopyClick}>
-              <CopyIcon />
+              <Copy01 />
             </IconButton>
           </TooltipTrigger>
           <TooltipContent>{t("Copy to clipboard")}</TooltipContent>
@@ -210,11 +212,11 @@ export const CopyAddressChainForm = () => {
   return (
     <CopyAddressLayout title={t("Select network")}>
       <div className="flex h-full min-h-full w-full flex-col overflow-hidden">
-        <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+        <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
           {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
           <SearchInput onChange={setSearch} placeholder={t("Search by network name")} autoFocus />
         </div>
-        <ScrollContainer className="bg-black-secondary border-grey-700 scrollable h-full w-full grow overflow-x-hidden border-t">
+        <ScrollContainer className="bg-secondary border-primary scrollable h-full w-full grow overflow-x-hidden border-t">
           <UnifiedAddressMigrationBanner formats={filteredFormats} />
           <ChainFormatsList formats={filteredFormats} />
         </ScrollContainer>
@@ -251,13 +253,13 @@ export const UnifiedAddressMigrationBanner: FC<{ formats: ChainFormat[] }> = ({ 
     <button
       type="button"
       onClick={handleClick}
-      className="text-body flex w-full items-center gap-4 bg-gradient-to-r from-[#9F7998] to-[#EB5D93] px-12 py-4 text-left text-sm"
+      className="text-fg-primary flex w-full items-center gap-2 bg-gradient-to-r from-[#9F7998] to-[#EB5D93] px-6 py-2 text-left text-sm"
     >
       <div className="grow">
-        <PolkadotIcon className="mr-2 inline-block shrink-0 align-text-top" />
+        <PolkadotIcon className="mr-1 inline-block shrink-0 align-text-top" />
         {t("Polkadot introduces new address formatting")}
       </div>
-      <ArrowUpRightIcon className="text-body shrink-0 text-[2rem]" />
+      <ArrowUpRight className="text-fg-primary shrink-0 text-[20px]" />
     </button>
   )
 }

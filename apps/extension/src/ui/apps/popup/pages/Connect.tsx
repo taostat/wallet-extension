@@ -1,9 +1,10 @@
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { Account, KnownRequestIdOnly, ProviderType } from "extension-core"
 import capitalize from "lodash-es/capitalize"
 import { FC, useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { useParams } from "react-router-dom"
+import { useParams, Navigate } from "react-router-dom"
 import { Button, Drawer } from "taostats-ui"
 
 import { AppPill } from "@taostats/components/AppPill"
@@ -13,7 +14,9 @@ import { ConnectAccountsContainer } from "@ui/domains/Site/ConnectAccountsContai
 import { ConnectedAccountsPolkadot } from "@ui/domains/Site/ConnectedAccountsPolkadot"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { useInjectableAccounts } from "@ui/hooks/useInjectableAccounts"
-import { useRequest } from "@ui/state"
+import { useRequest, useRequests } from "@ui/state"
+import { closeWalletSurface, closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
+import { useCloseIfRequestMissing } from "@ui/util/useCloseIfRequestMissing"
 
 import { PopupContent, PopupFooter, PopupHeader, PopupLayout } from "../Layout/PopupLayout"
 
@@ -29,19 +32,19 @@ const NoAccountWarning = ({
   const { t } = useTranslation()
   return (
     <Drawer isOpen anchor="bottom" containerId="main">
-      <div className="bg-grey-800 flex flex-col gap-8 rounded-t-xl p-12">
+      <div className="bg-secondary flex flex-col gap-4 rounded-t-xl p-6">
         <div className="w-full text-center">
-          <InfoIcon className="text-primary-500 inline-block text-[4rem]" />
+          <InfoCircle className="text-fg-brand inline-block text-[40px]" />
         </div>
-        <p className="text-body-secondary text-center">
+        <p className="text-fg-secondary text-center">
           <Trans
             t={t}
             defaults="This application requires a<br/>Bittensor account to connect.<br/>Would you like to create or import one?"
-            components={{ strong: <strong className="text-body" />, br: <br /> }}
+            components={{ strong: <strong className="text-fg-primary" />, br: <br /> }}
             values={{ type: capitalize(type) }}
           />
         </p>
-        <div className="mt-4 grid grid-cols-2 gap-8">
+        <div className="mt-2 grid grid-cols-2 gap-4">
           <Button onClick={onIgnoreClick}>{t("No")}</Button>
           <Button primary onClick={onAddAccountClick}>
             {t("Yes")}
@@ -63,18 +66,17 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
   const { t } = useTranslation()
   const { id } = useParams<"id">() as KnownRequestIdOnly<"auth">
   const authRequest = useRequest(id)
+  const requests = useRequests()
   const { popupOpenEvent } = useAnalytics()
   const [connected, setConnected] = useState<string[]>([])
 
-  useEffect(() => {
-    if (!authRequest) window.close()
-  }, [authRequest])
+  useCloseIfRequestMissing(id)
 
   const authorise = useCallback(async () => {
     if (!authRequest) return
     try {
       await api.authrequestApprove(authRequest.id, connected)
-      window.close()
+      void closeWalletSurfaceAfterApproval()
     } catch (err) {
       notify({ type: "error", title: t("Failed to connect"), subtitle: (err as Error).message })
     }
@@ -82,14 +84,14 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
 
   const reject = useCallback(() => {
     if (!authRequest) return
+    void closeWalletSurfaceAfterApproval()
     api.authrequestReject(authRequest.id)
-    window.close()
   }, [authRequest])
 
   const ignore = useCallback(() => {
     if (!authRequest) return
+    void closeWalletSurfaceAfterApproval()
     api.authrequestIgnore(authRequest.id)
-    window.close()
   }, [authRequest])
 
   useEffect(() => {
@@ -102,12 +104,25 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
         api.dashboardOpen("/accounts/add")
         ignore()
       } else reject()
-      window.close()
+      void closeWalletSurface()
     },
     [ignore, reject],
   )
 
-  if (!authRequest) return null
+  if (!authRequest) {
+    const isPending = requests.some((req) => req.id === id)
+    if (isPending) {
+      return (
+        <PopupLayout className={className}>
+          <PopupContent className="flex flex-1 items-center justify-center">
+            <Loading01 className="animate-spin-slow text-fg-secondary inline-block text-[32px]" />
+          </PopupContent>
+        </PopupLayout>
+      )
+    }
+
+    return <Navigate to="/portfolio" replace />
+  }
 
   const ConnectContentComponent: ConnectComponent = getConnectComponent(
     authRequest.request.provider,
@@ -126,7 +141,7 @@ export const Connect: FC<{ className?: string }> = ({ className }) => {
       />
 
       <PopupFooter>
-        <div className="grid w-full grid-cols-2 gap-12">
+        <div className="grid w-full grid-cols-2 gap-6">
           <Button onClick={reject} data-testid="connection-reject-button">
             {t("Reject")}
           </Button>
@@ -169,7 +184,7 @@ export const ConnectPolkadot: ConnectComponent = ({
 
   return (
     <PopupContent>
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-2">
         <ConnectAccountsContainer
           status="disabled"
           connectedAddresses={connected}

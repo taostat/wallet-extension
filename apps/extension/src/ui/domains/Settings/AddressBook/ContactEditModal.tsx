@@ -1,24 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { encodeAddressSs58 } from "@taostats-wallet/crypto"
-import { CopyIcon } from "@taostats-wallet/icons"
 import { HexString } from "@taostats-wallet/util"
 import { isAccountAddressSs58, isAddressCompatibleWithNetwork } from "extension-core"
 import { keyBy } from "lodash-es"
-import { FC, useCallback, useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import {
-  Button,
-  FormFieldContainer,
-  FormFieldInputText,
-  IconButton,
-  Modal,
-  ModalDialog,
-} from "taostats-ui"
+import { Button, FormFieldContainer, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
 import * as yup from "yup"
 
-import { notify } from "@taostats/components/Notifications"
-import { shortenAddress } from "@taostats/util/shortenAddress"
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
@@ -127,7 +118,7 @@ export const ContactEditModal = ({ contact, isOpen, close }: ExistingContactModa
 
   return (
     <Modal isOpen={isOpen} onDismiss={close}>
-      <div id="edit-contact-modal" className="h-[60rem] w-[40rem] overflow-hidden">
+      <div id="edit-contact-modal" className="h-[600px] w-[400px] overflow-hidden">
         <ModalDialog title={t("Edit contact")} className="size-full overflow-hidden">
           <form onSubmit={handleSubmit(submit)} className="flex size-full flex-col overflow-hidden">
             <div className="grow">
@@ -145,7 +136,7 @@ export const ContactEditModal = ({ contact, isOpen, close }: ExistingContactModa
                   type="text"
                   value={address}
                   readOnly
-                  after={<CopyAddressIconButton address={address} className="text-[2rem]" />}
+                  after={<CopyAddressIconButton address={address} iconClassName="text-[20px]" />}
                 />
               </FormFieldContainer>
               {isAddressSs58 && (
@@ -158,7 +149,7 @@ export const ContactEditModal = ({ contact, isOpen, close }: ExistingContactModa
                 </FormFieldContainer>
               )}
             </div>
-            <div className="flex items-stretch gap-4 pt-4">
+            <div className="flex items-stretch gap-2 pt-2">
               <Button fullWidth onClick={close}>
                 {t("Cancel")}
               </Button>
@@ -170,34 +161,5 @@ export const ContactEditModal = ({ contact, isOpen, close }: ExistingContactModa
         </ModalDialog>
       </div>
     </Modal>
-  )
-}
-
-const CopyAddressIconButton: FC<{ address: string; className?: string }> = ({
-  address,
-  className,
-}) => {
-  const { t } = useTranslation()
-  const handleClick = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(address)
-      notify({
-        type: "success",
-        title: t(`Address copied`),
-        subtitle: shortenAddress(address, 6, 6),
-      })
-    } catch (err) {
-      notify({
-        type: "error",
-        title: t("Error"),
-        subtitle: (err as Error).message ?? "Failed to copy address",
-      })
-    }
-  }, [address, t])
-
-  return (
-    <IconButton className={className} onClick={handleClick} disabled={!address}>
-      <CopyIcon />
-    </IconButton>
   )
 }

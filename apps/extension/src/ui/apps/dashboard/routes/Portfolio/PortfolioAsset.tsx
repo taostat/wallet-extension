@@ -1,6 +1,6 @@
 import { Balances } from "@taostats-wallet/balances"
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { ArrowUpRightIcon } from "@taostats-wallet/icons"
+import { ArrowUpRight } from "@untitledui/icons/ArrowUpRight"
 import { t } from "i18next"
 import { uniq } from "lodash-es"
 import { FC, useEffect, useMemo } from "react"
@@ -39,7 +39,7 @@ const HeaderRow: FC<{
   if (summary.totalTokens.isZero()) return null
 
   return (
-    <div className="text-body-secondary bg-grey-850 rounded p-8 text-left text-base">
+    <div className="text-fg-secondary bg-secondary rounded p-4 text-left text-base">
       <div className="grid grid-cols-[40%_30%_30%]">
         <Statistics
           className="h-auto w-auto p-0"
@@ -53,7 +53,7 @@ const HeaderRow: FC<{
         {canHaveLockedState ? (
           <>
             <Statistics
-              className="h-auto w-auto items-end p-0 pr-8"
+              className="h-auto w-auto items-end p-0 pr-4"
               title={t("Locked")}
               tokens={summary.lockedTokens}
               fiat={summary.lockedFiat}
@@ -97,7 +97,7 @@ const SendFundsButton: FC<{ symbol: string }> = ({ symbol }) => {
     <Tooltip>
       <TooltipTrigger asChild>
         <PortfolioToolbarButton onClick={openSendFundsPopup} disabled={!canSendFunds}>
-          <ArrowUpRightIcon />
+          <ArrowUpRight />
         </PortfolioToolbarButton>
       </TooltipTrigger>
       <TooltipContent>
@@ -127,18 +127,18 @@ const TokenBreadcrumb: FC<{
         onClick: () => navigate("/portfolio/tokens"),
       },
       {
-        label: <div className="text-body font-bold">{name}</div>,
+        label: <div className="text-fg-primary font-bold">{name}</div>,
         onClick: undefined,
       },
     ]
   }, [t, name, navigate])
 
   return (
-    <div className="flex h-20 items-center justify-between">
+    <div className="flex h-10 items-center justify-between">
       <div className="grow">
         <Breadcrumb items={items} />
       </div>
-      <div className="flex h-20 items-center gap-2">
+      <div className="flex h-10 items-center gap-1">
         {/* <BittensorClaimSettingsToolbarButton balances={balances} /> */}
         {/* <BittensorStakeToolbarButton balances={balances} />
         <BittensorUnstakeToolbarButton balances={balances} />*/}

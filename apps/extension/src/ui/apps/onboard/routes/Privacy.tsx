@@ -61,7 +61,7 @@ export const PrivacyPage = () => {
               Read our{" "}
               <a
                 onClick={handleLearnMoreClick}
-                className="text-body"
+                className="text-fg-primary"
                 href={PRIVACY_POLICY_URL}
                 target="_blank"
               >

@@ -9,7 +9,7 @@ import { FontFamily, preloadFonts, StarryBackground } from "taostats-ui"
 
 import { ErrorBoundaryDatabaseMigration } from "@taostats/components/ErrorBoundaryDatabaseMigration"
 import { NotificationsContainer } from "@taostats/components/Notifications/NotificationsContainer"
-import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { DismissStartupHold, StartupHold } from "@taostats/components/StartupHold"
 import { TaostatsWalletErrorBoundary } from "@taostats/components/TaostatsWalletErrorBoundary"
 import { useKeepBackgroundOpen } from "@ui/hooks/useKeepBackgroundOpen"
 import { KeepWalletUnlockedMode, useKeepWalletUnlocked } from "@ui/hooks/useKeepWalletUnlocked"
@@ -48,7 +48,8 @@ export const renderApp = (app: ReactNode, { keepWalletUnlockedMode }: RenderAppO
     <StrictMode>
       <TaostatsWalletErrorBoundary>
         <ErrorBoundaryDatabaseMigration>
-          <Suspense fallback={<SuspenseTracker name="Root" />}>
+          <Suspense fallback={<StartupHold />}>
+            <DismissStartupHold />
             <KeepBackgroundOpen />
             <KeepWalletUnlocked mode={keepWalletUnlockedMode} />
             <Subscribe>

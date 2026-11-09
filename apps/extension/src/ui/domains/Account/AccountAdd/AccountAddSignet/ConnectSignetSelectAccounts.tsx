@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -93,12 +93,12 @@ export const ConnectSignetSelectAccounts = () => {
       <HeaderBlock title="Confirm Import?" />
       <Spacer large />
 
-      <div className="grid w-full max-w-xl gap-[1rem]">
+      <div className="grid w-full max-w-xl gap-[10px]">
         {vaults.map((vault) => (
           <button
             type="button"
             key={vault.address}
-            className="bg-grey-850 text-grey-200 enabled:hover:bg-grey-800 flex h-32 w-full items-center gap-8 rounded-sm px-8 text-left disabled:opacity-50"
+            className="bg-secondary text-fg-tertiary enabled:hover:bg-secondary flex h-16 w-full items-center gap-4 rounded-sm px-4 text-left disabled:opacity-50"
             onClick={() => handleToggle(vault.address)}
           >
             <AccountIcon
@@ -108,23 +108,23 @@ export const ConnectSignetSelectAccounts = () => {
             />
             <div>
               <div className="overflow-hidden text-ellipsis whitespace-nowrap">{vault.name}</div>
-              <div className="text-body-secondary text-sm">
+              <div className="text-fg-secondary text-sm">
                 <Address address={vault.address} startCharCount={6} endCharCount={6} />
               </div>
             </div>
             <Checkbox
               checked={selectedAccounts?.[vault.address] ?? false}
               readOnly
-              className="[&>input]:!border-body-disabled ml-auto"
+              className="[&>input]:!border-primary ml-auto"
             />
           </button>
         ))}
       </div>
       <Spacer large />
       <Button
-        className="mt-8"
+        className="mt-4"
         primary
-        icon={ArrowRightIcon}
+        icon={ArrowRight}
         processing={importing}
         disabled={selectedAccountsList.length === 0}
         onClick={handleImport}

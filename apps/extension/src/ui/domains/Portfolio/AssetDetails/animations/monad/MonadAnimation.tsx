@@ -30,11 +30,11 @@ export const MonadAnimation = () => {
   }, [])
 
   return createPortal(
-    <div className={"absolute bottom-28 left-0 w-full"}>
+    <div className={"absolute bottom-14 left-0 w-full"}>
       <div
         className={classNames(
-          "relative h-[9.3rem] w-[10.5rem] -translate-x-[100%] opacity-100 duration-[2s] ease-out",
-          step > 0 && "translate-x-[14.8rem]",
+          "relative h-[93px] w-[105px] -translate-x-[100%] opacity-100 duration-[2s] ease-out",
+          step > 0 && "translate-x-[148px]",
           step === 3 && "opacity-0 duration-500 ease-out",
         )}
       >

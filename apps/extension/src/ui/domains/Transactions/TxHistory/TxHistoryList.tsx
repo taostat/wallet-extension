@@ -1,8 +1,10 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { BalanceFormatter } from "@taostats-wallet/balances"
 import { NetworkId } from "@taostats-wallet/chaindata-provider"
-import { ArrowRightIcon, LoaderIcon, XOctagonIcon } from "@taostats-wallet/icons"
 import { classNames, planckToTokens } from "@taostats-wallet/util"
+import { AlertOctagon } from "@untitledui/icons/AlertOctagon"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import {
   isTxInfoSwap,
   isTxInfoTransfer,
@@ -70,7 +72,7 @@ export const TxHistoryList = () => {
   }, [transactions])
 
   return (
-    <div className="pb-4">
+    <div className="pb-2">
       <TransactionRows
         transactions={transactions}
         dismissingTxIds={dismissingTxIds}
@@ -78,7 +80,7 @@ export const TxHistoryList = () => {
       />
 
       {!isLoading && !transactions.length && (
-        <div className="text-body-disabled bg-grey-900 flex h-40 w-full flex-col items-center justify-center rounded-sm text-sm">
+        <div className="text-fg-disabled bg-app-bg flex h-20 w-full flex-col items-center justify-center rounded-sm text-sm">
           {t("No transactions found")}
         </div>
       )}
@@ -181,17 +183,17 @@ const TxIconContainer = ({
 }) => (
   <Tooltip>
     <TooltipTrigger asChild>
-      <div className={classNames("relative h-16 w-16 shrink-0", className)}>
+      <div className={classNames("relative h-8 w-8 shrink-0", className)}>
         {children}
         {!!networkId && (
           <NetworkLogo
             networkId={networkId}
-            className="border-grey-800 !absolute right-[-4px] top-[-4px] h-8 w-8 rounded-full border"
+            className="border-primary !absolute right-[-4px] top-[-4px] h-4 w-4 rounded-full border"
           />
         )}
       </div>
     </TooltipTrigger>
-    <TooltipContent className="bg-grey-700 rounded-xs z-20 p-3 text-xs shadow">
+    <TooltipContent className="bg-tertiary rounded-xs z-20 p-1.5 text-xs shadow">
       {tooltip}
     </TooltipContent>
   </Tooltip>
@@ -206,7 +208,7 @@ const TransactionStatusLabel: FC<{ status: TransactionStatus }> = ({ status }) =
       return (
         <>
           <span>{t("Submitting")} </span>
-          <LoaderIcon className="animate-spin-slow text-body-disabled" />
+          <Loading01 className="animate-spin-slow text-fg-disabled" />
         </>
       )
     case "success":
@@ -215,7 +217,7 @@ const TransactionStatusLabel: FC<{ status: TransactionStatus }> = ({ status }) =
       return (
         <>
           <span>{t("Cancelled")}</span>
-          <XOctagonIcon className="text-brand-orange" />
+          <AlertOctagon className="text-brand-orange" />
         </>
       )
     case "unknown":
@@ -237,8 +239,8 @@ const TransactionRowBase: FC<{
       onClick={onClick}
       disabled={!onClick}
       className={classNames(
-        "bg-grey-850 hover:bg-grey-800 relative z-0 flex w-full grow items-center rounded-sm text-left",
-        IS_POPUP ? "h-[5.2rem] gap-6 px-6" : "h-[5.8rem] gap-8 px-8",
+        "bg-secondary hover:bg-secondary relative z-0 flex w-full grow items-center rounded-sm text-left",
+        IS_POPUP ? "h-[52px] gap-3 px-3" : "h-[58px] gap-4 px-4",
       )}
     >
       {logo}
@@ -246,21 +248,21 @@ const TransactionRowBase: FC<{
         <div className="flex flex-col items-start justify-center">
           <div
             className={classNames(
-              "text-body flex h-10 items-center gap-2 font-bold",
+              "text-fg-primary flex h-5 items-center gap-1 font-bold",
               IS_POPUP ? "text-sm" : "text-base",
             )}
           >
             {status}
           </div>
-          <div className={classNames("text-body-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
+          <div className={classNames("text-fg-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
             {wen}
           </div>
         </div>
         <div className="flex flex-col items-end justify-center text-right">
-          <div className={classNames("text-body", IS_POPUP ? "text-sm" : "text-base")}>
+          <div className={classNames("text-fg-primary", IS_POPUP ? "text-sm" : "text-base")}>
             {tokens}
           </div>
-          <div className={classNames("text-body-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
+          <div className={classNames("text-fg-disabled", IS_POPUP ? "text-xs" : "text-sm")}>
             {fiat}
           </div>
         </div>
@@ -305,24 +307,24 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
       logo={
         tx.siteUrl ? (
           <TxIconContainer tooltip={tx.siteUrl} networkId={chain?.id}>
-            <Favicon siteUrl={tx.siteUrl} className="!h-16 !w-16" />
+            <Favicon siteUrl={tx.siteUrl} className="!h-8 !w-8" />
           </TxIconContainer>
         ) : txSwap ? (
           <div className="flex items-center">
             <TxIconContainer networkId={fromToken?.networkId ?? fromToken?.networkId}>
-              <TokenLogo tokenId={fromToken?.id} className="!h-16 !w-16" />
+              <TokenLogo tokenId={fromToken?.id} className="!h-8 !w-8" />
             </TxIconContainer>
-            <TxIconContainer className="-ml-4" networkId={toToken?.networkId ?? toToken?.networkId}>
-              <TokenLogo tokenId={toToken?.id} className="!h-16 !w-16" />
+            <TxIconContainer className="-ml-2" networkId={toToken?.networkId ?? toToken?.networkId}>
+              <TokenLogo tokenId={toToken?.id} className="!h-8 !w-8" />
             </TxIconContainer>
           </div>
         ) : isTransfer && token ? (
           <TxIconContainer tooltip={`${token?.symbol} on ${chain?.name}`} networkId={chain?.id}>
-            <TokenLogo tokenId={token.id} className="!h-16 !w-16" />
+            <TokenLogo tokenId={token.id} className="!h-8 !w-8" />
           </TxIconContainer>
         ) : (
           <TxIconContainer tooltip={chain?.name}>
-            <NetworkLogo networkId={chain?.id} className="!h-16 !w-16" />
+            <NetworkLogo networkId={chain?.id} className="!h-8 !w-8" />
           </TxIconContainer>
         )
       }
@@ -332,7 +334,7 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
         txSwap ? (
           // tx is a swap deposit
           <div className="flex flex-col">
-            <div className="flex items-center justify-end gap-1">
+            <div className="flex items-center justify-end gap-0.5">
               <Tokens
                 className="pointer-events-none"
                 amount={planckToTokens(txSwap.fromAmount, fromToken?.decimals)}
@@ -342,7 +344,7 @@ const TransactionRowDot: FC<TransactionRowDotProps> = ({ tx, onSelectTx }) => {
                 noTooltip
                 isBalance
               />
-              <ArrowRightIcon className="text-body-inactive" />
+              <ArrowRight className="text-fg-tertiary" />
             </div>
             <Tokens
               className="pointer-events-none"
@@ -391,14 +393,14 @@ const TransactionRow: FC<TransactionRowProps> = ({ tx, ...props }) => {
 const TransactionRowShimmer = () => {
   return (
     <TransactionRowBase
-      logo={<div className="bg-grey-800 h-16 w-16 shrink-0 animate-pulse rounded-full" />}
+      logo={<div className="bg-secondary h-8 w-8 shrink-0 animate-pulse rounded-full" />}
       status={
-        <div className="bg-grey-800 text-grey-800 rounded-xs mb-1 animate-pulse text-sm">
+        <div className="bg-secondary text-fg-disabled rounded-xs mb-0.5 animate-pulse text-sm">
           Dunno yet
         </div>
       }
       wen={
-        <div className="bg-grey-800 text-grey-800 rounded-xs mt-1 animate-pulse text-xs">
+        <div className="bg-secondary text-fg-disabled rounded-xs mt-0.5 animate-pulse text-xs">
           Very long time ago
         </div>
       }

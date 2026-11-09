@@ -1,4 +1,4 @@
-import { AlertTriangleIcon } from "@taostats-wallet/icons"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button, FormFieldInputText, Modal, ModalDialog } from "taostats-ui"
@@ -78,30 +78,30 @@ export const MnemonicDeleteModal = () => {
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
       <ModalDialog
         title={
-          <div className="flex items-center gap-4">
-            <AlertTriangleIcon className="text-brand-orange inline text-lg" />
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="text-brand-orange inline text-lg" />
             <span>{t("Delete Recovery Phrase")}</span>
           </div>
         }
         onClose={close}
       >
-        <p className="text-body-secondary">
+        <p className="text-fg-secondary">
           <Trans
             t={t}
-            components={{ Highlight: <span className="text-body"></span> }}
+            components={{ Highlight: <span className="text-fg-primary"></span> }}
             defaults="Are you sure that you want to delete <Highlight>{{name}}</Highlight>?"
             values={{ name }}
           />
         </p>
         <div>
-          <div className="text-body-disabled mb-4 mt-12">{t("Type Delete to continue")}</div>
+          <div className="text-fg-disabled mb-2 mt-6">{t("Type Delete to continue")}</div>
           <FormFieldInputText
             placeholder={t("Delete")}
             defaultValue=""
             onChange={(e) => setInputCheck(e.target.value)}
           />
         </div>
-        <div className="mt-12 grid grid-cols-2 gap-8">
+        <div className="mt-6 grid grid-cols-2 gap-4">
           <Button onClick={close}>{t("Cancel")}</Button>
           <Button
             primary

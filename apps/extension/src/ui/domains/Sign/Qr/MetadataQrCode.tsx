@@ -38,7 +38,7 @@ export const MetadataQrCode = ({ genesisHash, specVersion, qrCodeSource }: Props
     return (
       <>
         <img
-          className="absolute h-full w-full p-5"
+          className="absolute h-full w-full p-2.5"
           src={latestMetadataQrUrl}
           ref={ref}
           onLoad={onLoad}
@@ -49,7 +49,7 @@ export const MetadataQrCode = ({ genesisHash, specVersion, qrCodeSource }: Props
         />
         {loaded && qrCodeLogo ? (
           <img
-            className="absolute left-1/2 top-1/2 w-40 -translate-x-1/2 -translate-y-1/2 bg-white p-5"
+            className="absolute left-0.5/2 top-0.5/2 w-20 -translate-x-0.5/2 -translate-y-0.5/2 bg-white p-2.5"
             src={qrCodeLogo}
             alt=""
           />

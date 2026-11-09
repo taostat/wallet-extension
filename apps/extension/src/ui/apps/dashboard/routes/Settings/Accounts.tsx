@@ -5,7 +5,6 @@ import { combineLatest } from "rxjs"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { DeleteFolderModal } from "@ui/domains/Account/DeleteFolderModal"
 import {
   ManageAccountsLists,
@@ -47,8 +46,4 @@ const Content = () => {
   )
 }
 
-export const AccountsPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const AccountsPage = () => <Content />

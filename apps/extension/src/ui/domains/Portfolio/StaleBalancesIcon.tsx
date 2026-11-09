@@ -1,4 +1,4 @@
-import { AlertTriangleIcon } from "@taostats-wallet/icons"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
 import { useTranslation } from "react-i18next"
 
 import { WithTooltip } from "@taostats/components/Tooltip"
@@ -26,7 +26,7 @@ export const StaleBalancesIcon = ({ className, staleChains = [] }: Props) => {
 
   return (
     <WithTooltip tooltip={tooltip}>
-      <AlertTriangleIcon className={className} />
+      <AlertTriangle className={className} />
     </WithTooltip>
   )
 }

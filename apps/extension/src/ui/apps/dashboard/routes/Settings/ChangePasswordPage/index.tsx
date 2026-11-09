@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { ChangePasswordStatusUpdateStatus, ChangePasswordStatusUpdateType } from "extension-core"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -12,7 +12,6 @@ import { CapsLockWarningMessage } from "@taostats/components/CapsLockWarningMess
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { notify } from "@taostats/components/Notifications"
 import { api } from "@ui/api"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
 
 import { ChangePasswordModal } from "./ChangePasswordModal"
@@ -144,15 +143,15 @@ const Content = () => {
   return (
     <>
       <HeaderBlock title={t("Change your password")} />
-      <p className="text-body-secondary my-10">
+      <p className="text-fg-secondary my-5">
         {t(
           "Your password is used to unlock your wallet and is stored securely on your device. We recommend 12 characters, with uppercase and lowercase letters, symbols, and numbers.",
         )}
       </p>
       {!allBackedUp && (
-        <div className="mnemonic-warning flex flex-col gap-0.5 rounded-sm border border-white p-8">
+        <div className="mnemonic-warning flex flex-col gap-px rounded-sm border border-white p-4">
           <div className="flex items-center justify-between">
-            <InfoIcon className="text-primary mr-10 text-3xl" />
+            <InfoCircle className="text-fg-brand mr-5 text-3xl" />
             {t(
               "You'll need to confirm your recovery phrase is backed up before you change your password.",
             )}
@@ -163,7 +162,7 @@ const Content = () => {
         </div>
       )}
 
-      <form className="mt-8" onSubmit={handleSubmit(subscribeChangePassword)}>
+      <form className="mt-4" onSubmit={handleSubmit(subscribeChangePassword)}>
         <FormFieldContainer error={errors.currentPw?.message} label={t("Old Password")}>
           <FormFieldInputText
             {...register("currentPw")}
@@ -202,12 +201,12 @@ const Content = () => {
             disabled={!allBackedUp}
           />
         </FormFieldContainer>
-        <div className="mt-8 flex items-center justify-between">
+        <div className="mt-4 flex items-center justify-between">
           <div>
             <CapsLockWarningMessage />
           </div>
           <Button
-            className="w-[20rem]"
+            className="w-[200px]"
             type="submit"
             primary
             disabled={!isValid || !allBackedUp}
@@ -222,8 +221,4 @@ const Content = () => {
   )
 }
 
-export const ChangePasswordPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const ChangePasswordPage = () => <Content />

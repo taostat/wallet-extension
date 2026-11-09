@@ -14,7 +14,6 @@ import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { api } from "@ui/api"
 
 import { BottomNav } from "../components/Navigation/BottomNav"
-import { NavigationDrawer } from "../components/Navigation/NavigationDrawer"
 
 type ContainerProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 
@@ -32,11 +31,11 @@ export const PopupHeader: FC<ContainerProps & { right?: ReactNode }> = ({
     <header
       {...props}
       className={classNames(
-        "flex h-32 w-full shrink-0 items-center justify-between px-12",
+        "flex h-16 w-full shrink-0 items-center justify-between px-6",
         className,
       )}
     >
-      <div className="w-16 shrink-0 text-xl">
+      <div className="w-8 shrink-0 text-xl">
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-element-interactions */}
         <img
           src="/images/icon-round.png"
@@ -46,7 +45,7 @@ export const PopupHeader: FC<ContainerProps & { right?: ReactNode }> = ({
         />
       </div>
       <div>{children}</div>
-      <div className="w-16 shrink-0">{right}</div>
+      <div className="w-8 shrink-0">{right}</div>
     </header>
   )
 }
@@ -69,21 +68,16 @@ export const PopupContent: FC<ContainerProps & { withBottomNav?: boolean }> = ({
     <ScrollContainer
       {...props}
       ref={scrollableRef}
-      className={classNames("w-full flex-grow overflow-hidden px-8", className)}
+      className={classNames("w-full flex-grow overflow-hidden px-2", className)}
     >
       {children}
-      {!!withBottomNav && (
-        <>
-          <BottomNav />
-          <NavigationDrawer />
-        </>
-      )}
+      {!!withBottomNav && <BottomNav />}
     </ScrollContainer>
   )
 }
 
 export const PopupFooter: FC<ContainerProps> = ({ className, ...props }) => {
-  return <footer {...props} className={classNames("shrink-0 px-12 py-10", className)} />
+  return <footer {...props} className={classNames("shrink-0 px-6 py-5", className)} />
 }
 
 export const PopupLayout: FC<ContainerProps> = ({ className, children, ...props }) => {

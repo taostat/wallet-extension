@@ -1,15 +1,28 @@
 import { getBlockExplorerUrls, Network } from "@taostats-wallet/chaindata-provider"
-import { CheckCircleIcon, ExternalLinkIcon, LoaderIcon, XCircleIcon } from "@taostats-wallet/icons"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { Loading01 } from "@untitledui/icons/Loading01"
+import { XCircle } from "@untitledui/icons/XCircle"
 import { WalletTransaction, WalletTransactionDot } from "extension-core"
 import { FC, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
-import { useAnyNetwork, useNetworkById, useTransaction } from "@ui/state"
+import { useNetworkById, useTransaction } from "@ui/state"
 
 const getBlockExplorerUrl = (network: Network | undefined | null, hash: string) => {
   if (!network) return null
   return getBlockExplorerUrls(network, { type: "transaction", id: hash })[0] ?? null
+}
+
+/** Shield API hashes are indexed at /extrinsic/{id}, the same path the web app uses. */
+const getTaostatsExtrinsicUrl = (network: Network | undefined | null, id: string) => {
+  const base = network?.blockExplorerUrls?.find((url) => url.includes("taostats.io"))
+  if (!base) return getBlockExplorerUrl(network, id)
+
+  const url = new URL(base)
+  url.pathname = `/extrinsic/${encodeURIComponent(id)}`
+  return url.toString()
 }
 
 const useTxStatusDetails = (tx?: WalletTransaction) => {
@@ -75,53 +88,55 @@ const TxProgressBase: FC<TxProgressBaseProps> = ({ tx, blockNumber, href, onClos
 
   return (
     <div className="flex h-full w-full flex-col items-center">
-      <div className="text-body mt-8 text-lg font-bold">{title}</div>
-      <div className="text-body-secondary mt-12 text-center text-base font-light">{subtitle}</div>
+      <div className="text-fg-primary mt-4 text-lg font-bold">{title}</div>
+      <div className="text-fg-secondary mt-6 text-center text-base font-light">{subtitle}</div>
 
       {tx?.status === "pending" && (
-        <div className="my-12 flex w-full justify-center">
-          <LoaderIcon className="animate-spin-slow text-secondary h-12 w-12" />
+        <div className="my-6 flex w-full justify-center">
+          <Loading01 className="animate-spin-slow text-secondary h-6 w-6" />
         </div>
       )}
 
       {tx?.status === "success" && (
-        <div className="my-12 flex w-full justify-center">
-          <CheckCircleIcon className="text-alert-success h-12 w-12" />
+        <div className="my-6 flex w-full justify-center">
+          <CheckCircle className="text-fg-success h-6 w-6" />
         </div>
       )}
 
       {tx?.status === "error" && (
-        <div className="my-12 flex w-full justify-center">
-          <XCircleIcon className="text-alert-error h-12 w-12" />
+        <div className="my-6 flex w-full justify-center">
+          <XCircle className="text-fg-error h-6 w-6" />
         </div>
       )}
 
-      <div className="text-body-secondary flex w-full grow flex-col justify-center gap-10 px-10 text-center">
+      <div className="text-fg-secondary flex w-full grow flex-col justify-center gap-5 px-5 text-center">
         <div>
           {blockNumber ? (
             <>
               {tx?.confirmed ? t("Confirmed in") : t("Included in")}{" "}
               {href ? (
-                <a target="_blank" className="hover:text-body text-grey-200" href={href}>
+                <a target="_blank" className="hover:text-fg-primary text-fg-tertiary" href={href}>
                   {t("block #{{blockNumber}}", { blockNumber })}{" "}
-                  <ExternalLinkIcon className="inline align-text-top" />
+                  <LinkExternal01 className="inline align-text-top" />
                 </a>
               ) : (
-                <span className="text-body">{t("block #{{blockNumber}}", { blockNumber })}</span>
+                <span className="text-fg-primary">
+                  {t("block #{{blockNumber}}", { blockNumber })}
+                </span>
               )}
             </>
           ) : href ? (
             <Trans t={t}>
               View transaction on{" "}
-              <a target="_blank" className="hover:text-body text-grey-200" href={href}>
-                Taostats <ExternalLinkIcon className="inline align-text-top" />
+              <a target="_blank" className="hover:text-fg-primary text-fg-tertiary" href={href}>
+                Taostats <LinkExternal01 className="inline align-text-top" />
               </a>
             </Trans>
           ) : null}
         </div>
-        <div className="h-[3.6rem]">
+        <div className="h-[36px]">
           {tx?.status === "success" && !tx?.confirmed && (
-            <div className="text-secondary h-[3.6rem] animate-pulse">
+            <div className="text-secondary h-[36px] animate-pulse">
               {t("You may close this window or wait for the transaction to be confirmed")}
             </div>
           )}
@@ -142,7 +157,15 @@ type TxProgressDotProps = {
 
 const TxProgressDot: FC<TxProgressDotProps> = ({ tx, onClose, className }) => {
   const chain = useNetworkById(tx.networkId)
-  const href = useMemo(() => getBlockExplorerUrl(chain, tx.hash), [chain, tx.hash])
+  const href = useMemo(() => {
+    if (tx.explorerId) return getTaostatsExtrinsicUrl(chain, tx.explorerId)
+    if (tx.hideExplorerLink) return null
+    // A locally signed hash is not on Taostats until the extrinsic is included.
+    if (tx.status === "pending" || tx.status === "unknown") return null
+    if (chain?.blockExplorerUrls?.some((url) => url.includes("taostats.io")))
+      return getTaostatsExtrinsicUrl(chain, tx.hash)
+    return getBlockExplorerUrl(chain, tx.hash)
+  }, [chain, tx.explorerId, tx.hash, tx.hideExplorerLink, tx.status])
 
   return (
     <TxProgressBase
@@ -162,14 +185,12 @@ type TxProgressProps = {
   className?: string
 }
 
-export const TxProgress: FC<TxProgressProps> = ({ hash, networkIdOrHash, onClose, className }) => {
+export const TxProgress: FC<TxProgressProps> = ({ hash, onClose, className }) => {
   const tx = useTransaction(hash)
-  const network = useAnyNetwork(networkIdOrHash)
 
-  // tx is null if not found in db
+  // tx is null if not found in db. Don't link a hash Taostats has not indexed yet.
   if (tx === null) {
-    const href = getBlockExplorerUrl(network, hash)
-    return <TxProgressBase href={href} className={className} onClose={onClose} />
+    return <TxProgressBase className={className} onClose={onClose} />
   }
 
   switch (tx?.platform) {

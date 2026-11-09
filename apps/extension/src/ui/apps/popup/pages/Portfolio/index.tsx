@@ -1,20 +1,19 @@
-import { EyeIcon, EyeOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import { FC, PropsWithChildren, Suspense, useEffect, useRef } from "react"
+import { Eye } from "@untitledui/icons/Eye"
+import { EyeOff } from "@untitledui/icons/EyeOff"
+import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { Route, Routes, useLocation } from "react-router-dom"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
-import { ScrollContainer } from "@taostats/components/ScrollContainer"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
-import { TaostatsLogo } from "@taostats/theme/logos"
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
 // import BraveWarningPopupBanner from "@ui/domains/Settings/BraveWarning/BraveWarningPopupBanner"
 import MigratePasswordAlert from "@ui/domains/Settings/MigratePasswordAlert"
 import { useSetting } from "@ui/state"
 
-import { BottomNav } from "../../components/Navigation/BottomNav"
-import { NavigationDrawer } from "../../components/Navigation/NavigationDrawer"
+import { TaoPriceHeader } from "../../components/TaoPriceHeader"
+import { PopupTabShell } from "../../Layout/PopupTabShell"
 import { PortfolioAccounts } from "./PortfolioAccounts"
 import { PortfolioAsset } from "./PortfolioAsset"
 import { PortfolioAssets } from "./PortfolioAssets"
@@ -39,28 +38,28 @@ const HideBalancesToggle = () => {
           />
           <div
             className={classNames(
-              "bg-grey-600 peer h-14 w-28 shrink-0 rounded-full",
+              "bg-tertiary peer h-7 w-14 shrink-0 rounded-full",
               "peer-focus-visible:ring-body peer-focus:outline-none peer-focus-visible:ring-2",
             )}
           ></div>
           <div
             className={classNames(
-              "absolute left-1 top-1 flex h-12 w-12",
-              "bg-grey-800 rounded-full",
-              "peer-checked:bg-primary transition peer-checked:translate-x-14",
+              "absolute left-0.5 top-0.5 flex h-6 w-6",
+              "bg-secondary rounded-full",
+              "peer-checked:bg-fg-brand transition peer-checked:translate-x-7",
             )}
           >
-            <EyeIcon
+            <Eye
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
-                "text-body-black transition-opacity",
+                "absolute left-1 top-1 h-4 w-4",
+                "text-fg-primary-alt transition-opacity",
                 hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
-            <EyeOffIcon
+            <EyeOff
               className={classNames(
-                "absolute left-2 top-2 h-8 w-8",
-                "text-body transition-opacity",
+                "absolute left-1 top-1 h-4 w-4",
+                "text-fg-primary transition-opacity",
                 !hideBalances ? "opacity-0" : "opacity-100",
               )}
             />
@@ -88,36 +87,26 @@ const PortfolioRoutes = () => (
   </>
 )
 
-const Content: FC<PropsWithChildren> = ({ children }) => {
-  //scrollToTop on location change
-  const scrollableRef = useRef<HTMLDivElement>(null)
+export const Portfolio = () => {
   const location = useLocation()
-
-  useEffect(() => {
-    scrollableRef.current?.scrollTo(0, 0)
-  }, [location.pathname])
+  const isTokenDetail = /\/portfolio\/tokens\/.+/.test(location.pathname)
 
   return (
-    <ScrollContainer ref={scrollableRef} className={classNames("size-full overflow-hidden px-8")}>
-      {children}
-    </ScrollContainer>
+    <PortfolioContainer renderWhileLoading>
+      <div id="main" className="relative size-full overflow-hidden">
+        <PopupTabShell
+          // content scrolls with the shell here, so it must not shrink or the BottomNav placeholder ends up behind the list
+          contentClassName="flex-auto shrink-0"
+          headerRight={
+            <>
+              <TaoPriceHeader />
+              {isTokenDetail && <HideBalancesToggle />}
+            </>
+          }
+        >
+          <PortfolioRoutes />
+        </PopupTabShell>
+      </div>
+    </PortfolioContainer>
   )
 }
-
-export const Portfolio = () => (
-  <PortfolioContainer renderWhileLoading>
-    <div id="main" className="relative size-full overflow-hidden">
-      <Content>
-        <div className="flex size-full flex-col gap-4 py-8">
-          <header className="flex items-center justify-between p-4 pt-0">
-            <TaostatsLogo className="h-[1.5rem] w-auto" />
-            <HideBalancesToggle />
-          </header>
-          <PortfolioRoutes />
-          <BottomNav />
-        </div>
-      </Content>
-      <NavigationDrawer />
-    </div>
-  </PortfolioContainer>
-)

@@ -1,21 +1,21 @@
-import {
-  CloseIcon,
-  ExpandIcon,
-  HistoryIcon,
-  HomeIcon,
-  Link2Icon,
-  MenuIcon,
-} from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Calendar } from "@untitledui/icons/Calendar"
+import { Expand04 } from "@untitledui/icons/Expand04"
+import { Link01 } from "@untitledui/icons/Link01"
+import { Menu04 } from "@untitledui/icons/Menu04"
+import { XClose } from "@untitledui/icons/XClose"
 import { TAOSTATS_WEB_APP_STAKING_URL } from "extension-shared"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation, useMatch, useNavigate } from "react-router-dom"
+import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
 
+import { TaostatsIcon } from "@taostats/theme/logos"
 import { api } from "@ui/api"
 import { AnalyticsPage, sendAnalyticsEvent } from "@ui/api/analytics"
 import { useMnemonicsAllBackedUp } from "@ui/hooks/useMnemonicsAllBackedUp"
-import { usePopupNavOpenClose } from "@ui/hooks/usePopupNavOpenClose"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
+import { isSidePanel } from "@ui/util/constants"
 
 import {
   QuickSettingsModal,
@@ -33,7 +33,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
 export const BottomNav = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { open } = usePopupNavOpenClose()
   const { close: closeQuickSettings, isOpen: isQuickSettingsOpen } = useQuickSettingsOpenClose()
 
   const handleHomeClick = useCallback(() => {
@@ -63,7 +62,7 @@ export const BottomNav = () => {
       action: "Staking button",
     })
     window.open(TAOSTATS_WEB_APP_STAKING_URL, "_blank")
-    window.close()
+    void closeWalletSurface()
   }, [])
 
   const handleExpandClick = useCallback(() => {
@@ -72,72 +71,99 @@ export const BottomNav = () => {
       name: "Goto",
       action: "Fullscreen button",
     })
-    // assume paths are the same in dashboard
-    // portfolio pages supports account/folder query string arguments to stay in sync with popup
+    // dashboardOpen closes the side panel once the desktop tab is focused
     api.dashboardOpen(`${location.pathname}${location.search}`)
-    window.close()
   }, [location.pathname, location.search])
 
-  const handleMoreClick = useCallback(() => {
+  const handleSettingsClick = useCallback(() => {
     sendAnalyticsEvent({
       ...ANALYTICS_PAGE,
-      name: "Interact",
-      action: "More button",
+      name: "Goto",
+      action: "Settings button",
     })
-    open()
-  }, [open])
+    navigate("/settings")
+    closeQuickSettings()
+  }, [closeQuickSettings, navigate])
+
+  const handleCloseSidePanelClick = useCallback(() => {
+    sendAnalyticsEvent({
+      ...ANALYTICS_PAGE,
+      name: "Goto",
+      action: "Close side panel button",
+    })
+    void closeWalletSurface()
+  }, [])
 
   const allBackedUp = useMnemonicsAllBackedUp()
+  const showSidePanelClose = isSidePanel()
 
   const { t } = useTranslation()
 
   return (
     <>
-      <div className="h-32 shrink-0">{/* Placeholder for nav height */}</div>
+      <div className="h-16 shrink-0">{/* Placeholder for nav height */}</div>
       <QuickSettingsOverlay />
 
-      <div className="absolute bottom-0 left-0 z-20 flex w-full flex-col justify-center gap-6 px-8 pb-6">
+      <div className="absolute bottom-0 left-0 z-20 flex w-full flex-col justify-center gap-3 px-4 pb-3">
         <QuickSettingsModal />
-        <div
-          className={classNames(
-            "border-grey-800 flex h-[5.2rem] w-full items-center justify-between rounded border bg-black/90 px-7 backdrop-blur-[2px]",
-          )}
+        <nav
+          aria-label={t("Main navigation")}
+          className="flex h-[52px] w-full items-center justify-between rounded-full border border-white/10 bg-[rgba(28,28,28,0.7)] px-1 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.28),inset_0_1px_0_0_rgb(255_255_255/0.1)] backdrop-blur-sm backdrop-saturate-150"
         >
           <NavButton
             label={t("Home")}
-            icon={HomeIcon}
+            icon={TaostatsIcon}
             onClick={handleHomeClick}
             route="/portfolio/*"
+            compact={showSidePanelClose}
           />
           <NavButton
             label={t("Staking")}
-            icon={Link2Icon}
-            iconClassName="-rotate-45"
+            icon={Link01}
             onClick={handleStakingClick}
+            compact={showSidePanelClose}
           />
           <NavButton
             label={t("History")}
-            icon={HistoryIcon}
+            icon={Calendar}
             onClick={handleTxHistoryClick}
             route="/tx-history"
+            compact={showSidePanelClose}
           />
-          <NavButton label={t("Full Screen")} icon={ExpandIcon} onClick={handleExpandClick} />
+          <NavButton
+            label={t("Full Screen")}
+            icon={Expand04}
+            onClick={handleExpandClick}
+            compact={showSidePanelClose}
+          />
           {isQuickSettingsOpen ? (
             <NavButton
               label={t("Close")}
-              icon={CloseIcon}
+              icon={XClose}
               onClick={closeQuickSettings}
-              className="!text-white"
+              isActive
+              compact={showSidePanelClose}
             />
           ) : (
             <NavButton
               label={t("More")}
-              icon={MenuIcon}
-              onClick={handleMoreClick}
+              icon={Menu04}
+              onClick={handleSettingsClick}
+              route="/settings"
               withBadge={!allBackedUp}
+              compact={showSidePanelClose}
             />
           )}
-        </div>
+          {showSidePanelClose ? (
+            <NavButton
+              label={t("Close")}
+              icon={XClose}
+              onClick={handleCloseSidePanelClick}
+              variant="negative"
+              compact
+            />
+          ) : null}
+        </nav>
       </div>
     </>
   )
@@ -147,49 +173,53 @@ const NavButton: FC<{
   label: ReactNode
   icon: FC<{ className?: string }>
   iconClassName?: string
-  className?: string
+  isActive?: boolean
   withBadge?: boolean
   route?: string
+  variant?: "default" | "negative"
+  compact?: boolean
   onClick: () => void
-}> = ({ label, icon: Icon, iconClassName, withBadge, route, className, onClick }) => {
+}> = ({
+  label,
+  icon: Icon,
+  iconClassName,
+  isActive,
+  withBadge,
+  route,
+  variant = "default",
+  compact = false,
+  onClick,
+}) => {
   const routeMatch = useMatch(route ?? "")
 
   return (
-    <button
-      type="button"
-      className={classNames(
-        "group",
-        "text-body-disabled h-20 w-20",
-        "enabled:hover:text-body-secondary",
-        "enabled:focus-visible:border",
-        routeMatch && "!text-primary",
-        className,
-      )}
-      onClick={onClick}
-    >
-      <div
-        className={classNames(
-          "flex w-full flex-col items-center justify-center gap-[0.15rem] overflow-visible",
-          "translate-y-4 transition-transform group-hover:translate-y-0",
-        )}
-      >
-        {withBadge ? (
-          <div className="relative size-10 shrink-0">
-            <Icon className={classNames("size-10", iconClassName)} />
-            <div className="bg-primary absolute -right-1 -top-1 size-3 rounded-full"></div>
-          </div>
-        ) : (
-          <Icon className={classNames("size-10 shrink-0", iconClassName)} />
-        )}
-        <div
+    <Tooltip placement="top" offset={10} delay={0}>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label={typeof label === "string" ? label : undefined}
           className={classNames(
-            "leading-paragraph text-[1rem]",
-            "text-nowrap opacity-0 transition-opacity group-hover:opacity-100",
+            "relative flex h-10 shrink-0 items-center justify-center rounded-full transition-colors duration-500",
+            compact ? "w-[52px]" : "w-[60px]",
+            routeMatch || isActive
+              ? "text-fg-brand bg-white/10 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.08)]"
+              : variant === "negative"
+                ? "bg-accent-2/10 text-accent-2 hover:bg-accent-2/15"
+                : "text-grayish hover:text-label-secondary hover:bg-white/[0.06]",
           )}
+          onClick={onClick}
         >
-          {label}
-        </div>
-      </div>
-    </button>
+          {withBadge ? (
+            <div className="relative size-5 shrink-0">
+              <Icon className={classNames("size-5", iconClassName)} />
+              <div className="bg-fg-brand absolute -right-0.5 -top-0.5 size-1.5 rounded-full" />
+            </div>
+          ) : (
+            <Icon className={classNames("size-5 shrink-0", iconClassName)} />
+          )}
+        </button>
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
   )
 }

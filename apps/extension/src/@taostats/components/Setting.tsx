@@ -1,6 +1,6 @@
 import { classNames } from "@taostats-wallet/util"
 import { FC, ReactNode, SVGProps, useMemo } from "react"
-import { CtaButtonSize, getContainerClassName } from "taostats-ui"
+import { CtaButtonSize, getContainerClassName, IconTile } from "taostats-ui"
 
 export const Setting: FC<{
   iconLeft?: FC<SVGProps<SVGSVGElement>>
@@ -19,31 +19,26 @@ export const Setting: FC<{
   className,
   size = "large",
 }) => {
-  const {
-    containerClassName,
-    iconLeftClassName,
-    contentClassName,
-    titleClassName,
-    subtitleClassName,
-  } = useMemo(() => getContainerClassName(size), [size])
+  const { containerClassName, contentClassName, titleClassName, subtitleClassName, iconTileSize } =
+    useMemo(() => getContainerClassName(size), [size])
 
   return (
     <div
       className={classNames(
-        "text-body-secondary bg-grey-850 flex w-full items-center gap-8 rounded-sm px-8",
+        "border-primary bg-secondary-solid text-fg-secondary gap-md px-lg flex w-full items-center rounded-lg border",
         containerClassName,
         className,
       )}
     >
-      {IconLeft && <IconLeft className={classNames("text-body shrink-0", iconLeftClassName)} />}
+      {IconLeft && <IconTile icon={IconLeft} size={iconTileSize} />}
       <div className={classNames("flex grow flex-col items-start", contentClassName)}>
-        <div className={classNames("text-body", titleClassName)}>{title}</div>
-        <div className={classNames("text-body-secondary text-left", subtitleClassName)}>
+        <div className={classNames("text-fg-primary font-medium", titleClassName)}>{title}</div>
+        <div className={classNames("text-fg-secondary text-left", subtitleClassName)}>
           {subtitle}
         </div>
       </div>
       {children}
-      {IconRight && <IconRight className="shrink-0 text-lg" />}
+      {IconRight && <IconRight className="text-fg-tertiary shrink-0 text-lg" />}
     </div>
   )
 }

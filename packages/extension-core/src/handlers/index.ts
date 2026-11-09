@@ -1,6 +1,8 @@
 import { assert } from "@polkadot/util"
-import { log, PORT_EXTENSION } from "extension-shared"
+import { APPROVAL_UI_MESSAGES, log, PORT_EXTENSION } from "extension-shared"
 
+import { siteNeedsConnectAuthorization } from "../domains/sitesAuthorised/siteAuthorization"
+import { windowManager } from "../libs/WindowManager"
 import { MessageTypes, TransportRequestMessage } from "../types"
 import Extension from "./Extension"
 import { extensionStores, tabStores } from "./stores"
@@ -17,6 +19,7 @@ const OBFUSCATE_LOG_MESSAGES: MessageTypes[] = [
   "pri(app.changePassword.subscribe)",
   "pri(accounts.export)",
   "pri(accounts.export.all)",
+  "pri(accounts.taostatsAppImport)",
   "pri(accounts.add.derive)",
   "pri(accounts.add.keypair)",
   "pri(accounts.create.json)",
@@ -70,6 +73,18 @@ const taostatsHandler = <TMessageType extends MessageTypes>(
 
   if (!IGNORED_LOG_MESSAGES.includes(message))
     log.debug(`[${port.name} REQ] ${source}`, { request: shouldLog ? request : OBFUSCATED_PAYLOAD })
+
+  // Open the side panel synchronously while the user gesture is still active.
+  // Skip silent re-authorisation (`enable()` on an already-connected site) so dapp
+  // wallet dialogs do not pop the extension sidebar or leave tab-scoped bindings.
+  const shouldCaptureApprovalGesture =
+    !isExtension &&
+    APPROVAL_UI_MESSAGES.has(message) &&
+    (message !== "pub(authorize.tab)" || siteNeedsConnectAuthorization(sender?.url))
+
+  if (shouldCaptureApprovalGesture) {
+    windowManager.captureGestureAndOpenSidePanel(sender.tab?.id, sender.tab?.windowId)
+  }
 
   const safePostMessage = (port: chrome.runtime.Port | undefined, message: unknown): void => {
     // only send message back to port if it's still connected, unfortunately this check is not reliable in all browsers

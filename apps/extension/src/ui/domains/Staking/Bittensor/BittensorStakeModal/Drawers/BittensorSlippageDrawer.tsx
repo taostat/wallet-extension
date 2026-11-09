@@ -1,5 +1,7 @@
-import { AlertTriangleIcon, InfoIcon, SaveIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { AlertTriangle } from "@untitledui/icons/AlertTriangle"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Save01 } from "@untitledui/icons/Save01"
 import { log } from "extension-shared"
 import { useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -60,21 +62,21 @@ export const BittensorSlippageDrawer = () => {
       onDismiss={close}
       containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}
     >
-      <div className="bg-black-secondary flex w-full flex-col items-center gap-4 rounded-t-xl p-12">
-        <div className="text-body pb-8 font-bold">{t("Slippage Tolerance")}</div>
-        <p className="text-body-secondary text-sm">
+      <div className="bg-secondary flex w-full flex-col items-center gap-2 rounded-t-xl p-6">
+        <div className="text-fg-primary pb-4 font-bold">{t("Slippage Tolerance")}</div>
+        <p className="text-fg-secondary text-sm">
           {t(
             "You can customize the slippage percentage to balance transaction success and price accuracy.",
           )}
         </p>
-        <p className="text-body-secondary text-sm">
+        <p className="text-fg-secondary text-sm">
           {t("This setting will apply to all your subnet staking transactions.")}
         </p>
-        <div className="text-body-secondary mt-4 flex items-center gap-2 self-start text-sm">
+        <div className="text-fg-secondary mt-2 flex items-center gap-1 self-start text-sm">
           <div className="">{t("Max Slippage")}</div>
           <Tooltip>
             <TooltipTrigger>
-              <InfoIcon />
+              <InfoCircle />
             </TooltipTrigger>
             <TooltipContent>
               <span className="overflow-hidden text-ellipsis whitespace-nowrap">
@@ -87,11 +89,11 @@ export const BittensorSlippageDrawer = () => {
         </div>
         <FormFieldInputText
           small
-          containerProps={{ className: "px-6 text-right bg-field" }}
+          containerProps={{ className: "px-3 text-right bg-secondary" }}
           after={
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <div>%</div>
-              <PillButton className="h-[3rem] px-4" onClick={handleReset}>
+              <PillButton className="h-[30px] px-2" onClick={handleReset}>
                 {t("Reset")}
               </PillButton>
             </div>
@@ -102,12 +104,12 @@ export const BittensorSlippageDrawer = () => {
         />
         <div
           className={classNames(
-            "mb-4 flex w-full items-center justify-end gap-2 text-xs text-orange-500",
+            "mb-2 flex w-full items-center justify-end gap-1 text-xs text-orange-500",
             Number(slippageEdit) < HIGH_PRICE_IMPACT && "invisible",
             Number(slippageEdit) >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
           )}
         >
-          <AlertTriangleIcon />
+          <AlertTriangle />
           <div>
             {Number(slippageEdit) >= VERY_HIGH_PRICE_IMPACT
               ? t("Very high slippage")
@@ -117,7 +119,7 @@ export const BittensorSlippageDrawer = () => {
         <div className="flex w-full items-center">
           <Button
             className="w-full"
-            icon={SaveIcon}
+            icon={Save01}
             primary
             disabled={!isValid}
             onClick={handleSubmit}

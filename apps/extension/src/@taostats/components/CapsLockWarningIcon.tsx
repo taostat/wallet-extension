@@ -15,7 +15,7 @@ export const CapsLockWarningIcon: FC<{ className?: string }> = ({ className }) =
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className={classNames("text-alert-warn", className)}>
+        <div className={classNames("text-fg-orange", className)}>
           <CapsLockIcon className="text-lg" />
         </div>
       </TooltipTrigger>

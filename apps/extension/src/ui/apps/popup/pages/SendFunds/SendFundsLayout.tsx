@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@taostats-wallet/icons"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { FC, ReactNode, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -8,6 +8,7 @@ import { useAnalyticsPageView } from "@ui/hooks/useAnalyticsPageView"
 type SendFundsLayoutProps = {
   title?: ReactNode
   withBackLink?: boolean
+  backTo?: string
   children?: ReactNode
   analytics: AnalyticsPage
 }
@@ -16,6 +17,7 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
   title,
   children,
   withBackLink,
+  backTo,
   analytics,
 }) => {
   const navigate = useNavigate()
@@ -28,27 +30,38 @@ export const SendFundsLayout: FC<SendFundsLayoutProps> = ({
       name: "Goto",
       action: "Back",
     })
-    navigate(-1)
-  }, [analytics, navigate])
 
-  const showBackButton = withBackLink && window.history.length > 1
+    if (backTo) {
+      navigate(backTo)
+      return
+    }
+
+    if (withBackLink && window.history.length > 1) {
+      navigate(-1)
+      return
+    }
+
+    navigate("/portfolio")
+  }, [analytics, backTo, navigate, withBackLink])
+
+  const showBackButton = withBackLink || !!backTo
 
   return (
-    <div id="main" className="relative flex h-full w-full flex-col">
-      <div className="text-body-secondary flex h-32 min-h-[6.4rem] w-full items-center px-12">
+    <div className="relative flex min-h-0 w-full flex-1 flex-col">
+      <div className="text-fg-secondary flex h-16 min-h-[64px] w-full items-center px-2">
         {showBackButton ? (
           <button
             type="button"
-            className="text-body-secondary flex cursor-pointer items-center text-lg hover:text-white"
+            className="text-fg-secondary hover:text-fg-primary flex cursor-pointer items-center text-lg"
             onClick={handleBackClick}
           >
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </button>
         ) : (
-          <div className="w-12">&nbsp;</div>
+          <div className="w-6">&nbsp;</div>
         )}
         <div className="grow text-center">{title}</div>
-        <div className="w-12">&nbsp;</div>
+        <div className="w-6">&nbsp;</div>
       </div>
       <div className="w-full grow overflow-hidden">{children}</div>
     </div>

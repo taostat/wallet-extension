@@ -1,4 +1,5 @@
-import { PlusIcon, SecretIcon } from "@taostats-wallet/icons"
+import { SecretIcon } from "@taostats-wallet/icons"
+import { Plus } from "@untitledui/icons/Plus"
 import { Account, isAccountOfType } from "extension-core"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -68,21 +69,21 @@ export const AccountAddMnemonicDropdown: FC<{
 
   return (
     <Dropdown
-      className="[&>label]:mb-4"
+      className="[&>label]:mb-2"
       items={mnemonicOptions}
       label={label ?? t("Recovery phrase")}
       propertyKey="value"
       renderItem={(o) => (
         <div
-          className="text-body-secondary flex w-full items-center gap-6 overflow-hidden"
+          className="text-fg-secondary flex w-full items-center gap-3 overflow-hidden"
           data-testid="account-add-mnemonic-dropdown"
         >
-          <div className="bg-body/10 text-md rounded-full p-4">
-            {o.value === "new" ? <PlusIcon /> : <SecretIcon />}
+          <div className="bg-fg-primary/10 text-md rounded-full p-2">
+            {o.value === "new" ? <Plus /> : <SecretIcon />}
           </div>
           <div className="grow truncate text-sm">{o.label}</div>
           {o.value !== "new" && (
-            <div className="text-body-disabled flex shrink-0 items-center gap-2 truncate text-xs">
+            <div className="text-fg-disabled flex shrink-0 items-center gap-1 truncate text-xs">
               {t("used by {{count}} accounts", { count: o.accounts?.length ?? 0 })}
             </div>
           )}
@@ -90,8 +91,8 @@ export const AccountAddMnemonicDropdown: FC<{
       )}
       value={selected}
       onChange={handleChange}
-      buttonClassName="py-6 bg-field"
-      optionClassName="py-4 bg-field"
+      buttonClassName="py-3 bg-secondary"
+      optionClassName="py-2 bg-secondary"
     />
   )
 }

@@ -15,6 +15,7 @@ import {
 import { AccountPill } from "@ui/domains/Account/AccountPill"
 import { Message } from "@ui/domains/Sign/Message"
 import { usePolkadotSigningRequest } from "@ui/domains/Sign/SignRequestContext"
+import { closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
 
 import { SignNetworkLogo } from "../SignNetworkLogo"
 import { FooterContent } from "./FooterContent"
@@ -44,7 +45,7 @@ export const PolkadotSignMessageRequest = () => {
 
   useEffect(() => {
     // force close upon success, usefull in case this is the browser embedded popup (which doesn't close by itself)
-    if (status === "SUCCESS") window.close()
+    if (status === "SUCCESS") void closeWalletSurfaceAfterApproval()
   }, [status])
 
   const [siwsRequest, siwsValidationError] = useSiwsRequest({ url, request, account })
@@ -65,9 +66,11 @@ export const PolkadotSignMessageRequest = () => {
         )}
         {siwsRequest === null && account && request && (
           <>
-            <div className="text-body-secondary flex h-full w-full flex-col items-center text-center">
-              <h1 className="text-body text-md my-12 font-bold leading-9">{t("Sign Request")}</h1>
-              <h2 className="mb-8 text-base leading-[3.2rem]">
+            <div className="text-fg-secondary flex h-full w-full flex-col items-center text-center">
+              <h1 className="text-fg-primary text-md my-6 font-bold leading-9">
+                {t("Sign Request")}
+              </h1>
+              <h2 className="mb-4 text-base leading-[32px]">
                 {t("You are signing a message with account")}{" "}
                 <AccountPill account={account} ss58Format={chain?.prefix ?? undefined} />
                 {chain ? ` ${t("on {{chainName}}", { chainName: chain.name })}` : null}

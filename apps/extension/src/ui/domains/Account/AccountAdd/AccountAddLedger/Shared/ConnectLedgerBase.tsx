@@ -69,7 +69,7 @@ export const ConnectLedgerBase: FC<ConnectLedgerBaseProps> = ({
 
   return (
     <div className={className}>
-      <div className="text-body-secondary m-0">
+      <div className="text-fg-secondary m-0">
         {t("Connect and unlock your Ledger, then open the {{appName}} app on your Ledger.", {
           appName,
         })}

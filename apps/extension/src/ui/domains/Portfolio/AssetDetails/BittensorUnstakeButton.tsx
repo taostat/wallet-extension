@@ -1,8 +1,8 @@
 import { Balances } from "@taostats-wallet/balances"
 import { SubDTaoToken } from "@taostats-wallet/chaindata-provider"
 import { isAddressEqual } from "@taostats-wallet/crypto"
-import { DatabaseIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Database01 } from "@untitledui/icons/Database01"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { Tooltip, TooltipContent, TooltipTrigger } from "taostats-ui"
@@ -13,7 +13,7 @@ import { useAccounts } from "@ui/state"
 import { useBittensorNetworkIds } from "@ui/state/bittensor"
 
 const pillButtonClass =
-  "bg-[#293c37] hover:bg-[#214940] text-primary rounded-sm p-4 text-xs font-light"
+  "bg-[#293c37] hover:bg-[#214940] text-fg-brand rounded-sm p-2 text-xs font-light"
 
 export const BittensorUnstakeButton: FC<{
   balances: Balances
@@ -68,8 +68,8 @@ export const BittensorUnstakeButton: FC<{
         onClick={handleClick}
         className={classNames(pillButtonClass, className)}
       >
-        <div className="flex items-center gap-2">
-          <DatabaseIcon className="shrink-0 text-base" />
+        <div className="flex items-center gap-1">
+          <Database01 className="shrink-0 text-base" />
           <div>{t("Unstake")}</div>
         </div>
       </button>
@@ -83,11 +83,11 @@ export const BittensorUnstakeButton: FC<{
           type="button"
           onClick={handleClick}
           className={classNames(
-            "text-body-secondary hover:text-body focus:text-body focus:bg-grey-700 hover:bg-grey-700 rounded-xs inline-flex h-9 w-9 items-center justify-center text-xs",
+            "text-fg-secondary hover:text-fg-primary focus:text-fg-primary focus:bg-tertiary hover:bg-tertiary rounded-xs inline-flex h-[18px] w-[18px] items-center justify-center text-xs",
             className,
           )}
         >
-          <DatabaseIcon />
+          <Database01 />
         </button>
       </TooltipTrigger>
       <TooltipContent>{t("Unstake")}</TooltipContent>

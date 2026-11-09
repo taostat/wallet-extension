@@ -1,5 +1,5 @@
-import { InfoIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { Account } from "extension-core"
 import { FC, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -21,16 +21,16 @@ const ConnectionStatusContainer: FC<{
   const colors = useMemo(() => {
     switch (status) {
       case "connected":
-        return "bg-primary"
+        return "bg-fg-brand"
       case "disconnected":
         return "bg-accent-2"
       case "disabled":
-        return "bg-grey-800"
+        return "bg-secondary"
     }
   }, [status])
 
   return (
-    <div className={classNames("rounded-sm p-0.5", colors)}>
+    <div className={classNames("rounded-sm p-px", colors)}>
       <div className={classNames("overflow-hidden rounded-sm", className)}>{children}</div>
     </div>
   )
@@ -41,22 +41,22 @@ const ConnectedAccountsSummary: FC<{ connectedAccounts: Account[] }> = ({ connec
   return (
     <>
       {connectedAccounts.length > 1 && (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <AccountsStack accounts={connectedAccounts} />
-          <div className="text-body text-xs">
+          <div className="text-fg-primary text-xs">
             {t("{{count}} connected", { count: connectedAccounts.length })}
           </div>
         </div>
       )}
       {connectedAccounts.length === 1 && (
         <FormattedAddress
-          className="text-body text-xs"
+          className="text-fg-primary text-xs"
           address={connectedAccounts[0].address}
           noTooltip
         />
       )}
       {!connectedAccounts.length && (
-        <div className="text-body-disabled text-xs">{t("Not connected")}</div>
+        <div className="text-fg-disabled text-xs">{t("Not connected")}</div>
       )}
     </>
   )
@@ -77,21 +77,21 @@ const ConnectAccountsExpandedContainer: FC<{
 
   return (
     <ConnectionStatusContainer status={status} className="bg-black">
-      <div className="bg-grey-900 px-6 py-3">
+      <div className="bg-app-bg px-3 py-1.5">
         <div className="flex flex-col">
-          <div className="border-grey-800 border-b pb-3">
-            <div className="text-body-secondary hover:text-body flex w-full py-2">
-              <div className="flex w-12 shrink-0">
+          <div className="border-primary border-b pb-1.5">
+            <div className="text-fg-secondary hover:text-fg-primary flex w-full py-1">
+              <div className="flex w-6 shrink-0">
                 <ConnectedSiteIndicator status={status} />
               </div>
-              <div className="text-body grow">{label}</div>
+              <div className="text-fg-primary grow">{label}</div>
               {status !== "disabled" && (
                 <ConnectedAccountsSummary connectedAccounts={connectedAccounts} />
               )}
             </div>
           </div>
-          <span className="text-grey-600 flex items-center gap-1 pt-3 text-xs">
-            <InfoIcon />
+          <span className="text-fg-disabled flex items-center gap-0.5 pt-1.5 text-xs">
+            <InfoCircle />
             <span>{infoText}</span>
           </span>
         </div>
@@ -117,13 +117,13 @@ const ConnectAccountsAccordionContainer: FC<{
 
   return (
     <ConnectionStatusContainer status={status} className="bg-black">
-      <button type="button" onClick={toggle} className="bg-grey-900 w-full px-6 py-3">
+      <button type="button" onClick={toggle} className="bg-app-bg w-full px-3 py-1.5">
         <div className="flex flex-col">
-          <div className={"border-grey-800 border-b pb-3"}>
-            <div className="flex w-full gap-6 py-2">
-              <div className="flex grow items-center gap-3 text-left">
+          <div className={"border-primary border-b pb-1.5"}>
+            <div className="flex w-full gap-3 py-1">
+              <div className="flex grow items-center gap-1.5 text-left">
                 <ConnectedSiteIndicator status={status} />
-                <div className="text-body">{label}</div>
+                <div className="text-fg-primary">{label}</div>
               </div>
               {status !== "disabled" && (
                 <ConnectedAccountsSummary connectedAccounts={connectedAccounts} />
@@ -131,8 +131,8 @@ const ConnectAccountsAccordionContainer: FC<{
               <AccordionIcon isOpen={isOpen} />
             </div>
           </div>
-          <span className="text-grey-600 flex items-center gap-1 pt-3 text-xs">
-            <InfoIcon />
+          <span className="text-fg-disabled flex items-center gap-0.5 pt-1.5 text-xs">
+            <InfoCircle />
             <span>{infoText}</span>
           </span>
         </div>

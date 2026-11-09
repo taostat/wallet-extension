@@ -12,7 +12,9 @@ export const TokenDisplaySymbol: FC<{ tokenId: TokenId }> = ({ tokenId }) => {
   if (!token) return null
 
   if (token.type === "substrate-dtao") {
-    return token.netuid ? token.name : token.symbol
+    if (token.subnetName) return token.subnetName
+    if (token.netuid === 0) return "Root"
+    return token.symbol
   }
 
   return token.symbol

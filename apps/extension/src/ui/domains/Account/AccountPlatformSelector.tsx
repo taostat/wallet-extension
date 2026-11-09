@@ -16,18 +16,18 @@ const AccountTypeButton: FC<{
   <button
     type="button"
     className={classNames(
-      "bg-field allow-focus flex h-32 items-center gap-6 rounded px-6 text-left",
-      disabled && "text-body-secondary opacity-40",
-      !disabled && "hover:bg-grey-800",
+      "bg-secondary allow-focus flex h-16 items-center gap-3 rounded px-3 text-left",
+      disabled && "text-fg-secondary opacity-40",
+      !disabled && "hover:bg-secondary",
       className,
     )}
     disabled={disabled}
     onClick={onClick}
   >
     <div className="text-xl">{icon}</div>
-    <div className="flex flex-grow flex-col justify-center gap-2">
-      <div className="text-body text-base">{title}</div>
-      <div className="text-body-secondary text-xs">{subtitle}</div>
+    <div className="flex flex-grow flex-col justify-center gap-1">
+      <div className="text-fg-primary text-base">{title}</div>
+      <div className="text-fg-secondary text-xs">{subtitle}</div>
     </div>
   </button>
 )
@@ -55,10 +55,10 @@ export const AccountPlatformSelector = ({
   }, [onChange, platform])
 
   return (
-    <div className={classNames("grid w-full grid-cols-2 gap-10", className)}>
+    <div className={classNames("grid w-full grid-cols-2 gap-5", className)}>
       <AccountTypeButton
         className={classNames(
-          platform === "polkadot" ? "border-body" : "border-body-secondary border-opacity-20",
+          platform === "polkadot" ? "border-primary" : "border-primary border-opacity-20",
           "border",
         )}
         icon={<PolkadotCircleLogo />}

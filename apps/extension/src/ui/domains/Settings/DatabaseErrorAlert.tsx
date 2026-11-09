@@ -1,4 +1,5 @@
-import { AlertCircleIcon, DatabaseIcon } from "@taostats-wallet/icons"
+import { AlertCircle } from "@untitledui/icons/AlertCircle"
+import { Database01 } from "@untitledui/icons/Database01"
 import { errorsStore } from "extension-core"
 import { DISCORD_URL } from "extension-shared"
 import { useCallback, useMemo } from "react"
@@ -46,21 +47,21 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
 
   if (!isOpen) return null
   return (
-    <div className="absolute bottom-0 right-0 m-8 max-w-full">
+    <div className="absolute bottom-0 right-0 m-4 max-w-full">
       <Card
-        className="text-body-secondary text-center"
+        className="text-fg-secondary text-center"
         title={
           <div className="flex flex-col items-center">
             <div className="relative">
-              <DatabaseIcon className="icon text-3xl text-white" />
-              <AlertCircleIcon className="icon bg-alert-error text-md absolute right-0 top-0 rounded text-white" />
+              <Database01 className="icon text-3xl text-white" />
+              <AlertCircle className="icon bg-error-secondary text-md absolute right-0 top-0 rounded text-white" />
             </div>
-            <div className="text-body mt-4">{t("Database Unavailable")}</div>
+            <div className="text-fg-primary mt-2">{t("Database Unavailable")}</div>
           </div>
         }
         description={
           <>
-            <div className="mb-4 text-sm">
+            <div className="mb-2 text-sm">
               {hasRuntimeReloadFn
                 ? t(
                     "Please make sure there is free space on your disk (at least 1GB) and then reload the wallet.",
@@ -73,7 +74,7 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
               <Trans t={t}>
                 If this problem continues, please contact our support team on{" "}
                 <a
-                  className="text-body underline"
+                  className="text-fg-primary underline"
                   href={DISCORD_URL}
                   target="_blank"
                   rel="noreferrer noopener"
@@ -86,14 +87,14 @@ export const DatabaseErrorAlert = ({ container }: Props) => {
           </>
         }
         cta={
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             {hasRuntimeReloadFn ? (
               <Button className="w-full" primary fullWidth small onClick={runtimeReload}>
                 {t("Reload Taostats Wallet")}
               </Button>
             ) : null}
             <button
-              className="hover:text-body focus:text-body self-center p-4 text-xs"
+              className="hover:text-fg-primary focus:text-fg-primary self-center p-2 text-xs"
               onClick={dismiss}
             >
               Dismiss

@@ -1,5 +1,6 @@
-import { FileSearchIcon, LoaderIcon } from "@taostats-wallet/icons"
+import { FileSearchIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { FC, useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -31,15 +32,15 @@ export const ViewDetailsButton: FC<ViewDetailsButtonProps> = ({
       type="button"
       onClick={handleClick}
       className={classNames(
-        "text-body-inactive hover:text-body-secondary flex items-center gap-2",
+        "text-fg-tertiary hover:text-fg-secondary flex items-center gap-1",
         className,
-        hasError && "text-alert-warn",
+        hasError && "text-fg-orange",
         hide && "invisible",
       )}
     >
       {hasClickRequest && isAnalysing ? (
         <>
-          <LoaderIcon className="animate-spin-slow text-base" />
+          <Loading01 className="animate-spin-slow text-base" />
           <span className="text-xs">{t("Decoding...")}</span>
         </>
       ) : (

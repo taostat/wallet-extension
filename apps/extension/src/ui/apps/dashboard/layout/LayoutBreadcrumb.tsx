@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
 import { FC, Fragment, ReactNode, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, To, useLocation } from "react-router-dom"
@@ -160,7 +160,7 @@ export const LayoutBreadcrumb: FC<{
   return (
     <div
       className={classNames(
-        "text-body-inactive mb-6 flex max-w-full items-center gap-1 overflow-hidden text-xs",
+        "text-fg-tertiary mb-3 flex max-w-full items-center gap-0.5 overflow-hidden text-xs",
         className,
       )}
     >
@@ -168,7 +168,7 @@ export const LayoutBreadcrumb: FC<{
         return (
           <Fragment key={index}>
             <BreadcrumbItem label={label} to={to} selected={index === items.length - 1} />
-            {index < items.length - 1 && <ChevronRightIcon />}
+            {index < items.length - 1 && <ChevronRight />}
           </Fragment>
         )
       })}
@@ -190,8 +190,8 @@ const BreadcrumbItem: FC<BreadcrumbItemProps & { selected: boolean }> = ({
     <NavLink
       to={to}
       className={classNames(
-        "hover:text-body-secondary flex items-center gap-4 truncate font-normal",
-        selected && "!text-body-secondary font-medium",
+        "hover:text-fg-secondary flex items-center gap-2 truncate font-normal",
+        selected && "!text-fg-secondary font-medium",
       )}
     >
       {label}

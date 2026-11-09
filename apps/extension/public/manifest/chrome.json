@@ -2,5 +2,8 @@
   "background": {
     "service_worker": "service_worker.js"
   },
-  "minimum_chrome_version": "102"
+  "minimum_chrome_version": "116",
+  "side_panel": {
+    "default_path": "popup.html"
+  }
 }

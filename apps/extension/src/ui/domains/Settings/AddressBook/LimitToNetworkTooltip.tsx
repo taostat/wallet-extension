@@ -1,4 +1,4 @@
-import { InfoIcon } from "@taostats-wallet/icons"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { useTranslation } from "react-i18next"
 
 import { WithTooltip } from "@taostats/components/Tooltip"
@@ -16,7 +16,7 @@ export const LimitToNetworkTooltip = () => {
         </>
       }
     >
-      <InfoIcon />
+      <InfoCircle />
     </WithTooltip>
   )
 }

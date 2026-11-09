@@ -69,21 +69,21 @@ export const AccountRemoveModal = () => {
   return (
     <Modal containerId="main" isOpen={isOpen} onDismiss={close}>
       <ModalDialog title={t("Remove account")} onClose={close}>
-        <div className="text-body-secondary text-sm">
+        <div className="text-fg-secondary text-sm">
           <p className="text-sm">
             <Trans
               t={t}
               defaults="Confirm to remove account <Highlight>{{accountName}}</Highlight>."
-              components={{ Highlight: <span className="text-body" /> }}
+              components={{ Highlight: <span className="text-fg-primary" /> }}
               values={{ accountName }}
             />
           </p>
           {account?.type === "keypair" && (
-            <p className="mt-4 text-sm">
+            <p className="mt-2 text-sm">
               {t("Ensure you have backed up your recovery phrase or private key before removing.")}
             </p>
           )}
-          <div className="mt-8 grid grid-cols-2 gap-8">
+          <div className="mt-4 grid grid-cols-2 gap-4">
             <Button type="button" onClick={close}>
               {t("Cancel")}
             </Button>

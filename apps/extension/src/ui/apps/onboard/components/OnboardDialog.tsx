@@ -8,15 +8,15 @@ type OnboardDialogProps = {
 }
 
 export const OnboardDialog = ({ title, children, className }: OnboardDialogProps) => (
-  <div className={classNames("flex w-[60rem] flex-col items-center gap-12", className)}>
+  <div className={classNames("flex w-[40rem] flex-col items-center gap-6", className)}>
     <div
       className={classNames(
-        "bg-body/5 transform-gpu backdrop-blur-xl",
-        "flex w-full flex-col gap-16 rounded-lg p-16 text-left",
+        "bg-fg-primary/5 transform-gpu backdrop-blur-xl",
+        "flex w-full flex-col gap-5 rounded-lg p-6 text-left",
       )}
     >
-      {title && <div className="text-xl text-white">{title}</div>}
-      <div className={`text-body-secondary`}>{children}</div>
+      {title && <div className="text-lg font-medium text-white">{title}</div>}
+      <div className={`text-fg-secondary`}>{children}</div>
     </div>
   </div>
 )

@@ -1,6 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { ZapOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ZapOff } from "@untitledui/icons/ZapOff"
 import { formatDuration, intervalToDuration } from "date-fns"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -53,20 +53,20 @@ export const LockedExtra = ({ tokenId, address, rowMeta, isLoading }: LockedExtr
   if (!rowAddress) return null
 
   return (
-    <div className="flex h-[6.6rem] flex-col items-end justify-center gap-2 whitespace-nowrap p-8 text-right">
+    <div className="flex h-[66px] flex-col items-end justify-center gap-1 whitespace-nowrap p-4 text-right">
       {rowMeta.unbonding ? (
         accountStatus?.canWithdraw ? (
           <NomPoolWithdrawButton tokenId={tokenId} address={rowAddress} variant="large" />
         ) : (
           <>
             <div className={classNames(isLoading && "animate-pulse transition-opacity")}>
-              <div className="flex items-center gap-2">
-                <ZapOffIcon className="shrink-0 text-sm" />
+              <div className="flex items-center gap-1">
+                <ZapOff className="shrink-0 text-sm" />
                 <div>{t("Unstaking")}</div>
               </div>
             </div>
             {!!withdrawIn && (
-              <div className="text-body-500 text-sm">
+              <div className="text-fg-primary-500 text-sm">
                 {t("{{duration}} left", { duration: withdrawIn })}
               </div>
             )}

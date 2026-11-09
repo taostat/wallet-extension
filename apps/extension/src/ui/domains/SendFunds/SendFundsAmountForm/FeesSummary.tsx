@@ -1,5 +1,5 @@
-import { LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { useTranslation } from "react-i18next"
 
 import { useSelectedCurrency } from "@ui/state"
@@ -18,7 +18,7 @@ const NetworkRow = () => {
   return (
     <div className="flex w-full items-center justify-between">
       <div>{t("Network")}</div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <NetworkLogo networkId={network?.id} className="inline-block text-base" />
         <div>{network?.name}</div>
       </div>
@@ -33,23 +33,23 @@ export const FeesSummary = () => {
 
   return (
     <Container
-      className={classNames("space-y-4 px-8 py-4", isLoading && !estimatedFee && "animate-pulse")}
+      className={classNames("space-y-2 px-2 py-2", isLoading && !estimatedFee && "animate-pulse")}
     >
       <NetworkRow />
-      <div className="flex w-full items-center justify-between gap-4">
+      <div className="flex w-full items-center justify-between gap-2">
         <div className="whitespace-nowrap">
           {t("Estimated Fee")} <SendFundsFeeTooltip />
         </div>
         <div
           className={classNames(
-            "flex grow items-center justify-end gap-2 truncate",
+            "flex grow items-center justify-end gap-1 truncate",
             isLoading && estimatedFee && "animate-pulse",
           )}
         >
           {isLoading && !estimatedFee && (
-            <div className="text-body-disabled flex items-center gap-2">
+            <div className="text-fg-disabled flex items-center gap-1">
               <span>{t("Validating Transaction")}</span>
-              <LoaderIcon className="animate-spin-slow" />
+              <Loading01 className="animate-spin-slow" />
             </div>
           )}
           {estimatedFee && feeToken && (

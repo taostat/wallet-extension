@@ -1,12 +1,10 @@
 import { Network } from "@taostats-wallet/chaindata-provider"
-import {
-  CheckCircleIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  GlobeIcon,
-  XIcon,
-} from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { CheckCircle } from "@untitledui/icons/CheckCircle"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { X } from "@untitledui/icons/X"
 import { FC, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
@@ -38,23 +36,23 @@ export const TxHistoryNetworkPicker: FC<{
       containerId="main"
       isOpen={isOpen}
       onDismiss={onDismiss}
-      className={classNames("relative z-50", IS_POPUP ? "size-full" : "h-[60rem] w-[40rem]")}
+      className={classNames("relative z-50", IS_POPUP ? "size-full" : "h-[600px] w-[400px]")}
     >
       <div className="flex size-full flex-grow flex-col bg-black">
-        <header className="flex items-center justify-between p-10">
+        <header className="flex items-center justify-between p-5">
           <IconButton onClick={onDismiss} className={IS_POPUP ? "visible" : "invisible"}>
-            <ChevronLeftIcon />
+            <ChevronLeft />
           </IconButton>
           <div>{t("Select network")}</div>
           <IconButton onClick={onDismiss} className={IS_POPUP ? "invisible" : "visible"}>
-            <XIcon />
+            <X />
           </IconButton>
         </header>
         <div className="flex grow flex-col overflow-hidden">
-          <div className="flex min-h-fit w-full items-center gap-8 px-12 pb-8">
+          <div className="flex min-h-fit w-full items-center gap-4 px-6 pb-4">
             <SearchInput onChange={setSearch} placeholder={t("Search by name")} />
           </div>
-          <ScrollContainer className="bg-black-secondary border-grey-700 scrollable grow border-t">
+          <ScrollContainer className="bg-secondary border-primary scrollable grow border-t">
             <NetworksList
               networks={networks}
               selectedNetworkId={selectedNetworkId}
@@ -90,7 +88,7 @@ const NetworksList: FC<{
         />
       ))}
       {networks.length === 0 && (
-        <div className="text-body-secondary p-16 text-center">{t("No networks found")}</div>
+        <div className="text-fg-secondary p-8 text-center">{t("No networks found")}</div>
       )}
     </div>
   )
@@ -108,29 +106,29 @@ const NetworkRow: FC<{
       type="button"
       onClick={onClick}
       className={classNames(
-        "text-body-secondary hover:text-body hover:bg-grey-800 flex h-28 w-full items-center gap-6 overflow-hidden px-12",
-        "focus-visible:bg-grey-800",
-        selected && "!bg-grey-700",
+        "text-fg-secondary hover:text-fg-primary hover:bg-secondary flex h-14 w-full items-center gap-3 overflow-hidden px-6",
+        "focus-visible:bg-secondary",
+        selected && "!bg-tertiary",
       )}
     >
       {network ? (
         <NetworkLogo networkId={network.id} className="shrink-0 text-xl" />
       ) : (
-        <GlobeIcon className="shrink-0 text-xl" />
+        <Globe01 className="shrink-0 text-xl" />
       )}
-      <div className="text-body flex grow flex-col gap-1 truncate text-left">
+      <div className="text-fg-primary flex grow flex-col gap-0.5 truncate text-left">
         <div>{network ? network.name : t("All Networks")}</div>
         {!!network && (
-          <div className="text-body-inactive text-xs">
+          <div className="text-fg-tertiary text-xs">
             <NetworkType networkId={network.id} />
           </div>
         )}
       </div>
-      <div className="shrinkk-0 flex size-12 items-center justify-center">
+      <div className="shrinkk-0 flex size-6 items-center justify-center">
         {selected ? (
-          <CheckCircleIcon className="text-body" />
+          <CheckCircle className="text-fg-primary" />
         ) : (
-          <ChevronRightIcon className="text-md" />
+          <ChevronRight className="text-md" />
         )}
       </div>
     </button>

@@ -14,10 +14,10 @@ export const TestPage = () => {
   const [showPortfolio, setShowPortfolio] = useState(false)
 
   return (
-    <div className="container mx-auto my-12">
-      <div className="flex flex-col items-start gap-4">
+    <div className="container mx-auto my-6">
+      <div className="flex flex-col items-start gap-2">
         <div>Test component</div>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-2">
           <ToggleButton label="all tokens" show={showTokens} dispatch={setShowTokens} />
           <ToggleButton label="all networks" show={showAllNetworks} dispatch={setShowAllNetworks} />
           <ToggleButton label="dot networks" show={showDotNetworks} dispatch={setShowDotNetworks} />
@@ -41,7 +41,7 @@ const ToggleButton: FC<{
 }> = ({ label, show, dispatch }) => (
   <button
     type="button"
-    className="rounded border p-2"
+    className="rounded border p-1"
     onClick={() => dispatch((p) => !p)}
   >{`${show ? "hide" : "show"} ${label}`}</button>
 )
@@ -107,7 +107,7 @@ const PortfolioContent = () => {
       <div>IsInitializing: {isInitialising?.toString() || "undefined"}</div>
       <div>isProvisioned: {isProvisioned?.toString() || "undefined"}</div>
       <div>Portfolio networks: {networks.length}</div>
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         <div className="w-[100px]">Balances:</div>
         <div className="w-[100px]">total:{allBalances.count}</div>
         {Object.entries(balancesByStatus).map(([status, balances]) => (

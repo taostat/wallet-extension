@@ -1,5 +1,5 @@
-import { XIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { X } from "@untitledui/icons/X"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { IconButton, Modal } from "taostats-ui"
@@ -20,13 +20,13 @@ const ModalHeader = () => {
   return (
     <div
       className={classNames(
-        "text-body-secondary flex h-32 w-full shrink-0 items-center justify-between px-10",
+        "text-fg-secondary flex h-16 w-full shrink-0 items-center justify-between px-5",
         step === "follow-up" ? "invisible" : "visible",
       )}
     >
       <div>{step === "review" && t("Unstake")}</div>
       <IconButton onClick={close}>
-        <XIcon />
+        <X />
       </IconButton>
     </div>
   )
@@ -47,12 +47,12 @@ const Content = () => (
   <div
     id="StakingModalDialog" // acts as containerId for sub modals
     className={classNames(
-      "relative flex h-[60rem] max-h-[100dvh] w-[40rem] max-w-[100dvw] flex-col overflow-hidden bg-black",
-      !IS_POPUP && "border-grey-850 rounded border",
+      "relative flex h-[600px] max-h-[100dvh] w-[400px] max-w-[100dvw] flex-col overflow-hidden bg-black",
+      !IS_POPUP && "border-primary rounded border",
     )}
   >
     <ModalHeader />
-    <div className="grow p-12 pt-0">
+    <div className="grow p-6 pt-0">
       <ModalContent />
     </div>
   </div>

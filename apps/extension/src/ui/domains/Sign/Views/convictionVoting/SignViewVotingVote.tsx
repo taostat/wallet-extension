@@ -13,21 +13,21 @@ export const SignViewVotingVote: FC<{
 }> = ({ voteAmount, tokenId, pollIndex, conviction }) => {
   const { t } = useTranslation()
   return (
-    <div className="flex w-full flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-2">
       <div className="flex w-full items-center justify-between">
         <div>{t("Referenda")}</div>
-        <div className="text-body">#{pollIndex}</div>
+        <div className="text-fg-primary">#{pollIndex}</div>
       </div>
       <div className="flex w-full items-center justify-between">
         <div>{t("Deposit")}</div>
-        <div className="text-body">
+        <div className="text-fg-primary">
           <TokenLogo tokenId={tokenId} className="inline h-[1em] w-[1em]" />{" "}
           <TokensAndFiat planck={voteAmount} tokenId={tokenId} noCountUp />
         </div>
       </div>
       <div className="flex w-full items-center justify-between">
         <div>{t("Conviction")}</div>
-        <div className="text-body">{conviction === 0 ? "0.1" : conviction}X</div>
+        <div className="text-fg-primary">{conviction === 0 ? "0.1" : conviction}X</div>
       </div>
     </div>
   )

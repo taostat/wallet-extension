@@ -2,30 +2,29 @@ import { isNetworkDot } from "@taostats-wallet/chaindata-provider"
 import { isAccountAddressSs58 } from "extension-core"
 import { FC, Suspense, useCallback, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { useMatch } from "react-router-dom"
+import { useMatch, useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
-import { PopupAssetsTable } from "@ui/domains/Portfolio/AssetsTable"
-import { PortfolioTabs } from "@ui/domains/Portfolio/PortfolioTabs"
+import { DashboardAssetsTable } from "@ui/domains/Portfolio/AssetsTable"
+import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { PortfolioToolbarTokens } from "@ui/domains/Portfolio/PortfolioToolbarTokens"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
 import { usePortfolioGlobalData } from "@ui/state"
-
-import { PortfolioAssetsHeader } from "./shared/PortfolioAssetsHeader"
+import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
 const EnableNetworkMessage: FC<{ type?: "substrate" }> = ({ type }) => {
   const { t } = useTranslation()
   const handleClick = useCallback(() => {
     if (type === "substrate") api.dashboardOpen("/settings/networks-tokens/networks/polkadot")
     else api.dashboardOpen("/settings/networks-tokens/networks")
-    window.close()
+    void closeWalletSurface()
   }, [type])
 
   return (
-    <div className="text-body-secondary mt-56 flex flex-col items-center justify-center gap-8 text-center">
+    <div className="text-fg-secondary mt-[112px] flex flex-col items-center justify-center gap-4 text-center">
       <div>{t("Enable some networks to display your assets")}</div>
       <div>
         <Button onClick={handleClick} primary small type="button">
@@ -64,7 +63,7 @@ const MainContent: FC = () => {
   if (matchTokens)
     return (
       <>
-        <PopupAssetsTable />
+        <DashboardAssetsTable />
         <PopupAnalyticsEvent name="portfolio assets" />
       </>
     )
@@ -73,20 +72,31 @@ const MainContent: FC = () => {
 }
 
 export const PortfolioAssets = () => {
-  return (
-    <>
-      <PortfolioAssetsHeader />
-      <PortfolioTabs className="mt-4" />
-      <Suspense fallback={<SuspenseTracker name="PortfolioAssets.TabContent" />}>
-        <PortfolioAssetsToolbar />
-        <MainContent />
-      </Suspense>
-    </>
-  )
-}
-
-const PortfolioAssetsToolbar = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
   const matchTokens = useMatch("/portfolio/tokens")
 
-  return <>{!!matchTokens && <PortfolioToolbarTokens />}</>
+  const handleBack = useCallback(() => {
+    navigate("/portfolio")
+  }, [navigate])
+
+  return (
+    <div className="flex flex-col gap-3">
+      <DashboardPortfolioHeader variant="popup" onBack={handleBack} />
+      {!!matchTokens && <div className="border-primary w-full border-b" aria-hidden />}
+      <Suspense fallback={<SuspenseTracker name="PortfolioAssets.TabContent" />}>
+        {!!matchTokens && (
+          <>
+            <div className="px-2 w-full overflow-hidden">
+              <Suspense fallback={<SuspenseTracker name="PortfolioAssets.Toolbar" />}>
+                <PortfolioToolbarTokens />
+              </Suspense>
+            </div>
+            <div className="text-fg-primary text-md px-2 font-medium">{t("Holdings")}</div>
+          </>
+        )}
+        <MainContent />
+      </Suspense>
+    </div>
+  )
 }

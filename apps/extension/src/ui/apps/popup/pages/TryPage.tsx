@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@taostats-wallet/icons"
+import { ChevronLeft } from "@untitledui/icons/ChevronLeft"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -26,10 +26,10 @@ const Header = () => {
   }, [navigate])
 
   return (
-    <header className="my-8 flex h-[3.6rem] w-full shrink-0 items-center justify-between gap-4 px-8">
+    <header className="my-4 flex h-[36px] w-full shrink-0 items-center justify-between gap-2 px-4">
       <div className="flex-1">
         <IconButton onClick={goToPortfolio}>
-          <ChevronLeftIcon />
+          <ChevronLeft />
         </IconButton>
       </div>
       <div className="font-bold">{t("Try Taostats Wallet")}</div>

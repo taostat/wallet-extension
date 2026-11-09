@@ -1,8 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useQuery } from "@tanstack/react-query"
 import { AccountPlatform, isValidDerivationPath, KeypairCurve } from "@taostats-wallet/crypto"
-import { ArrowRightIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
 import {
   getDefaultCurveForAccountPlatform,
   getDerivationPathForCurve,
@@ -79,11 +79,11 @@ const AdvancedSettings: FC<PropsWithChildren> = ({ children }) => {
   const { toggle, isOpen } = useOpenClose()
 
   return (
-    <div className="h-[12rem]">
+    <div className="h-[120px]">
       <div className="text-right">
         <button
           type="button"
-          className="text-body-disabled hover:text-body-secondary inline-flex items-center gap-0.5 whitespace-nowrap"
+          className="text-fg-disabled hover:text-fg-secondary inline-flex items-center gap-px whitespace-nowrap"
           onClick={toggle}
         >
           <div>{t("Advanced")}</div>
@@ -91,7 +91,7 @@ const AdvancedSettings: FC<PropsWithChildren> = ({ children }) => {
         </button>
       </div>
       {/* enlarge the area or it would hide focus ring on the inputs */}
-      <Accordion isOpen={isOpen} className={classNames(isOpen && "m-[-0.2rem] p-[0.2rem]")}>
+      <Accordion isOpen={isOpen} className={classNames(isOpen && "m-[-0.2rem] p-[2px]")}>
         {children}
       </Accordion>
     </div>
@@ -270,14 +270,14 @@ const AccountAddDerivedFormInner: FC<AccountAddPageProps> = ({ onSuccess }) => {
 
   return (
     <form onSubmit={handleSubmit(submit)}>
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-8">
         {!defaultPlatform && (
           <AccountPlatformSelector defaultValue={defaultPlatform} onChange={handlePlatformChange} />
         )}
 
         <div
           className={classNames(
-            "flex flex-col gap-8 transition-opacity",
+            "flex flex-col gap-4 transition-opacity",
             platform ? "opacity-100" : "opacity-0",
           )}
         >
@@ -295,7 +295,7 @@ const AccountAddDerivedFormInner: FC<AccountAddPageProps> = ({ onSuccess }) => {
                 address ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <div className="size-16">
+                      <div className="size-8">
                         <AccountIcon address={address} className="text-xl" />
                       </div>
                     </TooltipTrigger>
@@ -309,7 +309,7 @@ const AccountAddDerivedFormInner: FC<AccountAddPageProps> = ({ onSuccess }) => {
           <AdvancedSettings>
             <Checkbox
               {...register("isCustomDerivationPath")}
-              className="text-body-secondary hover:text-body-secondary"
+              className="text-fg-secondary hover:text-fg-secondary"
             >
               {t("Custom derivation path")}
             </Checkbox>
@@ -335,7 +335,7 @@ const AccountAddDerivedFormInner: FC<AccountAddPageProps> = ({ onSuccess }) => {
         <div className="flex w-full items-center justify-between">
           <BackToAddAccountButton />
           <Button
-            icon={ArrowRightIcon}
+            icon={ArrowRight}
             type="submit"
             primary
             disabled={!isValid}

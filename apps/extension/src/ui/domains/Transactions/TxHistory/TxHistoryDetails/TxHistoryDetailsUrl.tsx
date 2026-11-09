@@ -15,7 +15,7 @@ export const TxHistoryDetailsUrl: FC<{
   }, [url])
 
   return (
-    <div className="flex flex-row items-center gap-2 truncate">
+    <div className="flex flex-row items-center gap-1 truncate">
       <Favicon url={url} className="shrink-0" />
       <a href={url} target="_blank" rel="noopener noreferrer" className="underline">
         {displayUrl}

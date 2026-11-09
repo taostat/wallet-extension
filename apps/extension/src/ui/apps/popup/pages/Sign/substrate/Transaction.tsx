@@ -14,6 +14,7 @@ import { MetadataStatus } from "@ui/domains/Sign/MetadataStatus"
 import { SignAlertMessage } from "@ui/domains/Sign/SignAlertMessage"
 import { usePolkadotSigningRequest } from "@ui/domains/Sign/SignRequestContext"
 import { SubSignBody } from "@ui/domains/Sign/Substrate/SubSignBody"
+import { closeWalletSurfaceAfterApproval } from "@ui/util/closeWalletSurface"
 
 import { SignNetworkLogo } from "../SignNetworkLogo"
 import { FooterContent } from "./FooterContent"
@@ -34,7 +35,7 @@ export const PolkadotSignTransactionRequest: FC = () => {
 
   useEffect(() => {
     // force close upon success, usefull in case this is the browser embedded popup (which doesn't close by itself)
-    if (status === "SUCCESS") window.close()
+    if (status === "SUCCESS") void closeWalletSurfaceAfterApproval()
   }, [status])
 
   return (
@@ -44,16 +45,16 @@ export const PolkadotSignTransactionRequest: FC = () => {
       </PopupHeader>
       <>
         <PopupContent>
-          <div className="scrollable scrollable-800 text-body-secondary h-full overflow-y-auto text-center">
+          <div className="scrollable scrollable-800 text-fg-secondary h-full overflow-y-auto text-center">
             <SubSignBody />
           </div>
         </PopupContent>
         <PopupFooter className="animate-fade-in">
-          <div className="flex w-full flex-col gap-4">
+          <div className="flex w-full flex-col gap-2">
             <div id="sign-alerts-inject"></div>
             <MetadataStatus genesisHash={genesisHash} specVersion={specVersion} />
             {errorMessage && (
-              <SignAlertMessage className="mb-6" type="error">
+              <SignAlertMessage className="mb-3" type="error">
                 {errorMessage}
               </SignAlertMessage>
             )}

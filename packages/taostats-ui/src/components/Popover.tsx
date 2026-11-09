@@ -66,6 +66,8 @@ export function usePopover({
     open,
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
+    // Portaled content must use fixed; absolute often lands at 0,0 relative to the wrong containing block.
+    strategy: "fixed",
     middleware: [
       offset(5),
       flip({
@@ -152,9 +154,10 @@ export const PopoverTrigger = forwardRef<HTMLElement, HTMLProps<HTMLElement> & P
       return cloneElement(
         children,
         context.getReferenceProps({
-          ref,
           ...props,
           ...children.props,
+          // ref must win over any spread props so the floating anchor attaches to the DOM node
+          ref,
           "data-state": context.open ? "open" : "closed",
         }),
       )

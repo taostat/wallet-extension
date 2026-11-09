@@ -1,4 +1,6 @@
-import { ArrowRightIcon, LoaderIcon, PolkadotVaultIcon } from "@taostats-wallet/icons"
+import { PolkadotVaultIcon } from "@taostats-wallet/icons"
+import { ArrowRight } from "@untitledui/icons/ArrowRight"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { isTokenActive } from "extension-core"
 import { ReactNode, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -34,12 +36,12 @@ const AccountDerivedPicker = ({
         e.preventDefault()
         dispatch({ method: "setLockToNetwork", lockToNetwork })
       }}
-      className="text-body-secondary flex h-10 items-center gap-2 py-1 align-middle"
+      className="text-fg-secondary flex h-5 items-center gap-1 py-0.5 align-middle"
     >
       {state.accountConfig.lockToNetwork === lockToNetwork ? (
         <SelectedIndicator />
       ) : (
-        <span className="bg-grey-800 h-8 w-8 rounded-full" />
+        <span className="bg-secondary h-4 w-4 rounded-full" />
       )}
       <span>{label}</span>
     </button>
@@ -93,17 +95,17 @@ export const ConfigureAccount = () => {
   return (
     <>
       <HeaderBlock
-        className="mb-12"
+        className="mb-6"
         title={t("Name your account")}
         text={t(
           "Help distinguish your account by giving it a name. This would ideally be the same as the name on your Polkadot Vault device to make it easy to identify when signing.",
         )}
       />
-      <form className="my-20 space-y-10" onSubmit={submitConfigure}>
+      <form className="my-10 space-y-5" onSubmit={submitConfigure}>
         <FormFieldInputText
           type="text"
           placeholder={t("My Polkadot Vault Account")}
-          containerProps={{ className: "!h-28" }}
+          containerProps={{ className: "!h-14" }}
           small
           value={accountConfig.name}
           // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -111,29 +113,29 @@ export const ConfigureAccount = () => {
           onChange={(event) => dispatch({ method: "setName", name: event.target.value })}
         />
 
-        <div className="ring-grey-700 flex w-full items-center gap-8 overflow-hidden rounded-sm p-8 text-left ring-1">
+        <div className="ring-grey-700 flex w-full items-center gap-4 overflow-hidden rounded-sm p-4 text-left ring-1">
           <AccountIcon
             address={accountConfig.address}
             genesisHash={accountConfig.lockToNetwork ? accountConfig.genesisHash : undefined}
             className="text-xl"
           />
-          <div className="flex flex-col !items-start gap-2 overflow-hidden leading-8">
-            <div className="text-body flex w-full items-center gap-3 text-base leading-none">
+          <div className="flex flex-col !items-start gap-1 overflow-hidden leading-8">
+            <div className="text-fg-primary flex w-full items-center gap-1.5 text-base leading-none">
               <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base leading-8">
                 {accountConfig.name || t("My Polkadot Vault Account")}
               </div>
               <div>
-                <PolkadotVaultIcon className="text-primary" />
+                <PolkadotVaultIcon className="text-fg-brand" />
               </div>
             </div>
-            <div className="text-body-secondary overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-7">
+            <div className="text-fg-secondary overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-7">
               <Address address={accountConfig.address} />
             </div>
           </div>
           <div className="grow" />
-          <div className="flex items-center justify-end gap-2">
-            <div className="flex flex-col justify-center pb-1 leading-none">
-              {isBalanceLoading && <LoaderIcon className="animate-spin-slow inline text-white" />}
+          <div className="flex items-center justify-end gap-1">
+            <div className="flex flex-col justify-center pb-0.5 leading-none">
+              {isBalanceLoading && <Loading01 className="animate-spin-slow inline text-white" />}
             </div>
             <Tooltip placement="bottom-end">
               <TooltipTrigger asChild>
@@ -149,14 +151,14 @@ export const ConfigureAccount = () => {
         {!!chain && (
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 <AccountDerivedPicker
                   lockToNetwork
                   label={
                     <Trans t={t}>
                       <span>This is a derived account (restrict account to </span>
                       <NetworkLogo networkId={chain.id} className="inline" />
-                      <span className="text-body">{chain.name}</span>
+                      <span className="text-fg-primary">{chain.name}</span>
                       <span> network)</span>
                     </Trans>
                   }
@@ -166,7 +168,7 @@ export const ConfigureAccount = () => {
                 />
               </div>
             </TooltipTrigger>
-            <TooltipContent className="leading-paragraph rounded-xs text-body-secondary border-grey-700 z-20 w-[50rem] border-[0.5px] bg-black p-3 text-xs shadow">
+            <TooltipContent className="leading-paragraph rounded-xs text-fg-secondary border-primary z-20 w-[500px] border-[0.5px] bg-black p-1.5 text-xs shadow">
               By default, derived accounts in Polkadot Vault are restricted to one network, based on
               derivation path. Root accounts can be used on any network. Select 'Derived Account' if
               you are not sure.
@@ -174,8 +176,8 @@ export const ConfigureAccount = () => {
           </Tooltip>
         )}
 
-        <div className="flex justify-end py-8">
-          <Button icon={ArrowRightIcon} type="submit" primary processing={state.submitting}>
+        <div className="flex justify-end py-4">
+          <Button icon={ArrowRight} type="submit" primary processing={state.submitting}>
             {t("Import")}
           </Button>
         </div>

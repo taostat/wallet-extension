@@ -1,5 +1,7 @@
-import { FolderPlusIcon, MoreHorizontalIcon, PlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { FolderPlus } from "@untitledui/icons/FolderPlus"
+import { Plus } from "@untitledui/icons/Plus"
 import { FC, ReactNode, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -45,24 +47,24 @@ export const ManageAccountsToolbar: FC<{
   return (
     <div
       className={classNames(
-        "@container flex w-full shrink-0 items-center justify-between gap-4 overflow-hidden",
+        "@container flex w-full shrink-0 items-center justify-between gap-2 overflow-hidden",
         className,
       )}
     >
       <div className="flex grow items-center overflow-hidden">
         <SearchInput
           containerClassName={classNames(
-            "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-[3.6rem] w-full border border-field text-sm !px-4",
-            "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
-            "@2xl:h-[4.4rem] @2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
+            "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-[36px] w-full border border-field text-sm !px-2",
+            "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
+            "@2xl:h-[44px] @2xl:[&>input]:text-base @2xl:[&>svg]:size-5",
           )}
           placeholder={t("Search account or folder")}
           onChange={onSearchChange}
           initialValue={search}
         />
       </div>
-      <ToolbarButton icon={FolderPlusIcon} onClick={openNewFolderModal} label={t("Add Folder")} />
-      <ToolbarButton icon={PlusIcon} onClick={addNewAccountClick} label={t("Add Account")} />
+      <ToolbarButton icon={FolderPlus} onClick={openNewFolderModal} label={t("Add Folder")} />
+      <ToolbarButton icon={Plus} onClick={addNewAccountClick} label={t("Add Account")} />
       <AccountsContextMenu />
     </div>
   )
@@ -77,8 +79,8 @@ const ToolbarButton: FC<{
     <TooltipTrigger asChild>
       <PortfolioToolbarButton
         className={classNames(
-          "size-[3.6rem]",
-          !IS_POPUP && "@2xl:h-[4.4rem] @2xl:px-6 flex h-[3.6rem] w-auto items-center gap-3 px-4",
+          "size-[36px]",
+          !IS_POPUP && "@2xl:h-[44px] @2xl:px-3 flex h-[36px] w-auto items-center gap-1.5 px-2",
         )}
         onClick={onClick}
       >
@@ -101,15 +103,21 @@ const AccountsContextMenu = () => {
   return (
     <>
       <ContextMenu placement="bottom-end">
-        <ContextMenuTrigger
-          className={classNames(
-            "bg-grey-900 hover:bg-grey-800 text-body-secondary border-content flex items-center justify-center rounded-sm",
-            "focus-visible:border-grey-700 border border-transparent ring-transparent",
-            "@2xl:size-[4.4rem] size-[3.6rem]",
-          )}
-        >
-          <MoreHorizontalIcon />
-        </ContextMenuTrigger>
+        <Tooltip placement="bottom-end">
+          <TooltipTrigger asChild>
+            <ContextMenuTrigger asChild>
+              <PortfolioToolbarButton
+                className={classNames(
+                  "size-[36px]",
+                  !IS_POPUP && "@2xl:size-[44px]",
+                )}
+              >
+                <DotsHorizontal />
+              </PortfolioToolbarButton>
+            </ContextMenuTrigger>
+          </TooltipTrigger>
+          <TooltipContent>{t("More")}</TooltipContent>
+        </Tooltip>
         <ContextMenuContent>
           <ContextMenuItem onClick={openExportAll}>{t("Export all as JSON")}</ContextMenuItem>
         </ContextMenuContent>

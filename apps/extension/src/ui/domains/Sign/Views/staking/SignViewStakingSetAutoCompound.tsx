@@ -16,13 +16,13 @@ export const SignViewStakingSetAutoCompound: FC<{
   const symbol = token.symbol
 
   return (
-    <div className="flex w-full flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-2">
       <Trans t={t}>
         <div>
-          All future <span className="text-body">{symbol}</span> staking rewards will be
+          All future <span className="text-fg-primary">{symbol}</span> staking rewards will be
         </div>
         <div>
-          <span className="text-body">{autoCompound}%</span> auto-compounded
+          <span className="text-fg-primary">{autoCompound}%</span> auto-compounded
         </div>
       </Trans>
     </div>

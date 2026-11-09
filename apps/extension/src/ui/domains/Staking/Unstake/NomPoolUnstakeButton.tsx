@@ -1,6 +1,6 @@
 import { TokenId } from "@taostats-wallet/chaindata-provider"
-import { ZapOffIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ZapOff } from "@untitledui/icons/ZapOff"
 import { FC, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -38,16 +38,16 @@ export const NomPoolUnstakeButton: FC<{
   return (
     <button
       className={classNames(
-        "bg-body/10 hover:bg-body/20 text-body-secondary hover:text-body font-light",
-        variant === "small" && "h-10 rounded-sm px-3 text-xs",
-        variant === "large" && "h-14 rounded px-4 text-sm",
+        "bg-fg-primary/10 hover:bg-fg-primary/20 text-fg-secondary hover:text-fg-primary font-light",
+        variant === "small" && "h-5 rounded-sm px-1.5 text-xs",
+        variant === "large" && "h-7 rounded px-2 text-sm",
         className,
       )}
       type="button"
       onClick={handleClick}
     >
-      <div className="flex items-center gap-2">
-        <ZapOffIcon
+      <div className="flex items-center gap-1">
+        <ZapOff
           className={classNames(
             "shrink-0",
             variant === "small" && "text-xs",

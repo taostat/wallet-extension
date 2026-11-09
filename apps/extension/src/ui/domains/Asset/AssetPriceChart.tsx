@@ -1,15 +1,24 @@
 import { useQuery } from "@tanstack/react-query"
 import { Token, TokenId } from "@taostats-wallet/chaindata-provider"
-import { CheckIcon, ChevronDownIcon, ExternalLinkIcon } from "@taostats-wallet/icons"
 import { TokenRateCurrency } from "@taostats-wallet/token-rates"
 import { classNames, formatPrice, isNotNil, isTruthy } from "@taostats-wallet/util"
+import { Check } from "@untitledui/icons/Check"
+import { ChevronDown } from "@untitledui/icons/ChevronDown"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import ChartJs, { ActiveElement, ChartComponentLike, ChartEvent } from "chart.js/auto"
 import { fetchFromCoingecko } from "extension-core"
 import { log } from "extension-shared"
 import { uniq } from "lodash-es"
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { IconButton, Popover, PopoverContent, PopoverTrigger, usePopoverContext } from "taostats-ui"
+import {
+  CHART_COLORS,
+  IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  usePopoverContext,
+} from "taostats-ui"
 
 import { useSelectedCurrency, useTokenRates, useTokenRatesMap, useTokensMap } from "@ui/state"
 
@@ -111,17 +120,17 @@ const AssetPriceChartOriginal: FC<{
   return (
     <div
       className={classNames(
-        "bg-black-secondary relative flex w-full shrink-0 flex-col gap-0 overflow-hidden rounded-sm",
-        variant === "small" && "h-[16.8rem]",
-        variant === "large" && "h-[19.2rem]",
+        "bg-secondary border-primary relative flex w-full shrink-0 flex-col gap-0 overflow-hidden rounded-md border",
+        variant === "small" && "h-[168px]",
+        variant === "large" && "h-[192px]",
         className,
       )}
     >
       <div
         className={classNames(
           "flex shrink-0 items-center justify-between",
-          variant === "small" && "h-20 px-4",
-          variant === "large" && "h-24 px-5",
+          variant === "small" && "h-10 px-2",
+          variant === "large" && "h-12 px-2.5",
         )}
       >
         <TokenSelect
@@ -130,14 +139,14 @@ const AssetPriceChartOriginal: FC<{
           variant={variant}
           onChange={setSelectedTokenId}
         />
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           {isValid && (
             <div
               className={classNames(
-                "text-body-secondary font-bold",
+                "text-fg-secondary font-bold",
                 variant === "small" && "text-base",
-                variant === "large" && "text-[2rem]",
-                formattedHoveredValue && "text-body",
+                variant === "large" && "text-[20px]",
+                formattedHoveredValue && "text-fg-primary",
               )}
             >
               {formattedHoveredValue ?? (
@@ -147,7 +156,7 @@ const AssetPriceChartOriginal: FC<{
           )}
           {netuid !== null ? (
             <IconButton onClick={handleOpenClick} className="text-base">
-              <ExternalLinkIcon />
+              <LinkExternal01 />
             </IconButton>
           ) : null}
         </div>
@@ -174,7 +183,7 @@ const AssetPriceChartOriginal: FC<{
       {!isValid && (
         <div
           className={classNames(
-            "text-body-inactive absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center",
+            "text-fg-tertiary absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center",
             variant === "small" && "text-base",
             variant === "large" && "text-lg",
           )}
@@ -291,7 +300,7 @@ const verticalLinePlugin: ChartComponentLike = {
       ctx.save()
       ctx.beginPath()
       ctx.setLineDash([5, 5])
-      ctx.strokeStyle = "rgba(213, 255, 92, 0.5)"
+      ctx.strokeStyle = `${CHART_COLORS.accent1}80`
       ctx.lineWidth = 1
       ctx.moveTo(tooltip.caretX, tooltip.y + tooltip.height + 5) // start below the tooltip
       ctx.lineTo(tooltip.caretX, chartArea.bottom)
@@ -353,8 +362,8 @@ const Chart: FC<{
 
     // Create a gradient
     const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height)
-    gradient.addColorStop(0, "rgba(0, 219, 188, 0.2)") // Start color (top)
-    gradient.addColorStop(1, "rgba(213, 255, 92, 0)") // End color (bottom)
+    gradient.addColorStop(0, `${CHART_COLORS.accent1}33`) // Start color (top)
+    gradient.addColorStop(1, `${CHART_COLORS.accent1}00`) // End color (bottom)
 
     const chart = new ChartJs(canvas, {
       type: "line",
@@ -385,8 +394,8 @@ const Chart: FC<{
             mode: "index",
             intersect: false,
             displayColors: false,
-            backgroundColor: "#2E3221",
-            titleColor: "#00dbbc",
+            backgroundColor: CHART_COLORS.tooltipBackground,
+            titleColor: CHART_COLORS.accent1,
             titleFont: {
               size: variant === "large" ? 14 : 12,
               weight: 400,
@@ -439,7 +448,7 @@ const Chart: FC<{
           {
             label: "Price",
             data: allPrices,
-            borderColor: "#00dbbc",
+            borderColor: CHART_COLORS.accent1,
             pointRadius: 0,
             tension: 0.1,
             fill: true,
@@ -469,9 +478,9 @@ const TimespanSelect: FC<{
   return (
     <div
       className={classNames(
-        "text-body-secondary flex w-full shrink-0 items-center justify-center gap-2 font-bold",
-        variant === "small" && "h-16",
-        variant === "large" && "h-20",
+        "text-fg-secondary flex w-full shrink-0 items-center justify-center gap-1 font-bold",
+        variant === "small" && "h-8",
+        variant === "large" && "h-10",
         className,
       )}
     >
@@ -480,11 +489,11 @@ const TimespanSelect: FC<{
           key={key}
           type="button"
           className={classNames(
-            "rounded-[0.6rem] px-3 py-1.5 hover:bg-white/5 hover:text-white",
+            "text-fg-secondary hover:bg-fg-primary/5 hover:text-fg-primary rounded-[6px] px-1.5 py-0.5.5",
             "pointer-events-auto",
-            variant === "small" && "text-[1rem]",
+            variant === "small" && "text-[10px]",
             variant === "large" && "text-sm",
-            value === key && "bg-white/10 text-white",
+            value === key && "bg-fg-primary/10 text-fg-primary",
           )}
           onClick={() => onChange(key as ChartSpan)}
         >
@@ -509,9 +518,9 @@ const TokenSelect: FC<{
     return (
       <div
         className={classNames(
-          "flex items-center gap-2 p-2 font-bold",
+          "flex items-center gap-1 p-1 font-bold",
           variant === "small" && "text-base",
-          variant === "large" && "text-[2rem]",
+          variant === "large" && "text-[20px]",
         )}
       >
         <div className="flex flex-col justify-center">
@@ -529,10 +538,10 @@ const TokenSelect: FC<{
         <button
           type="button"
           className={classNames(
-            "bg-grey-850 hover:bg-grey-800 group rounded",
-            "flex items-center gap-2 p-2 font-bold",
+            "bg-secondary hover:bg-secondary group rounded",
+            "flex items-center gap-1 p-1 font-bold",
             variant === "small" && "text-base",
-            variant === "large" && "text-[2rem]",
+            variant === "large" && "text-[20px]",
           )}
         >
           <div className="flex flex-col justify-center">
@@ -541,11 +550,11 @@ const TokenSelect: FC<{
           <span>
             <TokenDisplaySymbol tokenId={token.id} />
           </span>
-          <ChevronDownIcon className="text-body-secondary group-hover:text-body" />
+          <ChevronDown className="text-fg-secondary group-hover:text-fg-primary" />
         </button>
       </PopoverTrigger>
       <PopoverContent>
-        <div className="bg-grey-900 flex w-full flex-col gap-2 rounded p-4">
+        <div className="bg-app-bg flex w-full flex-col gap-1 rounded p-2">
           {tokens.map((t) => (
             <TokenSelectOption
               key={t.id}
@@ -578,23 +587,23 @@ const TokenSelectOption: FC<{ token: Token; selected: boolean; onClick: () => vo
       type="button"
       onClick={handleClick}
       className={classNames(
-        "enabled:hover:bg-grey-800 focus-visible:bg-grey-800 disabled:text-body-disabled rounded-xs h-20 p-6 px-3 text-left",
-        "flex w-full items-center justify-between gap-16",
+        "enabled:hover:bg-secondary focus-visible:bg-secondary disabled:text-fg-disabled rounded-xs h-10 p-3 px-1.5 text-left",
+        "flex w-full items-center justify-between gap-8",
       )}
     >
-      <div className="flex items-center gap-4">
-        <TokenLogo tokenId={token.id} className="inline-block text-[2.8rem]" />
-        <div className="flex grow flex-col gap-1">
+      <div className="flex items-center gap-2">
+        <TokenLogo tokenId={token.id} className="inline-block text-[28px]" />
+        <div className="flex grow flex-col gap-0.5">
           <span className="text-sm font-bold">{token.symbol}</span>
-          <span className="text-body-secondary text-[1rem]">
+          <span className="text-fg-secondary text-[10px]">
             {t("Mkt Cap:")} <MarketCap tokenId={token.id} />
           </span>
         </div>
       </div>
-      <div className="text-body flex gap-4 font-bold">
+      <div className="text-fg-primary flex gap-2 font-bold">
         <AssetPrice tokenId={token.id} balances={null} noTooltip noChange className="text-sm" />
-        <CheckIcon
-          className={classNames("text-primary text-base", selected ? "visible" : "invisible")}
+        <Check
+          className={classNames("text-fg-brand text-base", selected ? "visible" : "invisible")}
         />
       </div>
     </button>

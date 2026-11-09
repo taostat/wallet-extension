@@ -1,9 +1,9 @@
 import { sign as signExtrinsic } from "@polkadot/types/extrinsic/util"
-import { u8aToHex, hexToU8a } from "@polkadot/util"
+import { hexToU8a, u8aToHex } from "@polkadot/util"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
 import { blake2b256, encryptKemAeadV1, encryptKemAeadV2 } from "@taostats-wallet/crypto"
 import { Binary, FixedSizeBinary, mergeUint8, parseMetadataRpc } from "@taostats-wallet/scale"
-import { TAOSTATS_API_URL } from "extension-shared"
+import { log, TAOSTATS_API_URL } from "extension-shared"
 
 import { ExtensionHandler } from "../../libs/Handler"
 import { chainConnector } from "../../rpcs/chain-connector"
@@ -13,7 +13,13 @@ import { Port } from "../../types/base"
 import { getMetadataDef } from "../../util/getMetadataDef"
 import { getTypeRegistry } from "../../util/getTypeRegistry"
 import { withPjsKeyringPair } from "../keyring/withPjsKeyringPair"
-import { dismissTransaction, watchSubstrateTransaction } from "../transactions"
+import {
+  deferTransactionExplorerLink,
+  dismissTransaction,
+  setTransactionExplorerId,
+  updateTransactionStatus,
+  watchSubstrateTransaction,
+} from "../transactions"
 
 export class SubHandler extends ExtensionHandler {
   private getMevShieldMode(specVersion: number): "v1" | "disabled" | "v2" {
@@ -265,32 +271,55 @@ export class SubHandler extends ExtensionHandler {
         signedInnerTxHexToSubmit = innerTx.toHex()
       }
 
-      if (!TAOSTATS_API_URL) {
-        throw new Error("TAOSTATS_API_URL is not configured")
-      }
+      // Register the pending transaction before the shield API responds.
+      // The in-progress screen opens on this inner hash, without an explorer link.
+      await watchSubstrateTransaction(chain, registry, innerPayload, signatureInner, { txInfo })
+      await deferTransactionExplorerLink(signedInnerHash)
 
-      const mevshieldBody = {
-        signedInnerTxHex: signedInnerTxHexToSubmit,
-        mevShieldMode,
-      }
+      void this.postTaostatsShield(signedInnerTxHexToSubmit, mevShieldMode, signedInnerHash)
+
+      return { hash: signedInnerHash }
+    }
+
+  private postTaostatsShield = async (
+    signedInnerTxHex: `0x${string}`,
+    mevShieldMode: "v1" | "v2",
+    hash: `0x${string}`,
+  ) => {
+    try {
+      if (!TAOSTATS_API_URL) throw new Error("TAOSTATS_API_URL is not configured")
 
       const response = await fetch(`${TAOSTATS_API_URL}/mevshield/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(mevshieldBody),
+        body: JSON.stringify({
+          signedInnerTxHex,
+          mevShieldMode,
+        }),
       })
 
-      if (!response.ok) {
-        const body = await response.text().catch(() => "")
+      let raw: unknown
+      try {
+        raw = await response.json()
+      } catch {
+        throw new Error("Invalid response from Taostats Shield")
+      }
+
+      const data = raw as { success?: boolean; txHash?: string; hash?: string; error?: string }
+      const explorerId = data.txHash || data.hash
+      if (!response.ok || data.success === false) {
         throw new Error(
-          `Taostats Shield submit failed: ${response.status} ${response.statusText}${body ? ` - ${body}` : ""}`,
+          data.error || `Taostats Shield submit failed: ${response.status} ${response.statusText}`,
         )
       }
 
-      await watchSubstrateTransaction(chain, registry, innerPayload, signatureInner, { txInfo })
-
-      return { hash: signedInnerHash }
+      // The API hash is the one Taostats has indexed. The link stays hidden until it arrives.
+      if (explorerId) await setTransactionExplorerId(hash, explorerId)
+    } catch (err) {
+      log.error("Taostats Shield submit failed", { err, hash })
+      await updateTransactionStatus(hash, "error")
     }
+  }
 
   private send: MessageHandler<"pri(substrate.rpc.send)"> = ({
     chainId,

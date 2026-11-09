@@ -21,26 +21,10 @@ import { AccountAddMnemonicDashboardWizard } from "./routes/AccountAdd/AccountAd
 import { AccountAddQrDashboardWizard } from "./routes/AccountAdd/AccountAddQrWizard"
 import { AccountAddSignetDashboardWizard } from "./routes/AccountAdd/AccountAddSignetWizard"
 import { AccountAddWatchedPage } from "./routes/AccountAdd/AccountAddWatchedPage"
-import { EditNetworkPage } from "./routes/Networks/EditNetworkPage"
-import { NetworksPage } from "./routes/Networks/NetworksPage"
 import { PhishingPage } from "./routes/PhishingPage"
 import { PortfolioRoutes } from "./routes/Portfolio"
-import { AboutPage } from "./routes/Settings/AboutPage"
-import { AccountsPage } from "./routes/Settings/Accounts"
-import { AddressBookPage } from "./routes/Settings/AddressBookPage"
-import { AnalyticsOptInPage } from "./routes/Settings/AnalyticsOptInPage"
-import { AutoLockTimerPage } from "./routes/Settings/AutoLockTimerPage"
-import { ChangePasswordPage } from "./routes/Settings/ChangePasswordPage"
-import { ConnectedSitesPage } from "./routes/Settings/ConnectedSitesPage"
-// import { CurrencySettingsPage } from "./routes/Settings/CurrencySettingsPage"
-import { GeneralPage } from "./routes/Settings/GeneralPage"
-import { LanguagePage } from "./routes/Settings/LanguagePage"
-import { MnemonicsPage } from "./routes/Settings/Mnemonics/MnemonicsPage"
-import { NetworksTokensPage } from "./routes/Settings/NetworksTokensPage"
-import { SecurityPrivacyPage } from "./routes/Settings/SecurityPrivacyPage"
+import { SettingsRoutes } from "./routes/Settings"
 import { TestPage } from "./routes/TestPage"
-import { EditTokenPage } from "./routes/Tokens/EditTokenPage"
-import { TokensPage } from "./routes/Tokens/TokensPage"
 import { TxHistory } from "./routes/TxHistory"
 
 const DashboardInner = () => {
@@ -64,71 +48,7 @@ const DashboardInner = () => {
           </Route>
           <Route path="" element={<NavigateWithQuery url="/portfolio" replace />} />
         </Route>
-        <Route path="settings">
-          <Route path="" element={<Navigate to="/settings/general" replace />} />
-          <Route path="general">
-            <Route path="" element={<GeneralPage />} />
-            <Route path="language" element={<LanguagePage />} />
-            {/* <Route path="currency" element={<CurrencySettingsPage />} /> */}
-            <Route path="*" element={<Navigate to="" replace />} />
-          </Route>
-          <Route path="address-book" element={<AddressBookPage />} />
-          <Route path="connected-sites" element={<ConnectedSitesPage />} />
-          <Route path="mnemonics" element={<MnemonicsPage />} />
-          <Route path="accounts" element={<AccountsPage />} />
-          <Route path="security-privacy-settings">
-            <Route path="" element={<SecurityPrivacyPage />} />
-            <Route path="change-password" element={<ChangePasswordPage />} />
-            <Route path="autolock" element={<AutoLockTimerPage />} />
-            <Route path="*" element={<Navigate to="" replace />} />
-          </Route>
-          <Route path="networks-tokens">
-            <Route path="" element={<NetworksTokensPage />} />
-            <Route path="tokens">
-              <Route path="" element={<TokensPage />} />
-              <Route path=":id" element={<EditTokenPage />} />
-              <Route path="*" element={<Navigate to="" replace />} />
-            </Route>
-            <Route path="networks">
-              <Route path="" element={<NetworksPage />} />
-              <Route
-                path="ethereum"
-                element={
-                  <Navigate
-                    to="/settings/networks-tokens/networks"
-                    replace
-                    state={{ platform: "ethereum" }}
-                  />
-                }
-              />
-              <Route
-                path="polkadot"
-                element={
-                  <Navigate
-                    to="/settings/networks-tokens/networks"
-                    replace
-                    state={{ platform: "polkadot" }}
-                  />
-                }
-              />
-              <Route path="*" element={<Navigate to="" replace />} />
-            </Route>
-            <Route path="network/:id" element={<EditNetworkPage />} />
-            <Route path="*" element={<Navigate to="" replace />} />
-          </Route>
-          <Route path="about" element={<AboutPage />} />
-          <Route path="analytics" element={<AnalyticsOptInPage />} />
-          {/* Old routes redirects */}
-          <Route
-            path="change-password"
-            element={<Navigate to="/settings/security-privacy-settings/change-password" replace />}
-          />
-          <Route
-            path="autolock"
-            element={<Navigate to="/settings/security-privacy-settings/autolock" replace />}
-          />
-          <Route path="*" element={<Navigate to="" replace />} />
-        </Route>
+        <Route path="settings/*" element={<SettingsRoutes />} />
         {/* Old routes redirects */}
         <Route
           path="networks"

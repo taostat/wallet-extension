@@ -1,31 +1,30 @@
 import { detectAddressEncoding } from "@taostats-wallet/crypto"
-import { CopyIcon, MoreHorizontalIcon, PlusIcon, UserPlusIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
-import {
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  forwardRef,
-  Suspense,
-  useCallback,
-  useMemo,
-  useState,
-} from "react"
+import { Copy01 } from "@untitledui/icons/Copy01"
+import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
+import { Edit01 } from "@untitledui/icons/Edit01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
+import { Plus } from "@untitledui/icons/Plus"
+import { Trash01 } from "@untitledui/icons/Trash01"
+import { UserPlus01 } from "@untitledui/icons/UserPlus01"
+import { Suspense, useCallback, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
   ContextMenu,
+  ContextMenuActionItem,
   ContextMenuContent,
-  ContextMenuItem,
   ContextMenuTrigger,
+  getContainerClassName,
   PillButton,
 } from "taostats-ui"
 
+import { CopyAddressIconButton } from "@taostats/components/CopyAddressIconButton"
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { useOpenClose } from "@taostats/hooks/useOpenClose"
 import { AnalyticsPage } from "@ui/api/analytics"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { AccountIcon } from "@ui/domains/Account/AccountIcon"
 import { Address } from "@ui/domains/Account/Address"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
@@ -44,22 +43,6 @@ const ANALYTICS_PAGE: AnalyticsPage = {
   featureVersion: 1,
   page: "Address book contact list",
 }
-
-const SquareButton = forwardRef<
-  HTMLButtonElement,
-  DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
->((props, ref) => (
-  <button
-    {...props}
-    type="button"
-    ref={ref}
-    className={classNames(
-      "enabled:hover:bg-grey-700 enabled:hover:text-body-secondary flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-sm enabled:cursor-pointer disabled:cursor-not-allowed",
-      props.className,
-    )}
-  ></button>
-))
-SquareButton.displayName = "SquareButton"
 
 type ContactItemProps = ExistingContactComponentProps & {
   handleDelete: (address: string) => void
@@ -100,57 +83,72 @@ const AddressBookContactItem = ({ contact, handleDelete, handleEdit }: ContactIt
     }
   }, [contact])
 
+  const { containerClassName, contentClassName, titleClassName, subtitleClassName } =
+    getContainerClassName("large")
+
   return (
-    <div className="bg-black-secondary group flex h-32 w-full items-center justify-between gap-4 rounded px-8">
+    <div
+      className={classNames(
+        "border-primary bg-secondary-solid gap-md px-lg flex w-full items-center rounded-lg border",
+        containerClassName,
+      )}
+    >
       <AccountIcon
-        className="text-xl"
+        className="shrink-0 text-3xl"
         address={contact.address}
         genesisHash={contact.genesisHash}
       />
-      <div className="flex grow flex-col justify-between overflow-hidden">
-        <div className="truncate">{contact.name}</div>
-        <div>
-          {isMultiAddress ? (
-            <div className="text-body-secondary text-xs">{t("Multichain address")}</div>
-          ) : (
-            <Address
-              className="text-body-secondary text-xs"
-              address={contact.address}
-              genesisHash={contact.genesisHash}
-            />
-          )}
+      <div className={classNames("flex grow flex-col items-start overflow-hidden", contentClassName)}>
+        <div className={classNames("text-fg-primary truncate font-medium", titleClassName)}>
+          {contact.name}
         </div>
+        {isMultiAddress ? (
+          <div className={classNames("text-fg-secondary font-mono", subtitleClassName)}>
+            {t("Multichain address")}
+          </div>
+        ) : (
+          <div
+            className={classNames(
+              "text-fg-secondary flex items-center gap-1 font-mono",
+              subtitleClassName,
+            )}
+          >
+            <Address address={contact.address} genesisHash={contact.genesisHash} />
+            <CopyAddressIconButton address={contact.address} iconClassName="size-3.5" />
+          </div>
+        )}
       </div>
-      <div className={`text-body-disabled flex shrink-0 gap-2`}>
-        <SquareButton onClick={handleCopyClick}>
-          <CopyIcon />
-        </SquareButton>
-        <ContextMenu placement="bottom-end">
-          <ContextMenuTrigger asChild>
-            <SquareButton>
-              <MoreHorizontalIcon />
-            </SquareButton>
-          </ContextMenuTrigger>
-          <ContextMenuContent>
-            <Suspense fallback={<SuspenseTracker name="AddressBookContactItem.ContextMenu" />}>
-              <ContextMenuItem onClick={() => handleEdit(contact.address)}>
-                {t("Edit contact")}
-              </ContextMenuItem>
-              <ContextMenuItem onClick={handleCopyClick}>{t("Copy address")}</ContextMenuItem>
-              <ContextMenuItem
-                disabled={!canViewOnExplorer}
-                onClick={handleViewOnExplorer}
-                className="disabled:!text-body-disabled disabled:!cursor-not-allowed disabled:!bg-transparent"
-              >
-                {t("View on Taostats")}
-              </ContextMenuItem>
-              <ContextMenuItem onClick={() => handleDelete(contact.address)}>
-                {t("Delete contact")}
-              </ContextMenuItem>
-            </Suspense>
-          </ContextMenuContent>
-        </ContextMenu>
-      </div>
+      <ContextMenu placement="bottom-end">
+        <ContextMenuTrigger className="text-fg-secondary hover:text-fg-primary hover:bg-tertiary rounded p-2">
+          <DotsHorizontal className="text-lg" />
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <Suspense fallback={<SuspenseTracker name="AddressBookContactItem.ContextMenu" />}>
+            <ContextMenuActionItem
+              label={t("Edit contact")}
+              icon={Edit01}
+              onClick={() => handleEdit(contact.address)}
+            />
+            <ContextMenuActionItem
+              label={t("Copy address")}
+              icon={Copy01}
+              onClick={handleCopyClick}
+            />
+            <ContextMenuActionItem
+              label={t("View on Taostats")}
+              icon={LinkExternal01}
+              disabled={!canViewOnExplorer}
+              onClick={handleViewOnExplorer}
+            />
+            <ContextMenuActionItem
+              label={t("Delete contact")}
+              icon={Trash01}
+              destructive
+              onClick={() => handleDelete(contact.address)}
+            />
+          </Suspense>
+        </ContextMenuContent>
+      </ContextMenu>
     </div>
   )
 }
@@ -181,13 +179,13 @@ const Content = () => {
       <Spacer large />
       <div className="flex justify-end align-middle">
         {contactsToDisplay.length > 0 && (
-          <PillButton onClick={open} icon={UserPlusIcon}>
+          <PillButton onClick={open} icon={UserPlus01}>
             {t("Add new contact")}
           </PillButton>
         )}
       </div>
       <Spacer small />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         {contactsToDisplay.map((contact) => (
           <AddressBookContactItem
             contact={contact}
@@ -197,9 +195,13 @@ const Content = () => {
           />
         ))}
         {contactsToDisplay.length === 0 && (
-          <div className="bg-black-secondary text-body-secondary flex h-[16rem] w-full flex-col items-center justify-center gap-12 rounded px-16 py-8">
+          <div className="border-primary bg-secondary-solid text-fg-secondary flex h-[160px] w-full flex-col items-center justify-center gap-6 rounded-lg border px-8 py-4">
             <span>{t("You have no saved contacts yet.")}</span>
-            <Button primary onClick={open} iconLeft={PlusIcon}>
+            <Button
+              onClick={open}
+              iconLeft={Plus}
+              className="!border-0 !bg-fg-brand shadow-none hover:!bg-fg-brand/90 !text-black focus-visible:ring-0"
+            >
               {t("Add a contact")}
             </Button>
           </div>
@@ -225,8 +227,4 @@ const Content = () => {
   )
 }
 
-export const AddressBookPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const AddressBookPage = () => <Content />

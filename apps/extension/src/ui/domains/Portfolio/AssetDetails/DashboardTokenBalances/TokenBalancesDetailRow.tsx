@@ -3,6 +3,8 @@ import { classNames } from "@taostats-wallet/util"
 
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
 import { BalancesStatus } from "@ui/hooks/useBalancesStatus"
+import { isRootTaoHolding } from "@ui/domains/Portfolio/isRootTaoHolding"
+import { useToken } from "@ui/state"
 
 import { BalanceDetailRow } from "../useTokenBalances"
 import { AssetState } from "./AssetState"
@@ -21,10 +23,13 @@ export const TokenBalancesDetailRow = ({
   symbol: string
   tokenId: TokenId
 }) => {
+  const token = useToken(tokenId)
+  const isRootTao = isRootTaoHolding(token)
+
   return (
     <div
       key={row.key}
-      className={classNames("bg-grey-850 grid grid-cols-[40%_30%_30%]", isLastRow && "rounded-b")}
+      className={classNames("bg-secondary grid grid-cols-[40%_30%_30%]", isLastRow && "rounded-b")}
     >
       <div>
         <AssetState
@@ -43,6 +48,7 @@ export const TokenBalancesDetailRow = ({
           tokens={row.tokens}
           fiat={row.fiat}
           symbol={symbol}
+          isRootTao={isRootTao}
           locked={row.locked}
           balancesStatus={status}
           className={classNames(

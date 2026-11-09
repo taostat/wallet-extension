@@ -14,13 +14,5 @@ export const AuthorisedSiteToolbar = () => {
 
   if (!isAuthorised) return null
 
-  return (
-    <>
-      <div className="absolute left-0 top-0 z-20 flex w-full shrink-0 items-center justify-between gap-4 px-8 pt-20">
-        <ConnectedAccountsPill />
-      </div>
-      {/* Placeholder to reserve scrolling space */}
-      <div className="h-[3.6rem] w-full shrink-0"></div>
-    </>
-  )
+  return <ConnectedAccountsPill />
 }

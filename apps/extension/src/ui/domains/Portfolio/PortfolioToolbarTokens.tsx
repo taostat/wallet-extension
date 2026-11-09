@@ -1,5 +1,7 @@
-import { ExternalLinkIcon, GlobeIcon, ToolbarSortIcon } from "@taostats-wallet/icons"
+import { ToolbarSortIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { Globe01 } from "@untitledui/icons/Globe01"
+import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { t } from "i18next"
 import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
@@ -59,12 +61,12 @@ const NetworkFilterButton = () => {
         <TooltipTrigger asChild>
           <PortfolioToolbarButton
             onClick={open}
-            className={classNames(networkFilter && "text-primary")}
+            className={classNames(networkFilter && "text-fg-brand")}
           >
             {networkFilter ? (
               <NetworkLogo className="text-lg" networkId={networkFilter.networkIds[0]} />
             ) : (
-              <GlobeIcon />
+              <Globe01 />
             )}
           </PortfolioToolbarButton>
         </TooltipTrigger>
@@ -90,10 +92,10 @@ const PortfolioSearch = () => {
   return (
     <SearchInput
       containerClassName={classNames(
-        "!bg-field ring-transparent focus-within:border-grey-700 rounded-sm h-16 w-full border border-field text-xs !px-4",
-        "[&>input]:text-sm [&>svg]:size-8 [&>button>svg]:size-10",
-        "@2xl:[&>input]:text-base @2xl:[&>svg]:size-10",
-        IS_POPUP ? "w-full" : "max-w-[37.4rem]",
+        "!bg-secondary ring-transparent focus-within:border-primary rounded-sm h-8 w-full border border-field text-xs !px-2",
+        "[&>input]:text-sm [&>svg]:size-4 [&>button>svg]:size-5",
+        "@2xl:[&>input]:text-base @2xl:[&>svg]:size-5",
+        IS_POPUP ? "w-full" : "max-w-[374px]",
       )}
       placeholder={t("Search")}
       onChange={setPortfolioSearch}
@@ -160,7 +162,7 @@ const OpenInTaostatsButton = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <PortfolioToolbarButton onClick={handleOpenCurrentAccountInTaostats}>
-            <ExternalLinkIcon />
+            <LinkExternal01 />
           </PortfolioToolbarButton>
         </TooltipTrigger>
         <TooltipContent>Open in Taostats Portfolio Tracker</TooltipContent>
@@ -171,11 +173,11 @@ const OpenInTaostatsButton = () => {
 
 export const PortfolioToolbarTokens = () => {
   return (
-    <div className="@container flex h-16 w-full min-w-[30rem] shrink-0 items-center justify-between gap-4 overflow-hidden">
+    <div className="@container flex h-8 w-full min-w-[300px] shrink-0 items-center justify-between gap-2 overflow-hidden">
       <div className="flex grow items-center overflow-hidden">
         <PortfolioSearch />
       </div>
-      <div className="flex shrink-0 gap-4">
+      <div className="flex shrink-0 gap-2">
         {!IS_POPUP && <TokensSortButton />}
         <NetworkFilterButton />
       </div>

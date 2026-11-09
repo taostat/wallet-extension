@@ -1,7 +1,8 @@
-import { useVirtualizer } from "@tanstack/react-virtual"
 import { isNetworkCustom, Network } from "@taostats-wallet/chaindata-provider"
-import { ChevronRightIcon, InfoIcon, LoaderIcon } from "@taostats-wallet/icons"
 import { classNames } from "@taostats-wallet/util"
+import { ChevronRight } from "@untitledui/icons/ChevronRight"
+import { InfoCircle } from "@untitledui/icons/InfoCircle"
+import { Loading01 } from "@untitledui/icons/Loading01"
 import { ActiveNetworks, activeNetworksStore, isNetworkActive } from "extension-core"
 import { startCase } from "lodash-es"
 import { ChangeEventHandler, FC, useCallback, useEffect, useMemo, useState } from "react"
@@ -107,26 +108,26 @@ export const NetworksList: FC<{
 
   if (!displayedNetworks.length)
     return (
-      <div className="text-body-secondary bg-grey-850 rounded-sm p-12 text-center">
+      <div className="text-fg-secondary bg-secondary rounded-sm p-6 text-center">
         {t("No networks found")}
       </div>
     )
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className={classNames("flex w-full items-center justify-end gap-4")}>
+    <div className="flex flex-col gap-2">
+      <div className={classNames("flex w-full items-center justify-end gap-2")}>
         <button
           type="button"
           onClick={() => ocResetAllModal.open()}
-          className="text-body-disabled hover:text-body-secondary text-xs"
+          className="text-fg-disabled hover:text-fg-secondary text-xs"
         >
           {t("Reset")}
         </button>
-        <div className="bg-body-disabled h-6 w-0.5"></div>
+        <div className="bg-disabled h-3 w-px"></div>
         <button
           type="button"
           onClick={() => ocDeactivateAllModal.open()}
-          className="text-body-disabled hover:text-body-secondary text-xs"
+          className="text-fg-disabled hover:text-fg-secondary text-xs"
         >
           {t("Deactivate all")}
         </button>
@@ -141,42 +142,13 @@ export const NetworksList: FC<{
           />
         </Modal>
       </div>
-      <VirtualizedRows networks={displayedNetworks} activeNetworksState={networksActiveState} />
-    </div>
-  )
-}
-
-const VirtualizedRows: FC<{
-  networks: Network[]
-  activeNetworksState: ActiveNetworks
-}> = ({ networks, activeNetworksState }) => {
-  const virtualizer = useVirtualizer({
-    count: networks.length,
-    overscan: 6,
-    gap: 8,
-    estimateSize: () => 56,
-    getScrollElement: () => document.getElementById("main"),
-  })
-
-  return (
-    <div>
-      <div
-        className="relative w-full"
-        style={{
-          height: `${virtualizer.getTotalSize()}px`,
-        }}
-      >
-        {virtualizer.getVirtualItems().map((item) => (
-          <div
-            key={item.key}
-            className="absolute left-0 top-0 w-full"
-            style={{
-              height: `${item.size}px`,
-              transform: `translateY(${item.start}px)`,
-            }}
-          >
-            <NetworkRow network={networks[item.index]} activeNetworksState={activeNetworksState} />
-          </div>
+      <div className="flex flex-col gap-2">
+        {displayedNetworks.map((network) => (
+          <NetworkRow
+            key={network.id}
+            network={network}
+            activeNetworksState={networksActiveState}
+          />
         ))}
       </div>
     </div>
@@ -213,24 +185,24 @@ const NetworkRow: FC<{
   )
 
   return (
-    <div className="relative h-28" data-testid="network-list-row">
+    <div className="relative" data-testid="network-list-row">
       <ListButton key={network.id} role="button" onClick={handleNetworkClick}>
         <NetworkLogo className="rounded-full text-xl" networkId={network.id} />
-        <div className="text-body flex flex-col justify-center gap-1 overflow-hidden">
+        <div className="text-fg-primary flex flex-col justify-center gap-0.5 overflow-hidden">
           <div className="truncate">
             <NetworkName networkId={network.id} />
           </div>
-          <div className="text-body-inactive truncate text-xs">
+          <div className="text-fg-tertiary truncate text-xs">
             <NetworkType networkId={network.id} />
           </div>
         </div>
         {network.isTestnet && <TestnetPill />}
         {isNetworkCustom(network) && <CustomPill />}
-        <div className="min-w-[4.4rem] shrink-0 grow"></div>
-        <ChevronRightIcon className="transition-noneshrink-0 text-lg" />
+        <div className="min-w-[44px] shrink-0 grow"></div>
+        <ChevronRight className="transition-none shrink-0 text-lg" />
       </ListButton>
       <Toggle
-        className="absolute right-20 top-4 p-4"
+        className="absolute right-10 top-1/2 -translate-y-1/2 p-2"
         checked={!!isActive}
         onChange={handleEnableChanged}
       />
@@ -263,7 +235,7 @@ const ResetAllNetworksModalContent: FC<{
       }
       onClose={onClose}
     >
-      <p className="text-body-secondary mb-8 text-sm">
+      <p className="text-fg-secondary mb-4 text-sm">
         {platform === "all"
           ? t("This will reset active state of all networks to their defaults.")
           : t("This will reset active state of all {{platform}} networks to their defaults.", {
@@ -271,7 +243,7 @@ const ResetAllNetworksModalContent: FC<{
             })}
       </p>
 
-      <div className="mt-4 flex justify-end gap-8">
+      <div className="mt-2 flex justify-end gap-4">
         <Button onClick={onClose}>{t("Cancel")}</Button>
         <Button primary onClick={handleClick}>
           {t("Reset")}
@@ -329,21 +301,21 @@ const DeactivateNetworksModalContent: FC<{
       }
       onClose={onClose}
     >
-      <p className="text-body-secondary mb-8 text-sm">
+      <p className="text-fg-secondary mb-4 text-sm">
         {t("It is recommended to deactivate unused networks to improve performance.")}
       </p>
-      <div className="bg-grey-800 text-body-secondary flex h-28 w-full items-center gap-6 rounded-sm px-8 text-sm">
+      <div className="bg-secondary text-fg-secondary flex h-14 w-full items-center gap-3 rounded-sm px-4 text-sm">
         {isBalancesInitializing ? (
           <>
-            <LoaderIcon className="text-md shrink-0 animate-spin" />
+            <Loading01 className="text-md shrink-0 animate-spin" />
             <div className="grow">
               {t("Scanning networks - found {{count}} unused", { count: unusedNetworkIds.length })}
             </div>
           </>
         ) : (
           <>
-            <InfoIcon className="text-md shrink-0" />
-            <div className="text-body-secondary grow">
+            <InfoCircle className="text-md shrink-0" />
+            <div className="text-fg-secondary grow">
               {t("Found {{count}} network(s) without token balances", {
                 count: unusedNetworkIds.length,
               })}
@@ -351,7 +323,7 @@ const DeactivateNetworksModalContent: FC<{
           </>
         )}
       </div>
-      <div className="text-body-secondary flex flex-col items-start py-8 text-sm">
+      <div className="text-fg-secondary flex flex-col items-start py-4 text-sm">
         <Radio
           name="deactivateMode"
           label={
@@ -384,7 +356,7 @@ const DeactivateNetworksModalContent: FC<{
         />
       </div>
 
-      <div className="mt-4 flex justify-end gap-8">
+      <div className="mt-2 flex justify-end gap-4">
         <Button onClick={onClose}>{t("Cancel")}</Button>
         <Button primary disabled={disableSubmit} onClick={handleClick}>
           {t("Deactivate")}

@@ -29,7 +29,6 @@ import { BittensorModalLayout } from "../components/BittensorModalLayout"
 import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { ROOT_NETUID } from "../utils/constants"
-import { StakingFeeEstimate } from "./../../shared/StakingFeeEstimate"
 import { BittensorAvailableToUnstake } from "./BittensorAvailableToUnstake"
 import { BittensorDelegatorNameButton } from "./BittensorDelegatorNameButton"
 import { BittensorSelectStakeDrawer } from "./Drawers/BittensorSelectStakeDrawer"
@@ -52,15 +51,15 @@ const AvailableBalance: FC<{ token: Token; account: Account }> = ({ token, accou
       tokenId={token?.id}
       planck={balance.transferable.planck}
       className={classNames(balance.status !== "live" && "animate-pulse")}
-      tokensClassName="text-body"
-      fiatClassName="text-body-secondary"
+      tokensClassName="text-fg-primary"
+      fiatClassName="text-fg-secondary"
       noFiat={selectedCurrency === "tao"}
     />
   )
 }
 
 const DisplayContainer: FC<PropsWithChildren> = ({ children }) => {
-  return <div className="text-body-secondary max-w-[264px] truncate text-sm">{children}</div>
+  return <div className="text-fg-secondary max-w-[264px] truncate text-sm">{children}</div>
 }
 
 const FiatDisplay = () => {
@@ -136,8 +135,8 @@ const TokenInput = ({ onEdit }: { onEdit: () => void }) => {
   useInputAutoWidth(refTokensInput)
 
   return (
-    <div className="flex w-full flex-nowrap items-center justify-between gap-4">
-      <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
+    <div className="flex w-full flex-nowrap items-center justify-between gap-2">
+      <div className="text-fg-primary flex shrink-0 items-center gap-1 text-base font-normal">
         <TokenLogo
           className="text-lg"
           tokenId={isSubnetUnstake ? dtaoToken?.id : nativeToken?.id}
@@ -152,7 +151,9 @@ const TokenInput = ({ onEdit }: { onEdit: () => void }) => {
         placeholder="0"
         step="any"
         value={value}
-        className={"text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"}
+        className={
+          "text-fg-primary peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"
+        }
         onChange={handleChange}
       />
     </div>
@@ -225,8 +226,8 @@ const AlphaInput = ({ lastEditedInput }: { lastEditedInput: { current: "primary"
   if (!secondaryToken || typeof netuid !== "number" || netuid === 0) return null
 
   return (
-    <div className="flex w-full flex-nowrap items-center justify-between gap-4">
-      <div className="text-body flex shrink-0 items-center gap-2 text-base font-normal">
+    <div className="flex w-full flex-nowrap items-center justify-between gap-2">
+      <div className="text-fg-primary flex shrink-0 items-center gap-1 text-base font-normal">
         <TokenLogo className="text-lg" tokenId={secondaryTokenId} />
         <div>{secondarySymbol}</div>
       </div>
@@ -236,7 +237,7 @@ const AlphaInput = ({ lastEditedInput }: { lastEditedInput: { current: "primary"
         inputMode="decimal"
         placeholder="0"
         value={value}
-        className="text-body peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"
+        className="text-fg-primary peer inline-block w-fit min-w-0 text-ellipsis bg-transparent text-lg"
         onChange={handleChange}
         onFocus={() => {
           isFocused.current = true
@@ -335,10 +336,10 @@ const FiatInput = () => {
         inputMode="decimal"
         value={value}
         placeholder={"0.00"}
-        className="text-body peer inline-block min-w-0 bg-transparent text-lg"
+        className="text-fg-primary peer inline-block min-w-0 bg-transparent text-lg"
         onChange={handleChange}
       />
-      {/* {isEstimatingMaxAmount && <div className="bg-grey-800 h-16 w-48 rounded"></div>} */}
+      {/* {isEstimatingMaxAmount && <div className="bg-secondary h-8 w-24 rounded"></div>} */}
       <div className="block shrink-0">{currencyConfig[currency]?.symbol}</div>
     </div>
   )
@@ -370,32 +371,32 @@ export const AmountEdit = () => {
   }, [maxPlancks, setPlancks])
 
   return (
-    <div className="flex w-full grow flex-col justify-center gap-4">
+    <div className="flex w-full shrink-0 flex-col gap-2">
       {!!nativeToken && (
         <>
-          <div className="h-16">{/* mirrors the height of error message reserved space */}</div>
-          <div className="flex flex-col items-center gap-2">
+          <div className="h-8">{/* mirrors the height of error message reserved space */}</div>
+          <div className="flex flex-col items-center gap-1">
             <div className="flex w-full flex-col text-lg">
               {displayMode === "token" ? <TokenInput onEdit={onPrimaryEdit} /> : <FiatInput />}
             </div>
             {displayMode === "token" && isSubnetOperation && (
-              <div className="border-grey-800 w-full border-t pt-2">
+              <div className="border-primary w-full border-t pt-1">
                 <AlphaInput lastEditedInput={lastEditedInput} />
               </div>
             )}
           </div>
-          <div className={classNames("flex max-w-full items-center justify-center gap-4")}>
+          <div className={classNames("flex max-w-full items-center justify-center gap-2")}>
             {tokenRates && <FiatDisplay />}
             <PillButton
               onClick={onSetMaxClick}
               disabled={!maxPlancks}
               size="xs"
-              className={classNames("h-[2.2rem] rounded-sm !px-4 !py-0")}
+              className={classNames("h-[22px] rounded-sm !px-2 !py-0")}
             >
               {t("Max")}
             </PillButton>
           </div>
-          <div className="h-16">
+          <div className="h-8">
             <div className="text-brand-orange line-clamp-2 text-center text-xs">
               {inputErrorMessage}
             </div>
@@ -403,20 +404,6 @@ export const AmountEdit = () => {
         </>
       )}
     </div>
-  )
-}
-
-const FeeEstimate = () => {
-  const { feeEstimate, feeToken, isLoadingFeeEstimate, errorFeeEstimate } =
-    useBittensorStakeWizard()
-
-  return (
-    <StakingFeeEstimate
-      plancks={feeEstimate}
-      tokenId={feeToken?.id}
-      isLoading={isLoadingFeeEstimate}
-      error={errorFeeEstimate}
-    />
   )
 }
 
@@ -431,7 +418,10 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
     accountPicker,
     nativeToken,
     dtaoToken,
-    payload,
+    isFormValid,
+    isQuoteReady,
+    quoteError,
+    inputErrorMessage,
     hotkey,
     stakeType,
     stakeDirection,
@@ -464,87 +454,87 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
           onCloseModal={close}
         />
       }
-      contentClassName="text-body-secondary flex size-full flex-col gap-4 p-12 pt-0"
+      contentClassName="text-fg-secondary flex size-full flex-col p-6 pt-0"
     >
-      <BittensorAssetAccountSummary
-        token={nativeToken}
-        accountAddress={account?.address}
-        onAccountClick={() => {
-          stakeDirection === "stake" ? accountPicker.open() : setStep("select-position")
-        }}
-        assetLabel={t("Asset")}
-        accountLabel={t("Account")}
-      />
-      <AmountEdit />
-      <div className="bg-grey-900 leading-paragraph flex flex-col gap-4 rounded p-4 text-xs">
-        <div className="flex items-center justify-between">
-          <div className="whitespace-nowrap">
-            {stakeDirection === "stake" ? t("Available Balance") : t("Available to unstake")}
-          </div>
-          {stakeDirection === "stake" ? (
-            <div>
-              {!!nativeToken && !!account && (
-                <AvailableBalance token={nativeToken} account={account} />
-              )}
+      <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
+        <BittensorAssetAccountSummary
+          token={nativeToken}
+          accountAddress={account?.address}
+          onAccountClick={() => {
+            stakeDirection === "stake" ? accountPicker.open() : setStep("select-position")
+          }}
+          assetLabel={t("Asset")}
+          accountLabel={t("Account")}
+        />
+        <AmountEdit />
+        <div className="bg-app-bg leading-paragraph flex flex-col gap-2 rounded p-2 text-xs">
+          <div className="flex items-center justify-between">
+            <div className="whitespace-nowrap">
+              {stakeDirection === "stake" ? t("Available Balance") : t("Available to unstake")}
             </div>
-          ) : (
-            <BittensorAvailableToUnstake />
-          )}
-        </div>
-      </div>
-
-      <div className="bg-grey-900 leading-paragraph flex flex-col gap-2 rounded p-4 text-xs">
-        <StakeTypeDetails />
-        <div
-          className={classNames(
-            "flex gap-8",
-            stakeType === "subnet" ? "flex-col-reverse" : "flex-col",
-          )}
-        >
-          <div className="flex items-center justify-between gap-6">
-            <div className="whitespace-nowrap">{t("Select Validator")}</div>
-            <div className="text-body truncate">
-              <BittensorDelegatorNameButton
-                hotkey={hotkey}
-                isDisabled={stakeType === "subnet" && !netuid}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-between gap-8 pb-2 text-xs">
-          <div className="whitespace-nowrap">{t("Estimated Amount")} </div>
-          <div className="text-body-secondary flex items-center gap-2 truncate">
-            {!!amountOut && (
-              <TokensAndFiat
-                planck={amountOut}
-                tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
-                noCountUp
-                tokensClassName="text-body"
-              />
+            {stakeDirection === "stake" ? (
+              <div>
+                {!!nativeToken && !!account && (
+                  <AvailableBalance token={nativeToken} account={account} />
+                )}
+              </div>
+            ) : (
+              <BittensorAvailableToUnstake />
             )}
           </div>
         </div>
-        {!isSubnetUnstake && (
-          <>
-            <div className="flex items-center justify-between gap-8">
-              <div className="whitespace-nowrap">{t("Estimated Fee")}</div>
-              <div className="overflow-hidden">
-                <FeeEstimate />
+
+        <div className="bg-app-bg leading-paragraph flex flex-col gap-1 rounded p-2 text-xs">
+          <StakeTypeDetails />
+          <div
+            className={classNames(
+              "flex gap-4",
+              stakeType === "subnet" ? "flex-col-reverse" : "flex-col",
+            )}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="whitespace-nowrap">{t("Select Validator")}</div>
+              <div className="text-fg-primary truncate">
+                <BittensorDelegatorNameButton
+                  hotkey={hotkey}
+                  isDisabled={stakeType === "subnet" && !netuid}
+                />
               </div>
             </div>
-          </>
-        )}
+          </div>
+          <div className="flex items-center justify-between gap-4 pb-1 text-xs">
+            <div className="whitespace-nowrap">{t("Estimated Amount")} </div>
+            <div className="text-fg-secondary flex items-center gap-1 truncate">
+              {!!amountOut && (
+                <TokensAndFiat
+                  planck={amountOut}
+                  tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
+                  noCountUp
+                  tokensClassName="text-fg-primary"
+                />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
-      <Button
-        primary
-        fullWidth
-        className="mt-6"
-        disabled={!payload}
-        onClick={() => setStep("review")}
-      >
-        {t("Review")}
-      </Button>
+      <div className="shrink-0 pt-3">
+        <Button
+          primary
+          fullWidth
+          disabled={!isFormValid || !!inputErrorMessage || !isQuoteReady}
+          onClick={() => setStep("review")}
+        >
+          {t("Review")}
+        </Button>
+        {!!quoteError && !isQuoteReady && (
+          <div className="text-brand-orange line-clamp-3 pt-2 text-center text-xs">
+            {quoteError instanceof Error
+              ? quoteError.message
+              : t("Could not price this swap. Check your connection and try again.")}
+          </div>
+        )}
+      </div>
 
       <StakeAccountPicker
         containerId={STAKING_MODAL_CONTENT_CONTAINER_ID}

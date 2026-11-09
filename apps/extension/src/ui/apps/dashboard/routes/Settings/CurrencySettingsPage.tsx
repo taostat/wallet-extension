@@ -1,9 +1,8 @@
-import { StarIcon } from "@taostats-wallet/icons"
+import { Star01 } from "@untitledui/icons/Star01"
 import { useTranslation } from "react-i18next"
 
 import { HeaderBlock } from "@taostats/components/HeaderBlock"
 import { Spacer } from "@taostats/components/Spacer"
-import { DashboardLayout } from "@ui/apps/dashboard/layout"
 import { currencyConfig, currencyOrder, sortCurrencies } from "@ui/domains/Asset/currencyConfig"
 import { useFavoriteCurrencies } from "@ui/hooks/useFavoriteCurrencies"
 import { useSetting } from "@ui/state"
@@ -22,12 +21,12 @@ const Content = () => {
         )}
       />
       <Spacer />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         {currencyOrder.map((currency) => (
           <button
             type="button"
             key={currency}
-            className="bg-grey-850 enabled:hover:bg-grey-800 text-body-disabled enabled:hover:text-body-secondary flex h-28 w-full cursor-pointer items-center gap-8 rounded-sm px-8 disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-secondary enabled:hover:bg-secondary text-fg-disabled enabled:hover:text-fg-secondary flex h-14 w-full cursor-pointer items-center gap-4 rounded-sm px-4 disabled:cursor-not-allowed disabled:opacity-50"
             onClick={() =>
               setFavorites((selectable) => {
                 const newSelectable = selectable.includes(currency)
@@ -47,18 +46,18 @@ const Content = () => {
               })
             }
           >
-            <img className="w-16 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
-            <div className="flex grow flex-col items-start gap-1">
-              <div className="text-body uppercase">{currency}</div>
-              <div className="text-body-secondary text-xs">
+            <img className="w-8 max-w-full" alt={currency} src={currencyConfig[currency]?.icon} />
+            <div className="flex grow flex-col items-start gap-0.5">
+              <div className="text-fg-primary uppercase">{currency}</div>
+              <div className="text-fg-secondary text-xs">
                 {currencyConfig[currency]?.symbol ?? ""}{" "}
                 {currencyConfig[currency]?.name ?? currency}
               </div>
             </div>
             {favorites.includes(currency) ? (
-              <StarIcon className="stroke-primary fill-primary" />
+              <Star01 className="stroke-fg-brand fill-fg-brand" />
             ) : (
-              <StarIcon />
+              <Star01 />
             )}
           </button>
         ))}
@@ -67,8 +66,4 @@ const Content = () => {
   )
 }
 
-export const CurrencySettingsPage = () => (
-  <DashboardLayout sidebar="settings">
-    <Content />
-  </DashboardLayout>
-)
+export const CurrencySettingsPage = () => <Content />

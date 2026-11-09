@@ -23,7 +23,7 @@ export const TxHistoryDetailsPayloadDisplayMode = () => {
         onClick={() => subjectDisplayMode.next("yaml")}
         className={cn(
           "cursor-pointer",
-          displayMode === "yaml" ? "text-body" : "hover:text-grey-300 underline",
+          displayMode === "yaml" ? "text-fg-primary" : "hover:text-fg-tertiary underline",
         )}
       >
         YAML
@@ -34,7 +34,7 @@ export const TxHistoryDetailsPayloadDisplayMode = () => {
         onClick={() => subjectDisplayMode.next("json")}
         className={cn(
           "cursor-pointer",
-          displayMode === "json" ? "text-body" : "hover:text-grey-300 underline",
+          displayMode === "json" ? "text-fg-primary" : "hover:text-fg-tertiary underline",
         )}
       >
         JSON
@@ -74,7 +74,7 @@ export const TxHistoryDetailsPayload: FC<{
   return (
     <div>
       <CodeBlock code={code} />
-      <div className="mt-2 text-right">
+      <div className="mt-1 text-right">
         <CopyToClipboardLinkButton data={code} />
       </div>
     </div>
