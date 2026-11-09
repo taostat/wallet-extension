@@ -12,7 +12,7 @@ import {
 import { formatDecimals } from "@taostats-wallet/util"
 import { LinkExternal01 } from "@untitledui/icons/LinkExternal01"
 import { FC, useCallback } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
@@ -177,11 +177,16 @@ const OrderResult: FC<{ state: OrderState; quote: Quote; onOpenRecent: () => voi
       return (
         <Notice tone="success" title={t("Delivered")}>
           <span>
-            {t("{{amount}} arrived at {{recipient}} on {{network}}.", {
-              amount: `${formatDecimals(rawToNumber(quote.outputAmount, sellOutputDecimals(output)))} ${output}`,
-              recipient: shortenAddress(recipient),
-              network: "Ethereum",
-            })}
+            <Trans
+              t={t}
+              defaults="{{amount}} arrived at <Address>{{recipient}}</Address> on {{network}}."
+              components={{ Address: <span className="font-mono" /> }}
+              values={{
+                amount: `${formatDecimals(rawToNumber(quote.outputAmount, sellOutputDecimals(output)))} ${output}`,
+                recipient: shortenAddress(recipient),
+                network: "Ethereum",
+              }}
+            />
           </span>
           {recipient ? (
             <a

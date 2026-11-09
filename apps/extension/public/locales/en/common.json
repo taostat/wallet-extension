@@ -2306,7 +2306,7 @@
   "Your wallet couldn't complete the request. Try again.": "Your wallet couldn't complete the request. Try again.",
   "on {{network}}": "on {{network}}",
   "your account's EVM address on {{network}}": "your account's EVM address on {{network}}",
-  "{{amount}} arrived at {{recipient}} on {{network}}.": "{{amount}} arrived at {{recipient}} on {{network}}.",
+  "{{amount}} arrived at <Address>{{recipient}}</Address> on {{network}}.": "{{amount}} arrived at <Address>{{recipient}}</Address> on {{network}}.",
   "~{{minutes}} min": "~{{minutes}} min",
   "~{{seconds}} s": "~{{seconds}} s",
   "{{amount}} moved back to this account.": "{{amount}} moved back to this account.",
