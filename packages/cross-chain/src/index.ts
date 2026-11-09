@@ -1,4 +1,5 @@
 export * from "./calls"
+export * from "./config"
 export * from "./events"
 export * from "./substrate-signer"
 export * from "./intents-client"

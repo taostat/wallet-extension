@@ -1,7 +1,11 @@
+import type { WatchOptions } from "@tao.com/intents-sdk"
 import type { PublicClient } from "viem"
 import { DEFAULT_CHAINS, ETHEREUM, SUBTENSOR_EVM, TaoIntents } from "@tao.com/intents-sdk"
 import { createPublicClient, defineChain, http } from "viem"
 import { mainnet } from "viem/chains"
+
+import type { CrossChainConfig, EvmRpcUrls } from "./config"
+import { crossChainUrlProblem } from "./config"
 
 /**
  * Seconds a solver has to fill an order before it is refunded. The SDK's default, and the
@@ -9,48 +13,45 @@ import { mainnet } from "viem/chains"
  */
 export const FILL_WINDOW_SECONDS = 300
 
+/** EVM read timeout: viem's default 10 s. The RPCs are called directly, with no proxy in between. */
+export const EVM_RPC_TIMEOUT_MS = 10_000
+
 /**
- * EVM read timeout. Allows for the API's own upstream timeout (15 s on the website's proxy, which
- * the extension route is expected to share) on top of viem's default 10 s.
+ * One retry, a second later, instead of viem's three within a second: keyless Blockmachine allows
+ * 60 request units a minute per IP, and quick retries of a 429 only keep the user throttled.
  */
-export const EVM_RPC_TIMEOUT_MS = 20_000
+const EVM_RPC_TRANSPORT = { timeout: EVM_RPC_TIMEOUT_MS, retryCount: 1, retryDelay: 1_000 }
 
 export type CreateTaoIntentsOptions = {
-  /** The extension's `TAOSTATS_API_URL`: `https://taostats.io/api/wallet-extension` in production. */
-  apiBaseUrl: string
+  /** From `fetchCrossChainConfig` (or `DEFAULT_CROSS_CHAIN_CONFIG`). Only `evmRpcUrls` is used here. */
+  config: CrossChainConfig
   /** Default fill window for quotes that don't pin `fillDeadline`. Defaults to `FILL_WINDOW_SECONDS`. */
   fillWindowSeconds?: number
 }
 
-/** Our EVM RPC proxy, per chain: `${apiBaseUrl}/evm-rpc/ethereum` and `${apiBaseUrl}/evm-rpc/bittensor`. */
-export const getEvmRpcUrls = (apiBaseUrl: string): Record<number, string> => {
-  let base: URL
-  try {
-    base = new URL(apiBaseUrl)
-  } catch {
-    throw new Error(`Cross-chain: the API base URL is not a URL (${JSON.stringify(apiBaseUrl)}).`)
+/** The config's RPC URLs by chain id, checked again in case the config was built by hand. */
+const rpcUrlsByChainId = (evmRpcUrls: EvmRpcUrls): Record<number, string> => {
+  const rpcUrls: Record<number, string> = {
+    [ETHEREUM]: evmRpcUrls.ethereum,
+    [SUBTENSOR_EVM]: evmRpcUrls.bittensor,
   }
-  if (base.protocol !== "https:" && base.protocol !== "http:")
-    throw new Error(`Cross-chain: the API base URL must be http(s), got ${base.protocol}`)
-  const root = base.toString().replace(/\/+$/, "")
-  return {
-    [ETHEREUM]: `${root}/evm-rpc/ethereum`,
-    [SUBTENSOR_EVM]: `${root}/evm-rpc/bittensor`,
+  for (const [chainId, url] of Object.entries(rpcUrls)) {
+    const problem = typeof url === "string" ? crossChainUrlProblem(url) : "missing"
+    if (problem !== null)
+      throw new Error(`Cross-chain: the RPC URL for chain ${chainId} is unusable: ${problem}`)
   }
+  return rpcUrls
 }
 
 const subtensorEvm = DEFAULT_CHAINS[SUBTENSOR_EVM]
 
 /**
- * viem public clients for Ethereum (1) and Subtensor EVM (964), both through our proxy. The chains'
- * own `rpcUrls` are replaced too, so no public default endpoint is left anywhere a fallback could
- * pick it up. One JSON-RPC request per HTTP request (no batching), like the website.
+ * viem public clients for Ethereum (1) and Subtensor EVM (964), at the config's RPC URLs. The
+ * chains' own `rpcUrls` are replaced too, so no public default endpoint is left anywhere a fallback
+ * could pick it up. One JSON-RPC request per HTTP request (no batching), like the website.
  */
-export const createEvmPublicClients = (rpcUrls: Record<number, string>) => {
-  const ethereumUrl = rpcUrls[ETHEREUM]
-  const subtensorUrl = rpcUrls[SUBTENSOR_EVM]
-  if (!ethereumUrl || !subtensorUrl)
-    throw new Error("Cross-chain: an RPC URL is needed for Ethereum and Subtensor EVM.")
+export const createEvmPublicClients = (evmRpcUrls: EvmRpcUrls) => {
+  const { [ETHEREUM]: ethereumUrl, [SUBTENSOR_EVM]: subtensorUrl } = rpcUrlsByChainId(evmRpcUrls)
 
   const ethereum = defineChain({ ...mainnet, rpcUrls: { default: { http: [ethereumUrl] } } })
   const subtensor = defineChain({
@@ -64,30 +65,36 @@ export const createEvmPublicClients = (rpcUrls: Record<number, string>) => {
   const clients: Record<number, PublicClient> = {
     [ETHEREUM]: createPublicClient({
       chain: ethereum,
-      transport: http(ethereumUrl, { timeout: EVM_RPC_TIMEOUT_MS }),
+      transport: http(ethereumUrl, EVM_RPC_TRANSPORT),
     }),
     [SUBTENSOR_EVM]: createPublicClient({
       chain: subtensor,
-      transport: http(subtensorUrl, { timeout: EVM_RPC_TIMEOUT_MS }),
+      transport: http(subtensorUrl, EVM_RPC_TRANSPORT),
     }),
   }
   return clients
 }
 
 /**
- * A `TaoIntents` client whose EVM reads all go through our server. `publicClients` takes precedence
- * over the SDK's default RPCs; `rpcUrls` is set to the same URLs so the SDK's chain configs carry
- * no public endpoint either. The Quoter (`https://www.tao.com/api/v1/intents/quotes`) is still
- * called directly, as on the website.
+ * A `TaoIntents` client whose EVM reads all go to the config's RPC URLs. `publicClients` takes
+ * precedence over the SDK's default RPCs; `rpcUrls` is set to the same URLs so the SDK's chain
+ * configs carry no public default either. The Quoter (`https://www.tao.com/api/v1/intents/quotes`)
+ * is called directly, as on the website.
  */
 export const createTaoIntents = ({
-  apiBaseUrl,
+  config,
   fillWindowSeconds = FILL_WINDOW_SECONDS,
-}: CreateTaoIntentsOptions) => {
-  const rpcUrls = getEvmRpcUrls(apiBaseUrl)
-  return new TaoIntents({
+}: CreateTaoIntentsOptions) =>
+  new TaoIntents({
     fillWindowSeconds,
-    rpcUrls,
-    publicClients: createEvmPublicClients(rpcUrls),
+    rpcUrls: rpcUrlsByChainId(config.evmRpcUrls),
+    publicClients: createEvmPublicClients(config.evmRpcUrls),
   })
-}
+
+/**
+ * Options for tracking an order (`order.watch` / `order.waitForSettlement`): polls at the config's
+ * `orderPollIntervalMs` instead of the SDK's 5 s. Each check is two reads.
+ */
+export const orderWatchOptions = (config: CrossChainConfig): WatchOptions => ({
+  pollIntervalMs: config.orderPollIntervalMs,
+})

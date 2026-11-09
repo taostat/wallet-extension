@@ -20,7 +20,8 @@ import type {
   SubmitAndWatchResult,
 } from "../substrate-signer"
 import type { TestSapi } from "./chain"
-import { createTaoIntents, getEvmRpcUrls } from "../intents-client"
+import { DEFAULT_CROSS_CHAIN_CONFIG } from "../config"
+import { createTaoIntents } from "../intents-client"
 import { buildSapiBatchPayload, createSapiSubstrateSigner } from "../substrate-signer"
 import { createPolkadotJs, createTestSapi } from "./chain"
 import { mockJsonRpcFetch } from "./rpc-mock"
@@ -29,13 +30,13 @@ import { ALICE, GAS_PRICE, MIRROR, SOURCE } from "./sdk-calls"
 /**
  * The real SDK driving our signer: `recoverRefund` (a batch of `balances.transferKeepAlive`,
  * `evm.call` and `evm.withdraw`, built by the SDK from its own chain reads), with the EVM reads
- * answered through our proxy URLs and the batch encoded by the real sapi. Shows that the calls the
- * SDK actually builds map and encode like polkadot-js's, and that the SDK reads our results and
- * errors the way the contract says.
+ * answered at the config's RPC URLs (the keyless Blockmachine defaults) and the batch encoded by
+ * the real sapi. Shows that the calls the SDK actually builds map and encode like polkadot-js's,
+ * and that the SDK reads our results and errors the way the contract says.
  */
 
-const API = "https://taostats.io/api/wallet-extension"
-const RPC_URLS = getEvmRpcUrls(API)
+const CONFIG = DEFAULT_CROSS_CHAIN_CONFIG
+const { ethereum: ETHEREUM_RPC, bittensor: BITTENSOR_RPC } = CONFIG.evmRpcUrls
 const USDC = DEFAULT_CHAINS[SUBTENSOR_EVM].usdc
 const ADDRESS_MAPPING_PRECOMPILE = "0x000000000000000000000000000000000000080c"
 const BALANCE_OF = "0x70a08231"
@@ -71,7 +72,7 @@ type Payload = Awaited<ReturnType<TestSapi["getExtrinsicPayload"]>>
 
 const setup = (overrides: Partial<SapiSubstrateSignerDeps<Payload>> = {}) => {
   const sapi = createTestSapi()
-  const rpc = mockJsonRpcFetch(answerEvmReads)
+  const rpc = mockJsonRpcFetch(answerEvmReads, { urls: [ETHEREUM_RPC, BITTENSOR_RPC] })
   const signed: string[] = []
   let sdkCalls: SubstrateCall[] = []
 
@@ -103,7 +104,7 @@ const setup = (overrides: Partial<SapiSubstrateSignerDeps<Payload>> = {}) => {
 
   const progress: ProgressEvent["step"][] = []
   const recover = () =>
-    createTaoIntents({ apiBaseUrl: API }).recoverRefund({
+    createTaoIntents({ config: CONFIG }).recoverRefund({
       substrate,
       originChainId: SUBTENSOR_EVM,
       to: TO,
@@ -145,14 +146,15 @@ describe("the SDK's recoverRefund through our signer", () => {
 
     expect(signed).toEqual([createPolkadotJs().batchHex(calls)])
     expect(progress).toEqual(["awaiting-signature", "substrate-submitted"])
-    // USDC balance and mirror account, gas price, mirror's balance: all on Subtensor EVM, via us.
+    // USDC balance and mirror account, gas price, mirror's balance: all on Subtensor EVM, at the
+    // config's URL.
     expect(rpc.requests.map((r) => r.method).sort()).toEqual([
       "eth_call",
       "eth_call",
       "eth_gasPrice",
       "eth_getBalance",
     ])
-    expect(rpc.requests.every((r) => r.url === RPC_URLS[SUBTENSOR_EVM])).toBe(true)
+    expect(rpc.requests.every((r) => r.url === BITTENSOR_RPC)).toBe(true)
   })
 
   it("is refused before signing when the coldkey can't pay for the gas it funds", async () => {
