@@ -14,7 +14,7 @@ const Content = () => {
     <>
       <HeaderBlock
         title={t("Import via JSON")}
-        text={t("Please choose the json file you exported from Polkadot.js or Taostats")}
+        text={t("Please choose the json file you exported from Taostats")}
       />
       <Spacer />
       <AccountAddJson onSuccess={setAddress} />

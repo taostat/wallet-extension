@@ -53,7 +53,7 @@ function NewAccountMethodButtons() {
         iconLeft={FilePlus01}
         iconRight={ChevronRight}
         title={t("Import via JSON")}
-        subtitle={t("Import your Polkadot.{js} file")}
+        subtitle={t("Import your Taostats Wallet file")}
         to="/accounts/add/json"
       />
       <CtaButton
@@ -67,9 +67,7 @@ function NewAccountMethodButtons() {
         iconLeft={Link01}
         iconRight={ChevronRight}
         title={t("Connect Ledger")}
-        subtitle={
-          isLedgerCapable ? t("Connect your ledger") : t("Not supported on this browser")
-        }
+        subtitle={isLedgerCapable ? t("Connect your ledger") : t("Not supported on this browser")}
         disabled={!isLedgerCapable}
         to="/accounts/add/ledger"
       />
