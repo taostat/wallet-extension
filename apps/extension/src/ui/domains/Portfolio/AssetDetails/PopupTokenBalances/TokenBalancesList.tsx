@@ -68,25 +68,21 @@ export const TokenBalancesList = ({
             </span>
           </div>
         </div>
-        <div className="flex size-[38px] shrink-0 items-center justify-center empty:hidden">
+        <div className="flex shrink-0 items-center gap-1.5 empty:hidden">
           <Suspense fallback={<SuspenseTracker name="StakeButton" />}>
             <StakeButton balances={balances} />
           </Suspense>
-        </div>
-        <div className="flex size-[38px] shrink-0 items-center justify-center empty:hidden">
           <Suspense fallback={<SuspenseTracker name="CrossChainSellButton" />}>
             <CrossChainSellButton balances={balances} />
           </Suspense>
-        </div>
-        {tokenId && (
-          <div className="size-[38px] shrink-0">
+          {tokenId && (
             <TokenContextMenu
               tokenId={tokenId}
               balances={balances}
-              className="hover:bg-tertiary focus-visible:bg-tertiary rounded-full"
+              className="text-fg-secondary hover:text-fg-primary hover:bg-tertiary focus-visible:bg-tertiary flex items-center justify-center rounded-full p-1.5"
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
       {children}
     </div>
