@@ -52,7 +52,6 @@ export const TokenBalancesList = ({
             <div className="flex items-center">
               <CopyAddressButton networkId={chainOrNetworkId} />
               <BittensorUnstakeButton balances={balances} />
-              <CrossChainSellButton balances={balances} />
               <Suspense fallback={<SuspenseTracker name="ChainTokenBalances.Buttons" />}>
                 <SendFundsTokenButton tokenId={tokenId} />
               </Suspense>
@@ -69,15 +68,21 @@ export const TokenBalancesList = ({
             </span>
           </div>
         </div>
-        <div className="size-[38px] shrink-0 empty:hidden">
+        <div className="flex size-[38px] shrink-0 items-center justify-center empty:hidden">
           <Suspense fallback={<SuspenseTracker name="StakeButton" />}>
             <StakeButton balances={balances} />
+          </Suspense>
+        </div>
+        <div className="flex size-[38px] shrink-0 items-center justify-center empty:hidden">
+          <Suspense fallback={<SuspenseTracker name="CrossChainSellButton" />}>
+            <CrossChainSellButton balances={balances} />
           </Suspense>
         </div>
         {tokenId && (
           <div className="size-[38px] shrink-0">
             <TokenContextMenu
               tokenId={tokenId}
+              balances={balances}
               className="hover:bg-tertiary focus-visible:bg-tertiary rounded-full"
             />
           </div>

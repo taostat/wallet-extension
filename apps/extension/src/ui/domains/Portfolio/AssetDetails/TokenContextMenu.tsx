@@ -1,3 +1,4 @@
+import { Balances } from "@taostats-wallet/balances"
 import { TokenId } from "@taostats-wallet/chaindata-provider"
 import { classNames } from "@taostats-wallet/util"
 import { DotsHorizontal } from "@untitledui/icons/DotsHorizontal"
@@ -13,6 +14,7 @@ import {
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
+import { CrossChainSellMenuItem } from "@ui/domains/CrossChain/CrossChainSellMenuItem"
 import { useNomPoolStakingStatus } from "@ui/domains/Staking/hooks/nomPools/useNomPoolStakingStatus"
 import { useStakeModal } from "@ui/domains/Staking/Stake/hooks/useStakeModal"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -61,13 +63,15 @@ const StakeMenuItem: FC<{ tokenId: string }> = ({ tokenId }) => {
 
 type Props = {
   tokenId: TokenId
+  /** The token row's balances: with them, the menu also offers the cross-chain sell. */
+  balances?: Balances
   placement?: PopoverOptions["placement"]
   trigger?: React.ReactNode
   className?: string
 }
 
 export const TokenContextMenu = forwardRef<HTMLElement, Props>(function AccountContextMenu(
-  { tokenId, placement, trigger, className },
+  { tokenId, balances, placement, trigger, className },
   ref,
 ) {
   return (
@@ -86,6 +90,7 @@ export const TokenContextMenu = forwardRef<HTMLElement, Props>(function AccountC
         <Suspense fallback={<SuspenseTracker name="TokenContextMenu.Stake" />}>
           <StakeMenuItem tokenId={tokenId} />
         </Suspense>
+        {balances ? <CrossChainSellMenuItem balances={balances} /> : null}
         <ViewTokenDetailsMenuItem tokenId={tokenId} />
       </ContextMenuContent>
     </ContextMenu>
