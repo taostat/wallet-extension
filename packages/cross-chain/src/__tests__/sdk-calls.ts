@@ -3,7 +3,7 @@ import { DEFAULT_CHAINS, parseSubstrateAddress, substrateEvmAddress } from "@tao
 import { encodeFunctionData, parseAbi } from "viem"
 
 /**
- * Calls shaped exactly as `@tao.com/intents-sdk` 1.4.1 builds them (`dist/index.js`:
+ * Calls shaped exactly as `@tao.com/intents-sdk` 1.5.1 builds them (`dist/index.js`:
  * `transferStakeCall`, `evmCall`, the `balances.transferKeepAlive` / `evm.withdraw` pushes in
  * `buildEvmCallBatch`): account ids as `0x` 32-byte hex, EVM addresses checksummed, amounts as
  * bigint, netuids as numbers, `null` for the two `Option`s and `[]` for the two lists.

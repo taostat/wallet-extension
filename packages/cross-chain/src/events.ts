@@ -27,11 +27,12 @@ import type { SubstrateEvent } from "@tao.com/intents-sdk"
  *   `ExtrinsicSuccess`, `ExtrinsicFailed`, `BatchCompleted`, ...
  * - **`data`:** the event's fields in metadata order, each as polkadot-js `toJSON()` would give it.
  *
- * What the SDK (1.4.1) actually reads, and so what must be exact:
+ * What the SDK (1.5.1) actually reads, and so what must be exact:
  *
  * - `evm.Log`: `data[0]` is the log, `{ address, topics, data }`: `address` the 0x 20-byte emitter,
  *   `topics` 0x 32-byte hex strings, `data` 0x hex. The SDK finds the opened order as the `Log` whose
- *   `address` is the Intents contract and whose `topics[0]` is the `Open` event selector (both
+ *   `address` is the Intents contract the quote was priced for (`quote.settler`; without one, the
+ *   chain's current contract) and whose `topics[0]` is the `Open` event selector (both
  *   compared case-insensitively) and takes `topics[1]` as the order id. Write hex in lower case, as
  *   polkadot-js does: the order id is used as is.
  * - `evm.ExecutedFailed` (`data: [address]`): its presence means an EVM call inside the batch

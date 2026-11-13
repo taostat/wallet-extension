@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@polkadot-api/substrate-bindings": "0.14.0",
-    "@tao.com/intents-sdk": "1.4.1",
+    "@tao.com/intents-sdk": "1.5.1",
     "viem": "^2.27.3",
     "zod": "^3.25.76"
   },

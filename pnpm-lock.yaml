@@ -1197,8 +1197,8 @@ importers:
         specifier: 0.14.0
         version: 0.14.0
       '@tao.com/intents-sdk':
-        specifier: 1.4.1
-        version: 1.4.1(viem@2.37.6(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+        specifier: 1.5.1
+        version: 1.5.1(viem@2.37.6(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.76))
       viem:
         specifier: ^2.27.3
         version: 2.37.6(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.76)
@@ -4901,8 +4901,8 @@ packages:
   '@tanstack/virtual-core@3.10.9':
     resolution: {integrity: sha512-kBknKOKzmeR7lN+vSadaKWXaLS0SZZG+oqpQ/k80Q6g9REn6zRHS/ZYdrIzHnpHgy/eWs00SujveUN/GJT2qTw==}
 
-  '@tao.com/intents-sdk@1.4.1':
-    resolution: {integrity: sha512-lgQOWoP+nHqS2wG0r6LKFDPPljbGmKKFqBVnxsrbcrl/OJKBPBqazjai26m36vrs9yId7rMg+fXG0C6+HnoQ2g==}
+  '@tao.com/intents-sdk@1.5.1':
+    resolution: {integrity: sha512-p5sDCPY2Y/9uKBWhC2d64Kwp24awXm09oMhl0MBox4thMDoQ+dCA1OyzXQEtqohtOnz4mX7P6GgUl1cqNffZIg==}
     peerDependencies:
       viem: ^2.21.0
 
@@ -16702,7 +16702,7 @@ snapshots:
 
   '@tanstack/virtual-core@3.10.9': {}
 
-  '@tao.com/intents-sdk@1.4.1(viem@2.37.6(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
+  '@tao.com/intents-sdk@1.5.1(viem@2.37.6(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
     dependencies:
       viem: 2.37.6(bufferutil@4.0.8)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.76)
 

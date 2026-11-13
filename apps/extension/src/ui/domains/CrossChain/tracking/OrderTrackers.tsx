@@ -93,6 +93,9 @@ const OrderTracker: FC<{
       },
       {
         ...orderWatchOptions(config),
+        // A failed check writes nothing: the record keeps its state. SDK 1.5.1 reads an order on the
+        // contract each chain runs now, so one opened before TAO.com's move to new contracts
+        // (2026-11-12) gets ORDER_NOT_FOUND on every check and stays as it is.
         onError: (error) => log.debug("[cross-chain] Order status check failed", { error }),
       },
     )

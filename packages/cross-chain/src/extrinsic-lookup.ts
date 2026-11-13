@@ -1,8 +1,8 @@
 import type { Log } from "viem"
 import { Blake2256 } from "@polkadot-api/substrate-bindings"
 import {
-  DEFAULT_CHAINS,
   intentsAbi,
+  KNOWN_SETTLERS,
   parseSubstrateAddress,
   SUBTENSOR_EVM,
 } from "@tao.com/intents-sdk"
@@ -189,19 +189,31 @@ export function extrinsicEventsFromRecords(
 }
 
 /**
- * The order an `Open` log of the Intents contract (on Subtensor EVM) announces, as the SDK reads it
- * from a transaction's receipt; `null` when there is none.
+ * Every Intents contract on Subtensor EVM the SDK knows, of every order format (`KNOWN_SETTLERS`).
+ * The SDK (1.5.1) opens a sell's order on the one its quote was priced for, which it takes from the
+ * Quoter (`settlerLookup`) only when it is in this list: TAO.com's 9737 contract since 2026-11-12,
+ * the 16AE one for a sell sent before then.
+ */
+export const BITTENSOR_INTENTS_CONTRACTS: readonly string[] = Object.values(KNOWN_SETTLERS).flatMap(
+  (byChain) => byChain[SUBTENSOR_EVM] ?? [],
+)
+
+/**
+ * The order an `Open` log of an Intents contract on Subtensor EVM (any of `settlers`) announces, as
+ * the SDK reads it from a transaction's receipt; `null` when there is none. The `Open` event is the
+ * same on every contract; a 9737 order's longer `originData` (it ends with `refundTo`) isn't read.
  */
 export function openedOrderFromLogs(
   logs: readonly SellEvmLog[],
-  settler: string = DEFAULT_CHAINS[SUBTENSOR_EVM].intents,
+  settlers: readonly string[] = BITTENSOR_INTENTS_CONTRACTS,
 ): SellOrderRef | null {
   const events = parseEventLogs({
     abi: intentsAbi,
     eventName: "Open",
     logs: logs as unknown as Log[],
   })
-  const open = events.find((event) => event.address.toLowerCase() === settler.toLowerCase())
+  const known = new Set(settlers.map((settler) => settler.toLowerCase()))
+  const open = events.find((event) => known.has(event.address.toLowerCase()))
   const resolved = open?.args.resolvedOrder
   const destinationChainId = resolved?.fillInstructions[0]?.destinationChainId
   if (!open || !resolved || destinationChainId === undefined) return null
@@ -236,7 +248,8 @@ export const hasExtrinsicOutcome = (events: SellExtrinsicEvents): boolean =>
  * (`hasExtrinsicOutcome`):
  *
  * - failed on chain: rolled back, nothing moved (`notIncluded`);
- * - an `Open` log from the Intents contract: the order is open;
+ * - an `Open` log from one of the Intents contracts (`BITTENSOR_INTENTS_CONTRACTS`): the order is
+ *   open;
  * - otherwise the batch went through but the swap didn't open, as the SDK reads it: for alpha, the
  *   stake now sits at the account's EVM mirror on the sold subnet and hotkey.
  */

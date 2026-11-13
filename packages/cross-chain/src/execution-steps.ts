@@ -159,6 +159,7 @@ export function applyProgressEvent(
     case "quoting":
     case "quoted":
     case "swap-quoted":
+    case "redeem-confirmed": // `wstRedeem`'s own step (SDK 1.5.1); `execute` never sends it.
       return progress
   }
 }

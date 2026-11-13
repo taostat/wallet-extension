@@ -13,7 +13,7 @@ import { SubstrateError } from "@tao.com/intents-sdk"
  * camelCase `section` / `method` and positional `args`) to the values sapi encodes
  * (`sapi.getDecodedCall(pallet, method, args)`: metadata pallet / call names and named fields).
  *
- * The SDK (1.4.1) only ever puts four calls in a batch. Each one is mapped explicitly below, with
+ * The SDK (1.5.1) only ever puts four calls in a batch. Each one is mapped explicitly below, with
  * its fields in the order of the Bittensor runtime metadata (checked against the repo's
  * `.papi/scale/bittensor.scale`, spec 361, and mainnet spec 488: identical for these calls).
  * Anything else, or a different number of arguments, throws: an SDK upgrade that changes the batch

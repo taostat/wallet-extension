@@ -24,7 +24,7 @@ const setup = ({ fee = 6_700_000n, failFee = false }: { fee?: bigint; failFee?: 
 }
 
 /**
- * `open` as SDK 1.4.1 runs it on the substrate path, cut down to what the probe meets: it asks
+ * `open` as SDK 1.5.1 runs it on the substrate path, cut down to what the probe meets: it asks
  * `spendableAfterFee` (ignoring anything but an abort it throws), then signs and sends the batch.
  */
 const sdkLikeOpen =

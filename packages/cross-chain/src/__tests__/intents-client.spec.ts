@@ -1,4 +1,12 @@
-import { DEFAULT_CHAINS, ETHEREUM, SUBTENSOR_EVM } from "@tao.com/intents-sdk"
+import {
+  DEFAULT_CHAINS,
+  DEFAULT_QUOTER_URL,
+  ETHEREUM,
+  KNOWN_SETTLERS,
+  SUBTENSOR_EVM,
+  TYPEHASH_16AE,
+  TYPEHASH_9737,
+} from "@tao.com/intents-sdk"
 import { mainnet } from "viem/chains"
 
 import type { CrossChainConfig } from "../config"
@@ -100,9 +108,35 @@ describe("createTaoIntents", () => {
 
   it("sends the SDK's own reads, on both chains, to the config's URLs only", async () => {
     const filled = `0x${"00".repeat(31)}01`
-    const rpc = mockJsonRpcFetch((method) => (method === "eth_call" ? filled : undefined), {
-      urls: [ETHEREUM_RPC, BITTENSOR_RPC],
-    })
+    // The contract each chain runs, as the Quoter names it (`approvalSpender`). Bittensor's is the
+    // 16AE one, not the SDK's built-in default, so the reads below show the lookup is followed.
+    const live: Record<number, string | undefined> = {
+      [SUBTENSOR_EVM]: KNOWN_SETTLERS[TYPEHASH_16AE][SUBTENSOR_EVM]?.[0],
+      [ETHEREUM]: KNOWN_SETTLERS[TYPEHASH_9737][ETHEREUM]?.[0],
+    }
+    const lookups: string[] = []
+    const readContracts: string[] = []
+    const rpc = mockJsonRpcFetch(
+      (method, params) => {
+        if (method !== "eth_call") return undefined
+        readContracts.push((params[0] as { to: string }).to.toLowerCase())
+        return filled
+      },
+      {
+        urls: [ETHEREUM_RPC, BITTENSOR_RPC],
+        // The SDK's settler lookup: an indicative quote out of the chain, whose spender is its contract.
+        quoter: {
+          url: DEFAULT_QUOTER_URL,
+          answer: ({ originChainId }) => {
+            lookups.push(String(originChainId))
+            return {
+              quote: { validUntil: 4_000_000_000, preview: { outputs: [{ amount: "100000000" }] } },
+              approvalSpender: live[Number(originChainId)],
+            }
+          },
+        },
+      },
+    )
     try {
       const intents = createTaoIntents({ config: CONFIG })
       // One read on the origin chain and one on the destination.
@@ -115,7 +149,18 @@ describe("createTaoIntents", () => {
 
       await expect(order.getStatus()).resolves.toMatchObject({ state: "filled" })
 
-      expect(rpc.requests.map((r) => r.url).sort()).toEqual([BITTENSOR_RPC, ETHEREUM_RPC])
+      const chainReads = rpc.requests.filter((r) => r.method !== "quote")
+      expect(chainReads.map((r) => r.url).sort()).toEqual([BITTENSOR_RPC, ETHEREUM_RPC])
+      // The settler lookup stays on: one Quoter call per chain, answered the first time, and the
+      // order is read on the contracts it named.
+      expect(lookups.sort()).toEqual([String(ETHEREUM), String(SUBTENSOR_EVM)])
+      expect(rpc.requests.filter((r) => r.method === "quote").map((r) => r.url)).toEqual([
+        DEFAULT_QUOTER_URL,
+        DEFAULT_QUOTER_URL,
+      ])
+      expect(readContracts.sort()).toEqual(
+        [live[ETHEREUM], live[SUBTENSOR_EVM]].map((address) => address?.toLowerCase()).sort(),
+      )
       expect(containsForbidden(rpc.requests)).toEqual([])
     } finally {
       rpc.restore()

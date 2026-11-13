@@ -85,6 +85,8 @@ describe("applyProgressEvent", () => {
         { step: "swap-quoted", minUsdc: 1n, quotedUsdc: 1n, poolFee: 500, source: "quoter" },
         { step: "approval-required", amount: 1n },
         { step: "submitted", txHash: hash(9) },
+        // `wstRedeem`'s step (SDK 1.5.1): never sent by `execute`.
+        { step: "redeem-confirmed", txHash: hash(10) },
       ]),
     ).toBe(progress)
   })

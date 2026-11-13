@@ -90,7 +90,7 @@ export type RecoveryFailure =
  *
  * - `INVALID_PARAMS` here means the mirror holds nothing to move (the SDK raises it only for a
  *   signer, address, subnet or hotkey it can't read, which the request builders check first), as
- *   the website reads it for SDK 1.4.1.
+ *   the website reads it for SDK 1.5.1.
  * - `EVM_CALL_FAILED` means the transfer reverted inside a batch that went through: nothing moved,
  *   so it is an error that can be retried.
  * - Not enough TAO for the batch reads as the network fee it is.
