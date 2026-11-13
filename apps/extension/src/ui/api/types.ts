@@ -40,6 +40,8 @@ import {
   SignerPayloadGenesisHash,
   SignerPayloadJSON,
   SigningRequestID,
+  SubstrateResponseSign,
+  SubstrateResponseSubmitAndWatch,
   Trees,
   UnsubscribeFn,
   ValidRequests,
@@ -200,6 +202,14 @@ export default interface MessageTypes {
     signature?: HexString,
     txInfo?: WalletTransactionInfo,
   ) => Promise<{ hash: HexString }>
+  /** Sign with a local keypair account, without broadcasting. Other account types are refused. */
+  subSign: (payload: SignerPayloadJSON) => Promise<SubstrateResponseSign>
+  /** Broadcast a payload signed with `subSign`, and resolve once it is in a block. */
+  subSubmitAndWatch: (
+    payload: SignerPayloadJSON,
+    signature: HexString,
+    txInfo?: WalletTransactionInfo,
+  ) => Promise<SubstrateResponseSubmitAndWatch>
   subSubmitWithBittensorMevShield: (
     payload: SignerPayloadJSON,
     txInfo?: WalletTransactionInfo,

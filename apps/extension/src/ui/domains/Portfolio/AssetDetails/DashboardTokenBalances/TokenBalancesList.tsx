@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
+import { CrossChainSellButton } from "@ui/domains/CrossChain/CrossChainSellButton"
 import { AssetBalanceCellValue } from "@ui/domains/Portfolio/AssetBalanceCellValue"
 import { isRootTaoHolding } from "@ui/domains/Portfolio/isRootTaoHolding"
 import { StakeButton } from "@ui/domains/Staking/Stake/StakeButton"
@@ -69,6 +70,7 @@ export const TokenBalancesList = ({
                   {tokenId && (
                     <TokenContextMenu
                       tokenId={tokenId}
+                      balances={balances}
                       placement="bottom-start"
                       className="text-fg-secondary hover:text-fg-primary focus:text-fg-primary hover:bg-tertiary focus-visible:bg-tertiary rounded-xs inline-flex h-[18px] w-[18px] items-center justify-center p-0 text-xs opacity-50"
                     />
@@ -103,9 +105,10 @@ export const TokenBalancesList = ({
             )}
           />
         </div>
-        <div className="flex items-center justify-end">
-          <div>
+        <div className="flex items-center justify-end gap-2">
+          <div className="flex items-center gap-2">
             <StakeButton balances={balances} />
+            <CrossChainSellButton balances={balances} />
           </div>
           <AssetBalanceCellValue
             tokens={summary.availableTokens}

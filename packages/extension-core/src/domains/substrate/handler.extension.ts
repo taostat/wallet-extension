@@ -1,6 +1,8 @@
+import { TypeRegistry } from "@polkadot/types"
 import { sign as signExtrinsic } from "@polkadot/types/extrinsic/util"
 import { hexToU8a, u8aToHex } from "@polkadot/util"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
+import { DotNetwork } from "@taostats-wallet/chaindata-provider"
 import { blake2b256, encryptKemAeadV1, encryptKemAeadV2 } from "@taostats-wallet/crypto"
 import { Binary, FixedSizeBinary, mergeUint8, parseMetadataRpc } from "@taostats-wallet/scale"
 import { log, TAOSTATS_API_URL } from "extension-shared"
@@ -12,14 +14,18 @@ import { MessageHandler, MessageTypes, RequestTypes, ResponseType } from "../../
 import { Port } from "../../types/base"
 import { getMetadataDef } from "../../util/getMetadataDef"
 import { getTypeRegistry } from "../../util/getTypeRegistry"
+import { keyringStore } from "../keyring/store"
 import { withPjsKeyringPair } from "../keyring/withPjsKeyringPair"
 import {
   deferTransactionExplorerLink,
   dismissTransaction,
+  ExtrinsicInBlock,
+  getExtrinsicHash,
   setTransactionExplorerId,
   updateTransactionStatus,
   watchSubstrateTransaction,
 } from "../transactions"
+import { getExtrinsicOutcome } from "./extrinsicEvents"
 
 export class SubHandler extends ExtensionHandler {
   private getMevShieldMode(specVersion: number): "v1" | "disabled" | "v2" {
@@ -27,6 +33,31 @@ export class SubHandler extends ExtensionHandler {
     if (specVersion === 385) return "disabled"
     return "v2"
   }
+
+  /** Sign `payload` with its account's keypair, as `submit` and `sign` do. */
+  private signWithKeypair = (
+    chain: DotNetwork,
+    registry: TypeRegistry,
+    payload: SignerPayloadJSON,
+  ) =>
+    withPjsKeyringPair(payload.address, async (pair) => {
+      const extrinsicPayload = registry.createType("ExtrinsicPayload", payload, {
+        version: payload.version,
+      })
+
+      // LAOS signing bug workaround
+      return typeof chain?.hasExtrinsicSignatureTypePrefix !== "boolean"
+        ? // use default value of `withType`
+          // (auto-detected by whether `ExtrinsicSignature` is an `Enum` or not in the chain metadata)
+          extrinsicPayload.sign(pair).signature
+        : // use override value of `withType` from chaindata
+          u8aToHex(
+            signExtrinsic(registry, pair, extrinsicPayload.toU8a({ method: true }), {
+              // use chaindata override value of `withType`
+              withType: chain.hasExtrinsicSignatureTypePrefix,
+            }),
+          )
+    })
 
   private submit: MessageHandler<"pri(substrate.rpc.submit)"> = async ({
     payload,
@@ -43,24 +74,7 @@ export class SubHandler extends ExtensionHandler {
     )
 
     if (!signature) {
-      const result = await withPjsKeyringPair(payload.address, async (pair) => {
-        const extrinsicPayload = registry.createType("ExtrinsicPayload", payload, {
-          version: payload.version,
-        })
-
-        // LAOS signing bug workaround
-        return typeof chain?.hasExtrinsicSignatureTypePrefix !== "boolean"
-          ? // use default value of `withType`
-            // (auto-detected by whether `ExtrinsicSignature` is an `Enum` or not in the chain metadata)
-            extrinsicPayload.sign(pair).signature
-          : // use override value of `withType` from chaindata
-            u8aToHex(
-              signExtrinsic(registry, pair, extrinsicPayload.toU8a({ method: true }), {
-                // use chaindata override value of `withType`
-                withType: chain.hasExtrinsicSignatureTypePrefix,
-              }),
-            )
-      })
+      const result = await this.signWithKeypair(chain, registry, payload)
 
       signature = result.unwrap()
     }
@@ -86,6 +100,102 @@ export class SubHandler extends ExtensionHandler {
     }
 
     return { hash }
+  }
+
+  /**
+   * Sign `payload` without broadcasting it. Only for accounts whose key is in this wallet (keypair):
+   * nothing is shown to the user here, so the caller must have asked for their consent already.
+   */
+  private sign: MessageHandler<"pri(substrate.rpc.sign)"> = async ({ payload }) => {
+    const account = await keyringStore.getAccount(payload.address)
+    if (!account) throw new Error(`Can't sign: account ${payload.address} is not in this wallet`)
+    if (account.type !== "keypair")
+      throw new Error(
+        `Can't sign: only an account whose key is in this wallet (keypair) can sign here, and ${payload.address} is a ${account.type} account`,
+      )
+
+    const chain = await chaindataProvider.getNetworkByGenesisHash(payload.genesisHash)
+    if (!chain) throw new Error(`Chain not found for genesis hash ${payload.genesisHash}`)
+
+    const { registry } = await getTypeRegistry(
+      payload.genesisHash,
+      payload.specVersion,
+      payload.signedExtensions,
+    )
+
+    const result = await this.signWithKeypair(chain, registry, payload)
+    if (result.err) {
+      const reason = result.val instanceof Error ? result.val.message : result.val
+      throw new Error(`Can't sign: ${reason}`)
+    }
+
+    const signature = result.val
+    return { signature, extrinsicHash: getExtrinsicHash(registry, payload, signature) }
+  }
+
+  /**
+   * Broadcast `payload` with a `signature` from `sign`, and resolve once it is in a block (best or
+   * finalized, whichever is seen first) with that block's hash and the extrinsic's own events.
+   * The extrinsic is watched like `submit`'s (History entry, status updates); the watch's own
+   * subscriptions say when it is in a block.
+   */
+  private submitAndWatch: MessageHandler<"pri(substrate.rpc.submitAndWatch)"> = async ({
+    payload,
+    signature,
+    txInfo,
+  }) => {
+    const chain = await chaindataProvider.getNetworkByGenesisHash(payload.genesisHash)
+    if (!chain) throw new Error(`Chain not found for genesis hash ${payload.genesisHash}`)
+
+    const { registry } = await getTypeRegistry(
+      payload.genesisHash,
+      payload.specVersion,
+      payload.signedExtensions,
+    )
+
+    const tx = registry.createType(
+      "Extrinsic",
+      { method: payload.method },
+      { version: payload.version },
+    )
+
+    // apply signature to the modified payload
+    tx.addSignature(payload.address, signature, payload)
+
+    const hash = tx.hash.toHex()
+
+    let onInBlock!: (inBlock: ExtrinsicInBlock | null) => void
+    const inBlock = new Promise<ExtrinsicInBlock | null>((resolve) => {
+      onInBlock = resolve
+    })
+
+    const watchedHash = await watchSubstrateTransaction(chain, registry, payload, signature, {
+      txInfo,
+      onInBlock,
+    })
+    if (!watchedHash) {
+      await dismissTransaction(hash)
+      throw new Error(`Couldn't watch extrinsic ${hash}, so it was not submitted`)
+    }
+
+    try {
+      await chainConnector.send(chain.id, "author_submitExtrinsic", [tx.toHex()])
+    } catch (err) {
+      dismissTransaction(hash)
+      const reason = err instanceof Error ? err.message : String(err)
+      throw new Error(`Couldn't submit extrinsic ${hash}: ${reason}`, { cause: err })
+    }
+
+    const found = await inBlock
+    if (!found)
+      throw new Error(
+        `Extrinsic ${hash} was submitted but not seen in a block within 90 seconds. It may still be included: check the account's history before trying again.`,
+      )
+
+    return {
+      blockHash: found.blockHash,
+      ...getExtrinsicOutcome(registry, found.events, found.extrinsicIndex),
+    }
   }
 
   private submitWithBittensorMevShield: MessageHandler<"pri(substrate.rpc.submit.withBittensorMevShield)"> =
@@ -353,6 +463,12 @@ export class SubHandler extends ExtensionHandler {
 
       case "pri(substrate.rpc.submit)":
         return this.submit(request as RequestTypes["pri(substrate.rpc.submit)"])
+
+      case "pri(substrate.rpc.sign)":
+        return this.sign(request as RequestTypes["pri(substrate.rpc.sign)"])
+
+      case "pri(substrate.rpc.submitAndWatch)":
+        return this.submitAndWatch(request as RequestTypes["pri(substrate.rpc.submitAndWatch)"])
 
       case "pri(substrate.rpc.submit.withBittensorMevShield)":
         return this.submitWithBittensorMevShield(

@@ -5,12 +5,14 @@ import { AccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
+import { CrossChainOrderTrackers } from "@ui/domains/CrossChain/CrossChainOrderTrackers"
+import { CrossChainSellModal } from "@ui/domains/CrossChain/CrossChainSellModal"
 import { GetStartedModals } from "@ui/domains/Portfolio/GetStarted/GetStartedModals"
 import { MigratePasswordModal } from "@ui/domains/Settings/MigratePassword/MigratePasswordModal"
-import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStakeModal"
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
-import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
+import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStakeModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
+import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
 import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 
@@ -45,6 +47,8 @@ export const DashboardNotificationsAndModals = () => {
       <BittensorStakeModal />
       <BittensorClaimSettingsModal />
       <CopyAddressModal />
+      <CrossChainSellModal />
+      <CrossChainOrderTrackers />
       <ExplorerNetworkPickerModal />
       <GetStartedModals />
       <MigratePasswordModal />

@@ -5,6 +5,7 @@ import { ReactNode, Suspense } from "react"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
+import { CrossChainSellButton } from "@ui/domains/CrossChain/CrossChainSellButton"
 import { StakeButton } from "@ui/domains/Staking/Stake/StakeButton"
 import { useToken } from "@ui/state"
 import { getTokenName } from "@ui/util/getTokenName"
@@ -67,19 +68,21 @@ export const TokenBalancesList = ({
             </span>
           </div>
         </div>
-        <div className="size-[38px] shrink-0 empty:hidden">
+        <div className="flex shrink-0 items-center gap-1.5 empty:hidden">
           <Suspense fallback={<SuspenseTracker name="StakeButton" />}>
             <StakeButton balances={balances} />
           </Suspense>
-        </div>
-        {tokenId && (
-          <div className="size-[38px] shrink-0">
+          <Suspense fallback={<SuspenseTracker name="CrossChainSellButton" />}>
+            <CrossChainSellButton balances={balances} />
+          </Suspense>
+          {tokenId && (
             <TokenContextMenu
               tokenId={tokenId}
-              className="hover:bg-tertiary focus-visible:bg-tertiary rounded-full"
+              balances={balances}
+              className="text-fg-secondary hover:text-fg-primary hover:bg-tertiary focus-visible:bg-tertiary flex items-center justify-center rounded-full p-1.5"
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
       {children}
     </div>
