@@ -198,7 +198,21 @@ export const BittensorSubnetStakeReview = () => {
             </div>
             <BittensorPriceImpact />
             <div className="flex items-center justify-between gap-4 text-xs">
-              <div className="whitespace-nowrap">{t("Slippage Tolerance")} </div>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex items-center gap-0.5 whitespace-nowrap">
+                    {t("Slippage Tolerance")}
+                    <InfoCircle />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span className="block max-w-[260px]">
+                    {t(
+                      "Extra price movement allowed on top of the price impact shown above, in case other trades move the pool before yours lands. If the price moves further, the transaction fails and your funds stay where they are.",
+                    )}
+                  </span>
+                </TooltipContent>
+              </Tooltip>
               <div className="text-fg-primary flex items-center gap-1">
                 <button
                   type="button"
