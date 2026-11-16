@@ -53,6 +53,9 @@ export const BittensorSubnetStakeReview = () => {
     amountOut,
     stakeDirection,
     priceImpact,
+    spotPrice,
+    worstCasePrice,
+    minimumAmountOut,
     isMevShieldDisabled,
     isHardwareWallet,
     mevShieldOption,
@@ -183,19 +186,46 @@ export const BittensorSubnetStakeReview = () => {
                 />
               </div>
             </div>
+            {typeof minimumAmountOut === "bigint" && (
+              <ReviewPriceRow
+                label={t("Minimum received")}
+                tooltip={t(
+                  "The least you receive before the transaction is cancelled, given your slippage tolerance. Approximate.",
+                )}
+                planck={minimumAmountOut}
+                tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
+                approximate
+              />
+            )}
           </div>
           <div className="bg-app-bg text-fg-secondary flex w-full flex-col gap-1 rounded p-4 py-3">
-            <div className="flex items-center justify-between gap-4 text-xs">
-              <div className="whitespace-nowrap">{t("Alpha Price")} </div>
-              <div className="text-fg-secondary flex items-center gap-1">
-                <TokensAndFiat
-                  planck={swapPrice!}
-                  tokenId={nativeToken?.id}
-                  tokensClassName="text-fg-primary"
-                  noCountUp
-                />
-              </div>
-            </div>
+            {typeof spotPrice === "bigint" && (
+              <ReviewPriceRow
+                label={t("Current price")}
+                tooltip={t("The subnet's alpha price right now, before this trade.")}
+                planck={spotPrice}
+                tokenId={nativeToken?.id}
+              />
+            )}
+            <ReviewPriceRow
+              label={t("Expected price")}
+              tooltip={t(
+                "The average price per alpha this trade fills at. A larger trade moves the pool price as it fills, so it is worse than the current price.",
+              )}
+              planck={swapPrice}
+              tokenId={nativeToken?.id}
+            />
+            {typeof worstCasePrice === "bigint" && (
+              <ReviewPriceRow
+                label={t("Worst-case price")}
+                tooltip={t(
+                  "The worst average price your slippage tolerance allows, if other trades move the pool before yours lands. Beyond this the transaction is cancelled. Approximate.",
+                )}
+                planck={worstCasePrice}
+                tokenId={nativeToken?.id}
+                approximate
+              />
+            )}
             <BittensorPriceImpact />
             <div className="flex items-center justify-between gap-4 text-xs">
               <Tooltip>
@@ -375,3 +405,42 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
     </Drawer>
   )
 }
+
+const ReviewPriceRow = ({
+  label,
+  tooltip,
+  planck,
+  tokenId,
+  approximate = false,
+}: {
+  label: string
+  tooltip: string
+  planck: bigint | null | undefined
+  tokenId: string | undefined
+  approximate?: boolean
+}) => (
+  <div className="flex items-center justify-between gap-4 text-xs">
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-0.5 whitespace-nowrap">
+          {label}
+          <InfoCircle />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <span className="block max-w-[260px]">{tooltip}</span>
+      </TooltipContent>
+    </Tooltip>
+    <div className="text-fg-secondary flex items-center gap-1 overflow-hidden">
+      {approximate && <span className="text-fg-primary">≈</span>}
+      {typeof planck === "bigint" ? (
+        <TokensAndFiat
+          planck={planck}
+          tokenId={tokenId}
+          tokensClassName="text-fg-primary"
+          noCountUp
+        />
+      ) : null}
+    </div>
+  </div>
+)

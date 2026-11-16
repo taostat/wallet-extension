@@ -132,10 +132,42 @@ export const getLimitPrice = (
     : (endPrice * (TOLERANCE_SCALE - scaledTolerance)) / TOLERANCE_SCALE
 }
 
-/** How far the swap moves the pool price, as a positive percentage (2 = 2%). */
-export const getPriceImpact = (spotPrice: bigint, endPrice: bigint) => {
+/**
+ * Worst average price the user can end up paying (stake) or receiving (unstake) per alpha, given
+ * their slippage tolerance: the expected average price moved by the tolerance. Approximate, because
+ * the chain enforces the tolerance on the pool price after the swap, which moves with the average
+ * price but not by exactly the same amount.
+ */
+export const getWorstCasePrice = (
+  expectedPrice: bigint,
+  direction: StakeDirection,
+  tolerance: number = 0, // 0.005 = 0.5%
+) => getLimitPrice(expectedPrice, direction, tolerance)
+
+/**
+ * The least the swap returns (alpha for a stake, TAO for an unstake) before the chain cancels it,
+ * given the slippage tolerance. Approximate, like `getWorstCasePrice`.
+ */
+export const getMinimumAmountOut = (
+  amountOut: bigint,
+  direction: StakeDirection,
+  tolerance: number = 0, // 0.005 = 0.5%
+) => {
+  const scaledTolerance = BigInt(Math.round(tolerance * Number(TOLERANCE_SCALE)))
+
+  return direction === "taoToAlpha"
+    ? (amountOut * TOLERANCE_SCALE) / (TOLERANCE_SCALE + scaledTolerance)
+    : (amountOut * (TOLERANCE_SCALE - scaledTolerance)) / TOLERANCE_SCALE
+}
+
+/**
+ * How far `price` sits from the spot price, as a positive percentage (2 = 2%).
+ * Shown to the user with the average swap price: how much worse than the current price the trade
+ * fills on average, which is what it costs them. The pool itself ends about twice as far away.
+ */
+export const getPriceImpact = (spotPrice: bigint, price: bigint) => {
   if (spotPrice <= 0n) return null
-  const diff = endPrice > spotPrice ? endPrice - spotPrice : spotPrice - endPrice
+  const diff = price > spotPrice ? price - spotPrice : spotPrice - price
   return Number((diff * 1_000_000n) / spotPrice) / 10_000
 }
 

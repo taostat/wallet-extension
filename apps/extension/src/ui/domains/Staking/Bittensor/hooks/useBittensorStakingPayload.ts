@@ -12,7 +12,9 @@ import {
   getBittensorUnstakePayload,
   getEndPrice,
   getLimitPrice,
+  getMinimumAmountOut,
   getPriceImpact,
+  getWorstCasePrice,
 } from "../utils/helpers"
 import { StakeDirection } from "./types"
 import { useBittensorAlphaPrice } from "./useBittensorAlphaPrice"
@@ -135,11 +137,12 @@ export const useBittensorStakingPayload = ({
     return getLimitPrice(endPrice, direction, tolerance)
   }, [endPrice, netuid, direction, slippage])
 
-  // how far this swap moves the pool price
+  // how much worse than the current price this swap fills on average: what it costs the user.
+  // root has no pool, so nothing to show.
   const priceImpact = useMemo(() => {
-    if (!quote || typeof endPrice !== "bigint") return null
-    return getPriceImpact(quote.spotPrice, endPrice)
-  }, [quote, endPrice])
+    if (!quote || !netuid || typeof swapPrice !== "bigint") return null
+    return getPriceImpact(quote.spotPrice, swapPrice)
+  }, [quote, netuid, swapPrice])
 
   const taostatsFee = useMemo(() => {
     if (typeof settledAmountIn !== "bigint" || !simulation) return null
@@ -160,6 +163,23 @@ export const useBittensorStakingPayload = ({
         return simulation.tao_amount - taostatsFee
     }
   }, [direction, simulation, taostatsFee])
+
+  // pool price before the swap, from the same block as the quote. root has no pool.
+  const spotPrice = useMemo(() => {
+    if (!quote || !netuid) return null
+    return quote.spotPrice
+  }, [quote, netuid])
+
+  // the worst the slippage tolerance lets the trade fill at. root has no limit, so no worst case.
+  const worstCasePrice = useMemo(() => {
+    if (!netuid || typeof swapPrice !== "bigint") return null
+    return getWorstCasePrice(swapPrice, direction, slippage / 100)
+  }, [netuid, swapPrice, direction, slippage])
+
+  const minimumAmountOut = useMemo(() => {
+    if (!netuid || amountOut <= 0n) return null
+    return getMinimumAmountOut(amountOut, direction, slippage / 100)
+  }, [netuid, amountOut, direction, slippage])
 
   const serverFeeForShieldRao = useMemo(() => {
     if (!forTaostatsShield) return undefined
@@ -236,6 +256,9 @@ export const useBittensorStakingPayload = ({
     minTaoStake,
     minAlphaUnstake,
     priceImpact: amountPending ? null : priceImpact,
+    spotPrice: amountPending ? null : spotPrice,
+    worstCasePrice: amountPending ? null : worstCasePrice,
+    minimumAmountOut: amountPending ? null : minimumAmountOut,
     slippage,
   }
 }

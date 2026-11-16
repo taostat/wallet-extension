@@ -3,8 +3,10 @@ import {
   getAverageSwapPrice,
   getEndPrice,
   getLimitPrice,
+  getMinimumAmountOut,
   getPriceImpact,
   getPriceImpactLevel,
+  getWorstCasePrice,
 } from "../helpers"
 
 const UNIT = 1_000_000_000n // rao per TAO / alpha
@@ -87,10 +89,15 @@ describe("Bittensor stake limit price", () => {
       expect(chainAccepts(quote, false, getLimitPrice(endPrice, "alphaToTao", 0.005))).toBe(true)
     })
 
-    it("reports the real pool movement as price impact", () => {
+    it("shows the average fill price against spot as price impact, half the pool movement", () => {
       const quote = SN85.unstake(23_440_830_000_000n)
       const endPrice = getEndPrice(quote, "alphaToTao")!
-      // ~0.9% average slippage, ~1.8% pool movement
+      // what the user pays: ~0.9% worse than spot on average
+      expect(getPriceImpact(SN85.spotPrice, getAverageSwapPrice(quote.simulation))).toBeCloseTo(
+        0.91,
+        1,
+      )
+      // the pool itself moves ~1.8%, which the limit price has to allow for
       expect(getPriceImpact(SN85.spotPrice, endPrice)).toBeCloseTo(1.82, 1)
     })
   })
@@ -194,6 +201,37 @@ describe("Bittensor stake limit price", () => {
       [30, "very-high"],
     ] as const)("%s%% is %s", (impact, level) => {
       expect(getPriceImpactLevel(impact)).toBe(level)
+    })
+  })
+
+  describe("worst case for the slippage tolerance", () => {
+    it("moves the expected price against the user by the tolerance", () => {
+      expect(getWorstCasePrice(1_122_000_000n, "taoToAlpha", 0.01)).toBe(1_133_220_000n)
+      expect(getWorstCasePrice(1_078_000_000n, "alphaToTao", 0.01)).toBe(1_067_220_000n)
+    })
+
+    it("gives the least received at that price", () => {
+      // buying: TAO in is fixed, so alpha out shrinks by 1 / (1 + tolerance)
+      expect(getMinimumAmountOut(101_000n, "taoToAlpha", 0.01)).toBe(100_000n)
+      // selling: alpha in is fixed, so TAO out shrinks by (1 - tolerance)
+      expect(getMinimumAmountOut(100_000n, "alphaToTao", 0.01)).toBe(99_000n)
+    })
+
+    it("is close to what the chain allows when the pool moves by the tolerance first", () => {
+      const tao = 1_000n * UNIT
+      const quote = SN85.stake(tao)
+      const expected = getAverageSwapPrice(quote.simulation)
+      const worst = getWorstCasePrice(expected, "taoToAlpha", 0.01)
+      const limit = getLimitPrice(getEndPrice(quote, "taoToAlpha")!, "taoToAlpha", 0.01)
+
+      // someone buys first and moves the price just under 1%: still accepted
+      const { taoReserve, alphaReserve } = quote
+      const moved = pool((taoReserve * 10049n) / 10000n, (alphaReserve * 10000n) / 10049n)
+      const after = moved.stake(tao)
+      expect(chainAccepts(after, true, limit)).toBe(true)
+      // and the average price actually paid is within 0.1% of the worst case shown
+      const paid = getAverageSwapPrice(after.simulation)
+      expect(Math.abs(Number(paid) / Number(worst) - 1)).toBeLessThan(0.001)
     })
   })
 })

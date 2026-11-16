@@ -8,7 +8,7 @@ import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { getPriceImpactLevel } from "../utils/helpers"
 
 /**
- * How far this swap moves the subnet pool price, with a warning when it is large.
+ * How much worse than the current price this swap fills on average, with a warning when it is large.
  * Price impact is known before signing, so it is shown up front and is separate from slippage tolerance,
  * which only covers the price moving after the user signs.
  */
@@ -37,7 +37,7 @@ export const BittensorPriceImpact = ({ withWarning = true }: { withWarning?: boo
           <TooltipContent>
             <span className="block max-w-[260px]">
               {t(
-                "How far this trade moves the subnet's pool price. Larger trades in smaller pools move the price more, so you receive less per token.",
+                "How much worse than the current price this trade fills on average. Each part of a trade moves the subnet's pool price for the next, so larger trades in smaller pools get a worse price.",
               )}
             </span>
           </TooltipContent>
@@ -52,11 +52,11 @@ export const BittensorPriceImpact = ({ withWarning = true }: { withWarning?: boo
           <div>
             {level === "very-high"
               ? t(
-                  "Very high price impact. This trade moves the pool price by {{impact}}%, so you will receive much less than at the current price. Consider a smaller amount.",
+                  "Very high price impact. On average this trade fills at a price {{impact}}% worse than the current price. Consider a smaller amount.",
                   { impact: priceImpact.toFixed(2) },
                 )
               : t(
-                  "High price impact. This trade moves the pool price by {{impact}}%, so you will receive less than at the current price.",
+                  "High price impact. On average this trade fills at a price {{impact}}% worse than the current price.",
                   { impact: priceImpact.toFixed(2) },
                 )}
           </div>
