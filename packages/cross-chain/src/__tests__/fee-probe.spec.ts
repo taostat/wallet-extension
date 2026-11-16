@@ -1,27 +1,75 @@
 import type { Quote, SubstrateCall, SubstrateOpenParams } from "@tao.com/intents-sdk"
 import { AbortedError, InsufficientBalanceError, SubstrateError } from "@tao.com/intents-sdk"
 
+import type { SapiCall } from "../calls"
 import type { FeeProbeIntents } from "../fee-probe"
 import { BATCH_METHOD, BATCH_PALLET } from "../calls"
 import { BatchFeeProbeStop, estimateSellBatchFee } from "../fee-probe"
-import { ALICE, alphaSellBatch, taoSellBatch } from "./sdk-calls"
+import {
+  ALICE,
+  alphaSellBatch,
+  approveCall,
+  evmCall,
+  evmWithdraw,
+  openCall,
+  SETTLER,
+  taoSellBatch,
+  transferKeepAlive,
+  transferStake,
+} from "./sdk-calls"
 
-type Payload = { payload: { method: string } }
+type Payload = { payload: { method: string; gasLimit: bigint } }
 
 const quote = { user: "0x1", recipient: "0x2" } as unknown as Quote
 
-const setup = ({ fee = 6_700_000n, failFee = false }: { fee?: bigint; failFee?: boolean } = {}) => {
+/**
+ * A sapi whose `query_info` fee is linear in the batch's EVM gas limits, as mainnet's is:
+ * `140_306 + 10 × gas limit` rao reproduces the real TAO sell of 2026-11-16 (block 9519234), whose
+ * batch was withheld 6 740 306 rao at the SDK's 660 000 gas limit.
+ */
+const setup = ({ failFee = false }: { failFee?: boolean } = {}) => {
   const sapi = {
     getExtrinsicPayload: jest.fn(
-      async (): Promise<Payload> => ({ payload: { method: "0xbatch" } }),
+      async (_pallet: string, _method: string, args: unknown): Promise<Payload> => ({
+        payload: {
+          method: "0xbatch",
+          gasLimit: (args as { calls: SapiCall[] }).calls
+            .filter((call) => call.type === "EVM" && call.value.type === "call")
+            .reduce((sum, call) => sum + (call.value.value.gas_limit as bigint), 0n),
+        },
+      }),
     ),
-    getFeeEstimate: jest.fn(async () => {
+    getFeeEstimate: jest.fn(async ({ gasLimit }: Payload["payload"]) => {
       if (failFee) throw new Error("query_info failed")
-      return fee
+      return 140_306n + 10n * gasLimit
     }),
   }
   return { sapi }
 }
+
+const GWEI = 1_000_000_000n
+
+/** The real TAO sell's batch: `open` with the SDK's 660 000 gas limit, at 5 gwei. */
+const realTaoSellBatch = (): SubstrateCall[] => [
+  transferKeepAlive(),
+  evmCall(
+    SETTLER,
+    openCall().args[2] as `0x${string}`,
+    50_000_000_000_000_000n,
+    660_000n,
+    5n * GWEI,
+  ),
+  evmWithdraw(),
+]
+
+/** An alpha sell with the approval, at the SDK's gas limits (`approve` 80 000, `open` 2 600 000). */
+const alphaSellBatchAtSdkLimits = (): SubstrateCall[] => [
+  transferStake(),
+  transferKeepAlive(),
+  approveCall(),
+  evmCall(SETTLER, openCall().args[2] as `0x${string}`, 0n, 2_600_000n, 10n * GWEI),
+  evmWithdraw(),
+]
 
 /**
  * `open` as SDK 1.5.1 runs it on the substrate path, cut down to what the probe meets: it asks
@@ -58,19 +106,53 @@ const estimate = (open: FeeProbeIntents["open"], sapi: ReturnType<typeof setup>[
 describe("estimateSellBatchFee", () => {
   it("prices the batch the SDK built for this account, with sapi", async () => {
     const { sapi } = setup()
-    expect(await estimate(sdkLikeOpen(taoSellBatch()), sapi)).toBe(6_700_000n)
+    expect(await estimate(sdkLikeOpen(taoSellBatch()), sapi)).toBeDefined()
     expect(sapi.getExtrinsicPayload).toHaveBeenCalledWith(
       BATCH_PALLET,
       BATCH_METHOD,
       expect.objectContaining({ calls: expect.any(Array) }),
       { address: ALICE },
     )
-    expect(sapi.getFeeEstimate).toHaveBeenCalledWith({ method: "0xbatch" })
+    expect(sapi.getFeeEstimate).toHaveBeenCalledWith(expect.objectContaining({ method: "0xbatch" }))
   })
 
-  it("prices an alpha sale's batch too", async () => {
-    const { sapi } = setup({ fee: 9_000_000n })
-    expect(await estimate(sdkLikeOpen(alphaSellBatch()), sapi)).toBe(9_000_000n)
+  it("is a TAO sell's expected cost: the fee at the expected gas, plus that gas", async () => {
+    const { sapi } = setup()
+    // Fee at 300 000 gas (3 140 306) + 300 000 gas × 5 gwei (1 500 000). Not the 6 740 306 withheld.
+    expect(await estimate(sdkLikeOpen(realTaoSellBatch()), sapi)).toBe(4_640_306n)
+    expect(sapi.getFeeEstimate).toHaveBeenCalledWith(
+      expect.objectContaining({ gasLimit: 300_000n }),
+    )
+  })
+
+  it("is an alpha sell's expected cost: open at its expected gas, approve at half its limit", async () => {
+    const { sapi } = setup()
+    // Gas: approve 40 000 + open 920 000 = 960 000. Fee 140 306 + 9 600 000, gas 960 000 × 10 gwei.
+    expect(await estimate(sdkLikeOpen(alphaSellBatchAtSdkLimits()), sapi)).toBe(
+      9_740_306n + 9_600_000n,
+    )
+    expect(sapi.getFeeEstimate).toHaveBeenCalledWith(
+      expect.objectContaining({ gasLimit: 960_000n }),
+    )
+  })
+
+  it("never prices a call above its own gas limit", async () => {
+    const { sapi } = setup()
+    // The fixture's alpha open has a 660 000 limit, under the 920 000 expected: 660 000 is used.
+    // Gas: approve 40 000 + open 660 000 = 700 000, at 10 gwei.
+    expect(await estimate(sdkLikeOpen(alphaSellBatch()), sapi)).toBe(
+      140_306n + 7_000_000n + 7_000_000n,
+    )
+    expect(sapi.getFeeEstimate).toHaveBeenCalledWith(
+      expect.objectContaining({ gasLimit: 700_000n }),
+    )
+  })
+
+  it("leaves the batch the SDK built, the one that would be signed, untouched", async () => {
+    const { sapi } = setup()
+    const calls = realTaoSellBatch()
+    await estimate(sdkLikeOpen(calls), sapi)
+    expect(calls).toEqual(realTaoSellBatch())
   })
 
   it("hands open the execute settings, and a signer that can never sign", async () => {
@@ -96,6 +178,7 @@ describe("estimateSellBatchFee", () => {
   })
 
   it("is unknown when the fee can't be read, or the batch can't be mapped", async () => {
+    // Never the withheld fee, nor the EVM gas alone.
     const { sapi } = setup({ failFee: true })
     expect(await estimate(sdkLikeOpen(taoSellBatch()), sapi)).toBeUndefined()
 

@@ -14,10 +14,12 @@ import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 import { getTaoIntents } from "./intents"
 
 /**
- * The network fee (rao) of the batch this review would sign, priced once per review with sapi on
- * the batch the SDK builds (`estimateSellBatchFee`: nothing is signed or sent). `null` while
- * unknown, or when it couldn't be priced. Each estimate makes a few EVM reads, so it isn't
- * refreshed with the quote: the fee doesn't follow the price.
+ * What the batch this review would sign is expected to cost on Bittensor (rao): its extrinsic fee
+ * at the gas it is expected to use, plus that EVM gas, priced once per review with sapi on a copy
+ * of the batch the SDK builds (`estimateSellBatchFee`: nothing is signed or sent). Not the larger
+ * fee the chain withholds up front and partly refunds, so it is shown, never used to check what
+ * the account can pay. `null` while unknown, or when it couldn't be priced. Each estimate makes a
+ * few EVM reads, so it isn't refreshed with the quote: the fee doesn't follow the price.
  */
 export const useSellNetworkFee = ({
   config,
