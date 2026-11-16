@@ -9,15 +9,17 @@ import {
 } from "@taostats-wallet/cross-chain"
 import { formatDecimals } from "@taostats-wallet/util"
 import { log } from "extension-shared"
-import { FC, useCallback, useEffect } from "react"
+import { FC, useCallback, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
 import { notify } from "@taostats/components/Notifications"
-import { useSettingValue } from "@ui/state"
+import { useNetworkById, useSettingValue } from "@ui/state"
 
+import { BITTENSOR_MAINNET_ID } from "../constants"
 import { captureCrossChainEvent } from "../crossChainAnalytics"
 import { useCrossChainConfig } from "../crossChainSellGate"
 import { applyCrossChainSellOrderState } from "../records/sellRecordsStore"
+import { taostatsExtrinsicUrl } from "../sell/components"
 import { getTaoIntents } from "../sell/intents"
 import { showCrossChainSystemNotification } from "./crossChainNotices"
 
@@ -108,10 +110,23 @@ const OrderTracker: FC<{
 const useSettledNotice = (): OnSettled => {
   const { t } = useTranslation()
   const allowNotifications = useSettingValue("allowNotifications")
+  const network = useNetworkById(BITTENSOR_MAINNET_ID, "polkadot")
+  // Read when a sell settles: a new network object (chaindata updates) mustn't change this
+  // callback, which would restart every tracker's watch.
+  const networkRef = useRef(network)
+  useEffect(() => {
+    networkRef.current = network
+  }, [network])
 
   return useCallback(
     (record, state) => {
       try {
+        const notice = {
+          recordId: record.id,
+          transactionUrl: record.extrinsicHash
+            ? taostatsExtrinsicUrl(networkRef.current, record.extrinsicHash)
+            : null,
+        }
         if (state === "filled") {
           const amount = record.amountOut
             ? `${formatDecimals(Number(record.amountOut))} ${record.to}`
@@ -123,7 +138,8 @@ const useSettledNotice = (): OnSettled => {
           notify({ type: "success", title: text }, { autoClose: SETTLED_TOAST_MS })
           if (allowNotifications)
             showCrossChainSystemNotification({
-              id: record.id,
+              ...notice,
+              kind: "delivered",
               title: t("Swap delivered"),
               message: text,
             })
@@ -133,7 +149,8 @@ const useSettledNotice = (): OnSettled => {
           notify({ type: "warn", title: text, subtitle: action }, { autoClose: SETTLED_TOAST_MS })
           if (allowNotifications)
             showCrossChainSystemNotification({
-              id: record.id,
+              ...notice,
+              kind: "attention",
               title: t("Swap needs attention"),
               message: `${text} ${action}`,
             })

@@ -142,7 +142,10 @@ export const CopyButton: FC<{ text: string; kind?: "address" | "hash"; className
 }
 
 /** An extrinsic on the Taostats explorer (`/extrinsic/<hash>`), as the website links it. */
-const taostatsExtrinsicUrl = (network: Network | null | undefined, hash: string): string | null => {
+export const taostatsExtrinsicUrl = (
+  network: Network | null | undefined,
+  hash: string,
+): string | null => {
   if (!network) return null
   const base = network.blockExplorerUrls?.find((url) => url.includes("taostats.io"))
   if (base) {
