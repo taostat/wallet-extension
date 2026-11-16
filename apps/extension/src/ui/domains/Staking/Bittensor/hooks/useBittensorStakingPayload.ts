@@ -259,6 +259,9 @@ export const useBittensorStakingPayload = ({
     spotPrice: amountPending ? null : spotPrice,
     worstCasePrice: amountPending ? null : worstCasePrice,
     minimumAmountOut: amountPending ? null : minimumAmountOut,
+    // pool price after the swap and the limit sent to the chain (built from it). root has neither.
+    poolPriceAfter: amountPending || !netuid ? null : endPrice,
+    chainPriceLimit: amountPending || !netuid ? null : priceLimit,
     slippage,
   }
 }

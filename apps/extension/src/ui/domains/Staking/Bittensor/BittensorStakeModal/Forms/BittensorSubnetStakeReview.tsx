@@ -1,6 +1,6 @@
 import { Edit01 } from "@untitledui/icons/Edit01"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
-import { FC, useEffect, useState } from "react"
+import { FC, ReactNode, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -27,7 +27,7 @@ import { BittensorPriceImpact } from "../../components/BittensorPriceImpact"
 import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
-import { getPriceImpactLevel } from "../../utils/helpers"
+import { getPriceImpact, getPriceImpactLevel } from "../../utils/helpers"
 import { BittensorConfirmSignButton } from "../BittensorConfirmSignButton"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
 
@@ -56,6 +56,8 @@ export const BittensorSubnetStakeReview = () => {
     spotPrice,
     worstCasePrice,
     minimumAmountOut,
+    poolPriceAfter,
+    chainPriceLimit,
     isMevShieldDisabled,
     isHardwareWallet,
     mevShieldOption,
@@ -218,9 +220,38 @@ export const BittensorSubnetStakeReview = () => {
             {typeof worstCasePrice === "bigint" && (
               <ReviewPriceRow
                 label={t("Worst-case price")}
-                tooltip={t(
-                  "The worst average price your slippage tolerance allows, if other trades move the pool before yours lands. Beyond this the transaction is cancelled. Approximate.",
-                )}
+                tooltip={
+                  <div className="flex flex-col gap-1">
+                    <span>
+                      {t(
+                        "The worst average price your slippage tolerance allows, if other trades move the pool before yours lands. Beyond this the transaction is cancelled. Approximate.",
+                      )}
+                    </span>
+                    {typeof poolPriceAfter === "bigint" && (
+                      <div className="border-primary mt-1 flex flex-col gap-1 border-t pt-1">
+                        <span>
+                          {typeof spotPrice === "bigint"
+                            ? t("Pool price after this trade: {{price}} ({{change}})", {
+                                price: formatRaoPrice(poolPriceAfter),
+                                change: `${stakeDirection === "stake" ? "+" : "−"}${(
+                                  getPriceImpact(spotPrice, poolPriceAfter) ?? 0
+                                ).toFixed(1)}%`,
+                              })
+                            : t("Pool price after this trade: {{price}}", {
+                                price: formatRaoPrice(poolPriceAfter),
+                              })}
+                        </span>
+                        {typeof chainPriceLimit === "bigint" && (
+                          <span>
+                            {t("Limit sent to the chain: {{price}}", {
+                              price: formatRaoPrice(chainPriceLimit),
+                            })}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                }
                 planck={worstCasePrice}
                 tokenId={nativeToken?.id}
                 approximate
@@ -414,7 +445,7 @@ const ReviewPriceRow = ({
   approximate = false,
 }: {
   label: string
-  tooltip: string
+  tooltip: ReactNode
   planck: bigint | null | undefined
   tokenId: string | undefined
   approximate?: boolean
@@ -444,3 +475,13 @@ const ReviewPriceRow = ({
     </div>
   </div>
 )
+
+/**
+ * A price in rao per alpha as TAO, to four significant figures: subnet prices are often below 0.01,
+ * where a fixed number of decimals hides small differences.
+ */
+const formatRaoPrice = (rao: bigint) =>
+  `τ${new Intl.NumberFormat(undefined, {
+    minimumSignificantDigits: 4,
+    maximumSignificantDigits: 4,
+  }).format(Number(rao) / 1e9)}`
