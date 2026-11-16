@@ -66,7 +66,7 @@ export const BittensorSlippageDrawer = () => {
         <div className="text-fg-primary pb-4 font-bold">{t("Slippage Tolerance")}</div>
         <p className="text-fg-secondary text-sm">
           {t(
-            "You can customize the slippage percentage to balance transaction success and price accuracy.",
+            "How much the price may move after you sign, beyond the quote you were shown. If it moves further, the transaction is cancelled.",
           )}
         </p>
         <p className="text-fg-secondary text-sm">
@@ -79,9 +79,9 @@ export const BittensorSlippageDrawer = () => {
               <InfoCircle />
             </TooltipTrigger>
             <TooltipContent>
-              <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+              <span className="block max-w-[260px]">
                 {t(
-                  "Stake transaction will revert if the price changes more than the allowed slippage percentage.",
+                  "Protects you if the price moves before your transaction lands, for example if someone trades ahead of you. Your own trade's price impact is shown separately before you sign.",
                 )}
               </span>
             </TooltipContent>

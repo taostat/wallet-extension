@@ -7,9 +7,12 @@ import { useGetBittensorMinJoinStake } from "../../hooks/bittensor/useGetBittens
 import { useGetBittensorDefaultMinStake } from "../../hooks/bittensor/useGetBittensorMinStake"
 import { MEVSHIELD_SERVER_FEE_RAO } from "../utils/constants"
 import {
+  getAverageSwapPrice,
   getBittensorStakingPayload,
   getBittensorUnstakePayload,
+  getEndPrice,
   getLimitPrice,
+  getPriceImpact,
 } from "../utils/helpers"
 import { StakeDirection } from "./types"
 import { useBittensorAlphaPrice } from "./useBittensorAlphaPrice"
@@ -101,7 +104,7 @@ export const useBittensorStakingPayload = ({
   }, [settledAmountIn, direction, netuid, subnetFee])
 
   const {
-    data: simulation,
+    data: quote,
     isLoading: isLoadingSimulation,
     isError: isErrorSimulation,
     error: quoteError,
@@ -111,26 +114,32 @@ export const useBittensorStakingPayload = ({
     netuid,
     amountIn: amount,
   })
+  const simulation = quote?.simulation
 
-  // price that we will pay if no slippage occurs
+  // average price paid across the swap
   const swapPrice = useMemo(() => {
     if (!simulation) return null
-    return getLimitPrice(simulation, direction, 0)
-  }, [simulation, direction])
+    return getAverageSwapPrice(simulation)
+  }, [simulation])
+
+  // pool price once the swap has gone through. root has no pool, its limit price is ignored.
+  const endPrice = useMemo(() => {
+    if (!quote || !netuid) return null
+    return getEndPrice(quote, direction)
+  }, [quote, netuid, direction])
 
   const priceLimit = useMemo(() => {
-    if (!simulation) return null
+    if (netuid === 0) return 0n
+    if (typeof endPrice !== "bigint") return null
     const tolerance = slippage / 100 // percentage to decimal
-    return getLimitPrice(simulation, direction, tolerance)
-  }, [simulation, direction, slippage])
+    return getLimitPrice(endPrice, direction, tolerance)
+  }, [endPrice, netuid, direction, slippage])
 
+  // how far this swap moves the pool price
   const priceImpact = useMemo(() => {
-    if (!alphaPrice || !swapPrice) return null
-    const scaleFactor = 10_000n // to get 4 decimal places
-    const diff = swapPrice - alphaPrice // bigint
-    const scaledPriceImpact = (diff * scaleFactor) / alphaPrice
-    return Number(scaledPriceImpact) / 100
-  }, [alphaPrice, swapPrice])
+    if (!quote || typeof endPrice !== "bigint") return null
+    return getPriceImpact(quote.spotPrice, endPrice)
+  }, [quote, endPrice])
 
   const taostatsFee = useMemo(() => {
     if (typeof settledAmountIn !== "bigint" || !simulation) return null

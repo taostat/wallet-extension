@@ -1,10 +1,10 @@
-import { classNames } from "@taostats-wallet/util"
 import { Edit01 } from "@untitledui/icons/Edit01"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
 import { FC, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
+  Checkbox,
   Drawer,
   Radio,
   Tooltip,
@@ -23,12 +23,16 @@ import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
+import { BittensorPriceImpact } from "../../components/BittensorPriceImpact"
 import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
-import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
+import { getPriceImpactLevel } from "../../utils/helpers"
 import { BittensorConfirmSignButton } from "../BittensorConfirmSignButton"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
+
+/** Percentage points the impact may rise after the user acknowledged it before they must confirm again */
+const PRICE_IMPACT_ACK_MARGIN = 0.5
 
 export const BittensorSubnetStakeReview = () => {
   const [isDisabled, setIsDisabled] = useState(true)
@@ -59,6 +63,17 @@ export const BittensorSubnetStakeReview = () => {
   const { close } = useBittensorStakeModal()
 
   const { open } = slippageDrawer
+
+  // very high impact needs an explicit acknowledgement. The quote refreshes every block, so the
+  // acknowledgement holds unless the impact rises meaningfully above what the user agreed to.
+  const needsPriceImpactAck = getPriceImpactLevel(priceImpact) === "very-high"
+  const [ackedPriceImpact, setAckedPriceImpact] = useState<number | null>(null)
+  const isPriceImpactAcked =
+    ackedPriceImpact !== null &&
+    typeof priceImpact === "number" &&
+    priceImpact <= ackedPriceImpact + PRICE_IMPACT_ACK_MARGIN
+  const setIsPriceImpactAcked = (checked: boolean) =>
+    setAckedPriceImpact(checked && typeof priceImpact === "number" ? priceImpact : null)
 
   useEffect(() => {
     // enable confirm button 0.5 second after the screen is open, to ensure the user doesnt accidentally click it (ex: double click from prev screen)
@@ -181,18 +196,7 @@ export const BittensorSubnetStakeReview = () => {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between gap-4 text-xs">
-              <div className="whitespace-nowrap">{t("Price Impact")}</div>
-              <div
-                className={classNames(
-                  "text-fg-primary",
-                  !!priceImpact && priceImpact >= HIGH_PRICE_IMPACT && "text-orange-500",
-                  !!priceImpact && priceImpact >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
-                )}
-              >
-                {priceImpact?.toFixed(2)}%
-              </div>
-            </div>
+            <BittensorPriceImpact />
             <div className="flex items-center justify-between gap-4 text-xs">
               <div className="whitespace-nowrap">{t("Slippage Tolerance")} </div>
               <div className="text-fg-primary flex items-center gap-1">
@@ -269,7 +273,18 @@ export const BittensorSubnetStakeReview = () => {
         </div>
       </div>
       <div className="shrink-0 pt-4">
-        <BittensorConfirmSignButton disabled={isDisabled} />
+        {needsPriceImpactAck && (
+          <Checkbox
+            className="text-fg-secondary pb-3 text-xs"
+            checked={isPriceImpactAcked}
+            onChange={(e) => setIsPriceImpactAcked(e.target.checked)}
+          >
+            {t("I understand this trade has a very high price impact")}
+          </Checkbox>
+        )}
+        <BittensorConfirmSignButton
+          disabled={isDisabled || (needsPriceImpactAck && !isPriceImpactAcked)}
+        />
       </div>
       <BittensorSlippageDrawer />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />
