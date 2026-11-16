@@ -14,8 +14,9 @@ import {
   sellQuoteSummary,
 } from "@taostats-wallet/cross-chain"
 import { cn, formatDecimals } from "@taostats-wallet/util"
+import { TAOSTATS_WEB_APP_TERMS_URL } from "extension-shared"
 import { FC, useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { Button } from "taostats-ui"
 
 import { Fiat } from "@ui/domains/Asset/Fiat"
@@ -91,6 +92,7 @@ export const SellReview = () => {
               onAccept={acceptPrice}
             />
           </div>
+          <TermsNotice />
         </>
       }
     >
@@ -274,6 +276,30 @@ const FeedbackNotice: FC<{ feedback: ReviewFeedback; symbol: string }> = ({ feed
         </span>
       ) : null}
     </Notice>
+  )
+}
+
+/** Confirming accepts the website's Terms of Service, as on taostats.io's review. */
+const TermsNotice = () => {
+  const { t } = useTranslation()
+  return (
+    <p className="text-fg-secondary text-center text-xs">
+      <Trans
+        t={t}
+        defaults="By confirming, you agree to the <Terms>Terms of Service</Terms>."
+        components={{
+          Terms: (
+            // eslint-disable-next-line jsx-a11y/anchor-has-content -- Trans fills in the link text
+            <a
+              href={TAOSTATS_WEB_APP_TERMS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            />
+          ),
+        }}
+      />
+    </p>
   )
 }
 

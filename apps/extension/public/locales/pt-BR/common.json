@@ -2334,5 +2334,7 @@
   "You can close this window: the swap carries on, and Recent cross-chain swaps shows when it lands.": "Você pode fechar esta janela: a troca continua, e Trocas cross-chain recentes mostra quando ela chegar.",
   "Your {{symbol}} is at your account's EVM address": "Seu {{symbol}} está no endereço EVM da sua conta",
   "Your {{symbol}} left this account but wasn't swapped: it's staked at your account's EVM address. Move it back to this account from Recent cross-chain swaps.": "Seu {{symbol}} saiu desta conta, mas não foi trocado: está em staking no endereço EVM da sua conta. Mova-o de volta para esta conta em Trocas cross-chain recentes.",
-  "Your account's EVM address": "Endereço EVM da sua conta"
+  "Your account's EVM address": "Endereço EVM da sua conta",
+  "By confirming, you agree to the <Terms>Terms of Service</Terms>.": "Ao confirmar, você aceita os <Terms>Termos de Serviço</Terms>.",
+  "Buy with USDC or ETH": "Comprar com USDC ou ETH"
 }

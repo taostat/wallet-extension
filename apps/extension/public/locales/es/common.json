@@ -131,7 +131,7 @@
   "Active account(s)": "Cuenta(s) activa(s)",
   "Active networks": "Redes activas",
   "Active only": "Activo solo",
-  "History": "Historia",
+  "History": "Historial",
   "Add": "Añadir",
   "Add <Tokens /> to your stake": "Añade <Tokens /> a tu stake",
   "Add <Tokens /> to your stake with current nomination pool": "Añadir <Tokens /> a tu stake con el grupo de nominación actual",
@@ -2334,5 +2334,7 @@
   "You can close this window: the swap carries on, and Recent cross-chain swaps shows when it lands.": "Puedes cerrar esta ventana: el intercambio continúa, e Intercambios recientes entre blockchains muestra cuándo llega.",
   "Your {{symbol}} is at your account's EVM address": "Tu {{symbol}} está en la dirección EVM de tu cuenta",
   "Your {{symbol}} left this account but wasn't swapped: it's staked at your account's EVM address. Move it back to this account from Recent cross-chain swaps.": "Tu {{symbol}} salió de esta cuenta pero no se intercambió: está en staking en la dirección EVM de tu cuenta. Devuélvelo a esta cuenta desde Intercambios recientes entre blockchains.",
-  "Your account's EVM address": "Dirección EVM de tu cuenta"
+  "Your account's EVM address": "Dirección EVM de tu cuenta",
+  "By confirming, you agree to the <Terms>Terms of Service</Terms>.": "Al confirmar, aceptas los <Terms>Términos del servicio</Terms>.",
+  "Buy with USDC or ETH": "Comprar con USDC o ETH"
 }

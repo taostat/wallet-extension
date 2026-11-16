@@ -14,6 +14,7 @@ import {
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { api } from "@ui/api"
+import { CrossChainBuyMenuItem } from "@ui/domains/CrossChain/CrossChainBuyMenuItem"
 import { CrossChainSellMenuItem } from "@ui/domains/CrossChain/CrossChainSellMenuItem"
 import { useNomPoolStakingStatus } from "@ui/domains/Staking/hooks/nomPools/useNomPoolStakingStatus"
 import { useStakeModal } from "@ui/domains/Staking/Stake/hooks/useStakeModal"
@@ -91,6 +92,7 @@ export const TokenContextMenu = forwardRef<HTMLElement, Props>(function AccountC
           <StakeMenuItem tokenId={tokenId} />
         </Suspense>
         {balances ? <CrossChainSellMenuItem balances={balances} /> : null}
+        <CrossChainBuyMenuItem tokenId={tokenId} />
         <ViewTokenDetailsMenuItem tokenId={tokenId} />
       </ContextMenuContent>
     </ContextMenu>
