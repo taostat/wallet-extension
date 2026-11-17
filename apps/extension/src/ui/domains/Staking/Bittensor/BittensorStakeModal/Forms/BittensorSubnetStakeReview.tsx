@@ -354,7 +354,7 @@ export const BittensorSubnetStakeReview = () => {
             checked={isPriceImpactAcked}
             onChange={(e) => setIsPriceImpactAcked(e.target.checked)}
           >
-            {t("I understand this trade has a very high price impact")}
+            {t("I understand this trade has a high price impact")}
           </Checkbox>
         )}
         <BittensorConfirmSignButton

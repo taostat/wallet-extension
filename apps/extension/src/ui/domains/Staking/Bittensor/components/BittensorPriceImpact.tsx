@@ -52,7 +52,7 @@ export const BittensorPriceImpact = ({ withWarning = true }: { withWarning?: boo
           <div>
             {level === "very-high"
               ? t(
-                  "Very high price impact. On average this trade fills at a price {{impact}}% worse than the current price. Consider a smaller amount.",
+                  "High price impact. On average this trade fills at a price {{impact}}% worse than the current price. Consider a smaller amount.",
                   { impact: priceImpact.toFixed(2) },
                 )
               : t(
