@@ -191,6 +191,11 @@ const ReviewDetails = () => {
                 <Fiat amount={breakdown.networkGasUsd} forceCurrency="usd" noCountUp />
               </DetailRow>
             ) : null}
+            {breakdown.priceDifferenceUsd !== undefined ? (
+              <DetailRow label={t("Price difference")}>
+                <Fiat amount={breakdown.priceDifferenceUsd} forceCurrency="usd" noCountUp />
+              </DetailRow>
+            ) : null}
           </div>
         ) : null}
         {networkFee !== undefined ? (

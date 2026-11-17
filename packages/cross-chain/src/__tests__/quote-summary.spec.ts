@@ -56,6 +56,8 @@ describe("quoteCosts", () => {
       solverUsd: 1.83,
       networkGasUsd: 0.5,
       priceImpactBps: 12,
+      // The three fees make up the whole 3.50: no price difference line.
+      priceDifferenceUsd: undefined,
     })
   })
 
@@ -74,6 +76,86 @@ describe("quoteCosts", () => {
   it("trusts a split within 5% of the input value", () => {
     expect(quoteCosts(taoToUsdc({ fees: { sellUsd: "371.00" } })).breakdown).toBeDefined()
     expect(quoteCosts(taoToUsdc({ fees: { sellUsd: "370.00" } })).breakdown).toBeUndefined()
+  })
+
+  describe("price difference", () => {
+    /** The real sell of 2026-11-16: 0.05 TAO for 9.18 USDC, $0.16 total. */
+    const realSell = (fees: Partial<NonNullable<QuoteSummaryInput["fees"]>> = {}) =>
+      taoToUsdc({
+        inputAmount: 50_000_000n,
+        outputAmount: 9_180_241n,
+        inputUsd: "9.34",
+        outputUsd: "9.18",
+        fees: {
+          sellUsd: "9.34",
+          serviceUsd: "0.0279",
+          solverUsd: "0.0559",
+          fillGasUsd: "0.0443",
+          ...fees,
+        } as QuoteSummaryInput["fees"],
+      })
+
+    it("is the total less the three fees, so the lines add up", () => {
+      const { totalUsd, breakdown } = quoteCosts(realSell())
+      expect(totalUsd).toBeCloseTo(0.16, 10)
+      // 0.16 − (0.0279 + 0.0559 + 0.0443) = 0.0319
+      expect(breakdown?.priceDifferenceUsd).toBeCloseTo(0.0319, 10)
+      const {
+        serviceUsd = 0,
+        solverUsd = 0,
+        networkGasUsd = 0,
+        priceDifferenceUsd = 0,
+      } = breakdown ?? {}
+      expect(serviceUsd + solverUsd + networkGasUsd + priceDifferenceUsd).toBeCloseTo(0.16, 10)
+    })
+
+    it("is left out under half a cent, and never negative", () => {
+      // 0.16 − 0.1559: 0.0041.
+      expect(quoteCosts(realSell({ solverUsd: "0.0837" })).breakdown?.priceDifferenceUsd).toBe(
+        undefined,
+      )
+      // 0.16 − 0.1631: below zero.
+      expect(quoteCosts(realSell({ solverUsd: "0.0909" })).breakdown?.priceDifferenceUsd).toBe(
+        undefined,
+      )
+      // Exactly half a cent is shown.
+      expect(
+        quoteCosts(realSell({ serviceUsd: "0.05", solverUsd: "0.05", fillGasUsd: "0.055" }))
+          .breakdown?.priceDifferenceUsd,
+      ).toBeCloseTo(0.005, 10)
+    })
+
+    it("shows exactly half a cent when the float subtraction lands just under it", () => {
+      // 3.34 − 3.18 − (0.05 + 0.05 + 0.055) is 0.004999999999999699 in floating point.
+      const { breakdown } = quoteCosts(
+        taoToUsdc({
+          inputUsd: "3.34",
+          outputUsd: "3.18",
+          fees: { sellUsd: "3.34", serviceUsd: "0.05", solverUsd: "0.05", fillGasUsd: "0.055" },
+        }),
+      )
+      expect(breakdown?.priceDifferenceUsd).toBeCloseTo(0.005, 10)
+    })
+
+    it("is left out when a fee is missing", () => {
+      for (const fees of [
+        { serviceUsd: undefined },
+        { solverUsd: undefined },
+        { fillGasUsd: "n/a" },
+      ] as const) {
+        const { breakdown } = quoteCosts(
+          realSell(fees as Partial<NonNullable<QuoteSummaryInput["fees"]>>),
+        )
+        expect(breakdown).toBeDefined()
+        expect(breakdown?.priceDifferenceUsd).toBeUndefined()
+      }
+    })
+
+    it("is left out without the total", () => {
+      expect(
+        quoteCosts({ ...realSell(), outputUsd: undefined }).breakdown?.priceDifferenceUsd,
+      ).toBeUndefined()
+    })
   })
 
   it("never shows a negative cost, and none without both USD values", () => {

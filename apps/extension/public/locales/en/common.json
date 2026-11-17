@@ -2346,5 +2346,6 @@
   "Your {{symbol}} left this account but wasn't swapped: it's staked at your account's EVM address. Move it back to this account from Recent cross-chain swaps.": "Your {{symbol}} left this account but wasn't swapped: it's staked at your account's EVM address. Move it back to this account from Recent cross-chain swaps.",
   "Your account's EVM address": "Your account's EVM address",
   "By confirming, you agree to the <Terms>Terms of Service</Terms>.": "By confirming, you agree to the <Terms>Terms of Service</Terms>.",
-  "Buy with USDC or ETH": "Buy with USDC or ETH"
+  "Buy with USDC or ETH": "Buy with USDC or ETH",
+  "Price difference": "Price difference"
 }

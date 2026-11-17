@@ -2336,5 +2336,6 @@
   "Your {{symbol}} left this account but wasn't swapped: it's staked at your account's EVM address. Move it back to this account from Recent cross-chain swaps.": "Il tuo {{symbol}} ha lasciato questo account ma non è stato scambiato: è in staking all'indirizzo EVM del tuo account. Riportalo su questo account da Scambi cross-chain recenti.",
   "Your account's EVM address": "Indirizzo EVM del tuo account",
   "By confirming, you agree to the <Terms>Terms of Service</Terms>.": "Confermando, accetti i <Terms>Termini di servizio</Terms>.",
-  "Buy with USDC or ETH": "Compra con USDC o ETH"
+  "Buy with USDC or ETH": "Compra con USDC o ETH",
+  "Price difference": "Differenza di prezzo"
 }

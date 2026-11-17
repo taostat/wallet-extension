@@ -36,6 +36,11 @@ export function quoteRate(quote: QuoteSummaryInput, outputDecimals: number): num
 /** Share of `inputUsd` that `fees.sellUsd` may be off by and still be trusted. */
 const FEE_BREAKDOWN_TOLERANCE = 0.05
 
+/** The least price difference (USD) worth its own line: half a cent. */
+const MIN_PRICE_DIFFERENCE_USD = 0.005
+/** Absorbs float error in the subtraction, so a remainder of exactly half a cent is shown. */
+const PRICE_DIFFERENCE_EPSILON_USD = 1e-9
+
 export type QuoteCostBreakdown = {
   serviceUsd: number | undefined
   solverUsd: number | undefined
@@ -43,6 +48,33 @@ export type QuoteCostBreakdown = {
   networkGasUsd: number | undefined
   /** Pool fee plus price impact of the swap into the output, in bps. */
   priceImpactBps: number | undefined
+  /**
+   * What the total costs beyond the three fees, in USD: `totalUsd − (service + solver + network
+   * gas)`, so the lines add up to the total. On a sell, the gap between the market price of what
+   * is sold and the price the quote gives for it. Only with all three fees known and the remainder
+   * at least half a cent; never negative. The website's `priceImpactUsd`.
+   */
+  priceDifferenceUsd: number | undefined
+}
+
+/**
+ * The total's remainder after the three fees (`priceDifferenceUsd`), or `undefined` without the
+ * total or any fee, or under half a cent (negative included).
+ */
+function priceDifferenceRemainder(
+  totalUsd: number | undefined,
+  fees: readonly (number | undefined)[],
+): number | undefined {
+  if (totalUsd === undefined) return undefined
+  let feesUsd = 0
+  for (const fee of fees) {
+    if (fee === undefined) return undefined
+    feesUsd += fee
+  }
+  const remainder = totalUsd - feesUsd
+  return remainder >= MIN_PRICE_DIFFERENCE_USD - PRICE_DIFFERENCE_EPSILON_USD
+    ? remainder
+    : undefined
 }
 
 export type QuoteCosts = {
@@ -76,20 +108,28 @@ export function quoteCosts(quote: QuoteSummaryInput): QuoteCosts {
     sellUsd !== undefined &&
     Math.abs(sellUsd - inputUsd) <= inputUsd * FEE_BREAKDOWN_TOLERANCE
 
-  const priceImpactBps = fees?.poolSlippageBps
+  if (!trusted) return { totalUsd, breakdown: undefined }
+
+  const priceImpactBps = fees.poolSlippageBps
+  const serviceUsd = parseUsd(fees.serviceUsd)
+  const solverUsd = parseUsd(fees.solverUsd)
+  const networkGasUsd = parseUsd(fees.fillGasUsd)
   return {
     totalUsd,
-    breakdown: trusted
-      ? {
-          serviceUsd: parseUsd(fees.serviceUsd),
-          solverUsd: parseUsd(fees.solverUsd),
-          networkGasUsd: parseUsd(fees.fillGasUsd),
-          priceImpactBps:
-            typeof priceImpactBps === "number" && Number.isFinite(priceImpactBps)
-              ? priceImpactBps
-              : undefined,
-        }
-      : undefined,
+    breakdown: {
+      serviceUsd,
+      solverUsd,
+      networkGasUsd,
+      priceImpactBps:
+        typeof priceImpactBps === "number" && Number.isFinite(priceImpactBps)
+          ? priceImpactBps
+          : undefined,
+      priceDifferenceUsd: priceDifferenceRemainder(totalUsd, [
+        serviceUsd,
+        solverUsd,
+        networkGasUsd,
+      ]),
+    },
   }
 }
 
