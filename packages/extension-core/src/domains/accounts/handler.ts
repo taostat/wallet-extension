@@ -23,8 +23,8 @@ import type {
   RequestAccountExternalSetIsPortfolio,
   RequestAccountForget,
   RequestAccountRename,
-  RequestAccountTaostatsAppImport,
   RequestAccountsCatalogAction,
+  RequestAccountTaostatsAppImport,
   RequestAddAccountDerive,
   RequestAddAccountExternal,
   RequestAddAccountKeypair,
@@ -41,7 +41,6 @@ import { getSecretKeyFromPjsJson } from "../keyring/getSecretKeyFromPjsJson"
 import { keyringStore } from "../keyring/store"
 import { getNextDerivationPathForMnemonicId } from "../keyring/utils"
 import { withPjsKeyringPair } from "../keyring/withPjsKeyringPair"
-import { withSecretKey } from "../keyring/withSecretKey"
 import { sortAccounts } from "./helpers"
 import { AccountsCatalogData, emptyCatalog } from "./store.catalog"
 

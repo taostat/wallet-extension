@@ -15,7 +15,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "lint": "eslint src --max-warnings 0",
     "clean": "rm -rf dist .turbo node_modules"
   },
