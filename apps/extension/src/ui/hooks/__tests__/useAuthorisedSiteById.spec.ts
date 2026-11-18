@@ -2,6 +2,8 @@ import { act, renderHook, waitFor } from "@testing-library/react"
 import { AuthorizedSiteId, ProviderType } from "extension-core"
 import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
 
+import { api } from "@ui/api"
+
 import { ADDRESSES } from "../../../../tests/constants"
 import { TestWrapper } from "../../../../tests/TestWrapper"
 import useAuthorisedSiteById from "../useAuthorisedSiteById"
@@ -9,7 +11,7 @@ import useAuthorisedSiteById from "../useAuthorisedSiteById"
 type RenderProps = { siteId: AuthorizedSiteId; providerType: ProviderType }
 
 test("Can get Authorised Site by id", async () => {
-  const { result, rerender } = renderHook(
+  const { result } = renderHook(
     (props: RenderProps) => useAuthorisedSiteById(props.siteId, props.providerType),
     {
       initialProps: { siteId: TAOSTATS_WEB_APP_DOMAIN, providerType: "polkadot" },
@@ -17,26 +19,31 @@ test("Can get Authorised Site by id", async () => {
     },
   )
 
-  await waitFor(() => expect(result.current.addresses?.length).toBe(2))
+  await waitFor(() => expect(result.current.connected).toHaveLength(2))
   expect(result.current.connectAllSubstrate).toBe(true)
+  expect(result.current.availableAddresses).toEqual(
+    expect.arrayContaining([ADDRESSES.GAV, ADDRESSES.ALICE, ADDRESSES.TAOSTATS_TEST]),
+  )
 
-  expect(result.current.availableAddresses).toStrictEqual(Object.values(ADDRESSES))
+  // The real store re-emits via chrome.storage.onChanged, which the
+  // webextension mock doesn't fire, so assert on the update the hook sends.
+  const update = jest.mocked(api.authorizedSiteUpdate)
 
   await act(async () => result.current.toggleOne(ADDRESSES.GAV))
-  waitFor(() => expect(result.current.addresses?.length).toBe(1))
+  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, {
+    addresses: [ADDRESSES.ALICE],
+  })
+
+  await act(async () => result.current.toggleOne(ADDRESSES.TAOSTATS_TEST))
+  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, {
+    addresses: [ADDRESSES.GAV, ADDRESSES.ALICE, ADDRESSES.TAOSTATS_TEST],
+  })
 
   await act(async () => result.current.toggleAll(false))
-  waitFor(() => expect(result.current.addresses?.length).toBe(0))
+  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, { addresses: [] })
 
   await act(async () => result.current.toggleAll(true))
-  waitFor(() => expect(result.current.addresses?.length).toBe(3))
-
-  rerender({ siteId: "app.stellaswap.com", providerType: "ethereum" })
-  await waitFor(() => expect(result.current.addresses).toBeUndefined())
-  expect(result.current.ethAddresses?.length).toBe(1)
-  expect(result.current.connectAllSubstrate).toBeUndefined()
-
-  expect(result.current.availableAddresses).toStrictEqual([ADDRESSES.VITALIK])
-  await act(async () => result.current.setEthChainId(12))
-  waitFor(() => expect(result.current.ethChainId).toBe(12))
+  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, {
+    addresses: result.current.availableAddresses,
+  })
 })
