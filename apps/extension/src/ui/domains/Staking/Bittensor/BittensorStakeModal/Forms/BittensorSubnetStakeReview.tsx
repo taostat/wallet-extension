@@ -1,6 +1,7 @@
+import { BalanceFormatter } from "@taostats-wallet/balances"
 import { Edit01 } from "@untitledui/icons/Edit01"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
-import { FC, ReactNode, useEffect, useState } from "react"
+import { FC, ReactNode, Suspense, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
@@ -15,6 +16,7 @@ import {
 
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
+import { useSelectedCurrency, useToken, useTokenRates } from "@ui/state"
 
 import { Fiat } from "../../../../Asset/Fiat"
 import { TokenLogo } from "../../../../Asset/TokenLogo"
@@ -205,7 +207,7 @@ export const BittensorSubnetStakeReview = () => {
               <ReviewPriceRow
                 label={t("Current price")}
                 tooltip={t("The subnet's alpha price right now, before this trade.")}
-                planck={spotPrice}
+                price={spotPrice}
                 tokenId={nativeToken?.id}
               />
             )}
@@ -214,7 +216,7 @@ export const BittensorSubnetStakeReview = () => {
               tooltip={t(
                 "The average price per alpha this trade fills at. A larger trade moves the pool price as it fills, so it is worse than the current price.",
               )}
-              planck={swapPrice}
+              price={swapPrice}
               tokenId={nativeToken?.id}
             />
             {typeof worstCasePrice === "bigint" && (
@@ -252,7 +254,7 @@ export const BittensorSubnetStakeReview = () => {
                     )}
                   </div>
                 }
-                planck={worstCasePrice}
+                price={worstCasePrice}
                 tokenId={nativeToken?.id}
                 approximate
               />
@@ -442,12 +444,20 @@ const ReviewPriceRow = ({
   tooltip,
   planck,
   tokenId,
+  price,
   approximate = false,
 }: {
   label: string
   tooltip: ReactNode
-  planck: bigint | null | undefined
-  tokenId: string | undefined
+  /** An amount, shown with its fiat value. */
+  planck?: bigint | null
+  tokenId?: string
+  /**
+   * A price in rao per alpha (pass the TAO `tokenId`), shown in TAO to four significant figures:
+   * fixed decimals hide the gaps between the current, expected and worst-case price. Its value in
+   * the display currency follows in brackets, unless that currency is TAO.
+   */
+  price?: bigint | null
   approximate?: boolean
 }) => (
   <div className="flex items-center justify-between gap-4 text-xs">
@@ -464,7 +474,14 @@ const ReviewPriceRow = ({
     </Tooltip>
     <div className="text-fg-secondary flex items-center gap-1 overflow-hidden">
       {approximate && <span className="text-fg-primary">≈</span>}
-      {typeof planck === "bigint" ? (
+      {typeof price === "bigint" ? (
+        <span className="whitespace-nowrap">
+          <span className="text-fg-primary">{formatRaoPrice(price)}</span>
+          <Suspense>
+            <PriceInDisplayCurrency price={price} tokenId={tokenId} />
+          </Suspense>
+        </span>
+      ) : typeof planck === "bigint" ? (
         <TokensAndFiat
           planck={planck}
           tokenId={tokenId}
@@ -475,6 +492,29 @@ const ReviewPriceRow = ({
     </div>
   </div>
 )
+
+/**
+ * A TAO price's value in the display currency, in brackets. Nothing when the display currency is
+ * TAO (it would repeat the price) or the TAO rate isn't known.
+ */
+const PriceInDisplayCurrency = ({ price, tokenId }: { price: bigint; tokenId?: string }) => {
+  const currency = useSelectedCurrency()
+  const token = useToken(tokenId)
+  const tokenRates = useTokenRates(tokenId)
+  const balance = useMemo(
+    () => (token ? new BalanceFormatter(price, token.decimals, tokenRates) : null),
+    [price, token, tokenRates],
+  )
+
+  if (currency === "tao" || !balance || balance.fiat(currency) === null) return null
+
+  return (
+    <>
+      {" "}
+      (<Fiat amount={balance} noCountUp />)
+    </>
+  )
+}
 
 /**
  * A price in rao per alpha as TAO, to four significant figures: subnet prices are often below 0.01,

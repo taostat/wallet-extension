@@ -19,9 +19,11 @@ export const BittensorPriceImpact = ({ withWarning = true }: { withWarning?: boo
   if (typeof priceImpact !== "number") return null
 
   const level = getPriceImpactLevel(priceImpact)
+  // Theme tokens: the shared Tailwind theme replaces the default orange scale, so
+  // `text-orange-500` generates nothing and the text stays grey.
   const colorClassName = classNames(
-    level === "high" && "text-orange-500",
-    level === "very-high" && "text-red-500",
+    level === "high" && "text-fg-orange",
+    level === "very-high" && "text-fg-error",
   )
 
   return (
@@ -47,18 +49,29 @@ export const BittensorPriceImpact = ({ withWarning = true }: { withWarning?: boo
         </div>
       </div>
       {withWarning && level !== "normal" && (
-        <div className={classNames("flex items-start gap-1 text-xs", colorClassName)}>
+        <div
+          role="alert"
+          className={classNames(
+            "flex items-start gap-2 rounded border p-3 text-xs",
+            level === "very-high"
+              ? "border-fg-error/40 bg-error-secondary text-fg-error"
+              : "border-fg-orange/40 bg-orange-secondary text-fg-orange",
+          )}
+        >
           <AlertTriangle className="mt-0.5 shrink-0" />
-          <div>
-            {level === "very-high"
-              ? t(
-                  "High price impact. On average this trade fills at a price {{impact}}% worse than the current price. Consider a smaller amount.",
-                  { impact: priceImpact.toFixed(2) },
-                )
-              : t(
-                  "High price impact. On average this trade fills at a price {{impact}}% worse than the current price.",
-                  { impact: priceImpact.toFixed(2) },
-                )}
+          <div className="flex flex-col gap-0.5">
+            <div className="font-bold">{t("High price impact")}</div>
+            <div>
+              {level === "very-high"
+                ? t(
+                    "On average this trade fills at a price {{impact}}% worse than the current price. Consider a smaller amount.",
+                    { impact: priceImpact.toFixed(2) },
+                  )
+                : t(
+                    "On average this trade fills at a price {{impact}}% worse than the current price.",
+                    { impact: priceImpact.toFixed(2) },
+                  )}
+            </div>
           </div>
         </div>
       )}
