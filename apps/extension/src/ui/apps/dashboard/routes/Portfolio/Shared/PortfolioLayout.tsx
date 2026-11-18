@@ -6,6 +6,7 @@ import { useMatch, useNavigate } from "react-router-dom"
 import { Button } from "taostats-ui"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
+import { CrossChainAttentionNotice } from "@ui/domains/CrossChain/CrossChainAttentionNotice"
 import { AccountPortfolioSummary } from "@ui/domains/Portfolio/AccountPortfolioSummary"
 import { DashboardPortfolioHeader } from "@ui/domains/Portfolio/DashboardPortfolioHeader"
 import { GetStarted } from "@ui/domains/Portfolio/GetStarted/GetStarted"
@@ -69,6 +70,7 @@ export const PortfolioLayout: FC<
         >
           {header ?? <DashboardPortfolioHeader />}
           <PortfolioAccountCheck>
+            <CrossChainAttentionNotice />
             {!isTokenDetailRoute && <AccountPortfolioSummary />}
             <div className="flex h-8 w-full items-center justify-between gap-4 overflow-hidden">
               <div className="text-fg-primary text-md shrink-0 font-medium">{t("Holdings")}</div>

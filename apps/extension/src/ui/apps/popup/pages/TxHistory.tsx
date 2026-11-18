@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 
 import { SuspenseTracker } from "@taostats/components/SuspenseTracker"
 import { AnalyticsPage } from "@ui/api/analytics"
+import { CrossChainRecentSwapsLink } from "@ui/domains/CrossChain/CrossChainRecentSwapsLink"
 import {
   TxHistoryList,
   TxHistoryProvider,
@@ -52,6 +53,7 @@ const Header = () => {
     <div className="flex w-full shrink-0 flex-col gap-1 px-2 pb-2">
       <div className="text-fg-primary text-lg font-bold">{t("Recent Activity")}</div>
       <div className="text-fg-secondary text-xs">{t("Review your latest transactions.")}</div>
+      <CrossChainRecentSwapsLink className="self-start" />
     </div>
   )
 }

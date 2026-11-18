@@ -44,6 +44,10 @@ export const TAOSTATS_WEB_APP_DOMAIN = "taostats.io"
 export const TAOSTATS_WEB_APP_URL = "https://taostats.io"
 export const TAOSTATS_WEB_APP_STAKING_URL = "https://dash.taostats.io/stake"
 export const TAOSTATS_WEB_APP_SWAP_URL = "https://taostats.io/swap"
+/** The website's cross-chain swaps (`?from=eth:usdc&to=bt:tao` picks the pair). */
+export const TAOSTATS_WEB_APP_CROSS_CHAIN_SWAP_URL = "https://taostats.io/swap/cross-chain"
+/** The website's Terms of Service, which a cross-chain swap's confirm accepts. */
+export const TAOSTATS_WEB_APP_TERMS_URL = "https://taostats.io/terms"
 
 export const SIGNET_LANDING_URL = ""
 export const SIGNET_APP_URL = ""

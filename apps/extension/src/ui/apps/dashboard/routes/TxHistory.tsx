@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useOpenClose } from "taostats-ui"
 
 import { DashboardLayout } from "@ui/apps/dashboard/layout"
+import { CrossChainRecentSwapsLink } from "@ui/domains/CrossChain/CrossChainRecentSwapsLink"
 import { NetworkLogo } from "@ui/domains/Networks/NetworkLogo"
 import { PortfolioContainer } from "@ui/domains/Portfolio/PortfolioContainer"
 import { usePortfolioNavigation } from "@ui/domains/Portfolio/usePortfolioNavigation"
@@ -64,6 +65,7 @@ const Header = () => {
       <div className="flex flex-col gap-1">
         <div className="text-fg-primary text-bold text-lg">{t("Recent Activity")}</div>
         <div className="text-fg-secondary text-sm">{t("Review your latest transactions.")}</div>
+        <CrossChainRecentSwapsLink className="self-start" />
       </div>
       <div>
         <NetworkFilterButton />

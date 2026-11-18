@@ -105,6 +105,17 @@ const config = (env) => {
         maxSize: 4 * 1024 * 1024,
         maxInitialRequests: Infinity,
         cacheGroups: {
+          // The cross-chain swap SDK, and the parts of viem only it uses, load with the sell modal
+          // (React.lazy) and never with a page. Without this group `vendor` takes them, and
+          // `vendor` is in every page's first load. Async chunks only, and unnamed, so they stay
+          // out of other lazy routes' chunks too.
+          "vendor-cross-chain": {
+            test: /[\\/]node_modules[\\/](@tao\.com[\\/]intents-sdk|viem|ox|abitype|@noble|@scure|@adraffy)[\\/]/,
+            chunks: "async",
+            idHint: "vendor-cross-chain",
+            priority: 0,
+            reuseExistingChunk: true,
+          },
           "vendor-react": {
             test: /[\\/]node_modules[\\/](react|react-dom|lottie-react|lottie-web)[\\/]/,
             name: "vendor-react",
