@@ -84,20 +84,9 @@ jobs:
         if: steps.version.outputs.release == 'true'
         run: pnpm lint
 
-      # These packages' tests are currently broken (stale expectations, tests
-      # for Ethereum/Solana curves the wallet no longer supports, and a deleted
-      # apps/extension/tests harness). Remove each `--filter '!…'` once its
-      # tests pass, and switch to plain `pnpm test` when none are left.
       - name: Test
         if: steps.version.outputs.release == 'true'
-        run: >-
-          pnpm -r --no-bail
-          --filter '!extension'
-          --filter '!extension-core'
-          --filter '!@taostats-wallet/keyring'
-          --filter '!@taostats-wallet/crypto'
-          --filter '!@taostats-wallet/chaindata-provider'
-          test
+        run: pnpm test
 
       # Also type-checks (ForkTsChecker blocks in production mode) and runs
       # ESLint over the extension app.

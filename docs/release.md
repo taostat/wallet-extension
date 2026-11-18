@@ -25,6 +25,22 @@ gh variable set RELEASE_RUNNER --body github
 The "Hippius Runners" GitHub App on the org's Hippius account must have access
 to this repository.
 
+## PR checks
+
+`.github/workflows/pr.yml` runs `pnpm lint`, `pnpm test` and
+`pnpm build:extension:ci` on every PR to `main`, and attaches the CI build zip
+to the run (kept 14 days). Load it unpacked from `chrome://extensions` to try a PR.
+
+- PRs from branches in this repo run on `hippius-large`. PRs from forks always
+  run on `ubuntu-latest`, because the repo is public and fork code shouldn't run
+  on our Hippius VMs. To keep every PR off Hippius:
+  `gh variable set PR_RUNNER --body github`.
+- To block merges on it, add the **Lint, test and build** check as required in
+  a `main` branch ruleset. Renaming the job means updating the ruleset too.
+
+The release workflow runs lint and tests again before building, in case
+something lands on `main` without a PR.
+
 ## One-time setup
 
 ### Google Cloud (keyless auth, no JSON key stored in GitHub)
