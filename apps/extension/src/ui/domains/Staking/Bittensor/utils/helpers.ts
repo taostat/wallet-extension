@@ -4,9 +4,11 @@ import { ScaleApi } from "@taostats-wallet/sapi"
 
 import { StakeDirection } from "../hooks/types"
 import {
+  HIGH_PRICE_IMPACT,
   MEVSHIELD_SERVER_FEE_WALLET_ADDRESS,
   ROOT_NETUID,
   TAOSTATS_FEE_RECEIVER_ADDRESS_BITTENSOR,
+  VERY_HIGH_PRICE_IMPACT,
 } from "./constants"
 
 const withFeeTransfer = (taostatsFee: bigint) => taostatsFee > 0n
@@ -32,43 +34,141 @@ export type BittensorSwapSimulation = {
   alpha_fee: bigint
 }
 
-export const getSwapSimulation = async (
+/**
+ * A swap simulation plus the pool state it was priced against.
+ * Prices are in rao per alpha (TAO per alpha scaled by 10^9), like `current_alpha_price` and `limit_price`.
+ */
+export type BittensorSwapQuote = {
+  simulation: BittensorSwapSimulation
+  /** Pool price before the swap */
+  spotPrice: bigint
+  /** SubnetTAO */
+  taoReserve: bigint
+  /** SubnetAlphaIn */
+  alphaReserve: bigint
+}
+
+export const getSwapQuote = async (
   sapi: ScaleApi,
   netuid: number,
   direction: StakeDirection,
   amount: bigint,
-) => {
+): Promise<BittensorSwapQuote> => {
   const method = direction === "taoToAlpha" ? "sim_swap_tao_for_alpha" : "sim_swap_alpha_for_tao"
 
-  // this will simulate the swap over the different layers of liquidity available in the pool, output is deterministic
-  return sapi.getRuntimeCallValue<BittensorSwapSimulation>("SwapRuntimeApi", method, [
-    netuid,
-    amount,
+  const [simulation, spotPrice, taoReserve, alphaReserve] = await Promise.all([
+    // this will simulate the swap over the different layers of liquidity available in the pool, output is deterministic
+    sapi.getRuntimeCallValue<BittensorSwapSimulation>("SwapRuntimeApi", method, [netuid, amount]),
+    sapi.getRuntimeCallValue<bigint>("SwapRuntimeApi", "current_alpha_price", [netuid]),
+    sapi.getStorage<bigint>("SubtensorModule", "SubnetTAO", [netuid]),
+    sapi.getStorage<bigint>("SubtensorModule", "SubnetAlphaIn", [netuid]),
   ])
+
+  return {
+    simulation,
+    spotPrice: BigInt(spotPrice ?? 0),
+    taoReserve: BigInt(taoReserve ?? 0),
+    alphaReserve: BigInt(alphaReserve ?? 0),
+  }
 }
 
-export const getLimitPrice = (
-  simulation: BittensorSwapSimulation,
-  direction: StakeDirection,
-  tolerance: number = 0, // 0.0005 = 0.05%
-) => {
-  // prevent division by zero
+const PRICE_UNIT = 10n ** BigInt(TAO_DECIMALS)
+const TOLERANCE_SCALE = 10_000n // dont expect more than 4 decimal places in tolerance
+
+const divCeil = (a: bigint, b: bigint) => (a + b - 1n) / b
+
+/** Average price paid across the whole swap. This is what the user gets, not where the pool ends up. */
+export const getAverageSwapPrice = (simulation: BittensorSwapSimulation) => {
   if (!simulation.alpha_amount) return 0n
+  return (simulation.tao_amount * PRICE_UNIT) / simulation.alpha_amount
+}
 
-  const toleranceScaleFactor = 10_000n // dont expect more than 4 decimal places in tolerance
-  const scaledTolerance = BigInt(Math.round(tolerance * Number(toleranceScaleFactor)))
+/**
+ * Pool price once the swap has gone through.
+ *
+ * Subtensor prices pools as `(w_base / w_quote) * taoReserve / alphaReserve`, and the weights do not change
+ * during a swap, so the end price is the spot price scaled by how the reserves ratio moves.
+ * Simulated amounts exclude the swap fee, which goes to the block author rather than the pool.
+ *
+ * Rounded against the user (up for stake, down for unstake) so a limit built on top of it never lands
+ * on the wrong side of what the chain computes.
+ */
+export const getEndPrice = (
+  { simulation, spotPrice, taoReserve, alphaReserve }: BittensorSwapQuote,
+  direction: StakeDirection,
+) => {
+  if (spotPrice <= 0n || taoReserve <= 0n || alphaReserve <= 0n) return null
 
-  // price based on the simulation result
-  const unit = 10n ** BigInt(TAO_DECIMALS)
-  const price = (simulation.tao_amount * unit) / simulation.alpha_amount
+  const isStake = direction === "taoToAlpha"
+  const taoAfter = isStake ? taoReserve + simulation.tao_amount : taoReserve - simulation.tao_amount
+  const alphaAfter = isStake
+    ? alphaReserve - simulation.alpha_amount
+    : alphaReserve + simulation.alpha_amount
+  if (taoAfter <= 0n || alphaAfter <= 0n) return null
 
-  // limit price with tolerance
-  const limitPrice =
-    direction === "taoToAlpha"
-      ? (price * (toleranceScaleFactor + scaledTolerance)) / toleranceScaleFactor
-      : (price * (toleranceScaleFactor - scaledTolerance)) / toleranceScaleFactor
+  const denominator = taoReserve * alphaAfter
 
-  return limitPrice
+  // spotPrice is truncated by the runtime api, so the true spot is in [spotPrice, spotPrice + 1).
+  // Use the upper bound when staking so the result never falls below the true end price.
+  return isStake
+    ? divCeil((spotPrice + 1n) * taoAfter * alphaReserve, denominator)
+    : (spotPrice * taoAfter * alphaReserve) / denominator
+}
+
+/**
+ * Limit price for add_stake_limit / remove_stake_limit.
+ * The chain stops the swap when the pool price reaches this value, so it is built from the END price:
+ * the tolerance is headroom for the price moving after the user signs, on top of the impact they were shown.
+ */
+export const getLimitPrice = (
+  endPrice: bigint,
+  direction: StakeDirection,
+  tolerance: number = 0, // 0.005 = 0.5%
+) => {
+  const scaledTolerance = BigInt(Math.round(tolerance * Number(TOLERANCE_SCALE)))
+
+  return direction === "taoToAlpha"
+    ? divCeil(endPrice * (TOLERANCE_SCALE + scaledTolerance), TOLERANCE_SCALE)
+    : (endPrice * (TOLERANCE_SCALE - scaledTolerance)) / TOLERANCE_SCALE
+}
+
+/**
+ * Worst average price the user can end up paying (stake) or receiving (unstake) per alpha, given
+ * their slippage tolerance: the expected average price moved by the tolerance. Approximate, because
+ * the chain enforces the tolerance on the pool price after the swap, which moves with the average
+ * price but not by exactly the same amount.
+ */
+export const getWorstCasePrice = (
+  expectedPrice: bigint,
+  direction: StakeDirection,
+  tolerance: number = 0, // 0.005 = 0.5%
+) => getLimitPrice(expectedPrice, direction, tolerance)
+
+/**
+ * The least the swap returns (alpha for a stake, TAO for an unstake) before the chain cancels it,
+ * given the slippage tolerance. Approximate, like `getWorstCasePrice`.
+ */
+export const getMinimumAmountOut = (
+  amountOut: bigint,
+  direction: StakeDirection,
+  tolerance: number = 0, // 0.005 = 0.5%
+) => {
+  const scaledTolerance = BigInt(Math.round(tolerance * Number(TOLERANCE_SCALE)))
+
+  return direction === "taoToAlpha"
+    ? (amountOut * TOLERANCE_SCALE) / (TOLERANCE_SCALE + scaledTolerance)
+    : (amountOut * (TOLERANCE_SCALE - scaledTolerance)) / TOLERANCE_SCALE
+}
+
+/**
+ * How far `price` sits from the spot price, as a positive percentage (2 = 2%).
+ * Shown to the user with the average swap price: how much worse than the current price the trade
+ * fills on average, which is what it costs them. The pool itself ends about twice as far away.
+ */
+export const getPriceImpact = (spotPrice: bigint, price: bigint) => {
+  if (spotPrice <= 0n) return null
+  const diff = price > spotPrice ? price - spotPrice : spotPrice - price
+  return Number((diff * 1_000_000n) / spotPrice) / 10_000
 }
 
 type StakeAction = "stake" | "unstake"
@@ -329,4 +429,13 @@ export const getBittensorInclusionFee = ({
   })
 
   return sapi.getInclusionFee(call.pallet, call.method, call.args, address, genesisHash)
+}
+
+export type PriceImpactLevel = "normal" | "high" | "very-high"
+
+export const getPriceImpactLevel = (priceImpact: number | null | undefined): PriceImpactLevel => {
+  if (typeof priceImpact !== "number") return "normal"
+  if (priceImpact >= VERY_HIGH_PRICE_IMPACT) return "very-high"
+  if (priceImpact >= HIGH_PRICE_IMPACT) return "high"
+  return "normal"
 }

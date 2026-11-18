@@ -7,9 +7,14 @@ import { useGetBittensorMinJoinStake } from "../../hooks/bittensor/useGetBittens
 import { useGetBittensorDefaultMinStake } from "../../hooks/bittensor/useGetBittensorMinStake"
 import { MEVSHIELD_SERVER_FEE_RAO } from "../utils/constants"
 import {
+  getAverageSwapPrice,
   getBittensorStakingPayload,
   getBittensorUnstakePayload,
+  getEndPrice,
   getLimitPrice,
+  getMinimumAmountOut,
+  getPriceImpact,
+  getWorstCasePrice,
 } from "../utils/helpers"
 import { StakeDirection } from "./types"
 import { useBittensorAlphaPrice } from "./useBittensorAlphaPrice"
@@ -101,7 +106,7 @@ export const useBittensorStakingPayload = ({
   }, [settledAmountIn, direction, netuid, subnetFee])
 
   const {
-    data: simulation,
+    data: quote,
     isLoading: isLoadingSimulation,
     isError: isErrorSimulation,
     error: quoteError,
@@ -111,26 +116,33 @@ export const useBittensorStakingPayload = ({
     netuid,
     amountIn: amount,
   })
+  const simulation = quote?.simulation
 
-  // price that we will pay if no slippage occurs
+  // average price paid across the swap
   const swapPrice = useMemo(() => {
     if (!simulation) return null
-    return getLimitPrice(simulation, direction, 0)
-  }, [simulation, direction])
+    return getAverageSwapPrice(simulation)
+  }, [simulation])
+
+  // pool price once the swap has gone through. root has no pool, its limit price is ignored.
+  const endPrice = useMemo(() => {
+    if (!quote || !netuid) return null
+    return getEndPrice(quote, direction)
+  }, [quote, netuid, direction])
 
   const priceLimit = useMemo(() => {
-    if (!simulation) return null
+    if (netuid === 0) return 0n
+    if (typeof endPrice !== "bigint") return null
     const tolerance = slippage / 100 // percentage to decimal
-    return getLimitPrice(simulation, direction, tolerance)
-  }, [simulation, direction, slippage])
+    return getLimitPrice(endPrice, direction, tolerance)
+  }, [endPrice, netuid, direction, slippage])
 
+  // how much worse than the current price this swap fills on average: what it costs the user.
+  // root has no pool, so nothing to show.
   const priceImpact = useMemo(() => {
-    if (!alphaPrice || !swapPrice) return null
-    const scaleFactor = 10_000n // to get 4 decimal places
-    const diff = swapPrice - alphaPrice // bigint
-    const scaledPriceImpact = (diff * scaleFactor) / alphaPrice
-    return Number(scaledPriceImpact) / 100
-  }, [alphaPrice, swapPrice])
+    if (!quote || !netuid || typeof swapPrice !== "bigint") return null
+    return getPriceImpact(quote.spotPrice, swapPrice)
+  }, [quote, netuid, swapPrice])
 
   const taostatsFee = useMemo(() => {
     if (typeof settledAmountIn !== "bigint" || !simulation) return null
@@ -151,6 +163,23 @@ export const useBittensorStakingPayload = ({
         return simulation.tao_amount - taostatsFee
     }
   }, [direction, simulation, taostatsFee])
+
+  // pool price before the swap, from the same block as the quote. root has no pool.
+  const spotPrice = useMemo(() => {
+    if (!quote || !netuid) return null
+    return quote.spotPrice
+  }, [quote, netuid])
+
+  // the worst the slippage tolerance lets the trade fill at. root has no limit, so no worst case.
+  const worstCasePrice = useMemo(() => {
+    if (!netuid || typeof swapPrice !== "bigint") return null
+    return getWorstCasePrice(swapPrice, direction, slippage / 100)
+  }, [netuid, swapPrice, direction, slippage])
+
+  const minimumAmountOut = useMemo(() => {
+    if (!netuid || amountOut <= 0n) return null
+    return getMinimumAmountOut(amountOut, direction, slippage / 100)
+  }, [netuid, amountOut, direction, slippage])
 
   const serverFeeForShieldRao = useMemo(() => {
     if (!forTaostatsShield) return undefined
@@ -227,6 +256,12 @@ export const useBittensorStakingPayload = ({
     minTaoStake,
     minAlphaUnstake,
     priceImpact: amountPending ? null : priceImpact,
+    spotPrice: amountPending ? null : spotPrice,
+    worstCasePrice: amountPending ? null : worstCasePrice,
+    minimumAmountOut: amountPending ? null : minimumAmountOut,
+    // pool price after the swap and the limit sent to the chain (built from it). root has neither.
+    poolPriceAfter: amountPending || !netuid ? null : endPrice,
+    chainPriceLimit: amountPending || !netuid ? null : priceLimit,
     slippage,
   }
 }
