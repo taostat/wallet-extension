@@ -33,11 +33,11 @@ import { buildSapiBatchPayload } from "./substrate-signer"
 export const TAO_OPEN_EXPECTED_GAS = 300_000n
 
 /**
- * The gas an alpha sell's `open` is expected to use: the SDK's own bound for it (1.5.1:
- * `MEASURED_ALPHA_GAS` 460 000 × `SWEEP_GAS_SAFETY_FACTOR` 2), not a measurement of ours. To be
- * replaced by one from a real alpha sell on mainnet.
+ * The gas an alpha sell's `open` is expected to use: 442 636 measured on mainnet on 2026-11-18
+ * (block 9532407, an SN64 sell), rounded up to the SDK's own figure (1.5.1: `MEASURED_ALPHA_GAS`).
+ * Repricing that batch with this gas predicted 0.00799 TAO against the 0.00765 it paid.
  */
-export const ALPHA_OPEN_EXPECTED_GAS = 920_000n
+export const ALPHA_OPEN_EXPECTED_GAS = 460_000n
 
 /** EVM wei per rao: TAO has 18 decimals on the EVM side and 9 on the Substrate side. */
 const WEI_PER_RAO = 1_000_000_000n

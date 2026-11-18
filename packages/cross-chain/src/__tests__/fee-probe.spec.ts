@@ -7,7 +7,6 @@ import { BATCH_METHOD, BATCH_PALLET } from "../calls"
 import { BatchFeeProbeStop, estimateSellBatchFee } from "../fee-probe"
 import {
   ALICE,
-  alphaSellBatch,
   approveCall,
   evmCall,
   evmWithdraw,
@@ -127,24 +126,29 @@ describe("estimateSellBatchFee", () => {
 
   it("is an alpha sell's expected cost: open at its expected gas, approve at half its limit", async () => {
     const { sapi } = setup()
-    // Gas: approve 40 000 + open 920 000 = 960 000. Fee 140 306 + 9 600 000, gas 960 000 × 10 gwei.
+    // Gas: approve 40 000 + open 460 000 = 500 000. Fee 140 306 + 5 000 000, gas 500 000 × 10 gwei.
     expect(await estimate(sdkLikeOpen(alphaSellBatchAtSdkLimits()), sapi)).toBe(
-      9_740_306n + 9_600_000n,
+      5_140_306n + 5_000_000n,
     )
     expect(sapi.getFeeEstimate).toHaveBeenCalledWith(
-      expect.objectContaining({ gasLimit: 960_000n }),
+      expect.objectContaining({ gasLimit: 500_000n }),
     )
   })
 
   it("never prices a call above its own gas limit", async () => {
     const { sapi } = setup()
-    // The fixture's alpha open has a 660 000 limit, under the 920 000 expected: 660 000 is used.
-    // Gas: approve 40 000 + open 660 000 = 700 000, at 10 gwei.
-    expect(await estimate(sdkLikeOpen(alphaSellBatch()), sapi)).toBe(
-      140_306n + 7_000_000n + 7_000_000n,
-    )
+    // This alpha open has a 400 000 limit, under the 460 000 expected: 400 000 is used.
+    // Gas: approve 40 000 + open 400 000 = 440 000, at 10 gwei.
+    const calls = [
+      transferStake(),
+      transferKeepAlive(),
+      approveCall(),
+      evmCall(SETTLER, openCall().args[2] as `0x${string}`, 0n, 400_000n, 10n * GWEI),
+      evmWithdraw(),
+    ]
+    expect(await estimate(sdkLikeOpen(calls), sapi)).toBe(140_306n + 4_400_000n + 4_400_000n)
     expect(sapi.getFeeEstimate).toHaveBeenCalledWith(
-      expect.objectContaining({ gasLimit: 700_000n }),
+      expect.objectContaining({ gasLimit: 440_000n }),
     )
   })
 
