@@ -14,6 +14,8 @@ name: Release (Chrome Web Store)
 # One-time setup: docs/release.md.
 #   vars:    CWS_PUBLISHER_ID, CWS_EXTENSION_ID, GCP_WORKLOAD_IDENTITY_PROVIDER,
 #            GCP_SERVICE_ACCOUNT, RELEASE_RUNNER (optional: `github` to skip Hippius)
+#   env var: CROSS_CHAIN_SELL on the chrome-web-store environment (optional:
+#            `true` to include cross-chain sells)
 #   secrets: SENTRY_AUTH_TOKEN, SENTRY_DSN, POSTHOG_AUTH_TOKEN (all optional)
 
 on:
@@ -96,6 +98,9 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           POSTHOG_AUTH_TOKEN: ${{ secrets.POSTHOG_AUTH_TOKEN }}
+          # Cross-chain sells are left out of production builds unless this is
+          # `true`. Our API's cross-chain config can still switch them off at runtime.
+          CROSS_CHAIN_SELL: ${{ vars.CROSS_CHAIN_SELL }}
         run: pnpm build:extension:prod
 
       - name: Locate zip
