@@ -4,6 +4,7 @@ import path from "node:path"
 import { Metadata, TypeRegistry } from "@polkadot/types"
 import { expandMetadata } from "@polkadot/types/metadata/decorate"
 import { Binary, FixedSizeBinary, parseMetadataRpc } from "@taostats-wallet/scale"
+import { vi } from "vitest"
 
 /**
  * Bittensor fixtures for tests: the repo's `.papi/scale/bittensor.scale` metadata, read by
@@ -29,7 +30,7 @@ export const createBittensorRegistry = () => {
   const registry = new TypeRegistry()
   const metadata = new Metadata(registry, metadataHex)
   // silence setMetadata's notice about Bittensor's own signed extensions
-  const warn = jest.spyOn(console, "warn").mockImplementation(() => {})
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
   try {
     registry.setMetadata(metadata)
   } finally {

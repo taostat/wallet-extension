@@ -1,4 +1,5 @@
 import type { DispatchError } from "@polkadot/types/interfaces"
+import { describe, expect, it } from "vitest"
 
 import type { TestEvent, TestEventRecord } from "../../../../tests/bittensor"
 import {

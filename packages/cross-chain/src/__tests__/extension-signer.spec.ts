@@ -1,6 +1,7 @@
 import type { SubstrateEvent, SubstrateSignOptions } from "@tao.com/intents-sdk"
 import { Binary } from "@polkadot-api/substrate-bindings"
 import { InvalidParamsError, SubstrateError } from "@tao.com/intents-sdk"
+import { describe, expect, it, vi } from "vitest"
 
 import type { ExtensionSignerApi, ExtensionSignerSapi } from "../extension-signer"
 import type { SubmitAndWatchResult } from "../substrate-signer"
@@ -59,20 +60,20 @@ const setup = ({
   const signerPayload: SignerPayload = { address: ALICE, method: "0x1234" }
 
   const sapi = {
-    getExtrinsicPayload: jest.fn(async (): Promise<Payload> => {
+    getExtrinsicPayload: vi.fn(async (): Promise<Payload> => {
       log.push("build")
       return { payload: signerPayload, txMetadata: undefined, shortMetadata: undefined }
     }),
-    getFeeEstimate: jest.fn(async () => fee),
-    getStorage: jest.fn(async () => account),
-    getConstant: jest.fn(() => ED),
+    getFeeEstimate: vi.fn(async () => fee),
+    getStorage: vi.fn(async () => account),
+    getConstant: vi.fn(() => ED),
   }
   const api = {
-    subSign: jest.fn(async () => {
+    subSign: vi.fn(async () => {
       log.push("subSign")
       return { signature: SIGNATURE, extrinsicHash: EXTRINSIC_HASH }
     }),
-    subSubmitAndWatch: jest.fn(async (): Promise<SubmitAndWatchResult> => {
+    subSubmitAndWatch: vi.fn(async (): Promise<SubmitAndWatchResult> => {
       log.push("subSubmitAndWatch")
       return { blockHash: BLOCK_HASH, events: [success], ok: true }
     }),
@@ -135,7 +136,7 @@ describe("createExtensionSubstrateSigner: signAndSendBatch", () => {
   it("submits nothing when the SDK vetoes after signing", async () => {
     const { api, log, signer } = setup()
     const veto = new InvalidParamsError("Signing took too long")
-    const onSigned = jest.fn()
+    const onSigned = vi.fn()
 
     const error = await rejection(
       signer.signAndSendBatch(taoSellBatch(), {
@@ -238,7 +239,7 @@ describe("createExtensionSubstrateSigner: spendableAfterFee", () => {
       { address: ALICE },
     )
     // the fee estimate is a runtime call: stand it in
-    const getFeeEstimate = jest.fn(async () => 2_000_000n)
+    const getFeeEstimate = vi.fn(async () => 2_000_000n)
     await expect(readSpendableAfterFee({ ...sapi, getFeeEstimate }, ALICE, payload)).resolves.toBe(
       5_000_000_000n - 1_000_000n - 2_000_000n,
     )

@@ -13,6 +13,7 @@ import {
   UserRejectedError,
 } from "@tao.com/intents-sdk"
 import { encodeAbiParameters, numberToHex } from "viem"
+import { afterEach, describe, expect, it, vi } from "vitest"
 
 import type {
   SapiSubstrateSignerDeps,
@@ -79,18 +80,18 @@ const setup = (overrides: Partial<SapiSubstrateSignerDeps<Payload>> = {}) => {
   const signer = createSapiSubstrateSigner<Payload>({
     address: ALICE,
     buildBatchPayload: (calls) => buildSapiBatchPayload(sapi, ALICE, calls),
-    sign: jest.fn(async ({ payload }): Promise<SignedBatch> => {
+    sign: vi.fn(async ({ payload }): Promise<SignedBatch> => {
       signed.push(payload.method)
       return { signature: SIGNATURE, extrinsicHash: EXTRINSIC_HASH }
     }),
-    submitAndWatch: jest.fn(
+    submitAndWatch: vi.fn(
       async (): Promise<SubmitAndWatchResult> => ({
         blockHash: BLOCK_HASH,
         events: [executed, success],
         ok: true,
       }),
     ),
-    getSpendableAfterFee: jest.fn(async () => 10n ** 12n),
+    getSpendableAfterFee: vi.fn(async () => 10n ** 12n),
     ...overrides,
   })
   // Record what the SDK hands the signer.
@@ -158,15 +159,15 @@ describe("the SDK's recoverRefund through our signer", () => {
   })
 
   it("is refused before signing when the coldkey can't pay for the gas it funds", async () => {
-    const sign = jest.fn()
-    const { recover } = run({ getSpendableAfterFee: jest.fn(async () => 0n), sign })
+    const sign = vi.fn()
+    const { recover } = run({ getSpendableAfterFee: vi.fn(async () => 0n), sign })
     await expect(recover()).rejects.toBeInstanceOf(InsufficientBalanceError)
     expect(sign).not.toHaveBeenCalled()
   })
 
   it("reports a reverted EVM call (evm.ExecutedFailed) as EvmCallFailedError", async () => {
     const { recover } = run({
-      submitAndWatch: jest.fn(async () => ({
+      submitAndWatch: vi.fn(async () => ({
         blockHash: BLOCK_HASH,
         events: [{ section: "evm", method: "ExecutedFailed", data: [USDC.toLowerCase()] }, success],
         ok: true,
@@ -181,7 +182,7 @@ describe("the SDK's recoverRefund through our signer", () => {
     "reads a failed gas sweep (%s) as EvmCallFailedError, as it does from polkadotSigner",
     async (dispatchError) => {
       const { recover } = run({
-        submitAndWatch: jest.fn(async () => ({
+        submitAndWatch: vi.fn(async () => ({
           blockHash: BLOCK_HASH,
           events: [],
           ok: false,
@@ -196,7 +197,7 @@ describe("the SDK's recoverRefund through our signer", () => {
 
   it("passes any other on-chain failure through as SubstrateError with its dispatch error", async () => {
     const { recover } = run({
-      submitAndWatch: jest.fn(async () => ({
+      submitAndWatch: vi.fn(async () => ({
         blockHash: BLOCK_HASH,
         events: [],
         ok: false,
@@ -214,7 +215,7 @@ describe("the SDK's recoverRefund through our signer", () => {
 
   it("reports a signing failure as SubstrateError, never as the user declining", async () => {
     const { recover, progress } = run({
-      sign: jest.fn(async () => Promise.reject(new Error("Cancelled"))),
+      sign: vi.fn(async () => Promise.reject(new Error("Cancelled"))),
     })
     const error = await recover().catch((e: unknown) => e)
     expect(error).toBeInstanceOf(SubstrateError)
@@ -225,7 +226,7 @@ describe("the SDK's recoverRefund through our signer", () => {
 
   it("passes a UserRejectedError thrown by the wallet through", async () => {
     const { recover, progress } = run({
-      sign: jest.fn(async () => Promise.reject(new UserRejectedError())),
+      sign: vi.fn(async () => Promise.reject(new UserRejectedError())),
     })
     await expect(recover()).rejects.toBeInstanceOf(UserRejectedError)
     expect(progress).toEqual(["awaiting-signature"])

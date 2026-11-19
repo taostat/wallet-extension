@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import type { SellCtaInput } from "../sell-cta"
 import { quoteErrorCtaLabel, resolveSellCta } from "../sell-cta"
 

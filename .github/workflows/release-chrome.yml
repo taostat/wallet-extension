@@ -1,0 +1,193 @@
+name: Release (Chrome Web Store)
+
+# On every push to main: if apps/extension/package.json carries a version that
+# has no `release/v<version>` tag yet, build the production Chrome zip, upload
+# it to the Chrome Web Store as a draft (NOT published / submitted for review),
+# then tag the commit and attach the zip to a GitHub release.
+#
+# A push that doesn't bump the version is a no-op after a few seconds, so
+# merging ordinary PRs is safe. The store rejects an upload whose manifest
+# version isn't higher than the last one anyway.
+#
+# Submitting for review stays manual in the Developer Dashboard.
+#
+# One-time setup: docs/release.md.
+#   vars:    CWS_PUBLISHER_ID, CWS_EXTENSION_ID, GCP_WORKLOAD_IDENTITY_PROVIDER,
+#            GCP_SERVICE_ACCOUNT, RELEASE_RUNNER (optional: `github` to skip Hippius)
+#   secrets: SENTRY_AUTH_TOKEN, SENTRY_DSN, POSTHOG_AUTH_TOKEN (all optional)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+run-name: "Release Chrome - ${{ github.sha }}"
+
+# Never run two releases at once, and never cancel one half-way through an
+# upload.
+concurrency:
+  group: release-chrome
+  cancel-in-progress: false
+
+permissions:
+  contents: write # push the release tag and create the GitHub release
+  id-token: write # keyless auth to Google Cloud (Workload Identity Federation)
+
+jobs:
+  release:
+    # Hippius by default (docs.hippius.com/use/compute/runners); set the repo
+    # variable RELEASE_RUNNER to `github` to fall back to GitHub-hosted runners.
+    # One job on purpose: a second job would wait another 3-5 minutes for its
+    # own Hippius VM.
+    runs-on: ${{ vars.RELEASE_RUNNER == 'github' && 'ubuntu-latest' || 'hippius-large' }}
+    timeout-minutes: 30
+    environment: chrome-web-store
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Check whether this version is already released
+        id: version
+        run: |
+          version="$(jq -r .version apps/extension/package.json)"
+          tag="release/v${version}"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" > /dev/null; then
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::${tag} already exists - bump apps/extension/package.json to release. Nothing to do."
+          else
+            echo "release=true" >> "$GITHUB_OUTPUT"
+            echo "Releasing v${version}"
+          fi
+
+      - name: Set up pnpm
+        if: steps.version.outputs.release == 'true'
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5
+
+      # Hippius VMs have no Node; setup-node installs it on both runners.
+      - name: Set up Node.js
+        if: steps.version.outputs.release == 'true'
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        if: steps.version.outputs.release == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        if: steps.version.outputs.release == 'true'
+        run: pnpm lint
+
+      - name: Test
+        if: steps.version.outputs.release == 'true'
+        run: pnpm test
+
+      # Also type-checks (ForkTsChecker blocks in production mode) and runs
+      # ESLint over the extension app.
+      - name: Build production extension
+        if: steps.version.outputs.release == 'true'
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          POSTHOG_AUTH_TOKEN: ${{ secrets.POSTHOG_AUTH_TOKEN }}
+        run: pnpm build:extension:prod
+
+      - name: Locate zip
+        if: steps.version.outputs.release == 'true'
+        id: zip
+        run: |
+          zip="apps/extension/dist/chrome/taostats_extension_v${{ steps.version.outputs.version }}_chrome.zip"
+          if [ ! -f "$zip" ]; then
+            echo "::error::Expected $zip after the build"
+            ls -la apps/extension/dist/chrome || true
+            exit 1
+          fi
+          # The store reads the version from the manifest inside the zip; make
+          # sure it's the one we're about to tag.
+          manifest_version="$(unzip -p "$zip" manifest.json | jq -r .version)"
+          if [ "$manifest_version" != "${{ steps.version.outputs.version }}" ]; then
+            echo "::error::manifest.json says $manifest_version, package.json says ${{ steps.version.outputs.version }}"
+            exit 1
+          fi
+          if unzip -p "$zip" manifest.json | jq -e 'has("key")' > /dev/null; then
+            echo "::error::Production manifest must not contain a \"key\" field"
+            exit 1
+          fi
+          echo "path=$zip" >> "$GITHUB_OUTPUT"
+
+      - name: Keep the zip as a workflow artifact
+        if: steps.version.outputs.release == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: taostats-extension-v${{ steps.version.outputs.version }}-chrome
+          path: ${{ steps.zip.outputs.path }}
+          if-no-files-found: error
+
+      # Short-lived token for the service account added under Account in the
+      # Chrome Web Store Developer Dashboard. No long-lived key is stored.
+      - name: Authenticate to Google Cloud
+        if: steps.version.outputs.release == 'true'
+        id: gcp
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/chromewebstore
+          access_token_lifetime: 900s
+
+      # Chrome Web Store API v2. `:upload` replaces the draft package only; it
+      # never publishes or submits for review.
+      - name: Upload to Chrome Web Store (draft)
+        if: steps.version.outputs.release == 'true'
+        env:
+          TOKEN: ${{ steps.gcp.outputs.access_token }}
+          ITEM: publishers/${{ vars.CWS_PUBLISHER_ID }}/items/${{ vars.CWS_EXTENSION_ID }}
+          ZIP: ${{ steps.zip.outputs.path }}
+        run: |
+          set -euo pipefail
+          api="https://chromewebstore.googleapis.com"
+
+          response="$(curl --silent --show-error --fail-with-body \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -X POST -T "${ZIP}" \
+            "${api}/upload/v2/${ITEM}:upload")"
+          echo "$response" | jq .
+          state="$(echo "$response" | jq -r '.uploadState // empty')"
+
+          # Large packages are processed asynchronously; poll until done.
+          for _ in $(seq 1 30); do
+            [ "$state" = "IN_PROGRESS" ] || [ "$state" = "UPLOAD_IN_PROGRESS" ] || break
+            sleep 10
+            status="$(curl --silent --show-error --fail-with-body \
+              -H "Authorization: Bearer ${TOKEN}" \
+              "${api}/v2/${ITEM}:fetchStatus")"
+            state="$(echo "$status" | jq -r '.lastAsyncUploadState // empty')"
+            echo "Upload state: ${state}"
+          done
+
+          if [ "$state" != "SUCCEEDED" ]; then
+            echo "::error::Chrome Web Store upload ended in state '${state}'"
+            exit 1
+          fi
+          echo "::notice::v${{ steps.version.outputs.version }} uploaded as a draft. Submit it for review in the Chrome Web Store Developer Dashboard."
+
+      - name: Tag and create GitHub release
+        if: steps.version.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+          ZIP: ${{ steps.zip.outputs.path }}
+        run: |
+          gh release create "$TAG" "$ZIP" \
+            --target "$GITHUB_SHA" \
+            --title "v${VERSION}" \
+            --generate-notes \
+            --latest

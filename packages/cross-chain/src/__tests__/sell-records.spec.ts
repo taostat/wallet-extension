@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import type { CrossChainSellRecord, SellOrderRef } from "../sell-records"
 import {
   applySellOrderState,

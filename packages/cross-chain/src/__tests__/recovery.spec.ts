@@ -8,6 +8,7 @@ import {
   SUBTENSOR_EVM,
   UserRejectedError,
 } from "@tao.com/intents-sdk"
+import { describe, expect, it, vi } from "vitest"
 
 import { describeCrossChainError } from "../error-codes"
 import {
@@ -61,7 +62,7 @@ describe("buildRecoverStakeRequest", () => {
 
 describe("readRefundAtMirror", () => {
   it("reads the chain's USDC at the account's EVM address", async () => {
-    const readContract = jest.fn(async () => 9_970_000n)
+    const readContract = vi.fn(async () => 9_970_000n)
     await expect(readRefundAtMirror({ readContract } as never, ALICE)).resolves.toBe(9_970_000n)
     expect(readContract).toHaveBeenCalledWith(
       expect.objectContaining({

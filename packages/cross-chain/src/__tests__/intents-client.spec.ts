@@ -8,6 +8,7 @@ import {
   TYPEHASH_9737,
 } from "@tao.com/intents-sdk"
 import { mainnet } from "viem/chains"
+import { describe, expect, it } from "vitest"
 
 import type { CrossChainConfig } from "../config"
 import { DEFAULT_CROSS_CHAIN_CONFIG } from "../config"

@@ -4,6 +4,7 @@ import type { SignerPayloadJSON } from "@substrate/txwrapper-core"
 import { Keyring } from "@polkadot/keyring"
 import { blake2AsU8a, cryptoWaitReady, signatureVerify } from "@polkadot/util-crypto"
 import { Err, Ok } from "ts-results"
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 
 import type { TestEventRecord } from "../../../../tests/bittensor"
 import type { MessageTypes, RequestTypes, ResponseTypes } from "../../../types"
@@ -33,28 +34,28 @@ import { SubHandler } from "../handler.extension"
 // the real ones, over an in-memory `db.transactionsV2`.
 // ---------------------------------------------------------------------------------------------
 
-jest.mock("../../../libs/Handler", () => ({
+vi.mock("../../../libs/Handler", () => ({
   ExtensionHandler: class {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(_stores: unknown) {}
   },
 }))
-jest.mock("../../../rpcs/chain-connector", () => ({
-  chainConnector: { send: jest.fn(), subscribe: jest.fn() },
+vi.mock("../../../rpcs/chain-connector", () => ({
+  chainConnector: { send: vi.fn(), subscribe: vi.fn() },
 }))
-jest.mock("../../../rpcs/chaindata", () => ({
-  chaindataProvider: { getNetworkByGenesisHash: jest.fn() },
+vi.mock("../../../rpcs/chaindata", () => ({
+  chaindataProvider: { getNetworkByGenesisHash: vi.fn() },
 }))
-jest.mock("../../../util/getTypeRegistry", () => ({ getTypeRegistry: jest.fn() }))
-jest.mock("../../../util/getMetadataDef", () => ({ getMetadataDef: jest.fn() }))
-jest.mock("../../keyring/store", () => ({ keyringStore: { getAccount: jest.fn() } }))
-jest.mock("../../keyring/withPjsKeyringPair", () => ({ withPjsKeyringPair: jest.fn() }))
-jest.mock("../../../config/sentry", () => ({ sentry: { captureException: jest.fn() } }))
-jest.mock("../../../notifications", () => ({ createNotification: jest.fn() }))
-jest.mock("../../app/store.settings", () => ({
-  settingsStore: { get: jest.fn(async () => false) },
+vi.mock("../../../util/getTypeRegistry", () => ({ getTypeRegistry: vi.fn() }))
+vi.mock("../../../util/getMetadataDef", () => ({ getMetadataDef: vi.fn() }))
+vi.mock("../../keyring/store", () => ({ keyringStore: { getAccount: vi.fn() } }))
+vi.mock("../../keyring/withPjsKeyringPair", () => ({ withPjsKeyringPair: vi.fn() }))
+vi.mock("../../../config/sentry", () => ({ sentry: { captureException: vi.fn() } }))
+vi.mock("../../../notifications", () => ({ createNotification: vi.fn() }))
+vi.mock("../../app/store.settings", () => ({
+  settingsStore: { get: vi.fn(async () => false) },
 }))
-jest.mock("../../../db", () => {
+vi.mock("../../../db", () => {
   type Row = Record<string, unknown> & { id: string }
   const rows = new Map<string, Row>()
   const collection = (items: Row[]) => ({
@@ -88,15 +89,15 @@ jest.mock("../../../db", () => {
 })
 
 const history = (
-  jest.requireMock("../../../db") as {
+  (await import("../../../db")) as unknown as {
     db: { transactionsV2: { rows: Map<string, Record<string, unknown>> } }
   }
 ).db.transactionsV2.rows
 
-const send = chainConnector.send as jest.Mock
-const subscribe = chainConnector.subscribe as jest.Mock
-const getAccount = keyringStore.getAccount as jest.Mock
-const withPair = withPjsKeyringPair as jest.Mock
+const send = chainConnector.send as Mock
+const subscribe = chainConnector.subscribe as Mock
+const getAccount = keyringStore.getAccount as Mock
+const withPair = withPjsKeyringPair as Mock
 
 // ---------------------------------------------------------------------------------------------
 
@@ -202,12 +203,12 @@ beforeAll(async () => {
 })
 
 beforeEach(() => {
-  jest.useFakeTimers()
-  jest.clearAllMocks()
+  vi.useFakeTimers()
+  vi.clearAllMocks()
   history.clear()
   chain = { submitted: [], eventsHex: blockEvents([events.success()]), heads: {}, unsubscribed: [] }
-  ;(chaindataProvider.getNetworkByGenesisHash as jest.Mock).mockResolvedValue(CHAIN)
-  ;(getTypeRegistry as jest.Mock).mockResolvedValue({ registry })
+  ;(chaindataProvider.getNetworkByGenesisHash as Mock).mockResolvedValue(CHAIN)
+  ;(getTypeRegistry as Mock).mockResolvedValue({ registry })
   getAccount.mockResolvedValue({ type: "keypair", address: ALICE, curve: "sr25519", name: "A" })
   withPair.mockImplementation(async (_address: string, cb: (p: KeyringPair) => unknown) =>
     Ok(await cb(pair)),
@@ -246,8 +247,8 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  jest.clearAllTimers()
-  jest.useRealTimers()
+  vi.clearAllTimers()
+  vi.useRealTimers()
 })
 
 const sign = (p: SignerPayloadJSON) => call("pri(substrate.rpc.sign)", { payload: p })
@@ -292,7 +293,7 @@ describe("pri(substrate.rpc.sign)", () => {
   })
 
   it("signs with chaindata's signature type override when there is one, like submit (LAOS workaround)", async () => {
-    ;(chaindataProvider.getNetworkByGenesisHash as jest.Mock).mockResolvedValue({
+    ;(chaindataProvider.getNetworkByGenesisHash as Mock).mockResolvedValue({
       ...CHAIN,
       hasExtrinsicSignatureTypePrefix: true,
     })
@@ -441,11 +442,11 @@ describe("pri(substrate.rpc.submitAndWatch)", () => {
     const { extrinsicHash, settled } = await submitAndWatch(TX_INFO)
     await waitFor(() => chain.submitted.length)
 
-    await jest.advanceTimersByTimeAsync(89_999)
+    await vi.advanceTimersByTimeAsync(89_999)
     await flush()
     expect(await Promise.race([settled, Promise.resolve("pending")])).toBe("pending")
 
-    await jest.advanceTimersByTimeAsync(1)
+    await vi.advanceTimersByTimeAsync(1)
     const { error } = (await settled) as { error: Error }
     expect(error.message).toBe(
       `Extrinsic ${extrinsicHash} was submitted but not seen in a block within 90 seconds. It may still be included: check the account's history before trying again.`,
@@ -460,7 +461,7 @@ describe("pri(substrate.rpc.submitAndWatch)", () => {
 
   it("submits nothing when the extrinsic can't be watched", async () => {
     subscribe.mockRejectedValue(new Error("no connection"))
-    const warn = jest.spyOn(console, "warn").mockImplementation(() => {})
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
     try {
       const { extrinsicHash, settled } = await submitAndWatch(TX_INFO)
       const { error } = (await settled) as { error: Error }
@@ -518,7 +519,7 @@ describe("pri(substrate.rpc.submit), unchanged", () => {
 
   it("marks the entry unknown when no block is seen within 90 s", async () => {
     const { hash } = await call("pri(substrate.rpc.submit)", { payload: payload() })
-    await jest.advanceTimersByTimeAsync(90_000)
+    await vi.advanceTimersByTimeAsync(90_000)
     await waitFor(() => history.get(hash)?.status === "unknown")
   })
 })

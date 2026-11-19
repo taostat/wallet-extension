@@ -14,6 +14,7 @@ import {
   keccak256,
   pad,
 } from "viem"
+import { describe, expect, it } from "vitest"
 
 import type { SellEvmLog } from "../extrinsic-lookup"
 import {

@@ -1,3 +1,5 @@
+import { describe, expect, it, vi } from "vitest"
+
 import {
   CROSS_CHAIN_CONFIG_TIMEOUT_MS,
   DEFAULT_CROSS_CHAIN_CONFIG,
@@ -15,10 +17,10 @@ const BODY = {
   orderPollIntervalMs: 15_000,
 }
 
-type FetchMock = jest.Mock<Promise<Response>, Parameters<typeof fetch>>
+type FetchMock = Mock<Promise<Response>, Parameters<typeof fetch>>
 
 const mockFetch = (impl: (...args: Parameters<typeof fetch>) => Promise<Response>): FetchMock =>
-  jest.fn(impl)
+  vi.fn(impl)
 
 const answering = (body: unknown, status = 200) =>
   mockFetch(
@@ -188,7 +190,7 @@ describe("fetchCrossChainConfig", () => {
   })
 
   it("uses the global fetch by default", async () => {
-    const spy = jest.spyOn(globalThis, "fetch").mockImplementation(answering(BODY))
+    const spy = vi.spyOn(globalThis, "fetch").mockImplementation(answering(BODY))
     try {
       await expect(fetchCrossChainConfig(API)).resolves.toMatchObject({ source: "server" })
       expect(spy).toHaveBeenCalledWith(CONFIG_URL, expect.objectContaining({ method: "GET" }))
@@ -270,18 +272,18 @@ describe("fetchCrossChainConfig", () => {
 
   it("waits 5 s by default", async () => {
     expect(CROSS_CHAIN_CONFIG_TIMEOUT_MS).toBe(5_000)
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     try {
       let settled = false
       const result = fetchCrossChainConfig(API, { fetch: hanging() }).finally(() => {
         settled = true
       })
-      await jest.advanceTimersByTimeAsync(4_999)
+      await vi.advanceTimersByTimeAsync(4_999)
       expect(settled).toBe(false)
-      await jest.advanceTimersByTimeAsync(1)
+      await vi.advanceTimersByTimeAsync(1)
       await expect(result).resolves.toEqual(fallback(/no answer within 5000 ms/))
     } finally {
-      jest.useRealTimers()
+      vi.useRealTimers()
     }
   })
 

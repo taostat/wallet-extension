@@ -1,3 +1,5 @@
+import { describe, expect, it, vi } from "vitest"
+
 import type { SellRecordsLocks, SellRecordsStorage } from "../sell-records-store"
 import {
   applySellOrderState,
@@ -141,7 +143,7 @@ describe("writes across pages", () => {
   it("writes unlocked, once, when the lock can't be had", async () => {
     const storage = createStorage()
     const locks: SellRecordsLocks = { request: () => Promise.reject(new Error("SecurityError")) }
-    const update = jest.fn((list: ReturnType<typeof storage.stored>) => ({
+    const update = vi.fn((list: ReturnType<typeof storage.stored>) => ({
       list: upsertSellRecord(list, record(1)),
     }))
     await createPage(storage, locks).write(update)
@@ -152,7 +154,7 @@ describe("writes across pages", () => {
   it("never runs an update twice when the update itself fails", async () => {
     const storage = createStorage()
     const { locks } = createLocks()
-    const update = jest.fn(() => {
+    const update = vi.fn(() => {
       throw new Error("boom")
     })
     await expect(createPage(storage, locks).write(update)).rejects.toThrow("boom")
@@ -185,7 +187,7 @@ describe("other pages' writes", () => {
   it("re-reads storage on a change, whatever the event carried", async () => {
     const storage = createStorage()
     let onChange: (() => void) | undefined
-    const listen = jest.fn((callback: () => void) => {
+    const listen = vi.fn((callback: () => void) => {
       onChange = callback
       return () => {
         onChange = undefined
@@ -194,7 +196,7 @@ describe("other pages' writes", () => {
     const { locks } = createLocks()
     const dashboard = createPage(storage, locks, listen)
     const sidePanel = createPage(storage, locks)
-    const listener = jest.fn()
+    const listener = vi.fn()
     const unsubscribe = dashboard.subscribe(listener)
     expect(listen).toHaveBeenCalledTimes(1)
 

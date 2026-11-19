@@ -4,7 +4,6 @@ import {
   RequestSign,
 } from "@polkadot/extension-base/background/types"
 import { Account } from "@taostats-wallet/keyring"
-import { RpcTransactionRequest } from "viem"
 
 import { BaseRequest, BaseRequestId } from "../../types/base"
 

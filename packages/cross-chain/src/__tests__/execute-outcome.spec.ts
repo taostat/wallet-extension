@@ -8,6 +8,7 @@ import {
   TimeoutError,
   UserRejectedError,
 } from "@tao.com/intents-sdk"
+import { describe, expect, it } from "vitest"
 
 import { describeCrossChainError } from "../error-codes"
 import { executionStopFor, isReportedFailure, resolveSellFailure } from "../execute-outcome"

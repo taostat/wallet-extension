@@ -72,10 +72,10 @@ All our apps and packages are 100% [TypeScript](https://www.typescriptlang.org/)
 
 ## Writing and running tests
 
-- Testing is carried out with Jest.
+- Testing is carried out with [Vitest](https://vitest.dev).
 - Tests can be written in `*.spec.ts` files, inside a `__tests__` folder.
-- Follow the pattern in `apps/extension/src/core/handlers/Extension.spec.ts` or `apps/extension/src/core/domains/signing/__tests__/requestsStore.spec.ts`
-- Tests are run with `pnpm test`
+- Follow the pattern in `packages/extension-core/src/domains/signing/__tests__/requestsStore.spec.ts`
+- Tests are run with `pnpm test` (all packages) or `pnpm test:watch`
 
 ## i18n (wallet extension development)
 

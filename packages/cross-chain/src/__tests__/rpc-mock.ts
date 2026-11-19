@@ -4,6 +4,8 @@
  * POSTs to `quoter.url` (the SDK's Quoter) are answered with `quoter.answer(body)` as JSON and
  * recorded with the method `quote`. Anything it can't answer fails the request loudly.
  */
+import { vi } from "vitest"
+
 export const mockJsonRpcFetch = (
   answer: (method: string, params: unknown[], url: string) => unknown,
   {
@@ -15,7 +17,7 @@ export const mockJsonRpcFetch = (
   } = {},
 ) => {
   const requests: Array<{ url: string; method: string }> = []
-  const spy = jest.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+  const spy = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
     const url =
       typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url
     if (quoter && url === quoter.url) {

@@ -5,6 +5,7 @@ import {
   QuoterError,
   SubstrateError,
 } from "@tao.com/intents-sdk"
+import { describe, expect, it } from "vitest"
 
 import {
   CROSS_CHAIN_ERROR_CODES,
