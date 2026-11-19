@@ -43,37 +43,91 @@ something lands on `main` without a PR.
 
 ## One-time setup
 
+This is already done for `taostat/wallet-extension`. The steps are here so it
+can be checked, repaired or redone.
+
+### What exists
+
+| Where             | What                                                                                                                                            |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| GCP project       | `taostats-wallet-extension` (number `426920405585`), only used for releases                                                                     |
+| Service account   | `cws-release@taostats-wallet-extension.iam.gserviceaccount.com`, no IAM roles                                                                   |
+| Workload Identity | pool `github`, OIDC provider `wallet-extension`                                                                                                 |
+| Chrome Web Store  | publisher `T34 Corporation FZCO`; the service account is set under Publisher > Settings > Service account                                       |
+| GitHub            | environment `chrome-web-store` (deployments from `main` only), repo variables `CWS_*` and `GCP_*`, environment variable `CROSS_CHAIN_SELL=true` |
+
+There are no Sentry or PostHog secrets, so store builds ship without either.
+
 ### Google Cloud (keyless auth, no JSON key stored in GitHub)
 
-1. In a GCP project, enable the **Chrome Web Store API**.
-2. Create a service account (no IAM roles needed), e.g.
-   `cws-release@<project>.iam.gserviceaccount.com`.
-3. Create a Workload Identity Pool + GitHub OIDC provider, restricted to this
-   repo and the release environment:
-   - issuer `https://token.actions.githubusercontent.com`
-   - attribute condition:
-     `assertion.repository == 'taostat/wallet-extension' && assertion.environment == 'chrome-web-store'`
-4. Grant the pool principal `roles/iam.workloadIdentityUser` **and**
-   `roles/iam.serviceAccountTokenCreator` on the service account (the workflow
-   mints an OAuth access token for it).
+Run these with `gcloud` (or in Cloud Shell). They're the commands that created
+the setup above:
+
+```bash
+PROJECT_ID=taostats-wallet-extension
+gcloud config set project "$PROJECT_ID"
+PROJECT_NUMBER=$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')
+
+# The IAM Credentials and STS APIs are needed to mint the access token.
+gcloud services enable chromewebstore.googleapis.com iamcredentials.googleapis.com sts.googleapis.com
+
+gcloud iam service-accounts create cws-release --display-name="Chrome Web Store release"
+
+gcloud iam workload-identity-pools create github --location=global --display-name="GitHub Actions"
+gcloud iam workload-identity-pools providers create-oidc wallet-extension \
+  --location=global --workload-identity-pool=github \
+  --issuer-uri=https://token.actions.githubusercontent.com \
+  --attribute-mapping=google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.environment=assertion.environment \
+  --attribute-condition="assertion.repository == 'taostat/wallet-extension' && assertion.environment == 'chrome-web-store'"
+
+SA="cws-release@$PROJECT_ID.iam.gserviceaccount.com"
+MEMBER="principalSet://iam.googleapis.com/projects/$PROJECT_NUMBER/locations/global/workloadIdentityPools/github/attribute.repository/taostat/wallet-extension"
+gcloud iam service-accounts add-iam-policy-binding "$SA" --role=roles/iam.workloadIdentityUser --member="$MEMBER"
+gcloud iam service-accounts add-iam-policy-binding "$SA" --role=roles/iam.serviceAccountTokenCreator --member="$MEMBER"
+```
+
+The attribute condition means only jobs from this repo running in the
+`chrome-web-store` environment can get a token.
 
 ### Chrome Web Store Developer Dashboard
 
-- **Account** section: add the service account email (one per publisher).
-- **Publisher > Settings**: copy the publisher ID.
-- The extension's 32-character item ID is on its **Package** tab.
+All on **Publisher > Settings** (switch to the right publisher first):
+
+- **Service account**: paste the service account email and click
+  **Add a service account**. A publisher can have only one.
+- **Publisher ID**: shown under Profile.
+- The extension's 32-character item ID is on its **Package** tab under Items.
 
 ### GitHub
 
 - Environment `chrome-web-store` (Settings > Environments), with a deployment
-  branch rule of `main` only.
+  branch rule of `main` only:
+
+  ```bash
+  gh api -X PUT repos/taostat/wallet-extension/environments/chrome-web-store --input - <<< '{"deployment_branch_policy":{"protected_branches":false,"custom_branch_policies":true}}'
+  gh api -X POST repos/taostat/wallet-extension/environments/chrome-web-store/deployment-branch-policies -f name=main
+  ```
+
 - Repo variables: `CWS_PUBLISHER_ID`, `CWS_EXTENSION_ID`,
   `GCP_WORKLOAD_IDENTITY_PROVIDER`
-  (`projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`),
-  `GCP_SERVICE_ACCOUNT`.
-- Optional `chrome-web-store` environment variable `CROSS_CHAIN_SELL`: `true`
-  builds cross-chain sells into the release. Anything else leaves them out of
-  the zip. Our API's `/cross-chain/config` (`enabled`) can still switch them
-  off at runtime.
+  (`projects/426920405585/locations/global/workloadIdentityPools/github/providers/wallet-extension`),
+  `GCP_SERVICE_ACCOUNT`. Set with `gh variable set <NAME> --body <value>`.
+- `chrome-web-store` environment variable `CROSS_CHAIN_SELL`: `true` builds
+  cross-chain sells into the release. Anything else leaves them out of the zip.
+  Our API's `/cross-chain/config` (`enabled`) can still switch them off at
+  runtime. Set with
+  `gh variable set CROSS_CHAIN_SELL --env chrome-web-store --body true`.
 - Optional secrets (same as a local prod build's `.env`): `SENTRY_AUTH_TOKEN`,
   `SENTRY_DSN`, `POSTHOG_AUTH_TOKEN`.
+
+## Troubleshooting
+
+| Failing step                 | Likely cause                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| Authenticate to Google Cloud | Provider path, attribute condition, or the two IAM bindings                     |
+| Upload, 403                  | Service account not set on the publisher, or wrong publisher ID                 |
+| Upload, 404                  | Wrong item ID or publisher ID                                                   |
+| Upload, version rejected     | The store already has this version or higher, or a submission is pending review |
+
+Each failure stops before the tag is created, so fix the cause and use
+**Re-run failed jobs**. Re-runs read the current variables.

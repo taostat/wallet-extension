@@ -24,7 +24,10 @@ on:
       - main
   workflow_dispatch:
 
-run-name: "Release Chrome - ${{ github.sha }}"
+# The pushed commit's message on a push (e.g. "Merge pull request #24 from
+# taostat/<branch>"); the branch on a manual run. The version can't go here:
+# run names are set before the job reads it.
+run-name: "Release Chrome - ${{ github.event_name == 'push' && github.event.head_commit.message || format('manual run on {0}', github.ref_name) }}"
 
 # Never run two releases at once, and never cancel one half-way through an
 # upload.
