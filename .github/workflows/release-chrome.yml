@@ -193,9 +193,21 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
           VERSION: ${{ steps.version.outputs.version }}
           ZIP: ${{ steps.zip.outputs.path }}
+        # The REST API with curl: Hippius VMs have no `gh` CLI. Creating the
+        # release creates the tag on this commit.
         run: |
-          gh release create "$TAG" "$ZIP" \
-            --target "$GITHUB_SHA" \
-            --title "v${VERSION}" \
-            --generate-notes \
-            --latest
+          set -euo pipefail
+          api="${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}"
+          auth=(-H "Authorization: Bearer ${GH_TOKEN}" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28")
+
+          release="$(jq -n --arg tag "$TAG" --arg sha "$GITHUB_SHA" --arg name "v${VERSION}" \
+            '{tag_name: $tag, target_commitish: $sha, name: $name, generate_release_notes: true, make_latest: "true"}' |
+            curl --silent --show-error --fail-with-body "${auth[@]}" -X POST "${api}/releases" --data @-)"
+
+          upload_url="$(echo "$release" | jq -r .upload_url | sed 's/{.*}$//')"
+          curl --silent --show-error --fail-with-body "${auth[@]}" \
+            -H "Content-Type: application/zip" \
+            --data-binary @"${ZIP}" \
+            "${upload_url}?name=$(basename "$ZIP")" | jq '{name, size}'
+
+          echo "::notice::Created $(echo "$release" | jq -r .html_url)"
