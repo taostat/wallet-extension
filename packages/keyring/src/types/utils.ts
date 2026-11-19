@@ -4,7 +4,6 @@ import {
   getAccountPlatformFromCurve,
   isBitcoinAddress,
   isEthereumAddress,
-  isSolanaAddress,
 } from "@taostats-wallet/crypto"
 
 import type { Account, AccountLedgerPolkadot, AccountType } from "./account"

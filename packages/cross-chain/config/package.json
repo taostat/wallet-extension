@@ -1,0 +1,4 @@
+{
+  "main": "dist/taostats-wallet-cross-chain-config.cjs.js",
+  "module": "dist/taostats-wallet-cross-chain-config.esm.js"
+}

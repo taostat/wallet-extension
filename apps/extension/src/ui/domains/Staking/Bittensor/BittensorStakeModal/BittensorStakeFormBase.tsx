@@ -26,6 +26,7 @@ import { StakeAccountPicker } from "../../Stake/StakeAccountPicker"
 import { BittensorAssetAccountSummary } from "../components/BittensorAssetAccountSummary"
 import { BittensorStakingModalHeader } from "../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../components/BittensorModalLayout"
+import { BittensorPriceImpact } from "../components/BittensorPriceImpact"
 import { useBittensorStakeModal } from "../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../hooks/useBittensorStakeWizard"
 import { ROOT_NETUID } from "../utils/constants"
@@ -515,6 +516,8 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
               )}
             </div>
           </div>
+          {/* subnets only: root has no pool, so no price impact */}
+          <BittensorPriceImpact />
         </div>
       </div>
 

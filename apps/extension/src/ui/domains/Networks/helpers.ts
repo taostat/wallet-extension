@@ -10,8 +10,6 @@ import {
 import { throwAfter } from "@taostats-wallet/util"
 import { SignerPayloadGenesisHash } from "extension-core"
 import { log } from "extension-shared"
-import { hexToNumber, http } from "viem"
-import { z } from "zod/v4"
 
 // because of validation the same query is done 3 times minimum per url, make all await same promise
 const rpcInfoCache = new Map<string, Promise<SubstrateRpcInfo | null>>()

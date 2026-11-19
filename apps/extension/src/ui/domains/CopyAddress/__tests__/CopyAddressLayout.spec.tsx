@@ -1,23 +1,24 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import React from "react"
+import { describe, expect, it, vi } from "vitest"
 
 import { CopyAddressLayout } from "../CopyAddressLayout"
 import { useCopyAddressModal } from "../useCopyAddressModal"
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (key: string) => key }),
 }))
 
-jest.mock("../useCopyAddressModal", () => ({
-  useCopyAddressModal: jest.fn(),
+vi.mock("../useCopyAddressModal", () => ({
+  useCopyAddressModal: vi.fn(),
 }))
 
 describe("CopyAddressLayout", () => {
   it("exposes the close control by name and closes the modal", () => {
-    const close = jest.fn()
-    jest.mocked(useCopyAddressModal).mockReturnValue({
+    const close = vi.fn()
+    vi.mocked(useCopyAddressModal).mockReturnValue({
       isOpen: false,
-      open: jest.fn(),
+      open: vi.fn(),
       close,
       inputs: {},
     } as ReturnType<typeof useCopyAddressModal>)

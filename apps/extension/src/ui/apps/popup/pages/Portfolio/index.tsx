@@ -95,6 +95,8 @@ export const Portfolio = () => {
     <PortfolioContainer renderWhileLoading>
       <div id="main" className="relative size-full overflow-hidden">
         <PopupTabShell
+          // content scrolls with the shell here, so it must not shrink or the BottomNav placeholder ends up behind the list
+          contentClassName="flex-auto shrink-0"
           headerRight={
             <>
               <TaoPriceHeader />

@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import { decryptData, encryptData } from "./encryption"
 
 describe("encryption", () => {

@@ -1,6 +1,7 @@
 import { Balances } from "@taostats-wallet/balances"
 import { fireEvent, render, screen } from "@testing-library/react"
 import React from "react"
+import { describe, expect, it, vi } from "vitest"
 
 import { useBittensorStakeModal } from "@ui/domains/Staking/Bittensor/hooks/useBittensorStakeModal"
 import { useAccounts } from "@ui/state"
@@ -8,41 +9,41 @@ import { useBittensorNetworkIds } from "@ui/state/bittensor"
 
 import { BittensorUnstakeButton } from "../BittensorUnstakeButton"
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (key: string) => key }),
 }))
 
-jest.mock("@taostats-wallet/crypto", () => ({
+vi.mock("@taostats-wallet/crypto", () => ({
   isAddressEqual: (left: string, right: string) => left === right,
 }))
 
-jest.mock("@ui/domains/Staking/Bittensor/hooks/useBittensorStakeModal", () => ({
-  useBittensorStakeModal: jest.fn(),
+vi.mock("@ui/domains/Staking/Bittensor/hooks/useBittensorStakeModal", () => ({
+  useBittensorStakeModal: vi.fn(),
 }))
 
-jest.mock("@ui/state", () => ({
-  useAccounts: jest.fn(),
+vi.mock("@ui/state", () => ({
+  useAccounts: vi.fn(),
 }))
 
-jest.mock("@ui/state/bittensor", () => ({
-  useBittensorNetworkIds: jest.fn(),
+vi.mock("@ui/state/bittensor", () => ({
+  useBittensorNetworkIds: vi.fn(),
 }))
 
 describe("BittensorUnstakeButton", () => {
   it("exposes the unstake control by name and opens the wizard", () => {
-    const open = jest.fn()
+    const open = vi.fn()
     const address = "test-address"
     const networkId = "bittensor"
     const netuid = 1
     const hotkey = "test-hotkey"
 
-    jest.mocked(useBittensorStakeModal).mockReturnValue({
+    vi.mocked(useBittensorStakeModal).mockReturnValue({
       isOpen: false,
       open,
-      close: jest.fn(),
+      close: vi.fn(),
     } as ReturnType<typeof useBittensorStakeModal>)
-    jest.mocked(useAccounts).mockReturnValue([{ address }] as ReturnType<typeof useAccounts>)
-    jest.mocked(useBittensorNetworkIds).mockReturnValue([networkId])
+    vi.mocked(useAccounts).mockReturnValue([{ address }] as ReturnType<typeof useAccounts>)
+    vi.mocked(useBittensorNetworkIds).mockReturnValue([networkId])
 
     const balances = {
       each: [

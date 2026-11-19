@@ -13,6 +13,8 @@ declare namespace NodeJS {
     readonly INJECTED_WEB3_NAME?: string
     readonly MSG_ORIGIN_PAGE?: string
     readonly MSG_ORIGIN_CONTENT?: string
+    /** `"true"` when cross-chain sells are built in (see webpack.common.js). */
+    readonly CROSS_CHAIN_SELL?: "true" | "false"
 
     // dev utilities
     readonly PASSWORD?: string

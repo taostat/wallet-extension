@@ -1,64 +1,65 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import React from "react"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 import { ChainFormatButton } from "../CopyAddressChainForm"
 import { ChainFormat } from "../CopyAddressFormatPickerDrawer"
 import { useCopyAddressWizard } from "../useCopyAddressWizard"
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (key: string) => key }),
   Trans: ({ defaults }: { defaults: string }) => defaults,
 }))
 
-jest.mock("@taostats-wallet/crypto", () => ({
-  encodeAnyAddress: jest.fn(),
-  isEthereumAddress: jest.fn(),
-  normalizeAddress: jest.fn(),
+vi.mock("@taostats-wallet/crypto", () => ({
+  encodeAnyAddress: vi.fn(),
+  isEthereumAddress: vi.fn(),
+  normalizeAddress: vi.fn(),
 }))
 
-jest.mock("@taostats-wallet/icons", () => ({
+vi.mock("@taostats-wallet/icons", () => ({
   PolkadotIcon: () => null,
   QrIcon: () => null,
 }))
 
-jest.mock("extension-core", () => ({
-  getAccountGenesisHash: jest.fn(),
-  isAccountLedgerPolkadotGeneric: jest.fn(),
+vi.mock("extension-core", () => ({
+  getAccountGenesisHash: vi.fn(),
+  isAccountLedgerPolkadotGeneric: vi.fn(),
 }))
 
-jest.mock("@ui/hooks/useBalancesFiatTotalPerNetwork", () => ({
-  useBalancesFiatTotalPerNetwork: jest.fn(),
+vi.mock("@ui/hooks/useBalancesFiatTotalPerNetwork", () => ({
+  useBalancesFiatTotalPerNetwork: vi.fn(),
 }))
 
-jest.mock("@ui/state", () => ({
-  useAccountByAddress: jest.fn(),
-  useBalancesByAddress: jest.fn(),
-  useFeatureFlag: jest.fn(),
-  useNetworkById: jest.fn(),
-  useNetworks: jest.fn(),
-  useRemoteConfig: jest.fn(),
+vi.mock("@ui/state", () => ({
+  useAccountByAddress: vi.fn(),
+  useBalancesByAddress: vi.fn(),
+  useFeatureFlag: vi.fn(),
+  useNetworkById: vi.fn(),
+  useNetworks: vi.fn(),
+  useRemoteConfig: vi.fn(),
 }))
 
-jest.mock("../../Networks/NetworkLogo", () => ({
+vi.mock("../../Networks/NetworkLogo", () => ({
   NetworkLogo: function MockNetworkLogo() {
     return null
   },
 }))
 
-jest.mock("../useCopyAddressWizard", () => ({
-  useCopyAddressWizard: jest.fn(),
+vi.mock("../useCopyAddressWizard", () => ({
+  useCopyAddressWizard: vi.fn(),
 }))
 
-jest.mock("../CopyAddressLayout", () => ({
+vi.mock("../CopyAddressLayout", () => ({
   CopyAddressLayout: ({ children }: { children: React.ReactNode }) => children,
 }))
 
 describe("ChainFormatButton", () => {
-  const mockSetChainId = jest.fn()
-  const mockCopySpecific = jest.fn()
+  const mockSetChainId = vi.fn()
+  const mockCopySpecific = vi.fn()
 
   beforeEach(() => {
-    jest.mocked(useCopyAddressWizard).mockReturnValue({
+    vi.mocked(useCopyAddressWizard).mockReturnValue({
       setChainId: mockSetChainId,
       copySpecific: mockCopySpecific,
     } as unknown as ReturnType<typeof useCopyAddressWizard>)

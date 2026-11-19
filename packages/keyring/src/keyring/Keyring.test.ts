@@ -5,6 +5,7 @@ import {
   KeypairCurve,
   mnemonicToEntropy,
 } from "@taostats-wallet/crypto"
+import { beforeAll, describe, expect, it } from "vitest"
 
 import { Keyring } from "./Keyring"
 
@@ -16,6 +17,7 @@ const MNEMONIC = {
 const DERIVATION_PATH_SUBSTRATE = "//Alice"
 const DERIVATION_PATH_ETHEREUM = "m/44'/60'/0'/0/0"
 const DERIVATION_PATH_SOLANA = "m/44'/501'/0'/0'"
+const CONTACT_ADDRESS = "5DceuTr7XPqw67PNHW9ewzzo2cZ7Cm8HgfjwUqEpd8Mh8QNg"
 
 const VALID_PASSWORD = " VALID_PASSWORD 😎 "
 const WRONG_PASSWORD = " WRONG_PASSWORD 😡 "
@@ -39,17 +41,17 @@ describe("keyring", () => {
     expect(mnemonic).toEqual(MNEMONIC.mnemonic)
   })
 
-  it("cannot retrieve mnemonic text with wrong password", () => {
-    expect(() => keyring.getMnemonicText(mnemonicId, WRONG_PASSWORD)).rejects.toThrow(
+  it("cannot retrieve mnemonic text with wrong password", async () => {
+    await expect(() => keyring.getMnemonicText(mnemonicId, WRONG_PASSWORD)).rejects.toThrow(
       "Failed to decrypt data",
     )
-    expect(() => keyring.getMnemonicText(mnemonicId, WRONG_PASSWORD_2)).rejects.toThrow(
+    await expect(() => keyring.getMnemonicText(mnemonicId, WRONG_PASSWORD_2)).rejects.toThrow(
       "Failed to decrypt data",
     )
   })
 
-  it("cannot add an account with a wrong password", () => {
-    expect(() =>
+  it("cannot add an account with a wrong password", async () => {
+    await expect(() =>
       keyring.addAccountDerive(
         {
           type: "existing-mnemonic",
@@ -63,8 +65,8 @@ describe("keyring", () => {
     ).rejects.toThrow("Invalid password")
   })
 
-  it("rejects duplicate mnemonic", () => {
-    return expect(() =>
+  it("rejects duplicate mnemonic", async () => {
+    await expect(() =>
       keyring.addMnemonic(
         {
           ...MNEMONIC,
@@ -76,8 +78,8 @@ describe("keyring", () => {
     ).rejects.toThrow("Mnemonic already exists")
   })
 
-  it("rejects invalid mnemonic", () => {
-    expect(() =>
+  it("rejects invalid mnemonic", async () => {
+    await expect(() =>
       keyring.addMnemonic(
         {
           ...MNEMONIC,
@@ -104,12 +106,12 @@ describe("keyring", () => {
   it("add account contact", () => {
     keyring.addAccountExternal({
       type: "contact",
-      address: "0x70045A9F59A354550EC0272f73AAe03B01Fb8a7a",
+      address: CONTACT_ADDRESS,
       name: "My contact",
       genesisHash: "0xdeadbeef",
     })
 
-    expect(keyring.getAccount("0x70045A9F59A354550EC0272f73AAe03B01Fb8a7a")).toBeTruthy()
+    expect(keyring.getAccount(CONTACT_ADDRESS)).toBeTruthy()
   })
 
   it("add account ecdsa from secret", () => testAddFromSecret("ecdsa", DERIVATION_PATH_SUBSTRATE))
@@ -126,14 +128,23 @@ describe("keyring", () => {
   it("add account ed25519 from mnemonic", () =>
     testAddFromMnemonic("ed25519", DERIVATION_PATH_SUBSTRATE))
 
-  it("add account ethereum from secret", () =>
-    testAddFromSecret("ethereum", DERIVATION_PATH_ETHEREUM))
-  it("add account ethereum from mnemonic", () =>
-    testAddFromMnemonic("ethereum", DERIVATION_PATH_ETHEREUM))
+  // Ethereum and Solana support was removed: deriving those accounts must fail
+  // and must not leave a half-added account behind.
+  it.each([
+    ["ethereum", DERIVATION_PATH_ETHEREUM],
+    ["solana", DERIVATION_PATH_SOLANA],
+  ] as const)("rejects deriving a %s account", async (curve, derivationPath) => {
+    const accountsBefore = keyring.getAccounts().length
 
-  it("add account solana from secret", () => testAddFromSecret("solana", DERIVATION_PATH_SOLANA))
-  it("add account solana from mnemonic", () =>
-    testAddFromMnemonic("solana", DERIVATION_PATH_SOLANA))
+    await expect(
+      keyring.addAccountDerive(
+        { type: "existing-mnemonic", mnemonicId, curve, derivationPath, name: "My account" },
+        VALID_PASSWORD,
+      ),
+    ).rejects.toThrow("Unsupported curve")
+
+    expect(keyring.getAccounts()).toHaveLength(accountsBefore)
+  })
 
   it("can export", async () => {
     const derived = await keyring.addAccountDerive(

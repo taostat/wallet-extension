@@ -1,6 +1,8 @@
-import sitesAuthorisedStore from "./store"
-import { siteHasConnectedAccounts, siteNeedsConnectAuthorization } from "./siteAuthorization"
+import { describe, expect, it, vi } from "vitest"
+
 import type { AuthorizedSite } from "./types"
+import { siteHasConnectedAccounts, siteNeedsConnectAuthorization } from "./siteAuthorization"
+import sitesAuthorisedStore from "./store"
 
 describe("siteAuthorization", () => {
   const siteWithAccounts: AuthorizedSite = {
@@ -24,10 +26,10 @@ describe("siteAuthorization", () => {
   })
 
   it("requires authorization when the site snapshot has no connected accounts", () => {
-    jest.spyOn(sitesAuthorisedStore, "getSiteSnapshot").mockReturnValueOnce(undefined)
+    vi.spyOn(sitesAuthorisedStore, "getSiteSnapshot").mockReturnValueOnce(undefined)
     expect(siteNeedsConnectAuthorization("https://taostats.io/stake")).toBe(true)
 
-    jest.spyOn(sitesAuthorisedStore, "getSiteSnapshot").mockReturnValueOnce(siteWithAccounts)
+    vi.spyOn(sitesAuthorisedStore, "getSiteSnapshot").mockReturnValueOnce(siteWithAccounts)
     expect(siteNeedsConnectAuthorization("https://taostats.io/stake")).toBe(false)
   })
 })

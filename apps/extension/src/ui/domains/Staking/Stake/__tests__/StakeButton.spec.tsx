@@ -1,21 +1,22 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import React from "react"
+import { describe, expect, it, vi } from "vitest"
 
 import { useStakeButton } from "../hooks/useStakeButton"
 import { StakeButton } from "../StakeButton"
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (key: string) => key }),
 }))
 
-jest.mock("../hooks/useStakeButton", () => ({
-  useStakeButton: jest.fn(),
+vi.mock("../hooks/useStakeButton", () => ({
+  useStakeButton: vi.fn(),
 }))
 
 describe("StakeButton", () => {
   it("exposes the stake control by name and calls its handler", () => {
-    const onClick = jest.fn()
-    jest.mocked(useStakeButton).mockReturnValue({
+    const onClick = vi.fn()
+    vi.mocked(useStakeButton).mockReturnValue({
       canStake: true,
       onClick,
       isStaking: false,

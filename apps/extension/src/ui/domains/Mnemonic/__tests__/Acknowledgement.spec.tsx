@@ -1,15 +1,16 @@
 import { render, screen } from "@testing-library/react"
 import React from "react"
+import { describe, expect, it, vi } from "vitest"
 
 import { Acknowledgement } from "../Acknowledgement"
 
-jest.mock("react-i18next", () => ({
+vi.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (key: string) => key }),
 }))
 
 describe("Acknowledgement", () => {
   it("uses seed phrase wording throughout the warning", () => {
-    render(<Acknowledgement onContinueClick={jest.fn()} />)
+    render(<Acknowledgement onContinueClick={vi.fn()} />)
 
     expect(screen.getByRole("heading", { name: "Protect Your Seed Phrase" })).toBeTruthy()
     expect(screen.getByText("Never pass the seed phrase from your wallet to anyone")).toBeTruthy()

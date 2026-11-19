@@ -1,10 +1,11 @@
-import { classNames } from "@taostats-wallet/util"
+import { BalanceFormatter } from "@taostats-wallet/balances"
 import { Edit01 } from "@untitledui/icons/Edit01"
 import { InfoCircle } from "@untitledui/icons/InfoCircle"
-import { FC, useEffect, useState } from "react"
+import { FC, ReactNode, Suspense, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Button,
+  Checkbox,
   Drawer,
   Radio,
   Tooltip,
@@ -15,6 +16,7 @@ import {
 
 import { BittensorValidatorName } from "@ui/domains/Portfolio/AssetDetails/DashboardTokenBalances/BittensorValidatorName"
 import { STAKING_MODAL_CONTENT_CONTAINER_ID } from "@ui/domains/Staking/shared/ModalContent"
+import { useSelectedCurrency, useToken, useTokenRates } from "@ui/state"
 
 import { Fiat } from "../../../../Asset/Fiat"
 import { TokenLogo } from "../../../../Asset/TokenLogo"
@@ -23,12 +25,16 @@ import { StakingAccountDisplay } from "../../../shared/StakingAccountDisplay"
 import { StakingFeeEstimate } from "../../../shared/StakingFeeEstimate"
 import { BittensorStakingModalHeader } from "../../components/BittensorModalHeader"
 import { BittensorModalLayout } from "../../components/BittensorModalLayout"
+import { BittensorPriceImpact } from "../../components/BittensorPriceImpact"
 import { ValidatorApy } from "../../components/ValidatorApy"
 import { useBittensorStakeModal } from "../../hooks/useBittensorStakeModal"
 import { useBittensorStakeWizard } from "../../hooks/useBittensorStakeWizard"
-import { HIGH_PRICE_IMPACT, VERY_HIGH_PRICE_IMPACT } from "../../utils/constants"
+import { getPriceImpact, getPriceImpactLevel } from "../../utils/helpers"
 import { BittensorConfirmSignButton } from "../BittensorConfirmSignButton"
 import { BittensorSlippageDrawer } from "../Drawers/BittensorSlippageDrawer"
+
+/** Percentage points the impact may rise after the user acknowledged it before they must confirm again */
+const PRICE_IMPACT_ACK_MARGIN = 0.5
 
 export const BittensorSubnetStakeReview = () => {
   const [isDisabled, setIsDisabled] = useState(true)
@@ -49,6 +55,11 @@ export const BittensorSubnetStakeReview = () => {
     amountOut,
     stakeDirection,
     priceImpact,
+    spotPrice,
+    worstCasePrice,
+    minimumAmountOut,
+    poolPriceAfter,
+    chainPriceLimit,
     isMevShieldDisabled,
     isHardwareWallet,
     mevShieldOption,
@@ -59,6 +70,17 @@ export const BittensorSubnetStakeReview = () => {
   const { close } = useBittensorStakeModal()
 
   const { open } = slippageDrawer
+
+  // very high impact needs an explicit acknowledgement. The quote refreshes every block, so the
+  // acknowledgement holds unless the impact rises meaningfully above what the user agreed to.
+  const needsPriceImpactAck = getPriceImpactLevel(priceImpact) === "very-high"
+  const [ackedPriceImpact, setAckedPriceImpact] = useState<number | null>(null)
+  const isPriceImpactAcked =
+    ackedPriceImpact !== null &&
+    typeof priceImpact === "number" &&
+    priceImpact <= ackedPriceImpact + PRICE_IMPACT_ACK_MARGIN
+  const setIsPriceImpactAcked = (checked: boolean) =>
+    setAckedPriceImpact(checked && typeof priceImpact === "number" ? priceImpact : null)
 
   useEffect(() => {
     // enable confirm button 0.5 second after the screen is open, to ensure the user doesnt accidentally click it (ex: double click from prev screen)
@@ -168,33 +190,92 @@ export const BittensorSubnetStakeReview = () => {
                 />
               </div>
             </div>
+            {typeof minimumAmountOut === "bigint" && (
+              <ReviewPriceRow
+                label={t("Minimum received")}
+                tooltip={t(
+                  "The least you receive before the transaction is cancelled, given your slippage tolerance. Approximate.",
+                )}
+                planck={minimumAmountOut}
+                tokenId={isSubnetUnstake ? nativeToken?.id : dtaoToken?.id}
+                approximate
+              />
+            )}
           </div>
           <div className="bg-app-bg text-fg-secondary flex w-full flex-col gap-1 rounded p-4 py-3">
+            {typeof spotPrice === "bigint" && (
+              <ReviewPriceRow
+                label={t("Current price")}
+                tooltip={t("The subnet's alpha price right now, before this trade.")}
+                price={spotPrice}
+                tokenId={nativeToken?.id}
+              />
+            )}
+            <ReviewPriceRow
+              label={t("Expected price")}
+              tooltip={t(
+                "The average price per alpha this trade fills at. A larger trade moves the pool price as it fills, so it is worse than the current price.",
+              )}
+              price={swapPrice}
+              tokenId={nativeToken?.id}
+            />
+            {typeof worstCasePrice === "bigint" && (
+              <ReviewPriceRow
+                label={t("Worst-case price")}
+                tooltip={
+                  <div className="flex flex-col gap-1">
+                    <span>
+                      {t(
+                        "The worst average price your slippage tolerance allows, if other trades move the pool before yours lands. Beyond this the transaction is cancelled. Approximate.",
+                      )}
+                    </span>
+                    {typeof poolPriceAfter === "bigint" && (
+                      <div className="border-primary mt-1 flex flex-col gap-1 border-t pt-1">
+                        <span>
+                          {typeof spotPrice === "bigint"
+                            ? t("Pool price after this trade: {{price}} ({{change}})", {
+                                price: formatRaoPrice(poolPriceAfter),
+                                change: `${stakeDirection === "stake" ? "+" : "−"}${(
+                                  getPriceImpact(spotPrice, poolPriceAfter) ?? 0
+                                ).toFixed(1)}%`,
+                              })
+                            : t("Pool price after this trade: {{price}}", {
+                                price: formatRaoPrice(poolPriceAfter),
+                              })}
+                        </span>
+                        {typeof chainPriceLimit === "bigint" && (
+                          <span>
+                            {t("Limit sent to the chain: {{price}}", {
+                              price: formatRaoPrice(chainPriceLimit),
+                            })}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                }
+                price={worstCasePrice}
+                tokenId={nativeToken?.id}
+                approximate
+              />
+            )}
+            <BittensorPriceImpact />
             <div className="flex items-center justify-between gap-4 text-xs">
-              <div className="whitespace-nowrap">{t("Alpha Price")} </div>
-              <div className="text-fg-secondary flex items-center gap-1">
-                <TokensAndFiat
-                  planck={swapPrice!}
-                  tokenId={nativeToken?.id}
-                  tokensClassName="text-fg-primary"
-                  noCountUp
-                />
-              </div>
-            </div>
-            <div className="flex items-center justify-between gap-4 text-xs">
-              <div className="whitespace-nowrap">{t("Price Impact")}</div>
-              <div
-                className={classNames(
-                  "text-fg-primary",
-                  !!priceImpact && priceImpact >= HIGH_PRICE_IMPACT && "text-orange-500",
-                  !!priceImpact && priceImpact >= VERY_HIGH_PRICE_IMPACT && "text-red-500",
-                )}
-              >
-                {priceImpact?.toFixed(2)}%
-              </div>
-            </div>
-            <div className="flex items-center justify-between gap-4 text-xs">
-              <div className="whitespace-nowrap">{t("Slippage Tolerance")} </div>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex items-center gap-0.5 whitespace-nowrap">
+                    {t("Slippage Tolerance")}
+                    <InfoCircle />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span className="block max-w-[260px]">
+                    {t(
+                      "Extra price movement allowed on top of the price impact shown above, in case other trades move the pool before yours lands. If the price moves further, the transaction fails and your funds stay where they are.",
+                    )}
+                  </span>
+                </TooltipContent>
+              </Tooltip>
               <div className="text-fg-primary flex items-center gap-1">
                 <button
                   type="button"
@@ -269,7 +350,18 @@ export const BittensorSubnetStakeReview = () => {
         </div>
       </div>
       <div className="shrink-0 pt-4">
-        <BittensorConfirmSignButton disabled={isDisabled} />
+        {needsPriceImpactAck && (
+          <Checkbox
+            className="text-fg-secondary pb-3 text-xs"
+            checked={isPriceImpactAcked}
+            onChange={(e) => setIsPriceImpactAcked(e.target.checked)}
+          >
+            {t("I understand this trade has a high price impact")}
+          </Checkbox>
+        )}
+        <BittensorConfirmSignButton
+          disabled={isDisabled || (needsPriceImpactAck && !isPriceImpactAcked)}
+        />
       </div>
       <BittensorSlippageDrawer />
       <MevShieldInfoDrawer isOpen={ocMevShieldInfo.isOpen} onDismiss={ocMevShieldInfo.close} />
@@ -346,3 +438,90 @@ const MevShieldInfoDrawer: FC<{ isOpen: boolean; onDismiss: () => void }> = ({
     </Drawer>
   )
 }
+
+const ReviewPriceRow = ({
+  label,
+  tooltip,
+  planck,
+  tokenId,
+  price,
+  approximate = false,
+}: {
+  label: string
+  tooltip: ReactNode
+  /** An amount, shown with its fiat value. */
+  planck?: bigint | null
+  tokenId?: string
+  /**
+   * A price in rao per alpha (pass the TAO `tokenId`), shown in TAO to four significant figures:
+   * fixed decimals hide the gaps between the current, expected and worst-case price. Its value in
+   * the display currency follows in brackets, unless that currency is TAO.
+   */
+  price?: bigint | null
+  approximate?: boolean
+}) => (
+  <div className="flex items-center justify-between gap-4 text-xs">
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-0.5 whitespace-nowrap">
+          {label}
+          <InfoCircle />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <span className="block max-w-[260px]">{tooltip}</span>
+      </TooltipContent>
+    </Tooltip>
+    <div className="text-fg-secondary flex items-center gap-1 overflow-hidden">
+      {approximate && <span className="text-fg-primary">≈</span>}
+      {typeof price === "bigint" ? (
+        <span className="whitespace-nowrap">
+          <span className="text-fg-primary">{formatRaoPrice(price)}</span>
+          <Suspense>
+            <PriceInDisplayCurrency price={price} tokenId={tokenId} />
+          </Suspense>
+        </span>
+      ) : typeof planck === "bigint" ? (
+        <TokensAndFiat
+          planck={planck}
+          tokenId={tokenId}
+          tokensClassName="text-fg-primary"
+          noCountUp
+        />
+      ) : null}
+    </div>
+  </div>
+)
+
+/**
+ * A TAO price's value in the display currency, in brackets. Nothing when the display currency is
+ * TAO (it would repeat the price) or the TAO rate isn't known.
+ */
+const PriceInDisplayCurrency = ({ price, tokenId }: { price: bigint; tokenId?: string }) => {
+  const currency = useSelectedCurrency()
+  const token = useToken(tokenId)
+  const tokenRates = useTokenRates(tokenId)
+  const balance = useMemo(
+    () => (token ? new BalanceFormatter(price, token.decimals, tokenRates) : null),
+    [price, token, tokenRates],
+  )
+
+  if (currency === "tao" || !balance || balance.fiat(currency) === null) return null
+
+  return (
+    <>
+      {" "}
+      (<Fiat amount={balance} noCountUp />)
+    </>
+  )
+}
+
+/**
+ * A price in rao per alpha as TAO, to four significant figures: subnet prices are often below 0.01,
+ * where a fixed number of decimals hides small differences.
+ */
+const formatRaoPrice = (rao: bigint) =>
+  `τ${new Intl.NumberFormat(undefined, {
+    minimumSignificantDigits: 4,
+    maximumSignificantDigits: 4,
+  }).format(Number(rao) / 1e9)}`
