@@ -13,8 +13,9 @@ name: Release (Chrome Web Store)
 #
 # One-time setup: docs/release.md.
 #   vars:    CWS_PUBLISHER_ID, CWS_EXTENSION_ID, GCP_WORKLOAD_IDENTITY_PROVIDER,
-#            GCP_SERVICE_ACCOUNT, RELEASE_RUNNER (optional: `github` to skip Hippius),
-#            CROSS_CHAIN_SELL (optional: `true` to include cross-chain sells)
+#            GCP_SERVICE_ACCOUNT, RELEASE_RUNNER (optional: `github` to skip Hippius)
+#   env var: CROSS_CHAIN_SELL on the chrome-web-store environment (optional:
+#            `true` to include cross-chain sells)
 #   secrets: SENTRY_AUTH_TOKEN, SENTRY_DSN, POSTHOG_AUTH_TOKEN (all optional)
 
 on:

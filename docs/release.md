@@ -71,8 +71,9 @@ something lands on `main` without a PR.
   `GCP_WORKLOAD_IDENTITY_PROVIDER`
   (`projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>`),
   `GCP_SERVICE_ACCOUNT`.
-- Optional repo variable `CROSS_CHAIN_SELL`: `true` builds cross-chain sells
-  into the release. Anything else leaves them out of the zip. Our API's
-  `/cross-chain/config` (`enabled`) can still switch them off at runtime.
+- Optional `chrome-web-store` environment variable `CROSS_CHAIN_SELL`: `true`
+  builds cross-chain sells into the release. Anything else leaves them out of
+  the zip. Our API's `/cross-chain/config` (`enabled`) can still switch them
+  off at runtime.
 - Optional secrets (same as a local prod build's `.env`): `SENTRY_AUTH_TOKEN`,
   `SENTRY_DSN`, `POSTHOG_AUTH_TOKEN`.
