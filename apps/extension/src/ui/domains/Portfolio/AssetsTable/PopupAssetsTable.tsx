@@ -14,6 +14,8 @@ import { BalanceSeparator } from "@ui/domains/Asset/BalanceSeparator"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
 import { Tokens } from "@ui/domains/Asset/Tokens"
+import { CrossChainSellPillButton } from "@ui/domains/CrossChain/CrossChainSellPillButton"
+import { useCrossChainSellOpenOptions } from "@ui/domains/CrossChain/useCrossChainSellOpenOptions"
 import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
 import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -23,7 +25,10 @@ import { useUniswapV2LpTokenTotalValueLocked } from "@ui/hooks/useUniswapV2LpTok
 import { useNetworkById, usePortfolioGlobalData, useSelectedCurrency } from "@ui/state"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
-import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
+import {
+  BittensorUnstakeButton,
+  useBittensorUnstakeOpenArgs,
+} from "../AssetDetails/BittensorUnstakeButton"
 import { StaleBalancesIcon } from "../StaleBalancesIcon"
 import { usePortfolioDisplayBalances } from "../useDisplayBalances"
 import { usePortfolioNavigation } from "../usePortfolioNavigation"
@@ -108,7 +113,12 @@ const AssetRow: FC<{
   const tvl = useUniswapV2LpTokenTotalValueLocked(token, rate?.price, balances)
 
   const { canStake } = useStakeButton({ balances })
-  const showStakingButton = canStake && !locked
+  const canSell = useCrossChainSellOpenOptions(balances) !== null
+  // with Unstake also shown, Sell is icon-only so the three pills fit the row
+  const canUnstake = useBittensorUnstakeOpenArgs(balances) !== null
+  // the hover actions (Stake, Unstake, Sell) replace the amount and fiat when any of them shows,
+  // on hover or while focus is in the row
+  const showHoverActions = (canStake || canSell) && !locked
 
   if (!token || !summary || !network) return null
 
@@ -139,8 +149,7 @@ const AssetRow: FC<{
 
             {isUniswapV2LpToken && typeof tvl === "number" && (
               <div className="text-fg-secondary whitespace-nowrap text-xs">
-                <Fiat amount={tvl} noCountUp={noCountUp} />{" "}
-                <span className="text-[8px]">TVL</span>
+                <Fiat amount={tvl} noCountUp={noCountUp} /> <span className="text-[8px]">TVL</span>
               </div>
             )}
             {!isUniswapV2LpToken && token.type === "substrate-dtao" && (
@@ -168,7 +177,7 @@ const AssetRow: FC<{
               className={classNames(
                 "whitespace-nowrap text-sm font-bold",
                 locked ? "text-fg-secondary" : "text-white",
-                showStakingButton && "group-hover:hidden",
+                showHoverActions && "group-focus-within:hidden group-hover:hidden",
               )}
             >
               <Tokens
@@ -186,7 +195,7 @@ const AssetRow: FC<{
             <div
               className={classNames(
                 "text-fg-secondary leading-base text-xs",
-                showStakingButton && "group-hover:hidden",
+                showHoverActions && "group-focus-within:hidden group-hover:hidden",
               )}
             >
               {fiat === null ? "-" : <Fiat amount={fiat} isBalance noCountUp={noCountUp} />}
@@ -194,8 +203,8 @@ const AssetRow: FC<{
           </div>
         </div>
       </button>
-      {showStakingButton && (
-        <div className="absolute right-2 top-0 hidden h-14 flex-col justify-center group-hover:flex">
+      {showHoverActions && (
+        <div className="absolute right-2 top-0 hidden h-14 flex-col justify-center group-focus-within:flex group-hover:flex">
           <div className="flex items-center gap-1.5">
             <StakePillButton
               balances={balances}
@@ -205,6 +214,11 @@ const AssetRow: FC<{
             <BittensorUnstakeButton
               balances={balances}
               variant="pill"
+              className="[>svg]:text-[20px] text-sm"
+            />
+            <CrossChainSellPillButton
+              balances={balances}
+              compact={canUnstake}
               className="[>svg]:text-[20px] text-sm"
             />
           </div>

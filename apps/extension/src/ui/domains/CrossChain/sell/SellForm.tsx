@@ -211,7 +211,7 @@ const ReceiveSection = () => {
                   : "border-primary text-fg-secondary hover:text-fg-primary",
               )}
             >
-              <OutputLogo output={option} className="size-5 text-[6px]" />
+              <OutputLogo output={option} className="size-5" />
               {option}
             </button>
           ))}
