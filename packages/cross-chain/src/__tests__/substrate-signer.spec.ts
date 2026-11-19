@@ -9,6 +9,7 @@ import {
   UserRejectedError,
 } from "@tao.com/intents-sdk"
 import { getAbiItem, toEventSelector } from "viem"
+import { describe, expect, it, vi } from "vitest"
 
 import type { SapiCall } from "../calls"
 import type { SapiSubstrateSignerDeps, SubmitAndWatchResult } from "../substrate-signer"
@@ -46,15 +47,15 @@ const setup = (overrides: Partial<SapiSubstrateSignerDeps<Payload>> = {}) => {
   const log: string[] = []
   const deps: SapiSubstrateSignerDeps<Payload> = {
     address: ALICE,
-    buildBatchPayload: jest.fn(async (calls: SapiCall[]) => {
+    buildBatchPayload: vi.fn(async (calls: SapiCall[]) => {
       log.push("build")
       return { calls }
     }),
-    sign: jest.fn(async () => {
+    sign: vi.fn(async () => {
       log.push("sign")
       return { signature: SIGNATURE, extrinsicHash: EXTRINSIC_HASH }
     }),
-    submitAndWatch: jest.fn(async () => {
+    submitAndWatch: vi.fn(async () => {
       log.push("submit")
       return okResult()
     }),
@@ -79,7 +80,7 @@ const plain = (value: unknown): unknown =>
         : Object.fromEntries(Object.entries(value).map(([k, v]) => [k, plain(v)]))
       : value
 
-const firstArgs = (fn: unknown) => plain((fn as jest.Mock).mock.calls[0])
+const firstArgs = (fn: unknown) => plain((fn as Mock).mock.calls[0])
 
 const rejection = async (promise: Promise<unknown>) => {
   try {
@@ -111,7 +112,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
 
   it("gives onSigned the hash before anything is submitted", async () => {
     const { deps, signer } = setup()
-    const onSigned = jest.fn(() => expect(deps.submitAndWatch).not.toHaveBeenCalled())
+    const onSigned = vi.fn(() => expect(deps.submitAndWatch).not.toHaveBeenCalled())
     await signer.signAndSendBatch(taoSellBatch(), { onSigned })
     expect(onSigned).toHaveBeenCalledWith(EXTRINSIC_HASH)
     expect(onSigned).toHaveBeenCalledTimes(1)
@@ -120,7 +121,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
   it("submits nothing when beforeSubmit throws, and doesn't report it as submitted", async () => {
     const { deps, log, signer } = setup()
     const veto = new InvalidParamsError("Signing took too long")
-    const onSigned = jest.fn()
+    const onSigned = vi.fn()
 
     const error = await rejection(
       signer.signAndSendBatch(taoSellBatch(), {
@@ -160,7 +161,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
   it("turns any signing failure into SubstrateError: a local keypair never asks the user, so it is never a rejection", async () => {
     for (const message of ["Can't sign: Unauthorised", "Cancelled", "User rejected the request"]) {
       const { deps, signer } = setup({
-        sign: jest.fn(async () => Promise.reject(new Error(message))),
+        sign: vi.fn(async () => Promise.reject(new Error(message))),
       })
       const error = await rejection(signer.signAndSendBatch(taoSellBatch()))
       expect(error).toBeInstanceOf(SubstrateError)
@@ -174,7 +175,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
 
   it("lets an SDK error thrown while signing through unchanged", async () => {
     for (const thrown of [new UserRejectedError(), new InvalidParamsError("bad")]) {
-      const { deps, signer } = setup({ sign: jest.fn(async () => Promise.reject(thrown)) })
+      const { deps, signer } = setup({ sign: vi.fn(async () => Promise.reject(thrown)) })
       const error = await rejection(signer.signAndSendBatch(taoSellBatch()))
       expect(error).toBe(thrown)
       expect(error).toBeInstanceOf(TaoIntentsError)
@@ -184,7 +185,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
 
   it("rejects with the hash when the batch can't be submitted (dropped, invalid, network)", async () => {
     const { signer } = setup({
-      submitAndWatch: jest.fn(async () => Promise.reject(new Error("The extrinsic was dropped"))),
+      submitAndWatch: vi.fn(async () => Promise.reject(new Error("The extrinsic was dropped"))),
     })
     const error = await rejection(signer.signAndSendBatch(taoSellBatch()))
     expect(error).toBeInstanceOf(SubstrateError)
@@ -194,7 +195,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
 
   it("rejects with the dispatch error when the extrinsic failed on chain", async () => {
     const { signer } = setup({
-      submitAndWatch: jest.fn(async () => ({
+      submitAndWatch: vi.fn(async () => ({
         ...okResult([{ section: "system", method: "ExtrinsicFailed", data: [{}, {}] }]),
         ok: false,
         error: "balances.InsufficientBalance",
@@ -209,7 +210,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
 
   it("treats system.ExtrinsicFailed as a failure even if ok says otherwise", async () => {
     const { signer } = setup({
-      submitAndWatch: jest.fn(async () =>
+      submitAndWatch: vi.fn(async () =>
         okResult([{ section: "system", method: "ExtrinsicFailed", data: [{}, {}] }]),
       ),
     })
@@ -221,7 +222,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
 
   it("resolves when an EVM call reverted inside a successful batch: the SDK reads that from the events", async () => {
     const failed = { section: "evm", method: "ExecutedFailed", data: [SOURCE.toLowerCase()] }
-    const { signer } = setup({ submitAndWatch: jest.fn(async () => okResult([failed, success])) })
+    const { signer } = setup({ submitAndWatch: vi.fn(async () => okResult([failed, success])) })
     await expect(signer.signAndSendBatch(taoSellBatch())).resolves.toMatchObject({
       events: [failed, success],
     })
@@ -230,7 +231,7 @@ describe("createSapiSubstrateSigner: signAndSendBatch", () => {
   it("refuses events that break the contract instead of letting the SDK misread them", async () => {
     const papiStyle = { section: "EVM", method: "Log", data: openLog.data }
     const { signer } = setup({
-      submitAndWatch: jest.fn(async () => okResult([papiStyle, success])),
+      submitAndWatch: vi.fn(async () => okResult([papiStyle, success])),
     })
     const error = await rejection(signer.signAndSendBatch(taoSellBatch()))
     expect(error).toBeInstanceOf(SubstrateError)
@@ -245,7 +246,7 @@ describe("createSapiSubstrateSigner: spendableAfterFee", () => {
   })
 
   it("asks the wallet with the payload of the mapped batch", async () => {
-    const getSpendableAfterFee = jest.fn(async () => 123n)
+    const getSpendableAfterFee = vi.fn(async () => 123n)
     const { deps, signer } = setup({ getSpendableAfterFee })
     const calls = taoSellBatch()
 

@@ -1,6 +1,7 @@
 import { act, renderHook, waitFor } from "@testing-library/react"
 import { AuthorizedSiteId, ProviderType } from "extension-core"
 import { TAOSTATS_WEB_APP_DOMAIN } from "extension-shared"
+import { expect, test } from "vitest"
 
 import { api } from "@ui/api"
 
@@ -25,25 +26,26 @@ test("Can get Authorised Site by id", async () => {
     expect.arrayContaining([ADDRESSES.GAV, ADDRESSES.ALICE, ADDRESSES.TAOSTATS_TEST]),
   )
 
-  // The real store re-emits via chrome.storage.onChanged, which the
-  // webextension mock doesn't fire, so assert on the update the hook sends.
-  const update = jest.mocked(api.authorizedSiteUpdate)
-
+  // api.authorizedSiteUpdate writes to the real sites store; the hook picks the change up
+  // through storage.onChanged
   await act(async () => result.current.toggleOne(ADDRESSES.GAV))
-  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, {
-    addresses: [ADDRESSES.ALICE],
-  })
+  await waitFor(() => expect(result.current.connected).toEqual([ADDRESSES.ALICE]))
 
   await act(async () => result.current.toggleOne(ADDRESSES.TAOSTATS_TEST))
-  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, {
-    addresses: [ADDRESSES.GAV, ADDRESSES.ALICE, ADDRESSES.TAOSTATS_TEST],
+  await waitFor(() =>
+    expect(result.current.connected).toEqual([ADDRESSES.ALICE, ADDRESSES.TAOSTATS_TEST]),
+  )
+  expect(api.authorizedSiteUpdate).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, {
+    addresses: [ADDRESSES.ALICE, ADDRESSES.TAOSTATS_TEST],
   })
 
   await act(async () => result.current.toggleAll(false))
-  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, { addresses: [] })
+  await waitFor(() => expect(result.current.connected).toEqual([]))
 
   await act(async () => result.current.toggleAll(true))
-  expect(update).toHaveBeenLastCalledWith(TAOSTATS_WEB_APP_DOMAIN, {
-    addresses: result.current.availableAddresses,
-  })
+  await waitFor(() =>
+    expect(result.current.connected).toEqual(
+      expect.arrayContaining([ADDRESSES.GAV, ADDRESSES.ALICE, ADDRESSES.TAOSTATS_TEST]),
+    ),
+  )
 })

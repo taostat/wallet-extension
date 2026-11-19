@@ -7,6 +7,7 @@ import { TypeRegistry } from "@polkadot/types"
 import { Metadata } from "@polkadot/types/metadata"
 import { expandMetadata } from "@polkadot/types/metadata/decorate"
 import { getScaleApi } from "@taostats-wallet/sapi"
+import { vi } from "vitest"
 
 /**
  * Test fixtures for encoding: one metadata file, read by both implementations.
@@ -78,7 +79,7 @@ export const createPolkadotJs = () => {
   const metadata = new Metadata(registry, metadataBytes())
   // Only the call types matter here: silence setMetadata's notice about Bittensor's own signed
   // extensions ("Unknown signed extensions ... treating them as no-effect").
-  const warn = jest.spyOn(console, "warn").mockImplementation(() => {})
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
   try {
     registry.setMetadata(metadata)
   } finally {

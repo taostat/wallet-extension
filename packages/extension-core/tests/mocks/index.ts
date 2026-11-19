@@ -1,18 +1,17 @@
-jest.setTimeout(20_000)
+import type { Browser } from "webextension-polyfill"
+import { vi } from "vitest"
 
-jest.mock("bcryptjs", () => {
-  return {
-    ...jest.requireActual("bcryptjs"),
-    genSalt: jest.fn((rounds: number) => `salt-${rounds}`),
-    hash: jest.fn((password: string, salt: string) => `${password}.${salt}`),
-    compare: jest.fn(
-      (password: string, hash: string) => password === hash.slice(0, hash.lastIndexOf(".")),
-    ),
-  }
-})
+vi.mock("bcryptjs", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("bcryptjs")>()),
+  genSalt: vi.fn((rounds: number) => `salt-${rounds}`),
+  hash: vi.fn((password: string, salt: string) => `${password}.${salt}`),
+  compare: vi.fn(
+    (password: string, hash: string) => password === hash.slice(0, hash.lastIndexOf(".")),
+  ),
+}))
 
-jest.mock("../../src/util/fetchRemoteConfig", () => ({
-  fetchRemoteConfig: jest.fn(() =>
+vi.mock("../../src/util/fetchRemoteConfig", () => ({
+  fetchRemoteConfig: vi.fn(() =>
     Promise.resolve({
       featureFlags: {
         BUY_CRYPTO: true, // nav buttons + button in fund wallet component
@@ -22,26 +21,27 @@ jest.mock("../../src/util/fetchRemoteConfig", () => ({
   ),
 }))
 
-jest.mock("webextension-polyfill", () => {
-  return {
-    ...jest.requireActual("webextension-polyfill"),
+// the polyfill hands back the `browser` global from tests/setup.ts
+vi.mock("webextension-polyfill", async (importOriginal) => {
+  const { default: browser } = await importOriginal<{ default: Browser }>()
+  const mocked = {
+    ...browser,
     runtime: {
-      ...jest.requireActual("webextension-polyfill").runtime,
-      getBackgroundPage: jest
-        .fn()
-        .mockImplementation(() => Promise.resolve({ location: window.location })),
+      ...browser.runtime,
+      getBackgroundPage: vi.fn(() => Promise.resolve({ location: window.location } as Window)),
     },
   }
+  return { ...mocked, default: mocked }
 })
 
-jest.mock("@polkadot/apps-config/api", () => {
+vi.mock("@polkadot/apps-config/api", () => {
   return {
     typesBundle: {},
   }
 })
 
-jest.mock("../../src/util/isBackgroundPage", () => ({
-  isBackgroundPage: jest.fn().mockImplementation(() => true),
+vi.mock("../../src/util/isBackgroundPage", () => ({
+  isBackgroundPage: vi.fn().mockImplementation(() => true),
 }))
 
 export {}

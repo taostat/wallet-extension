@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import { Network } from "./chaindata"
 import { getBlockExplorerUrls } from "./getBlockExplorerUrls"
 

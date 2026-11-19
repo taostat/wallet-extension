@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import { evmRecipientProblem, isSameEvmAddress, resolveEvmRecipient } from "../recipient"
 import { ALICE } from "./sdk-calls"
 

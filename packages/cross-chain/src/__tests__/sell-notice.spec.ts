@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import { sellNoticeUrl } from "../sell-notice"
 
 const DASHBOARD = "chrome-extension://abcdefghijklmnopabcdefghijklmnop/dashboard.html"

@@ -1,3 +1,5 @@
+import { describe, expect, it, test } from "vitest"
+
 import { decryptLegacyMnemonicObject, LEGACY_SEED_PREFIX, LegacySeedObj } from "../legacy/helpers"
 import { createLegacySeedPhraseStore } from "../legacy/store"
 

@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import { getAccountPlatformFromAddress } from "../platform"
 import { encodeAddressSolana } from "./encoding"
 import { detectAddressEncoding } from "./encoding/detectAddressEncoding"

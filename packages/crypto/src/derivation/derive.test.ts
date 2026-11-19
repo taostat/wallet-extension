@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import type { KeypairCurve } from "../types"
 import { deriveKeypair } from "."
 import { addressEncodingFromCurve, addressFromPublicKey } from "../address"

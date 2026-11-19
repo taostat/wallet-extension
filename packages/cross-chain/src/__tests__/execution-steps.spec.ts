@@ -1,4 +1,5 @@
 import type { ProgressEvent, Quote } from "@tao.com/intents-sdk"
+import { describe, expect, it } from "vitest"
 
 import type { ExecutionProgress } from "../execution-steps"
 import {

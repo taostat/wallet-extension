@@ -1,5 +1,6 @@
 import type { Quote, SubstrateCall, SubstrateOpenParams } from "@tao.com/intents-sdk"
 import { AbortedError, InsufficientBalanceError, SubstrateError } from "@tao.com/intents-sdk"
+import { describe, expect, it, vi } from "vitest"
 
 import type { SapiCall } from "../calls"
 import type { FeeProbeIntents } from "../fee-probe"
@@ -28,7 +29,7 @@ const quote = { user: "0x1", recipient: "0x2" } as unknown as Quote
  */
 const setup = ({ failFee = false }: { failFee?: boolean } = {}) => {
   const sapi = {
-    getExtrinsicPayload: jest.fn(
+    getExtrinsicPayload: vi.fn(
       async (_pallet: string, _method: string, args: unknown): Promise<Payload> => ({
         payload: {
           method: "0xbatch",
@@ -38,7 +39,7 @@ const setup = ({ failFee = false }: { failFee?: boolean } = {}) => {
         },
       }),
     ),
-    getFeeEstimate: jest.fn(async ({ gasLimit }: Payload["payload"]) => {
+    getFeeEstimate: vi.fn(async ({ gasLimit }: Payload["payload"]) => {
       if (failFee) throw new Error("query_info failed")
       return 140_306n + 10n * gasLimit
     }),
@@ -162,7 +163,7 @@ describe("estimateSellBatchFee", () => {
   it("hands open the execute settings, and a signer that can never sign", async () => {
     const { sapi } = setup()
     const log: string[] = []
-    const open = jest.fn(sdkLikeOpen(taoSellBatch(), log))
+    const open = vi.fn(sdkLikeOpen(taoSellBatch(), log))
     await estimate(open, sapi)
     const params = open.mock.calls[0]?.[0]
     expect(params).toMatchObject({ quote, swapSlippageBps: 100, partnerId: "c36059" })

@@ -1,5 +1,6 @@
 import { Balances } from "@taostats-wallet/balances"
 import { renderHook, waitFor } from "@testing-library/react"
+import { describe, expect, test } from "vitest"
 
 import { TestWrapper } from "../../../../tests/TestWrapper"
 import { useBalances } from "../../state"

@@ -1,3 +1,5 @@
+import { describe, expect, it, test } from "vitest"
+
 import { mnemonicsStore } from "../store"
 
 describe("createMnemonicsStore", () => {

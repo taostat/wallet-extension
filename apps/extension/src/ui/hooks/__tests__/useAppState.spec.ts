@@ -1,5 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react"
 import { DEFAULT_APP_STATE } from "extension-core"
+import { expect, test } from "vitest"
 
 import { TestWrapper } from "../../../../tests/TestWrapper"
 import { useAppState } from "../../state"
@@ -32,9 +33,11 @@ test("Can get hideBraveWarning appState data", async () => {
   await waitFor(() => expect(result.current[0]).toBe(DEFAULT_APP_STATE.hideBraveWarning))
 })
 
-test("Can get onboarded appState data", async () => {
+test("A fresh install is not onboarded", async () => {
   const { result } = renderHook(() => useAppState("onboarded"), {
     wrapper: TestWrapper,
   })
-  await waitFor(() => expect(result.current[0]).toBe(DEFAULT_APP_STATE.onboarded))
+  // AppStore.init() turns the default UNKNOWN into FALSE, so the onboarding page shows
+  expect(DEFAULT_APP_STATE.onboarded).toBe("UNKNOWN")
+  await waitFor(() => expect(result.current[0]).toBe("FALSE"))
 })
