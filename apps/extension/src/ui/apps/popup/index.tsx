@@ -15,19 +15,21 @@ import { AccountExportModal } from "@ui/domains/Account/AccountExportModal"
 import { AccountRemoveModal } from "@ui/domains/Account/AccountRemoveModal"
 import { AccountRenameModal } from "@ui/domains/Account/AccountRenameModal"
 import { CopyAddressModal } from "@ui/domains/CopyAddress"
+import { CrossChainOrderTrackers } from "@ui/domains/CrossChain/CrossChainOrderTrackers"
+import { CrossChainSellModal } from "@ui/domains/CrossChain/CrossChainSellModal"
 import { DatabaseErrorAlert } from "@ui/domains/Settings/DatabaseErrorAlert"
-import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStakeModal"
 import { BittensorClaimSettingsModal } from "@ui/domains/Staking/Bittensor/BittensorClaimSettingsModal"
-import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
+import { BittensorStakeModal } from "@ui/domains/Staking/Bittensor/BittensorStakeModal"
 import { NomPoolWithdrawModal } from "@ui/domains/Staking/NomPoolWithdraw/NomPoolWithdrawModal"
+import { StakeModal } from "@ui/domains/Staking/Stake/StakeModal"
 import { UnstakeModal } from "@ui/domains/Staking/Unstake/UnstakeModal"
 import { MigrationProgress } from "@ui/domains/System/MigrationProgress"
 import { ExplorerNetworkPickerModal } from "@ui/domains/ViewOnExplorer"
 import { useLoginCheck } from "@ui/hooks/useLoginCheck"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
 
-import { SidePanelNavigationListener } from "./components/SidePanelNavigationListener"
 import { LedgerPolkadotUpgradeAlertDrawer } from "./components/LedgerPolkadotUpgradeDrawer"
+import { SidePanelNavigationListener } from "./components/SidePanelNavigationListener"
 import { Connect } from "./pages/Connect"
 import { Encrypt } from "./pages/Encrypt"
 import { LoginViewManager } from "./pages/Login"
@@ -85,6 +87,8 @@ const Popup = () => {
         <BittensorStakeModal />
         <BittensorClaimSettingsModal />
         <CopyAddressModal />
+        <CrossChainSellModal />
+        <CrossChainOrderTrackers />
         <ExplorerNetworkPickerModal />
         <LedgerPolkadotUpgradeAlertDrawer />
         <NomPoolWithdrawModal />

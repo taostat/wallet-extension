@@ -3,7 +3,7 @@ import { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 
 import { useScaleApi } from "@ui/hooks/sapi/useScaleApi"
 
-import { getSwapSimulation } from "../utils/helpers"
+import { getSwapQuote } from "../utils/helpers"
 import { StakeDirection } from "./types"
 
 type UseBittensorSimulateSwapInputs = {
@@ -27,7 +27,7 @@ export const useBittensorSimulateSwap = ({
     retry: false,
     queryFn: async () => {
       if (!sapi || typeof amountIn !== "bigint" || typeof netuid !== "number") return null
-      return getSwapSimulation(sapi, netuid, direction, amountIn)
+      return getSwapQuote(sapi, netuid, direction, amountIn)
     },
     refetchInterval: 12_000, // refresh for pool/mempool changes without saturating RPC rate limits
   })

@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest"
+
 import { Network } from "./chaindata"
 import { getBlockExplorerUrls } from "./getBlockExplorerUrls"
 
@@ -10,14 +12,11 @@ const ETHEREUM = {
   ],
 } as unknown as Network
 
+// Only generic path routing is supported for non-Taostats explorers (no
+// polkadot.js / statescan hash routing).
 const POLKADOT = {
   id: "polkadot",
-  blockExplorerUrls: [
-    "https://polkadot.subscan.io",
-    "https://polkadot.js.org/apps/?rpc={RPC_URL}#/accounts",
-    "https://polkadot.statescan.io/",
-  ],
-  rpcs: ["wss://rpc.ibp.network/polkadot", "wss://polkadot-rpc.dwellir.com"],
+  blockExplorerUrls: ["https://polkadot.subscan.io"],
 } as unknown as Network
 
 const SOLANA = {
@@ -41,28 +40,24 @@ describe("getExplorerUrls", () => {
     })
 
     expect(urls).toContain("https://etherscan.io/block/22957353")
-  }),
-    it("polkadot block number", () => {
-      const urls = getBlockExplorerUrls(POLKADOT, {
-        type: "block",
-        id: 26955482,
-      })
+  })
 
-      expect(urls).toContain("https://polkadot.subscan.io/block/26955482")
-      expect(urls).toContain("https://polkadot.statescan.io/#/blocks/26955482")
-      expect(urls.length).toBe(2)
+  it("polkadot block number", () => {
+    const urls = getBlockExplorerUrls(POLKADOT, {
+      type: "block",
+      id: 26955482,
     })
 
-  it("polkadot block hash", () => {
+    expect(urls).toEqual(["https://polkadot.subscan.io/block/26955482"])
+  })
+
+  it("block hash is not supported", () => {
     const urls = getBlockExplorerUrls(POLKADOT, {
       type: "block",
       id: "0xa0fa6f935643cf6b2e72b13a470e0c3724880dcb1298c655c870c0f16aab25d7",
     })
 
-    expect(urls).toContain(
-      "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.ibp.network%2Fpolkadot#/explorer/query/0xa0fa6f935643cf6b2e72b13a470e0c3724880dcb1298c655c870c0f16aab25d7",
-    )
-    expect(urls.length).toBe(1) // polkadot.js only
+    expect(urls).toEqual([])
   })
 
   it("polkadot address", () => {
@@ -71,13 +66,9 @@ describe("getExplorerUrls", () => {
       address: "13xTKARCtSSTtveDMuTz6s3t9nb1cU1Qasi3iA7BiHobxUdy",
     })
 
-    expect(urls).toContain(
-      "https://polkadot.statescan.io/#/accounts/13xTKARCtSSTtveDMuTz6s3t9nb1cU1Qasi3iA7BiHobxUdy",
-    )
-    expect(urls).toContain(
+    expect(urls).toEqual([
       "https://polkadot.subscan.io/account/13xTKARCtSSTtveDMuTz6s3t9nb1cU1Qasi3iA7BiHobxUdy",
-    )
-    expect(urls.length).toBe(2) // polkadot.js does not provide an address page
+    ])
   })
 
   it("polkadot extrinsic", () => {
@@ -87,9 +78,9 @@ describe("getExplorerUrls", () => {
       extrinsicIndex: 1,
     })
 
-    expect(urls).toContain("https://polkadot.statescan.io/#/extrinsics/26955974-1")
-    expect(urls).toContain("https://polkadot.subscan.io/extrinsic/26955974-1")
+    expect(urls).toEqual(["https://polkadot.subscan.io/extrinsic/26955974-1"])
   })
+
   it("polkadot extrinsic unknown", () => {
     const urls = getBlockExplorerUrls(POLKADOT, {
       type: "extrinsic-unknown",
@@ -129,5 +120,25 @@ describe("getExplorerUrls", () => {
     })
 
     expect(urls).toContain("https://taostats.io/extrinsic/6035238-0012")
+  })
+
+  it("bittensor account", () => {
+    const urls = getBlockExplorerUrls(BITTENSOR, {
+      type: "account",
+      address: "5DceuTr7XPqw67PNHW9ewzzo2cZ7Cm8HgfjwUqEpd8Mh8QNg",
+    })
+
+    expect(urls).toEqual([
+      "https://taostats.io/account/5DceuTr7XPqw67PNHW9ewzzo2cZ7Cm8HgfjwUqEpd8Mh8QNg",
+    ])
+  })
+
+  it("bittensor transaction", () => {
+    const urls = getBlockExplorerUrls(BITTENSOR, {
+      type: "transaction",
+      id: "0x1234",
+    })
+
+    expect(urls).toEqual(["https://taostats.io/hash/0x1234"])
   })
 })

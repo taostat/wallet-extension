@@ -214,6 +214,15 @@ const config = (env) => ({
             process.env.NODE_ENV === "TEST",
         ),
       ),
+      // Cross-chain sells: on in every debug build (as DEBUG above), and in any other built with
+      // CROSS_CHAIN_SELL=true. Our API's cross-chain config can still switch them off at runtime.
+      "process.env.CROSS_CHAIN_SELL": JSON.stringify(
+        String(
+          !["production", "internal"].includes(env.build) ||
+            process.env.NODE_ENV === "TEST" ||
+            process.env.CROSS_CHAIN_SELL === "true",
+        ),
+      ),
       "process.env.BUILD": JSON.stringify(env.build),
       "process.env.COMMIT_SHA_SHORT": JSON.stringify(getGitShortHash()),
       "process.env.RELEASE": JSON.stringify(getRelease(env)),

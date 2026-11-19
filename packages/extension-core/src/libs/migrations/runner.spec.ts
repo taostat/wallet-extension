@@ -1,3 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+
 import { MigrationRunner } from "./runner"
 import { Migration, MigrationFunction } from "./types"
 
@@ -15,7 +17,7 @@ const badMigration: Migration = {
   backward: migrationBackward,
 }
 
-jest.setTimeout(5_000)
+vi.setConfig({ testTimeout: 5_000 })
 
 describe("MigrationRunner", () => {
   beforeEach(() => {
@@ -23,7 +25,7 @@ describe("MigrationRunner", () => {
   })
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   it("should apply migrations", async () => {
@@ -38,7 +40,7 @@ describe("MigrationRunner", () => {
 
   it("should apply migrations in order", async () => {
     const migrations = [voidMigration, voidMigration]
-    const spy = jest.spyOn(migrations[0].forward, "apply")
+    const spy = vi.spyOn(migrations[0].forward, "apply")
     const runner = new MigrationRunner(migrations, false, { password: "test" })
     await runner.isComplete
     expect(spy).toHaveBeenCalled()
@@ -46,7 +48,7 @@ describe("MigrationRunner", () => {
 
   it("should handle errors", async () => {
     const migrations = [badMigration, voidMigration]
-    const errorSpy = jest.spyOn(migrations[0].forward, "onError")
+    const errorSpy = vi.spyOn(migrations[0].forward, "onError")
 
     const runner = new MigrationRunner(migrations, false, { password: "test" })
     await runner.isComplete

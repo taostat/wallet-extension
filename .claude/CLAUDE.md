@@ -21,7 +21,7 @@ pnpm build:extension:internal # Team preview build (stable ID) → dist/chrome-i
 pnpm build:extension:prod # Production / store build → dist/chrome
 
 # Testing
-pnpm test                 # Run Jest tests (workspace-wide)
+pnpm test                 # Run Vitest tests (workspace-wide)
 pnpm test:e2e             # Run Playwright E2E tests
 pnpm test:e2e:ui          # Run E2E tests with UI
 pnpm lint                 # Run ESLint (--max-warnings 0)
@@ -104,8 +104,17 @@ Balance modules in `packages/balances/src/modules/` follow a consistent structur
 - Use `<Trans>` component for strings with embedded React components
 - Run `pnpm chore:update-translations` after adding new keys
 
+## Releasing
+
+- Merging to `main` with a new `version` in `apps/extension/package.json` releases it: `.github/workflows/release-chrome.yml` builds `pnpm build:extension:prod`, uploads it to the Chrome Web Store as a **draft**, tags `release/v<version>` and creates a GitHub release. Submitting for review is manual in the Developer Dashboard. A merge without a version bump does nothing.
+- Never create `release/v*` tags by hand: the workflow treats an existing tag as already released.
+- Production builds leave cross-chain sells out unless `CROSS_CHAIN_SELL=true` at build time (the `chrome-web-store` environment variable); our API's `/cross-chain/config` is the runtime kill switch.
+- Setup, the GCP resources, variables and troubleshooting: `docs/release.md`. PR checks (`.github/workflows/pr.yml`) run lint, tests and the CI build.
+
 ## Testing
 
-- Jest for unit tests: `*.spec.ts` files in `__tests__` folders
+- Vitest for unit tests: `*.spec.ts` / `*.test.ts` files, usually in `__tests__` folders. Import `describe`, `expect`, `vi` etc. from `"vitest"`
+- Each package has a `vitest.config.mts`; the root `vitest.config.mts` runs them all. `pnpm vitest run --project extension-core` runs one
+- The extension tests share a jsdom environment and an in-memory `chrome`/`browser` mock: `packages/extension-core/tests/`
 - Playwright for E2E: `playwright/e2e-tests/`
-- Follow patterns in `apps/extension/src/core/handlers/Extension.spec.ts`
+- Follow patterns in `packages/extension-core/src/domains/signing/__tests__/requestsStore.spec.ts`

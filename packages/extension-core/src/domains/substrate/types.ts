@@ -4,6 +4,7 @@ import type { DotNetworkId } from "@taostats-wallet/chaindata-provider"
 import { SignerPayloadJSON } from "@substrate/txwrapper-core"
 
 import { WalletTransactionInfo } from "../transactions"
+import { SubstrateExtrinsicOutcome } from "./extrinsicEvents"
 
 export interface TMetadataDef extends PjsMetadataDef {
   metadataRpc?: `0x${string}`
@@ -31,6 +32,29 @@ type SubstrateResponseSubmit = {
   hash: HexString
 }
 
+/** Sign a payload with a local keypair account, without broadcasting it. */
+type SubstrateRequestSign = {
+  payload: SignerPayloadJSON
+}
+
+export type SubstrateResponseSign = {
+  signature: HexString
+  /** Hash of the signed extrinsic, known before it is broadcast. */
+  extrinsicHash: HexString
+}
+
+/** Broadcast a payload signed with `pri(substrate.rpc.sign)`, and wait until it is in a block. */
+type SubstrateRequestSubmitAndWatch = {
+  payload: SignerPayloadJSON
+  signature: HexString
+  txInfo?: WalletTransactionInfo
+}
+
+/** The block that included the extrinsic (best or finalized), and what the extrinsic did there. */
+export type SubstrateResponseSubmitAndWatch = SubstrateExtrinsicOutcome & {
+  blockHash: HexString
+}
+
 type SubstrateRequestSubmitBittensorMevShield = {
   payload: SignerPayloadJSON
   // doesnt support hardware wallet, enforce it by not having signature here
@@ -46,6 +70,11 @@ type SubstrateRequestSubmitTaostatsShield = {
 export type SubstrateMessages = {
   "pri(substrate.rpc.send)": [SubstrateRequestSend, unknown]
   "pri(substrate.rpc.submit)": [SubstrateRequestSubmit, SubstrateResponseSubmit]
+  "pri(substrate.rpc.sign)": [SubstrateRequestSign, SubstrateResponseSign]
+  "pri(substrate.rpc.submitAndWatch)": [
+    SubstrateRequestSubmitAndWatch,
+    SubstrateResponseSubmitAndWatch,
+  ]
   "pri(substrate.rpc.submit.withBittensorMevShield)": [
     SubstrateRequestSubmitBittensorMevShield,
     SubstrateResponseSubmit,

@@ -72,10 +72,10 @@ All our apps and packages are 100% [TypeScript](https://www.typescriptlang.org/)
 
 ## Writing and running tests
 
-- Testing is carried out with Jest.
+- Testing is carried out with [Vitest](https://vitest.dev).
 - Tests can be written in `*.spec.ts` files, inside a `__tests__` folder.
-- Follow the pattern in `apps/extension/src/core/handlers/Extension.spec.ts` or `apps/extension/src/core/domains/signing/__tests__/requestsStore.spec.ts`
-- Tests are run with `pnpm test`
+- Follow the pattern in `packages/extension-core/src/domains/signing/__tests__/requestsStore.spec.ts`
+- Tests are run with `pnpm test` (all packages) or `pnpm test:watch`
 
 ## i18n (wallet extension development)
 
@@ -165,7 +165,7 @@ When building UI features, please follow the following spec to ensure they're tr
 - `dev:extension` : when working on extension only, for better color output
 - `build`: builds the wallet in `packages/apps/extension/dist/chrome` folder, without sentry keys
 - `build:firefox`: builds the wallet in `packages/apps/extension/dist/firefox` folder, without sentry keys
-- `build:extension:prod` builds the Taostats browser extension for Chrome Web Store release
+- `build:extension:prod` builds the Taostats browser extension for Chrome Web Store release. Releases are built and uploaded by CI when the version changes on `main`: see [docs/release.md](docs/release.md)
 - `build:extension:internal` : builds a team-preview extension (stable ID, `[internal]` name, yellow icon badge, injects as `taostats-internal`) that can sit alongside the store install
 - `dev` / `dev:extension` : local watch build (`[dev]` name, red icon badge, injects as `taostats-dev`) → `apps/extension/dist/chrome-dev`
 

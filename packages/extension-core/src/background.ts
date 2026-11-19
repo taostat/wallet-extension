@@ -7,13 +7,19 @@ import { sessionStore } from "./domains/app/store.session"
 import taostatsHandler from "./handlers"
 import { IconManager } from "./libs/IconManager"
 import { setWalletReady } from "./libs/isWalletReady"
-import { windowManager } from "./libs/WindowManager"
 import { MigrationRunner, migrations } from "./libs/migrations"
 import { migrateConnectAllSubstrate } from "./libs/migrations/legacyMigrations"
+import { windowManager } from "./libs/WindowManager"
+import { ensureNotificationClickHandler } from "./notifications/ensureNotificationClickHandler"
 
 sentry.init()
 
 windowManager.init()
+
+// Notifications whose id is a URL open it when clicked. Registered at startup, not only when this
+// worker creates one: a worker woken by the click (after sleeping, or for a notification a wallet
+// page created) only gets events for listeners added synchronously while it starts.
+if (chrome.notifications?.onClicked) ensureNotificationClickHandler()
 
 chrome.action.setBadgeBackgroundColor({ color: "#d90000" })
 

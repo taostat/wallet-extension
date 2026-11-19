@@ -1,0 +1,70 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+run-name: "Validate PR - ${{ github.head_ref }}"
+
+# A newer push to the same PR replaces the run in progress.
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+# No secrets are used here, and the token can only read.
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    # Keep this job name: if it's made a required check in a ruleset, the
+    # ruleset refers to it by name.
+    name: Lint, test and build
+    # Hippius (docs.hippius.com/use/compute/runners) for PRs from branches in
+    # this repo. This repo is public, so PRs from forks always run on
+    # GitHub-hosted runners: untrusted code never gets our Hippius VMs or quota.
+    # Set the repo variable PR_RUNNER to `github` to keep every PR off Hippius.
+    runs-on: ${{ vars.PR_RUNNER != 'github' && github.event.pull_request.head.repo.full_name == github.repository && 'hippius-large' || 'ubuntu-latest' }}
+    timeout-minutes: 30
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5
+
+      # Hippius VMs have no Node; setup-node installs it on both runners.
+      - name: Set up Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+
+      # The CI build has no Sentry/PostHog and a "ci" version name. It also
+      # type-checks (ForkTsChecker blocks in production mode).
+      - name: Build extension
+        run: pnpm build:extension:ci
+
+      # A loadable build of the PR, for anyone who wants to try it out
+      # (chrome://extensions > Load unpacked, after unzipping).
+      - name: Keep the build as a workflow artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: taostats-extension-pr-${{ github.event.pull_request.number }}-chrome
+          path: apps/extension/dist/chrome-ci/*.zip
+          if-no-files-found: error
+          retention-days: 14

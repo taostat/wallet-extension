@@ -193,6 +193,18 @@ export const api: MessageTypes = {
       signature,
       txInfo,
     }),
+  subSign: (payload: SignerPayloadJSON) =>
+    messageService.sendMessage("pri(substrate.rpc.sign)", { payload }),
+  subSubmitAndWatch: (
+    payload: SignerPayloadJSON,
+    signature: HexString,
+    txInfo?: WalletTransactionInfo,
+  ) =>
+    messageService.sendMessage("pri(substrate.rpc.submitAndWatch)", {
+      payload,
+      signature,
+      txInfo,
+    }),
   subSubmitWithBittensorMevShield: (payload: SignerPayloadJSON, txInfo?: WalletTransactionInfo) =>
     messageService.sendMessage("pri(substrate.rpc.submit.withBittensorMevShield)", {
       payload,
