@@ -2337,5 +2337,6 @@
   "Your account's EVM address": "Dirección EVM de tu cuenta",
   "By confirming, you agree to the <Terms>Terms of Service</Terms>.": "Al confirmar, aceptas los <Terms>Términos del servicio</Terms>.",
   "Buy with USDC or ETH": "Comprar con USDC o ETH",
-  "Price difference": "Diferencia de precio"
+  "Price difference": "Diferencia de precio",
+  "Sell at least {{amount}}": "Vende al menos {{amount}}"
 }

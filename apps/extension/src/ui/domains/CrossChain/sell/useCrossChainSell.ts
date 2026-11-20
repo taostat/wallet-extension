@@ -4,6 +4,7 @@ import {
   DEFAULT_SLIPPAGE_BPS,
   evmRecipientProblem,
   isAwaitingMovedPrice,
+  isBelowMinimumSell,
   maxSellRaw,
   parseAmountToRaw,
   parseUsd,
@@ -123,6 +124,11 @@ const useCrossChainSellProvider = () => {
       isFetching: formQuote.isFetching,
       errorCode: formQuote.errorCode,
     },
+    belowMinimum: isBelowMinimumSell({
+      hasQuote: formQuote.quote !== undefined,
+      isStale: formQuote.isStale,
+      inputUsd: formQuote.quote?.inputUsd,
+    }),
   })
 
   /** "Review swap": only with a firm request and the quote for it on screen. */
