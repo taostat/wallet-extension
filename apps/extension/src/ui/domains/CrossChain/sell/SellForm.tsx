@@ -3,6 +3,7 @@ import {
   etaDisplay,
   EvmRecipientProblem,
   formatRawAmount,
+  MIN_SELL_USD,
   quoteErrorCtaLabel,
   rawToNumber,
   SELL_OUTPUTS,
@@ -16,6 +17,7 @@ import { FC, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button, FormFieldInputText, PillButton, useOpenClose } from "taostats-ui"
 
+import { formatFiat } from "@taostats/util/formatFiat"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { Tokens } from "@ui/domains/Asset/Tokens"
@@ -100,6 +102,11 @@ const useCtaLabel = (cta: SellCtaState): string => {
       return t("Not enough {{symbol}} for network fees", { symbol: "TAO" })
     case "quoting":
       return t("Finding the best price")
+    case "belowMinimum":
+      // As `<Fiat forceCurrency="usd">` shows the amount paid.
+      return t("Sell at least {{amount}}", {
+        amount: formatFiat(MIN_SELL_USD, "usd", undefined, 2),
+      })
     case "review":
       return t("Review swap")
     case "quoteError":

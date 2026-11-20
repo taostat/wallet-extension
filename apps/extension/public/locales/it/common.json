@@ -2338,5 +2338,6 @@
   "By confirming, you agree to the <Terms>Terms of Service</Terms>.": "Confermando, accetti i <Terms>Termini di servizio</Terms>.",
   "Buy with USDC or ETH": "Compra con USDC o ETH",
   "Price difference": "Differenza di prezzo",
-  "Swap on Bittensor": "Scambia su Bittensor"
+  "Swap on Bittensor": "Scambia su Bittensor",
+  "Sell at least {{amount}}": "Vendi almeno {{amount}}"
 }
