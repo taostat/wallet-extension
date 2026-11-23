@@ -8,6 +8,7 @@ import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenLogo } from "@ui/domains/Asset/TokenLogo"
 import { Tokens } from "@ui/domains/Asset/Tokens"
 
+import { ReactComponent as EthLogo } from "../icons/eth.svg"
 import { ReactComponent as UsdcLogo } from "../icons/usdc.svg"
 import { useCrossChainSell } from "./useCrossChainSell"
 
@@ -94,7 +95,10 @@ export const SellHero: FC<{
   )
 }
 
-/** USDC (Circle's token logo) or ETH (a letter mark): neither is a wallet token here. */
+/**
+ * USDC (Circle's token logo) or ETH (ethereum.org's official diamond, on white): neither is a
+ * wallet token here.
+ */
 export const OutputLogo: FC<{ output: "USDC" | "ETH"; className?: string }> = ({
   output,
   className,
@@ -102,13 +106,5 @@ export const OutputLogo: FC<{ output: "USDC" | "ETH"; className?: string }> = ({
   output === "USDC" ? (
     <UsdcLogo aria-hidden className={cn("size-8 shrink-0", className)} />
   ) : (
-    <span
-      aria-hidden
-      className={cn(
-        "flex size-8 shrink-0 items-center justify-center rounded-full bg-[#627EEA] text-[10px] font-bold text-white",
-        className,
-      )}
-    >
-      {output}
-    </span>
+    <EthLogo aria-hidden className={cn("size-8 shrink-0", className)} />
   )

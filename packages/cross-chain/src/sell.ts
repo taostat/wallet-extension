@@ -17,6 +17,14 @@ export const BITTENSOR_CHAIN_ID = 964
 /** Highest netuid the SDK accepts (`MAX_NETUID`). Netuid 0 (root) is not sold here. */
 export const MAX_SELL_NETUID = 10_000
 
+/**
+ * The smallest sell the form offers to review, in USD (the quote's `inputUsd`). TAO.com's
+ * recommendation (2026-11-20): smaller sells are often refunded, because the price moves between
+ * the quote and the fill and no solver can fill them at a profit. A guideline for the form only:
+ * the review's own firm quote is not held to it.
+ */
+export const MIN_SELL_USD = 10
+
 /** What is sold: the account's TAO, or its alpha on one subnet and hotkey. */
 export type SellInput =
   | { kind: "tao" }

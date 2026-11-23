@@ -2337,5 +2337,7 @@
   "Your account's EVM address": "Adresse EVM de votre compte",
   "By confirming, you agree to the <Terms>Terms of Service</Terms>.": "En confirmant, vous acceptez les <Terms>Conditions d'utilisation</Terms>.",
   "Buy with USDC or ETH": "Acheter avec USDC ou ETH",
-  "Price difference": "Écart de prix"
+  "Price difference": "Écart de prix",
+  "Swap on Bittensor": "Échanger sur Bittensor",
+  "Sell at least {{amount}}": "Vendez au moins {{amount}}"
 }

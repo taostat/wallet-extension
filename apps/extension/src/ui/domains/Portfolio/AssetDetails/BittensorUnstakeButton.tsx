@@ -15,17 +15,18 @@ import { useBittensorNetworkIds } from "@ui/state/bittensor"
 const pillButtonClass =
   "bg-[#293c37] hover:bg-[#214940] text-fg-brand rounded-sm p-2 text-xs font-light"
 
-export const BittensorUnstakeButton: FC<{
-  balances: Balances
-  className?: string
-  variant?: "icon" | "pill"
-}> = ({ balances, className, variant = "icon" }) => {
-  const { t } = useTranslation()
-  const { open } = useBittensorStakeModal()
+/**
+ * What Unstake opens with for these balances: the owned account's alpha position with the most
+ * free balance. `null` when there is nothing to unstake, and then `BittensorUnstakeButton` renders
+ * nothing.
+ */
+export const useBittensorUnstakeOpenArgs = (
+  balances: Balances,
+): BittensorStakingWizardOpenOptions | null => {
   const bittensorNetworkIds = useBittensorNetworkIds()
   const accounts = useAccounts("owned")
 
-  const openArgs = useMemo<BittensorStakingWizardOpenOptions | null>(() => {
+  return useMemo<BittensorStakingWizardOpenOptions | null>(() => {
     const balance = balances.each
       .filter(
         (b) =>
@@ -49,6 +50,16 @@ export const BittensorUnstakeButton: FC<{
         }
       : null
   }, [accounts, balances, bittensorNetworkIds])
+}
+
+export const BittensorUnstakeButton: FC<{
+  balances: Balances
+  className?: string
+  variant?: "icon" | "pill"
+}> = ({ balances, className, variant = "icon" }) => {
+  const { t } = useTranslation()
+  const { open } = useBittensorStakeModal()
+  const openArgs = useBittensorUnstakeOpenArgs(balances)
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {

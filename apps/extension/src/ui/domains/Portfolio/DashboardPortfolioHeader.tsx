@@ -11,11 +11,13 @@ import { Folder } from "@untitledui/icons/Folder"
 import { SwitchVertical01 } from "@untitledui/icons/SwitchVertical01"
 import { Account, getAccountGenesisHash, isAccountOwned, TreeFolder } from "extension-core"
 import { TAOSTATS_WEB_APP_SWAP_URL } from "extension-shared"
-import { FC, MouseEventHandler, useCallback, useMemo } from "react"
+import { FC, MouseEventHandler, ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useMatch, useNavigate } from "react-router-dom"
 import {
   Button,
+  ContextMenu,
+  ContextMenuContent,
   ContextMenuTrigger,
   IconButton,
   PercentChangePill,
@@ -35,15 +37,17 @@ import { AccountTypeIcon } from "@ui/domains/Account/AccountTypeIcon"
 import { FolderContextMenu } from "@ui/domains/Account/FolderContextMenu"
 import { currencyConfig } from "@ui/domains/Asset/currencyConfig"
 import { useCopyAddressModal } from "@ui/domains/CopyAddress"
+import { useIsCrossChainSellEnabled } from "@ui/domains/CrossChain/crossChainSellGate"
 import { useRevealableBalance } from "@ui/hooks/useRevealableBalance"
 import { useToggleCurrency } from "@ui/hooks/useToggleCurrency"
-import { useBalances, useSelectedCurrency, useSetting, useAccounts } from "@ui/state"
-
-import { usePortfolioNavigation } from "./usePortfolioNavigation"
-import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
+import { useAccounts, useBalances, useSelectedCurrency, useSetting } from "@ui/state"
 import { closeWalletSurface } from "@ui/util/closeWalletSurface"
+import { IS_EMBEDDED_POPUP } from "@ui/util/constants"
 import { copyAddress } from "@ui/util/copyAddress"
 import { buildSendFundsRoute, openSendFundsFromDashboard } from "@ui/util/sendFundsNavigation"
+
+import { SwapActionMenuItems } from "./SwapActionMenuItems"
+import { usePortfolioNavigation } from "./usePortfolioNavigation"
 
 const PortfolioFullWidthSeparator: FC = () => (
   <div className="border-primary w-full border-b" aria-hidden />
@@ -429,7 +433,10 @@ type ActionProps = {
   label: string
   tooltip?: string
   icon: FC<{ className?: string }>
-  onClick: () => void
+  /** Not called when the action has a `menu`: the click opens the menu. */
+  onClick?: () => void
+  /** Menu items: the button opens them in a menu instead of acting itself. */
+  menu?: ReactNode
   disabled: boolean
   disabledReason?: string
 }
@@ -443,6 +450,7 @@ const Action: FC<ActionProps & { analyticsPage: AnalyticsPage }> = ({
   onClick,
   disabled,
   disabledReason,
+  menu,
   analyticsPage,
 }) => {
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -453,31 +461,48 @@ const Action: FC<ActionProps & { analyticsPage: AnalyticsPage }> = ({
         name: analyticsName,
         action: analyticsAction,
       })
-      onClick()
+      onClick?.()
     },
     [onClick, analyticsAction, analyticsName, analyticsPage],
   )
 
+  const button = (
+    <Button
+      type="button"
+      color="secondary"
+      fullWidth
+      size="header"
+      className="pointer-events-auto font-medium disabled:cursor-not-allowed disabled:opacity-50"
+      onClick={handleClick}
+      disabled={disabled}
+      icon={Icon}
+    >
+      {label}
+    </Button>
+  )
+
+  const tooltipContent = (!!disabledReason || !!tooltip) && (
+    <TooltipContent>{disabledReason || tooltip}</TooltipContent>
+  )
+
+  if (!menu)
+    return (
+      <Tooltip placement="bottom-start">
+        <TooltipTrigger asChild>{button}</TooltipTrigger>
+        {tooltipContent}
+      </Tooltip>
+    )
+
   return (
-    <Tooltip placement="bottom-start">
-      <TooltipTrigger asChild>
-        <Button
-          type="button"
-          color="secondary"
-          fullWidth
-          size="header"
-          className="pointer-events-auto font-medium disabled:cursor-not-allowed disabled:opacity-50"
-          onClick={handleClick}
-          disabled={disabled}
-          icon={Icon}
-        >
-          {label}
-        </Button>
-      </TooltipTrigger>
-      {(!!disabledReason || !!tooltip) && (
-        <TooltipContent>{disabledReason || tooltip}</TooltipContent>
-      )}
-    </Tooltip>
+    <ContextMenu placement="bottom-end">
+      <Tooltip placement="bottom-start">
+        <TooltipTrigger asChild>
+          <ContextMenuTrigger asChild>{button}</ContextMenuTrigger>
+        </TooltipTrigger>
+        {tooltipContent}
+      </Tooltip>
+      <ContextMenuContent>{menu}</ContextMenuContent>
+    </ContextMenu>
   )
 }
 
@@ -506,6 +531,7 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
   const isPopup = variant === "popup"
   const ownedAccounts = useAccounts("owned")
   const analyticsPage = isPopup ? ANALYTICS_PAGE_POPUP : ANALYTICS_PAGE_DASHBOARD
+  const isCrossChainSellEnabled = useIsCrossChainSellEnabled()
 
   const [disableActions, disabledReason] = useMemo(() => {
     if (disabledProp && isPopup)
@@ -567,7 +593,10 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
           analyticsAction: "swap",
           label: t("Swap"),
           icon: SwitchVertical01,
-          onClick: () => window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank"),
+          // with cross-chain sells on, a menu: swap on Bittensor (the website), sell or buy TAO
+          ...(isCrossChainSellEnabled
+            ? { menu: <SwapActionMenuItems /> }
+            : { onClick: () => window.open(TAOSTATS_WEB_APP_SWAP_URL, "_blank") }),
           disabled: disableActions,
           disabledReason,
         },
@@ -576,6 +605,7 @@ const TopActions: FC<{ variant?: "dashboard" | "popup"; disabled?: boolean }> = 
       t,
       disableActions,
       disabledReason,
+      isCrossChainSellEnabled,
       isPopup,
       navigate,
       selectedAccount,

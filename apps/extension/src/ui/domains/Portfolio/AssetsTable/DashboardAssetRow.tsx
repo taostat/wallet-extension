@@ -7,6 +7,8 @@ import { AssetPrice, useDisplayAssetPrice } from "@ui/domains/Asset/AssetPrice"
 import { BalanceSeparator } from "@ui/domains/Asset/BalanceSeparator"
 import { Fiat } from "@ui/domains/Asset/Fiat"
 import { TokenDisplaySymbol } from "@ui/domains/Asset/TokenDisplaySymbol"
+import { CrossChainSellPillButton } from "@ui/domains/CrossChain/CrossChainSellPillButton"
+import { useCrossChainSellOpenOptions } from "@ui/domains/CrossChain/useCrossChainSellOpenOptions"
 import { useStakeButton } from "@ui/domains/Staking/Stake/hooks/useStakeButton"
 import { StakePillButton } from "@ui/domains/Staking/Stake/StakePillButton"
 import { useAnalytics } from "@ui/hooks/useAnalytics"
@@ -18,7 +20,10 @@ import { IS_POPUP } from "@ui/util/constants"
 
 import { TokenLogo } from "../../Asset/TokenLogo"
 import { AssetBalanceCellValue } from "../AssetBalanceCellValue"
-import { BittensorUnstakeButton } from "../AssetDetails/BittensorUnstakeButton"
+import {
+  BittensorUnstakeButton,
+  useBittensorUnstakeOpenArgs,
+} from "../AssetDetails/BittensorUnstakeButton"
 import { isRootTaoHolding } from "../isRootTaoHolding"
 import { useTokenBalancesSummary } from "../useTokenBalancesSummary"
 
@@ -62,6 +67,12 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
   const tvl = useUniswapV2LpTokenTotalValueLocked(token, rate?.price, balances)
 
   const { canStake } = useStakeButton({ balances })
+  const canSell = useCrossChainSellOpenOptions(balances) !== null
+  // with Unstake also shown, Sell is icon-only so the three pills fit the row
+  const canUnstake = useBittensorUnstakeOpenArgs(balances) !== null
+  // the hover actions (Stake, Unstake, Sell) replace the balance when any of them shows, on hover
+  // or while focus is in the row
+  const showHoverActions = canStake || canSell
 
   if (!token || !network || !summary) return null
 
@@ -137,15 +148,20 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             balancesStatus={status}
             amountClassName="text-sm"
             className={classNames(
-              canStake && "group-hover:hidden",
+              showHoverActions && "group-focus-within:hidden group-hover:hidden",
               status.status === "fetching" && "animate-pulse transition-opacity",
             )}
             noCountUp={noCountUp}
           />
         </div>
       </button>
-      {canStake && (
-        <div className={classNames("absolute right-0 top-0 hidden h-[66px] flex-col justify-center group-hover:flex", IS_POPUP && "pr-2")}>
+      {showHoverActions && (
+        <div
+          className={classNames(
+            "absolute right-0 top-0 hidden h-[66px] flex-col justify-center group-focus-within:flex group-hover:flex",
+            IS_POPUP && "pr-2",
+          )}
+        >
           <div className="flex items-center gap-1.5">
             <StakePillButton
               balances={balances}
@@ -155,6 +171,11 @@ export const AssetRow: FC<{ balances: Balances; noCountUp?: boolean }> = ({
             <BittensorUnstakeButton
               balances={balances}
               variant="pill"
+              className="[>svg]:text-[20px] text-sm"
+            />
+            <CrossChainSellPillButton
+              balances={balances}
+              compact={canUnstake}
               className="[>svg]:text-[20px] text-sm"
             />
           </div>
