@@ -37,9 +37,25 @@ export const BittensorStakingPositionSelect = () => {
   const search = useDeferredValue(searchSync)
   const { close } = useBittensorStakeModal()
 
-  const { networkId, position: currentPosition, setPosition, setStep } = useBittensorStakeWizard()
+  const {
+    networkId,
+    account,
+    netuid,
+    positionSelectScope,
+    position: currentPosition,
+    setPosition,
+    setStep,
+  } = useBittensorStakeWizard()
 
-  const positions = useBittensorStakingPositions(networkId)
+  const positionsFilter = useMemo(
+    () => ({
+      address: positionSelectScope !== "all" ? account?.address : null,
+      netuid: positionSelectScope === "account-subnet" ? netuid : null,
+    }),
+    [account?.address, netuid, positionSelectScope],
+  )
+
+  const positions = useBittensorStakingPositions(networkId, positionsFilter)
 
   const filteredPositions = useMemo(() => {
     if (!search) return positions

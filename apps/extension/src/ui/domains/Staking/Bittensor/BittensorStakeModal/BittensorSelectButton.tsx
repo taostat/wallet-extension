@@ -17,22 +17,23 @@ export const BittensorSelectButton = ({
   label,
   nextStep,
 }: BittensorSelectButtonProps) => {
-  const { setStep, step, stakeDirection } = useBittensorStakeWizard()
+  const { setStep, openPositionSelect, step, stakeDirection } = useBittensorStakeWizard()
 
   const isBtnDisabled = useMemo(() => isDisabled || !step.includes("form"), [step, isDisabled])
 
   const handleClick = useCallback(() => {
     if (isBtnDisabled) return
-    if (stakeDirection === "unstake") setStep("select-position")
+    // when unstaking, only offer the selected account's positions:
+    // on the selected subnet when picking a validator, on any subnet when picking a subnet
+    if (stakeDirection === "unstake")
+      openPositionSelect(nextStep === "select-delegate" ? "account-subnet" : "account")
     else setStep(nextStep)
-  }, [isBtnDisabled, nextStep, setStep, stakeDirection])
+  }, [isBtnDisabled, nextStep, openPositionSelect, setStep, stakeDirection])
 
   if (isLoading)
     return (
       <div
-        className={
-          "text-fg-disabled bg-tertiary rounded-xs my-[4.5px] h-[16px] w-20 animate-pulse"
-        }
+        className={"text-fg-disabled bg-tertiary rounded-xs my-[4.5px] h-[16px] w-20 animate-pulse"}
       />
     )
 
