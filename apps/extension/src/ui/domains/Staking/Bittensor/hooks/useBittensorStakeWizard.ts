@@ -35,6 +35,14 @@ export type WizardStep =
   | "select-position"
 export type StakeType = "root" | "subnet"
 export type StakeDirection = "stake" | "unstake"
+/**
+ * Which positions the unstake position picker lists:
+ * - "all": every owned account's positions (used to switch account)
+ * - "account": the selected account's positions, on any subnet
+ * - "account-subnet": the selected account's positions on the selected subnet
+ * A missing account (or subnet) widens the scope accordingly.
+ */
+export type PositionSelectScope = "all" | "account" | "account-subnet"
 
 type WizardState = {
   step: WizardStep
@@ -47,6 +55,7 @@ type WizardState = {
   hash: Hex | null
   stakeType: StakeType | null
   stakeDirection: StakeDirection
+  positionSelectScope: PositionSelectScope
 }
 
 export type BittensorStakingWizardOpenOptions = {
@@ -68,6 +77,7 @@ const DEFAULT_STATE: WizardState = {
   hash: null,
   stakeType: null,
   stakeDirection: "stake",
+  positionSelectScope: "all",
 }
 
 const wizardOpenState$ = new BehaviorSubject(DEFAULT_STATE)
@@ -125,6 +135,7 @@ const useBittensorStakeWizardProvider = () => {
       hash,
       amountIn,
       stakeDirection,
+      positionSelectScope,
     },
     setWizardState,
   ] = useState(() => wizardOpenState$.getValue())
@@ -309,6 +320,10 @@ const useBittensorStakeWizardProvider = () => {
     },
     [isFormValid],
   )
+
+  const openPositionSelect = useCallback((scope: PositionSelectScope = "all") => {
+    setWizardState((prev) => ({ ...prev, step: "select-position", positionSelectScope: scope }))
+  }, [])
 
   const setPosition = useCallback((position: BittensorStakingPosition) => {
     if (!position.token.hotkey) return
@@ -506,8 +521,8 @@ const useBittensorStakeWizardProvider = () => {
 
   useEffect(() => {
     // if unstaking and no position selected, open position select step
-    if (stakeDirection === "unstake" && step === "form" && !position) setStep("select-position")
-  }, [stakeDirection, position, setStep, step])
+    if (stakeDirection === "unstake" && step === "form" && !position) openPositionSelect("all")
+  }, [stakeDirection, position, openPositionSelect, step])
 
   useEffect(() => {
     // on mount, if stake type is not set, display the stake type select drawer
@@ -545,6 +560,8 @@ const useBittensorStakeWizardProvider = () => {
     newStakeTotal,
     isSubnetUnstake,
     position,
+    positionSelectScope,
+    openPositionSelect,
     slippage,
     feeEstimate,
     isLoadingFeeEstimate,

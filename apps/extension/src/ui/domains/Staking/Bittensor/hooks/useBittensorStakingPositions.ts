@@ -5,7 +5,20 @@ import { useMemo } from "react"
 import { useAccounts, useBalances, useSelectedCurrency } from "@ui/state"
 import { useBittensorValidatorsMap } from "@ui/state/bittensor"
 
-export const useBittensorStakingPositions = (networkId: DotNetworkId | null | undefined) => {
+export type BittensorStakingPositionsFilter = {
+  /** only include positions held by this account */
+  address?: string | null
+  /** only include positions on this subnet */
+  netuid?: number | null
+}
+
+export const useBittensorStakingPositions = (
+  networkId: DotNetworkId | null | undefined,
+  filter?: BittensorStakingPositionsFilter,
+) => {
+  const filterAddress = filter?.address ?? null
+  const filterNetuid = filter?.netuid ?? null
+
   const currency = useSelectedCurrency()
   const balances = useBalances()
   const ownedAccounts = useAccounts("owned")
@@ -19,7 +32,9 @@ export const useBittensorStakingPositions = (networkId: DotNetworkId | null | un
         (b) =>
           b.token?.type === "substrate-dtao" &&
           b.token.networkId === networkId &&
-          b.free.planck > 0n,
+          b.free.planck > 0n &&
+          (!filterAddress || isAddressEqual(b.address, filterAddress)) &&
+          (filterNetuid === null || b.token.netuid === filterNetuid),
       )
       .map((balance) => {
         const token = balance.token as SubDTaoToken
@@ -41,7 +56,7 @@ export const useBittensorStakingPositions = (networkId: DotNetworkId | null | un
         if (bFiat === null) return -1
         return aFiat > bFiat ? -1 : 1
       })
-  }, [balances, currency, networkId, ownedAccounts, validators])
+  }, [balances, currency, filterAddress, filterNetuid, networkId, ownedAccounts, validators])
 }
 
 export type BittensorStakingPosition = ReturnType<typeof useBittensorStakingPositions>[number]

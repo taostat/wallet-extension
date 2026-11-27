@@ -430,6 +430,7 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
     amountOut,
     setStep,
     setAddress,
+    openPositionSelect,
   } = useBittensorStakeWizard()
   const { close } = useBittensorStakeModal()
 
@@ -462,7 +463,8 @@ export const BittensorStakeFormBase = ({ StakeTypeDetails }: BittensorStakeFormB
           token={nativeToken}
           accountAddress={account?.address}
           onAccountClick={() => {
-            stakeDirection === "stake" ? accountPicker.open() : setStep("select-position")
+            // unstaking: list every account's positions so the account can be switched
+            stakeDirection === "stake" ? accountPicker.open() : openPositionSelect("all")
           }}
           assetLabel={t("Asset")}
           accountLabel={t("Account")}
